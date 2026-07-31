@@ -1,0 +1,36 @@
+{
+  "api": {
+    "key": "replace-with-at-least-16-characters",
+    "host": "127.0.0.1",
+    "port": 8080
+  },
+  "models": {
+    "root": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/models"
+  },
+  "rtsp": {
+    "internal_base_url": "rtsp://127.0.0.1:8554",
+    "public_base_url": "rtsp://127.0.0.1:8554",
+    "publish_user": "publisher",
+    "publish_password": "replace-publish-password",
+    "read_user": "viewer",
+    "read_password": "replace-read-password"
+  },
+  "inference": {
+    "device": "mps",
+    "half": false,
+    "shared_model": true,
+    "max_batch_size": 2,
+    "batch_wait_ms": 2,
+    "streams_per_model_instance": 2,
+    "max_streams": 1,
+    "startup_grace_seconds": 3
+  },
+  "output": {
+    "encoder": "libx264",
+    "preset": "ultrafast"
+  },
+  "labels": {
+    "map_file": null,
+    "font_file": null
+  }
+}

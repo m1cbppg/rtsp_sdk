@@ -1,0 +1,16 @@
+ARG BASE_IMAGE=rtsp-yolo-annotator:cuda-amd64-base-cache
+FROM ${BASE_IMAGE}
+
+WORKDIR /app
+
+# Reuse the already-built CUDA/PyTorch/system dependency layers and replace only
+# application code plus models. Use this only when pyproject dependencies and
+# the CUDA base have not changed.
+COPY pyproject.toml README.md ./
+COPY rtsp_annotator ./rtsp_annotator
+RUN python -m pip install --no-cache-dir --no-deps .
+
+COPY models ./models
+
+ENTRYPOINT ["python", "-m", "rtsp_annotator"]
+CMD ["--help"]

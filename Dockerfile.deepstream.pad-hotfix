@@ -1,0 +1,29 @@
+ARG BASE_IMAGE=rtsp-yolo-annotator:deepstream8-amd64-before-padfix
+FROM ${BASE_IMAGE}
+
+COPY rtsp_annotator/deepstream_worker.py \
+    /app/rtsp_annotator/deepstream_worker.py
+COPY rtsp_annotator/api.py \
+    /app/rtsp_annotator/api.py
+COPY rtsp_annotator/stream_manager.py \
+    /app/rtsp_annotator/stream_manager.py
+COPY rtsp_annotator/shared_stream_manager.py \
+    /app/rtsp_annotator/shared_stream_manager.py
+COPY rtsp_annotator/deepstream_manager.py \
+    /app/rtsp_annotator/deepstream_manager.py
+COPY rtsp_annotator/api_settings.py \
+    /app/rtsp_annotator/api_settings.py
+COPY scripts/validate_deepstream_runtime_contract.py \
+    /tmp/validate_deepstream_runtime_contract.py
+
+RUN python3 -m py_compile \
+        /app/rtsp_annotator/api.py \
+        /app/rtsp_annotator/stream_manager.py \
+        /app/rtsp_annotator/shared_stream_manager.py \
+        /app/rtsp_annotator/deepstream_worker.py \
+        /app/rtsp_annotator/deepstream_manager.py \
+        /app/rtsp_annotator/api_settings.py \
+        /tmp/validate_deepstream_runtime_contract.py \
+    && LD_LIBRARY_PATH=/usr/local/cuda-12.8/compat/lib.real \
+        python3 /tmp/validate_deepstream_runtime_contract.py \
+    && rm /tmp/validate_deepstream_runtime_contract.py

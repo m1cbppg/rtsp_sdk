@@ -1,0 +1,22 @@
+ARG BASE_IMAGE=rtsp-yolo-annotator:deepstream8-amd64-base-cache
+FROM ${BASE_IMAGE}
+
+WORKDIR /app
+
+COPY third_party/nvidia_lpr_parser /tmp/nvidia_lpr_parser
+RUN make -C /tmp/nvidia_lpr_parser \
+    && cp \
+        /tmp/nvidia_lpr_parser/libnvdsinfer_custom_impl_lpr.so \
+        /opt/nvidia/deepstream/deepstream/lib/ \
+    && cp /tmp/nvidia_lpr_parser/LICENSE \
+        /opt/nvidia/deepstream/deepstream/NVIDIA-LPR-PARSER-LICENSE \
+    && rm -rf /tmp/nvidia_lpr_parser
+
+COPY pyproject.toml README.md ./
+COPY rtsp_annotator ./rtsp_annotator
+COPY models ./models
+
+RUN python3 -m pip install --no-cache-dir --break-system-packages \
+        --no-build-isolation --no-deps .
+
+CMD ["python3", "-m", "rtsp_annotator.api", "--config", "/app/config/api.json"]

@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rtsp-yolo-annotator"
+version = "0.1.0"
+description = "Low-latency YOLO annotation pipeline from RTSP to RTSP"
+readme = "README.md"
+requires-python = ">=3.10,<3.13"
+dependencies = [
+    "av>=15,<17",
+    "fastapi>=0.116,<1",
+    "ultralytics>=8.4.107,<9",
+    "uvicorn>=0.35,<1",
+]
+
+[project.optional-dependencies]
+test = [
+    "httpx>=0.28,<1",
+]
+
+[project.scripts]
+yolo-rtsp = "rtsp_annotator.cli:main"
+yolo-roi-select = "rtsp_annotator.roi_selector:main"
+yolo-runtime-check = "rtsp_annotator.runtime_check:main"
+yolo-rtsp-api = "rtsp_annotator.api:main"
+
+[tool.setuptools.packages.find]
+include = ["rtsp_annotator*"]

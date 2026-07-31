@@ -1,0 +1,35 @@
+name: rtsp-yolo-cuda-api
+
+services:
+  mediamtx:
+    image: bluenviron/mediamtx:1
+    pull_policy: never
+    container_name: rtsp-mediamtx
+    restart: unless-stopped
+    depends_on:
+      - api
+    volumes:
+      - ./config/mediamtx.api.yml:/mediamtx.yml:ro
+    ports:
+      - "8554:8554"
+
+  api:
+    image: rtsp-yolo-annotator:cuda-amd64
+    pull_policy: never
+    container_name: rtsp-yolo-api
+    restart: unless-stopped
+    init: true
+    stop_grace_period: 20s
+    gpus: all
+    environment:
+      NVIDIA_DRIVER_CAPABILITIES: compute,utility,video
+    volumes:
+      - ./config:/app/config:ro
+    entrypoint:
+      - python
+      - -m
+      - rtsp_annotator.api
+      - --config
+      - /app/config/api.json
+    ports:
+      - "8080:8080"

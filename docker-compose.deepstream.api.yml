@@ -1,0 +1,59 @@
+name: rtsp-yolo-deepstream-api
+
+services:
+  engine-builder:
+    image: rtsp-yolo-annotator:deepstream8-amd64
+    pull_policy: never
+    container_name: rtsp-yolo-engine-builder
+    restart: "no"
+    gpus: all
+    environment:
+      NVIDIA_DRIVER_CAPABILITIES: compute,utility
+    volumes:
+      - ./engines:/app/engines
+    command:
+      - python3
+      - -m
+      - rtsp_annotator.deepstream_engine_builder
+      - --models
+      - /app/models
+      - --engines
+      - /app/engines
+      - --imgsz
+      - "640"
+      - --batch-size
+      - "2"
+
+  mediamtx:
+    image: bluenviron/mediamtx:1
+    pull_policy: never
+    container_name: rtsp-mediamtx
+    restart: unless-stopped
+    depends_on:
+      - api
+    volumes:
+      - ./config/mediamtx.api.yml:/mediamtx.yml:ro
+    ports:
+      - "8554:8554"
+
+  api:
+    image: rtsp-yolo-annotator:deepstream8-amd64
+    pull_policy: never
+    container_name: rtsp-yolo-api
+    restart: unless-stopped
+    depends_on:
+      engine-builder:
+        condition: service_completed_successfully
+    init: true
+    stop_grace_period: 30s
+    gpus: all
+    shm_size: "1gb"
+    environment:
+      NVIDIA_DRIVER_CAPABILITIES: compute,utility,video,graphics
+    volumes:
+      - ./config:/app/config:ro
+      - ./engines:/app/engines
+    tmpfs:
+      - /app/runtime:size=64m,mode=0700
+    ports:
+      - "8080:8080"

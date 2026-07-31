@@ -1,0 +1,16 @@
+.git
+.venv
+__pycache__
+*.py[cod]
+.DS_Store
+.pytest_cache
+.mypy_cache
+.ruff_cache
+dist
+config/api.json
+tests
+VALIDATION.md
+QUICKSTART.md
+SERVER_CUDA.md
+OFFLINE_CUDA.md
+docker-compose*.yml

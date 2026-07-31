@@ -1,0 +1,47 @@
+name: rtsp-yolo-cuda-public
+
+services:
+  mediamtx:
+    image: bluenviron/mediamtx:1
+    pull_policy: never
+    container_name: rtsp-mediamtx
+    restart: unless-stopped
+    environment:
+      MTX_RTSPTRANSPORTS: tcp
+
+      # User 0 can only publish the detected path.
+      MTX_AUTHINTERNALUSERS_0_USER: ${RTSP_PUBLISH_USER:-publisher}
+      MTX_AUTHINTERNALUSERS_0_PASS: ${RTSP_PUBLISH_PASSWORD:?请设置RTSP_PUBLISH_PASSWORD}
+      MTX_AUTHINTERNALUSERS_0_PERMISSIONS_0_ACTION: publish
+      MTX_AUTHINTERNALUSERS_0_PERMISSIONS_0_PATH: detected
+
+      # User 1 can only read the detected path.
+      MTX_AUTHINTERNALUSERS_1_USER: ${RTSP_READ_USER:-viewer}
+      MTX_AUTHINTERNALUSERS_1_PASS: ${RTSP_READ_PASSWORD:?请设置RTSP_READ_PASSWORD}
+      MTX_AUTHINTERNALUSERS_1_PERMISSIONS_0_ACTION: read
+      MTX_AUTHINTERNALUSERS_1_PERMISSIONS_0_PATH: detected
+    ports:
+      - "${RTSP_HOST_PORT:-8554}:8554"
+
+  annotator:
+    image: rtsp-yolo-annotator:cuda-amd64
+    pull_policy: never
+    container_name: rtsp-yolo-annotator
+    restart: unless-stopped
+    depends_on:
+      - mediamtx
+    gpus: all
+    environment:
+      RTSP_INPUT_URL: ${RTSP_INPUT_URL:?请设置RTSP_INPUT_URL}
+      RTSP_OUTPUT_URL: rtsp://${RTSP_PUBLISH_USER:-publisher}:${RTSP_PUBLISH_PASSWORD}@mediamtx:8554/detected
+      YOLO_MODEL_PATH: ${YOLO_MODEL_PATH:-/app/models/yolo26s.pt}
+    command:
+      - --device
+      - cuda:0
+      - --half
+      - --imgsz
+      - ${YOLO_IMGSZ:-640}
+      - --classes
+      - ${YOLO_CLASSES:-0}
+      - --stats-interval
+      - "10"

@@ -1,0 +1,93 @@
+FROM ubuntu:24.04 AS system
+
+ARG TARGETARCH
+ARG UBUNTU_MIRROR=http://mirrors.aliyun.com/ubuntu/
+ARG UBUNTU_MIRROR_SECURE=https://mirrors.aliyun.com/ubuntu/
+ENV DEBIAN_FRONTEND=noninteractive \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    VIRTUAL_ENV=/opt/venv \
+    PATH=/opt/venv/bin:$PATH
+
+RUN set -eu; \
+    test "$TARGETARCH" = "amd64"; \
+    sed -i \
+        -e "s|http://archive.ubuntu.com/ubuntu/|${UBUNTU_MIRROR}|g" \
+        -e "s|http://security.ubuntu.com/ubuntu/|${UBUNTU_MIRROR}|g" \
+        /etc/apt/sources.list.d/ubuntu.sources; \
+    apt-get -o Acquire::Retries=5 -o Acquire::http::Timeout=60 update; \
+    apt-get -o Acquire::Retries=5 -o Acquire::http::Timeout=60 \
+        install -y --no-install-recommends ca-certificates; \
+    sed -i \
+        "s|${UBUNTU_MIRROR}|${UBUNTU_MIRROR_SECURE}|g" \
+        /etc/apt/sources.list.d/ubuntu.sources
+
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    set -eu; \
+    rm -f /etc/apt/apt.conf.d/docker-clean; \
+    apt-get \
+        -o Acquire::Retries=5 \
+        -o Acquire::http::Timeout=60 \
+        -o Acquire::https::Timeout=60 \
+        update; \
+    downloaded=0; \
+    for attempt in 1 2 3 4 5 6; do \
+        if apt-get \
+            -o Acquire::Retries=5 \
+            -o Acquire::http::Timeout=60 \
+            -o Acquire::https::Timeout=60 \
+            install --download-only -y --no-install-recommends \
+                ffmpeg \
+                fonts-noto-cjk \
+                libgl1 \
+                libglib2.0-0 \
+                python3 \
+                python3-pip \
+                python3-venv; \
+        then \
+            downloaded=1; \
+            break; \
+        fi; \
+        echo "APT 下载失败，第 ${attempt}/6 次，5 秒后续传"; \
+        sleep 5; \
+    done; \
+    test "$downloaded" -eq 1; \
+    apt-get install -y --no-install-recommends \
+        ffmpeg \
+        fonts-noto-cjk \
+        libgl1 \
+        libglib2.0-0 \
+        python3 \
+        python3-pip \
+        python3-venv; \
+    python3 -m venv "$VIRTUAL_ENV"; \
+    rm -rf /var/lib/apt/lists/*
+
+FROM system AS app
+
+WORKDIR /app
+
+COPY requirements.txt ./
+
+# Install the CUDA-enabled wheel before project dependencies, so pip will not
+# select a CPU-only PyTorch build while resolving Ultralytics.
+RUN python -m pip install --no-cache-dir --upgrade pip setuptools wheel \
+    && python -m pip install --no-cache-dir \
+        torch torchvision \
+        --index-url https://download.pytorch.org/whl/cu128 \
+    && python -m pip install --no-cache-dir -r requirements.txt
+
+# Keep the expensive CUDA/dependency layer reusable when only application code
+# changes. The project itself is pure Python and its dependencies are installed
+# above, so this final install does not resolve or download anything.
+COPY pyproject.toml README.md ./
+COPY rtsp_annotator ./rtsp_annotator
+RUN python -m pip install --no-cache-dir --no-deps .
+
+# Models are intentionally baked into the offline image. Put every model that
+# the Ubuntu host may need under ./models before building the bundle.
+COPY models ./models
+
+ENTRYPOINT ["python", "-m", "rtsp_annotator"]
+CMD ["--help"]

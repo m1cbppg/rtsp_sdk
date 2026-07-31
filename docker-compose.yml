@@ -1,0 +1,9 @@
+services:
+  mediamtx:
+    image: bluenviron/mediamtx:1
+    container_name: rtsp-mediamtx
+    restart: unless-stopped
+    environment:
+      MTX_RTSPTRANSPORTS: tcp
+    ports:
+      - "8554:8554"

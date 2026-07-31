@@ -1,0 +1,56 @@
+ARG DEEPSTREAM_IMAGE=nvcr.io/nvidia/deepstream:8.0-gc-triton-devel@sha256:c6fc13c97923a250deaed728c66eca3c3e20814b9267fd990535077ec8d7eb84
+FROM ${DEEPSTREAM_IMAGE}
+
+ARG DEEPSTREAM_YOLO_COMMIT=2894babce8e75c49115dbe0c7b516289ed853565
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends fonts-noto-cjk \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN git clone https://github.com/marcoslucianops/DeepStream-Yolo.git \
+        /tmp/DeepStream-Yolo \
+    && git -C /tmp/DeepStream-Yolo checkout "${DEEPSTREAM_YOLO_COMMIT}" \
+    && make -C /tmp/DeepStream-Yolo/nvdsinfer_custom_impl_Yolo \
+        CUDA_VER=12.8 \
+    && cp \
+        /tmp/DeepStream-Yolo/nvdsinfer_custom_impl_Yolo/libnvdsinfer_custom_impl_Yolo.so \
+        /opt/nvidia/deepstream/deepstream/lib/ \
+    && cp /tmp/DeepStream-Yolo/LICENSE.md \
+        /opt/nvidia/deepstream/deepstream/DeepStream-Yolo-LICENSE.md \
+    && rm -rf /tmp/DeepStream-Yolo
+
+COPY third_party/nvidia_lpr_parser /tmp/nvidia_lpr_parser
+RUN make -C /tmp/nvidia_lpr_parser \
+    && cp \
+        /tmp/nvidia_lpr_parser/libnvdsinfer_custom_impl_lpr.so \
+        /opt/nvidia/deepstream/deepstream/lib/ \
+    && cp /tmp/nvidia_lpr_parser/LICENSE \
+        /opt/nvidia/deepstream/deepstream/NVIDIA-LPR-PARSER-LICENSE \
+    && rm -rf /tmp/nvidia_lpr_parser
+
+RUN python3 -m pip install --no-cache-dir --break-system-packages \
+        "fastapi>=0.116,<1" \
+        "uvicorn>=0.35,<1"
+
+WORKDIR /app
+
+COPY pyproject.toml README.md ./
+COPY rtsp_annotator ./rtsp_annotator
+RUN python3 -m pip install --no-cache-dir --break-system-packages \
+        --no-deps .
+
+COPY models ./models
+
+RUN mkdir -p /app/engines /app/runtime \
+    && fc-cache -f \
+    && test -f \
+        /opt/nvidia/deepstream/deepstream/lib/libnvdsinfer_custom_impl_Yolo.so \
+    && test -f \
+        /opt/nvidia/deepstream/deepstream/lib/libnvdsinfer_custom_impl_lpr.so
+
+CMD ["python3", "-m", "rtsp_annotator.api", "--config", "/app/config/api.json"]

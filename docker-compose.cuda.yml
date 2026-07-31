@@ -1,0 +1,35 @@
+name: rtsp-yolo-cuda
+
+services:
+  mediamtx:
+    image: bluenviron/mediamtx:1
+    pull_policy: never
+    container_name: rtsp-mediamtx
+    restart: unless-stopped
+    environment:
+      MTX_RTSPTRANSPORTS: tcp
+    ports:
+      - "8554:8554"
+
+  annotator:
+    image: rtsp-yolo-annotator:cuda-amd64
+    pull_policy: never
+    container_name: rtsp-yolo-annotator
+    restart: unless-stopped
+    depends_on:
+      - mediamtx
+    gpus: all
+    environment:
+      RTSP_INPUT_URL: ${RTSP_INPUT_URL:?请设置RTSP_INPUT_URL}
+      RTSP_OUTPUT_URL: rtsp://mediamtx:8554/detected
+      YOLO_MODEL_PATH: ${YOLO_MODEL_PATH:-/app/models/yolo26s.pt}
+    command:
+      - --device
+      - cuda:0
+      - --half
+      - --imgsz
+      - ${YOLO_IMGSZ:-640}
+      - --classes
+      - ${YOLO_CLASSES:-0}
+      - --stats-interval
+      - "10"

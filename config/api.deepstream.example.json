@@ -1,0 +1,60 @@
+{
+  "api": {
+    "key": "replace-with-at-least-16-characters",
+    "host": "0.0.0.0",
+    "port": 8080
+  },
+  "models": {
+    "root": "/app/models"
+  },
+  "rtsp": {
+    "internal_base_url": "rtsp://mediamtx:8554",
+    "public_base_url": "rtsp://14.21.88.97:38554",
+    "publish_user": "publisher",
+    "publish_password": "replace-publish-password",
+    "read_user": "viewer",
+    "read_password": "replace-read-password"
+  },
+  "inference": {
+    "backend": "deepstream",
+    "device": "cuda:0",
+    "half": true,
+    "shared_model": true,
+    "max_batch_size": 2,
+    "batch_wait_ms": 0,
+    "streams_per_model_instance": 2,
+    "max_streams": 4,
+    "startup_grace_seconds": 5
+  },
+  "deepstream": {
+    "onnx_root": "/app/models",
+    "engine_root": "/app/engines",
+    "runtime_root": "/app/runtime",
+    "parser_library": "/opt/nvidia/deepstream/deepstream/lib/libnvdsinfer_custom_impl_Yolo.so",
+    "tracker_library": "/opt/nvidia/deepstream/deepstream/lib/libnvds_nvmultiobjecttracker.so",
+    "tracker_config": "/opt/nvidia/deepstream/deepstream/samples/configs/deepstream-app/config_tracker_NvDCF_perf.yml",
+    "gpu_id": 0,
+    "streams_per_group": 2,
+    "model_input_size": 640,
+    "mux_width": 1920,
+    "mux_height": 1080,
+    "batch_push_timeout_us": 20000,
+    "source_latency_ms": 100,
+    "encoder_iframe_interval": 25,
+    "stats_interval_seconds": 5,
+    "minimum_healthy_fps": 20,
+    "worker_stop_grace_seconds": 0.5,
+    "lpr_model_root": "/app/models/lpr",
+    "lpr_parser_library": "/opt/nvidia/deepstream/deepstream/lib/libnvdsinfer_custom_impl_lpr.so",
+    "lpr_detector_batch_size": 16,
+    "lpr_recognizer_batch_size": 16
+  },
+  "output": {
+    "encoder": "h264_nvenc",
+    "preset": "p4"
+  },
+  "labels": {
+    "map_file": null,
+    "font_file": null
+  }
+}

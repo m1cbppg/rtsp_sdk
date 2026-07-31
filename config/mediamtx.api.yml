@@ -1,0 +1,15 @@
+logLevel: info
+
+authMethod: http
+authHTTPAddress: http://api:8080/internal/mediamtx/auth
+authHTTPExclude:
+  - action: api
+  - action: metrics
+  - action: pprof
+
+rtsp: true
+rtspTransports: [tcp]
+rtspAddress: :8554
+
+paths:
+  all_others:
