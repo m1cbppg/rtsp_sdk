@@ -3,6 +3,9 @@ FROM ${BASE_IMAGE}
 
 WORKDIR /app
 
+RUN python3 -m pip install --no-cache-dir --break-system-packages \
+        "Pillow>=10,<13"
+
 COPY third_party/nvidia_lpr_parser /tmp/nvidia_lpr_parser
 RUN make -C /tmp/nvidia_lpr_parser \
     && cp \

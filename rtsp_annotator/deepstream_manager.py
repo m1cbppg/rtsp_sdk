@@ -15,6 +15,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from .deepstream_engine_builder import engine_path_for
+from .events import GarbageAnalysisOptions
 from .labels import load_label_map
 from .stream_manager import (
     ManagerSettings,
@@ -48,13 +49,14 @@ class DeepStreamManagerSettings:
         "/opt/nvidia/deepstream/deepstream/samples/configs/"
         "deepstream-app/config_tracker_NvDCF_perf.yml"
     )
+    tracker_max_shadow_tracking_age: int = 15
     gpu_id: int = 0
     streams_per_group: int = 2
     model_input_size: int = 640
     mux_width: int = 1920
     mux_height: int = 1080
     batch_push_timeout_us: int = 20_000
-    source_latency_ms: int = 100
+    source_latency_ms: int = 300
     encoder_iframe_interval: int = 25
     stats_interval_seconds: float = 5.0
     minimum_healthy_fps: float = 20.0
@@ -66,6 +68,24 @@ class DeepStreamManagerSettings:
     )
     lpr_detector_batch_size: int = 16
     lpr_recognizer_batch_size: int = 16
+    event_root: Path | None = None
+    garbage_onnx_path: Path = Path(
+        "/app/models/events/yolo_world_garbage.onnx"
+    )
+    garbage_labels_path: Path = Path(
+        "/app/models/events/yolo_world_garbage.labels.txt"
+    )
+    garbage_pile_onnx_path: Path = Path(
+        "/app/models/events/street_garbage_pile.onnx"
+    )
+    garbage_pile_labels_path: Path = Path(
+        "/app/models/events/street_garbage_pile.labels.txt"
+    )
+    garbage_parser_library: Path = Path(
+        "/opt/nvidia/deepstream/deepstream/lib/"
+        "libnvdsinfer_custom_impl_Yolo.so"
+    )
+    garbage_input_size: int = 640
 
     def validate(self) -> None:
         self.manager.validate()
@@ -84,6 +104,10 @@ class DeepStreamManagerSettings:
         if not self.tracker_config.is_file():
             raise RuntimeError(
                 f"DeepStream跟踪配置不存在: {self.tracker_config}"
+            )
+        if not 1 <= self.tracker_max_shadow_tracking_age <= 200:
+            raise RuntimeError(
+                "tracker_max_shadow_tracking_age必须在1到200之间"
             )
         if self.gpu_id < 0:
             raise RuntimeError("gpu_id不能为负数")
@@ -109,6 +133,8 @@ class DeepStreamManagerSettings:
             raise RuntimeError("lpr_detector_batch_size必须大于0")
         if self.lpr_recognizer_batch_size <= 0:
             raise RuntimeError("lpr_recognizer_batch_size必须大于0")
+        if self.garbage_input_size <= 0:
+            raise RuntimeError("garbage_input_size必须大于0")
 
 
 @dataclass(slots=True)
@@ -136,6 +162,8 @@ class DeepStreamGroup:
     config_path: Path | None = None
     metrics_path: Path | None = None
     license_plate_enabled: bool = False
+    garbage_enabled: bool = False
+    garbage_mode: str = "items"
     night_vision_signature: tuple[bool, float, float] = (
         False,
         1.0,
@@ -153,12 +181,18 @@ class DeepStreamStreamManager:
     ) -> None:
         settings.validate()
         self._settings = settings
+        self._event_root = (
+            settings.event_root
+            if settings.event_root is not None
+            else settings.runtime_root.parent / "events"
+        )
         self._process_factory = process_factory
         self._records: dict[str, DeepStreamRecord] = {}
         self._groups: dict[str, DeepStreamGroup] = {}
         self._lock = threading.RLock()
         settings.engine_root.mkdir(parents=True, exist_ok=True)
         settings.runtime_root.mkdir(parents=True, exist_ok=True)
+        self._event_root.mkdir(parents=True, exist_ok=True)
 
     def list_models(self) -> list[str]:
         return sorted(
@@ -170,8 +204,9 @@ class DeepStreamStreamManager:
 
     def create(self, spec: StreamSpec) -> dict[str, Any]:
         spec.night_vision.validate()
+        spec.event_detection.validate()
         model_path, onnx_path, labels_path = self._resolve_model(spec.model)
-        del onnx_path, labels_path
+        del onnx_path
         if spec.imgsz != self._settings.model_input_size:
             raise ModelNotFoundError(
                 "DeepStream模型固定输入尺寸为"
@@ -204,6 +239,10 @@ class DeepStreamStreamManager:
                 )
             if spec.license_plate.enabled:
                 self._validate_lpr_assets()
+            if spec.event_detection.enabled:
+                self._validate_event_classes(spec, labels_path)
+            if spec.event_detection.garbage.enabled:
+                self._validate_garbage_assets(spec.event_detection.garbage)
             group = self._find_group(
                 model_path.name,
                 spec.imgsz,
@@ -211,6 +250,8 @@ class DeepStreamStreamManager:
                 spec.night_vision.group_signature(
                     include_plate_detector=spec.license_plate.enabled,
                 ),
+                spec.event_detection.garbage.enabled,
+                spec.event_detection.garbage.detection_mode,
             )
             if group is None:
                 group = DeepStreamGroup(
@@ -219,6 +260,10 @@ class DeepStreamStreamManager:
                     imgsz=spec.imgsz,
                     stream_ids=[],
                     license_plate_enabled=spec.license_plate.enabled,
+                    garbage_enabled=spec.event_detection.garbage.enabled,
+                    garbage_mode=(
+                        spec.event_detection.garbage.detection_mode
+                    ),
                     night_vision_signature=(
                         spec.night_vision.group_signature(
                             include_plate_detector=(
@@ -304,6 +349,8 @@ class DeepStreamStreamManager:
         imgsz: int,
         license_plate_enabled: bool,
         night_vision_signature: tuple[bool, float, float],
+        garbage_enabled: bool,
+        garbage_mode: str,
     ) -> DeepStreamGroup | None:
         candidates = (
             group
@@ -312,6 +359,8 @@ class DeepStreamStreamManager:
             and group.imgsz == imgsz
             and group.license_plate_enabled == license_plate_enabled
             and group.night_vision_signature == night_vision_signature
+            and group.garbage_enabled == garbage_enabled
+            and group.garbage_mode == garbage_mode
             and len(group.stream_ids) < self._settings.streams_per_group
         )
         return min(candidates, key=lambda item: item.group_id, default=None)
@@ -329,6 +378,63 @@ class DeepStreamStreamManager:
         if missing:
             raise ModelNotFoundError(
                 "中国车牌识别资源缺失: " + ", ".join(missing)
+            )
+
+    def _validate_garbage_assets(
+        self,
+        options: GarbageAnalysisOptions,
+    ) -> None:
+        if options.detection_mode == "pile":
+            onnx_path = self._settings.garbage_pile_onnx_path
+            labels_path = self._settings.garbage_pile_labels_path
+        else:
+            onnx_path = self._settings.garbage_onnx_path
+            labels_path = self._settings.garbage_labels_path
+        required = (
+            onnx_path,
+            labels_path,
+            self._settings.garbage_parser_library,
+        )
+        missing = [str(path) for path in required if not path.is_file()]
+        if missing:
+            raise ModelNotFoundError(
+                "垃圾识别资源缺失: " + ", ".join(missing)
+            )
+        labels = {
+            item.strip()
+            for item in labels_path.read_text(
+                encoding="utf-8"
+            ).splitlines()
+            if item.strip()
+        }
+        if options.detection_mode == "pile":
+            if "garbage" not in {item.lower() for item in labels}:
+                raise ModelNotFoundError(
+                    "垃圾堆模型标签中缺少garbage类别"
+                )
+            return
+        unsupported = sorted(set(options.prompts) - labels)
+        if unsupported:
+            raise ModelNotFoundError(
+                "垃圾模型不支持这些类别: " + ", ".join(unsupported)
+            )
+
+    @staticmethod
+    def _validate_event_classes(spec: StreamSpec, labels_path: Path) -> None:
+        label_count = sum(
+            1
+            for item in labels_path.read_text(encoding="utf-8").splitlines()
+            if item.strip()
+        )
+        class_ids = (
+            spec.event_detection.person_classes
+            + spec.event_detection.vehicle_classes
+        )
+        invalid = sorted({item for item in class_ids if item >= label_count})
+        if invalid:
+            raise ModelNotFoundError(
+                "事件类别超出主模型范围: "
+                + ", ".join(str(item) for item in invalid)
             )
 
     def _resolve_model(self, model: str) -> tuple[Path, Path, Path]:
@@ -450,6 +556,9 @@ class DeepStreamStreamManager:
             "parser_library": str(self._settings.parser_library),
             "tracker_library": str(self._settings.tracker_library),
             "tracker_config": str(self._settings.tracker_config),
+            "tracker_max_shadow_tracking_age": (
+                self._settings.tracker_max_shadow_tracking_age
+            ),
             "imgsz": group.imgsz,
             "metrics_path": str(group.metrics_path),
             "label_map": label_map,
@@ -515,6 +624,8 @@ class DeepStreamStreamManager:
                             record.spec.license_plate.vehicle_classes
                         ),
                     },
+                    "event_detection": record.spec.event_detection.to_payload(),
+                    "event_root": str(self._event_root),
                 }
                 for record in records
             ],
@@ -563,6 +674,50 @@ class DeepStreamStreamManager:
                     / "ch_lp_characters.txt"
                 ),
             }
+        if group.garbage_enabled:
+            if group.garbage_mode == "pile":
+                garbage_onnx_path = self._settings.garbage_pile_onnx_path
+                garbage_labels_path = (
+                    self._settings.garbage_pile_labels_path
+                )
+            else:
+                garbage_onnx_path = self._settings.garbage_onnx_path
+                garbage_labels_path = self._settings.garbage_labels_path
+            garbage_labels = [
+                item.strip()
+                for item in garbage_labels_path.read_text(
+                    encoding="utf-8"
+                ).splitlines()
+                if item.strip()
+            ]
+            garbage_analysis_fps = max(
+                record.spec.event_detection.garbage.analysis_fps
+                for record in records
+                if record.spec.event_detection.garbage.enabled
+            )
+            payload["garbage"] = {
+                "enabled": True,
+                "detection_mode": group.garbage_mode,
+                "onnx_path": str(garbage_onnx_path),
+                "engine_path": str(
+                    engine_path_for(
+                        garbage_onnx_path,
+                        self._settings.engine_root,
+                        imgsz=self._settings.garbage_input_size,
+                        batch_size=self._settings.streams_per_group,
+                        gpu_id=self._settings.gpu_id,
+                    )
+                ),
+                "labels_path": str(garbage_labels_path),
+                "label_count": len(garbage_labels),
+                "parser_library": str(
+                    self._settings.garbage_parser_library
+                ),
+                "imgsz": self._settings.garbage_input_size,
+                # Sampling is monotonic-time based in the worker, so 15, 25,
+                # and 30 FPS cameras all receive the requested analysis rate.
+                "analysis_fps": garbage_analysis_fps,
+            }
         return payload
 
     def _stop_group(self, group: DeepStreamGroup) -> None:
@@ -583,6 +738,10 @@ class DeepStreamStreamManager:
             "lpd_nvinfer.tmp",
             "lpr_nvinfer.txt",
             "lpr_nvinfer.tmp",
+            "tracker.yml",
+            "tracker.tmp",
+            "garbage_nvinfer.txt",
+            "garbage_nvinfer.tmp",
         ):
             (group_dir / name).unlink(missing_ok=True)
         try:
@@ -691,6 +850,16 @@ class DeepStreamStreamManager:
                     record.spec.night_vision.input_gain
                     if record.spec.night_vision.enabled
                     else 1.0
+                ),
+            },
+            "event_detection": {
+                "enabled": record.spec.event_detection.enabled,
+                "events_url": f"/v1/streams/{record.stream_id}/events",
+                "roi_ids": [
+                    item.roi_id for item in record.spec.event_detection.rois
+                ],
+                "garbage_enabled": (
+                    record.spec.event_detection.garbage.enabled
                 ),
             },
         }

@@ -33,13 +33,14 @@
     "parser_library": "/opt/nvidia/deepstream/deepstream/lib/libnvdsinfer_custom_impl_Yolo.so",
     "tracker_library": "/opt/nvidia/deepstream/deepstream/lib/libnvds_nvmultiobjecttracker.so",
     "tracker_config": "/opt/nvidia/deepstream/deepstream/samples/configs/deepstream-app/config_tracker_NvDCF_perf.yml",
+    "tracker_max_shadow_tracking_age": 15,
     "gpu_id": 0,
     "streams_per_group": 2,
     "model_input_size": 640,
     "mux_width": 1920,
     "mux_height": 1080,
     "batch_push_timeout_us": 20000,
-    "source_latency_ms": 100,
+    "source_latency_ms": 300,
     "encoder_iframe_interval": 25,
     "stats_interval_seconds": 5,
     "minimum_healthy_fps": 20,
@@ -47,7 +48,13 @@
     "lpr_model_root": "/app/models/lpr",
     "lpr_parser_library": "/opt/nvidia/deepstream/deepstream/lib/libnvdsinfer_custom_impl_lpr.so",
     "lpr_detector_batch_size": 16,
-    "lpr_recognizer_batch_size": 16
+    "lpr_recognizer_batch_size": 16,
+    "garbage_onnx_path": "/app/models/events/yolo_world_garbage.onnx",
+    "garbage_labels_path": "/app/models/events/yolo_world_garbage.labels.txt",
+    "garbage_pile_onnx_path": "/app/models/events/street_garbage_pile.onnx",
+    "garbage_pile_labels_path": "/app/models/events/street_garbage_pile.labels.txt",
+    "garbage_parser_library": "/opt/nvidia/deepstream/deepstream/lib/libnvdsinfer_custom_impl_Yolo.so",
+    "garbage_input_size": 640
   },
   "output": {
     "encoder": "h264_nvenc",
@@ -56,5 +63,8 @@
   "labels": {
     "map_file": null,
     "font_file": null
+  },
+  "events": {
+    "storage_root": "/app/data/events"
   }
 }

@@ -256,6 +256,20 @@ DeepStream实例；切换时删除旧任务后重新创建即可，不需要重�
 `classes:[0]`只表示最终画面仅显示YOLO的“人员”框，不会阻止内部车辆候选进入
 车牌支路。完整参数、性能设计与验收方法见`LICENSE_PLATE.md`。
 
+区域停留、垃圾变化和疑似乱丢垃圾通过`event_detection`启用。它可以与普通
+YOLO、夜间模式和车牌识别同时配置，完整请求、事件接口、Webhook和现场验收
+方法见`EVENT_DETECTION.md`。
+
+垃圾分析启用后默认在视频中持续显示语义垃圾框：普通检测为绿色、候选事件为
+橙色、确认告警为红色。可通过`garbage.display_detections`关闭普通绿框，但保留
+事件判断和告警框。
+
+`garbage.detection_mode`取值为`items`或`pile`。`items`保持原有零散垃圾类别；
+`pile`使用独立街景模型，并把相邻垃圾组成框合并为中文`垃圾堆`框。只展示固定
+机位垃圾堆时建议同时设置`analysis_fps:1`、`minimum_confidence:0.15`、
+`background_change_enabled:false`和`display_hold_seconds:3`，避免全屏背景运动
+误画事件框，同时降低旁路对主视频的GPU竞争。
+
 ## 6. 查询和停止
 
 查询模型：

@@ -4,6 +4,7 @@ import argparse
 import json
 import logging
 import os
+import re
 import signal
 import threading
 import time
@@ -11,6 +12,22 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from .background_change import BackgroundChangeDetector, VisualChange
+from .event_engine import (
+    EventEngine,
+    GarbageDetection,
+    GarbageOverlay,
+    GarbageSnapshot,
+    NormalizedRect,
+    TrackedObject,
+)
+from .event_delivery import WebhookDispatcher
+from .event_evidence import EventEvidenceWriter
+from .events import (
+    EventDetectionOptions,
+    EventRepository,
+    GarbageAnalysisOptions,
+)
 from .labels import chinese_label
 from .license_plate import (
     LICENSE_PLATE_DETECTOR_UID,
@@ -21,6 +38,7 @@ from .license_plate import (
 
 
 LOGGER = logging.getLogger("rtsp_annotator.deepstream")
+GARBAGE_DETECTOR_UID = 4
 
 
 def _point_in_polygon(
@@ -227,6 +245,98 @@ def build_lpr_config(config: dict[str, Any], path: Path) -> None:
     temporary.replace(path)
 
 
+def build_garbage_config(config: dict[str, Any], path: Path) -> None:
+    garbage = config["garbage"]
+    enabled_streams = [
+        item["event_detection"]["garbage"]
+        for item in config["streams"]
+        if item.get("event_detection", {}).get("garbage", {}).get(
+            "enabled", False
+        )
+    ]
+    if not enabled_streams:
+        raise RuntimeError("垃圾模型已启用但没有流开启垃圾分析")
+    threshold = min(
+        float(item["minimum_confidence"]) for item in enabled_streams
+    )
+    night_vision = config.get("night_vision") or {}
+    input_gain = (
+        float(night_vision.get("input_gain", 1.0))
+        if night_vision.get("enabled", False)
+        else 1.0
+    )
+    content = "\n".join(
+        [
+            "[property]",
+            f"gpu-id={int(config['gpu_id'])}",
+            f"net-scale-factor={input_gain / 255.0:.17g}",
+            "model-color-format=0",
+            f"onnx-file={_safe_config_value(garbage['onnx_path'])}",
+            (
+                "model-engine-file="
+                f"{_safe_config_value(garbage['engine_path'])}"
+            ),
+            f"labelfile-path={_safe_config_value(garbage['labels_path'])}",
+            f"batch-size={int(config['batch_size'])}",
+            "network-mode=2",
+            f"num-detected-classes={int(garbage['label_count'])}",
+            # Frames are sampled before this element by a branch-local
+            # BufferOperator. nvinfer therefore runs on every frame it sees,
+            # and an empty metadata result really means "no garbage".
+            "interval=0",
+            f"gie-unique-id={GARBAGE_DETECTOR_UID}",
+            "process-mode=1",
+            "network-type=0",
+            # YOLO-World uses the dense YOLOv8 head, unlike the main YOLO26
+            # one-to-one export. Run DeepStream NMS before Python receives
+            # metadata, then de-duplicate overlapping cross-prompt boxes.
+            "cluster-mode=2",
+            "maintain-aspect-ratio=1",
+            "symmetric-padding=1",
+            "parse-bbox-func-name=NvDsInferParseYolo",
+            (
+                "custom-lib-path="
+                f"{_safe_config_value(garbage['parser_library'])}"
+            ),
+            "engine-create-func-name=NvDsInferYoloCudaEngineGet",
+            "",
+            "[class-attrs-all]",
+            f"pre-cluster-threshold={threshold:.8f}",
+            "nms-iou-threshold=0.45",
+            "topk=100",
+            "",
+        ]
+    )
+    temporary = path.with_suffix(".tmp")
+    temporary.write_text(content, encoding="utf-8")
+    temporary.replace(path)
+
+
+def build_tracker_config(
+    source_path: Path,
+    target_path: Path,
+    *,
+    max_shadow_tracking_age: int,
+) -> None:
+    if not 1 <= max_shadow_tracking_age <= 200:
+        raise ValueError(
+            "tracker_max_shadow_tracking_age必须在[1, 200]范围内"
+        )
+    content = source_path.read_text(encoding="utf-8")
+    updated, replacements = re.subn(
+        r"(?m)^(\s*maxShadowTrackingAge:\s*)\d+(\s*(?:#.*)?)$",
+        rf"\g<1>{max_shadow_tracking_age}\g<2>",
+        content,
+    )
+    if replacements != 1:
+        raise RuntimeError(
+            "NvDCF配置中没有唯一的maxShadowTrackingAge"
+        )
+    temporary = target_path.with_suffix(".tmp")
+    temporary.write_text(updated, encoding="utf-8")
+    temporary.replace(target_path)
+
+
 @dataclass(slots=True)
 class StreamPolicy:
     stream_id: str
@@ -236,6 +346,113 @@ class StreamPolicy:
     labels: dict[int, str]
     license_plate_enabled: bool = False
     minimum_plate_confirmations: int = 2
+    event_detection: EventDetectionOptions = EventDetectionOptions()
+
+
+@dataclass(frozen=True, slots=True)
+class _GarbageDisplayEntry:
+    updated_at: float
+    roi_id: str
+    detections: tuple[GarbageDetection, ...]
+
+
+class GarbageOverlayCache:
+    """Thread-safe bridge from the lossy analysis branch to the main OSD."""
+
+    def __init__(self) -> None:
+        self._lock = threading.Lock()
+        self._entries: dict[tuple[int, str], _GarbageDisplayEntry] = {}
+
+    def update(
+        self,
+        *,
+        pad_index: int,
+        roi_id: str,
+        snapshot: GarbageSnapshot,
+    ) -> None:
+        detections = snapshot.detections
+        if not detections and snapshot.regions:
+            detections = tuple(
+                GarbageDetection(
+                    rectangle=rectangle,
+                    object_type=snapshot.object_type,
+                    confidence=snapshot.semantic_confidence,
+                )
+                for rectangle in snapshot.regions
+            )
+        with self._lock:
+            self._entries[(pad_index, roi_id)] = _GarbageDisplayEntry(
+                updated_at=snapshot.timestamp,
+                roi_id=roi_id,
+                detections=detections,
+            )
+
+    def overlays(
+        self,
+        *,
+        pad_index: int,
+        options: GarbageAnalysisOptions,
+        timestamp: float,
+    ) -> list[GarbageOverlay]:
+        if not options.enabled or not options.display_detections:
+            return []
+        with self._lock:
+            expired = [
+                key
+                for key, entry in self._entries.items()
+                if timestamp - entry.updated_at > options.display_hold_seconds
+            ]
+            for key in expired:
+                self._entries.pop(key, None)
+            candidates = [
+                (entry.roi_id, detection)
+                for (entry_pad, _roi_id), entry in self._entries.items()
+                if entry_pad == pad_index
+                for detection in entry.detections
+            ]
+        selected: list[tuple[str, GarbageDetection]] = []
+        for roi_id, detection in sorted(
+            candidates,
+            key=lambda item: item[1].confidence,
+            reverse=True,
+        ):
+            if any(
+                _rectangle_iou(
+                    detection.rectangle,
+                    existing.rectangle,
+                ) >= 0.5
+                for _existing_roi, existing in selected
+            ):
+                continue
+            selected.append((roi_id, detection))
+            if len(selected) >= options.maximum_display_boxes:
+                break
+        return [
+            GarbageOverlay(
+                roi_id=roi_id,
+                rectangle=detection.rectangle,
+                label=f"垃圾：{_garbage_chinese_label(detection.object_type)}",
+                state="detected",
+                elapsed_seconds=0.0,
+            )
+            for roi_id, detection in selected
+        ]
+
+
+def _frame_dimensions(
+    frame_meta: Any,
+    *,
+    fallback_width: int | None = None,
+    fallback_height: int | None = None,
+) -> tuple[float, float]:
+    """Resolve dimensions when ServiceMaker leaves pipeline size as zero."""
+    width = float(getattr(frame_meta, "pipeline_width", 0) or 0)
+    height = float(getattr(frame_meta, "pipeline_height", 0) or 0)
+    if width <= 1 and fallback_width is not None:
+        width = float(fallback_width)
+    if height <= 1 and fallback_height is not None:
+        height = float(fallback_height)
+    return max(width, 1.0), max(height, 1.0)
 
 
 class MetricsState:
@@ -269,13 +486,18 @@ class MetricsState:
             stream_id: 0 for stream_id in stream_ids
         }
         self._plate_reads = {stream_id: 0 for stream_id in stream_ids}
+        self._garbage_frames = {stream_id: 0 for stream_id in stream_ids}
         self._last_frames = dict(self._frames)
         self._last_pre_encode = dict(self._pre_encode)
         self._last_published = dict(self._published)
         self._last_detections = dict(self._detections)
         self._last_plate_detections = dict(self._plate_detections)
         self._last_plate_reads = dict(self._plate_reads)
+        self._last_garbage_frames = dict(self._garbage_frames)
         self._inference_ms: dict[str, list[float]] = {
+            stream_id: [] for stream_id in stream_ids
+        }
+        self._garbage_analysis_ms: dict[str, list[float]] = {
             stream_id: [] for stream_id in stream_ids
         }
 
@@ -313,6 +535,18 @@ class MetricsState:
         with self._lock:
             self._published[stream_id] += 1
 
+    def observe_garbage_analysis(
+        self,
+        stream_id: str,
+        duration_ms: float,
+    ) -> None:
+        with self._lock:
+            self._garbage_frames[stream_id] += 1
+            samples = self._garbage_analysis_ms[stream_id]
+            samples.append(max(float(duration_ms), 0.0))
+            if len(samples) > 1_000:
+                del samples[: len(samples) - 1_000]
+
     def _maybe_write_locked(self) -> None:
         now = time.monotonic()
         elapsed = now - self._last_report_at
@@ -343,6 +577,11 @@ class MetricsState:
                 self._plate_reads[stream_id]
                 - self._last_plate_reads[stream_id]
             )
+            garbage_analysis_fps = (
+                self._garbage_frames[stream_id]
+                - self._last_garbage_frames[stream_id]
+            ) / elapsed
+            garbage_samples = self._garbage_analysis_ms[stream_id]
             effective_fps = min(pipeline_fps, publish_fps)
             latency_samples = self._inference_ms[stream_id]
             ordered_latency = sorted(latency_samples)
@@ -375,6 +614,12 @@ class MetricsState:
                 "total_detections": self._detections[stream_id],
                 "interval_plate_detections": interval_plate_detections,
                 "interval_plate_reads": interval_plate_reads,
+                "garbage_analysis_fps": garbage_analysis_fps,
+                "average_garbage_analysis_ms": (
+                    sum(garbage_samples) / len(garbage_samples)
+                    if garbage_samples
+                    else 0.0
+                ),
                 "total_plate_detections": (
                     self._plate_detections[stream_id]
                 ),
@@ -410,20 +655,26 @@ class MetricsState:
         self._last_detections = dict(self._detections)
         self._last_plate_detections = dict(self._plate_detections)
         self._last_plate_reads = dict(self._plate_reads)
+        self._last_garbage_frames = dict(self._garbage_frames)
         self._inference_ms = {
             stream_id: [] for stream_id in self._inference_ms
+        }
+        self._garbage_analysis_ms = {
+            stream_id: [] for stream_id in self._garbage_analysis_ms
         }
         for stream_id, report in streams.items():
             LOGGER.info(
                 "状态: stream=%s, pipeline=%.1f FPS, "
                 "pre-encode=%.1f FPS, publish=%.1f FPS, "
-                "infer=%.1f/P95 %.1f ms, detections=%d, healthy=%s",
+                "infer=%.1f/P95 %.1f ms, garbage=%.1f FPS, "
+                "detections=%d, healthy=%s",
                 stream_id[:8],
                 report["inference_fps"],
                 report["pre_encode_fps"],
                 report["publish_fps"],
                 report["average_inference_ms"],
                 report["p95_inference_ms"],
+                report["garbage_analysis_fps"],
                 report["interval_detections"],
                 report["pipeline_healthy"],
             )
@@ -446,10 +697,18 @@ class OverlayProcessor:
         policies: dict[int, StreamPolicy],
         metrics: MetricsState,
         latency_tracker: "InferenceLatencyTracker | None" = None,
+        event_engines: dict[int, EventEngine] | None = None,
+        garbage_overlay_cache: GarbageOverlayCache | None = None,
+        frame_width: int | None = None,
+        frame_height: int | None = None,
     ) -> None:
         self._policies = policies
         self._metrics = metrics
         self._latency_tracker = latency_tracker
+        self._event_engines = event_engines or {}
+        self._garbage_overlay_cache = garbage_overlay_cache
+        self._frame_width = frame_width
+        self._frame_height = frame_height
         self._plate_consensus = {
             pad_index: PlateConsensus(
                 minimum_confirmations=policy.minimum_plate_confirmations,
@@ -466,8 +725,13 @@ class OverlayProcessor:
             detections = 0
             plate_detections = 0
             plate_reads = 0
-            width = max(float(frame_meta.pipeline_width), 1.0)
-            height = max(float(frame_meta.pipeline_height), 1.0)
+            width, height = _frame_dimensions(
+                frame_meta,
+                fallback_width=self._frame_width,
+                fallback_height=self._frame_height,
+            )
+            tracked_objects: list[TrackedObject] = []
+            primary_rectangles: dict[int, NormalizedRect] = {}
             for object_meta in frame_meta.object_items:
                 component_id = int(
                     getattr(
@@ -495,6 +759,23 @@ class OverlayProcessor:
                 if component_id != PRIMARY_DETECTOR_UID:
                     self._hide_object(object_meta)
                     continue
+                track_id = int(getattr(object_meta, "object_id", -1))
+                if track_id >= 0:
+                    rectangle = object_meta.rect_params
+                    normalized = NormalizedRect(
+                        float(rectangle.left) / width,
+                        float(rectangle.top) / height,
+                        float(rectangle.width) / width,
+                        float(rectangle.height) / height,
+                    )
+                    tracked_objects.append(
+                        TrackedObject(
+                            track_id=track_id,
+                            class_id=int(object_meta.class_id),
+                            rectangle=normalized,
+                        )
+                    )
+                    primary_rectangles[track_id] = normalized
                 if not self._object_allowed(
                     object_meta,
                     policy,
@@ -505,8 +786,89 @@ class OverlayProcessor:
                     continue
                 detections += 1
                 self._style_object(object_meta, policy, osd)
+            event_engine = self._event_engines.get(int(frame_meta.pad_index))
+            if event_engine is not None:
+                timestamp = time.monotonic()
+                event_result = event_engine.observe_tracks(
+                    timestamp=timestamp,
+                    objects=tracked_objects,
+                )
+                overlay_index = 0
+                event_garbage_overlays = event_result.garbage_overlays
+                if self._garbage_overlay_cache is not None:
+                    detected_overlays = self._garbage_overlay_cache.overlays(
+                        pad_index=int(frame_meta.pad_index),
+                        options=policy.event_detection.garbage,
+                        timestamp=timestamp,
+                    )
+                    for detected_overlay in detected_overlays:
+                        if any(
+                            _garbage_event_overrides_detection(
+                                event_overlay,
+                                detected_overlay,
+                            )
+                            for event_overlay in event_garbage_overlays
+                        ):
+                            continue
+                        self._draw_event_overlay(
+                            batch_meta,
+                            frame_meta,
+                            detected_overlay,
+                            osd,
+                            overlay_index,
+                            width=width,
+                            height=height,
+                        )
+                        overlay_index += 1
+                for actor_overlay in event_result.actor_overlays:
+                    rectangle = primary_rectangles.get(actor_overlay.track_id)
+                    if rectangle is None:
+                        continue
+                    self._draw_event_overlay(
+                        batch_meta,
+                        frame_meta,
+                        GarbageOverlay(
+                            roi_id=actor_overlay.roi_id,
+                            rectangle=rectangle,
+                            label=actor_overlay.label,
+                            state=actor_overlay.state,
+                            elapsed_seconds=actor_overlay.elapsed_seconds,
+                        ),
+                        osd,
+                        overlay_index,
+                        width=width,
+                        height=height,
+                    )
+                    overlay_index += 1
+                for garbage_overlay in event_garbage_overlays:
+                    self._draw_event_overlay(
+                        batch_meta,
+                        frame_meta,
+                        garbage_overlay,
+                        osd,
+                        overlay_index,
+                        width=width,
+                        height=height,
+                    )
+                    overlay_index += 1
+                for roi in policy.event_detection.rois:
+                    self._draw_roi(
+                        batch_meta,
+                        frame_meta,
+                        [list(point) for point in roi.polygon],
+                        osd,
+                        width=width,
+                        height=height,
+                    )
             if policy.roi:
-                self._draw_roi(batch_meta, frame_meta, policy.roi, osd)
+                self._draw_roi(
+                    batch_meta,
+                    frame_meta,
+                    policy.roi,
+                    osd,
+                    width=width,
+                    height=height,
+                )
             latency_ms = (
                 self._latency_tracker.finish(
                     int(frame_meta.pad_index),
@@ -664,19 +1026,102 @@ class OverlayProcessor:
         frame_meta: Any,
         roi: list[list[float]],
         osd: Any,
+        *,
+        width: float | None = None,
+        height: float | None = None,
     ) -> None:
-        width = int(frame_meta.pipeline_width)
-        height = int(frame_meta.pipeline_height)
+        if width is None or height is None:
+            width, height = _frame_dimensions(frame_meta)
+        pixel_width = max(int(width), 1)
+        pixel_height = max(int(height), 1)
+
+        def x_coordinate(value: float) -> int:
+            return min(max(int(value * pixel_width), 0), pixel_width - 1)
+
+        def y_coordinate(value: float) -> int:
+            return min(max(int(value * pixel_height), 0), pixel_height - 1)
+
         display_meta = batch_meta.acquire_display_meta()
         for start, end in zip(roi, roi[1:] + roi[:1]):
             line = osd.Line()
-            line.x1 = int(start[0] * width)
-            line.y1 = int(start[1] * height)
-            line.x2 = int(end[0] * width)
-            line.y2 = int(end[1] * height)
+            line.x1 = x_coordinate(start[0])
+            line.y1 = y_coordinate(start[1])
+            line.x2 = x_coordinate(end[0])
+            line.y2 = y_coordinate(end[1])
             line.width = 3
             line.color = osd.Color(1.0, 0.75, 0.0, 1.0)
             display_meta.add_line(line)
+        frame_meta.append(display_meta)
+
+    @staticmethod
+    def _draw_event_overlay(
+        batch_meta: Any,
+        frame_meta: Any,
+        overlay: Any,
+        osd: Any,
+        overlay_index: int,
+        *,
+        width: float | None = None,
+        height: float | None = None,
+    ) -> None:
+        if width is None or height is None:
+            width, height = _frame_dimensions(frame_meta)
+        pixel_width = max(int(width), 1)
+        pixel_height = max(int(height), 1)
+        if overlay.state == "confirmed":
+            color = osd.Color(1.0, 0.1, 0.1, 1.0)
+        elif overlay.state == "detected":
+            color = osd.Color(0.0, 0.75, 0.2, 1.0)
+        else:
+            color = osd.Color(1.0, 0.65, 0.0, 1.0)
+        display_meta = batch_meta.acquire_display_meta()
+        rectangle = overlay.rectangle
+        text_x = 12
+        text_y = 42 + overlay_index * 34
+        if rectangle is not None:
+            left = min(
+                max(int(rectangle.left * pixel_width), 0),
+                pixel_width - 1,
+            )
+            top = min(
+                max(int(rectangle.top * pixel_height), 0),
+                pixel_height - 1,
+            )
+            right = min(
+                max(int((rectangle.left + rectangle.width) * pixel_width), 0),
+                pixel_width - 1,
+            )
+            bottom = min(
+                max(int((rectangle.top + rectangle.height) * pixel_height), 0),
+                pixel_height - 1,
+            )
+            points = (
+                (left, top, right, top),
+                (right, top, right, bottom),
+                (right, bottom, left, bottom),
+                (left, bottom, left, top),
+            )
+            for x1, y1, x2, y2 in points:
+                line = osd.Line()
+                line.x1 = x1
+                line.y1 = y1
+                line.x2 = x2
+                line.y2 = y2
+                line.width = 4
+                line.color = color
+                display_meta.add_line(line)
+            text_x = max(left, 0)
+            text_y = max(top - 28, 0)
+        text = osd.Text()
+        text.display_text = overlay.label.encode("utf-8")
+        text.x_offset = text_x
+        text.y_offset = text_y
+        text.font.name = osd.FontFamily.Serif
+        text.font.size = 18
+        text.font.color = osd.Color(1.0, 1.0, 1.0, 1.0)
+        text.set_bg_color = True
+        text.bg_color = color
+        display_meta.add_text(text)
         frame_meta.append(display_meta)
 
 
@@ -709,6 +1154,550 @@ class InferenceLatencyTracker:
         if started is None:
             return None
         return (time.perf_counter() - started) * 1_000
+
+
+class GarbageMetadataProcessor:
+    """Translate low-rate garbage detector metadata into temporal snapshots."""
+
+    def __init__(
+        self,
+        *,
+        policies: dict[int, StreamPolicy],
+        event_engines: dict[int, EventEngine],
+        labels: list[str],
+        interval: int,
+        frame_width: int | None = None,
+        frame_height: int | None = None,
+    ) -> None:
+        self._policies = policies
+        self._event_engines = event_engines
+        self._labels = labels
+        self._interval = max(int(interval), 0)
+        self._frame_width = frame_width
+        self._frame_height = frame_height
+
+    def process(self, batch_meta: Any) -> None:
+        snapshots = self.collect(batch_meta, timestamp=time.monotonic())
+        for (pad_index, roi_id), snapshot in snapshots.items():
+            engine = self._event_engines.get(pad_index)
+            if engine is not None:
+                engine.observe_garbage(roi_id=roi_id, snapshot=snapshot)
+
+    def collect(
+        self,
+        batch_meta: Any,
+        *,
+        timestamp: float,
+    ) -> dict[tuple[int, str], GarbageSnapshot]:
+        snapshots: dict[tuple[int, str], GarbageSnapshot] = {}
+        for frame_meta in batch_meta.frame_items:
+            pad_index = int(frame_meta.pad_index)
+            engine = self._event_engines.get(pad_index)
+            policy = self._policies.get(pad_index)
+            if engine is None or policy is None:
+                continue
+            frame_number = int(getattr(frame_meta, "frame_number", 0))
+            if self._interval and (frame_number - 1) % (
+                self._interval + 1
+            ):
+                continue
+            frame_snapshots, _actors = _collect_frame_observations(
+                frame_meta,
+                policy,
+                self._labels,
+                timestamp=timestamp,
+                frame_width=self._frame_width,
+                frame_height=self._frame_height,
+            )
+            for roi_id, snapshot in frame_snapshots.items():
+                snapshots[(pad_index, roi_id)] = snapshot
+        return snapshots
+
+
+def _collect_frame_observations(
+    frame_meta: Any,
+    policy: StreamPolicy,
+    labels: list[str],
+    *,
+    timestamp: float,
+    frame_width: int | None = None,
+    frame_height: int | None = None,
+) -> tuple[dict[str, GarbageSnapshot], list[TrackedObject]]:
+    """Read ServiceMaker's one-shot object iterator exactly once."""
+    pipeline_width, pipeline_height = _frame_dimensions(
+        frame_meta,
+        fallback_width=frame_width,
+        fallback_height=frame_height,
+    )
+    # The garbage branch scales both pixels and NvDsObjectMeta rectangles to
+    # its 640x360 caps, while frame_meta.pipeline_* still reports the upstream
+    # mux size (typically 1920x1080).  Prefer explicit branch dimensions when
+    # supplied or every online box is normalised to one third of its actual
+    # position and is drawn in the upper-left of the published frame.
+    width = float(frame_width) if frame_width is not None else pipeline_width
+    height = (
+        float(frame_height) if frame_height is not None else pipeline_height
+    )
+    width = max(width, 1.0)
+    height = max(height, 1.0)
+    frame_number = int(getattr(frame_meta, "frame_number", 0))
+    actor_classes = set(policy.event_detection.person_classes)
+    actor_classes.update(policy.event_detection.vehicle_classes)
+    threshold = policy.event_detection.garbage.minimum_confidence
+    detections: list[tuple[NormalizedRect, float, str]] = []
+    actors: list[TrackedObject] = []
+    for object_meta in frame_meta.object_items:
+        component_id = int(
+            getattr(
+                object_meta,
+                "unique_component_id",
+                PRIMARY_DETECTOR_UID,
+            )
+        )
+        class_id = int(getattr(object_meta, "class_id", -1))
+        track_id = int(getattr(object_meta, "object_id", -1))
+        rectangle = object_meta.rect_params
+        normalized = NormalizedRect(
+            float(rectangle.left) / width,
+            float(rectangle.top) / height,
+            float(rectangle.width) / width,
+            float(rectangle.height) / height,
+        )
+        if component_id == PRIMARY_DETECTOR_UID and class_id in actor_classes:
+            if 0 <= track_id < 2**63:
+                actors.append(TrackedObject(track_id, class_id, normalized))
+            continue
+        if component_id != GARBAGE_DETECTOR_UID:
+            continue
+        confidence = float(getattr(object_meta, "confidence", 0.0))
+        if confidence < threshold:
+            continue
+        label = labels[class_id] if 0 <= class_id < len(labels) else "垃圾"
+        garbage_options = policy.event_detection.garbage
+        if garbage_options.detection_mode == "pile":
+            if label.strip().lower() != "garbage":
+                continue
+            label = "trash pile"
+        elif label not in garbage_options.prompts:
+            continue
+        detections.append((normalized, confidence, label))
+
+    snapshots: dict[str, GarbageSnapshot] = {}
+    for roi in policy.event_detection.rois:
+        if not roi.garbage_enabled:
+            continue
+        selected = _deduplicate_detections(
+            [
+                item
+                for item in detections
+                if _point_in_polygon(
+                    item[0].center,
+                    [list(point) for point in roi.polygon],
+                )
+            ]
+        )
+        if policy.event_detection.garbage.detection_mode == "pile":
+            selected = _merge_pile_detections(
+                selected,
+                policy.event_detection.garbage,
+            )
+        snapshots[roi.roi_id] = GarbageSnapshot(
+            timestamp=timestamp,
+            frame_number=frame_number,
+            area_ratio=min(
+                sum(item[0].width * item[0].height for item in selected),
+                1.0,
+            ),
+            regions=tuple(item[0] for item in selected),
+            semantic_confidence=max(
+                (item[1] for item in selected),
+                default=0.0,
+            ),
+            object_type=(
+                max(selected, key=lambda item: item[1])[2]
+                if selected
+                else "垃圾"
+            ),
+            detections=tuple(
+                GarbageDetection(
+                    rectangle=rectangle,
+                    confidence=confidence,
+                    object_type=label,
+                )
+                for rectangle, confidence, label in selected
+            ),
+        )
+    return snapshots, actors
+
+
+def _deduplicate_detections(
+    detections: list[tuple[NormalizedRect, float, str]],
+) -> list[tuple[NormalizedRect, float, str]]:
+    """Suppress overlapping cross-prompt boxes for the same physical item."""
+    selected: list[tuple[NormalizedRect, float, str]] = []
+    for detection in sorted(
+        detections,
+        key=lambda item: item[1],
+        reverse=True,
+    ):
+        if any(
+            _rectangle_iou(detection[0], existing[0]) >= 0.5
+            for existing in selected
+        ):
+            continue
+        selected.append(detection)
+    return selected
+
+
+def _merge_pile_detections(
+    detections: list[tuple[NormalizedRect, float, str]],
+    options: GarbageAnalysisOptions,
+) -> list[tuple[NormalizedRect, float, str]]:
+    """Cluster nearby garbage parts into stable pile-level rectangles."""
+    if not detections:
+        return []
+    remaining = set(range(len(detections)))
+    clusters: list[list[int]] = []
+    while remaining:
+        seed = remaining.pop()
+        cluster = [seed]
+        frontier = [seed]
+        while frontier:
+            current = frontier.pop()
+            neighbours = [
+                index
+                for index in remaining
+                if _rectangle_gap(
+                    detections[current][0],
+                    detections[index][0],
+                ) <= options.pile_merge_distance
+            ]
+            for index in neighbours:
+                remaining.remove(index)
+                cluster.append(index)
+                frontier.append(index)
+        clusters.append(cluster)
+
+    pile_candidates: list[tuple[NormalizedRect, float, int]] = []
+    for cluster in clusters:
+        rectangles = [detections[index][0] for index in cluster]
+        pile_candidates.append(
+            (
+                _union_normalized_rectangles(rectangles),
+                max(detections[index][1] for index in cluster),
+                len(cluster),
+            )
+        )
+
+    # A long irregular pile can contain two dense groups with a sparse gap.
+    # Agglomerate their union rectangles as well, instead of drawing several
+    # small item boxes over what is visibly one continuous accumulation.
+    changed = True
+    while changed:
+        changed = False
+        for left_index in range(len(pile_candidates)):
+            for right_index in range(left_index + 1, len(pile_candidates)):
+                left_item = pile_candidates[left_index]
+                right_item = pile_candidates[right_index]
+                if _rectangle_gap(left_item[0], right_item[0]) > (
+                    options.pile_merge_distance
+                ):
+                    continue
+                pile_candidates[left_index] = (
+                    _union_normalized_rectangles(
+                        [left_item[0], right_item[0]]
+                    ),
+                    max(left_item[1], right_item[1]),
+                    left_item[2] + right_item[2],
+                )
+                pile_candidates.pop(right_index)
+                changed = True
+                break
+            if changed:
+                break
+
+    merged: list[tuple[NormalizedRect, float, str]] = []
+    for rectangle, confidence, detection_count in pile_candidates:
+        if detection_count < options.minimum_pile_detections:
+            continue
+        left = rectangle.left
+        top = rectangle.top
+        right = rectangle.left + rectangle.width
+        bottom = rectangle.top + rectangle.height
+        padding = options.pile_box_padding
+        padded_left = max(left - padding, 0.0)
+        padded_top = max(top - padding, 0.0)
+        padded_right = min(right + padding, 1.0)
+        padded_bottom = min(bottom + padding, 1.0)
+        merged.append(
+            (
+                NormalizedRect(
+                    padded_left,
+                    padded_top,
+                    padded_right - padded_left,
+                    padded_bottom - padded_top,
+                ),
+                confidence,
+                "trash pile",
+            )
+        )
+    return sorted(merged, key=lambda item: item[1], reverse=True)
+
+
+def _union_normalized_rectangles(
+    rectangles: list[NormalizedRect],
+) -> NormalizedRect:
+    left = min(item.left for item in rectangles)
+    top = min(item.top for item in rectangles)
+    right = max(item.left + item.width for item in rectangles)
+    bottom = max(item.top + item.height for item in rectangles)
+    return NormalizedRect(left, top, right - left, bottom - top)
+
+
+def _rectangle_gap(first: NormalizedRect, second: NormalizedRect) -> float:
+    first_right = first.left + first.width
+    second_right = second.left + second.width
+    first_bottom = first.top + first.height
+    second_bottom = second.top + second.height
+    horizontal = max(
+        first.left - second_right,
+        second.left - first_right,
+        0.0,
+    )
+    vertical = max(
+        first.top - second_bottom,
+        second.top - first_bottom,
+        0.0,
+    )
+    return (horizontal * horizontal + vertical * vertical) ** 0.5
+
+
+def _rectangle_iou(first: NormalizedRect, second: NormalizedRect) -> float:
+    left = max(first.left, second.left)
+    top = max(first.top, second.top)
+    right = min(
+        first.left + first.width,
+        second.left + second.width,
+    )
+    bottom = min(
+        first.top + first.height,
+        second.top + second.height,
+    )
+    intersection = max(right - left, 0.0) * max(bottom - top, 0.0)
+    union = (
+        first.width * first.height
+        + second.width * second.height
+        - intersection
+    )
+    return intersection / union if union > 0 else 0.0
+
+
+def _garbage_chinese_label(value: str) -> str:
+    return {
+        "plastic bottle": "塑料瓶",
+        "garbage bag": "垃圾袋",
+        "plastic bag": "塑料袋",
+        "cardboard box": "纸箱",
+        "paper waste": "废纸",
+        "can": "易拉罐",
+        "trash pile": "垃圾堆",
+        "garbage": "垃圾堆",
+        "waste": "垃圾",
+    }.get(value.strip().lower(), value if value.strip() else "垃圾")
+
+
+def _rectangle_contains_point(
+    rectangle: NormalizedRect,
+    point: tuple[float, float],
+) -> bool:
+    return (
+        rectangle.left <= point[0] <= rectangle.left + rectangle.width
+        and rectangle.top <= point[1] <= rectangle.top + rectangle.height
+    )
+
+
+def _garbage_event_overrides_detection(
+    event_overlay: GarbageOverlay,
+    detected_overlay: GarbageOverlay,
+) -> bool:
+    event_rectangle = event_overlay.rectangle
+    detected_rectangle = detected_overlay.rectangle
+    if event_rectangle is None or detected_rectangle is None:
+        return False
+    return (
+        _rectangle_iou(event_rectangle, detected_rectangle) > 0
+        or _rectangle_contains_point(
+            event_rectangle,
+            detected_rectangle.center,
+        )
+        or _rectangle_contains_point(
+            detected_rectangle,
+            event_rectangle.center,
+        )
+    )
+
+
+class GarbageFrameProcessor:
+    """Fuse semantic boxes and background change off the streaming path."""
+
+    def __init__(
+        self,
+        *,
+        policies: dict[int, StreamPolicy],
+        event_engines: dict[int, EventEngine],
+        labels: list[str],
+        evidence_writers: dict[int, EventEvidenceWriter] | None = None,
+        metrics_observer: Any | None = None,
+        overlay_cache: GarbageOverlayCache | None = None,
+        frame_width: int | None = None,
+        frame_height: int | None = None,
+    ) -> None:
+        self._policies = policies
+        self._event_engines = event_engines
+        self._evidence_writers = evidence_writers or {}
+        self._metrics_observer = metrics_observer
+        self._overlay_cache = overlay_cache
+        self._labels = labels
+        self._frame_width = frame_width
+        self._frame_height = frame_height
+        self._background = {
+            (pad_index, roi.roi_id): BackgroundChangeDetector(roi.polygon)
+            for pad_index, policy in policies.items()
+            for roi in policy.event_detection.rois
+            if policy.event_detection.garbage.enabled
+            and policy.event_detection.garbage.background_change_enabled
+            and roi.garbage_enabled
+        }
+        # Semantic detectors occasionally miss a single sampled frame. Keep
+        # the previous non-empty result for a short gap so one flicker cannot
+        # reset a persistence timer or create a false removal event.
+        self._last_semantic: dict[tuple[int, str], GarbageSnapshot] = {}
+        self._semantic_misses: dict[tuple[int, str], int] = {}
+        self._semantic_hold_frames = 3
+
+    def process(
+        self,
+        batch_meta: Any,
+        frames: list[Any],
+    ) -> None:
+        timestamp = time.monotonic()
+        for frame_index, frame_meta in enumerate(batch_meta.frame_items):
+            pad_index = int(frame_meta.pad_index)
+            policy = self._policies.get(pad_index)
+            engine = self._event_engines.get(pad_index)
+            if policy is None or engine is None or frame_index >= len(frames):
+                continue
+            frame_number = int(getattr(frame_meta, "frame_number", 0))
+            started_at = time.perf_counter()
+            frame = _frame_to_small_numpy(frames[frame_index])
+            semantic, actors = _collect_frame_observations(
+                frame_meta,
+                policy,
+                self._labels,
+                timestamp=timestamp,
+                frame_width=self._frame_width,
+                frame_height=self._frame_height,
+            )
+            for roi in policy.event_detection.rois:
+                if not roi.garbage_enabled:
+                    continue
+                detector = self._background.get((pad_index, roi.roi_id))
+                actor_present = any(
+                    _point_in_polygon(
+                        actor.rectangle.bottom_center,
+                        [list(point) for point in roi.polygon],
+                    )
+                    for actor in actors
+                )
+                visual = (
+                    detector.observe(frame, actor_present=actor_present)
+                    if detector is not None
+                    else VisualChange()
+                )
+                semantic_key = (pad_index, roi.roi_id)
+                snapshot = semantic.get(
+                    roi.roi_id,
+                    GarbageSnapshot(
+                        timestamp=timestamp,
+                        frame_number=frame_number,
+                        area_ratio=0.0,
+                    ),
+                )
+                snapshot = self._stabilize_semantic(semantic_key, snapshot)
+                snapshot = GarbageSnapshot(
+                    timestamp=snapshot.timestamp,
+                    frame_number=snapshot.frame_number,
+                    area_ratio=snapshot.area_ratio,
+                    regions=snapshot.regions,
+                    semantic_confidence=snapshot.semantic_confidence,
+                    object_type=snapshot.object_type,
+                    visual_change_ratio=visual.area_ratio,
+                    visual_regions=visual.regions,
+                    detections=snapshot.detections,
+                )
+                if self._overlay_cache is not None:
+                    self._overlay_cache.update(
+                        pad_index=pad_index,
+                        roi_id=roi.roi_id,
+                        snapshot=snapshot,
+                    )
+                result = engine.observe_garbage(
+                    roi_id=roi.roi_id,
+                    snapshot=snapshot,
+                )
+                if result.events:
+                    writer = self._evidence_writers.get(pad_index)
+                    if writer is not None:
+                        writer.attach_snapshots(result.events, frame)
+                    if detector is not None:
+                        detector.commit(frame)
+            if self._metrics_observer is not None:
+                self._metrics_observer(
+                    policy.stream_id,
+                    (time.perf_counter() - started_at) * 1_000,
+                )
+
+    def _stabilize_semantic(
+        self,
+        key: tuple[int, str],
+        snapshot: GarbageSnapshot,
+    ) -> GarbageSnapshot:
+        if snapshot.regions:
+            self._last_semantic[key] = snapshot
+            self._semantic_misses[key] = 0
+            return snapshot
+        misses = self._semantic_misses.get(key, 0) + 1
+        self._semantic_misses[key] = misses
+        previous = self._last_semantic.get(key)
+        if previous is None or misses > self._semantic_hold_frames:
+            self._last_semantic.pop(key, None)
+            return snapshot
+        return GarbageSnapshot(
+            timestamp=snapshot.timestamp,
+            frame_number=snapshot.frame_number,
+            area_ratio=previous.area_ratio,
+            regions=previous.regions,
+            semantic_confidence=previous.semantic_confidence,
+            object_type=previous.object_type,
+            detections=previous.detections,
+        )
+
+def _frame_to_small_numpy(value: Any) -> Any:
+    """Copy a ServiceMaker analysis surface into a NumPy-compatible frame."""
+    import numpy as np
+
+    if isinstance(value, np.ndarray):
+        return value
+    try:
+        # CPU-compatible tensors can go directly through NumPy.
+        return np.from_dlpack(value.clone())
+    except (AttributeError, BufferError, RuntimeError, TypeError):
+        # DeepStream 8's Triton image already includes CuPy. It consumes CUDA
+        # DLPack directly and performs the explicit device-to-host copy,
+        # avoiding a large PyTorch dependency for a 640x360/3 FPS side path.
+        import cupy
+
+        return cupy.asnumpy(cupy.from_dlpack(value.clone()))
 
 
 @dataclass(slots=True)
@@ -885,6 +1874,9 @@ def _load_policies(config: dict[str, Any]) -> dict[int, StreamPolicy]:
                     2,
                 )
             ),
+            event_detection=EventDetectionOptions.from_payload(
+                stream.get("event_detection")
+            ),
         )
         for pad_index, stream in enumerate(config["streams"])
     }
@@ -895,12 +1887,15 @@ def _add_pipeline_nodes(
     config: dict[str, Any],
     inference_config_path: Path,
     latency_probe: Any,
-    overlay_probe: Any,
+    overlay_probe_factory: Any,
     plate_metadata_probe: Any,
     pre_encode_probe_factory: Any,
     publish_probe_factory: Any,
     lpd_config_path: Path | None = None,
     lpr_config_path: Path | None = None,
+    garbage_config_path: Path | None = None,
+    garbage_receiver: Any | None = None,
+    garbage_skip_probe: Any | None = None,
 ) -> None:
     gpu_id = int(config["gpu_id"])
     pipeline.add(
@@ -937,7 +1932,19 @@ def _add_pipeline_nodes(
     pipeline.add(
         "queue",
         "pre_infer",
-        {"max-size-buffers": 2, "leaky": 2},
+        {
+            # Public RTSP sources can pause briefly and then deliver a burst
+            # of correctly timestamped frames.  Dropping that burst here
+            # turns recoverable network jitter into permanently missing
+            # output frames (visible as rhythmic stutter).  The GPU is fast
+            # enough to drain this bounded queue after the source recovers;
+            # keeping the frames trades a short, bounded latency increase for
+            # continuous video and tracker/overlay alignment.
+            "max-size-buffers": 75,
+            "max-size-bytes": 0,
+            "max-size-time": 0,
+            "leaky": 0,
+        },
     )
     pipeline.add(
         "nvinfer",
@@ -999,12 +2006,75 @@ def _add_pipeline_nodes(
         "rgba_caps",
         {"caps": "video/x-raw(memory:NVMM), format=RGBA"},
     )
-    pipeline.add(
-        "nvdsosd",
-        "osd",
-        {"gpu-id": gpu_id, "process-mode": 1},
-    )
     pipeline.add("nvstreamdemux", "demux")
+    garbage_enabled = bool(
+        config.get("garbage", {}).get("enabled", False)
+    )
+    if garbage_enabled:
+        if (
+            garbage_config_path is None
+            or garbage_receiver is None
+            or garbage_skip_probe is None
+        ):
+            raise RuntimeError("垃圾识别已启用但缺少推理配置或旁路组件")
+        pipeline.add("tee", "analytics_tee")
+        pipeline.add(
+            "queue",
+            "analytics_main_queue",
+            {
+                "max-size-buffers": 2,
+                "max-size-bytes": 0,
+                "max-size-time": 0,
+                "leaky": 0,
+            },
+        )
+        pipeline.add(
+            "queue",
+            "garbage_queue",
+            {
+                "max-size-buffers": 1,
+                "max-size-bytes": 0,
+                "max-size-time": 0,
+                "leaky": 2,
+            },
+        )
+        pipeline.add(
+            "nvinfer",
+            "garbage_infer",
+            {
+                "config-file-path": str(garbage_config_path),
+                "batch-size": int(config["batch_size"]),
+            },
+        )
+        pipeline.add(
+            "nvvideoconvert",
+            "garbage_convert",
+            {"gpu-id": gpu_id},
+        )
+        pipeline.add(
+            "capsfilter",
+            "garbage_rgba_caps",
+            {
+                # ServiceMaker Buffer.extract() requires NvBufSurface. Keep
+                # the scaled thumbnail in NVMM and copy it through DLPack
+                # only inside the lossy receiver thread.
+                "caps": (
+                    "video/x-raw(memory:NVMM), format=RGB, "
+                    "width=640, height=360"
+                )
+            },
+        )
+        pipeline.add(
+            "appsink",
+            "garbage_sink",
+            {
+                "sync": False,
+                "async": False,
+                "max-buffers": 1,
+                "drop": True,
+                "emit-signals": True,
+            },
+        )
     analytics_nodes = ["mux", "pre_infer", "primary_infer"]
     if license_plate_enabled:
         analytics_nodes.extend(
@@ -1014,22 +2084,47 @@ def _add_pipeline_nodes(
         analytics_nodes.append("tracker")
     if license_plate_enabled:
         analytics_nodes.append("license_plate_recognizer")
-    analytics_nodes.extend(("osd_convert", "rgba_caps", "osd", "demux"))
-    pipeline.link(*analytics_nodes)
+    if garbage_enabled:
+        analytics_nodes.append("analytics_tee")
+        pipeline.link(*analytics_nodes)
+        pipeline.link(
+            ("analytics_tee", "analytics_main_queue"),
+            ("src_%u", ""),
+        )
+        pipeline.link(
+            "analytics_main_queue",
+            "osd_convert",
+            "rgba_caps",
+            "demux",
+        )
+        pipeline.link(
+            ("analytics_tee", "garbage_queue"),
+            ("src_%u", ""),
+        )
+        pipeline.link(
+            "garbage_queue",
+            "garbage_infer",
+            "garbage_convert",
+            "garbage_rgba_caps",
+            "garbage_sink",
+        )
+        pipeline.attach("garbage_queue", garbage_skip_probe)
+        pipeline.attach(
+            "garbage_sink",
+            garbage_receiver,
+            tips="new-sample",
+        )
+    else:
+        analytics_nodes.extend(("osd_convert", "rgba_caps", "demux"))
+        pipeline.link(*analytics_nodes)
     if license_plate_enabled:
         pipeline.attach("license_plate_detector", plate_metadata_probe)
-    pipeline.attach(
-        (
-            "license_plate_recognizer"
-            if license_plate_enabled
-            else "tracker"
-        ),
-        overlay_probe,
-    )
     pipeline.attach("pre_infer", latency_probe)
 
     for index, stream in enumerate(config["streams"]):
         queue = f"publish_queue_{index}"
+        overlay_anchor = f"overlay_anchor_{index}"
+        osd_element = f"osd_{index}"
         convert = f"publish_convert_{index}"
         caps = f"publish_caps_{index}"
         encoder = f"encoder_{index}"
@@ -1037,6 +2132,11 @@ def _add_pipeline_nodes(
         parser_caps = f"parser_caps_{index}"
         clock_sync = f"publish_clock_{index}"
         sink = f"rtsp_sink_{index}"
+        pipeline.add(
+            "identity",
+            overlay_anchor,
+            {"silent": True},
+        )
         pipeline.add(
             "queue",
             queue,
@@ -1050,6 +2150,11 @@ def _add_pipeline_nodes(
                 "max-size-time": 0,
                 "leaky": 0,
             },
+        )
+        pipeline.add(
+            "nvdsosd",
+            osd_element,
+            {"gpu-id": gpu_id, "process-mode": 1},
         )
         pipeline.add("nvvideoconvert", convert, {"gpu-id": gpu_id})
         pipeline.add(
@@ -1095,11 +2200,13 @@ def _add_pipeline_nodes(
             "clocksync",
             clock_sync,
             {
-                # rtspclientsink is a bin rather than a clock-synchronising
-                # GstBaseSink. Pace encoded access units from their PTS so
-                # inference batching cannot publish them in bursts.
-                "sync": True,
-                "sync-to-first": True,
+                # Do not clock-throttle encoded buffers here. Public RTSP
+                # sources sometimes repeat or jump timestamps; synchronising
+                # after the encoder back-pressures the entire inference path
+                # and permanently loses otherwise valid catch-up frames.
+                # RTP timestamps remain intact, so players can pace display
+                # using their own jitter buffer without server-side loss.
+                "sync": False,
             },
         )
         pipeline.add(
@@ -1116,8 +2223,10 @@ def _add_pipeline_nodes(
         # concrete pad name (for example ``src_0``) makes its caps lookup fail
         # before the pipeline starts. Repeated requests are allocated as
         # src_0, src_1, ... in the same order as the streams above.
-        pipeline.link(("demux", queue), ("src_%u", ""))
+        pipeline.link(("demux", overlay_anchor), ("src_%u", ""))
         pipeline.link(
+            overlay_anchor,
+            osd_element,
             queue,
             convert,
             caps,
@@ -1130,6 +2239,10 @@ def _add_pipeline_nodes(
         # internally. Feeding an already-payloaded application/x-rtp stream is
         # incompatible, and its sink is an on-request pad.
         pipeline.link((clock_sync, sink), ("", "sink_%u"))
+        pipeline.attach(
+            overlay_anchor,
+            overlay_probe_factory(index),
+        )
         pipeline.attach(
             queue,
             pre_encode_probe_factory(index),
@@ -1159,14 +2272,25 @@ def run(config_path: Path) -> None:
 
     from pyservicemaker import (
         BatchMetadataOperator,
+        BufferRetriever,
         BufferOperator,
         Pipeline,
         Probe,
+        Receiver,
         osd,
     )
 
     inference_config_path = config_path.with_name("nvinfer.txt")
     build_inference_config(config, inference_config_path)
+    tracker_config_path = config_path.with_name("tracker.yml")
+    build_tracker_config(
+        Path(config["tracker_config"]),
+        tracker_config_path,
+        max_shadow_tracking_age=int(
+            config.get("tracker_max_shadow_tracking_age", 15)
+        ),
+    )
+    config["tracker_config"] = str(tracker_config_path)
     lpd_config_path: Path | None = None
     lpr_config_path: Path | None = None
     if config.get("license_plate", {}).get("enabled", False):
@@ -1177,7 +2301,39 @@ def run(config_path: Path) -> None:
         os.environ["LPR_DICT_PATH"] = config["license_plate"][
             "dictionary_path"
         ]
+    garbage_config_path: Path | None = None
+    garbage_labels: list[str] = []
+    if config.get("garbage", {}).get("enabled", False):
+        garbage_config_path = config_path.with_name("garbage_nvinfer.txt")
+        build_garbage_config(config, garbage_config_path)
+        garbage_labels = [
+            item.strip()
+            for item in Path(config["garbage"]["labels_path"])
+            .read_text(encoding="utf-8")
+            .splitlines()
+            if item.strip()
+        ]
     policies = _load_policies(config)
+    event_engines: dict[int, EventEngine] = {}
+    evidence_writers: dict[int, EventEvidenceWriter] = {}
+    webhook_dispatchers: list[WebhookDispatcher] = []
+    for pad_index, stream in enumerate(streams):
+        options = policies[pad_index].event_detection
+        if not options.enabled:
+            continue
+        repository = EventRepository(Path(stream["event_root"]))
+        evidence_writers[pad_index] = EventEvidenceWriter(repository)
+        dispatcher = WebhookDispatcher(
+            options.webhook,
+            repository=repository,
+        )
+        webhook_dispatchers.append(dispatcher)
+        event_engines[pad_index] = EventEngine(
+            stream_id=stream["stream_id"],
+            options=options,
+            on_event=dispatcher.enqueue,
+        )
+    garbage_overlay_cache = GarbageOverlayCache()
     metrics = MetricsState(
         stream_ids=[item["stream_id"] for item in streams],
         metrics_path=Path(config["metrics_path"]),
@@ -1207,6 +2363,10 @@ def run(config_path: Path) -> None:
                 policies,
                 metrics,
                 latency_tracker,
+                event_engines,
+                garbage_overlay_cache,
+                frame_width=int(config["mux_width"]),
+                frame_height=int(config["mux_height"]),
             )
 
         def handle_metadata(self, batch_meta: Any) -> None:
@@ -1245,16 +2405,79 @@ def run(config_path: Path) -> None:
             ):
                 LOGGER.warning("LPD诊断: components=%s", components)
 
+    class GarbageFrames(BufferRetriever):
+        def __init__(self) -> None:
+            super().__init__()
+            self._processor = GarbageFrameProcessor(
+                policies=policies,
+                event_engines=event_engines,
+                labels=garbage_labels,
+                evidence_writers=evidence_writers,
+                metrics_observer=metrics.observe_garbage_analysis,
+                overlay_cache=garbage_overlay_cache,
+                # garbage_rgba_caps scales this lossy side branch to 640x360,
+                # and metadata rectangles are transformed to the same space.
+                frame_width=640,
+                frame_height=360,
+            )
+
+        def consume(self, buffer: Any) -> int:
+            try:
+                frames = [
+                    buffer.extract(index)
+                    for index in range(int(buffer.batch_size))
+                ]
+                self._processor.process(buffer.batch_meta, frames)
+            except Exception:
+                # This receiver owns a lossy side branch. A bad analysis frame
+                # must never terminate or stall the primary RTSP pipeline.
+                LOGGER.exception("垃圾背景分析失败，已跳过当前帧")
+            # DeepStream 8's BufferRetriever binding expects an integer
+            # return. Returning None raises a pybind11 cast_error even when a
+            # lossy frame error was handled above.
+            return 1
+
+    class GarbageIntervalSkipper(BufferOperator):
+        def __init__(self, analysis_fps: float) -> None:
+            super().__init__()
+            self._period = 1.0 / max(float(analysis_fps), 0.1)
+            self._next_due = 0.0
+
+        def handle_buffer(self, _buffer: Any) -> bool:
+            now = time.monotonic()
+            if now < self._next_due:
+                return False
+            self._next_due = now + self._period
+            return True
+
     pipeline = Pipeline(f"rtsp-yolo-{config['group_id'][:8]}")
     references: list[Any] = []
     latency_probe = Probe("latency_start", LatencyStart())
-    overlay_probe = Probe("overlay", OverlayOperator())
     plate_metadata_probe = Probe(
         "plate_metadata",
         LicensePlateMetadata(),
     )
-    references.extend((latency_probe, overlay_probe))
+    garbage_receiver = (
+        Receiver("garbage_frames", GarbageFrames())
+        if garbage_config_path is not None
+        else None
+    )
+    garbage_skip_probe = (
+        Probe(
+            "garbage_interval",
+            GarbageIntervalSkipper(
+                float(config.get("garbage", {}).get("analysis_fps", 3.0))
+            ),
+        )
+        if garbage_config_path is not None
+        else None
+    )
+    references.append(latency_probe)
     references.append(plate_metadata_probe)
+    if garbage_receiver is not None:
+        references.append(garbage_receiver)
+    if garbage_skip_probe is not None:
+        references.append(garbage_skip_probe)
 
     def counter_probe(
         name: str,
@@ -1275,6 +2498,11 @@ def run(config_path: Path) -> None:
             metrics.observe_pre_encode,
         )
 
+    def overlay_probe_factory(index: int) -> Any:
+        probe = Probe(f"overlay_{index}", OverlayOperator())
+        references.append(probe)
+        return probe
+
     def publish_probe_factory(index: int) -> Any:
         return counter_probe(
             "publish_counter",
@@ -1287,12 +2515,15 @@ def run(config_path: Path) -> None:
         config,
         inference_config_path,
         latency_probe,
-        overlay_probe,
+        overlay_probe_factory,
         plate_metadata_probe,
         pre_encode_probe_factory,
         publish_probe_factory,
         lpd_config_path,
         lpr_config_path,
+        garbage_config_path,
+        garbage_receiver,
+        garbage_skip_probe,
     )
     stopped = threading.Event()
 
@@ -1312,7 +2543,11 @@ def run(config_path: Path) -> None:
         "cached" if engine_exists else "building",
         "night" if night_vision_enabled else "day",
     )
-    pipeline.start().wait()
+    try:
+        pipeline.start().wait()
+    finally:
+        for dispatcher in webhook_dispatchers:
+            dispatcher.shutdown()
 
 
 def main(argv: list[str] | None = None) -> None:

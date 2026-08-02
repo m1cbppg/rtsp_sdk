@@ -3,6 +3,7 @@ set -euo pipefail
 
 script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 project_dir="$(cd -- "$script_dir/.." && pwd)"
+python_path="${PYTHON_PATH:-$project_dir/.venv/bin/python}"
 output_path="${1:-$project_dir/dist/rtsp-yolo-deepstream8-amd64.zip}"
 image_name="rtsp-yolo-annotator:deepstream8-amd64"
 base_cache_image="rtsp-yolo-annotator:deepstream8-amd64-base-cache"
@@ -11,6 +12,10 @@ reuse_existing_image="${REUSE_EXISTING_IMAGE:-0}"
 
 if ! command -v docker >/dev/null 2>&1; then
     echo "错误：找不到docker，请先启动Docker Desktop。" >&2
+    exit 1
+fi
+if [[ ! -x "$python_path" ]]; then
+    echo "错误：找不到Python：$python_path" >&2
     exit 1
 fi
 
@@ -63,7 +68,7 @@ if [[ "$annotator_arch" != "amd64" || "$mediamtx_arch" != "amd64" ]]; then
 fi
 
 echo "流式导出并压缩离线镜像（只占用一份压缩结果空间）..."
-python3 "$script_dir/package_deepstream_bundle.py" \
+"$python_path" "$script_dir/package_deepstream_bundle.py" \
     --project-dir "$project_dir" \
     --output "$output_path" \
     --image "$image_name" \

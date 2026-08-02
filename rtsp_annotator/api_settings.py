@@ -62,13 +62,18 @@ class DeepStreamConfig(StrictConfigModel):
         "/opt/nvidia/deepstream/deepstream/samples/configs/"
         "deepstream-app/config_tracker_NvDCF_perf.yml"
     )
+    tracker_max_shadow_tracking_age: int = Field(
+        default=15,
+        ge=1,
+        le=200,
+    )
     gpu_id: int = Field(default=0, ge=0)
     streams_per_group: int = Field(default=2, ge=1, le=2)
     model_input_size: int = Field(default=640, ge=32, le=2048)
     mux_width: int = Field(default=1920, ge=64, le=7680)
     mux_height: int = Field(default=1080, ge=64, le=4320)
     batch_push_timeout_us: int = Field(default=20000, ge=1000, le=1000000)
-    source_latency_ms: int = Field(default=100, ge=0, le=5000)
+    source_latency_ms: int = Field(default=300, ge=0, le=5000)
     encoder_iframe_interval: int = Field(default=25, ge=1, le=600)
     stats_interval_seconds: float = Field(default=5.0, ge=1, le=60)
     minimum_healthy_fps: float = Field(default=20.0, ge=1, le=120)
@@ -80,6 +85,23 @@ class DeepStreamConfig(StrictConfigModel):
     )
     lpr_detector_batch_size: int = Field(default=16, ge=1, le=64)
     lpr_recognizer_batch_size: int = Field(default=16, ge=1, le=64)
+    garbage_onnx_path: Path = Path(
+        "/app/models/events/yolo_world_garbage.onnx"
+    )
+    garbage_labels_path: Path = Path(
+        "/app/models/events/yolo_world_garbage.labels.txt"
+    )
+    garbage_pile_onnx_path: Path = Path(
+        "/app/models/events/street_garbage_pile.onnx"
+    )
+    garbage_pile_labels_path: Path = Path(
+        "/app/models/events/street_garbage_pile.labels.txt"
+    )
+    garbage_parser_library: Path = Path(
+        "/opt/nvidia/deepstream/deepstream/lib/"
+        "libnvdsinfer_custom_impl_Yolo.so"
+    )
+    garbage_input_size: int = Field(default=640, ge=320, le=1280)
 
 
 class OutputConfig(StrictConfigModel):
@@ -92,6 +114,10 @@ class LabelsConfig(StrictConfigModel):
     font_file: Path | None = None
 
 
+class EventsConfig(StrictConfigModel):
+    storage_root: Path = Path("data/events")
+
+
 class AppConfig(StrictConfigModel):
     api: ApiServerConfig
     models: ModelsConfig
@@ -100,6 +126,7 @@ class AppConfig(StrictConfigModel):
     deepstream: DeepStreamConfig = Field(default_factory=DeepStreamConfig)
     output: OutputConfig = Field(default_factory=OutputConfig)
     labels: LabelsConfig = Field(default_factory=LabelsConfig)
+    events: EventsConfig = Field(default_factory=EventsConfig)
 
     def to_manager_settings(self) -> ManagerSettings:
         return ManagerSettings(
@@ -142,6 +169,9 @@ class AppConfig(StrictConfigModel):
             parser_library=self.deepstream.parser_library.expanduser(),
             tracker_library=self.deepstream.tracker_library.expanduser(),
             tracker_config=self.deepstream.tracker_config.expanduser(),
+            tracker_max_shadow_tracking_age=(
+                self.deepstream.tracker_max_shadow_tracking_age
+            ),
             gpu_id=self.deepstream.gpu_id,
             streams_per_group=self.deepstream.streams_per_group,
             model_input_size=self.deepstream.model_input_size,
@@ -167,6 +197,21 @@ class AppConfig(StrictConfigModel):
             lpr_recognizer_batch_size=(
                 self.deepstream.lpr_recognizer_batch_size
             ),
+            event_root=self.events.storage_root.expanduser().resolve(),
+            garbage_onnx_path=self.deepstream.garbage_onnx_path.expanduser(),
+            garbage_labels_path=(
+                self.deepstream.garbage_labels_path.expanduser()
+            ),
+            garbage_pile_onnx_path=(
+                self.deepstream.garbage_pile_onnx_path.expanduser()
+            ),
+            garbage_pile_labels_path=(
+                self.deepstream.garbage_pile_labels_path.expanduser()
+            ),
+            garbage_parser_library=(
+                self.deepstream.garbage_parser_library.expanduser()
+            ),
+            garbage_input_size=self.deepstream.garbage_input_size,
         )
 
 

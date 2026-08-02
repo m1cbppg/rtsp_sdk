@@ -1,0 +1,17 @@
+ARG BASE_IMAGE=rtsp-yolo-annotator:deepstream8-amd64
+FROM ${BASE_IMAGE}
+
+WORKDIR /app
+
+# This image is intentionally incremental: reuse the already validated
+# DeepStream/CUDA/LPR runtime and replace only application code plus the
+# dedicated street-garbage-pile detector.
+COPY rtsp_annotator ./rtsp_annotator
+COPY models/events/street_garbage_pile.onnx ./models/events/street_garbage_pile.onnx
+COPY models/events/street_garbage_pile.labels.txt ./models/events/street_garbage_pile.labels.txt
+
+RUN python3 -m compileall -q /app/rtsp_annotator \
+    && test -s /app/models/events/street_garbage_pile.onnx \
+    && test -s /app/models/events/street_garbage_pile.labels.txt
+
+CMD ["python3", "-m", "rtsp_annotator.api", "--config", "/app/config/api.json"]

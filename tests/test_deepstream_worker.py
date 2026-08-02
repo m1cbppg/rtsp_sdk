@@ -2,21 +2,43 @@ from __future__ import annotations
 
 import json
 import tempfile
+import time
 import unittest
 from pathlib import Path
 from types import SimpleNamespace
 
+import numpy as np
+
+from rtsp_annotator.event_engine import (
+    ActorOverlay,
+    EventEngineResult,
+    GarbageDetection,
+    GarbageOverlay,
+    GarbageSnapshot,
+    NormalizedRect,
+)
+from rtsp_annotator.events import (
+    EventDetectionOptions,
+    EventRoiOptions,
+    GarbageAnalysisOptions,
+)
 from rtsp_annotator.deepstream_worker import (
+    GarbageOverlayCache,
     MetricsState,
+    GarbageFrameProcessor,
+    GarbageMetadataProcessor,
     OverlayProcessor,
     PlateIdentityTracker,
     StreamPolicy,
     InferenceLatencyTracker,
     _add_pipeline_nodes,
+    _merge_pile_detections,
     _point_in_polygon,
     build_inference_config,
+    build_garbage_config,
     build_lpd_config,
     build_lpr_config,
+    build_tracker_config,
 )
 
 
@@ -35,12 +57,26 @@ class FakeLine:
     pass
 
 
+class FakeText:
+    def __init__(self) -> None:
+        self.display_text = b""
+        self.x_offset = 0
+        self.y_offset = 0
+        self.font = SimpleNamespace(name=None, size=0, color=None)
+        self.set_bg_color = False
+        self.bg_color = None
+
+
 class FakeDisplayMeta:
     def __init__(self) -> None:
         self.lines: list[FakeLine] = []
+        self.texts: list[FakeText] = []
 
     def add_line(self, line: FakeLine) -> None:
         self.lines.append(line)
+
+    def add_text(self, text: FakeText) -> None:
+        self.texts.append(text)
 
 
 class FakeBatch:
@@ -97,6 +133,478 @@ def fake_object(
 
 
 class DeepStreamWorkerTests(unittest.TestCase):
+    def test_pile_mode_clusters_parts_and_ignores_isolated_false_box(self) -> None:
+        options = GarbageAnalysisOptions(
+            enabled=True,
+            detection_mode="pile",
+            minimum_pile_detections=2,
+            pile_merge_distance=0.18,
+            pile_box_padding=0.04,
+        )
+        detections = [
+            (NormalizedRect(0.40, 0.25, 0.05, 0.05), 0.55, "trash pile"),
+            (NormalizedRect(0.50, 0.34, 0.06, 0.06), 0.45, "trash pile"),
+            (NormalizedRect(0.62, 0.48, 0.07, 0.08), 0.40, "trash pile"),
+            (NormalizedRect(0.90, 0.10, 0.03, 0.03), 0.35, "trash pile"),
+        ]
+
+        merged = _merge_pile_detections(detections, options)
+
+        self.assertEqual(len(merged), 1)
+        rectangle, confidence, label = merged[0]
+        self.assertAlmostEqual(rectangle.left, 0.36)
+        self.assertAlmostEqual(rectangle.top, 0.21)
+        self.assertAlmostEqual(rectangle.width, 0.37)
+        self.assertAlmostEqual(rectangle.height, 0.39)
+        self.assertEqual(confidence, 0.55)
+        self.assertEqual(label, "trash pile")
+
+    def test_garbage_inference_config_is_low_rate(self) -> None:
+        config = {
+            "gpu_id": 0,
+            "batch_size": 1,
+            "night_vision": {"enabled": False},
+            "garbage": {
+                "onnx_path": "/models/events/garbage.onnx",
+                "engine_path": "/engines/garbage.engine",
+                "labels_path": "/models/events/garbage.labels.txt",
+                "parser_library": "/lib/yolo.so",
+                "label_count": 8,
+            },
+            "streams": [
+                {
+                    "event_detection": {
+                        "garbage": {
+                            "enabled": True,
+                            "analysis_fps": 3,
+                            "minimum_confidence": 0.35,
+                        }
+                    }
+                }
+            ],
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "garbage.txt"
+            build_garbage_config(config, path)
+            content = path.read_text(encoding="utf-8")
+
+        self.assertIn("interval=0", content)
+        self.assertIn("gie-unique-id=4", content)
+        self.assertIn("cluster-mode=2", content)
+        self.assertIn("nms-iou-threshold=0.45", content)
+        self.assertIn("pre-cluster-threshold=0.35000000", content)
+
+    def test_garbage_semantic_result_survives_short_detector_flicker(self) -> None:
+        processor = GarbageFrameProcessor(
+            policies={},
+            event_engines={},
+            labels=[],
+        )
+        key = (0, "entrance")
+        detected = GarbageSnapshot(
+            timestamp=1,
+            frame_number=1,
+            area_ratio=0.02,
+            regions=(NormalizedRect(0.2, 0.3, 0.1, 0.2),),
+            semantic_confidence=0.8,
+            object_type="plastic bottle",
+            detections=(
+                GarbageDetection(
+                    rectangle=NormalizedRect(0.2, 0.3, 0.1, 0.2),
+                    object_type="plastic bottle",
+                    confidence=0.8,
+                ),
+            ),
+        )
+        empty = GarbageSnapshot(
+            timestamp=2,
+            frame_number=2,
+            area_ratio=0.0,
+        )
+
+        processor._stabilize_semantic(key, detected)
+        held = processor._stabilize_semantic(key, empty)
+        processor._stabilize_semantic(key, empty)
+        processor._stabilize_semantic(key, empty)
+        expired = processor._stabilize_semantic(key, empty)
+
+        self.assertEqual(held.regions, detected.regions)
+        self.assertEqual(held.detections, detected.detections)
+        self.assertEqual(held.timestamp, empty.timestamp)
+        self.assertEqual(expired.regions, ())
+
+    def test_garbage_overlay_cache_translates_limits_and_expires(self) -> None:
+        cache = GarbageOverlayCache()
+        cache.update(
+            pad_index=0,
+            roi_id="entrance",
+            snapshot=GarbageSnapshot(
+                timestamp=10,
+                frame_number=1,
+                area_ratio=0.03,
+                detections=(
+                    GarbageDetection(
+                        NormalizedRect(0.1, 0.2, 0.1, 0.1),
+                        "trash pile",
+                        0.9,
+                    ),
+                    GarbageDetection(
+                        NormalizedRect(0.6, 0.2, 0.1, 0.1),
+                        "plastic bottle",
+                        0.8,
+                    ),
+                ),
+            ),
+        )
+        options = GarbageAnalysisOptions(
+            enabled=True,
+            display_hold_seconds=1,
+            maximum_display_boxes=1,
+        )
+
+        active = cache.overlays(
+            pad_index=0,
+            options=options,
+            timestamp=10.5,
+        )
+        expired = cache.overlays(
+            pad_index=0,
+            options=options,
+            timestamp=11.1,
+        )
+
+        self.assertEqual(len(active), 1)
+        self.assertEqual(active[0].label, "垃圾：垃圾堆")
+        self.assertEqual(active[0].state, "detected")
+        self.assertEqual(expired, [])
+
+    def test_garbage_analysis_accepts_primary_actor_inside_roi(self) -> None:
+        options = EventDetectionOptions(
+            enabled=True,
+            rois=(
+                EventRoiOptions(
+                    roi_id="entrance",
+                    polygon=((0.0, 0.0), (1.0, 0.0), (1.0, 1.0), (0.0, 1.0)),
+                ),
+            ),
+            garbage=GarbageAnalysisOptions(enabled=True),
+        )
+        policy = StreamPolicy(
+            stream_id="stream-1",
+            classes=None,
+            conf=0.25,
+            roi=None,
+            labels={0: "人员"},
+            event_detection=options,
+        )
+        actor = fake_object(0, 0.9)
+        actor.object_id = 7
+        observed: list[object] = []
+        def observe_garbage(**kwargs: object) -> EventEngineResult:
+            observed.append(kwargs["snapshot"])
+            return EventEngineResult()
+
+        engine = SimpleNamespace(observe_garbage=observe_garbage)
+        frame = FakeFrame([actor])
+        frame.pipeline_width = 0
+        frame.pipeline_height = 0
+        frame.object_items = iter(frame.object_items)
+
+        processor = GarbageFrameProcessor(
+            policies={0: policy},
+            event_engines={0: engine},
+            labels=[],
+            frame_width=1000,
+            frame_height=500,
+        )
+        processor.process(
+            FakeBatch([frame]),
+            [np.zeros((90, 160, 3), dtype=np.uint8)],
+        )
+
+        self.assertEqual(len(observed), 1)
+        self.assertIsNone(processor._background[(0, "entrance")]._baseline)
+
+    def test_event_overlay_is_applied_per_tracked_actor(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            metrics = MetricsState(
+                stream_ids=["stream-1"],
+                metrics_path=Path(directory) / "metrics.json",
+                interval_seconds=60,
+                minimum_healthy_fps=20,
+                group_id="group",
+                generation=1,
+            )
+            event_options = EventDetectionOptions(
+                enabled=True,
+                rois=(
+                    EventRoiOptions(
+                        roi_id="entrance",
+                        polygon=(
+                            (0.05, 0.05),
+                            (0.5, 0.05),
+                            (0.5, 0.8),
+                            (0.05, 0.8),
+                        ),
+                    ),
+                ),
+            )
+            policy = StreamPolicy(
+                stream_id="stream-1",
+                classes=frozenset({0}),
+                conf=0.25,
+                roi=None,
+                labels={0: "人员"},
+                event_detection=event_options,
+            )
+            tracked = fake_object(0, 0.9)
+            tracked.object_id = 91
+            engine = SimpleNamespace(
+                observe_tracks=lambda **_kwargs: EventEngineResult(
+                    actor_overlays=[
+                        ActorOverlay(
+                            track_id=91,
+                            roi_id="entrance",
+                            label="人员区域停留 20秒",
+                            state="confirmed",
+                            elapsed_seconds=20,
+                        )
+                    ]
+                )
+            )
+            frame = FakeFrame([tracked])
+            fake_osd = SimpleNamespace(
+                Color=FakeColor,
+                Line=FakeLine,
+                Text=FakeText,
+                FontFamily=SimpleNamespace(Serif="serif"),
+            )
+
+            OverlayProcessor(
+                {0: policy},
+                metrics,
+                event_engines={0: engine},
+            ).process(FakeBatch([frame]), fake_osd)
+
+        self.assertEqual(
+            tracked.text_params.display_text,
+            "人员".encode(),
+        )
+        self.assertEqual(tracked.rect_params.border_width, 3)
+        self.assertEqual(len(frame.display_meta[0].lines), 4)
+        self.assertEqual(
+            frame.display_meta[0].texts[0].display_text,
+            "人员区域停留 20秒".encode(),
+        )
+
+    def test_confirmed_garbage_is_drawn_in_red_without_confidence(self) -> None:
+        frame = FakeFrame([])
+        batch = FakeBatch([frame])
+        overlay = GarbageOverlay(
+            roi_id="entrance",
+            rectangle=NormalizedRect(0.2, 0.3, 0.1, 0.2),
+            label="疑似乱丢垃圾",
+            state="confirmed",
+            elapsed_seconds=15,
+        )
+        fake_osd = SimpleNamespace(
+            Color=FakeColor,
+            Line=FakeLine,
+            Text=FakeText,
+            FontFamily=SimpleNamespace(Serif="serif"),
+        )
+
+        OverlayProcessor._draw_event_overlay(
+            batch,
+            frame,
+            overlay,
+            fake_osd,
+            0,
+        )
+
+        self.assertEqual(len(frame.display_meta[0].lines), 4)
+        self.assertEqual(
+            frame.display_meta[0].texts[0].display_text,
+            "疑似乱丢垃圾".encode(),
+        )
+        self.assertNotIn(b"0.", frame.display_meta[0].texts[0].display_text)
+
+    def test_detected_garbage_is_drawn_in_green(self) -> None:
+        frame = FakeFrame([])
+        overlay = GarbageOverlay(
+            roi_id="entrance",
+            rectangle=NormalizedRect(0.2, 0.3, 0.1, 0.2),
+            label="垃圾：垃圾堆",
+            state="detected",
+            elapsed_seconds=0,
+        )
+        fake_osd = SimpleNamespace(
+            Color=FakeColor,
+            Line=FakeLine,
+            Text=FakeText,
+            FontFamily=SimpleNamespace(Serif="serif"),
+        )
+
+        OverlayProcessor._draw_event_overlay(
+            FakeBatch([frame]),
+            frame,
+            overlay,
+            fake_osd,
+            0,
+        )
+
+        self.assertEqual(
+            frame.display_meta[0].lines[0].color,
+            (0.0, 0.75, 0.2, 1.0),
+        )
+        self.assertEqual(
+            frame.display_meta[0].texts[0].display_text,
+            "垃圾：垃圾堆".encode(),
+        )
+
+    def test_event_garbage_overlay_replaces_normal_detection_box(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            metrics = MetricsState(
+                stream_ids=["stream-1"],
+                metrics_path=Path(directory) / "metrics.json",
+                interval_seconds=60,
+                minimum_healthy_fps=20,
+                group_id="group",
+                generation=1,
+            )
+            options = EventDetectionOptions(
+                enabled=True,
+                rois=(
+                    EventRoiOptions(
+                        roi_id="entrance",
+                        polygon=((0, 0), (1, 0), (1, 1), (0, 1)),
+                    ),
+                ),
+                garbage=GarbageAnalysisOptions(enabled=True),
+            )
+            policy = StreamPolicy(
+                stream_id="stream-1",
+                classes=None,
+                conf=0.25,
+                roi=None,
+                labels={},
+                event_detection=options,
+            )
+            rectangle = NormalizedRect(0.2, 0.3, 0.1, 0.2)
+            cache = GarbageOverlayCache()
+            cache.update(
+                pad_index=0,
+                roi_id="entrance",
+                snapshot=GarbageSnapshot(
+                    timestamp=time.monotonic(),
+                    frame_number=1,
+                    area_ratio=0.02,
+                    detections=(
+                        GarbageDetection(
+                            rectangle,
+                            "trash pile",
+                            0.9,
+                        ),
+                    ),
+                ),
+            )
+            engine = SimpleNamespace(
+                observe_tracks=lambda **_kwargs: EventEngineResult(
+                    garbage_overlays=[
+                        GarbageOverlay(
+                            roi_id="entrance",
+                            rectangle=rectangle,
+                            label="疑似新增垃圾 5/15秒",
+                            state="candidate",
+                            elapsed_seconds=5,
+                        )
+                    ]
+                )
+            )
+            frame = FakeFrame([])
+            fake_osd = SimpleNamespace(
+                Color=FakeColor,
+                Line=FakeLine,
+                Text=FakeText,
+                FontFamily=SimpleNamespace(Serif="serif"),
+            )
+
+            OverlayProcessor(
+                {0: policy},
+                metrics,
+                event_engines={0: engine},
+                garbage_overlay_cache=cache,
+            ).process(FakeBatch([frame]), fake_osd)
+
+        labels = [
+            text.display_text
+            for display_meta in frame.display_meta
+            for text in display_meta.texts
+        ]
+        self.assertIn("疑似新增垃圾 5/15秒".encode(), labels)
+        self.assertNotIn("垃圾：垃圾堆".encode(), labels)
+
+    def test_garbage_metadata_is_filtered_by_roi_and_component(self) -> None:
+        options = EventDetectionOptions(
+            enabled=True,
+            rois=(
+                EventRoiOptions(
+                    roi_id="entrance",
+                    polygon=(
+                        (0.0, 0.0),
+                        (0.5, 0.0),
+                        (0.5, 1.0),
+                        (0.0, 1.0),
+                    ),
+                ),
+            ),
+            garbage=GarbageAnalysisOptions(
+                enabled=True,
+                minimum_confidence=0.35,
+            ),
+        )
+        policy = StreamPolicy(
+            stream_id="stream-1",
+            classes=None,
+            conf=0.25,
+            roi=None,
+            labels={0: "人员"},
+            event_detection=options,
+        )
+        inside = fake_object(1, 0.8, left=100, top=100)
+        inside.unique_component_id = 4
+        overlapping_prompt = fake_object(0, 0.7, left=100, top=100)
+        overlapping_prompt.unique_component_id = 4
+        outside = fake_object(0, 0.9, left=800, top=100)
+        outside.unique_component_id = 4
+        primary = fake_object(0, 0.9, left=100, top=100)
+        primary.unique_component_id = 1
+        snapshots: list[object] = []
+        engine = SimpleNamespace(
+            observe_garbage=lambda **kwargs: snapshots.append(
+                kwargs["snapshot"]
+            )
+        )
+
+        GarbageMetadataProcessor(
+            policies={0: policy},
+            event_engines={0: engine},
+            labels=["plastic bottle", "garbage bag"],
+            interval=0,
+        ).process(
+            FakeBatch(
+                [FakeFrame([inside, overlapping_prompt, outside, primary])]
+            )
+        )
+
+        self.assertEqual(len(snapshots), 1)
+        snapshot = snapshots[0]
+        self.assertEqual(snapshot.object_type, "garbage bag")
+        self.assertAlmostEqual(snapshot.area_ratio, 0.02)
+        self.assertEqual(len(snapshot.regions), 1)
+        self.assertEqual(len(snapshot.detections), 1)
+        self.assertEqual(snapshot.detections[0].object_type, "garbage bag")
+
     def test_metrics_expose_active_night_profile(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "metrics.json"
@@ -226,7 +734,11 @@ class DeepStreamWorkerTests(unittest.TestCase):
                 self.links.append(args)
                 return self
 
-            def attach(self, *_args: object) -> "FakePipeline":
+            def attach(
+                self,
+                *_args: object,
+                **_kwargs: object,
+            ) -> "FakePipeline":
                 return self
 
         pipeline = FakePipeline()
@@ -253,7 +765,7 @@ class DeepStreamWorkerTests(unittest.TestCase):
             config,
             Path("/runtime/nvinfer.txt"),
             object(),
-            object(),
+            lambda _index: object(),
             object(),
             lambda _index: object(),
             lambda _index: object(),
@@ -261,9 +773,14 @@ class DeepStreamWorkerTests(unittest.TestCase):
 
         self.assertEqual(pipeline.nodes["mux"][1]["batch-size"], 2)
         self.assertEqual(
-            pipeline.nodes["osd"],
+            pipeline.nodes["osd_0"],
             ("nvdsosd", {"gpu-id": 0, "process-mode": 1}),
         )
+        self.assertEqual(
+            pipeline.nodes["overlay_anchor_0"],
+            ("identity", {"silent": True}),
+        )
+        self.assertNotIn("osd", pipeline.nodes)
         self.assertEqual(
             pipeline.nodes["encoder_0"][0],
             "nvv4l2h264enc",
@@ -298,7 +815,7 @@ class DeepStreamWorkerTests(unittest.TestCase):
             pipeline.nodes["publish_clock_0"],
             (
                 "clocksync",
-                {"sync": True, "sync-to-first": True},
+                {"sync": False},
             ),
         )
         self.assertEqual(
@@ -308,7 +825,21 @@ class DeepStreamWorkerTests(unittest.TestCase):
         self.assertEqual(pipeline.nodes["rtsp_sink_0"][1]["protocols"], 4)
         self.assertEqual(pipeline.nodes["rtsp_sink_0"][1]["rtx-time"], 0)
         self.assertIn(
-            (("demux", "publish_queue_0"), ("src_%u", "")),
+            (("demux", "overlay_anchor_0"), ("src_%u", "")),
+            pipeline.links,
+        )
+        self.assertIn(
+            (
+                "overlay_anchor_0",
+                "osd_0",
+                "publish_queue_0",
+                "publish_convert_0",
+                "publish_caps_0",
+                "encoder_0",
+                "parser_0",
+                "parser_caps_0",
+                "publish_clock_0",
+            ),
             pipeline.links,
         )
         self.assertNotIn("payloader_0", pipeline.nodes)
@@ -329,7 +860,7 @@ class DeepStreamWorkerTests(unittest.TestCase):
             lpr_config,
             Path("/runtime/nvinfer.txt"),
             object(),
-            object(),
+            lambda _index: object(),
             object(),
             lambda _index: object(),
             lambda _index: object(),
@@ -355,11 +886,100 @@ class DeepStreamWorkerTests(unittest.TestCase):
                 "license_plate_recognizer",
                 "osd_convert",
                 "rgba_caps",
-                "osd",
                 "demux",
             ),
             lpr_pipeline.links,
         )
+
+        garbage_pipeline = FakePipeline()
+        garbage_config = dict(config)
+        garbage_config["garbage"] = {"enabled": True}
+        garbage_config["streams"] = [
+            {
+                **config["streams"][0],
+                "event_detection": {
+                    "garbage": {"enabled": True}
+                },
+            }
+        ]
+        garbage_receiver = object()
+        garbage_skip_probe = object()
+        _add_pipeline_nodes(
+            garbage_pipeline,
+            garbage_config,
+            Path("/runtime/nvinfer.txt"),
+            object(),
+            lambda _index: object(),
+            object(),
+            lambda _index: object(),
+            lambda _index: object(),
+            garbage_config_path=Path("/runtime/garbage.txt"),
+            garbage_receiver=garbage_receiver,
+            garbage_skip_probe=garbage_skip_probe,
+        )
+
+        self.assertEqual(
+            garbage_pipeline.nodes["garbage_queue"][1]["leaky"],
+            2,
+        )
+        self.assertEqual(
+            garbage_pipeline.nodes["garbage_queue"][1][
+                "max-size-buffers"
+            ],
+            1,
+        )
+        self.assertIn(
+            (("analytics_tee", "garbage_queue"), ("src_%u", "")),
+            garbage_pipeline.links,
+        )
+        self.assertIn(
+            (
+                "garbage_queue",
+                "garbage_infer",
+                "garbage_convert",
+                "garbage_rgba_caps",
+                "garbage_sink",
+            ),
+            garbage_pipeline.links,
+        )
+        self.assertEqual(
+            garbage_pipeline.nodes["garbage_sink"][1]["max-buffers"],
+            1,
+        )
+        self.assertEqual(
+            garbage_pipeline.nodes["garbage_sink"][1]["drop"],
+            True,
+        )
+        self.assertEqual(
+            garbage_pipeline.nodes["garbage_rgba_caps"][1]["caps"],
+            (
+                "video/x-raw(memory:NVMM), format=RGB, "
+                "width=640, height=360"
+            ),
+        )
+
+    def test_tracker_config_reduces_shadow_tracking_age(self) -> None:
+        source = (
+            "[BaseConfig]\n"
+            "maxShadowTrackingAge: 51    # original\n"
+            "probationAge: 2\n"
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source_path = root / "source.yml"
+            target_path = root / "tracker.yml"
+            source_path.write_text(source, encoding="utf-8")
+
+            build_tracker_config(
+                source_path,
+                target_path,
+                max_shadow_tracking_age=15,
+            )
+
+            content = target_path.read_text(encoding="utf-8")
+
+        self.assertIn("maxShadowTrackingAge: 15    # original", content)
+        self.assertIn("probationAge: 2", content)
     def test_inference_config_uses_pair_engine_and_minimum_threshold(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "nvinfer.txt"

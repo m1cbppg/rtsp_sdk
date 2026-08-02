@@ -1,5 +1,8 @@
 # RTSP + YOLO 实时识别转推
 
+项目当前完成度、服务器部署状态和各业务场景的完整调用示例见
+[`PROJECT_STATUS_AND_SCENARIOS.md`](PROJECT_STATUS_AND_SCENARIOS.md)。
+
 输入一个 RTSP 监控流和一个本地 Ultralytics YOLO 模型（`xx.pt`），程序会持续读取最新画面、运行识别、画框，并把结果发布成新的 RTSP 流。
 
 网络受限的NVIDIA Ubuntu主机可以在联网机器预先制作`linux/amd64`离线CUDA
@@ -19,6 +22,10 @@ NVDEC、TensorRT、NvDCF、GPU OSD 和 NVENC 的零拷贝管线，每两路固�
 
 DeepStream后端支持与白天逻辑隔离的夜间推理配置。默认关闭，启用参数和
 验收方法见[NIGHT_VISION.md](NIGHT_VISION.md)。
+
+区域停留、垃圾变化、疑似乱丢垃圾、实时画面提示、事件截图和Webhook见
+[EVENT_DETECTION.md](EVENT_DETECTION.md)。该功能使用低帧率可丢帧旁路，
+不把垃圾分析耗时串入主推流链路。
 
 数据链路：
 

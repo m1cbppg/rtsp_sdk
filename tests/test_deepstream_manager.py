@@ -5,6 +5,7 @@ import signal
 import subprocess
 import tempfile
 import unittest
+from dataclasses import replace
 from pathlib import Path
 from unittest.mock import Mock, call, patch
 
@@ -13,6 +14,11 @@ from rtsp_annotator.deepstream_manager import (
     DeepStreamStreamManager,
 )
 from rtsp_annotator.license_plate import LicensePlateOptions
+from rtsp_annotator.events import (
+    EventDetectionOptions,
+    EventRoiOptions,
+    GarbageAnalysisOptions,
+)
 from rtsp_annotator.stream_manager import (
     ManagerSettings,
     NightVisionOptions,
@@ -79,6 +85,160 @@ def make_settings(root: Path) -> DeepStreamManagerSettings:
 
 
 class DeepStreamManagerTests(unittest.TestCase):
+    def test_garbage_stream_gets_isolated_branch_payload(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            settings = make_settings(root)
+            models = settings.manager.model_root
+            (models / "model.pt").touch()
+            (models / "model.onnx").touch()
+            (models / "model.labels.txt").write_text(
+                "person\ncar\n",
+                encoding="utf-8",
+            )
+            garbage_root = models / "events"
+            garbage_root.mkdir()
+            garbage_onnx = garbage_root / "garbage.onnx"
+            garbage_labels = garbage_root / "garbage.labels.txt"
+            garbage_onnx.touch()
+            garbage_labels.write_text(
+                "plastic bottle\ngarbage bag\n",
+                encoding="utf-8",
+            )
+            settings = replace(
+                settings,
+                garbage_onnx_path=garbage_onnx,
+                garbage_labels_path=garbage_labels,
+                garbage_parser_library=settings.parser_library,
+            )
+            processes: list[FakeProcess] = []
+
+            def factory(command: list[str], **kwargs: object) -> FakeProcess:
+                process = FakeProcess(command, **kwargs)
+                processes.append(process)
+                return process
+
+            options = EventDetectionOptions(
+                enabled=True,
+                person_classes=(0,),
+                vehicle_classes=(1,),
+                rois=(
+                    EventRoiOptions(
+                        roi_id="entrance",
+                        polygon=((0.1, 0.1), (0.9, 0.1), (0.5, 0.9)),
+                    ),
+                ),
+                garbage=GarbageAnalysisOptions(
+                    enabled=True,
+                    analysis_fps=3,
+                    display_detections=True,
+                    display_hold_seconds=2,
+                    maximum_display_boxes=12,
+                    prompts=("plastic bottle", "garbage bag"),
+                ),
+            )
+            manager = DeepStreamStreamManager(settings, factory)
+            with patch("os.killpg"):
+                manager.create(
+                    StreamSpec(
+                        "rtsp://camera/events",
+                        model="model.pt",
+                        event_detection=options,
+                    )
+                )
+                payload = json.loads(
+                    Path(processes[-1].command[-1]).read_text(
+                        encoding="utf-8"
+                    )
+                )
+                manager.shutdown()
+
+        self.assertTrue(payload["garbage"]["enabled"])
+        self.assertEqual(payload["garbage"]["detection_mode"], "items")
+        self.assertEqual(payload["garbage"]["analysis_fps"], 3)
+        self.assertNotIn("interval", payload["garbage"])
+        self.assertTrue(
+            payload["streams"][0]["event_detection"]["enabled"]
+        )
+        stream_garbage = payload["streams"][0]["event_detection"][
+            "garbage"
+        ]
+        self.assertTrue(stream_garbage["display_detections"])
+        self.assertEqual(stream_garbage["display_hold_seconds"], 2)
+        self.assertEqual(stream_garbage["maximum_display_boxes"], 12)
+
+    def test_pile_mode_selects_street_garbage_assets(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            settings = make_settings(root)
+            models = settings.manager.model_root
+            (models / "model.pt").touch()
+            (models / "model.onnx").touch()
+            (models / "model.labels.txt").write_text(
+                "person\ncar\n",
+                encoding="utf-8",
+            )
+            garbage_root = models / "events"
+            garbage_root.mkdir()
+            pile_onnx = garbage_root / "street_garbage_pile.onnx"
+            pile_labels = garbage_root / "street_garbage_pile.labels.txt"
+            pile_onnx.touch()
+            pile_labels.write_text(
+                "pothole\nroad_damage\ngarbage\n",
+                encoding="utf-8",
+            )
+            settings = replace(
+                settings,
+                garbage_pile_onnx_path=pile_onnx,
+                garbage_pile_labels_path=pile_labels,
+                garbage_parser_library=settings.parser_library,
+            )
+            processes: list[FakeProcess] = []
+
+            def factory(command: list[str], **kwargs: object) -> FakeProcess:
+                process = FakeProcess(command, **kwargs)
+                processes.append(process)
+                return process
+
+            options = EventDetectionOptions(
+                enabled=True,
+                person_classes=(0,),
+                vehicle_classes=(1,),
+                rois=(
+                    EventRoiOptions(
+                        roi_id="roadside",
+                        polygon=((0, 0), (1, 0), (1, 1), (0, 1)),
+                    ),
+                ),
+                garbage=GarbageAnalysisOptions(
+                    enabled=True,
+                    analysis_fps=1,
+                    detection_mode="pile",
+                    background_change_enabled=False,
+                    minimum_confidence=0.15,
+                ),
+            )
+            manager = DeepStreamStreamManager(settings, factory)
+            with patch("os.killpg"):
+                manager.create(
+                    StreamSpec(
+                        "rtsp://camera/pile",
+                        model="model.pt",
+                        event_detection=options,
+                    )
+                )
+                payload = json.loads(
+                    Path(processes[-1].command[-1]).read_text(
+                        encoding="utf-8"
+                    )
+                )
+                manager.shutdown()
+
+        self.assertEqual(payload["garbage"]["detection_mode"], "pile")
+        self.assertEqual(payload["garbage"]["onnx_path"], str(pile_onnx))
+        self.assertEqual(payload["garbage"]["labels_path"], str(pile_labels))
+        self.assertEqual(payload["garbage"]["label_count"], 3)
+
     def test_night_streams_with_different_confidence_share_group(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             settings = make_settings(Path(directory))

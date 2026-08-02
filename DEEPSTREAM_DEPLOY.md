@@ -11,6 +11,7 @@ GPU 管线内完成，不再把 1080p 帧来回拷贝到 Python/CPU。
 ```bash
 cd /Users/mlcbppg/Desktop/backend/python_script/rtsp
 .venv/bin/pip install onnx onnxslim onnxscript
+.venv/bin/pip install 'git+https://github.com/ultralytics/CLIP.git'
 ./scripts/build_deepstream_offline_bundle.sh
 ```
 
@@ -101,6 +102,7 @@ docker compose -f docker-compose.deepstream.api.yml up -d --force-recreate
 - `deepstream.streams_per_group`: `2`
 - `deepstream.model_input_size`: `640`
 - `deepstream.encoder_iframe_interval`: `25`
+- `deepstream.tracker_max_shadow_tracking_age`: `15`
 - API 请求中的 `imgsz`: `640`
 
 首次启动会在 3060 Ti 上构建 TensorRT FP16 引擎。查看进度：
@@ -116,6 +118,10 @@ GPU 型号、DeepStream/TensorRT 版本或模型后，应删除对应 `.engine`�
 带中国车牌识别的镜像还会构建`lpdnet_ch_*`和`lprnet_ch_*`两个引擎。
 `engine-builder`成功退出后API才启动，因此首个车牌请求不会在播放过程中临时
 编译模型。车牌功能的请求方式和指标见`LICENSE_PLATE.md`。
+
+开启垃圾事件分析时还会预构建
+`yolo_world_garbage_640_b2_gpu0_fp16.engine`。垃圾 ONNX 和固定词表已经打入
+离线镜像，Ubuntu 服务器无需访问互联网。请求与验收见`EVENT_DETECTION.md`。
 
 ## 3. 验证
 

@@ -143,6 +143,10 @@ class SharedStreamManager:
             raise ModelNotFoundError(
                 "夜间增强仅支持DeepStream后端"
             )
+        if spec.event_detection.enabled:
+            raise ModelNotFoundError(
+                "事件识别仅支持DeepStream后端"
+            )
         model_path = self._resolve_model(spec.model)
         stream_id = uuid.uuid4().hex
         path = f"detected/{stream_id}"

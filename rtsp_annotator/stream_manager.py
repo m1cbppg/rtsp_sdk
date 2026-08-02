@@ -14,6 +14,7 @@ from typing import Any, Callable
 from urllib.parse import quote, urlsplit, urlunsplit
 
 from .config import RoiPolygon
+from .events import EventDetectionOptions
 from .license_plate import LicensePlateOptions
 
 
@@ -86,6 +87,7 @@ class StreamSpec:
     bitrate: str = "2500k"
     license_plate: LicensePlateOptions = LicensePlateOptions()
     night_vision: NightVisionOptions = NightVisionOptions()
+    event_detection: EventDetectionOptions = EventDetectionOptions()
 
 
 @dataclass(frozen=True, slots=True)
@@ -179,6 +181,10 @@ class StreamManager:
         if spec.night_vision.enabled:
             raise ModelNotFoundError(
                 "夜间增强仅支持DeepStream后端"
+            )
+        if spec.event_detection.enabled:
+            raise ModelNotFoundError(
+                "事件识别仅支持DeepStream后端"
             )
         model_path = self._resolve_model(spec.model)
         stream_id = uuid.uuid4().hex

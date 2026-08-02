@@ -169,6 +169,7 @@ def main(argv: list[str] | None = None) -> None:
         format="%(asctime)s %(levelname)s %(message)s",
     )
     models = sorted(args.models.glob("*.onnx"))
+    models.extend(sorted((args.models / "events").glob("*.onnx")))
     if not models:
         raise RuntimeError(f"没有找到ONNX模型: {args.models}")
     for onnx_path in models:

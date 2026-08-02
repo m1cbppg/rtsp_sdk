@@ -11,6 +11,7 @@ FILES = {
     "DEEPSTREAM_DEPLOY.md": "DEEPSTREAM_DEPLOY.md",
     "LICENSE_PLATE.md": "LICENSE_PLATE.md",
     "NIGHT_VISION.md": "NIGHT_VISION.md",
+    "EVENT_DETECTION.md": "EVENT_DETECTION.md",
     "HTTP_API.md": "HTTP_API.md",
     "config/api.deepstream.example.json": (
         "config/api.deepstream.example.json"

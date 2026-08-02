@@ -53,6 +53,7 @@ services:
     volumes:
       - ./config:/app/config:ro
       - ./engines:/app/engines
+      - ./data:/app/data
     tmpfs:
       - /app/runtime:size=64m,mode=0700
     ports:
