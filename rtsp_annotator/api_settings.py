@@ -102,6 +102,13 @@ class DeepStreamConfig(StrictConfigModel):
         "libnvdsinfer_custom_impl_Yolo.so"
     )
     garbage_input_size: int = Field(default=640, ge=320, le=1280)
+    gas_cylinder_model_path: Path = Path(
+        "/app/models/gas/yoloe-26l-seg.pt"
+    )
+    gas_cylinder_profile_root: Path = Path("/app/models/gas/profiles")
+    gas_cylinder_input_width: int = Field(default=1280, ge=320, le=3840)
+    gas_cylinder_input_height: int = Field(default=720, ge=180, le=2160)
+    gas_cylinder_imgsz: int = Field(default=1280, ge=640, le=2048)
 
 
 class OutputConfig(StrictConfigModel):
@@ -118,6 +125,17 @@ class EventsConfig(StrictConfigModel):
     storage_root: Path = Path("data/events")
 
 
+class ObservabilityConfig(StrictConfigModel):
+    enabled: bool = True
+    log_root: Path = Path("data/stream-logs")
+    monitor_interval_seconds: float = Field(default=1.0, ge=0.2, le=30)
+    metrics_stale_seconds: float = Field(default=12.0, ge=2, le=300)
+    stall_fps: float = Field(default=1.0, ge=0, le=30)
+    degraded_fps_ratio: float = Field(default=0.8, gt=0, le=1)
+    max_file_mb: int = Field(default=32, ge=1, le=1024)
+    backup_count: int = Field(default=3, ge=0, le=20)
+
+
 class AppConfig(StrictConfigModel):
     api: ApiServerConfig
     models: ModelsConfig
@@ -127,6 +145,9 @@ class AppConfig(StrictConfigModel):
     output: OutputConfig = Field(default_factory=OutputConfig)
     labels: LabelsConfig = Field(default_factory=LabelsConfig)
     events: EventsConfig = Field(default_factory=EventsConfig)
+    observability: ObservabilityConfig = Field(
+        default_factory=ObservabilityConfig
+    )
 
     def to_manager_settings(self) -> ManagerSettings:
         return ManagerSettings(
@@ -212,6 +233,19 @@ class AppConfig(StrictConfigModel):
                 self.deepstream.garbage_parser_library.expanduser()
             ),
             garbage_input_size=self.deepstream.garbage_input_size,
+            gas_cylinder_model_path=(
+                self.deepstream.gas_cylinder_model_path.expanduser()
+            ),
+            gas_cylinder_profile_root=(
+                self.deepstream.gas_cylinder_profile_root.expanduser()
+            ),
+            gas_cylinder_input_width=(
+                self.deepstream.gas_cylinder_input_width
+            ),
+            gas_cylinder_input_height=(
+                self.deepstream.gas_cylinder_input_height
+            ),
+            gas_cylinder_imgsz=self.deepstream.gas_cylinder_imgsz,
         )
 
 

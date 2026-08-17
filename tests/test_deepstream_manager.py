@@ -19,11 +19,18 @@ from rtsp_annotator.events import (
     EventRoiOptions,
     GarbageAnalysisOptions,
 )
+from rtsp_annotator.gas_cylinder import GasCylinderOptions
+from rtsp_annotator.fishing_risk import (
+    FishingRiskOptions,
+    FishingRiskRuleOptions,
+    FishingRiskZoneOptions,
+)
 from rtsp_annotator.stream_manager import (
     ManagerSettings,
     NightVisionOptions,
     StreamSpec,
 )
+from rtsp_annotator.vessel_detection import VesselDetectionOptions
 
 
 class FakeProcess:
@@ -85,6 +92,246 @@ def make_settings(root: Path) -> DeepStreamManagerSettings:
 
 
 class DeepStreamManagerTests(unittest.TestCase):
+    def test_vessel_stream_gets_high_resolution_lossy_sidecar(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            settings = make_settings(root)
+            models = settings.manager.model_root
+            (models / "model.pt").touch()
+            (models / "model.onnx").touch()
+            (models / "model.labels.txt").write_text(
+                "\n".join(f"class_{index}" for index in range(9)),
+                encoding="utf-8",
+            )
+            processes: list[FakeProcess] = []
+
+            def factory(command: list[str], **kwargs: object) -> FakeProcess:
+                process = FakeProcess(command, **kwargs)
+                processes.append(process)
+                return process
+
+            manager = DeepStreamStreamManager(settings, factory)
+            with patch("os.killpg"):
+                result = manager.create(
+                    StreamSpec(
+                        "rtsp://camera/harbor",
+                        model="model.pt",
+                        vessel_detection=VesselDetectionOptions(
+                            enabled=True,
+                            confidence=0.1,
+                            imgsz=1280,
+                            class_ids=(8,),
+                            inference_regions=(
+                                (0.0, 0.0, 1.0, 1.0),
+                                (0.1, 0.2, 0.9, 0.75),
+                            ),
+                        ),
+                        fishing_risk=FishingRiskOptions(
+                            enabled=True,
+                            zones=(
+                                FishingRiskZoneOptions(
+                                    "protected_water",
+                                    (
+                                        (0.0, 0.4),
+                                        (1.0, 0.4),
+                                        (1.0, 1.0),
+                                        (0.0, 1.0),
+                                    ),
+                                ),
+                            ),
+                            rules=FishingRiskRuleOptions(
+                                minimum_presence_seconds=45,
+                            ),
+                        ),
+                    )
+                )
+                payload = json.loads(
+                    Path(processes[-1].command[-1]).read_text(
+                        encoding="utf-8"
+                    )
+                )
+                manager.shutdown()
+
+        self.assertTrue(payload["vessel_detection"]["enabled"])
+        self.assertEqual(payload["vessel_detection"]["imgsz"], 1280)
+        self.assertEqual(
+            payload["vessel_detection"]["model_path"],
+            str((models / "model.pt").resolve()),
+        )
+        stream_options = payload["streams"][0]["vessel_detection"]
+        self.assertEqual(stream_options["class_ids"], [8])
+        self.assertEqual(len(stream_options["inference_regions"]), 2)
+        self.assertTrue(result["vessel_detection"]["enabled"])
+        self.assertEqual(result["vessel_detection"]["model"], "model.pt")
+        self.assertTrue(payload["streams"][0]["fishing_risk"]["enabled"])
+        self.assertEqual(
+            payload["streams"][0]["fishing_risk"]["zones"][0]["id"],
+            "protected_water",
+        )
+        self.assertEqual(
+            payload["streams"][0]["fishing_risk"]["rules"][
+                "minimum_presence_seconds"
+            ],
+            45,
+        )
+        self.assertTrue(result["fishing_risk"]["enabled"])
+
+    def test_vessel_input_cannot_claim_resolution_lost_by_mux(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            settings = make_settings(root)
+            models = settings.manager.model_root
+            (models / "model.pt").touch()
+            (models / "model.onnx").touch()
+            (models / "model.labels.txt").write_text(
+                "\n".join(f"class_{index}" for index in range(9)),
+                encoding="utf-8",
+            )
+            manager = DeepStreamStreamManager(settings, FakeProcess)
+
+            with self.assertRaisesRegex(Exception, "mux尺寸"):
+                manager.create(
+                    StreamSpec(
+                        "rtsp://camera/4k",
+                        model="model.pt",
+                        vessel_detection=VesselDetectionOptions(
+                            enabled=True,
+                            input_width=2560,
+                            input_height=1440,
+                        ),
+                    )
+                )
+
+    def test_fishing_risk_can_be_disabled_without_changing_stream_id(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            settings = make_settings(root)
+            models = settings.manager.model_root
+            (models / "model.pt").touch()
+            (models / "model.onnx").touch()
+            (models / "model.labels.txt").write_text(
+                "\n".join(f"class_{index}" for index in range(9)),
+                encoding="utf-8",
+            )
+            processes: list[FakeProcess] = []
+
+            def factory(command: list[str], **kwargs: object) -> FakeProcess:
+                process = FakeProcess(command, **kwargs)
+                processes.append(process)
+                return process
+
+            manager = DeepStreamStreamManager(settings, factory)
+            risk = FishingRiskOptions(
+                enabled=True,
+                zones=(
+                    FishingRiskZoneOptions(
+                        "protected_water",
+                        ((0, 0), (1, 0), (1, 1), (0, 1)),
+                    ),
+                ),
+            )
+            with patch("os.killpg"):
+                created = manager.create(
+                    StreamSpec(
+                        "rtsp://camera/harbor",
+                        model="model.pt",
+                        vessel_detection=VesselDetectionOptions(enabled=True),
+                        fishing_risk=risk,
+                    )
+                )
+                updated = manager.update_fishing_risk(
+                    created["stream_id"],
+                    FishingRiskOptions(enabled=False),
+                )
+                payload = json.loads(
+                    Path(processes[-1].command[-1]).read_text(
+                        encoding="utf-8"
+                    )
+                )
+                manager.shutdown()
+
+        self.assertEqual(updated["stream_id"], created["stream_id"])
+        self.assertEqual(updated["rtsp_url"], created["rtsp_url"])
+        self.assertFalse(updated["fishing_risk"]["enabled"])
+        self.assertTrue(updated["vessel_detection"]["enabled"])
+        self.assertFalse(payload["streams"][0]["fishing_risk"]["enabled"])
+        self.assertTrue(payload["streams"][0]["vessel_detection"]["enabled"])
+
+    def test_gas_cylinder_stream_gets_lossy_sidecar_payload(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            settings = make_settings(root)
+            models = settings.manager.model_root
+            (models / "model.pt").touch()
+            (models / "model.onnx").touch()
+            (models / "model.labels.txt").write_text(
+                "person\n",
+                encoding="utf-8",
+            )
+            gas_root = models / "gas"
+            profiles = gas_root / "profiles"
+            profiles.mkdir(parents=True)
+            gas_model = gas_root / "yoloe-26l-seg.pt"
+            gas_model.touch()
+            (profiles / "reference.jpg").touch()
+            (profiles / "camera_01_ir.json").write_text(
+                json.dumps(
+                    {
+                        "version": 1,
+                        "profile_id": "camera_01_ir",
+                        "reference_image": "reference.jpg",
+                        "reference_size": [1280, 720],
+                        "prompts": [
+                            {
+                                "id": "regular",
+                                "boxes": [[0.1, 0.1, 0.2, 0.3]],
+                            }
+                        ],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            settings = replace(
+                settings,
+                gas_cylinder_model_path=gas_model,
+                gas_cylinder_profile_root=profiles,
+            )
+            processes: list[FakeProcess] = []
+
+            def factory(command: list[str], **kwargs: object) -> FakeProcess:
+                process = FakeProcess(command, **kwargs)
+                processes.append(process)
+                return process
+
+            manager = DeepStreamStreamManager(settings, factory)
+            with patch("os.killpg"):
+                result = manager.create(
+                    StreamSpec(
+                        "rtsp://camera/gas",
+                        model="model.pt",
+                        gas_cylinder=GasCylinderOptions(
+                            enabled=True,
+                            profile_id="camera_01_ir",
+                            sample_count=11,
+                        ),
+                    )
+                )
+                payload = json.loads(
+                    Path(processes[-1].command[-1]).read_text(
+                        encoding="utf-8"
+                    )
+                )
+                manager.shutdown()
+
+        self.assertTrue(payload["gas_cylinder"]["enabled"])
+        self.assertEqual(payload["gas_cylinder"]["input_width"], 1280)
+        self.assertEqual(payload["gas_cylinder"]["imgsz"], 1280)
+        self.assertEqual(
+            payload["streams"][0]["gas_cylinder"]["sample_count"],
+            11,
+        )
+        self.assertTrue(result["gas_cylinder"]["enabled"])
+
     def test_garbage_stream_gets_isolated_branch_payload(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

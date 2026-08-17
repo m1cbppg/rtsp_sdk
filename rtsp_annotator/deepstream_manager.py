@@ -9,13 +9,18 @@ import sys
 import threading
 import time
 import uuid
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
 
 from .deepstream_engine_builder import engine_path_for
 from .events import GarbageAnalysisOptions
+from .fishing_risk import FishingRiskOptions
+from .gas_cylinder import (
+    GasCylinderCameraProfile,
+    GasCylinderOptions,
+)
 from .labels import load_label_map
 from .stream_manager import (
     ManagerSettings,
@@ -25,6 +30,7 @@ from .stream_manager import (
     StreamSpec,
     authenticated_rtsp_url,
 )
+from .vessel_detection import VesselDetectionOptions
 
 
 ProcessFactory = Callable[..., Any]
@@ -86,6 +92,13 @@ class DeepStreamManagerSettings:
         "libnvdsinfer_custom_impl_Yolo.so"
     )
     garbage_input_size: int = 640
+    gas_cylinder_model_path: Path = Path(
+        "/app/models/gas/yoloe-26l-seg.pt"
+    )
+    gas_cylinder_profile_root: Path = Path("/app/models/gas/profiles")
+    gas_cylinder_input_width: int = 1280
+    gas_cylinder_input_height: int = 720
+    gas_cylinder_imgsz: int = 1280
 
     def validate(self) -> None:
         self.manager.validate()
@@ -135,6 +148,12 @@ class DeepStreamManagerSettings:
             raise RuntimeError("lpr_recognizer_batch_size必须大于0")
         if self.garbage_input_size <= 0:
             raise RuntimeError("garbage_input_size必须大于0")
+        if self.gas_cylinder_input_width <= 0:
+            raise RuntimeError("gas_cylinder_input_width必须大于0")
+        if self.gas_cylinder_input_height <= 0:
+            raise RuntimeError("gas_cylinder_input_height必须大于0")
+        if self.gas_cylinder_imgsz <= 0:
+            raise RuntimeError("gas_cylinder_imgsz必须大于0")
 
 
 @dataclass(slots=True)
@@ -164,6 +183,15 @@ class DeepStreamGroup:
     license_plate_enabled: bool = False
     garbage_enabled: bool = False
     garbage_mode: str = "items"
+    gas_cylinder_enabled: bool = False
+    gas_cylinder_profile_id: str | None = None
+    vessel_signature: tuple[bool, str, int, int, int] = (
+        False,
+        "",
+        0,
+        0,
+        0,
+    )
     night_vision_signature: tuple[bool, float, float] = (
         False,
         1.0,
@@ -205,6 +233,13 @@ class DeepStreamStreamManager:
     def create(self, spec: StreamSpec) -> dict[str, Any]:
         spec.night_vision.validate()
         spec.event_detection.validate()
+        spec.gas_cylinder.validate()
+        spec.vessel_detection.validate()
+        spec.fishing_risk.validate()
+        if spec.fishing_risk.enabled and not spec.vessel_detection.enabled:
+            raise ModelNotFoundError(
+                "启用fishing_risk前必须启用vessel_detection"
+            )
         model_path, onnx_path, labels_path = self._resolve_model(spec.model)
         del onnx_path
         if spec.imgsz != self._settings.model_input_size:
@@ -243,6 +278,18 @@ class DeepStreamStreamManager:
                 self._validate_event_classes(spec, labels_path)
             if spec.event_detection.garbage.enabled:
                 self._validate_garbage_assets(spec.event_detection.garbage)
+            if spec.gas_cylinder.enabled:
+                self._validate_gas_cylinder_assets(spec.gas_cylinder)
+            if spec.vessel_detection.enabled:
+                self._validate_vessel_assets(
+                    spec.vessel_detection,
+                    primary_model=model_path.name,
+                    primary_labels_path=labels_path,
+                )
+            vessel_signature = self._vessel_signature(
+                spec,
+                primary_model=model_path.name,
+            )
             group = self._find_group(
                 model_path.name,
                 spec.imgsz,
@@ -252,6 +299,9 @@ class DeepStreamStreamManager:
                 ),
                 spec.event_detection.garbage.enabled,
                 spec.event_detection.garbage.detection_mode,
+                spec.gas_cylinder.enabled,
+                spec.gas_cylinder.profile_id,
+                vessel_signature,
             )
             if group is None:
                 group = DeepStreamGroup(
@@ -264,6 +314,13 @@ class DeepStreamStreamManager:
                     garbage_mode=(
                         spec.event_detection.garbage.detection_mode
                     ),
+                    gas_cylinder_enabled=spec.gas_cylinder.enabled,
+                    gas_cylinder_profile_id=(
+                        spec.gas_cylinder.profile_id
+                        if spec.gas_cylinder.enabled
+                        else None
+                    ),
+                    vessel_signature=vessel_signature,
                     night_vision_signature=(
                         spec.night_vision.group_signature(
                             include_plate_detector=(
@@ -319,6 +376,37 @@ class DeepStreamStreamManager:
                 raise StreamNotFoundError(stream_id)
             return self._serialize(record)
 
+    def update_fishing_risk(
+        self,
+        stream_id: str,
+        options: FishingRiskOptions,
+    ) -> dict[str, Any]:
+        options.validate()
+        with self._lock:
+            record = self._records.get(stream_id)
+            if record is None:
+                raise StreamNotFoundError(stream_id)
+            if options.enabled and not record.spec.vessel_detection.enabled:
+                raise ModelNotFoundError(
+                    "启用fishing_risk前必须启用vessel_detection"
+                )
+            previous_spec = record.spec
+            record.spec = replace(previous_spec, fishing_risk=options)
+            group = self._groups[record.group_id]
+            try:
+                self._restart_group(group)
+            except BaseException:
+                record.spec = previous_spec
+                try:
+                    self._restart_group(group)
+                except BaseException:
+                    LOGGER.exception(
+                        "恢复疑似捕捞配置失败: stream=%s",
+                        stream_id,
+                    )
+                raise
+            return self._serialize(record)
+
     def stop(self, stream_id: str) -> dict[str, Any]:
         with self._lock:
             record = self._records.pop(stream_id, None)
@@ -351,6 +439,9 @@ class DeepStreamStreamManager:
         night_vision_signature: tuple[bool, float, float],
         garbage_enabled: bool,
         garbage_mode: str,
+        gas_cylinder_enabled: bool,
+        gas_cylinder_profile_id: str,
+        vessel_signature: tuple[bool, str, int, int, int],
     ) -> DeepStreamGroup | None:
         candidates = (
             group
@@ -361,6 +452,14 @@ class DeepStreamStreamManager:
             and group.night_vision_signature == night_vision_signature
             and group.garbage_enabled == garbage_enabled
             and group.garbage_mode == garbage_mode
+            and group.gas_cylinder_enabled == gas_cylinder_enabled
+            and group.gas_cylinder_profile_id
+            == (
+                gas_cylinder_profile_id
+                if gas_cylinder_enabled
+                else None
+            )
+            and group.vessel_signature == vessel_signature
             and len(group.stream_ids) < self._settings.streams_per_group
         )
         return min(candidates, key=lambda item: item.group_id, default=None)
@@ -418,6 +517,92 @@ class DeepStreamStreamManager:
             raise ModelNotFoundError(
                 "垃圾模型不支持这些类别: " + ", ".join(unsupported)
             )
+
+    def _validate_gas_cylinder_assets(
+        self,
+        options: GasCylinderOptions,
+    ) -> None:
+        if not self._settings.gas_cylinder_model_path.is_file():
+            raise ModelNotFoundError(
+                "燃气瓶YOLOE模型不存在: "
+                f"{self._settings.gas_cylinder_model_path}"
+            )
+        try:
+            GasCylinderCameraProfile.load(
+                self._settings.gas_cylinder_profile_root,
+                options.profile_id,
+            )
+        except (FileNotFoundError, OSError, ValueError) as exc:
+            raise ModelNotFoundError(str(exc)) from exc
+
+    def _validate_vessel_assets(
+        self,
+        options: VesselDetectionOptions,
+        *,
+        primary_model: str,
+        primary_labels_path: Path,
+    ) -> None:
+        model_name = options.model or primary_model
+        model_path = self._resolve_pt_model(model_name)
+        if options.input_width > self._settings.mux_width or (
+            options.input_height > self._settings.mux_height
+        ):
+            raise ModelNotFoundError(
+                "船舶旁路输入尺寸不能超过DeepStream mux尺寸"
+                f"{self._settings.mux_width}x{self._settings.mux_height}；"
+                "提高摄像头分辨率时需同步提高DEEPSTREAM_MUX_WIDTH/HEIGHT"
+            )
+        if model_path.name != primary_model:
+            return
+        label_count = sum(
+            1
+            for item in primary_labels_path.read_text(
+                encoding="utf-8"
+            ).splitlines()
+            if item.strip()
+        )
+        invalid = sorted(
+            class_id
+            for class_id in options.class_ids
+            if class_id >= label_count
+        )
+        if invalid:
+            raise ModelNotFoundError(
+                "船舶类别超出模型范围: "
+                + ", ".join(str(item) for item in invalid)
+            )
+
+    def _resolve_pt_model(self, model: str) -> Path:
+        if not model or Path(model).name != model or not model.endswith(".pt"):
+            raise ModelNotFoundError(
+                "船舶模型必须是models目录中的.pt文件名"
+            )
+        root = self._settings.manager.model_root.resolve()
+        path = (root / model).resolve()
+        try:
+            path.relative_to(root)
+        except ValueError as exc:
+            raise ModelNotFoundError("船舶模型路径越界") from exc
+        if not path.is_file():
+            raise ModelNotFoundError(f"船舶模型不存在: {model}")
+        return path
+
+    @staticmethod
+    def _vessel_signature(
+        spec: StreamSpec,
+        *,
+        primary_model: str,
+    ) -> tuple[bool, str, int, int, int]:
+        options = spec.vessel_detection
+        if not options.enabled:
+            return (False, "", 0, 0, 0)
+        return (
+            True,
+            options.model or primary_model,
+            options.imgsz,
+            options.input_width,
+            options.input_height,
+        )
 
     @staticmethod
     def _validate_event_classes(spec: StreamSpec, labels_path: Path) -> None:
@@ -625,6 +810,11 @@ class DeepStreamStreamManager:
                         ),
                     },
                     "event_detection": record.spec.event_detection.to_payload(),
+                    "gas_cylinder": record.spec.gas_cylinder.to_payload(),
+                    "vessel_detection": (
+                        record.spec.vessel_detection.to_payload()
+                    ),
+                    "fishing_risk": record.spec.fishing_risk.to_payload(),
                     "event_root": str(self._event_root),
                 }
                 for record in records
@@ -718,6 +908,37 @@ class DeepStreamStreamManager:
                 # and 30 FPS cameras all receive the requested analysis rate.
                 "analysis_fps": garbage_analysis_fps,
             }
+        if group.gas_cylinder_enabled:
+            payload["gas_cylinder"] = {
+                "enabled": True,
+                "model_path": str(self._settings.gas_cylinder_model_path),
+                "profile_root": str(
+                    self._settings.gas_cylinder_profile_root
+                ),
+                "profile_id": group.gas_cylinder_profile_id,
+                "input_width": self._settings.gas_cylinder_input_width,
+                "input_height": self._settings.gas_cylinder_input_height,
+                "imgsz": self._settings.gas_cylinder_imgsz,
+                "analysis_fps": max(
+                    record.spec.gas_cylinder.analysis_fps
+                    for record in records
+                    if record.spec.gas_cylinder.enabled
+                ),
+            }
+        if group.vessel_signature[0]:
+            vessel_model = group.vessel_signature[1]
+            payload["vessel_detection"] = {
+                "enabled": True,
+                "model_path": str(self._resolve_pt_model(vessel_model)),
+                "input_width": group.vessel_signature[3],
+                "input_height": group.vessel_signature[4],
+                "imgsz": group.vessel_signature[2],
+                "analysis_fps": max(
+                    record.spec.vessel_detection.analysis_fps
+                    for record in records
+                    if record.spec.vessel_detection.enabled
+                ),
+            }
         return payload
 
     def _stop_group(self, group: DeepStreamGroup) -> None:
@@ -790,7 +1011,12 @@ class DeepStreamStreamManager:
             metrics = payload["streams"].get(stream_id)
         except (OSError, ValueError, KeyError, TypeError):
             return None
-        return dict(metrics) if isinstance(metrics, dict) else None
+        if not isinstance(metrics, dict):
+            return None
+        return {
+            **metrics,
+            "metrics_updated_at_unix": float(payload["updated_at_unix"]),
+        }
 
     def _serialize(
         self,
@@ -861,6 +1087,97 @@ class DeepStreamStreamManager:
                 "garbage_enabled": (
                     record.spec.event_detection.garbage.enabled
                 ),
+            },
+            "gas_cylinder": {
+                "enabled": record.spec.gas_cylinder.enabled,
+                "profile_id": record.spec.gas_cylinder.profile_id,
+                "alarm_threshold": (
+                    record.spec.gas_cylinder.alarm_threshold
+                ),
+                "alarm_active": bool(
+                    metrics is not None
+                    and int(metrics.get("gas_cylinder_count", 0))
+                    > record.spec.gas_cylinder.alarm_threshold
+                ),
+                "state": (
+                    str(metrics.get("gas_cylinder_state", "starting"))
+                    if metrics is not None
+                    else "starting"
+                ),
+                "count": (
+                    int(metrics.get("gas_cylinder_count", 0))
+                    if metrics is not None
+                    else 0
+                ),
+                "result_version": (
+                    int(metrics.get("gas_cylinder_result_version", 0))
+                    if metrics is not None
+                    else 0
+                ),
+                "last_updated_at_unix": (
+                    metrics.get("gas_cylinder_updated_at_unix")
+                    if metrics is not None
+                    else None
+                ),
+            },
+            "vessel_detection": {
+                "enabled": record.spec.vessel_detection.enabled,
+                "model": (
+                    record.spec.vessel_detection.model or record.model
+                ),
+                "state": (
+                    str(metrics.get("vessel_detection_state", "starting"))
+                    if metrics is not None
+                    else "starting"
+                ),
+                "count": (
+                    int(metrics.get("vessel_detection_count", 0))
+                    if metrics is not None
+                    else 0
+                ),
+                "result_version": (
+                    int(metrics.get("vessel_detection_result_version", 0))
+                    if metrics is not None
+                    else 0
+                ),
+                "last_inference_ms": (
+                    float(
+                        metrics.get(
+                            "vessel_detection_last_inference_ms",
+                            0.0,
+                        )
+                    )
+                    if metrics is not None
+                    else 0.0
+                ),
+            },
+            "fishing_risk": {
+                "enabled": record.spec.fishing_risk.enabled,
+                "state": (
+                    "disabled"
+                    if not record.spec.fishing_risk.enabled
+                    else (
+                        str(metrics.get("fishing_risk_state", "starting"))
+                        if metrics is not None
+                        else "starting"
+                    )
+                ),
+                "suspect_count": (
+                    int(metrics.get("fishing_risk_suspect_count", 0))
+                    if metrics is not None
+                    else 0
+                ),
+                "maximum_score": (
+                    int(metrics.get("fishing_risk_maximum_score", 0))
+                    if metrics is not None
+                    else 0
+                ),
+                "total_events": (
+                    int(metrics.get("fishing_risk_total_events", 0))
+                    if metrics is not None
+                    else 0
+                ),
+                "events_url": f"/v1/streams/{record.stream_id}/events",
             },
         }
 

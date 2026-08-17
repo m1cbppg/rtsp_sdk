@@ -19,10 +19,15 @@ dependencies = [
 test = [
     "httpx>=0.28,<1",
 ]
+calibration = [
+    "safetensors>=0.5,<1",
+    "transformers>=4.53,<5",
+]
 
 [project.scripts]
 yolo-rtsp = "rtsp_annotator.cli:main"
 yolo-roi-select = "rtsp_annotator.roi_selector:main"
+yolo-vessel-calibrate = "rtsp_annotator.vessel_calibration:main"
 yolo-runtime-check = "rtsp_annotator.runtime_check:main"
 yolo-rtsp-api = "rtsp_annotator.api:main"
 

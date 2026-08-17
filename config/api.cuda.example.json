@@ -32,5 +32,18 @@
   "labels": {
     "map_file": null,
     "font_file": null
+  },
+  "events": {
+    "storage_root": "/app/data/events"
+  },
+  "observability": {
+    "enabled": true,
+    "log_root": "/app/data/stream-logs",
+    "monitor_interval_seconds": 1,
+    "metrics_stale_seconds": 12,
+    "stall_fps": 1,
+    "degraded_fps_ratio": 0.8,
+    "max_file_mb": 32,
+    "backup_count": 3
   }
 }

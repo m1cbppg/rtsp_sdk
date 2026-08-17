@@ -9,6 +9,7 @@ import signal
 import threading
 import time
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -28,6 +29,22 @@ from .events import (
     EventRepository,
     GarbageAnalysisOptions,
 )
+from .fishing_risk import (
+    FishingRiskEngine,
+    FishingRiskOptions,
+    FishingRiskResultCache,
+    FishingRiskSnapshot,
+)
+from .gas_cylinder import (
+    GasCylinderCameraProfile,
+    GasCylinderOptions,
+    GasCylinderResultCache,
+    GasCylinderSnapshot,
+)
+from .gas_cylinder_process import (
+    GasCylinderProcessClient,
+    GasCylinderProcessConfig,
+)
 from .labels import chinese_label
 from .license_plate import (
     LICENSE_PLATE_DETECTOR_UID,
@@ -35,10 +52,33 @@ from .license_plate import (
     PRIMARY_DETECTOR_UID,
     PlateConsensus,
 )
+from .vessel_detection import (
+    VesselDetectionOptions,
+    VesselResultCache,
+    VesselSnapshot,
+)
+from .vessel_detection_process import (
+    VesselDetectionProcessClient,
+    VesselDetectionProcessConfig,
+)
 
 
 LOGGER = logging.getLogger("rtsp_annotator.deepstream")
 GARBAGE_DETECTOR_UID = 4
+GST_BUFFER_FLAG_DISCONT = 1 << 6
+GST_BUFFER_FLAG_CORRUPTED = 1 << 8
+
+
+def _buffer_quality_flags(buffer: Any) -> tuple[bool, bool]:
+    """Return (corrupted, discontinuous) for a Gst-like buffer."""
+    try:
+        flags = int(buffer.get_flags())
+    except (AttributeError, TypeError, ValueError):
+        return False, False
+    return (
+        bool(flags & GST_BUFFER_FLAG_CORRUPTED),
+        bool(flags & GST_BUFFER_FLAG_DISCONT),
+    )
 
 
 def _point_in_polygon(
@@ -347,6 +387,9 @@ class StreamPolicy:
     license_plate_enabled: bool = False
     minimum_plate_confirmations: int = 2
     event_detection: EventDetectionOptions = EventDetectionOptions()
+    gas_cylinder: GasCylinderOptions = GasCylinderOptions()
+    vessel_detection: VesselDetectionOptions = VesselDetectionOptions()
+    fishing_risk: FishingRiskOptions = FishingRiskOptions()
 
 
 @dataclass(frozen=True, slots=True)
@@ -467,6 +510,12 @@ class MetricsState:
         generation: int,
         license_plate_enabled: dict[str, bool] | None = None,
         night_vision_enabled: dict[str, bool] | None = None,
+        gas_cylinder_enabled: dict[str, bool] | None = None,
+        gas_cylinder_cache: GasCylinderResultCache | None = None,
+        vessel_detection_enabled: dict[str, bool] | None = None,
+        vessel_detection_cache: VesselResultCache | None = None,
+        fishing_risk_enabled: dict[str, bool] | None = None,
+        fishing_risk_cache: FishingRiskResultCache | None = None,
     ) -> None:
         self._metrics_path = metrics_path
         self._interval_seconds = interval_seconds
@@ -475,6 +524,15 @@ class MetricsState:
         self._generation = generation
         self._license_plate_enabled = license_plate_enabled or {}
         self._night_vision_enabled = night_vision_enabled or {}
+        self._gas_cylinder_enabled = gas_cylinder_enabled or {}
+        self._gas_cylinder_cache = gas_cylinder_cache
+        self._vessel_detection_enabled = vessel_detection_enabled or {}
+        self._vessel_detection_cache = vessel_detection_cache
+        self._fishing_risk_enabled = fishing_risk_enabled or {}
+        self._fishing_risk_cache = fishing_risk_cache
+        self._stream_pad_index = {
+            stream_id: index for index, stream_id in enumerate(stream_ids)
+        }
         self._lock = threading.Lock()
         self._started_at = time.monotonic()
         self._last_report_at = self._started_at
@@ -487,6 +545,13 @@ class MetricsState:
         }
         self._plate_reads = {stream_id: 0 for stream_id in stream_ids}
         self._garbage_frames = {stream_id: 0 for stream_id in stream_ids}
+        self._corrupt_frames = {stream_id: 0 for stream_id in stream_ids}
+        self._discontinuities = {stream_id: 0 for stream_id in stream_ids}
+        self._frame_gaps = {stream_id: 0 for stream_id in stream_ids}
+        self._last_pre_encode_at: dict[str, float | None] = {
+            stream_id: None for stream_id in stream_ids
+        }
+        self._maximum_gap_ms = {stream_id: 0.0 for stream_id in stream_ids}
         self._last_frames = dict(self._frames)
         self._last_pre_encode = dict(self._pre_encode)
         self._last_published = dict(self._published)
@@ -494,6 +559,9 @@ class MetricsState:
         self._last_plate_detections = dict(self._plate_detections)
         self._last_plate_reads = dict(self._plate_reads)
         self._last_garbage_frames = dict(self._garbage_frames)
+        self._last_corrupt_frames = dict(self._corrupt_frames)
+        self._last_discontinuities = dict(self._discontinuities)
+        self._last_frame_gaps = dict(self._frame_gaps)
         self._inference_ms: dict[str, list[float]] = {
             stream_id: [] for stream_id in stream_ids
         }
@@ -517,9 +585,30 @@ class MetricsState:
                     del samples[: len(samples) - 2_000]
             self._maybe_write_locked()
 
-    def observe_pre_encode(self, stream_id: str) -> None:
+    def observe_pre_encode(
+        self,
+        stream_id: str,
+        buffer: Any | None = None,
+    ) -> None:
         with self._lock:
             self._pre_encode[stream_id] += 1
+            now = time.monotonic()
+            previous = self._last_pre_encode_at[stream_id]
+            if previous is not None:
+                gap_ms = (now - previous) * 1000.0
+                if gap_ms > 500.0:
+                    self._frame_gaps[stream_id] += 1
+                    self._maximum_gap_ms[stream_id] = max(
+                        self._maximum_gap_ms[stream_id],
+                        gap_ms,
+                    )
+            self._last_pre_encode_at[stream_id] = now
+            if buffer is not None:
+                corrupted, discontinuous = _buffer_quality_flags(buffer)
+                if corrupted:
+                    self._corrupt_frames[stream_id] += 1
+                if discontinuous:
+                    self._discontinuities[stream_id] += 1
 
     def observe_license_plates(
         self,
@@ -582,6 +671,39 @@ class MetricsState:
                 - self._last_garbage_frames[stream_id]
             ) / elapsed
             garbage_samples = self._garbage_analysis_ms[stream_id]
+            interval_corrupt_frames = (
+                self._corrupt_frames[stream_id]
+                - self._last_corrupt_frames[stream_id]
+            )
+            interval_discontinuities = (
+                self._discontinuities[stream_id]
+                - self._last_discontinuities[stream_id]
+            )
+            interval_frame_gaps = (
+                self._frame_gaps[stream_id]
+                - self._last_frame_gaps[stream_id]
+            )
+            gas_snapshot = (
+                self._gas_cylinder_cache.snapshot(
+                    self._stream_pad_index[stream_id]
+                )
+                if self._gas_cylinder_cache is not None
+                else GasCylinderSnapshot()
+            )
+            vessel_snapshot = (
+                self._vessel_detection_cache.snapshot(
+                    self._stream_pad_index[stream_id]
+                )
+                if self._vessel_detection_cache is not None
+                else VesselSnapshot()
+            )
+            fishing_snapshot = (
+                self._fishing_risk_cache.snapshot(
+                    self._stream_pad_index[stream_id]
+                )
+                if self._fishing_risk_cache is not None
+                else FishingRiskSnapshot()
+            )
             effective_fps = min(pipeline_fps, publish_fps)
             latency_samples = self._inference_ms[stream_id]
             ordered_latency = sorted(latency_samples)
@@ -608,6 +730,13 @@ class MetricsState:
                 "unique_publish_fps": publish_fps,
                 "duplicate_publish_fps": 0.0,
                 "tracking_fps": pipeline_fps,
+                "interval_corrupt_frames": interval_corrupt_frames,
+                "total_corrupt_frames": self._corrupt_frames[stream_id],
+                "interval_discontinuities": interval_discontinuities,
+                "total_discontinuities": self._discontinuities[stream_id],
+                "interval_frame_gaps": interval_frame_gaps,
+                "total_frame_gaps": self._frame_gaps[stream_id],
+                "max_interframe_gap_ms": self._maximum_gap_ms[stream_id],
                 "average_inference_ms": average_inference_ms,
                 "p95_inference_ms": p95_inference_ms,
                 "interval_detections": interval_detections,
@@ -635,6 +764,43 @@ class MetricsState:
                     if self._night_vision_enabled.get(stream_id, False)
                     else "day"
                 ),
+                "gas_cylinder_enabled": bool(
+                    self._gas_cylinder_enabled.get(stream_id, False)
+                ),
+                "gas_cylinder_state": gas_snapshot.state,
+                "gas_cylinder_count": gas_snapshot.count,
+                "gas_cylinder_result_version": (
+                    gas_snapshot.result_version
+                ),
+                "gas_cylinder_updated_at_unix": (
+                    gas_snapshot.updated_at_unix or 0.0
+                ),
+                "gas_cylinder_last_inference_ms": (
+                    gas_snapshot.last_inference_ms
+                ),
+                "vessel_detection_enabled": bool(
+                    self._vessel_detection_enabled.get(stream_id, False)
+                ),
+                "vessel_detection_state": vessel_snapshot.state,
+                "vessel_detection_count": vessel_snapshot.count,
+                "vessel_detection_result_version": (
+                    vessel_snapshot.result_version
+                ),
+                "vessel_detection_last_inference_ms": (
+                    vessel_snapshot.last_inference_ms
+                ),
+                "fishing_risk_enabled": bool(
+                    self._fishing_risk_enabled.get(stream_id, False)
+                ),
+                "fishing_risk_state": fishing_snapshot.state,
+                "fishing_risk_suspect_count": fishing_snapshot.count,
+                "fishing_risk_maximum_score": (
+                    fishing_snapshot.maximum_score
+                ),
+                "fishing_risk_total_events": fishing_snapshot.total_events,
+                "fishing_risk_result_version": (
+                    fishing_snapshot.result_version
+                ),
                 "pipeline_healthy": (
                     effective_fps >= self._minimum_healthy_fps
                 ),
@@ -656,6 +822,12 @@ class MetricsState:
         self._last_plate_detections = dict(self._plate_detections)
         self._last_plate_reads = dict(self._plate_reads)
         self._last_garbage_frames = dict(self._garbage_frames)
+        self._last_corrupt_frames = dict(self._corrupt_frames)
+        self._last_discontinuities = dict(self._discontinuities)
+        self._last_frame_gaps = dict(self._frame_gaps)
+        self._maximum_gap_ms = {
+            stream_id: 0.0 for stream_id in self._maximum_gap_ms
+        }
         self._inference_ms = {
             stream_id: [] for stream_id in self._inference_ms
         }
@@ -667,6 +839,7 @@ class MetricsState:
                 "状态: stream=%s, pipeline=%.1f FPS, "
                 "pre-encode=%.1f FPS, publish=%.1f FPS, "
                 "infer=%.1f/P95 %.1f ms, garbage=%.1f FPS, "
+                "gas=%s/%d, vessel=%s/%d, fishing=%s/%d, "
                 "detections=%d, healthy=%s",
                 stream_id[:8],
                 report["inference_fps"],
@@ -675,6 +848,12 @@ class MetricsState:
                 report["average_inference_ms"],
                 report["p95_inference_ms"],
                 report["garbage_analysis_fps"],
+                report["gas_cylinder_state"],
+                report["gas_cylinder_count"],
+                report["vessel_detection_state"],
+                report["vessel_detection_count"],
+                report["fishing_risk_state"],
+                report["fishing_risk_suspect_count"],
                 report["interval_detections"],
                 report["pipeline_healthy"],
             )
@@ -699,6 +878,9 @@ class OverlayProcessor:
         latency_tracker: "InferenceLatencyTracker | None" = None,
         event_engines: dict[int, EventEngine] | None = None,
         garbage_overlay_cache: GarbageOverlayCache | None = None,
+        gas_cylinder_cache: GasCylinderResultCache | None = None,
+        vessel_detection_cache: VesselResultCache | None = None,
+        fishing_risk_cache: FishingRiskResultCache | None = None,
         frame_width: int | None = None,
         frame_height: int | None = None,
     ) -> None:
@@ -707,6 +889,9 @@ class OverlayProcessor:
         self._latency_tracker = latency_tracker
         self._event_engines = event_engines or {}
         self._garbage_overlay_cache = garbage_overlay_cache
+        self._gas_cylinder_cache = gas_cylinder_cache
+        self._vessel_detection_cache = vessel_detection_cache
+        self._fishing_risk_cache = fishing_risk_cache
         self._frame_width = frame_width
         self._frame_height = frame_height
         self._plate_consensus = {
@@ -732,6 +917,7 @@ class OverlayProcessor:
             )
             tracked_objects: list[TrackedObject] = []
             primary_rectangles: dict[int, NormalizedRect] = {}
+            visible_vessel_rectangles: list[NormalizedRect] = []
             for object_meta in frame_meta.object_items:
                 component_id = int(
                     getattr(
@@ -785,6 +971,18 @@ class OverlayProcessor:
                     self._hide_object(object_meta)
                     continue
                 detections += 1
+                if int(object_meta.class_id) in set(
+                    policy.vessel_detection.class_ids
+                ):
+                    rectangle = object_meta.rect_params
+                    visible_vessel_rectangles.append(
+                        NormalizedRect(
+                            float(rectangle.left) / width,
+                            float(rectangle.top) / height,
+                            float(rectangle.width) / width,
+                            float(rectangle.height) / height,
+                        )
+                    )
                 self._style_object(object_meta, policy, osd)
             event_engine = self._event_engines.get(int(frame_meta.pad_index))
             if event_engine is not None:
@@ -868,6 +1066,61 @@ class OverlayProcessor:
                     osd,
                     width=width,
                     height=height,
+                )
+            if (
+                policy.gas_cylinder.enabled
+                and self._gas_cylinder_cache is not None
+            ):
+                self._draw_gas_cylinders(
+                    batch_meta,
+                    frame_meta,
+                    self._gas_cylinder_cache.snapshot(
+                        int(frame_meta.pad_index)
+                    ),
+                    policy.gas_cylinder,
+                    osd,
+                    width=width,
+                    height=height,
+                )
+            if (
+                policy.vessel_detection.enabled
+                and self._vessel_detection_cache is not None
+            ):
+                fishing_snapshot = (
+                    self._fishing_risk_cache.snapshot(
+                        int(frame_meta.pad_index)
+                    )
+                    if self._fishing_risk_cache is not None
+                    else FishingRiskSnapshot()
+                )
+                if (
+                    policy.fishing_risk.enabled
+                    and policy.fishing_risk.display_risk
+                ):
+                    for zone in policy.fishing_risk.zones:
+                        self._draw_roi(
+                            batch_meta,
+                            frame_meta,
+                            [list(point) for point in zone.polygon],
+                            osd,
+                            width=width,
+                            height=height,
+                        )
+                self._draw_vessels(
+                    batch_meta,
+                    frame_meta,
+                    self._vessel_detection_cache.snapshot(
+                        int(frame_meta.pad_index)
+                    ),
+                    policy.vessel_detection,
+                    osd,
+                    width=width,
+                    height=height,
+                    existing_rectangles=tuple(
+                        visible_vessel_rectangles
+                    ),
+                    fishing_options=policy.fishing_risk,
+                    fishing_snapshot=fishing_snapshot,
                 )
             latency_ms = (
                 self._latency_tracker.finish(
@@ -1123,6 +1376,284 @@ class OverlayProcessor:
         text.bg_color = color
         display_meta.add_text(text)
         frame_meta.append(display_meta)
+
+    @staticmethod
+    def _draw_gas_cylinders(
+        batch_meta: Any,
+        frame_meta: Any,
+        snapshot: GasCylinderSnapshot,
+        options: GasCylinderOptions,
+        osd: Any,
+        *,
+        width: float,
+        height: float,
+    ) -> None:
+        """Batch line metadata so dozens of cached boxes stay inexpensive."""
+        alarm_active = snapshot.count > options.alarm_threshold
+        if alarm_active:
+            color = osd.Color(1.0, 0.0, 0.0, 1.0)
+            title = f"燃气瓶数量：{snapshot.count}（超量告警）"
+        elif snapshot.state == "stable":
+            color = osd.Color(0.0, 0.85, 0.2, 1.0)
+            title = f"燃气瓶数量：{snapshot.count}"
+        elif snapshot.state == "dirty":
+            color = osd.Color(1.0, 0.65, 0.0, 1.0)
+            title = f"上次燃气瓶：{snapshot.count}（场景变化）"
+        elif snapshot.state == "error":
+            color = osd.Color(1.0, 0.15, 0.1, 1.0)
+            title = f"燃气瓶识别异常，上次：{snapshot.count}"
+        else:
+            color = osd.Color(1.0, 0.65, 0.0, 1.0)
+            title = (
+                f"燃气瓶重新识别中，上次：{snapshot.count}"
+                if snapshot.count
+                else "燃气瓶识别中"
+            )
+        detections = list(snapshot.detections)
+        chunks = [detections[index : index + 4] for index in range(0, len(detections), 4)]
+        if not chunks:
+            chunks = [[]]
+        pixel_width = max(int(width), 1)
+        pixel_height = max(int(height), 1)
+        for chunk_index, chunk in enumerate(chunks):
+            display_meta = batch_meta.acquire_display_meta()
+            if chunk_index == 0:
+                header = osd.Text()
+                header.display_text = title.encode("utf-8")
+                header.x_offset = 12
+                header.y_offset = 12
+                header.font.name = osd.FontFamily.Serif
+                header.font.size = 22
+                header.font.color = osd.Color(1.0, 1.0, 1.0, 1.0)
+                header.set_bg_color = True
+                header.bg_color = color
+                display_meta.add_text(header)
+            for detection in chunk:
+                rectangle = detection.rectangle
+                left = min(max(int(rectangle.left * pixel_width), 0), pixel_width - 1)
+                top = min(max(int(rectangle.top * pixel_height), 0), pixel_height - 1)
+                right = min(
+                    max(int((rectangle.left + rectangle.width) * pixel_width), 0),
+                    pixel_width - 1,
+                )
+                bottom = min(
+                    max(int((rectangle.top + rectangle.height) * pixel_height), 0),
+                    pixel_height - 1,
+                )
+                for x1, y1, x2, y2 in (
+                    (left, top, right, top),
+                    (right, top, right, bottom),
+                    (right, bottom, left, bottom),
+                    (left, bottom, left, top),
+                ):
+                    line = osd.Line()
+                    line.x1 = x1
+                    line.y1 = y1
+                    line.x2 = x2
+                    line.y2 = y2
+                    line.width = 3
+                    line.color = color
+                    display_meta.add_line(line)
+                if options.display_ids:
+                    label = osd.Text()
+                    label.display_text = f"燃气瓶 #{detection.object_id}".encode(
+                        "utf-8"
+                    )
+                    label.x_offset = left
+                    label.y_offset = max(top - 24, 0)
+                    label.font.name = osd.FontFamily.Serif
+                    label.font.size = 16
+                    label.font.color = osd.Color(1.0, 1.0, 1.0, 1.0)
+                    label.set_bg_color = True
+                    label.bg_color = color
+                    display_meta.add_text(label)
+            frame_meta.append(display_meta)
+
+    @staticmethod
+    def _draw_vessels(
+        batch_meta: Any,
+        frame_meta: Any,
+        snapshot: VesselSnapshot,
+        options: VesselDetectionOptions,
+        osd: Any,
+        *,
+        width: float,
+        height: float,
+        existing_rectangles: tuple[NormalizedRect, ...] = (),
+        fishing_options: FishingRiskOptions | None = None,
+        fishing_snapshot: FishingRiskSnapshot = FishingRiskSnapshot(),
+    ) -> None:
+        """Draw temporally confirmed vessel boxes from the lossy sidecar."""
+        if options.display_roi:
+            if options.roi is not None:
+                OverlayProcessor._draw_roi(
+                    batch_meta,
+                    frame_meta,
+                    [list(point) for point in options.roi],
+                    osd,
+                    width=width,
+                    height=height,
+                )
+            for polygon in options.exclude_rois:
+                OverlayProcessor._draw_roi(
+                    batch_meta,
+                    frame_meta,
+                    [list(point) for point in polygon],
+                    osd,
+                    width=width,
+                    height=height,
+                )
+
+        now = time.monotonic()
+        stale_after = options.hold_seconds + max(
+            2.0 / options.analysis_fps,
+            1.0,
+        )
+        fresh = (
+            snapshot.updated_at is not None
+            and now - snapshot.updated_at <= stale_after
+        )
+        all_detections = list(snapshot.detections) if fresh else []
+        detections = [
+            detection
+            for detection in all_detections
+            if not any(
+                _rectangle_iou(
+                    detection.rectangle,
+                    existing,
+                )
+                >= 0.5
+                for existing in existing_rectangles
+            )
+        ]
+        risk_enabled = bool(
+            fishing_options is not None
+            and fishing_options.enabled
+            and fishing_options.display_risk
+        )
+        risk_fresh = bool(
+            risk_enabled
+            and fishing_snapshot.updated_at is not None
+            and now - fishing_snapshot.updated_at
+            <= max(
+                fishing_options.rules.track_lost_seconds
+                if fishing_options is not None
+                else 0.0,
+                2.0,
+            )
+        )
+        risk_by_object_id = {
+            suspect.vessel_object_id: suspect
+            for suspect in fishing_snapshot.suspects
+        } if risk_fresh else {}
+        if snapshot.state == "error":
+            color = osd.Color(1.0, 0.15, 0.1, 1.0)
+            title = "船舶检测异常"
+        elif not fresh:
+            color = osd.Color(1.0, 0.65, 0.0, 1.0)
+            title = "船舶检测等待结果"
+        else:
+            color = osd.Color(0.0, 0.85, 1.0, 1.0)
+            title = f"船舶：{len(all_detections)}"
+            if risk_enabled:
+                title += f"｜风险候选：{len(risk_by_object_id)}"
+                if risk_by_object_id:
+                    color = osd.Color(1.0, 0.25, 0.05, 1.0)
+
+        chunks = [
+            detections[index : index + 4]
+            for index in range(0, len(detections), 4)
+        ] or [[]]
+        pixel_width = max(int(width), 1)
+        pixel_height = max(int(height), 1)
+        for chunk_index, chunk in enumerate(chunks):
+            display_meta = batch_meta.acquire_display_meta()
+            if chunk_index == 0:
+                header = osd.Text()
+                header.display_text = title.encode("utf-8")
+                header.x_offset = 12
+                header.y_offset = 48
+                header.font.name = osd.FontFamily.Serif
+                header.font.size = 22
+                header.font.color = osd.Color(1.0, 1.0, 1.0, 1.0)
+                header.set_bg_color = True
+                header.bg_color = color
+                display_meta.add_text(header)
+            for detection in chunk:
+                risk = risk_by_object_id.get(detection.object_id)
+                detection_color = (
+                    osd.Color(1.0, 0.15, 0.05, 1.0)
+                    if risk is not None
+                    and fishing_options is not None
+                    and risk.risk_score >= fishing_options.alert_score
+                    else (
+                        osd.Color(1.0, 0.65, 0.0, 1.0)
+                        if risk is not None
+                        else color
+                    )
+                )
+                rectangle = detection.rectangle
+                left = min(
+                    max(int(rectangle.left * pixel_width), 0),
+                    pixel_width - 1,
+                )
+                top = min(
+                    max(int(rectangle.top * pixel_height), 0),
+                    pixel_height - 1,
+                )
+                right = min(
+                    max(
+                        int(
+                            (rectangle.left + rectangle.width)
+                            * pixel_width
+                        ),
+                        0,
+                    ),
+                    pixel_width - 1,
+                )
+                bottom = min(
+                    max(
+                        int(
+                            (rectangle.top + rectangle.height)
+                            * pixel_height
+                        ),
+                        0,
+                    ),
+                    pixel_height - 1,
+                )
+                for x1, y1, x2, y2 in (
+                    (left, top, right, top),
+                    (right, top, right, bottom),
+                    (right, bottom, left, bottom),
+                    (left, bottom, left, top),
+                ):
+                    line = osd.Line()
+                    line.x1 = x1
+                    line.y1 = y1
+                    line.x2 = x2
+                    line.y2 = y2
+                    line.width = 4
+                    line.color = detection_color
+                    display_meta.add_line(line)
+                label = osd.Text()
+                if risk is not None:
+                    label_value = f"疑似捕捞线索 {risk.risk_score}分"
+                else:
+                    label_value = (
+                        f"船 #{detection.object_id}"
+                        if options.display_ids
+                        else "船"
+                    )
+                label.display_text = label_value.encode("utf-8")
+                label.x_offset = left
+                label.y_offset = max(top - 24, 0)
+                label.font.name = osd.FontFamily.Serif
+                label.font.size = 18
+                label.font.color = osd.Color(1.0, 1.0, 1.0, 1.0)
+                label.set_bg_color = True
+                label.bg_color = detection_color
+                display_meta.add_text(label)
+            frame_meta.append(display_meta)
 
 
 class InferenceLatencyTracker:
@@ -1682,6 +2213,119 @@ class GarbageFrameProcessor:
             detections=previous.detections,
         )
 
+
+class GasCylinderFrameProcessor:
+    """Consume only sampled frames; failures never escape to the main chain."""
+
+    def __init__(
+        self,
+        client: GasCylinderProcessClient,
+    ) -> None:
+        self._client = client
+
+    def process(self, batch_meta: Any, frames: list[Any]) -> None:
+        timestamp = time.monotonic()
+        for frame_index, frame_meta in enumerate(batch_meta.frame_items):
+            if frame_index >= len(frames):
+                continue
+            pad_index = int(frame_meta.pad_index)
+            try:
+                if not self._client.accepts(pad_index):
+                    continue
+                self._client.submit(
+                    pad_index,
+                    _frame_to_small_numpy(frames[frame_index]),
+                    timestamp=timestamp,
+                )
+            except Exception:
+                LOGGER.exception(
+                    "燃气瓶旁路分析失败，主RTSP继续运行: pad=%d",
+                    pad_index,
+                )
+
+
+class VesselFrameProcessor:
+    """Feed sampled mux frames to the non-blocking vessel process."""
+
+    def __init__(
+        self,
+        client: VesselDetectionProcessClient,
+        *,
+        vessel_cache: VesselResultCache | None = None,
+        fishing_risk_engines: dict[int, FishingRiskEngine] | None = None,
+        fishing_risk_cache: FishingRiskResultCache | None = None,
+        evidence_writers: dict[int, EventEvidenceWriter] | None = None,
+    ) -> None:
+        self._client = client
+        self._vessel_cache = vessel_cache
+        self._fishing_risk_engines = fishing_risk_engines or {}
+        self._fishing_risk_cache = fishing_risk_cache
+        self._evidence_writers = evidence_writers or {}
+        self._last_risk_version: dict[int, int] = {}
+
+    def process(self, batch_meta: Any, frames: list[Any]) -> None:
+        timestamp = time.monotonic()
+        for frame_index, frame_meta in enumerate(batch_meta.frame_items):
+            if frame_index >= len(frames):
+                continue
+            pad_index = int(frame_meta.pad_index)
+            try:
+                accepted = self._client.accepts(
+                    pad_index,
+                    timestamp=timestamp,
+                )
+                converted_frame: Any | None = None
+                engine = self._fishing_risk_engines.get(pad_index)
+                if engine is not None and self._vessel_cache is not None:
+                    snapshot = self._vessel_cache.snapshot(pad_index)
+                    previous_version = self._last_risk_version.get(
+                        pad_index,
+                        -1,
+                    )
+                    if (
+                        snapshot.state == "running"
+                        and snapshot.result_version != previous_version
+                    ):
+                        result = engine.observe(
+                            timestamp=(snapshot.updated_at or timestamp),
+                            observed_at=datetime.now(timezone.utc),
+                            detections=snapshot.detections,
+                        )
+                        self._last_risk_version[pad_index] = (
+                            snapshot.result_version
+                        )
+                        if self._fishing_risk_cache is not None:
+                            self._fishing_risk_cache.store_snapshot(
+                                pad_index,
+                                result.snapshot,
+                            )
+                        if result.events:
+                            writer = self._evidence_writers.get(pad_index)
+                            if writer is not None:
+                                converted_frame = _frame_to_small_numpy(
+                                    frames[frame_index]
+                                )
+                                writer.attach_snapshots(
+                                    result.events,
+                                    converted_frame,
+                                )
+                if accepted:
+                    if converted_frame is None:
+                        converted_frame = _frame_to_small_numpy(
+                            frames[frame_index]
+                        )
+                    self._client.submit(
+                        pad_index,
+                        converted_frame,
+                        timestamp=timestamp,
+                    )
+            except Exception:
+                LOGGER.exception(
+                    "船舶旁路分析失败，主RTSP继续运行: pad=%d",
+                    pad_index,
+                )
+
+
 def _frame_to_small_numpy(value: Any) -> Any:
     """Copy a ServiceMaker analysis surface into a NumPy-compatible frame."""
     import numpy as np
@@ -1877,6 +2521,15 @@ def _load_policies(config: dict[str, Any]) -> dict[int, StreamPolicy]:
             event_detection=EventDetectionOptions.from_payload(
                 stream.get("event_detection")
             ),
+            gas_cylinder=GasCylinderOptions.from_payload(
+                stream.get("gas_cylinder")
+            ),
+            vessel_detection=VesselDetectionOptions.from_payload(
+                stream.get("vessel_detection")
+            ),
+            fishing_risk=FishingRiskOptions.from_payload(
+                stream.get("fishing_risk")
+            ),
         )
         for pad_index, stream in enumerate(config["streams"])
     }
@@ -1896,6 +2549,10 @@ def _add_pipeline_nodes(
     garbage_config_path: Path | None = None,
     garbage_receiver: Any | None = None,
     garbage_skip_probe: Any | None = None,
+    gas_cylinder_receiver: Any | None = None,
+    gas_cylinder_skip_probe: Any | None = None,
+    vessel_receiver: Any | None = None,
+    vessel_skip_probe: Any | None = None,
 ) -> None:
     gpu_id = int(config["gpu_id"])
     pipeline.add(
@@ -1922,6 +2579,17 @@ def _add_pipeline_nodes(
                 "uri": stream["input_url"],
                 "gpu-id": gpu_id,
                 "latency": int(config["source_latency_ms"]),
+                # Keep enough decoder surfaces available for inference,
+                # tracking and optional lossy analysis branches.  The
+                # nvurisrcbin default is only one extra surface; under branch
+                # pressure that can stall the decoder while it is still
+                # holding reference pictures for a long-GOP camera stream.
+                "num-extra-surfaces": 8,
+                # Never discard an H.264 reference picture merely because
+                # the RTSP jitter buffer temporarily exceeds its target.
+                # A late frame is recoverable; a missing reference frame can
+                # leave macroblock trails until the camera sends another IDR.
+                "drop-on-latency": False,
                 "rtsp-reconnect-interval": 5,
                 "rtsp-reconnect-attempts": -1,
                 "select-rtp-protocol": 4,
@@ -2010,13 +2678,16 @@ def _add_pipeline_nodes(
     garbage_enabled = bool(
         config.get("garbage", {}).get("enabled", False)
     )
-    if garbage_enabled:
-        if (
-            garbage_config_path is None
-            or garbage_receiver is None
-            or garbage_skip_probe is None
-        ):
-            raise RuntimeError("垃圾识别已启用但缺少推理配置或旁路组件")
+    gas_cylinder_enabled = bool(
+        config.get("gas_cylinder", {}).get("enabled", False)
+    )
+    vessel_enabled = bool(
+        config.get("vessel_detection", {}).get("enabled", False)
+    )
+    analytics_enabled = (
+        garbage_enabled or gas_cylinder_enabled or vessel_enabled
+    )
+    if analytics_enabled:
         pipeline.add("tee", "analytics_tee")
         pipeline.add(
             "queue",
@@ -2028,6 +2699,13 @@ def _add_pipeline_nodes(
                 "leaky": 0,
             },
         )
+    if garbage_enabled:
+        if (
+            garbage_config_path is None
+            or garbage_receiver is None
+            or garbage_skip_probe is None
+        ):
+            raise RuntimeError("垃圾识别已启用但缺少推理配置或旁路组件")
         pipeline.add(
             "queue",
             "garbage_queue",
@@ -2075,6 +2753,90 @@ def _add_pipeline_nodes(
                 "emit-signals": True,
             },
         )
+    if gas_cylinder_enabled:
+        if gas_cylinder_receiver is None or gas_cylinder_skip_probe is None:
+            raise RuntimeError("燃气瓶识别已启用但缺少旁路组件")
+        gas_config = config["gas_cylinder"]
+        pipeline.add(
+            "queue",
+            "gas_cylinder_queue",
+            {
+                # Never let YOLOE back-pressure decode, OSD or NVENC. The
+                # newest sampled frame is more useful than queued old frames.
+                "max-size-buffers": 1,
+                "max-size-bytes": 0,
+                "max-size-time": 0,
+                "leaky": 2,
+            },
+        )
+        pipeline.add(
+            "nvvideoconvert",
+            "gas_cylinder_convert",
+            {"gpu-id": gpu_id},
+        )
+        pipeline.add(
+            "capsfilter",
+            "gas_cylinder_rgb_caps",
+            {
+                "caps": (
+                    "video/x-raw(memory:NVMM), format=RGB, "
+                    f"width={int(gas_config['input_width'])}, "
+                    f"height={int(gas_config['input_height'])}"
+                )
+            },
+        )
+        pipeline.add(
+            "appsink",
+            "gas_cylinder_sink",
+            {
+                "sync": False,
+                "async": False,
+                "max-buffers": 1,
+                "drop": True,
+                "emit-signals": True,
+            },
+        )
+    if vessel_enabled:
+        if vessel_receiver is None or vessel_skip_probe is None:
+            raise RuntimeError("船舶识别已启用但缺少旁路组件")
+        vessel_config = config["vessel_detection"]
+        pipeline.add(
+            "queue",
+            "vessel_queue",
+            {
+                "max-size-buffers": 1,
+                "max-size-bytes": 0,
+                "max-size-time": 0,
+                "leaky": 2,
+            },
+        )
+        pipeline.add(
+            "nvvideoconvert",
+            "vessel_convert",
+            {"gpu-id": gpu_id},
+        )
+        pipeline.add(
+            "capsfilter",
+            "vessel_rgb_caps",
+            {
+                "caps": (
+                    "video/x-raw(memory:NVMM), format=RGB, "
+                    f"width={int(vessel_config['input_width'])}, "
+                    f"height={int(vessel_config['input_height'])}"
+                )
+            },
+        )
+        pipeline.add(
+            "appsink",
+            "vessel_sink",
+            {
+                "sync": False,
+                "async": False,
+                "max-buffers": 1,
+                "drop": True,
+                "emit-signals": True,
+            },
+        )
     analytics_nodes = ["mux", "pre_infer", "primary_infer"]
     if license_plate_enabled:
         analytics_nodes.extend(
@@ -2084,7 +2846,7 @@ def _add_pipeline_nodes(
         analytics_nodes.append("tracker")
     if license_plate_enabled:
         analytics_nodes.append("license_plate_recognizer")
-    if garbage_enabled:
+    if analytics_enabled:
         analytics_nodes.append("analytics_tee")
         pipeline.link(*analytics_nodes)
         pipeline.link(
@@ -2097,10 +2859,8 @@ def _add_pipeline_nodes(
             "rgba_caps",
             "demux",
         )
-        pipeline.link(
-            ("analytics_tee", "garbage_queue"),
-            ("src_%u", ""),
-        )
+    if garbage_enabled:
+        pipeline.link(("analytics_tee", "garbage_queue"), ("src_%u", ""))
         pipeline.link(
             "garbage_queue",
             "garbage_infer",
@@ -2114,7 +2874,38 @@ def _add_pipeline_nodes(
             garbage_receiver,
             tips="new-sample",
         )
-    else:
+    if gas_cylinder_enabled:
+        pipeline.link(
+            ("analytics_tee", "gas_cylinder_queue"),
+            ("src_%u", ""),
+        )
+        pipeline.link(
+            "gas_cylinder_queue",
+            "gas_cylinder_convert",
+            "gas_cylinder_rgb_caps",
+            "gas_cylinder_sink",
+        )
+        pipeline.attach("gas_cylinder_queue", gas_cylinder_skip_probe)
+        pipeline.attach(
+            "gas_cylinder_sink",
+            gas_cylinder_receiver,
+            tips="new-sample",
+        )
+    if vessel_enabled:
+        pipeline.link(("analytics_tee", "vessel_queue"), ("src_%u", ""))
+        pipeline.link(
+            "vessel_queue",
+            "vessel_convert",
+            "vessel_rgb_caps",
+            "vessel_sink",
+        )
+        pipeline.attach("vessel_queue", vessel_skip_probe)
+        pipeline.attach(
+            "vessel_sink",
+            vessel_receiver,
+            tips="new-sample",
+        )
+    if not analytics_enabled:
         analytics_nodes.extend(("osd_convert", "rgba_caps", "demux"))
         pipeline.link(*analytics_nodes)
     if license_plate_enabled:
@@ -2174,8 +2965,21 @@ def _add_pipeline_nodes(
                     config["encoder_iframe_interval"]
                 ),
                 "num-B-Frames": 0,
+                # DeepStream 8 otherwise defaults to Baseline + P1 +
+                # low-latency tuning.  That combination prioritises encoder
+                # throughput and produces conspicuous blocks around moving
+                # objects even when the requested bitrate is high.  P4 High
+                # Profile with spatial/temporal AQ is a balanced real-time
+                # quality preset for the deployment's NVENC hardware.
+                "profile": 4,
+                "preset-id": 4,
+                "tuning-info-id": 1,
+                "aq": 8,
+                "temporalaq": True,
+                "num-Ref-Frames": 2,
                 "insert-aud": True,
                 "insert-sps-pps": True,
+                "insert-vui": True,
             },
         )
         pipeline.add(
@@ -2314,25 +3118,116 @@ def run(config_path: Path) -> None:
             if item.strip()
         ]
     policies = _load_policies(config)
+    gas_cylinder_cache = GasCylinderResultCache()
+    gas_cylinder_client: GasCylinderProcessClient | None = None
+    gas_config = config.get("gas_cylinder", {})
+    if bool(gas_config.get("enabled", False)):
+        try:
+            GasCylinderCameraProfile.load(
+                Path(gas_config["profile_root"]),
+                str(gas_config["profile_id"]),
+            )
+            gas_options_by_pad = {
+                pad_index: policy.gas_cylinder
+                for pad_index, policy in policies.items()
+                if policy.gas_cylinder.enabled
+            }
+            gas_cylinder_client = GasCylinderProcessClient(
+                GasCylinderProcessConfig(
+                    model_path=Path(gas_config["model_path"]),
+                    profile_root=Path(gas_config["profile_root"]),
+                    profile_id=str(gas_config["profile_id"]),
+                    device=f"cuda:{int(config['gpu_id'])}",
+                    imgsz=int(gas_config["imgsz"]),
+                    options_by_pad=gas_options_by_pad,
+                ),
+                gas_cylinder_cache,
+            )
+        except Exception as exc:
+            LOGGER.exception(
+                "燃气瓶组件初始化失败，主RTSP将不受影响"
+            )
+            for pad_index, policy in policies.items():
+                if policy.gas_cylinder.enabled:
+                    gas_cylinder_cache.mark_state(
+                        pad_index,
+                        "error",
+                        f"燃气瓶组件初始化失败: {type(exc).__name__}",
+                    )
+    vessel_detection_cache = VesselResultCache()
+    vessel_detection_client: VesselDetectionProcessClient | None = None
+    vessel_config = config.get("vessel_detection", {})
+    if bool(vessel_config.get("enabled", False)):
+        try:
+            vessel_options_by_pad = {
+                pad_index: policy.vessel_detection
+                for pad_index, policy in policies.items()
+                if policy.vessel_detection.enabled
+            }
+            vessel_detection_client = VesselDetectionProcessClient(
+                VesselDetectionProcessConfig(
+                    model_path=Path(vessel_config["model_path"]),
+                    device=f"cuda:{int(config['gpu_id'])}",
+                    half=True,
+                    options_by_pad=vessel_options_by_pad,
+                ),
+                vessel_detection_cache,
+            )
+        except Exception as exc:
+            LOGGER.exception("船舶组件初始化失败，主RTSP将不受影响")
+            for pad_index, policy in policies.items():
+                if policy.vessel_detection.enabled:
+                    vessel_detection_cache.mark_state(
+                        pad_index,
+                        "error",
+                        f"船舶组件初始化失败: {type(exc).__name__}",
+                    )
+            # Keep the OSD error state, but do not build a branch without a
+            # live receiver. The primary infer/encode path still starts.
+            vessel_config["enabled"] = False
+    fishing_risk_cache = FishingRiskResultCache()
     event_engines: dict[int, EventEngine] = {}
+    fishing_risk_engines: dict[int, FishingRiskEngine] = {}
     evidence_writers: dict[int, EventEvidenceWriter] = {}
     webhook_dispatchers: list[WebhookDispatcher] = []
     for pad_index, stream in enumerate(streams):
-        options = policies[pad_index].event_detection
-        if not options.enabled:
+        event_options = policies[pad_index].event_detection
+        risk_options = policies[pad_index].fishing_risk
+        if not event_options.enabled and not risk_options.enabled:
             continue
         repository = EventRepository(Path(stream["event_root"]))
         evidence_writers[pad_index] = EventEvidenceWriter(repository)
-        dispatcher = WebhookDispatcher(
-            options.webhook,
-            repository=repository,
-        )
-        webhook_dispatchers.append(dispatcher)
-        event_engines[pad_index] = EventEngine(
-            stream_id=stream["stream_id"],
-            options=options,
-            on_event=dispatcher.enqueue,
-        )
+        if event_options.enabled:
+            dispatcher = WebhookDispatcher(
+                event_options.webhook,
+                repository=repository,
+            )
+            webhook_dispatchers.append(dispatcher)
+            event_engines[pad_index] = EventEngine(
+                stream_id=stream["stream_id"],
+                options=event_options,
+                on_event=dispatcher.enqueue,
+            )
+        if risk_options.enabled:
+            risk_dispatcher = WebhookDispatcher(
+                risk_options.webhook,
+                repository=repository,
+            )
+            webhook_dispatchers.append(risk_dispatcher)
+            fishing_risk_engines[pad_index] = FishingRiskEngine(
+                stream_id=stream["stream_id"],
+                options=risk_options,
+                on_event=risk_dispatcher.enqueue,
+            )
+            fishing_risk_cache.mark_state(
+                pad_index,
+                "starting" if vessel_detection_client is not None else "error",
+                (
+                    "等待船舶轨迹"
+                    if vessel_detection_client is not None
+                    else "船舶检测组件不可用"
+                ),
+            )
     garbage_overlay_cache = GarbageOverlayCache()
     metrics = MetricsState(
         stream_ids=[item["stream_id"] for item in streams],
@@ -2353,6 +3248,27 @@ def run(config_path: Path) -> None:
             )
             for item in streams
         },
+        gas_cylinder_enabled={
+            item["stream_id"]: bool(
+                item.get("gas_cylinder", {}).get("enabled", False)
+            )
+            for item in streams
+        },
+        gas_cylinder_cache=gas_cylinder_cache,
+        vessel_detection_enabled={
+            item["stream_id"]: bool(
+                item.get("vessel_detection", {}).get("enabled", False)
+            )
+            for item in streams
+        },
+        vessel_detection_cache=vessel_detection_cache,
+        fishing_risk_enabled={
+            item["stream_id"]: bool(
+                item.get("fishing_risk", {}).get("enabled", False)
+            )
+            for item in streams
+        },
+        fishing_risk_cache=fishing_risk_cache,
     )
     latency_tracker = InferenceLatencyTracker()
 
@@ -2365,6 +3281,9 @@ def run(config_path: Path) -> None:
                 latency_tracker,
                 event_engines,
                 garbage_overlay_cache,
+                gas_cylinder_cache,
+                vessel_detection_cache,
+                fishing_risk_cache,
                 frame_width=int(config["mux_width"]),
                 frame_height=int(config["mux_height"]),
             )
@@ -2377,13 +3296,18 @@ def run(config_path: Path) -> None:
             self,
             stream_id: str,
             observer: Any,
+            include_buffer: bool = False,
         ) -> None:
             super().__init__()
             self._stream_id = stream_id
             self._observer = observer
+            self._include_buffer = include_buffer
 
         def handle_buffer(self, _buffer: Any) -> bool:
-            self._observer(self._stream_id)
+            if self._include_buffer:
+                self._observer(self._stream_id, _buffer)
+            else:
+                self._observer(self._stream_id)
             return True
 
     class LatencyStart(BatchMetadataOperator):
@@ -2450,6 +3374,52 @@ def run(config_path: Path) -> None:
             self._next_due = now + self._period
             return True
 
+    class GasCylinderFrames(BufferRetriever):
+        def __init__(self) -> None:
+            super().__init__()
+            assert gas_cylinder_client is not None
+            self._processor = GasCylinderFrameProcessor(
+                gas_cylinder_client
+            )
+
+        def consume(self, buffer: Any) -> int:
+            try:
+                frames = [
+                    buffer.extract(index)
+                    for index in range(int(buffer.batch_size))
+                ]
+                self._processor.process(buffer.batch_meta, frames)
+            except Exception:
+                LOGGER.exception(
+                    "燃气瓶帧提取失败，已跳过且主RTSP继续运行"
+                )
+            return 1
+
+    class VesselFrames(BufferRetriever):
+        def __init__(self) -> None:
+            super().__init__()
+            assert vessel_detection_client is not None
+            self._processor = VesselFrameProcessor(
+                vessel_detection_client,
+                vessel_cache=vessel_detection_cache,
+                fishing_risk_engines=fishing_risk_engines,
+                fishing_risk_cache=fishing_risk_cache,
+                evidence_writers=evidence_writers,
+            )
+
+        def consume(self, buffer: Any) -> int:
+            try:
+                frames = [
+                    buffer.extract(index)
+                    for index in range(int(buffer.batch_size))
+                ]
+                self._processor.process(buffer.batch_meta, frames)
+            except Exception:
+                LOGGER.exception(
+                    "船舶帧提取失败，已跳过且主RTSP继续运行"
+                )
+            return 1
+
     pipeline = Pipeline(f"rtsp-yolo-{config['group_id'][:8]}")
     references: list[Any] = []
     latency_probe = Probe("latency_start", LatencyStart())
@@ -2472,21 +3442,65 @@ def run(config_path: Path) -> None:
         if garbage_config_path is not None
         else None
     )
+    gas_cylinder_receiver = (
+        Receiver("gas_cylinder_frames", GasCylinderFrames())
+        if bool(gas_config.get("enabled", False))
+        else None
+    )
+    gas_cylinder_skip_probe = (
+        Probe(
+            "gas_cylinder_interval",
+            GarbageIntervalSkipper(
+                float(gas_config.get("analysis_fps", 1.0))
+            ),
+        )
+        if bool(gas_config.get("enabled", False))
+        else None
+    )
+    vessel_receiver = (
+        Receiver("vessel_frames", VesselFrames())
+        if vessel_detection_client is not None
+        else None
+    )
+    vessel_skip_probe = (
+        Probe(
+            "vessel_interval",
+            GarbageIntervalSkipper(
+                float(vessel_config.get("analysis_fps", 5.0))
+            ),
+        )
+        if vessel_detection_client is not None
+        else None
+    )
     references.append(latency_probe)
     references.append(plate_metadata_probe)
     if garbage_receiver is not None:
         references.append(garbage_receiver)
     if garbage_skip_probe is not None:
         references.append(garbage_skip_probe)
+    if gas_cylinder_receiver is not None:
+        references.append(gas_cylinder_receiver)
+    if gas_cylinder_skip_probe is not None:
+        references.append(gas_cylinder_skip_probe)
+    if vessel_receiver is not None:
+        references.append(vessel_receiver)
+    if vessel_skip_probe is not None:
+        references.append(vessel_skip_probe)
 
     def counter_probe(
         name: str,
         index: int,
         observer: Any,
+        *,
+        include_buffer: bool = False,
     ) -> Any:
         probe = Probe(
             f"{name}_{index}",
-            BufferCounter(streams[index]["stream_id"], observer),
+            BufferCounter(
+                streams[index]["stream_id"],
+                observer,
+                include_buffer=include_buffer,
+            ),
         )
         references.append(probe)
         return probe
@@ -2496,6 +3510,7 @@ def run(config_path: Path) -> None:
             "pre_encode_counter",
             index,
             metrics.observe_pre_encode,
+            include_buffer=True,
         )
 
     def overlay_probe_factory(index: int) -> Any:
@@ -2524,6 +3539,10 @@ def run(config_path: Path) -> None:
         garbage_config_path,
         garbage_receiver,
         garbage_skip_probe,
+        gas_cylinder_receiver,
+        gas_cylinder_skip_probe,
+        vessel_receiver,
+        vessel_skip_probe,
     )
     stopped = threading.Event()
 
@@ -2546,6 +3565,10 @@ def run(config_path: Path) -> None:
     try:
         pipeline.start().wait()
     finally:
+        if gas_cylinder_client is not None:
+            gas_cylinder_client.shutdown()
+        if vessel_detection_client is not None:
+            vessel_detection_client.shutdown()
         for dispatcher in webhook_dispatchers:
             dispatcher.shutdown()
 

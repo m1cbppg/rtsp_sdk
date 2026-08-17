@@ -91,7 +91,11 @@ class PipelineSession:
 
     def _record_metrics(self, report: dict[str, float | int]) -> None:
         with self._state_lock:
-            self._metrics = dict(report)
+            self._metrics = {
+                **report,
+                "metrics_updated_at_unix": time.time(),
+                "backend": "python-shared",
+            }
 
 
 @dataclass(slots=True)
@@ -146,6 +150,18 @@ class SharedStreamManager:
         if spec.event_detection.enabled:
             raise ModelNotFoundError(
                 "事件识别仅支持DeepStream后端"
+            )
+        if spec.gas_cylinder.enabled:
+            raise ModelNotFoundError(
+                "燃气瓶识别仅支持DeepStream后端"
+            )
+        if spec.vessel_detection.enabled:
+            raise ModelNotFoundError(
+                "高召回船舶识别仅支持DeepStream后端"
+            )
+        if spec.fishing_risk.enabled:
+            raise ModelNotFoundError(
+                "疑似非法捕捞分析仅支持DeepStream后端"
             )
         model_path = self._resolve_model(spec.model)
         stream_id = uuid.uuid4().hex
@@ -219,6 +235,14 @@ class SharedStreamManager:
         if record is None:
             raise StreamNotFoundError(stream_id)
         return self._serialize(record)
+
+    def update_fishing_risk(
+        self,
+        stream_id: str,
+        options: object,
+    ) -> dict[str, Any]:
+        del stream_id, options
+        raise ModelNotFoundError("疑似非法捕捞分析仅支持DeepStream后端")
 
     def stop(self, stream_id: str) -> dict[str, Any]:
         with self._lock:

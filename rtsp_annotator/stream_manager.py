@@ -15,7 +15,10 @@ from urllib.parse import quote, urlsplit, urlunsplit
 
 from .config import RoiPolygon
 from .events import EventDetectionOptions
+from .fishing_risk import FishingRiskOptions
+from .gas_cylinder import GasCylinderOptions
 from .license_plate import LicensePlateOptions
+from .vessel_detection import VesselDetectionOptions
 
 
 ProcessFactory = Callable[..., Any]
@@ -88,6 +91,9 @@ class StreamSpec:
     license_plate: LicensePlateOptions = LicensePlateOptions()
     night_vision: NightVisionOptions = NightVisionOptions()
     event_detection: EventDetectionOptions = EventDetectionOptions()
+    gas_cylinder: GasCylinderOptions = GasCylinderOptions()
+    vessel_detection: VesselDetectionOptions = VesselDetectionOptions()
+    fishing_risk: FishingRiskOptions = FishingRiskOptions()
 
 
 @dataclass(frozen=True, slots=True)
@@ -186,6 +192,18 @@ class StreamManager:
             raise ModelNotFoundError(
                 "事件识别仅支持DeepStream后端"
             )
+        if spec.gas_cylinder.enabled:
+            raise ModelNotFoundError(
+                "燃气瓶识别仅支持DeepStream后端"
+            )
+        if spec.vessel_detection.enabled:
+            raise ModelNotFoundError(
+                "高召回船舶识别仅支持DeepStream后端"
+            )
+        if spec.fishing_risk.enabled:
+            raise ModelNotFoundError(
+                "疑似非法捕捞分析仅支持DeepStream后端"
+            )
         model_path = self._resolve_model(spec.model)
         stream_id = uuid.uuid4().hex
         path = f"detected/{stream_id}"
@@ -245,6 +263,14 @@ class StreamManager:
         if record is None:
             raise StreamNotFoundError(stream_id)
         return self._serialize(record)
+
+    def update_fishing_risk(
+        self,
+        stream_id: str,
+        options: FishingRiskOptions,
+    ) -> dict[str, Any]:
+        del stream_id, options
+        raise ModelNotFoundError("疑似非法捕捞分析仅支持DeepStream后端")
 
     def stop(self, stream_id: str) -> dict[str, Any]:
         with self._lock:

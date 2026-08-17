@@ -15,6 +15,9 @@
 通过HTTP创建、查询和停止识别流，并获得独立的处理后RTSP地址，见
 [HTTP_API.md](HTTP_API.md)。
 
+按`stream_id`实时查看播放、卡顿、断流和马赛克风险日志，见
+[STREAM_LOGGING.md](STREAM_LOGGING.md)。
+
 四路及以上 NVIDIA 部署建议使用新 DeepStream/TensorRT 后端。它使用
 NVDEC、TensorRT、NvDCF、GPU OSD 和 NVENC 的零拷贝管线，每两路固定共用
 一个模型实例，完整打包和服务器验证步骤见
@@ -26,6 +29,14 @@ DeepStream后端支持与白天逻辑隔离的夜间推理配置。默认关闭�
 区域停留、垃圾变化、疑似乱丢垃圾、实时画面提示、事件截图和Webhook见
 [EVENT_DETECTION.md](EVENT_DETECTION.md)。该功能使用低帧率可丢帧旁路，
 不把垃圾分析耗时串入主推流链路。
+
+固定机位燃气瓶逐个识别和稳定计数见
+[GAS_CYLINDER.md](GAS_CYLINDER.md)。该功能使用YOLOE低频丢帧旁路，输入和
+输出仍为RTSP，不阻塞主视频转发。
+
+远距离、雨雾监控视角下的高召回船舶框选见
+[VESSEL_DETECTION.md](VESSEL_DETECTION.md)。它复用现有预训练模型，不要求
+训练新模型，并为不同摄像头提供独立水域ROI、透视分区和固定误报排除区。
 
 数据链路：
 
@@ -258,6 +269,10 @@ batch；实例只有一路时不会等待凑batch。每一路的真实等待、�
 上述 PyTorch 动态 batch 后端继续保留，适合 Mac/MPS 和兼容回退。RTX 3060 Ti
 四路正式部署使用 DeepStream 后端；它不会走 PyAV → NumPy → Python 画框 →
 FFmpeg 的 CPU 往返路径。
+
+DeepStream船舶旁路还支持默认关闭的`fishing_risk`纯规则分析：只用固定监控中的
+船舶轨迹、禁渔区域和时间表生成疑似捕捞人工复核事件，不需要训练新模型。它可
+通过API运行中关闭并退回纯船舶框模式，详见[FISHING_RISK.md](FISHING_RISK.md)。
 
 本项目已经在本地完成 1080p/25 FPS 的真实 RTSP 输入、YOLO 推理、叠框、H.264 编码和 RTSP 转推测试。测试环境、端到端延迟、模型档位与硬件结论见 [VALIDATION.md](VALIDATION.md)。
 

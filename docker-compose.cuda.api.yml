@@ -25,6 +25,7 @@ services:
       NVIDIA_DRIVER_CAPABILITIES: compute,utility,video
     volumes:
       - ./config:/app/config:ro
+      - ./data:/app/data
     entrypoint:
       - python
       - -m

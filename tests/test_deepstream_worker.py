@@ -22,6 +22,18 @@ from rtsp_annotator.events import (
     EventRoiOptions,
     GarbageAnalysisOptions,
 )
+from rtsp_annotator.gas_cylinder import (
+    GasCylinderCandidate,
+    GasCylinderOptions,
+    GasCylinderResultCache,
+)
+from rtsp_annotator.fishing_risk import (
+    FishingRiskOptions,
+    FishingRiskResultCache,
+    FishingRiskSnapshot,
+    FishingRiskSuspect,
+    FishingRiskZoneOptions,
+)
 from rtsp_annotator.deepstream_worker import (
     GarbageOverlayCache,
     MetricsState,
@@ -31,7 +43,9 @@ from rtsp_annotator.deepstream_worker import (
     PlateIdentityTracker,
     StreamPolicy,
     InferenceLatencyTracker,
+    VesselFrameProcessor,
     _add_pipeline_nodes,
+    _buffer_quality_flags,
     _merge_pile_detections,
     _point_in_polygon,
     build_inference_config,
@@ -39,6 +53,12 @@ from rtsp_annotator.deepstream_worker import (
     build_lpd_config,
     build_lpr_config,
     build_tracker_config,
+)
+from rtsp_annotator.vessel_detection import (
+    VesselDetection,
+    VesselDetectionOptions,
+    VesselResultCache,
+    VesselSnapshot,
 )
 
 
@@ -133,6 +153,35 @@ def fake_object(
 
 
 class DeepStreamWorkerTests(unittest.TestCase):
+    def test_gstreamer_buffer_flags_expose_corruption_and_discontinuity(self) -> None:
+        buffer = SimpleNamespace(get_flags=lambda: (1 << 8) | (1 << 6))
+
+        corrupted, discontinuous = _buffer_quality_flags(buffer)
+
+        self.assertTrue(corrupted)
+        self.assertTrue(discontinuous)
+
+    def test_metrics_include_bad_buffer_evidence(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "metrics.json"
+            metrics = MetricsState(
+                stream_ids=["stream-1"],
+                metrics_path=path,
+                interval_seconds=0,
+                minimum_healthy_fps=20,
+                group_id="group",
+                generation=1,
+            )
+            buffer = SimpleNamespace(get_flags=lambda: (1 << 8) | (1 << 6))
+            metrics.observe_pre_encode("stream-1", buffer)
+            metrics.observe_frame("stream-1", detections=0)
+            payload = json.loads(path.read_text(encoding="utf-8"))
+
+        report = payload["streams"]["stream-1"]
+        self.assertEqual(report["interval_corrupt_frames"], 1)
+        self.assertEqual(report["interval_discontinuities"], 1)
+        self.assertIn("updated_at_unix", payload)
+
     def test_pile_mode_clusters_parts_and_ignores_isolated_false_box(self) -> None:
         options = GarbageAnalysisOptions(
             enabled=True,
@@ -773,6 +822,13 @@ class DeepStreamWorkerTests(unittest.TestCase):
 
         self.assertEqual(pipeline.nodes["mux"][1]["batch-size"], 2)
         self.assertEqual(
+            pipeline.nodes["source_0"][1]["num-extra-surfaces"],
+            8,
+        )
+        self.assertFalse(
+            pipeline.nodes["source_0"][1]["drop-on-latency"],
+        )
+        self.assertEqual(
             pipeline.nodes["osd_0"],
             ("nvdsosd", {"gpu-id": 0, "process-mode": 1}),
         )
@@ -793,8 +849,23 @@ class DeepStreamWorkerTests(unittest.TestCase):
             pipeline.nodes["encoder_0"][1]["num-B-Frames"],
             0,
         )
+        self.assertEqual(pipeline.nodes["encoder_0"][1]["profile"], 4)
+        self.assertEqual(pipeline.nodes["encoder_0"][1]["preset-id"], 4)
+        self.assertEqual(
+            pipeline.nodes["encoder_0"][1]["tuning-info-id"],
+            1,
+        )
+        self.assertEqual(pipeline.nodes["encoder_0"][1]["aq"], 8)
+        self.assertTrue(pipeline.nodes["encoder_0"][1]["temporalaq"])
+        self.assertEqual(
+            pipeline.nodes["encoder_0"][1]["num-Ref-Frames"],
+            2,
+        )
         self.assertTrue(
             pipeline.nodes["encoder_0"][1]["insert-aud"],
+        )
+        self.assertTrue(
+            pipeline.nodes["encoder_0"][1]["insert-vui"],
         )
         self.assertTrue(
             pipeline.nodes["parser_0"][1]["disable-passthrough"],
@@ -956,6 +1027,383 @@ class DeepStreamWorkerTests(unittest.TestCase):
                 "video/x-raw(memory:NVMM), format=RGB, "
                 "width=640, height=360"
             ),
+        )
+
+        gas_pipeline = FakePipeline()
+        gas_config = dict(config)
+        gas_config["gas_cylinder"] = {
+            "enabled": True,
+            "input_width": 1280,
+            "input_height": 720,
+        }
+        gas_receiver = object()
+        gas_skip_probe = object()
+        _add_pipeline_nodes(
+            gas_pipeline,
+            gas_config,
+            Path("/runtime/nvinfer.txt"),
+            object(),
+            lambda _index: object(),
+            object(),
+            lambda _index: object(),
+            lambda _index: object(),
+            gas_cylinder_receiver=gas_receiver,
+            gas_cylinder_skip_probe=gas_skip_probe,
+        )
+        self.assertEqual(
+            gas_pipeline.nodes["gas_cylinder_queue"][1]["leaky"],
+            2,
+        )
+        self.assertEqual(
+            gas_pipeline.nodes["gas_cylinder_queue"][1][
+                "max-size-buffers"
+            ],
+            1,
+        )
+        self.assertEqual(
+            gas_pipeline.nodes["gas_cylinder_rgb_caps"][1]["caps"],
+            (
+                "video/x-raw(memory:NVMM), format=RGB, "
+                "width=1280, height=720"
+            ),
+        )
+        self.assertIn(
+            (
+                "gas_cylinder_queue",
+                "gas_cylinder_convert",
+                "gas_cylinder_rgb_caps",
+                "gas_cylinder_sink",
+            ),
+            gas_pipeline.links,
+        )
+        self.assertEqual(
+            gas_pipeline.nodes["publish_queue_0"][1]["leaky"],
+            0,
+        )
+
+        vessel_pipeline = FakePipeline()
+        vessel_config = dict(config)
+        vessel_config["vessel_detection"] = {
+            "enabled": True,
+            "input_width": 1920,
+            "input_height": 1080,
+        }
+        vessel_receiver = object()
+        vessel_skip_probe = object()
+        _add_pipeline_nodes(
+            vessel_pipeline,
+            vessel_config,
+            Path("/runtime/nvinfer.txt"),
+            object(),
+            lambda _index: object(),
+            object(),
+            lambda _index: object(),
+            lambda _index: object(),
+            vessel_receiver=vessel_receiver,
+            vessel_skip_probe=vessel_skip_probe,
+        )
+        self.assertEqual(
+            vessel_pipeline.nodes["vessel_queue"][1]["leaky"],
+            2,
+        )
+        self.assertEqual(
+            vessel_pipeline.nodes["vessel_rgb_caps"][1]["caps"],
+            (
+                "video/x-raw(memory:NVMM), format=RGB, "
+                "width=1920, height=1080"
+            ),
+        )
+        self.assertIn(
+            (
+                "vessel_queue",
+                "vessel_convert",
+                "vessel_rgb_caps",
+                "vessel_sink",
+            ),
+            vessel_pipeline.links,
+        )
+        self.assertEqual(
+            vessel_pipeline.nodes["vessel_sink"][1]["drop"],
+            True,
+        )
+
+    def test_gas_cylinder_osd_batches_four_boxes_per_display_meta(self) -> None:
+        frame = FakeFrame([])
+        batch = FakeBatch([frame])
+        cache = GasCylinderResultCache()
+        cache.publish(
+            0,
+            [
+                GasCylinderCandidate(
+                    NormalizedRect(0.05 + index * 0.1, 0.2, 0.07, 0.2),
+                    0.8,
+                )
+                for index in range(5)
+            ],
+            timestamp=1,
+            inference_ms=10,
+        )
+        fake_osd = SimpleNamespace(
+            Color=FakeColor,
+            Line=FakeLine,
+            Text=FakeText,
+            FontFamily=SimpleNamespace(Serif="serif"),
+        )
+
+        OverlayProcessor._draw_gas_cylinders(
+            batch,
+            frame,
+            cache.snapshot(0),
+            GasCylinderOptions(enabled=True),
+            fake_osd,
+            width=1000,
+            height=500,
+        )
+
+        self.assertEqual(len(frame.display_meta), 2)
+        self.assertEqual(len(frame.display_meta[0].lines), 16)
+        self.assertEqual(len(frame.display_meta[1].lines), 4)
+        self.assertEqual(
+            frame.display_meta[0].texts[0].display_text,
+            "燃气瓶数量：5".encode(),
+        )
+
+    def test_vessel_osd_draws_only_confirmed_cached_boxes(self) -> None:
+        frame = FakeFrame([])
+        batch = FakeBatch([frame])
+        snapshot = VesselSnapshot(
+            state="running",
+            detections=tuple(
+                VesselDetection(
+                    object_id=index + 1,
+                    rectangle=NormalizedRect(
+                        0.05 + index * 0.1,
+                        0.2,
+                        0.07,
+                        0.15,
+                    ),
+                    confidence=0.2,
+                    class_id=8,
+                    hits=2,
+                )
+                for index in range(5)
+            ),
+            result_version=2,
+            updated_at=time.monotonic(),
+        )
+        fake_osd = SimpleNamespace(
+            Color=FakeColor,
+            Line=FakeLine,
+            Text=FakeText,
+            FontFamily=SimpleNamespace(Serif="serif"),
+        )
+
+        OverlayProcessor._draw_vessels(
+            batch,
+            frame,
+            snapshot,
+            VesselDetectionOptions(enabled=True, display_ids=True),
+            fake_osd,
+            width=1000,
+            height=500,
+        )
+
+        self.assertEqual(len(frame.display_meta), 2)
+        self.assertEqual(len(frame.display_meta[0].lines), 16)
+        self.assertEqual(len(frame.display_meta[1].lines), 4)
+        self.assertEqual(
+            frame.display_meta[0].texts[0].display_text,
+            "船舶：5".encode(),
+        )
+        self.assertEqual(
+            frame.display_meta[0].texts[1].display_text,
+            "船 #1".encode(),
+        )
+
+    def test_vessel_osd_marks_only_matching_risk_candidate(self) -> None:
+        frame = FakeFrame([])
+        batch = FakeBatch([frame])
+        detection = VesselDetection(
+            object_id=12,
+            rectangle=NormalizedRect(0.2, 0.3, 0.1, 0.1),
+            confidence=0.4,
+            class_id=8,
+            hits=3,
+        )
+        vessel_snapshot = VesselSnapshot(
+            state="running",
+            detections=(detection,),
+            result_version=3,
+            updated_at=time.monotonic(),
+        )
+        risk_snapshot = FishingRiskSnapshot(
+            state="running",
+            suspects=(
+                FishingRiskSuspect(
+                    risk_track_id=4,
+                    vessel_object_id=12,
+                    rectangle=detection.rectangle,
+                    zone_id="protected_water",
+                    risk_score=60,
+                    reasons=("restricted_period_presence", "loitering"),
+                    dwell_seconds=180,
+                    reversal_count=0,
+                ),
+            ),
+            result_version=2,
+            updated_at=time.monotonic(),
+        )
+        options = FishingRiskOptions(
+            enabled=True,
+            zones=(
+                FishingRiskZoneOptions(
+                    "protected_water",
+                    ((0, 0), (1, 0), (1, 1), (0, 1)),
+                ),
+            ),
+        )
+        fake_osd = SimpleNamespace(
+            Color=FakeColor,
+            Line=FakeLine,
+            Text=FakeText,
+            FontFamily=SimpleNamespace(Serif="serif"),
+        )
+
+        OverlayProcessor._draw_vessels(
+            batch,
+            frame,
+            vessel_snapshot,
+            VesselDetectionOptions(enabled=True),
+            fake_osd,
+            width=1000,
+            height=500,
+            fishing_options=options,
+            fishing_snapshot=risk_snapshot,
+        )
+
+        self.assertEqual(
+            frame.display_meta[0].texts[0].display_text,
+            "船舶：1｜风险候选：1".encode(),
+        )
+        self.assertEqual(
+            frame.display_meta[0].texts[1].display_text,
+            "疑似捕捞线索 60分".encode(),
+        )
+
+    def test_vessel_frame_processor_consumes_each_risk_version_once(self) -> None:
+        class FakeClient:
+            def accepts(self, _pad_index: int, *, timestamp: float) -> bool:
+                del timestamp
+                return False
+
+        class FakeRiskEngine:
+            def __init__(self) -> None:
+                self.calls = 0
+
+            def observe(self, **_kwargs: object) -> object:
+                self.calls += 1
+                return SimpleNamespace(
+                    snapshot=FishingRiskSnapshot(
+                        state="running",
+                        result_version=self.calls,
+                        updated_at=time.monotonic(),
+                    ),
+                    events=[],
+                )
+
+        vessel_cache = VesselResultCache()
+        vessel_cache.store_snapshot(
+            0,
+            VesselSnapshot(
+                state="running",
+                detections=(),
+                result_version=5,
+                updated_at=time.monotonic(),
+            ),
+        )
+        risk_cache = FishingRiskResultCache()
+        engine = FakeRiskEngine()
+        processor = VesselFrameProcessor(
+            FakeClient(),  # type: ignore[arg-type]
+            vessel_cache=vessel_cache,
+            fishing_risk_engines={0: engine},  # type: ignore[dict-item]
+            fishing_risk_cache=risk_cache,
+        )
+        batch = FakeBatch([FakeFrame([])])
+        frames = [np.zeros((8, 8, 3), dtype=np.uint8)]
+
+        processor.process(batch, frames)
+        processor.process(batch, frames)
+
+        self.assertEqual(engine.calls, 1)
+        self.assertEqual(risk_cache.snapshot(0).state, "running")
+
+    def test_gas_cylinder_alarm_starts_only_above_threshold(self) -> None:
+        fake_osd = SimpleNamespace(
+            Color=FakeColor,
+            Line=FakeLine,
+            Text=FakeText,
+            FontFamily=SimpleNamespace(Serif="serif"),
+        )
+
+        def draw(count: int) -> FakeFrame:
+            frame = FakeFrame([])
+            batch = FakeBatch([frame])
+            cache = GasCylinderResultCache()
+            cache.publish(
+                0,
+                [
+                    GasCylinderCandidate(
+                        NormalizedRect(
+                            0.02 + (index % 10) * 0.095,
+                            0.15 + (index // 10) * 0.35,
+                            0.05,
+                            0.20,
+                        ),
+                        0.8,
+                    )
+                    for index in range(count)
+                ],
+                timestamp=1,
+                inference_ms=10,
+            )
+            OverlayProcessor._draw_gas_cylinders(
+                batch,
+                frame,
+                cache.snapshot(0),
+                GasCylinderOptions(enabled=True, alarm_threshold=18),
+                fake_osd,
+                width=1000,
+                height=500,
+            )
+            return frame
+
+        at_threshold = draw(18)
+        self.assertEqual(
+            at_threshold.display_meta[0].texts[0].display_text,
+            "燃气瓶数量：18".encode(),
+        )
+        self.assertEqual(
+            at_threshold.display_meta[0].texts[0].bg_color,
+            (0.0, 0.85, 0.2, 1.0),
+        )
+        self.assertEqual(
+            at_threshold.display_meta[0].lines[0].color,
+            (0.0, 0.85, 0.2, 1.0),
+        )
+
+        above_threshold = draw(19)
+        self.assertEqual(
+            above_threshold.display_meta[0].texts[0].display_text,
+            "燃气瓶数量：19（超量告警）".encode(),
+        )
+        self.assertEqual(
+            above_threshold.display_meta[0].texts[0].bg_color,
+            (1.0, 0.0, 0.0, 1.0),
+        )
+        self.assertEqual(
+            above_threshold.display_meta[0].lines[0].color,
+            (1.0, 0.0, 0.0, 1.0),
         )
 
     def test_tracker_config_reduces_shadow_tracking_age(self) -> None:

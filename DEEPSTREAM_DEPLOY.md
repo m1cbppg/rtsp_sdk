@@ -123,6 +123,10 @@ GPU 型号、DeepStream/TensorRT 版本或模型后，应删除对应 `.engine`�
 `yolo_world_garbage_640_b2_gpu0_fp16.engine`。垃圾 ONNX 和固定词表已经打入
 离线镜像，Ubuntu 服务器无需访问互联网。请求与验收见`EVENT_DETECTION.md`。
 
+固定机位燃气瓶识别使用镜像内的`YOLOE-26L-seg`和摄像头视觉提示Profile，
+运行在独立丢帧旁路，不生成DeepStream主推理引擎。完整请求、36瓶录像基线和
+码流质量验收见`GAS_CYLINDER.md`。
+
 ## 3. 验证
 
 ```bash

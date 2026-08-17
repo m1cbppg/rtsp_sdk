@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 import argparse
+import asyncio
 import hmac
 from contextlib import asynccontextmanager
+from datetime import datetime
 from pathlib import Path
 from typing import Annotated, Any, Literal
 
@@ -15,7 +17,7 @@ from fastapi import (
     Response,
     status,
 )
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, StreamingResponse
 from pydantic import (
     BaseModel,
     ConfigDict,
@@ -36,6 +38,13 @@ from .events import (
     GarbageAnalysisOptions,
     WebhookOptions,
 )
+from .gas_cylinder import GasCylinderOptions
+from .fishing_risk import (
+    FishingRiskOptions,
+    FishingRiskRuleOptions,
+    FishingRiskScheduleOptions,
+    FishingRiskZoneOptions,
+)
 from .license_plate import DEFAULT_VEHICLE_CLASSES, LicensePlateOptions
 from .shared_stream_manager import SharedStreamManager
 from .stream_manager import (
@@ -46,6 +55,12 @@ from .stream_manager import (
     StreamNotFoundError,
     StreamSpec,
 )
+from .stream_observability import (
+    ObservedStreamManager,
+    StreamLogStore,
+    encode_sse,
+)
+from .vessel_detection import VesselDetectionOptions
 
 
 class LicensePlateRequest(BaseModel):
@@ -124,6 +139,194 @@ class NightVisionRequest(BaseModel):
             input_gain=self.input_gain,
             plate_detector_confidence=self.plate_detector_confidence,
         )
+
+
+class GasCylinderRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    enabled: bool = False
+    profile_id: str = Field(
+        default="camera_01_ir",
+        pattern=r"^[A-Za-z0-9_-]{1,64}$",
+    )
+    analysis_fps: float = Field(default=1, ge=0.1, le=5)
+    sample_count: int = Field(default=11, ge=3, le=15)
+    sample_interval_seconds: float = Field(default=3, ge=0.2, le=10)
+    minimum_confirmations: int = Field(default=4, ge=2, le=15)
+    scene_stable_seconds: float = Field(default=3, ge=0.5, le=30)
+    change_confirm_seconds: float = Field(default=3, ge=0.5, le=30)
+    forced_refresh_seconds: float = Field(default=300, ge=30, le=86_400)
+    retry_seconds: float = Field(default=10, ge=1, le=300)
+    scene_change_ratio: float = Field(default=0.006, gt=0, le=0.5)
+    motion_ratio: float = Field(default=0.003, gt=0, le=0.5)
+    mask_nms_iou: float = Field(default=0.5, gt=0, le=1)
+    temporal_match_iou: float = Field(default=0.3, gt=0, le=1)
+    large_count_change: int = Field(default=2, ge=1, le=20)
+    alarm_threshold: int = Field(
+        default=18,
+        ge=1,
+        le=1_000,
+        description="识别数量超过该值时统计背景和燃气瓶框显示为红色",
+    )
+    display_ids: bool = False
+    include_partial: bool = True
+
+    @model_validator(mode="after")
+    def validate_confirmations(self) -> "GasCylinderRequest":
+        if self.minimum_confirmations > self.sample_count:
+            raise ValueError("minimum_confirmations不能大于sample_count")
+        return self
+
+    def to_options(self) -> GasCylinderOptions:
+        options = GasCylinderOptions(**self.model_dump())
+        options.validate()
+        return options
+
+
+class VesselDetectionRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    enabled: bool = False
+    model: str | None = Field(
+        default=None,
+        description="独立船舶.pt模型；null时复用主模型权重",
+    )
+    analysis_fps: float = Field(default=5, ge=0.1, le=15)
+    confidence: float = Field(
+        default=0.10,
+        gt=0,
+        le=1,
+        description="旁路原始候选阈值；时序确认会抑制低分误报",
+    )
+    iou: float = Field(default=0.45, gt=0, le=1)
+    imgsz: int = Field(default=1280, ge=320, le=2048)
+    class_ids: list[int] = Field(default_factory=lambda: [8], min_length=1)
+    input_width: int = Field(default=1920, ge=320, le=3840)
+    input_height: int = Field(default=1080, ge=180, le=2160)
+    inference_regions: list[tuple[float, float, float, float]] = Field(
+        default_factory=lambda: [(0.0, 0.0, 1.0, 1.0)],
+        min_length=1,
+        max_length=8,
+        description="可重叠的[left,top,right,bottom]归一化推理分区",
+    )
+    roi: list[tuple[float, float]] | None = None
+    exclude_rois: list[list[tuple[float, float]]] = Field(
+        default_factory=list,
+        max_length=16,
+        description="已知桥墩、塔架等固定误报区域",
+    )
+    minimum_hits: int = Field(default=2, ge=1, le=10)
+    hold_seconds: float = Field(default=1, ge=0.1, le=5)
+    match_iou: float = Field(default=0.10, ge=0, le=1)
+    maximum_center_distance: float = Field(default=1.5, ge=0.1, le=5)
+    maximum_detections: int = Field(default=100, ge=1, le=500)
+    duplicate_containment_threshold: float = Field(
+        default=0.80,
+        gt=0,
+        le=1,
+        description=(
+            "跨推理分区框的小框被包含比例，用于合并同一艘船"
+        ),
+    )
+    large_box_area_threshold: float = Field(default=0.20, gt=0, le=1)
+    large_box_minimum_confidence: float = Field(default=0.25, gt=0, le=1)
+    maximum_box_area: float = Field(default=1.0, gt=0, le=1)
+    display_ids: bool = False
+    display_roi: bool = True
+
+    @field_validator("model")
+    @classmethod
+    def validate_model(cls, value: str | None) -> str | None:
+        if value is None:
+            return None
+        if not value or value != Path(value).name or not value.endswith(".pt"):
+            raise ValueError("vessel_detection.model必须是.pt文件名")
+        return value
+
+    @field_validator("class_ids")
+    @classmethod
+    def validate_class_ids(cls, value: list[int]) -> list[int]:
+        if any(item < 0 for item in value):
+            raise ValueError("vessel_detection.class_ids不能为负数")
+        return list(dict.fromkeys(value))
+
+    @field_validator("inference_regions")
+    @classmethod
+    def validate_inference_regions(
+        cls,
+        value: list[tuple[float, float, float, float]],
+    ) -> list[tuple[float, float, float, float]]:
+        for left, top, right, bottom in value:
+            if not all(
+                0 <= coordinate <= 1
+                for coordinate in (left, top, right, bottom)
+            ):
+                raise ValueError("船舶推理分区坐标必须在[0, 1]范围内")
+            if right <= left or bottom <= top:
+                raise ValueError("船舶推理分区必须具有正面积")
+        return list(dict.fromkeys(value))
+
+    @field_validator("roi")
+    @classmethod
+    def validate_vessel_roi(
+        cls,
+        value: list[tuple[float, float]] | None,
+    ) -> list[tuple[float, float]] | None:
+        if value is None:
+            return None
+        return cls._validate_polygon(value)
+
+    @field_validator("exclude_rois")
+    @classmethod
+    def validate_exclude_rois(
+        cls,
+        value: list[list[tuple[float, float]]],
+    ) -> list[list[tuple[float, float]]]:
+        return [cls._validate_polygon(item) for item in value]
+
+    @staticmethod
+    def _validate_polygon(
+        value: list[tuple[float, float]],
+    ) -> list[tuple[float, float]]:
+        serialized = ";".join(f"{x},{y}" for x, y in value)
+        parsed = parse_roi(serialized)
+        assert parsed is not None
+        return list(parsed)
+
+    def to_options(self) -> VesselDetectionOptions:
+        options = VesselDetectionOptions(
+            enabled=self.enabled,
+            model=self.model,
+            analysis_fps=self.analysis_fps,
+            confidence=self.confidence,
+            iou=self.iou,
+            imgsz=self.imgsz,
+            class_ids=tuple(self.class_ids),
+            input_width=self.input_width,
+            input_height=self.input_height,
+            inference_regions=tuple(self.inference_regions),
+            roi=(tuple(self.roi) if self.roi is not None else None),
+            exclude_rois=tuple(
+                tuple(polygon) for polygon in self.exclude_rois
+            ),
+            minimum_hits=self.minimum_hits,
+            hold_seconds=self.hold_seconds,
+            match_iou=self.match_iou,
+            maximum_center_distance=self.maximum_center_distance,
+            maximum_detections=self.maximum_detections,
+            duplicate_containment_threshold=(
+                self.duplicate_containment_threshold
+            ),
+            large_box_area_threshold=self.large_box_area_threshold,
+            large_box_minimum_confidence=(
+                self.large_box_minimum_confidence
+            ),
+            maximum_box_area=self.maximum_box_area,
+            display_ids=self.display_ids,
+            display_roi=self.display_roi,
+        )
+        options.validate()
+        return options
 
 
 class EventRuleRequest(BaseModel):
@@ -269,6 +472,122 @@ class EventWebhookRequest(BaseModel):
         )
 
 
+class FishingRiskZoneRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    id: str = Field(pattern=r"^[A-Za-z0-9_-]{1,64}$")
+    polygon: list[tuple[float, float]]
+
+    @field_validator("polygon")
+    @classmethod
+    def validate_polygon(
+        cls,
+        value: list[tuple[float, float]],
+    ) -> list[tuple[float, float]]:
+        serialized = ";".join(f"{x},{y}" for x, y in value)
+        parsed = parse_roi(serialized)
+        assert parsed is not None
+        return list(parsed)
+
+    def to_options(self) -> FishingRiskZoneOptions:
+        return FishingRiskZoneOptions(
+            zone_id=self.id,
+            polygon=tuple(self.polygon),
+        )
+
+
+class FishingRiskScheduleRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    id: str = Field(pattern=r"^[A-Za-z0-9_-]{1,64}$")
+    start_at: datetime
+    end_at: datetime
+
+    def to_options(self) -> FishingRiskScheduleOptions:
+        return FishingRiskScheduleOptions(
+            schedule_id=self.id,
+            start_at=self.start_at,
+            end_at=self.end_at,
+        )
+
+
+class FishingRiskRuleRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    minimum_presence_seconds: float = Field(default=30, ge=1, le=86_400)
+    loitering_seconds: float = Field(default=180, ge=5, le=86_400)
+    loitering_radius_box_lengths: float = Field(default=4, ge=0.5, le=50)
+    reversal_window_seconds: float = Field(default=120, ge=10, le=3_600)
+    minimum_reversals: int = Field(default=2, ge=1, le=20)
+    reversal_angle_degrees: float = Field(default=120, ge=60, le=180)
+    minimum_motion_box_lengths: float = Field(default=0.5, ge=0.05, le=10)
+    minimum_reversal_interval_seconds: float = Field(
+        default=8,
+        ge=1,
+        le=300,
+    )
+    track_lost_seconds: float = Field(default=15, ge=1, le=300)
+    track_match_box_lengths: float = Field(default=3, ge=0.5, le=20)
+    startup_grace_seconds: float = Field(default=60, ge=0, le=3_600)
+    preexisting_activation_box_lengths: float = Field(
+        default=2,
+        ge=0.5,
+        le=50,
+    )
+
+    def to_options(self) -> FishingRiskRuleOptions:
+        return FishingRiskRuleOptions(**self.model_dump())
+
+
+class FishingRiskRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    enabled: bool = False
+    timezone: str = "Asia/Shanghai"
+    zones: list[FishingRiskZoneRequest] = Field(
+        default_factory=list,
+        max_length=16,
+    )
+    schedules: list[FishingRiskScheduleRequest] = Field(
+        default_factory=list,
+        max_length=32,
+        description="空列表表示所有时间均参与风险分析",
+    )
+    rules: FishingRiskRuleRequest = Field(
+        default_factory=FishingRiskRuleRequest
+    )
+    restricted_presence_score: int = Field(default=40, ge=0, le=100)
+    loitering_score: int = Field(default=20, ge=0, le=100)
+    direction_reversal_score: int = Field(default=20, ge=0, le=100)
+    alert_score: int = Field(default=60, ge=1, le=100)
+    cooldown_seconds: float = Field(default=300, ge=0, le=86_400)
+    display_risk: bool = True
+    webhook: EventWebhookRequest = Field(default_factory=EventWebhookRequest)
+
+    @model_validator(mode="after")
+    def validate_options(self) -> "FishingRiskRequest":
+        self.to_options()
+        return self
+
+    def to_options(self) -> FishingRiskOptions:
+        options = FishingRiskOptions(
+            enabled=self.enabled,
+            timezone=self.timezone,
+            zones=tuple(item.to_options() for item in self.zones),
+            schedules=tuple(item.to_options() for item in self.schedules),
+            rules=self.rules.to_options(),
+            restricted_presence_score=self.restricted_presence_score,
+            loitering_score=self.loitering_score,
+            direction_reversal_score=self.direction_reversal_score,
+            alert_score=self.alert_score,
+            cooldown_seconds=self.cooldown_seconds,
+            display_risk=self.display_risk,
+            webhook=self.webhook.to_options(),
+        )
+        options.validate()
+        return options
+
+
 class EventDetectionRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
@@ -343,6 +662,18 @@ class StreamCreateRequest(BaseModel):
         default_factory=EventDetectionRequest,
         description="区域停留、垃圾变化和疑似乱丢垃圾事件配置",
     )
+    gas_cylinder: GasCylinderRequest = Field(
+        default_factory=GasCylinderRequest,
+        description="固定机位燃气瓶逐个识别和稳定计数配置",
+    )
+    vessel_detection: VesselDetectionRequest = Field(
+        default_factory=VesselDetectionRequest,
+        description="高分辨率、低延迟解耦的船舶检测旁路",
+    )
+    fishing_risk: FishingRiskRequest = Field(
+        default_factory=FishingRiskRequest,
+        description="仅凭监控轨迹生成疑似非法捕捞人工复核线索",
+    )
 
     @field_validator("input_url")
     @classmethod
@@ -383,6 +714,14 @@ class StreamCreateRequest(BaseModel):
         assert parsed is not None
         return list(parsed)
 
+    @model_validator(mode="after")
+    def validate_feature_dependencies(self) -> "StreamCreateRequest":
+        if self.fishing_risk.enabled and not self.vessel_detection.enabled:
+            raise ValueError(
+                "启用fishing_risk前必须启用vessel_detection"
+            )
+        return self
+
     def to_spec(self) -> StreamSpec:
         roi = tuple(self.roi) if self.roi is not None else None
         classes = tuple(self.classes) if self.classes is not None else None
@@ -399,6 +738,9 @@ class StreamCreateRequest(BaseModel):
             license_plate=self.license_plate.to_options(),
             night_vision=self.night_vision.to_options(),
             event_detection=self.event_detection.to_options(),
+            gas_cylinder=self.gas_cylinder.to_options(),
+            vessel_detection=self.vessel_detection.to_options(),
+            fishing_risk=self.fishing_risk.to_options(),
         )
 
 
@@ -414,6 +756,9 @@ class StreamResponse(BaseModel):
     license_plate: dict[str, Any] | None = None
     night_vision: dict[str, Any] | None = None
     event_detection: dict[str, Any] | None = None
+    gas_cylinder: dict[str, Any] | None = None
+    vessel_detection: dict[str, Any] | None = None
+    fishing_risk: dict[str, Any] | None = None
 
 
 class MediaMtxAuthRequest(BaseModel):
@@ -446,6 +791,23 @@ def _events(request: Request) -> EventRepository:
     return request.app.state.events
 
 
+def _ensure_stream_or_log_exists(request: Request, stream_id: str) -> None:
+    try:
+        _manager(request).get(stream_id)
+        return
+    except StreamNotFoundError:
+        pass
+    try:
+        exists = request.app.state.stream_logs.exists(stream_id)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+    if not exists:
+        raise HTTPException(
+            status_code=404,
+            detail="流任务和历史日志均不存在",
+        )
+
+
 def create_app(config_path: Path = Path("config/api.json")) -> FastAPI:
     @asynccontextmanager
     async def lifespan(application: FastAPI):
@@ -459,8 +821,29 @@ def create_app(config_path: Path = Path("config/api.json")) -> FastAPI:
             manager = SharedStreamManager(manager_settings)
         else:
             manager = StreamManager(manager_settings)
+        log_store = StreamLogStore(
+            config.observability.log_root.expanduser().resolve(),
+            max_file_bytes=config.observability.max_file_mb * 1024 * 1024,
+            backup_count=config.observability.backup_count,
+        )
+        if config.observability.enabled:
+            manager = ObservedStreamManager(
+                manager,
+                log_store,
+                monitor_interval_seconds=(
+                    config.observability.monitor_interval_seconds
+                ),
+                stale_after_seconds=(
+                    config.observability.metrics_stale_seconds
+                ),
+                stall_fps=config.observability.stall_fps,
+                degraded_fps_ratio=(
+                    config.observability.degraded_fps_ratio
+                ),
+            )
         application.state.config = config
         application.state.manager = manager
+        application.state.stream_logs = log_store
         application.state.events = EventRepository(
             config.events.storage_root.expanduser().resolve()
         )
@@ -552,6 +935,26 @@ def create_app(config_path: Path = Path("config/api.json")) -> FastAPI:
         except StreamNotFoundError as exc:
             raise HTTPException(status_code=404, detail="流任务不存在") from exc
 
+    @application.patch(
+        "/v1/streams/{stream_id}/fishing-risk",
+        response_model=StreamResponse,
+        dependencies=[Depends(require_api_key)],
+    )
+    def update_fishing_risk(
+        stream_id: str,
+        payload: FishingRiskRequest,
+        request: Request,
+    ) -> dict[str, Any]:
+        try:
+            return _manager(request).update_fishing_risk(
+                stream_id,
+                payload.to_options(),
+            )
+        except StreamNotFoundError as exc:
+            raise HTTPException(status_code=404, detail="流任务不存在") from exc
+        except ModelNotFoundError as exc:
+            raise HTTPException(status_code=422, detail=str(exc)) from exc
+
     @application.delete(
         "/v1/streams/{stream_id}",
         response_model=StreamResponse,
@@ -562,6 +965,71 @@ def create_app(config_path: Path = Path("config/api.json")) -> FastAPI:
             return _manager(request).stop(stream_id)
         except StreamNotFoundError as exc:
             raise HTTPException(status_code=404, detail="流任务不存在") from exc
+
+    @application.get(
+        "/v1/streams/{stream_id}/logs",
+        dependencies=[Depends(require_api_key)],
+    )
+    def list_stream_logs(
+        stream_id: str,
+        request: Request,
+        limit: int = 200,
+        after_sequence: int | None = None,
+        level: str | None = None,
+        event: str | None = None,
+    ) -> list[dict[str, Any]]:
+        try:
+            _ensure_stream_or_log_exists(request, stream_id)
+            return request.app.state.stream_logs.read(
+                stream_id,
+                limit=limit,
+                after_sequence=after_sequence,
+                level=level,
+                event=event,
+            )
+        except ValueError as exc:
+            raise HTTPException(status_code=422, detail=str(exc)) from exc
+
+    @application.get(
+        "/v1/streams/{stream_id}/logs/live",
+        dependencies=[Depends(require_api_key)],
+        response_class=StreamingResponse,
+    )
+    async def follow_stream_logs(
+        stream_id: str,
+        request: Request,
+        after_sequence: int = 0,
+    ) -> StreamingResponse:
+        try:
+            _ensure_stream_or_log_exists(request, stream_id)
+            request.app.state.stream_logs.path_for(stream_id)
+        except ValueError as exc:
+            raise HTTPException(status_code=422, detail=str(exc)) from exc
+
+        async def event_stream():
+            cursor = after_sequence
+            while not await request.is_disconnected():
+                entries = request.app.state.stream_logs.read(
+                    stream_id,
+                    limit=5_000,
+                    after_sequence=cursor,
+                )
+                if entries:
+                    for entry in entries:
+                        cursor = max(cursor, int(entry["sequence"]))
+                        yield encode_sse(entry)
+                else:
+                    yield ": keepalive\n\n"
+                await asyncio.sleep(0.5)
+
+        return StreamingResponse(
+            event_stream(),
+            media_type="text/event-stream",
+            headers={
+                "Cache-Control": "no-cache",
+                "X-Accel-Buffering": "no",
+            },
+        )
 
     @application.get(
         "/v1/events",

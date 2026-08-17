@@ -19,6 +19,16 @@ if [[ ! -x "$python_path" ]]; then
     exit 1
 fi
 
+gas_model="$project_dir/models/gas/yoloe-26l-seg.pt"
+gas_profile="$project_dir/models/gas/profiles/camera_01_ir.json"
+gas_reference="$project_dir/models/gas/profiles/camera_01_ir.jpg"
+for required_gas_asset in "$gas_model" "$gas_profile" "$gas_reference"; do
+    if [[ ! -f "$required_gas_asset" ]]; then
+        echo "错误：燃气瓶离线资源缺失：$required_gas_asset" >&2
+        exit 1
+    fi
+done
+
 "$script_dir/export_deepstream_models.sh"
 
 cleanup() {

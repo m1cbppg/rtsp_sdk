@@ -1,19 +1,45 @@
 ARG BASE_IMAGE=rtsp-yolo-annotator:deepstream8-amd64
 FROM ${BASE_IMAGE}
 
+RUN python3 -m pip install --no-cache-dir --break-system-packages \
+        "safetensors>=0.5,<1" \
+        "transformers>=4.53,<5"
+
+ARG VESSEL_SEGMENTATION_MODEL_SOURCE=openmmlab/upernet-convnext-tiny
+ARG VESSEL_SEGMENTATION_MODEL_REVISION=876ffc5
+ENV VESSEL_SEGMENTATION_MODEL=/app/models/calibration/upernet-convnext-tiny
+RUN python3 -c "from transformers import AutoImageProcessor,AutoModelForSemanticSegmentation; source='${VESSEL_SEGMENTATION_MODEL_SOURCE}'; revision='${VESSEL_SEGMENTATION_MODEL_REVISION}'; target='/app/models/calibration/upernet-convnext-tiny'; AutoImageProcessor.from_pretrained(source,revision=revision).save_pretrained(target); AutoModelForSemanticSegmentation.from_pretrained(source,revision=revision,use_safetensors=True).save_pretrained(target)"
+
 WORKDIR /app
 
 COPY rtsp_annotator/api.py /app/rtsp_annotator/api.py
+COPY rtsp_annotator/api_settings.py /app/rtsp_annotator/api_settings.py
+COPY rtsp_annotator/gas_cylinder.py /app/rtsp_annotator/gas_cylinder.py
+COPY rtsp_annotator/gas_cylinder_process.py /app/rtsp_annotator/gas_cylinder_process.py
+COPY rtsp_annotator/fishing_risk.py /app/rtsp_annotator/fishing_risk.py
 COPY rtsp_annotator/license_plate.py /app/rtsp_annotator/license_plate.py
 COPY rtsp_annotator/stream_manager.py /app/rtsp_annotator/stream_manager.py
 COPY rtsp_annotator/shared_stream_manager.py /app/rtsp_annotator/shared_stream_manager.py
 COPY rtsp_annotator/deepstream_manager.py /app/rtsp_annotator/deepstream_manager.py
 COPY rtsp_annotator/deepstream_worker.py /app/rtsp_annotator/deepstream_worker.py
+COPY rtsp_annotator/stream_observability.py /app/rtsp_annotator/stream_observability.py
+COPY rtsp_annotator/vessel_detection.py /app/rtsp_annotator/vessel_detection.py
+COPY rtsp_annotator/vessel_detection_process.py /app/rtsp_annotator/vessel_detection_process.py
+COPY rtsp_annotator/vessel_calibration.py /app/rtsp_annotator/vessel_calibration.py
+COPY THIRD_PARTY_MODEL_NOTICES.md /app/THIRD_PARTY_MODEL_NOTICES.md
 
 RUN python3 -m py_compile \
     /app/rtsp_annotator/api.py \
+    /app/rtsp_annotator/api_settings.py \
+    /app/rtsp_annotator/gas_cylinder.py \
+    /app/rtsp_annotator/gas_cylinder_process.py \
+    /app/rtsp_annotator/fishing_risk.py \
     /app/rtsp_annotator/license_plate.py \
     /app/rtsp_annotator/stream_manager.py \
     /app/rtsp_annotator/shared_stream_manager.py \
     /app/rtsp_annotator/deepstream_manager.py \
-    /app/rtsp_annotator/deepstream_worker.py
+    /app/rtsp_annotator/deepstream_worker.py \
+    /app/rtsp_annotator/stream_observability.py \
+    /app/rtsp_annotator/vessel_detection.py \
+    /app/rtsp_annotator/vessel_detection_process.py \
+    /app/rtsp_annotator/vessel_calibration.py

@@ -135,6 +135,8 @@ class StatsSnapshot:
     inference_skipped: int = 0
     capture_reconnects: int = 0
     publisher_restarts: int = 0
+    corrupt_frames: int = 0
+    frame_gaps: int = 0
     detections: int = 0
     inference_seconds: float = 0.0
     published_frame_age_seconds: float = 0.0
@@ -194,6 +196,8 @@ class PipelineStats:
             inference_skipped=int(values["inference_skipped"]),
             capture_reconnects=int(values["capture_reconnects"]),
             publisher_restarts=int(values["publisher_restarts"]),
+            corrupt_frames=int(values["corrupt_frames"]),
+            frame_gaps=int(values["frame_gaps"]),
             detections=int(values["detections"]),
             inference_seconds=float(values["inference_seconds"]),
             published_frame_age_seconds=float(
@@ -967,15 +971,28 @@ class CaptureWorker(threading.Thread):
                     info.fps,
                 )
 
+                previous_frame_at: float | None = None
                 for decoded in container.decode(video=0):
                     if self._stop_event.is_set():
                         break
+                    captured_at = time.monotonic()
+                    if (
+                        previous_frame_at is not None
+                        and captured_at - previous_frame_at > 0.5
+                    ):
+                        self._stats.add(frame_gaps=1)
+                    previous_frame_at = captured_at
+                    if bool(getattr(decoded, "is_corrupt", False)):
+                        self._stats.add(corrupt_frames=1)
+                        LOGGER.warning(
+                            "解码器报告坏帧，画面可能出现马赛克"
+                        )
                     frame = decoded.to_ndarray(format="bgr24")
                     height, width = frame.shape[:2]
                     if width != info.width or height != info.height:
                         info = self._source_state.update(width, height, fps)
                         LOGGER.warning("输入分辨率已变更为 %dx%d", width, height)
-                    self._output.publish(frame, captured_at=time.monotonic())
+                    self._output.publish(frame, captured_at=captured_at)
                     self._stats.add(captured=1)
 
                 if not self._stop_event.is_set():
@@ -1489,6 +1506,14 @@ def _build_stats_report(
     unique_published = current.unique_published - previous.unique_published
     tracked_frames = current.tracked_frames - previous.tracked_frames
     skipped = current.inference_skipped - previous.inference_skipped
+    corrupt_frames = current.corrupt_frames - previous.corrupt_frames
+    frame_gaps = current.frame_gaps - previous.frame_gaps
+    capture_reconnects = (
+        current.capture_reconnects - previous.capture_reconnects
+    )
+    publisher_restarts = (
+        current.publisher_restarts - previous.publisher_restarts
+    )
     inference_seconds = current.inference_seconds - previous.inference_seconds
     published_frame_age_seconds = (
         current.published_frame_age_seconds
@@ -1529,9 +1554,15 @@ def _build_stats_report(
             0.95,
         ),
         "interval_inference_skipped": skipped,
+        "interval_corrupt_frames": corrupt_frames,
+        "total_corrupt_frames": current.corrupt_frames,
+        "interval_frame_gaps": frame_gaps,
+        "total_frame_gaps": current.frame_gaps,
+        "interval_capture_reconnects": capture_reconnects,
         "total_inference_skipped": current.inference_skipped,
         "total_detections": current.detections,
         "capture_reconnects": current.capture_reconnects,
+        "interval_publisher_restarts": publisher_restarts,
         "publisher_restarts": current.publisher_restarts,
     }
 

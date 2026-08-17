@@ -38,9 +38,26 @@ RUN python3 -m pip install --no-cache-dir --break-system-packages \
         "Pillow>=10,<13" \
         "uvicorn>=0.35,<1"
 
+# YOLOE runs only on a lossy, low-rate side branch. Keep CUDA wheels inside
+# the offline image so the production host never downloads code or weights.
+RUN python3 -m pip install --no-cache-dir --break-system-packages \
+        torch torchvision \
+        --index-url https://download.pytorch.org/whl/cu128 \
+    && python3 -m pip install --no-cache-dir --break-system-packages \
+        "numpy>=1.23,<2" \
+        "safetensors>=0.5,<1" \
+        "transformers>=4.53,<5" \
+        "ultralytics==8.4.107"
+
+ARG VESSEL_SEGMENTATION_MODEL_SOURCE=openmmlab/upernet-convnext-tiny
+ARG VESSEL_SEGMENTATION_MODEL_REVISION=876ffc5
+ENV VESSEL_SEGMENTATION_MODEL=/app/models/calibration/upernet-convnext-tiny
+RUN python3 -c "from transformers import AutoImageProcessor,AutoModelForSemanticSegmentation; source='${VESSEL_SEGMENTATION_MODEL_SOURCE}'; revision='${VESSEL_SEGMENTATION_MODEL_REVISION}'; target='/app/models/calibration/upernet-convnext-tiny'; AutoImageProcessor.from_pretrained(source,revision=revision).save_pretrained(target); AutoModelForSemanticSegmentation.from_pretrained(source,revision=revision,use_safetensors=True).save_pretrained(target)"
+
 WORKDIR /app
 
 COPY pyproject.toml README.md ./
+COPY THIRD_PARTY_MODEL_NOTICES.md ./
 COPY rtsp_annotator ./rtsp_annotator
 RUN python3 -m pip install --no-cache-dir --break-system-packages \
         --no-deps .

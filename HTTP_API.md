@@ -260,6 +260,32 @@ DeepStream实例；切换时删除旧任务后重新创建即可，不需要重�
 YOLO、夜间模式和车牌识别同时配置，完整请求、事件接口、Webhook和现场验收
 方法见`EVENT_DETECTION.md`。
 
+固定机位燃气瓶识别通过`gas_cylinder`启用，仅支持DeepStream后端。它不会
+逐帧运行YOLOE，完整参数、摄像头Profile和RTSP质量要求见`GAS_CYLINDER.md`。
+
+远距离船舶框选通过`vessel_detection`启用，仅支持DeepStream后端。它使用
+1280推理尺寸、低阈值候选和时序确认，并可给每个机位配置水域ROI、透视分区与
+固定误报排除区；完整请求和验收方法见`VESSEL_DETECTION.md`。
+
+只依靠监控画面生成疑似非法捕捞线索时，可在启用`vessel_detection`的基础上
+增加`fishing_risk`。它不识别渔网，也不输出法律结论，而是根据禁渔时空、
+小范围长时间停留和多次折返生成可解释的人工复核事件。该参数默认关闭；完整
+请求、运行中开关和评分语义见`FISHING_RISK.md`。
+
+运行中关闭风险分析并保留船舶框：
+
+```bash
+curl -X PATCH \
+  -H 'X-API-Key: API密钥' \
+  -H 'Content-Type: application/json' \
+  -d '{"enabled":false}' \
+  'http://14.21.88.97:38080/v1/streams/STREAM_ID/fishing-risk'
+```
+
+该接口保持`stream_id`和输出RTSP地址，但会重载所在DeepStream组，期间可能有
+短暂流抖动。关闭后不再保存长期船舶轨迹、不显示风险分，也不产生新的疑似捕捞
+事件，现有`vessel_detection`船框继续工作。
+
 垃圾分析启用后默认在视频中持续显示语义垃圾框：普通检测为绿色、候选事件为
 橙色、确认告警为红色。可通过`garbage.display_detections`关闭普通绿框，但保留
 事件判断和告警框。

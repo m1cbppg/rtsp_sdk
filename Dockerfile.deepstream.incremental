@@ -6,6 +6,13 @@ WORKDIR /app
 RUN python3 -m pip install --no-cache-dir --break-system-packages \
         "Pillow>=10,<13"
 
+RUN python3 -m pip install --no-cache-dir --break-system-packages \
+        torch torchvision \
+        --index-url https://download.pytorch.org/whl/cu128 \
+    && python3 -m pip install --no-cache-dir --break-system-packages \
+        "numpy>=1.23,<2" \
+        "ultralytics==8.4.107"
+
 COPY third_party/nvidia_lpr_parser /tmp/nvidia_lpr_parser
 RUN make -C /tmp/nvidia_lpr_parser \
     && cp \

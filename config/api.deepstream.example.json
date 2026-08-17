@@ -54,7 +54,12 @@
     "garbage_pile_onnx_path": "/app/models/events/street_garbage_pile.onnx",
     "garbage_pile_labels_path": "/app/models/events/street_garbage_pile.labels.txt",
     "garbage_parser_library": "/opt/nvidia/deepstream/deepstream/lib/libnvdsinfer_custom_impl_Yolo.so",
-    "garbage_input_size": 640
+    "garbage_input_size": 640,
+    "gas_cylinder_model_path": "/app/models/gas/yoloe-26l-seg.pt",
+    "gas_cylinder_profile_root": "/app/models/gas/profiles",
+    "gas_cylinder_input_width": 1280,
+    "gas_cylinder_input_height": 720,
+    "gas_cylinder_imgsz": 1280
   },
   "output": {
     "encoder": "h264_nvenc",
@@ -66,5 +71,15 @@
   },
   "events": {
     "storage_root": "/app/data/events"
+  },
+  "observability": {
+    "enabled": true,
+    "log_root": "/app/data/stream-logs",
+    "monitor_interval_seconds": 1,
+    "metrics_stale_seconds": 12,
+    "stall_fps": 1,
+    "degraded_fps_ratio": 0.8,
+    "max_file_mb": 32,
+    "backup_count": 3
   }
 }

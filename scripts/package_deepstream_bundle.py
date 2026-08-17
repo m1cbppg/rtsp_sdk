@@ -12,6 +12,10 @@ FILES = {
     "LICENSE_PLATE.md": "LICENSE_PLATE.md",
     "NIGHT_VISION.md": "NIGHT_VISION.md",
     "EVENT_DETECTION.md": "EVENT_DETECTION.md",
+    "GAS_CYLINDER.md": "GAS_CYLINDER.md",
+    "VESSEL_DETECTION.md": "VESSEL_DETECTION.md",
+    "FISHING_RISK.md": "FISHING_RISK.md",
+    "THIRD_PARTY_MODEL_NOTICES.md": "THIRD_PARTY_MODEL_NOTICES.md",
     "HTTP_API.md": "HTTP_API.md",
     "config/api.deepstream.example.json": (
         "config/api.deepstream.example.json"
