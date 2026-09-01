@@ -52,7 +52,14 @@ from .license_plate import (
     PRIMARY_DETECTOR_UID,
     PlateConsensus,
 )
+from .ptz_verification import (
+    CameraControlClient,
+    PtzVerificationCoordinator,
+    PtzVerificationOptions,
+    PtzVerificationRepository,
+)
 from .vessel_detection import (
+    SMALL_TARGET_PROPOSAL_CLASS_ID,
     VesselDetectionOptions,
     VesselResultCache,
     VesselSnapshot,
@@ -390,6 +397,7 @@ class StreamPolicy:
     gas_cylinder: GasCylinderOptions = GasCylinderOptions()
     vessel_detection: VesselDetectionOptions = VesselDetectionOptions()
     fishing_risk: FishingRiskOptions = FishingRiskOptions()
+    ptz_verification: PtzVerificationOptions = PtzVerificationOptions()
 
 
 @dataclass(frozen=True, slots=True)
@@ -516,6 +524,10 @@ class MetricsState:
         vessel_detection_cache: VesselResultCache | None = None,
         fishing_risk_enabled: dict[str, bool] | None = None,
         fishing_risk_cache: FishingRiskResultCache | None = None,
+        ptz_verification_coordinators: dict[
+            str, PtzVerificationCoordinator
+        ] | None = None,
+        ptz_verification_errors: dict[str, str] | None = None,
     ) -> None:
         self._metrics_path = metrics_path
         self._interval_seconds = interval_seconds
@@ -530,6 +542,10 @@ class MetricsState:
         self._vessel_detection_cache = vessel_detection_cache
         self._fishing_risk_enabled = fishing_risk_enabled or {}
         self._fishing_risk_cache = fishing_risk_cache
+        self._ptz_verification_coordinators = (
+            ptz_verification_coordinators or {}
+        )
+        self._ptz_verification_errors = ptz_verification_errors or {}
         self._stream_pad_index = {
             stream_id: index for index, stream_id in enumerate(stream_ids)
         }
@@ -641,7 +657,7 @@ class MetricsState:
         elapsed = now - self._last_report_at
         if elapsed < self._interval_seconds:
             return
-        streams: dict[str, dict[str, float | int | bool | str]] = {}
+        streams: dict[str, dict[str, float | int | bool | str | None]] = {}
         for stream_id in self._frames:
             pipeline_fps = (
                 self._frames[stream_id] - self._last_frames[stream_id]
@@ -801,6 +817,20 @@ class MetricsState:
                 "fishing_risk_result_version": (
                     fishing_snapshot.result_version
                 ),
+                "ptz_verification_state": (
+                    self._ptz_verification_coordinators[stream_id].state
+                    if stream_id in self._ptz_verification_coordinators
+                    else (
+                        "error"
+                        if stream_id in self._ptz_verification_errors
+                        else "disabled"
+                    )
+                ),
+                "ptz_verification_last_error": (
+                    self._ptz_verification_coordinators[stream_id].last_error
+                    if stream_id in self._ptz_verification_coordinators
+                    else self._ptz_verification_errors.get(stream_id)
+                ),
                 "pipeline_healthy": (
                     effective_fps >= self._minimum_healthy_fps
                 ),
@@ -881,6 +911,9 @@ class OverlayProcessor:
         gas_cylinder_cache: GasCylinderResultCache | None = None,
         vessel_detection_cache: VesselResultCache | None = None,
         fishing_risk_cache: FishingRiskResultCache | None = None,
+        ptz_verification_coordinators: dict[
+            int, PtzVerificationCoordinator
+        ] | None = None,
         frame_width: int | None = None,
         frame_height: int | None = None,
     ) -> None:
@@ -892,6 +925,9 @@ class OverlayProcessor:
         self._gas_cylinder_cache = gas_cylinder_cache
         self._vessel_detection_cache = vessel_detection_cache
         self._fishing_risk_cache = fishing_risk_cache
+        self._ptz_verification_coordinators = (
+            ptz_verification_coordinators or {}
+        )
         self._frame_width = frame_width
         self._frame_height = frame_height
         self._plate_consensus = {
@@ -904,9 +940,14 @@ class OverlayProcessor:
 
     def process(self, batch_meta: Any, osd: Any) -> None:
         for frame_meta in batch_meta.frame_items:
-            policy = self._policies.get(int(frame_meta.pad_index))
+            pad_index = int(frame_meta.pad_index)
+            policy = self._policies.get(pad_index)
             if policy is None:
                 continue
+            coordinator = self._ptz_verification_coordinators.get(pad_index)
+            ptz_busy = bool(
+                coordinator is not None and coordinator.is_busy
+            )
             detections = 0
             plate_detections = 0
             plate_reads = 0
@@ -967,6 +1008,7 @@ class OverlayProcessor:
                     policy,
                     width,
                     height,
+                    ignore_roi=ptz_busy,
                 ):
                     self._hide_object(object_meta)
                     continue
@@ -1058,7 +1100,7 @@ class OverlayProcessor:
                         width=width,
                         height=height,
                     )
-            if policy.roi:
+            if policy.roi and not ptz_busy:
                 self._draw_roi(
                     batch_meta,
                     frame_meta,
@@ -1096,6 +1138,7 @@ class OverlayProcessor:
                 if (
                     policy.fishing_risk.enabled
                     and policy.fishing_risk.display_risk
+                    and not ptz_busy
                 ):
                     for zone in policy.fishing_risk.zones:
                         self._draw_roi(
@@ -1121,6 +1164,7 @@ class OverlayProcessor:
                     ),
                     fishing_options=policy.fishing_risk,
                     fishing_snapshot=fishing_snapshot,
+                    monitoring_view=not ptz_busy,
                 )
             latency_ms = (
                 self._latency_tracker.finish(
@@ -1207,6 +1251,8 @@ class OverlayProcessor:
         policy: StreamPolicy,
         width: float,
         height: float,
+        *,
+        ignore_roi: bool = False,
     ) -> bool:
         class_id = int(object_meta.class_id)
         if policy.classes is not None and class_id not in policy.classes:
@@ -1214,7 +1260,7 @@ class OverlayProcessor:
         confidence = float(object_meta.confidence)
         if confidence >= 0 and confidence < policy.conf:
             return False
-        if policy.roi:
+        if policy.roi and not ignore_roi:
             rectangle = object_meta.rect_params
             center = (
                 (float(rectangle.left) + float(rectangle.width) / 2) / width,
@@ -1482,9 +1528,10 @@ class OverlayProcessor:
         existing_rectangles: tuple[NormalizedRect, ...] = (),
         fishing_options: FishingRiskOptions | None = None,
         fishing_snapshot: FishingRiskSnapshot = FishingRiskSnapshot(),
+        monitoring_view: bool = True,
     ) -> None:
         """Draw temporally confirmed vessel boxes from the lossy sidecar."""
-        if options.display_roi:
+        if options.display_roi and monitoring_view:
             if options.roi is not None:
                 OverlayProcessor._draw_roi(
                     batch_meta,
@@ -1526,6 +1573,12 @@ class OverlayProcessor:
                 for existing in existing_rectangles
             )
         ]
+        if not options.display_proposals:
+            detections = [
+                detection
+                for detection in detections
+                if detection.class_id != SMALL_TARGET_PROPOSAL_CLASS_ID
+            ]
         risk_enabled = bool(
             fishing_options is not None
             and fishing_options.enabled
@@ -1554,7 +1607,21 @@ class OverlayProcessor:
             title = "船舶检测等待结果"
         else:
             color = osd.Color(0.0, 0.85, 1.0, 1.0)
-            title = f"船舶：{len(all_detections)}"
+            proposal_count = (
+                sum(
+                    item.class_id == SMALL_TARGET_PROPOSAL_CLASS_ID
+                    for item in all_detections
+                )
+                if options.display_proposals
+                else 0
+            )
+            confirmed_count = sum(
+                item.class_id != SMALL_TARGET_PROPOSAL_CLASS_ID
+                for item in all_detections
+            )
+            title = f"船舶：{confirmed_count}"
+            if proposal_count:
+                title += f"｜疑似目标：{proposal_count}"
             if risk_enabled:
                 title += f"｜风险候选：{len(risk_by_object_id)}"
                 if risk_by_object_id:
@@ -1638,6 +1705,12 @@ class OverlayProcessor:
                 label = osd.Text()
                 if risk is not None:
                     label_value = f"疑似捕捞线索 {risk.risk_score}分"
+                elif detection.class_id == SMALL_TARGET_PROPOSAL_CLASS_ID:
+                    label_value = (
+                        f"疑似目标 #{detection.object_id}"
+                        if options.display_ids
+                        else "疑似目标"
+                    )
                 else:
                     label_value = (
                         f"船 #{detection.object_id}"
@@ -2255,13 +2328,20 @@ class VesselFrameProcessor:
         fishing_risk_engines: dict[int, FishingRiskEngine] | None = None,
         fishing_risk_cache: FishingRiskResultCache | None = None,
         evidence_writers: dict[int, EventEvidenceWriter] | None = None,
+        ptz_verification_coordinators: dict[
+            int, PtzVerificationCoordinator
+        ] | None = None,
     ) -> None:
         self._client = client
         self._vessel_cache = vessel_cache
         self._fishing_risk_engines = fishing_risk_engines or {}
         self._fishing_risk_cache = fishing_risk_cache
         self._evidence_writers = evidence_writers or {}
+        self._ptz_verification_coordinators = (
+            ptz_verification_coordinators or {}
+        )
         self._last_risk_version: dict[int, int] = {}
+        self._ptz_was_busy: dict[int, bool] = {}
 
     def process(self, batch_meta: Any, frames: list[Any]) -> None:
         timestamp = time.monotonic()
@@ -2270,6 +2350,17 @@ class VesselFrameProcessor:
                 continue
             pad_index = int(frame_meta.pad_index)
             try:
+                coordinator = self._ptz_verification_coordinators.get(
+                    pad_index
+                )
+                ptz_busy = bool(
+                    coordinator is not None and coordinator.is_busy
+                )
+                view_generation = (
+                    coordinator.view_generation
+                    if coordinator is not None
+                    else 0
+                )
                 accepted = self._client.accepts(
                     pad_index,
                     timestamp=timestamp,
@@ -2278,37 +2369,73 @@ class VesselFrameProcessor:
                 engine = self._fishing_risk_engines.get(pad_index)
                 if engine is not None and self._vessel_cache is not None:
                     snapshot = self._vessel_cache.snapshot(pad_index)
-                    previous_version = self._last_risk_version.get(
-                        pad_index,
-                        -1,
-                    )
-                    if (
-                        snapshot.state == "running"
-                        and snapshot.result_version != previous_version
-                    ):
-                        result = engine.observe(
-                            timestamp=(snapshot.updated_at or timestamp),
-                            observed_at=datetime.now(timezone.utc),
-                            detections=snapshot.detections,
-                        )
+                    was_busy = self._ptz_was_busy.get(pad_index, False)
+                    self._ptz_was_busy[pad_index] = ptz_busy
+                    if ptz_busy:
+                        if not was_busy:
+                            engine.reset_tracking()
+                            previous = (
+                                self._fishing_risk_cache.snapshot(pad_index)
+                                if self._fishing_risk_cache is not None
+                                else FishingRiskSnapshot()
+                            )
+                            if self._fishing_risk_cache is not None:
+                                self._fishing_risk_cache.store_snapshot(
+                                    pad_index,
+                                    FishingRiskSnapshot(
+                                        state="paused",
+                                        result_version=(
+                                            previous.result_version + 1
+                                        ),
+                                        updated_at=timestamp,
+                                        total_events=previous.total_events,
+                                        message=(
+                                            "PTZ近景复核中，行为分析暂停"
+                                        ),
+                                    ),
+                                )
+                        # Consume zoom-view versions without feeding them into
+                        # the fixed-camera fishing-risk trajectory engine.
                         self._last_risk_version[pad_index] = (
                             snapshot.result_version
                         )
-                        if self._fishing_risk_cache is not None:
-                            self._fishing_risk_cache.store_snapshot(
-                                pad_index,
-                                result.snapshot,
+                    else:
+                        previous_version = self._last_risk_version.get(
+                            pad_index,
+                            -1,
+                        )
+                        if (
+                            snapshot.state == "running"
+                            and snapshot.result_version != previous_version
+                        ):
+                            result = engine.observe(
+                                timestamp=(snapshot.updated_at or timestamp),
+                                observed_at=datetime.now(timezone.utc),
+                                detections=tuple(
+                                    item
+                                    for item in snapshot.detections
+                                    if item.class_id
+                                    != SMALL_TARGET_PROPOSAL_CLASS_ID
+                                ),
                             )
-                        if result.events:
-                            writer = self._evidence_writers.get(pad_index)
-                            if writer is not None:
-                                converted_frame = _frame_to_small_numpy(
-                                    frames[frame_index]
+                            self._last_risk_version[pad_index] = (
+                                snapshot.result_version
+                            )
+                            if self._fishing_risk_cache is not None:
+                                self._fishing_risk_cache.store_snapshot(
+                                    pad_index,
+                                    result.snapshot,
                                 )
-                                writer.attach_snapshots(
-                                    result.events,
-                                    converted_frame,
-                                )
+                            if result.events:
+                                writer = self._evidence_writers.get(pad_index)
+                                if writer is not None:
+                                    converted_frame = _frame_to_small_numpy(
+                                        frames[frame_index]
+                                    )
+                                    writer.attach_snapshots(
+                                        result.events,
+                                        converted_frame,
+                                    )
                 if accepted:
                     if converted_frame is None:
                         converted_frame = _frame_to_small_numpy(
@@ -2318,6 +2445,8 @@ class VesselFrameProcessor:
                         pad_index,
                         converted_frame,
                         timestamp=timestamp,
+                        verification_active=ptz_busy,
+                        view_generation=view_generation,
                     )
             except Exception:
                 LOGGER.exception(
@@ -2529,6 +2658,9 @@ def _load_policies(config: dict[str, Any]) -> dict[int, StreamPolicy]:
             ),
             fishing_risk=FishingRiskOptions.from_payload(
                 stream.get("fishing_risk")
+            ),
+            ptz_verification=PtzVerificationOptions.from_payload(
+                stream.get("ptz_verification")
             ),
         )
         for pad_index, stream in enumerate(config["streams"])
@@ -3185,6 +3317,52 @@ def run(config_path: Path) -> None:
             # Keep the OSD error state, but do not build a branch without a
             # live receiver. The primary infer/encode path still starts.
             vessel_config["enabled"] = False
+    ptz_verification_coordinators: dict[
+        str, PtzVerificationCoordinator
+    ] = {}
+    ptz_verification_by_pad: dict[int, PtzVerificationCoordinator] = {}
+    ptz_verification_errors: dict[str, str] = {}
+    for pad_index, stream in enumerate(streams):
+        options = policies[pad_index].ptz_verification
+        if not options.enabled:
+            continue
+        stream_id = str(stream["stream_id"])
+        if vessel_detection_client is None:
+            ptz_verification_errors[stream_id] = "船舶检测组件不可用"
+            continue
+        try:
+            repository = PtzVerificationRepository(
+                Path(stream["event_root"]) / "vessel-verifications"
+            )
+            coordinator = PtzVerificationCoordinator(
+                stream_id=stream_id,
+                options=options,
+                snapshot_provider=(
+                    lambda pad=pad_index: vessel_detection_cache.snapshot(pad)
+                ),
+                repository=repository,
+                camera_client=CameraControlClient(options),
+                evidence_validator=(
+                    lambda content, timeout, pad=pad_index: (
+                        vessel_detection_client.validate_evidence(
+                            pad,
+                            content,
+                            timeout=timeout,
+                        )
+                    )
+                ),
+            )
+            ptz_verification_coordinators[stream_id] = coordinator
+            ptz_verification_by_pad[pad_index] = coordinator
+            coordinator.start()
+        except Exception as exc:
+            LOGGER.exception(
+                "PTZ近景复核初始化失败，主RTSP将不受影响: stream=%s",
+                stream_id,
+            )
+            ptz_verification_errors[stream_id] = (
+                f"{type(exc).__name__}: {exc}"
+            )
     fishing_risk_cache = FishingRiskResultCache()
     event_engines: dict[int, EventEngine] = {}
     fishing_risk_engines: dict[int, FishingRiskEngine] = {}
@@ -3269,6 +3447,8 @@ def run(config_path: Path) -> None:
             for item in streams
         },
         fishing_risk_cache=fishing_risk_cache,
+        ptz_verification_coordinators=ptz_verification_coordinators,
+        ptz_verification_errors=ptz_verification_errors,
     )
     latency_tracker = InferenceLatencyTracker()
 
@@ -3284,6 +3464,7 @@ def run(config_path: Path) -> None:
                 gas_cylinder_cache,
                 vessel_detection_cache,
                 fishing_risk_cache,
+                ptz_verification_coordinators,
                 frame_width=int(config["mux_width"]),
                 frame_height=int(config["mux_height"]),
             )
@@ -3405,6 +3586,7 @@ def run(config_path: Path) -> None:
                 fishing_risk_engines=fishing_risk_engines,
                 fishing_risk_cache=fishing_risk_cache,
                 evidence_writers=evidence_writers,
+                ptz_verification_coordinators=ptz_verification_by_pad,
             )
 
         def consume(self, buffer: Any) -> int:
@@ -3550,6 +3732,8 @@ def run(config_path: Path) -> None:
         if stopped.is_set():
             return
         stopped.set()
+        for coordinator in ptz_verification_coordinators.values():
+            coordinator.request_shutdown()
         pipeline.stop()
 
     signal.signal(signal.SIGTERM, stop_pipeline)
@@ -3565,6 +3749,10 @@ def run(config_path: Path) -> None:
     try:
         pipeline.start().wait()
     finally:
+        for coordinator in ptz_verification_coordinators.values():
+            coordinator.shutdown(
+                timeout=coordinator.options.shutdown_timeout_seconds
+            )
         if gas_cylinder_client is not None:
             gas_cylinder_client.shutdown()
         if vessel_detection_client is not None:

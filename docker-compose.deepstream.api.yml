@@ -50,6 +50,7 @@ services:
     shm_size: "1gb"
     environment:
       NVIDIA_DRIVER_CAPABILITIES: compute,utility,video,graphics
+      CAMERA_CONTROL_API_KEY: ${CAMERA_CONTROL_API_KEY:-}
     volumes:
       - ./config:/app/config:ro
       - ./engines:/app/engines

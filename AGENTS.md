@@ -4,9 +4,10 @@
 AI 能先恢复项目上下文、知道哪些结论已经验证、哪些仍需现场验证，以及什么时候必须
 向用户申请服务器权限。
 
-最后一次本地核对：2026-08-20。编写时本地分支为 `main`，HEAD 为 `351d568`，与
-`origin/main` 一致且工作区干净。这里的提交号只表示本文件编写时的基线；开始新任务
-时仍必须重新执行 `git status --short --branch`，不能把本段当作永远有效的状态。
+最近基线核对：2026-08-20，当时本地分支为 `main`，HEAD 为 `351d568`，与
+`origin/main` 一致且工作区干净。2026-08-21 又完成了尚未提交的PTZ船舶近景复核实现；
+这里的提交号只表示旧基线。开始新任务时仍必须重新执行
+`git status --short --branch`，不能把本段当作永远有效的状态。
 
 ## 1. 开始工作的第一原则
 
@@ -91,6 +92,7 @@ RTSP -> PyAV/FFmpeg 拉流 -> 最新帧槽 -> Ultralytics YOLO
 | 垃圾变化/乱丢线索 | DeepStream | YOLO-World 或垃圾堆模型 + 背景变化 + 轨迹状态机；结论必须人工复核 |
 | 燃气瓶固定机位计数 | DeepStream 旁路 | YOLOE 独立进程、多帧共识；历史样例稳定计数 36，不代表所有机位 |
 | 船舶高召回框选 | DeepStream 旁路 | COCO boat、1280 输入、分区推理、ROI/排除区；不识别船名或证照 |
+| PTZ船舶近景复核 | DeepStream旁路 + camera_control | 可选运动+局部外观高召回小目标提议、船框反馈自适应变焦（保留固定回退）、近景boat确认、原生抓图、强制回HOME、SQLite跨ID去重；默认关闭，现场仍需校准方向/倍率/预置位 |
 | 疑似非法捕捞线索 | DeepStream 规则层 | 依赖船舶轨迹、区域、时间表、停留/折返；不能自动认定违法 |
 | 逐流日志和健康诊断 | API 两类管理器外层 | JSONL + REST + SSE；可区分 degraded/stalled/mosaic_risk 等 |
 | 事件证据与 Webhook | DeepStream 事件功能 | JSON、截图持久化；Webhook 异步，失败不应影响视频 |
@@ -124,6 +126,68 @@ RTSP -> PyAV/FFmpeg 拉流 -> 最新帧槽 -> Ultralytics YOLO
 昼夜雨雾、遮挡与拖影等准确率验收。船舶、燃气瓶等新机位也必须分别校准 ROI、
 Profile 和阈值。
 
+2026-08-21 已在上述服务器完成PTZ船舶复核增量部署：当前
+`rtsp-yolo-annotator:deepstream8-amd64`镜像ID前缀为`2898bbce0189`，切换前镜像保留为
+`deepstream8-before-ptz-20260821`（ID前缀`62d604c72d61`）。独立
+`camera-control:dahua-sdk-20260821`容器加入
+`rtsp-yolo-deepstream-api_default`网络，仅绑定服务器回环地址`127.0.0.1:18080`；
+API与camera-control共享未回显的内部环境密钥。部署时无活动流，MediaMTX未重启，
+公网`/health`与跨容器Mock定位/对焦/原生抓图/回HOME已通过。camera-control当前仍使用
+`mock-001`，大华SDK原生库只完成无设备初始化；真实摄像机方向、倍率、HOME和抓图必须
+到内网现场验证，不能把本次Mock部署记成真机验收。
+
+2026-08-21 已继续部署PTZ P1修复：当前生产标签
+`rtsp-yolo-annotator:deepstream8-amd64`镜像ID前缀为`6dfee6d58055`，直接上一版保留为
+`deepstream8-before-p1fix-20260821`（ID前缀`2898bbce0189`）。本次只重建API容器，
+MediaMTX与camera-control未重启；公网健康、P1默认参数、SQLite增量迁移、固定视角冲突
+422校验和跨容器camera-control健康均通过。部署时仍无活动流，不能视为真实摄像机验收。
+
+2026-08-24 已部署船框反馈自适应变焦：当前生产标签
+`rtsp-yolo-annotator:deepstream8-amd64`镜像ID前缀为`68b8c7ef5781`，切换前实际线上镜像
+保留为`deepstream8-before-adaptive-ptz-20260824`（ID前缀`865b65a633b4`）。只重建API，
+MediaMTX未重启。另发现线上camera-control缺少已实现的SDK状态和一键诊断路由，已用
+保留原生SDK层的增量镜像补齐；当前`camera-control:dahua-sdk-20260821`镜像ID前缀为
+`363f4f3b8b43`，旧镜像保留为`before-diagnostics-20260824`（ID前缀`b34bb0b8b630`）。
+线上用本次船舶样例完整验证：识别-only约30 FPS、duplicate 0、稳定检出1到3艘；
+自适应Mock联动生成`boat_confirmed`证据并成功回HOME；输出RTSP另行解码60帧成功；
+SDK在容器内初始化`loaded=true`。测试流、Mock证据和临时视频均已清理。这里仍只证明
+服务器软件、Mock控制和SDK加载，真实摄像机登录、方向、倍率、抓图及HOME仍需现场验收。
+
+2026-08-24 又部署了水面运动+局部外观的小目标高召回和PTZ候选碎片合并：当前生产
+`rtsp-yolo-annotator:deepstream8-amd64`镜像ID前缀为`6b1b6ae04dcc`；直接上一版高召回
+镜像保留为`deepstream8-before-dedup-fix-20260824`（ID前缀`ece449c49073`），原自适应
+变焦基线仍保留为`deepstream8-before-high-recall-20260824`对应的`68b8c7ef5781`镜像。
+只重建API，MediaMTX和camera-control未重启。`8月12日.mp4`前60秒线上回放中，
+detection-only稳定候选达到8，主链约30 FPS、duplicate 0；Mock PTZ联动首轮暴露了
+复核后目标速度外推导致的重复建任务，修复为“完成后固定触发坐标、冷却期不外推也不被
+碎片拖移”。修复版跨完整视频周期得到20个复核位置，任意两次触发距离均大于4%，
+19个`boat_confirmed`、1个`candidate_not_confirmed`、全部回HOME；证据JPEG及SHA-256
+一致，输出RTSP经NVDEC解码60帧成功。195项本地测试和服务器完整DeepStream构图通过。
+本次52条Mock任务、46张假证据、临时流/视频/构建目录均已清理，线上最终无活动流。
+这些结果仍不是大华真机或目标现场准确率验收。
+
+2026-09-01 修复了 API `/internal/mediamtx/auth` 对 HLS/WebRTC 读取鉴权过严的问题：原逻辑只放行
+`action=read` 且路径以无前导斜杠的 `detected/` 开头，而 MediaMTX 对 HLS（浏览器端）上报
+`/detected/<id>`（带前导斜杠）且读取动作可能为 `play`，导致 HLS 浏览器播放一直 401。
+现统一 `path.lstrip("/")` 并接受 `action in ("read","play")`，发布权限不变；另新增一个
+`rtsp-web-gateway` 容器（`0.0.0.0:8088`，同源反代 HLS，机房 NAT `38088->8088`）对外提供
+浏览器页面(`/`)与 HLS(`/detected/*`)。本次以服务器现有基础镜像做 `COPY api.py` 覆盖层重建，
+当前生产标签仍为 `rtsp-yolo-annotator:deepstream8-amd64`，镜像ID前缀改为`d6d273e2`，切换前
+镜像保留为`deepstream8-before-hlsfix-20260901`，配置备份为`config/api.json.bak-hlsfix-20260901091915`；
+只为WEB视图目的改动，MediaMTX、engine-builder、camera-control 未重启，224项单测通过。
+同日进一步确认：MediaMTX 的 HLS **只接受 HTTP Basic Auth，忽略 `?user=&pass=` 查询参数**，因此
+网关改为在反代 `/detected/*` 时从 `/srv/secrets.json`（宿主 `secrets-viewer.json`，mode 600）注入
+Basic 头，浏览器端不再依赖查询参数即播放；网关容器已重建以挂载该 secret。
+同页还支持多路 RTSP（每行一个 `名称|rtsp://...`）并展示 SQLite 复核图片：网关新增
+`/v1/vessel-verifications[...]` 到 `api:8080` 的反代并注入 `X-API-Key`（`api_key` 已加入
+`secrets-viewer.json`），页面同源读取 `/v1/vessel-verifications` 列表及
+`/v1/vessel-verifications/{job_id}/images/{image_id}` 图片，无需浏览器持有密钥。
+同日为大屏页做长播健壮性优化：hls.js 已自托管到 `web/hls.min.js`（网关 `/hls.min.js` 同源提供，避开外网）。
+HLS 配置加 `backBufferLength:30/maxMaxBufferLength:60` 限制后退缓冲（防长时间播放内存无限增长）；重连改为
+指数退避（5s→10s→20s→30s封顶）而非每 8 秒高频重建；重建配置前先 `stopCard` 销毁旧 Hls/worker 防泄漏；
+加 `beforeunload` 清理与页面隐藏时暂停视频。上墙页面按 2x2 铺满左侧、单路点视频可全屏。
+注：API 容器重启会停掉进程内所有流任务，需调用方重建；网关容器本身不影响流。
+
 ## 6. 仓库导航
 
 入口和配置：
@@ -153,12 +217,14 @@ Profile 和阈值。
 - `gas_cylinder.py`、`gas_cylinder_process.py`：燃气瓶固定机位旁路；
 - `vessel_detection.py`、`vessel_detection_process.py`、`vessel_calibration.py`：
   船舶识别、进程隔离和新机位标定；
+- `ptz_verification.py`：PTZ复核状态机、camera_control客户端、SQLite目标记忆和证据；
 - `fishing_risk.py`：基于船舶轨迹的风险评分规则；
 - `labels.py`：中文标签和字体。
 
 持久化和临时状态：
 
 - `data/events`：事件 JSON 与截图，删除流不会自动删除历史事件；
+- `data/events/vessel-verifications`：PTZ复核SQLite/WAL与近景原图；
 - `data/stream-logs`：逐流 JSONL 及轮转文件；
 - `engines`：服务器 TensorRT 缓存；
 - `/app/runtime`：容器 tmpfs 内的临时 worker 配置，最后一路删除后应清理；
@@ -175,6 +241,7 @@ Profile 和阈值。
 - 事件/垃圾：`EVENT_DETECTION.md`；
 - 车牌：`LICENSE_PLATE.md`；夜间：`NIGHT_VISION.md`；
 - 燃气瓶：`GAS_CYLINDER.md`；船舶：`VESSEL_DETECTION.md`；
+- 小目标PTZ近景复核：`PTZ_VESSEL_VERIFICATION.md`；
 - 捕捞风险：`FISHING_RISK.md`；
 - 日志诊断：`STREAM_LOGGING.md`；公网 RTSP：`PUBLIC_RTSP.md`；
 - 离线 CUDA 与服务器基础环境：`OFFLINE_CUDA.md`、`SERVER_CUDA.md`；

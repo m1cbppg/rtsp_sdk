@@ -18,6 +18,7 @@ from .events import EventDetectionOptions
 from .fishing_risk import FishingRiskOptions
 from .gas_cylinder import GasCylinderOptions
 from .license_plate import LicensePlateOptions
+from .ptz_verification import PtzVerificationOptions
 from .vessel_detection import VesselDetectionOptions
 
 
@@ -94,6 +95,7 @@ class StreamSpec:
     gas_cylinder: GasCylinderOptions = GasCylinderOptions()
     vessel_detection: VesselDetectionOptions = VesselDetectionOptions()
     fishing_risk: FishingRiskOptions = FishingRiskOptions()
+    ptz_verification: PtzVerificationOptions = PtzVerificationOptions()
 
 
 @dataclass(frozen=True, slots=True)
@@ -203,6 +205,10 @@ class StreamManager:
         if spec.fishing_risk.enabled:
             raise ModelNotFoundError(
                 "疑似非法捕捞分析仅支持DeepStream后端"
+            )
+        if spec.ptz_verification.enabled:
+            raise ModelNotFoundError(
+                "PTZ近景复核仅支持DeepStream后端"
             )
         model_path = self._resolve_model(spec.model)
         stream_id = uuid.uuid4().hex

@@ -22,6 +22,7 @@ from .gas_cylinder import (
     GasCylinderOptions,
 )
 from .labels import load_label_map
+from .ptz_verification import PtzVerificationOptions
 from .stream_manager import (
     ManagerSettings,
     ModelNotFoundError,
@@ -35,6 +36,7 @@ from .vessel_detection import VesselDetectionOptions
 
 ProcessFactory = Callable[..., Any]
 LOGGER = logging.getLogger(__name__)
+_WORKER_SHUTDOWN_OVERHEAD_SECONDS = 2.0
 
 
 @dataclass(frozen=True, slots=True)
@@ -236,10 +238,28 @@ class DeepStreamStreamManager:
         spec.gas_cylinder.validate()
         spec.vessel_detection.validate()
         spec.fishing_risk.validate()
+        spec.ptz_verification.validate()
         if spec.fishing_risk.enabled and not spec.vessel_detection.enabled:
             raise ModelNotFoundError(
                 "启用fishing_risk前必须启用vessel_detection"
             )
+        if spec.ptz_verification.enabled and not spec.vessel_detection.enabled:
+            raise ModelNotFoundError(
+                "启用ptz_verification前必须启用vessel_detection"
+            )
+        if spec.ptz_verification.enabled:
+            conflicts = []
+            if spec.license_plate.enabled:
+                conflicts.append("license_plate")
+            if spec.event_detection.enabled:
+                conflicts.append("event_detection")
+            if spec.gas_cylinder.enabled:
+                conflicts.append("gas_cylinder")
+            if conflicts:
+                raise ModelNotFoundError(
+                    "ptz_verification不能与固定视角功能同时启用: "
+                    + ", ".join(conflicts)
+                )
         model_path, onnx_path, labels_path = self._resolve_model(spec.model)
         del onnx_path
         if spec.imgsz != self._settings.model_input_size:
@@ -271,6 +291,15 @@ class DeepStreamStreamManager:
                 raise StreamCapacityError(
                     "已达到并发上限"
                     f"MAX_STREAMS={self._settings.manager.max_streams}"
+                )
+            if spec.ptz_verification.enabled and any(
+                record.spec.ptz_verification.enabled
+                and record.spec.ptz_verification.camera_id
+                == spec.ptz_verification.camera_id
+                for record in self._records.values()
+            ):
+                raise StreamCapacityError(
+                    "同一camera_id只能绑定一个活动PTZ复核流"
                 )
             if spec.license_plate.enabled:
                 self._validate_lpr_assets()
@@ -414,10 +443,21 @@ class DeepStreamStreamManager:
                 raise StreamNotFoundError(stream_id)
             group = self._groups[record.group_id]
             group.stream_ids.remove(stream_id)
+            stopped_ptz_options = (
+                (record.spec.ptz_verification,)
+                if record.spec.ptz_verification.enabled
+                else ()
+            )
             if group.stream_ids:
-                self._restart_group(group)
+                self._restart_group(
+                    group,
+                    stopping_ptz_options=stopped_ptz_options,
+                )
             else:
-                self._stop_group(group)
+                self._stop_group(
+                    group,
+                    stopping_ptz_options=stopped_ptz_options,
+                )
                 self._groups.pop(group.group_id, None)
             result = self._serialize(record, forced_status="stopped")
             result["exit_code"] = 0
@@ -425,11 +465,14 @@ class DeepStreamStreamManager:
 
     def shutdown(self) -> None:
         with self._lock:
-            groups = list(self._groups.values())
+            groups = [
+                (group, self._group_stop_grace_seconds(group))
+                for group in self._groups.values()
+            ]
             self._groups.clear()
             self._records.clear()
-        for group in groups:
-            self._stop_group(group)
+        for group, grace_seconds in groups:
+            self._stop_group(group, grace_seconds=grace_seconds)
 
     def _find_group(
         self,
@@ -650,7 +693,12 @@ class DeepStreamStreamManager:
             )
         return model_path, onnx_path, labels_path
 
-    def _restart_group(self, group: DeepStreamGroup) -> None:
+    def _restart_group(
+        self,
+        group: DeepStreamGroup,
+        *,
+        stopping_ptz_options: tuple[PtzVerificationOptions, ...] = (),
+    ) -> None:
         previous_generation = group.generation
         group.generation = previous_generation + 1
         group_dir = self._settings.runtime_root / group.group_id
@@ -662,7 +710,13 @@ class DeepStreamStreamManager:
         except BaseException:
             group.generation = previous_generation
             raise
-        self._stop_process(group.process)
+        self._stop_process(
+            group.process,
+            grace_seconds=self._group_stop_grace_seconds(
+                group,
+                extra_ptz_options=stopping_ptz_options,
+            ),
+        )
         group.process = None
         group.metrics_path.unlink(missing_ok=True)
         temporary = group_dir / "worker.json.tmp"
@@ -815,6 +869,9 @@ class DeepStreamStreamManager:
                         record.spec.vessel_detection.to_payload()
                     ),
                     "fishing_risk": record.spec.fishing_risk.to_payload(),
+                    "ptz_verification": (
+                        record.spec.ptz_verification.to_payload()
+                    ),
                     "event_root": str(self._event_root),
                 }
                 for record in records
@@ -941,10 +998,47 @@ class DeepStreamStreamManager:
             }
         return payload
 
-    def _stop_group(self, group: DeepStreamGroup) -> None:
-        self._stop_process(group.process)
+    def _stop_group(
+        self,
+        group: DeepStreamGroup,
+        *,
+        stopping_ptz_options: tuple[PtzVerificationOptions, ...] = (),
+        grace_seconds: float | None = None,
+    ) -> None:
+        if grace_seconds is None:
+            grace_seconds = self._group_stop_grace_seconds(
+                group,
+                extra_ptz_options=stopping_ptz_options,
+            )
+        self._stop_process(group.process, grace_seconds=grace_seconds)
         group.process = None
         self._cleanup_group_files(group)
+
+    def _group_stop_grace_seconds(
+        self,
+        group: DeepStreamGroup,
+        *,
+        extra_ptz_options: tuple[PtzVerificationOptions, ...] = (),
+    ) -> float:
+        ptz_options = [
+            record.spec.ptz_verification
+            for stream_id in group.stream_ids
+            if (record := self._records.get(stream_id)) is not None
+            and record.spec.ptz_verification.enabled
+        ]
+        ptz_options.extend(
+            options for options in extra_ptz_options if options.enabled
+        )
+        if not ptz_options:
+            return self._settings.worker_stop_grace_seconds
+        return max(
+            self._settings.worker_stop_grace_seconds,
+            _WORKER_SHUTDOWN_OVERHEAD_SECONDS
+            + sum(
+                options.shutdown_timeout_seconds
+                for options in ptz_options
+            ),
+        )
 
     def _cleanup_group_files(self, group: DeepStreamGroup) -> None:
         group_dir = self._settings.runtime_root / group.group_id
@@ -970,23 +1064,33 @@ class DeepStreamStreamManager:
         except OSError:
             pass
 
-    def _stop_process(self, process: Any | None) -> None:
+    def _stop_process(
+        self,
+        process: Any | None,
+        *,
+        grace_seconds: float | None = None,
+    ) -> None:
         if process is None or process.poll() is not None:
             return
+        timeout = (
+            self._settings.worker_stop_grace_seconds
+            if grace_seconds is None
+            else max(grace_seconds, 0.0)
+        )
         try:
             if os.name == "posix":
                 os.killpg(process.pid, signal.SIGTERM)
             else:
                 process.terminate()
             process.wait(
-                timeout=self._settings.worker_stop_grace_seconds
+                timeout=timeout
             )
         except ProcessLookupError:
             return
         except subprocess.TimeoutExpired:
             LOGGER.info(
                 "DeepStream worker在%.2f秒内未退出，强制结束: pid=%s",
-                self._settings.worker_stop_grace_seconds,
+                timeout,
                 process.pid,
             )
             if os.name == "posix":
@@ -1178,6 +1282,31 @@ class DeepStreamStreamManager:
                     else 0
                 ),
                 "events_url": f"/v1/streams/{record.stream_id}/events",
+            },
+            "ptz_verification": {
+                "enabled": record.spec.ptz_verification.enabled,
+                "integration_mode": (
+                    "camera_control"
+                    if record.spec.ptz_verification.enabled
+                    else "detection_only"
+                ),
+                "zoom_strategy": record.spec.ptz_verification.zoom_strategy,
+                "camera_id": record.spec.ptz_verification.camera_id,
+                "state": (
+                    "disabled"
+                    if not record.spec.ptz_verification.enabled
+                    else (
+                        str(metrics.get("ptz_verification_state", "starting"))
+                        if metrics is not None
+                        else "starting"
+                    )
+                ),
+                "last_error": (
+                    metrics.get("ptz_verification_last_error")
+                    if metrics is not None
+                    else None
+                ),
+                "events_url": "/v1/vessel-verifications",
             },
         }
 

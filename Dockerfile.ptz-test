@@ -1,0 +1,10 @@
+ARG BASE_IMAGE=rtsp-yolo-annotator:ptz-adaptive-fix-20260826
+FROM ${BASE_IMAGE}
+
+WORKDIR /app
+
+COPY rtsp_annotator/ptz_test_service.py /app/rtsp_annotator/ptz_test_service.py
+
+RUN python3 -m py_compile /app/rtsp_annotator/ptz_test_service.py
+
+CMD ["python3", "-m", "rtsp_annotator.ptz_test_service"]

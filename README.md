@@ -3,6 +3,9 @@
 项目当前完成度、服务器部署状态和各业务场景的完整调用示例见
 [`PROJECT_STATUS_AND_SCENARIOS.md`](PROJECT_STATUS_AND_SCENARIOS.md)。
 
+船舶识别与摄像头联动的离线闭环验收见
+[`PTZ_ISOLATED_TEST.md`](PTZ_ISOLATED_TEST.md)。
+
 输入一个 RTSP 监控流和一个本地 Ultralytics YOLO 模型（`xx.pt`），程序会持续读取最新画面、运行识别、画框，并把结果发布成新的 RTSP 流。
 
 网络受限的NVIDIA Ubuntu主机可以在联网机器预先制作`linux/amd64`离线CUDA
@@ -273,6 +276,11 @@ FFmpeg 的 CPU 往返路径。
 DeepStream船舶旁路还支持默认关闭的`fishing_risk`纯规则分析：只用固定监控中的
 船舶轨迹、禁渔区域和时间表生成疑似捕捞人工复核事件，不需要训练新模型。它可
 通过API运行中关闭并退回纯船舶框模式，详见[FISHING_RISK.md](FISHING_RISK.md)。
+
+对于全景中只有几像素到几十像素的水面目标，可选的PTZ复核会先生成高召回候选、
+分步光学放大、近景确认船舶、原生抓图、强制回HOME，并用SQLite避免回位后重复
+查看同一目标。该能力默认关闭，详见
+[PTZ_VESSEL_VERIFICATION.md](PTZ_VESSEL_VERIFICATION.md)。
 
 本项目已经在本地完成 1080p/25 FPS 的真实 RTSP 输入、YOLO 推理、叠框、H.264 编码和 RTSP 转推测试。测试环境、端到端延迟、模型档位与硬件结论见 [VALIDATION.md](VALIDATION.md)。
 

@@ -7,6 +7,12 @@
 新模型。船名、船号、证照和“正规/非法”判断不在本阶段范围内；后续高清机位可
 把船框作为OCR输入，再与AIS、船证、禁渔区和作业时段做规则核验。
 
+对于全景中小到现有船模型无法分类的目标，可以显式开启
+`small_target_proposals`生成水面运动和局部明暗外观候选，再配合PTZ近景确认。局部
+外观分支会保留背景已经适应的近似静止暗色船体或航行灯。候选类别不会
+被当作已确认船，也不会进入疑似捕捞行为评分。完整闭环、去重和证据接口见
+[PTZ_VESSEL_VERIFICATION.md](PTZ_VESSEL_VERIFICATION.md)。
+
 这套旁路只在DeepStream后端启用。主链继续以原FPS执行NVDEC、TensorRT、OSD、
 NVENC和RTSP发布；旁路按默认5 FPS取最新帧，即使船舶模型变慢或退出，也不会让
 主视频排队或断流。
@@ -56,7 +62,9 @@ NVENC和RTSP发布；旁路按默认5 FPS取最新帧，即使船舶模型变慢
     "large_box_minimum_confidence": 0.25,
     "maximum_box_area": 1.0,
     "display_ids": false,
-    "display_roi": true
+    "display_roi": true,
+    "display_proposals": false,
+    "small_target_proposals": false
   }
 }
 ```
@@ -67,6 +75,10 @@ NVENC和RTSP发布；旁路按默认5 FPS取最新帧，即使船舶模型变慢
 
 `roi`和`exclude_rois`按检测框中心点过滤。所有坐标都是相对画面宽高的0到1比例，
 所以更换同视角的分辨率后无需重画；更换机位必须单独标定。
+
+顶层`roi`约束主链640模型，`vessel_detection.roi`约束高分辨率船舶旁路；如果两边都
+可能画船框，必须同时配置，否则固定障碍物可能仍从另一条分支显示。`proposal_roi`
+只限制未分类小目标，可进一步收窄到中远水面，不会缩小正常`boat`检测范围。
 
 全图和放大分区可能给同一艘船生成大小不同的嵌套框。
 `duplicate_containment_threshold`只在不同推理分区之间生效：小框有80%以上被另一
@@ -120,6 +132,17 @@ docker compose -f docker-compose.deepstream.api.yml run --rm api \
 4. 仍需提高召回时把`confidence`从0.10逐步降到0.08；如果误报增多，把
    `minimum_hits`从2调到3。
 5. 船框断续时先把`hold_seconds`调到1.5，不要无上限增加`analysis_fps`。
+
+如果目标小到船模型完全没有候选，而且摄像机可控，再开启
+`small_target_proposals`。本次清远实景录像的离线初值为运动阈值60、局部外观阈值
+18、局部背景模糊31像素、面积20到1000像素、宽至少4像素、高至少3像素、连续4次
+命中；应先用回放脚本测每帧候选数。外观阈值越低越容易包含水波、岸灯和固定结构，
+因此必须同时校准ROI、排除区和PTZ负结果冷却，而不能把候选直接认定为船。
+转发画面默认`display_proposals:false`，只显示已识别的船；疑似候选仍可在后台引导
+PTZ。现场浪纹较多时，优先配置`proposal_roi`、`proposal_minimum_motion_ratio`、
+`proposal_minimum_fill_ratio`和`proposal_maximum_candidates`，不要仅隐藏OSD。
+这些ROI只约束HOME全景候选；进入PTZ近景复核后会自动改用近景检测配置，避免全景
+水线在转向和放大后错误过滤已经居中的船。
 
 `input_width/input_height`不能高于DeepStream的mux尺寸。未来接入2K/4K摄像头并
 希望保留真实细节时，必须同步提高API配置中的

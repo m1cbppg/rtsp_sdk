@@ -16,6 +16,7 @@ NormalizedPoint = tuple[float, float]
 NormalizedPolygon = tuple[NormalizedPoint, ...]
 NormalizedRegion = tuple[float, float, float, float]
 _SAFE_MODEL_NAME = re.compile(r"^[A-Za-z0-9_.-]+\.pt$")
+SMALL_TARGET_PROPOSAL_CLASS_ID = -1
 
 
 @dataclass(frozen=True, slots=True)
@@ -52,6 +53,23 @@ class VesselDetectionOptions:
     maximum_box_area: float = 1.0
     display_ids: bool = False
     display_roi: bool = True
+    display_proposals: bool = False
+    small_target_proposals: bool = False
+    proposal_roi: NormalizedPolygon | None = None
+    proposal_background_alpha: float = 0.02
+    proposal_threshold: int = 60
+    proposal_appearance_enabled: bool = True
+    proposal_appearance_threshold: int = 18
+    proposal_appearance_blur_pixels: int = 31
+    proposal_border_margin: float = 0.01
+    proposal_minimum_area_pixels: int = 20
+    proposal_maximum_area_pixels: int = 1_000
+    proposal_minimum_width_pixels: int = 4
+    proposal_minimum_height_pixels: int = 3
+    proposal_minimum_fill_ratio: float = 0.20
+    proposal_minimum_motion_ratio: float = 0.0
+    proposal_maximum_candidates: int = 8
+    proposal_global_change_ratio: float = 0.15
 
     def validate(self) -> None:
         if self.model is not None and not _SAFE_MODEL_NAME.fullmatch(
@@ -96,6 +114,11 @@ class VesselDetectionOptions:
             _validate_region(region)
         if self.roi is not None:
             _validate_polygon(self.roi, "vessel_detection.roi")
+        if self.proposal_roi is not None:
+            _validate_polygon(
+                self.proposal_roi,
+                "vessel_detection.proposal_roi",
+            )
         for polygon in self.exclude_rois:
             _validate_polygon(polygon, "vessel_detection.exclude_rois")
         if not 1 <= self.minimum_hits <= 10:
@@ -143,6 +166,41 @@ class VesselDetectionOptions:
                 "vessel_detection.maximum_box_area不能小于"
                 "large_box_area_threshold"
             )
+        if not 0 < self.proposal_background_alpha <= 0.5:
+            raise ValueError("proposal_background_alpha必须在(0,0.5]")
+        if not 1 <= self.proposal_threshold <= 255:
+            raise ValueError("proposal_threshold必须在[1,255]")
+        if not 1 <= self.proposal_appearance_threshold <= 255:
+            raise ValueError("proposal_appearance_threshold必须在[1,255]")
+        if not (
+            5 <= self.proposal_appearance_blur_pixels <= 101
+            and self.proposal_appearance_blur_pixels % 2 == 1
+        ):
+            raise ValueError(
+                "proposal_appearance_blur_pixels必须是[5,101]内的奇数"
+            )
+        if not 0 <= self.proposal_border_margin <= 0.10:
+            raise ValueError("proposal_border_margin必须在[0,0.10]")
+        if not 1 <= self.proposal_minimum_area_pixels <= 100_000:
+            raise ValueError("proposal_minimum_area_pixels无效")
+        if not (
+            self.proposal_minimum_area_pixels
+            <= self.proposal_maximum_area_pixels
+            <= 1_000_000
+        ):
+            raise ValueError("proposal_maximum_area_pixels无效")
+        if not 1 <= self.proposal_minimum_width_pixels <= 1_000:
+            raise ValueError("proposal_minimum_width_pixels无效")
+        if not 1 <= self.proposal_minimum_height_pixels <= 1_000:
+            raise ValueError("proposal_minimum_height_pixels无效")
+        if not 0 <= self.proposal_minimum_fill_ratio <= 1:
+            raise ValueError("proposal_minimum_fill_ratio必须在[0,1]")
+        if not 0 <= self.proposal_minimum_motion_ratio <= 1:
+            raise ValueError("proposal_minimum_motion_ratio必须在[0,1]")
+        if not 1 <= self.proposal_maximum_candidates <= 100:
+            raise ValueError("proposal_maximum_candidates必须在[1,100]")
+        if not 0.01 <= self.proposal_global_change_ratio <= 1:
+            raise ValueError("proposal_global_change_ratio必须在[0.01,1]")
 
     def to_payload(self) -> dict[str, Any]:
         return {
@@ -182,6 +240,43 @@ class VesselDetectionOptions:
             "maximum_box_area": self.maximum_box_area,
             "display_ids": self.display_ids,
             "display_roi": self.display_roi,
+            "display_proposals": self.display_proposals,
+            "small_target_proposals": self.small_target_proposals,
+            "proposal_roi": (
+                [list(point) for point in self.proposal_roi]
+                if self.proposal_roi is not None
+                else None
+            ),
+            "proposal_background_alpha": self.proposal_background_alpha,
+            "proposal_threshold": self.proposal_threshold,
+            "proposal_appearance_enabled": self.proposal_appearance_enabled,
+            "proposal_appearance_threshold": (
+                self.proposal_appearance_threshold
+            ),
+            "proposal_appearance_blur_pixels": (
+                self.proposal_appearance_blur_pixels
+            ),
+            "proposal_border_margin": self.proposal_border_margin,
+            "proposal_minimum_area_pixels": (
+                self.proposal_minimum_area_pixels
+            ),
+            "proposal_maximum_area_pixels": (
+                self.proposal_maximum_area_pixels
+            ),
+            "proposal_minimum_width_pixels": (
+                self.proposal_minimum_width_pixels
+            ),
+            "proposal_minimum_height_pixels": (
+                self.proposal_minimum_height_pixels
+            ),
+            "proposal_minimum_fill_ratio": self.proposal_minimum_fill_ratio,
+            "proposal_minimum_motion_ratio": (
+                self.proposal_minimum_motion_ratio
+            ),
+            "proposal_maximum_candidates": self.proposal_maximum_candidates,
+            "proposal_global_change_ratio": (
+                self.proposal_global_change_ratio
+            ),
         }
 
     @classmethod
@@ -201,6 +296,11 @@ class VesselDetectionOptions:
             values["roi"] = tuple(
                 (float(point[0]), float(point[1]))
                 for point in values["roi"]
+            )
+        if values.get("proposal_roi") is not None:
+            values["proposal_roi"] = tuple(
+                (float(point[0]), float(point[1]))
+                for point in values["proposal_roi"]
             )
         if "exclude_rois" in values:
             values["exclude_rois"] = tuple(
@@ -244,6 +344,20 @@ class VesselSnapshot:
     @property
     def count(self) -> int:
         return len(self.detections)
+
+
+@dataclass(frozen=True, slots=True)
+class EvidenceValidationResult:
+    state: str
+    detections: tuple[VesselDetection, ...] = ()
+    sharpness_by_object_id: tuple[tuple[int, float], ...] = ()
+    message: str = ""
+
+    def sharpness_for(self, object_id: int) -> float:
+        for current_id, sharpness in self.sharpness_by_object_id:
+            if current_id == object_id:
+                return sharpness
+        return 0.0
 
 
 class VesselResultCache:
@@ -302,6 +416,10 @@ class VesselTrackManager:
         self._tracks: dict[int, _VesselTrack] = {}
         self._next_id = 1
         self._version = 0
+
+    def reset_tracking(self) -> None:
+        """Forget view-relative tracks while preserving snapshot ordering."""
+        self._tracks.clear()
 
     def update(
         self,
@@ -487,6 +605,220 @@ class UltralyticsVesselDetector:
         )
 
 
+class TemporalSmallTargetProposer:
+    """High-recall proposals for tiny water targets COCO may not classify.
+
+    Running-background motion finds moving or flickering points. Local
+    appearance contrast also keeps compact, almost-stationary dark hulls and
+    navigation lights visible after the background has adapted. Proposals are
+    deliberately assigned class ``-1``: they may trigger PTZ, but must never
+    be treated as a confirmed vessel or fishing track.
+    """
+
+    def __init__(self) -> None:
+        self._background: np.ndarray | None = None
+
+    def detect(
+        self,
+        frame: np.ndarray,
+        options: VesselDetectionOptions,
+    ) -> list[VesselCandidate]:
+        if not options.small_target_proposals:
+            return []
+        import cv2
+
+        bgr = _as_bgr(frame)
+        gray = cv2.cvtColor(bgr, cv2.COLOR_BGR2GRAY)
+        gray = cv2.GaussianBlur(gray, (3, 3), 0)
+        if self._background is None or self._background.shape != gray.shape:
+            self._background = gray.astype(np.float32)
+            difference = np.zeros_like(gray)
+        else:
+            background_u8 = cv2.convertScaleAbs(self._background)
+            difference = cv2.absdiff(gray, background_u8)
+        mask = self._water_mask(gray.shape, options)
+        motion = cv2.threshold(
+            difference,
+            options.proposal_threshold,
+            255,
+            cv2.THRESH_BINARY,
+        )[1]
+        motion = cv2.bitwise_and(motion, mask)
+        water_pixels = max(int(cv2.countNonZero(mask)), 1)
+        change_ratio = cv2.countNonZero(motion) / water_pixels
+        if change_ratio >= options.proposal_global_change_ratio:
+            self._background = gray.astype(np.float32)
+            motion.fill(0)
+        else:
+            cv2.accumulateWeighted(
+                gray,
+                self._background,
+                options.proposal_background_alpha,
+                mask=mask,
+            )
+
+        appearance_difference = np.zeros_like(gray)
+        appearance = np.zeros_like(gray)
+        if options.proposal_appearance_enabled:
+            local_background = cv2.GaussianBlur(
+                gray,
+                (
+                    options.proposal_appearance_blur_pixels,
+                    options.proposal_appearance_blur_pixels,
+                ),
+                0,
+            )
+            appearance_difference = cv2.absdiff(gray, local_background)
+            # Distant water is visually smoother than foreground water. Raise
+            # the threshold gradually towards the bottom so tiny horizon
+            # targets survive without turning nearby waves into a PTZ queue.
+            row_scale = np.linspace(0.75, 1.50, gray.shape[0], dtype=np.float32)
+            threshold_map = (
+                options.proposal_appearance_threshold * row_scale[:, None]
+            )
+            appearance = np.where(
+                appearance_difference.astype(np.float32) >= threshold_map,
+                255,
+                0,
+            ).astype(np.uint8)
+            appearance = cv2.bitwise_and(appearance, mask)
+
+        changed = cv2.bitwise_or(motion, appearance)
+        kernel = np.ones((3, 3), dtype=np.uint8)
+        changed = cv2.morphologyEx(changed, cv2.MORPH_OPEN, kernel)
+        changed = cv2.morphologyEx(changed, cv2.MORPH_CLOSE, kernel)
+        count, labels, stats, _centroids = cv2.connectedComponentsWithStats(
+            changed,
+            connectivity=8,
+        )
+        combined_difference = np.maximum(
+            difference,
+            appearance_difference,
+        )
+        height, width = gray.shape
+        candidates: list[VesselCandidate] = []
+        for index in range(1, count):
+            left, top, box_width, box_height, area = (
+                int(value) for value in stats[index]
+            )
+            if not (
+                options.proposal_minimum_area_pixels
+                <= area
+                <= options.proposal_maximum_area_pixels
+            ):
+                continue
+            if (
+                box_width < options.proposal_minimum_width_pixels
+                or box_height < options.proposal_minimum_height_pixels
+            ):
+                continue
+            fill_ratio = area / max(box_width * box_height, 1)
+            if fill_ratio < options.proposal_minimum_fill_ratio:
+                continue
+            component = labels[
+                top : top + box_height,
+                left : left + box_width,
+            ] == index
+            motion_pixels = int(
+                np.count_nonzero(
+                    motion[
+                        top : top + box_height,
+                        left : left + box_width,
+                    ][component]
+                )
+            )
+            motion_ratio = motion_pixels / max(area, 1)
+            if motion_ratio < options.proposal_minimum_motion_ratio:
+                continue
+            rectangle = NormalizedRect(
+                left=max(left - 1, 0) / width,
+                top=max(top - 1, 0) / height,
+                width=min(box_width + 2, width - max(left - 1, 0)) / width,
+                height=min(box_height + 2, height - max(top - 1, 0)) / height,
+            )
+            center_x, center_y = rectangle.center
+            margin = options.proposal_border_margin
+            if (
+                center_x < margin
+                or center_x > 1.0 - margin
+                or center_y < margin
+                or center_y > 1.0 - margin
+            ):
+                continue
+            contrast = float(
+                combined_difference[
+                    top : top + box_height,
+                    left : left + box_width,
+                ].mean()
+            )
+            candidate = VesselCandidate(
+                rectangle=rectangle,
+                confidence=min(max(contrast / 255.0, 0.01), 0.99),
+                class_id=SMALL_TARGET_PROPOSAL_CLASS_ID,
+                source_region=-1,
+            )
+            if _candidate_allowed(candidate, options):
+                candidates.append(candidate)
+        return sorted(
+            candidates,
+            key=lambda item: (
+                item.confidence,
+                item.rectangle.width * item.rectangle.height,
+            ),
+            reverse=True,
+        )[: options.proposal_maximum_candidates]
+
+    @staticmethod
+    def _water_mask(
+        shape: tuple[int, int],
+        options: VesselDetectionOptions,
+    ) -> np.ndarray:
+        import cv2
+
+        height, width = shape
+        mask = np.full((height, width), 255, dtype=np.uint8)
+        if options.roi is not None:
+            mask.fill(0)
+            points = np.asarray(
+                [
+                    [
+                        min(max(int(round(x * width)), 0), width - 1),
+                        min(max(int(round(y * height)), 0), height - 1),
+                    ]
+                    for x, y in options.roi
+                ],
+                dtype=np.int32,
+            )
+            cv2.fillPoly(mask, [points], 255)
+        if options.proposal_roi is not None:
+            proposal_mask = np.zeros((height, width), dtype=np.uint8)
+            points = np.asarray(
+                [
+                    [
+                        min(max(int(round(x * width)), 0), width - 1),
+                        min(max(int(round(y * height)), 0), height - 1),
+                    ]
+                    for x, y in options.proposal_roi
+                ],
+                dtype=np.int32,
+            )
+            cv2.fillPoly(proposal_mask, [points], 255)
+            mask = cv2.bitwise_and(mask, proposal_mask)
+        for polygon in options.exclude_rois:
+            points = np.asarray(
+                [
+                    [
+                        min(max(int(round(x * width)), 0), width - 1),
+                        min(max(int(round(y * height)), 0), height - 1),
+                    ]
+                    for x, y in polygon
+                ],
+                dtype=np.int32,
+            )
+            cv2.fillPoly(mask, [points], 0)
+        return mask
+
+
 def deduplicate_candidates(
     candidates: list[VesselCandidate],
     *,
@@ -497,7 +829,10 @@ def deduplicate_candidates(
     selected: list[VesselCandidate] = []
     for candidate in sorted(
         candidates,
-        key=lambda item: item.confidence,
+        key=lambda item: (
+            item.class_id != SMALL_TARGET_PROPOSAL_CLASS_ID,
+            item.confidence,
+        ),
         reverse=True,
     ):
         if any(
@@ -523,7 +858,11 @@ def _candidates_are_duplicates(
     iou_threshold: float,
     containment_threshold: float,
 ) -> bool:
-    if left.class_id != right.class_id:
+    if (
+        left.class_id != right.class_id
+        and SMALL_TARGET_PROPOSAL_CLASS_ID
+        not in {left.class_id, right.class_id}
+    ):
         return False
     if rectangle_iou(left.rectangle, right.rectangle) >= iou_threshold:
         return True

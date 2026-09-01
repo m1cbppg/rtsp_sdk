@@ -1,0 +1,80 @@
+name: rtsp-vessel-ptz-isolated-test
+
+services:
+  ptz-test-api:
+    image: ${PTZ_TEST_RTSP_IMAGE:-rtsp-yolo-annotator:ptz-adaptive-fix-20260826}
+    pull_policy: never
+    container_name: rtsp-ptz-test-api
+    restart: unless-stopped
+    init: true
+    stop_grace_period: 30s
+    gpus: all
+    shm_size: "1gb"
+    environment:
+      NVIDIA_DRIVER_CAPABILITIES: compute,utility,video,graphics
+      CAMERA_CONTROL_API_KEY: ${PTZ_TEST_CONTROL_KEY}
+      RTSP_API_CONFIG: /app/config/api.json
+    volumes:
+      - ./ptz-test-runtime/config:/app/config:ro
+      - ${PTZ_TEST_ENGINE_DIR:-./engines}:/app/engines
+      - ./ptz-test-runtime/data:/app/data
+    tmpfs:
+      - /app/runtime:size=64m,mode=0700
+    ports:
+      - "${PTZ_TEST_API_PORT:-18081}:8080"
+    networks:
+      - isolated-test
+
+  ptz-test-mediamtx:
+    image: bluenviron/mediamtx:1
+    pull_policy: never
+    container_name: rtsp-ptz-test-mediamtx
+    restart: unless-stopped
+    depends_on:
+      - ptz-test-api
+    volumes:
+      - ./config/mediamtx.ptz-test.yml:/mediamtx.yml:ro
+    ports:
+      - "${PTZ_TEST_RTSP_PORT:-18554}:8554"
+    networks:
+      - isolated-test
+
+  ptz-test-camera-control:
+    build:
+      context: .
+      dockerfile: Dockerfile.ptz-test
+      args:
+        BASE_IMAGE: ${PTZ_TEST_RTSP_IMAGE:-rtsp-yolo-annotator:ptz-adaptive-fix-20260826}
+    image: rtsp-virtual-ptz-test:local
+    pull_policy: never
+    container_name: rtsp-ptz-test-camera-control
+    restart: unless-stopped
+    gpus: all
+    depends_on:
+      - ptz-test-mediamtx
+    environment:
+      NVIDIA_DRIVER_CAPABILITIES: compute,utility,video
+      PTZ_TEST_SOURCE: /fixtures/boat.mp4
+      PTZ_TEST_PUBLISH_URL: rtsp://${PTZ_TEST_RTSP_PUBLISH_USER}:${PTZ_TEST_RTSP_PUBLISH_PASSWORD}@ptz-test-mediamtx:8554/detected/virtual-input
+      PTZ_TEST_CONTROL_KEY: ${PTZ_TEST_CONTROL_KEY}
+      PTZ_TEST_CAMERA_ID: virtual-river-01
+      PTZ_TEST_WIDTH: ${PTZ_TEST_WIDTH:-1920}
+      PTZ_TEST_HEIGHT: ${PTZ_TEST_HEIGHT:-1080}
+      PTZ_TEST_FPS: ${PTZ_TEST_FPS:-10}
+      PTZ_TEST_SOURCE_START_SECONDS: ${PTZ_TEST_SOURCE_START_SECONDS:-0}
+      PTZ_TEST_SOURCE_END_SECONDS: ${PTZ_TEST_SOURCE_END_SECONDS:-}
+      PTZ_TEST_MIRROR_REAL_CAMERA: ${PTZ_TEST_MIRROR_REAL_CAMERA:-false}
+      REAL_CAMERA_CONTROL_URL: ${REAL_CAMERA_CONTROL_URL:-http://camera-control:8080}
+      REAL_CAMERA_ID: ${REAL_CAMERA_ID:-river-ptz-01}
+      REAL_CAMERA_CONTROL_API_KEY: ${REAL_CAMERA_CONTROL_API_KEY:-}
+    volumes:
+      - ./ptz-test-runtime/fixtures:/fixtures:ro
+      - ./ptz-test-runtime/virtual-data:/app/ptz-test-data
+    ports:
+      - "${PTZ_TEST_CONTROL_PORT:-19080}:8080"
+    networks:
+      - isolated-test
+
+networks:
+  isolated-test:
+    name: rtsp-ptz-isolated-test

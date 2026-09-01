@@ -2,13 +2,17 @@ from __future__ import annotations
 
 import json
 import tempfile
+import time
 import unittest
 from pathlib import Path
 
 from fastapi.testclient import TestClient
 
 from rtsp_annotator.api import StreamCreateRequest, create_app
+from rtsp_annotator.event_engine import NormalizedRect
 from rtsp_annotator.events import EventRecord
+from rtsp_annotator.ptz_verification import PtzVerificationOptions
+from rtsp_annotator.vessel_detection import VesselDetection
 
 
 class FakeManager:
@@ -57,6 +61,19 @@ class FakeManager:
 
 
 class ApiTests(unittest.TestCase):
+    def test_vessel_detection_does_not_enable_camera_control_by_default(self) -> None:
+        request = StreamCreateRequest.model_validate(
+            {
+                "input_url": "rtsp://camera/harbor",
+                "vessel_detection": {"enabled": True},
+            }
+        )
+
+        spec = request.to_spec()
+        self.assertTrue(spec.vessel_detection.enabled)
+        self.assertFalse(spec.ptz_verification.enabled)
+        self.assertEqual(spec.ptz_verification.camera_id, "")
+
     def test_fishing_risk_is_disabled_by_default(self) -> None:
         request = StreamCreateRequest.model_validate(
             {
@@ -144,6 +161,17 @@ class ApiTests(unittest.TestCase):
                 "input_url": "rtsp://camera/harbor",
                 "vessel_detection": {
                     "enabled": True,
+                    "small_target_proposals": True,
+                    "display_proposals": False,
+                    "proposal_roi": [
+                        [0, 0.4], [1, 0.4], [1, 0.75], [0, 0.75]
+                    ],
+                    "proposal_appearance_threshold": 20,
+                    "proposal_appearance_blur_pixels": 41,
+                    "proposal_border_margin": 0.02,
+                    "proposal_minimum_fill_ratio": 0.3,
+                    "proposal_minimum_motion_ratio": 0.1,
+                    "proposal_maximum_candidates": 4,
                     "confidence": 0.10,
                     "imgsz": 1280,
                     "class_ids": [8],
@@ -176,6 +204,142 @@ class ApiTests(unittest.TestCase):
         self.assertEqual(options.large_box_area_threshold, 0.30)
         self.assertEqual(options.large_box_minimum_confidence, 0.35)
         self.assertEqual(options.maximum_box_area, 0.80)
+        self.assertTrue(options.small_target_proposals)
+        self.assertFalse(options.display_proposals)
+        self.assertEqual(len(options.proposal_roi or ()), 4)
+        self.assertEqual(options.proposal_threshold, 60)
+        self.assertTrue(options.proposal_appearance_enabled)
+        self.assertEqual(options.proposal_appearance_threshold, 20)
+        self.assertEqual(options.proposal_appearance_blur_pixels, 41)
+        self.assertEqual(options.proposal_border_margin, 0.02)
+        self.assertEqual(options.proposal_minimum_fill_ratio, 0.3)
+        self.assertEqual(options.proposal_minimum_motion_ratio, 0.1)
+        self.assertEqual(options.proposal_maximum_candidates, 4)
+
+    def test_ptz_verification_maps_to_stream_spec(self) -> None:
+        request = StreamCreateRequest.model_validate(
+            {
+                "input_url": "rtsp://camera/harbor",
+                "vessel_detection": {"enabled": True},
+                "ptz_verification": {
+                    "enabled": True,
+                    "camera_id": "camera-01",
+                    "camera_control_url": "http://camera-control:8080",
+                    "zoom_strategy": "adaptive",
+                    "adaptive_target_width_ratio": 0.30,
+                    "adaptive_max_step": 5,
+                    "adaptive_max_rounds": 4,
+                    "adaptive_max_total_zoom_delta": 14,
+                    "confirmed_target_fallback_zoom_rounds": 2,
+                    "confirmed_target_fallback_zoom_step": 4,
+                    "home_stable_frames": 3,
+                    "evidence_capture_attempts": 3,
+                    "evidence_minimum_sharpness": 18.0,
+                    "evidence_target_scale_ratio": 0.8,
+                    "reacquire_strict_center_radius": 0.20,
+                    "reacquire_center_radius": 0.40,
+                    "reacquire_cluster_radius": 0.16,
+                    "proposal_minimum_interval_seconds": 45,
+                    "proposal_maximum_verifications_per_hour": 6,
+                    "confirmed_cooldown_seconds": 900,
+                },
+            }
+        )
+
+        options = request.to_spec().ptz_verification
+        self.assertTrue(options.enabled)
+        self.assertEqual(options.camera_id, "camera-01")
+        self.assertEqual(options.zoom_strategy, "adaptive")
+        self.assertEqual(options.adaptive_target_width_ratio, 0.30)
+        self.assertEqual(options.adaptive_max_step, 5)
+        self.assertEqual(options.adaptive_max_rounds, 4)
+        self.assertEqual(options.adaptive_max_total_zoom_delta, 14)
+        self.assertEqual(options.confirmed_target_fallback_zoom_rounds, 2)
+        self.assertEqual(options.confirmed_target_fallback_zoom_step, 4)
+        self.assertEqual(options.home_stable_frames, 3)
+        self.assertEqual(options.evidence_capture_attempts, 3)
+        self.assertEqual(options.evidence_minimum_sharpness, 18.0)
+        self.assertEqual(options.evidence_target_scale_ratio, 0.8)
+        self.assertEqual(options.reacquire_strict_center_radius, 0.20)
+        self.assertEqual(options.reacquire_center_radius, 0.40)
+        self.assertEqual(options.reacquire_cluster_radius, 0.16)
+        self.assertEqual(options.proposal_minimum_interval_seconds, 45)
+        self.assertEqual(options.proposal_maximum_verifications_per_hour, 6)
+        self.assertEqual(options.confirmed_cooldown_seconds, 900)
+
+    def test_ptz_verification_requires_vessel_detection(self) -> None:
+        with self.assertRaisesRegex(ValueError, "必须启用vessel_detection"):
+            StreamCreateRequest.model_validate(
+                {
+                    "input_url": "rtsp://camera/harbor",
+                    "ptz_verification": {
+                        "enabled": True,
+                        "camera_id": "camera-01",
+                    },
+                }
+            )
+
+    def test_ptz_verification_rejects_invalid_adaptive_step_range(self) -> None:
+        with self.assertRaisesRegex(ValueError, "min<=max"):
+            StreamCreateRequest.model_validate(
+                {
+                    "input_url": "rtsp://camera/harbor",
+                    "vessel_detection": {"enabled": True},
+                    "ptz_verification": {
+                        "enabled": True,
+                        "camera_id": "camera-01",
+                        "adaptive_min_step": 8,
+                        "adaptive_max_step": 4,
+                    },
+                }
+            )
+
+    def test_ptz_verification_rejects_inverted_reacquire_radii(self) -> None:
+        with self.assertRaisesRegex(ValueError, "strict<=maximum"):
+            StreamCreateRequest.model_validate(
+                {
+                    "input_url": "rtsp://camera/harbor",
+                    "vessel_detection": {"enabled": True},
+                    "ptz_verification": {
+                        "enabled": True,
+                        "camera_id": "camera-01",
+                        "reacquire_strict_center_radius": 0.5,
+                        "reacquire_center_radius": 0.4,
+                    },
+                }
+            )
+
+    def test_ptz_verification_rejects_fixed_view_features(self) -> None:
+        features = {
+            "license_plate": {"enabled": True},
+            "event_detection": {
+                "enabled": True,
+                "rois": [
+                    {
+                        "id": "waterfront",
+                        "polygon": [[0, 0], [1, 0], [1, 1], [0, 1]],
+                    }
+                ],
+            },
+            "gas_cylinder": {"enabled": True},
+        }
+        for feature, payload in features.items():
+            with self.subTest(feature=feature):
+                with self.assertRaisesRegex(
+                    ValueError,
+                    "不能与固定视角功能同时启用",
+                ):
+                    StreamCreateRequest.model_validate(
+                        {
+                            "input_url": "rtsp://camera/harbor",
+                            "vessel_detection": {"enabled": True},
+                            "ptz_verification": {
+                                "enabled": True,
+                                "camera_id": "camera-01",
+                            },
+                            feature: payload,
+                        }
+                    )
 
     def test_gas_cylinder_defaults_cover_ir_exposure_cycle(self) -> None:
         request = StreamCreateRequest.model_validate(
@@ -436,6 +600,34 @@ class ApiTests(unittest.TestCase):
                         "path": "detected/abc123",
                     },
                 )
+                # HLS/WebRTC 读取：MediaMTX 可能带前导斜杠路径，或用 "play" 动作，都应放行
+                hls_play = client.post(
+                    "/internal/mediamtx/auth",
+                    json={
+                        "user": "viewer",
+                        "password": "read-password",
+                        "action": "play",
+                        "path": "detected/abc123",
+                    },
+                )
+                hls_slash = client.post(
+                    "/internal/mediamtx/auth",
+                    json={
+                        "user": "viewer",
+                        "password": "read-password",
+                        "action": "read",
+                        "path": "/detected/abc123",
+                    },
+                )
+                hls_slash_playlist = client.post(
+                    "/internal/mediamtx/auth",
+                    json={
+                        "user": "viewer",
+                        "password": "read-password",
+                        "action": "play",
+                        "path": "/detected/abc123/index.m3u8",
+                    },
+                )
                 event = EventRecord.create(
                     stream_id="abc123",
                     event_type="zone_dwell",
@@ -459,6 +651,54 @@ class ApiTests(unittest.TestCase):
                     f"/v1/events/{event.event_id}/snapshot",
                     headers={"X-API-Key": "test-api-key-1234"},
                 )
+                verification_options = PtzVerificationOptions(
+                    enabled=True,
+                    camera_id="camera-01",
+                )
+                now = time.time()
+                target = client.app.state.ptz_verifications.observe(
+                    stream_id="abc123",
+                    camera_id="camera-01",
+                    detection=VesselDetection(
+                        object_id=7,
+                        rectangle=NormalizedRect(0.6, 0.5, 0.03, 0.02),
+                        confidence=0.2,
+                        class_id=8,
+                        hits=4,
+                    ),
+                    now=now,
+                    options=verification_options,
+                )
+                job = client.app.state.ptz_verifications.claim(
+                    stream_id="abc123",
+                    camera_id="camera-01",
+                    target=target,
+                    now=now,
+                )
+                assert job is not None
+                client.app.state.ptz_verifications.mark_running(job.job_id, now)
+                image_id = client.app.state.ptz_verifications.store_evidence(
+                    job_id=job.job_id,
+                    content=b"boat-jpeg",
+                    mime_type="image/jpeg",
+                    captured_at=now,
+                )
+                client.app.state.ptz_verifications.finish(
+                    job_id=job.job_id,
+                    result="boat_confirmed",
+                    error=None,
+                    home_returned=True,
+                    now=now,
+                    options=verification_options,
+                )
+                verification_list = client.get(
+                    "/v1/vessel-verifications?stream_id=abc123",
+                    headers={"X-API-Key": "test-api-key-1234"},
+                )
+                verification_image = client.get(
+                    f"/v1/vessel-verifications/{job.job_id}/images/{image_id}",
+                    headers={"X-API-Key": "test-api-key-1234"},
+                )
 
         self.assertEqual(health.status_code, 200)
         self.assertEqual(unauthorized.status_code, 401)
@@ -473,7 +713,16 @@ class ApiTests(unittest.TestCase):
         self.assertEqual(stream_logs.json()[0]["details"]["health"], "stalled")
         self.assertEqual(publish_auth.status_code, 200)
         self.assertEqual(rejected_read.status_code, 401)
+        self.assertEqual(hls_play.status_code, 200)
+        self.assertEqual(hls_slash.status_code, 200)
+        self.assertEqual(hls_slash_playlist.status_code, 200)
         self.assertEqual(event_list.status_code, 200)
         self.assertEqual(event_list.json()[0]["event_type"], "zone_dwell")
         self.assertEqual(confirmed.json()["status"], "confirmed")
         self.assertEqual(event_snapshot.content, b"jpeg")
+        self.assertEqual(verification_list.status_code, 200)
+        self.assertEqual(
+            verification_list.json()[0]["result"],
+            "boat_confirmed",
+        )
+        self.assertEqual(verification_image.content, b"boat-jpeg")

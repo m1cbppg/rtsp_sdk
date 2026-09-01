@@ -46,6 +46,10 @@ from .fishing_risk import (
     FishingRiskZoneOptions,
 )
 from .license_plate import DEFAULT_VEHICLE_CLASSES, LicensePlateOptions
+from .ptz_verification import (
+    PtzVerificationOptions,
+    PtzVerificationRepository,
+)
 from .shared_stream_manager import SharedStreamManager
 from .stream_manager import (
     ModelNotFoundError,
@@ -233,6 +237,35 @@ class VesselDetectionRequest(BaseModel):
     maximum_box_area: float = Field(default=1.0, gt=0, le=1)
     display_ids: bool = False
     display_roi: bool = True
+    display_proposals: bool = Field(
+        default=False,
+        description="是否在转发画面绘制内部疑似小目标；默认仅供PTZ使用",
+    )
+    small_target_proposals: bool = Field(
+        default=False,
+        description=(
+            "使用水面运动和局部外观生成未分类小目标，"
+            "近景仍需船舶模型确认"
+        ),
+    )
+    proposal_roi: list[tuple[float, float]] | None = Field(
+        default=None,
+        description="仅供疑似小目标生成使用的水面子区域",
+    )
+    proposal_background_alpha: float = Field(default=0.02, gt=0, le=0.5)
+    proposal_threshold: int = Field(default=60, ge=1, le=255)
+    proposal_appearance_enabled: bool = True
+    proposal_appearance_threshold: int = Field(default=18, ge=1, le=255)
+    proposal_appearance_blur_pixels: int = Field(default=31, ge=5, le=101)
+    proposal_border_margin: float = Field(default=0.01, ge=0, le=0.10)
+    proposal_minimum_area_pixels: int = Field(default=20, ge=1, le=100_000)
+    proposal_maximum_area_pixels: int = Field(default=1_000, ge=1, le=1_000_000)
+    proposal_minimum_width_pixels: int = Field(default=4, ge=1, le=1_000)
+    proposal_minimum_height_pixels: int = Field(default=3, ge=1, le=1_000)
+    proposal_minimum_fill_ratio: float = Field(default=0.20, ge=0, le=1)
+    proposal_minimum_motion_ratio: float = Field(default=0.0, ge=0, le=1)
+    proposal_maximum_candidates: int = Field(default=8, ge=1, le=100)
+    proposal_global_change_ratio: float = Field(default=0.15, ge=0.01, le=1)
 
     @field_validator("model")
     @classmethod
@@ -266,7 +299,7 @@ class VesselDetectionRequest(BaseModel):
                 raise ValueError("船舶推理分区必须具有正面积")
         return list(dict.fromkeys(value))
 
-    @field_validator("roi")
+    @field_validator("roi", "proposal_roi")
     @classmethod
     def validate_vessel_roi(
         cls,
@@ -324,7 +357,152 @@ class VesselDetectionRequest(BaseModel):
             maximum_box_area=self.maximum_box_area,
             display_ids=self.display_ids,
             display_roi=self.display_roi,
+            display_proposals=self.display_proposals,
+            small_target_proposals=self.small_target_proposals,
+            proposal_roi=(
+                tuple(self.proposal_roi)
+                if self.proposal_roi is not None
+                else None
+            ),
+            proposal_background_alpha=self.proposal_background_alpha,
+            proposal_threshold=self.proposal_threshold,
+            proposal_appearance_enabled=self.proposal_appearance_enabled,
+            proposal_appearance_threshold=(
+                self.proposal_appearance_threshold
+            ),
+            proposal_appearance_blur_pixels=(
+                self.proposal_appearance_blur_pixels
+            ),
+            proposal_border_margin=self.proposal_border_margin,
+            proposal_minimum_area_pixels=(
+                self.proposal_minimum_area_pixels
+            ),
+            proposal_maximum_area_pixels=(
+                self.proposal_maximum_area_pixels
+            ),
+            proposal_minimum_width_pixels=(
+                self.proposal_minimum_width_pixels
+            ),
+            proposal_minimum_height_pixels=(
+                self.proposal_minimum_height_pixels
+            ),
+            proposal_minimum_fill_ratio=self.proposal_minimum_fill_ratio,
+            proposal_minimum_motion_ratio=(
+                self.proposal_minimum_motion_ratio
+            ),
+            proposal_maximum_candidates=self.proposal_maximum_candidates,
+            proposal_global_change_ratio=(
+                self.proposal_global_change_ratio
+            ),
         )
+        options.validate()
+        return options
+
+
+class PtzVerificationRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    enabled: bool = Field(
+        default=False,
+        description=(
+            "是否把船舶候选接入camera_control；"
+            "false时仅识别并框选船舶，不创建摄像头控制客户端"
+        ),
+    )
+    camera_id: str = Field(default="", max_length=128)
+    camera_control_url: str = "http://camera-control:8080"
+    camera_control_key_env: str = "CAMERA_CONTROL_API_KEY"
+    zoom_strategy: Literal["adaptive", "fixed"] = Field(
+        default="adaptive",
+        description="adaptive按重捕获船框闭环调节；fixed使用zoom_steps",
+    )
+    zoom_steps: list[int] = Field(default_factory=lambda: [4, 4], min_length=1, max_length=3)
+    adaptive_target_width_ratio: float = Field(default=0.25, ge=0.03, le=0.8)
+    adaptive_target_height_ratio: float = Field(default=0.18, ge=0.03, le=0.8)
+    adaptive_min_step: int = Field(default=1, ge=1, le=16)
+    adaptive_max_step: int = Field(default=6, ge=1, le=16)
+    adaptive_max_rounds: int = Field(default=3, ge=1, le=6)
+    adaptive_max_total_zoom_delta: int = Field(default=12, ge=1, le=48)
+    adaptive_min_scale_growth_ratio: float = Field(default=1.12, ge=1, le=3)
+    confirmed_target_fallback_zoom_rounds: int = Field(
+        default=1,
+        ge=0,
+        le=2,
+        description=(
+            "已确认船舶在首次转动后短暂丢检时允许的保底中心变焦轮数；"
+            "疑似目标不使用该策略"
+        ),
+    )
+    confirmed_target_fallback_zoom_step: int = Field(
+        default=3,
+        ge=1,
+        le=8,
+        description="每轮保底中心变焦的相对步长，仍受总变焦上限约束",
+    )
+    command_timeout_seconds: float = Field(default=12, ge=2, le=60)
+    reacquire_timeout_seconds: float = Field(default=4, ge=1, le=30)
+    settle_seconds: float = Field(default=0.5, ge=0, le=5)
+    maximum_off_home_seconds: float = Field(default=25, ge=5, le=120)
+    capture_quality: int = Field(default=1, ge=1, le=6)
+    evidence_validation_required: bool = Field(
+        default=True,
+        description="保存证据前是否对SDK返回JPEG再次执行船舶与清晰度校验",
+    )
+    evidence_capture_attempts: int = Field(default=2, ge=1, le=3)
+    evidence_minimum_sharpness: float = Field(default=12.0, ge=0, le=10_000)
+    evidence_target_scale_ratio: float = Field(default=0.70, ge=0.30, le=1.0)
+    monitoring_interval_seconds: float = Field(default=0.25, ge=0.05, le=5)
+    home_frame_delay_seconds: float = Field(default=1.5, ge=0, le=10)
+    home_stable_frames: int = Field(
+        default=2,
+        ge=1,
+        le=10,
+        description="回HOME后至少连续接收多少个新全景分析帧才恢复ROI",
+    )
+    minimum_target_observations: int = Field(default=3, ge=1, le=10)
+    proposal_merge_radius: float = Field(default=0.04, ge=0, le=0.10)
+    proposal_minimum_interval_seconds: float = Field(
+        default=30,
+        ge=0,
+        le=3_600,
+        description="两个疑似目标PTZ复核之间的最短间隔；已确认船舶不受限",
+    )
+    proposal_maximum_verifications_per_hour: int = Field(
+        default=12,
+        ge=1,
+        le=3_600,
+        description="每小时最多复核多少个疑似目标；已确认船舶不受限",
+    )
+    recent_target_seconds: float = Field(default=1_200, gt=0, le=86_400)
+    confirmed_cooldown_seconds: float = Field(default=1_200, gt=0, le=86_400)
+    negative_cooldown_seconds: float = Field(default=3_600, gt=0, le=604_800)
+    lost_retry_seconds: float = Field(default=180, gt=0, le=86_400)
+    dedup_base_radius: float = Field(default=0.018, gt=0, le=0.5)
+    dedup_uncertainty_per_second: float = Field(default=0.0015, ge=0, le=0.05)
+    dedup_maximum_radius: float = Field(default=0.08, gt=0, le=0.5)
+    reacquire_strict_center_radius: float = Field(
+        default=0.22,
+        ge=0.05,
+        le=0.75,
+        description="PTZ动作后优先搜索的中央严格锁定半径",
+    )
+    reacquire_center_radius: float = Field(default=0.45, ge=0.05, le=0.75)
+    reacquire_cluster_radius: float = Field(
+        default=0.18,
+        ge=0.02,
+        le=0.30,
+        description="近景中相邻小船合并为同一控制目标簇的中心距离",
+    )
+
+    @model_validator(mode="after")
+    def validate_adaptive_zoom(self) -> "PtzVerificationRequest":
+        self.to_options()
+        return self
+
+    def to_options(self) -> PtzVerificationOptions:
+        values = self.model_dump()
+        values["zoom_steps"] = tuple(values["zoom_steps"])
+        options = PtzVerificationOptions(**values)
         options.validate()
         return options
 
@@ -674,6 +852,10 @@ class StreamCreateRequest(BaseModel):
         default_factory=FishingRiskRequest,
         description="仅凭监控轨迹生成疑似非法捕捞人工复核线索",
     )
+    ptz_verification: PtzVerificationRequest = Field(
+        default_factory=PtzVerificationRequest,
+        description="疑似小目标的PTZ放大、近景确认、回位和去重",
+    )
 
     @field_validator("input_url")
     @classmethod
@@ -720,6 +902,23 @@ class StreamCreateRequest(BaseModel):
             raise ValueError(
                 "启用fishing_risk前必须启用vessel_detection"
             )
+        if self.ptz_verification.enabled and not self.vessel_detection.enabled:
+            raise ValueError(
+                "启用ptz_verification前必须启用vessel_detection"
+            )
+        if self.ptz_verification.enabled:
+            conflicts = []
+            if self.license_plate.enabled:
+                conflicts.append("license_plate")
+            if self.event_detection.enabled:
+                conflicts.append("event_detection")
+            if self.gas_cylinder.enabled:
+                conflicts.append("gas_cylinder")
+            if conflicts:
+                raise ValueError(
+                    "ptz_verification不能与固定视角功能同时启用: "
+                    + ", ".join(conflicts)
+                )
         return self
 
     def to_spec(self) -> StreamSpec:
@@ -741,6 +940,7 @@ class StreamCreateRequest(BaseModel):
             gas_cylinder=self.gas_cylinder.to_options(),
             vessel_detection=self.vessel_detection.to_options(),
             fishing_risk=self.fishing_risk.to_options(),
+            ptz_verification=self.ptz_verification.to_options(),
         )
 
 
@@ -752,13 +952,14 @@ class StreamResponse(BaseModel):
     classes: list[int] | None
     created_at: str
     exit_code: int | None
-    metrics: dict[str, float | int | str | bool] | None = None
+    metrics: dict[str, float | int | str | bool | None] | None = None
     license_plate: dict[str, Any] | None = None
     night_vision: dict[str, Any] | None = None
     event_detection: dict[str, Any] | None = None
     gas_cylinder: dict[str, Any] | None = None
     vessel_detection: dict[str, Any] | None = None
     fishing_risk: dict[str, Any] | None = None
+    ptz_verification: dict[str, Any] | None = None
 
 
 class MediaMtxAuthRequest(BaseModel):
@@ -789,6 +990,10 @@ def _manager(request: Request) -> Any:
 
 def _events(request: Request) -> EventRepository:
     return request.app.state.events
+
+
+def _ptz_verifications(request: Request) -> PtzVerificationRepository:
+    return request.app.state.ptz_verifications
 
 
 def _ensure_stream_or_log_exists(request: Request, stream_id: str) -> None:
@@ -847,6 +1052,10 @@ def create_app(config_path: Path = Path("config/api.json")) -> FastAPI:
         application.state.events = EventRepository(
             config.events.storage_root.expanduser().resolve()
         )
+        application.state.ptz_verifications = PtzVerificationRepository(
+            config.events.storage_root.expanduser().resolve()
+            / "vessel-verifications"
+        )
         yield
         manager.shutdown()
 
@@ -869,7 +1078,10 @@ def create_app(config_path: Path = Path("config/api.json")) -> FastAPI:
         request: Request,
     ) -> Response:
         config: AppConfig = request.app.state.config
-        path_allowed = payload.path.startswith("detected/")
+        # MediaMTX 对 RTSP 上报 path="detected/<id>"（无前导斜杠），对 HLS/WebRTC 上报
+        # "/detected/<id>"（带前导斜杠）且读取动作可能是 "play"。这里统一规范化路径，
+        # 并把 "play" 视同读取，使浏览器端 HLS/WebRTC 读取也能通过鉴权。
+        path_allowed = payload.path.lstrip("/").startswith("detected/")
         publish_allowed = (
             payload.action == "publish"
             and path_allowed
@@ -880,7 +1092,7 @@ def create_app(config_path: Path = Path("config/api.json")) -> FastAPI:
             )
         )
         read_allowed = (
-            payload.action == "read"
+            payload.action in ("read", "play")
             and path_allowed
             and hmac.compare_digest(payload.user, config.rtsp.read_user)
             and hmac.compare_digest(
@@ -1100,6 +1312,96 @@ def create_app(config_path: Path = Path("config/api.json")) -> FastAPI:
         except (EventNotFoundError, ValueError) as exc:
             raise HTTPException(status_code=404, detail="事件截图不存在") from exc
         return FileResponse(path)
+
+    @application.get(
+        "/v1/vessel-verifications",
+        dependencies=[Depends(require_api_key)],
+    )
+    def list_vessel_verifications(
+        request: Request,
+        stream_id: str | None = None,
+        result: str | None = None,
+        after_sequence: int = 0,
+        limit: int = 100,
+    ) -> list[dict[str, Any]]:
+        try:
+            return _ptz_verifications(request).list_jobs(
+                stream_id=stream_id,
+                result=result,
+                after_sequence=after_sequence,
+                limit=limit,
+            )
+        except ValueError as exc:
+            raise HTTPException(status_code=422, detail=str(exc)) from exc
+
+    @application.get(
+        "/v1/vessel-verifications/live",
+        dependencies=[Depends(require_api_key)],
+        response_class=StreamingResponse,
+    )
+    async def follow_vessel_verifications(
+        request: Request,
+        stream_id: str | None = None,
+        result: str | None = None,
+        after_sequence: int = 0,
+    ) -> StreamingResponse:
+        async def event_stream():
+            cursor = after_sequence
+            while not await request.is_disconnected():
+                entries = _ptz_verifications(request).list_jobs(
+                    stream_id=stream_id,
+                    result=result,
+                    after_sequence=cursor,
+                    limit=1_000,
+                )
+                if entries:
+                    for entry in entries:
+                        cursor = max(cursor, int(entry["sequence"]))
+                        yield encode_sse(entry)
+                else:
+                    yield ": keepalive\n\n"
+                await asyncio.sleep(0.5)
+
+        return StreamingResponse(
+            event_stream(),
+            media_type="text/event-stream",
+            headers={
+                "Cache-Control": "no-cache",
+                "X-Accel-Buffering": "no",
+            },
+        )
+
+    @application.get(
+        "/v1/vessel-verifications/{job_id}",
+        dependencies=[Depends(require_api_key)],
+    )
+    def get_vessel_verification(
+        job_id: str,
+        request: Request,
+    ) -> dict[str, Any]:
+        try:
+            return _ptz_verifications(request).get_job(job_id)
+        except KeyError as exc:
+            raise HTTPException(status_code=404, detail="复核任务不存在") from exc
+
+    @application.get(
+        "/v1/vessel-verifications/{job_id}/images/{image_id}",
+        dependencies=[Depends(require_api_key)],
+        response_class=FileResponse,
+    )
+    def vessel_verification_image(
+        job_id: str,
+        image_id: str,
+        request: Request,
+    ) -> FileResponse:
+        try:
+            path, mime_type = _ptz_verifications(request).media_path(
+                job_id,
+                image_id,
+            )
+        except KeyError as exc:
+            raise HTTPException(status_code=404, detail="复核图片不存在") from exc
+        return FileResponse(path, media_type=mime_type)
 
     return application
 

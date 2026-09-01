@@ -286,6 +286,43 @@ curl -X PATCH \
 短暂流抖动。关闭后不再保存长期船舶轨迹、不显示风险分，也不产生新的疑似捕捞
 事件，现有`vessel_detection`船框继续工作。
 
+全景小目标的云台近景确认通过`ptz_verification`显式启用，默认关闭；关闭时就是
+原来的纯船舶框模式。它会串行放大、用真实boat类别复核、原生抓图、回HOME并在
+SQLite中记住已看过的位置，避免目标ID变化后反复放大。同一摄像机不能同时绑定
+两路活动流；运行时还会持有camera_control短时独占租约，防止多worker或人工请求穿插
+控制。原生JPEG必须通过独立船舶复检、目标尺度和清晰度校验后才会保存。HOME命令完成后
+还必须收到稳定的新全景帧，否则进入恢复锁定而不是继续接目标。PTZ流不能同时启用车牌、事件/垃圾或燃气瓶等固定视角功能。完整请求和现场接入见
+`PTZ_VESSEL_VERIFICATION.md`。
+
+开关参数就是`ptz_verification.enabled`。传`false`时不创建摄像头控制客户端，流状态
+返回`integration_mode:detection_only`和`state:disabled`；传`true`时才调用
+`camera_control`，流状态返回`integration_mode:camera_control`。建议严格按“只测识别
+→只测控制→再启用联动”三阶段验收，摄像头控制的独立诊断接口见
+`camera_control/docs/API.md`。
+
+联动默认使用`zoom_strategy:adaptive`：每次放大后依据重捕获船框的宽高和实际增长
+重新选择下一步，达到目标尺寸、无有效增长、达到最大轮数/累计增量或丢失目标时立即
+停止；最终只有真实`boat`类别可以截图。需要现场保守回退时可传
+`zoom_strategy:fixed`和`zoom_steps`。完整参数见`PTZ_VESSEL_VERIFICATION.md`。
+
+`vessel_detection.display_proposals`默认`false`：未分类疑似目标不画到输出RTSP，但仍
+可供PTZ后台复核。可用`proposal_roi`和运动/形状阈值压制浪纹，并用
+`ptz_verification.proposal_minimum_interval_seconds`及
+`proposal_maximum_verifications_per_hour`限制疑似目标控制摄像机的频率。
+
+复核结果接口：
+
+```text
+GET /v1/vessel-verifications
+GET /v1/vessel-verifications/live
+GET /v1/vessel-verifications/{job_id}
+GET /v1/vessel-verifications/{job_id}/images/{image_id}
+```
+
+列表只返回已经完成的复核任务，支持`stream_id`、`result`、`after_sequence`和
+`limit`；`sequence`是任务完成事件序号，SSE断线后可用它继续且不会错过最终图片。
+`creation_sequence`保留任务创建顺序。所有接口都要求`X-API-Key`。
+
 垃圾分析启用后默认在视频中持续显示语义垃圾框：普通检测为绿色、候选事件为
 橙色、确认告警为红色。可通过`garbage.display_detections`关闭普通绿框，但保留
 事件判断和告警框。

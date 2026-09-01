@@ -116,6 +116,9 @@ def validate_complete_pipeline_construction() -> None:
     def buffer_probe(index: int) -> Probe:
         return Probe(f"buffer-{index}", BufferPass())
 
+    def metadata_probe(index: int) -> Probe:
+        return Probe(f"metadata-{index}", MetadataPass())
+
     _add_pipeline_nodes(
         pipeline,
         {
@@ -147,7 +150,7 @@ def validate_complete_pipeline_construction() -> None:
             "deepstream-app/config_infer_primary.txt"
         ),
         latency_probe,
-        overlay_probe,
+        metadata_probe,
         overlay_probe,
         buffer_probe,
         buffer_probe,

@@ -373,6 +373,11 @@ class FishingRiskEngine:
         self._version = 0
         self._total_events = 0
 
+    def reset_tracking(self) -> None:
+        """Forget spatial history after the camera viewpoint changes."""
+        self._tracks.clear()
+        self._started_at = None
+
     def observe(
         self,
         *,

@@ -25,8 +25,10 @@ from rtsp_annotator.fishing_risk import (
     FishingRiskRuleOptions,
     FishingRiskZoneOptions,
 )
+from rtsp_annotator.ptz_verification import PtzVerificationOptions
 from rtsp_annotator.stream_manager import (
     ManagerSettings,
+    ModelNotFoundError,
     NightVisionOptions,
     StreamSpec,
 )
@@ -41,12 +43,13 @@ class FakeProcess:
         self.returncode: int | None = None
         self.pid = FakeProcess.next_pid
         FakeProcess.next_pid += 1
+        self.wait_timeouts: list[float | None] = []
 
     def poll(self) -> int | None:
         return self.returncode
 
     def wait(self, timeout: float | None = None) -> int:
-        del timeout
+        self.wait_timeouts.append(timeout)
         self.returncode = 0
         return 0
 
@@ -92,6 +95,67 @@ def make_settings(root: Path) -> DeepStreamManagerSettings:
 
 
 class DeepStreamManagerTests(unittest.TestCase):
+    def test_vessel_only_mode_reports_camera_control_disabled(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            settings = make_settings(root)
+            models = settings.manager.model_root
+            (models / "model.pt").touch()
+            (models / "model.onnx").touch()
+            (models / "model.labels.txt").write_text(
+                "\n".join(f"class_{index}" for index in range(9)),
+                encoding="utf-8",
+            )
+            processes: list[FakeProcess] = []
+
+            def factory(command: list[str], **kwargs: object) -> FakeProcess:
+                process = FakeProcess(command, **kwargs)
+                processes.append(process)
+                return process
+
+            manager = DeepStreamStreamManager(settings, factory)
+            with patch("os.killpg"):
+                result = manager.create(
+                    StreamSpec(
+                        "rtsp://camera/harbor",
+                        model="model.pt",
+                        vessel_detection=VesselDetectionOptions(enabled=True),
+                    )
+                )
+                payload = json.loads(
+                    Path(processes[-1].command[-1]).read_text(encoding="utf-8")
+                )
+                manager.shutdown()
+
+        self.assertTrue(payload["streams"][0]["vessel_detection"]["enabled"])
+        self.assertFalse(payload["streams"][0]["ptz_verification"]["enabled"])
+        self.assertEqual(result["ptz_verification"]["state"], "disabled")
+        self.assertEqual(
+            result["ptz_verification"]["integration_mode"],
+            "detection_only",
+        )
+
+    def test_ptz_verification_rejects_fixed_view_feature_branch(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            settings = make_settings(Path(directory))
+            manager = DeepStreamStreamManager(settings, Mock())
+
+            with self.assertRaisesRegex(
+                ModelNotFoundError,
+                "不能与固定视角功能同时启用",
+            ):
+                manager.create(
+                    StreamSpec(
+                        "rtsp://camera/harbor",
+                        vessel_detection=VesselDetectionOptions(enabled=True),
+                        ptz_verification=PtzVerificationOptions(
+                            enabled=True,
+                            camera_id="camera-01",
+                        ),
+                        license_plate=LicensePlateOptions(enabled=True),
+                    )
+                )
+
     def test_vessel_stream_gets_high_resolution_lossy_sidecar(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -143,6 +207,12 @@ class DeepStreamManagerTests(unittest.TestCase):
                                 minimum_presence_seconds=45,
                             ),
                         ),
+                        ptz_verification=PtzVerificationOptions(
+                            enabled=True,
+                            camera_id="camera-01",
+                            zoom_strategy="adaptive",
+                            adaptive_max_step=5,
+                        ),
                     )
                 )
                 payload = json.loads(
@@ -175,6 +245,17 @@ class DeepStreamManagerTests(unittest.TestCase):
             45,
         )
         self.assertTrue(result["fishing_risk"]["enabled"])
+        self.assertTrue(payload["streams"][0]["ptz_verification"]["enabled"])
+        self.assertEqual(
+            payload["streams"][0]["ptz_verification"]["zoom_strategy"],
+            "adaptive",
+        )
+        self.assertEqual(
+            payload["streams"][0]["ptz_verification"]["adaptive_max_step"],
+            5,
+        )
+        self.assertTrue(result["ptz_verification"]["enabled"])
+        self.assertEqual(result["ptz_verification"]["zoom_strategy"], "adaptive")
 
     def test_vessel_input_cannot_claim_resolution_lost_by_mux(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -755,6 +836,42 @@ class DeepStreamManagerTests(unittest.TestCase):
             process.wait.call_args_list,
             [call(timeout=0.5), call(timeout=3)],
         )
+
+    def test_stopping_ptz_stream_waits_for_worker_home_and_job_finish(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            settings = make_settings(Path(directory))
+            models = settings.manager.model_root
+            (models / "model.pt").touch()
+            (models / "model.onnx").touch()
+            (models / "model.labels.txt").write_text(
+                "\n".join(f"class_{index}" for index in range(9)),
+                encoding="utf-8",
+            )
+            processes: list[FakeProcess] = []
+
+            def factory(command: list[str], **kwargs: object) -> FakeProcess:
+                process = FakeProcess(command, **kwargs)
+                processes.append(process)
+                return process
+
+            manager = DeepStreamStreamManager(settings, factory)
+            with patch("os.killpg"):
+                created = manager.create(
+                    StreamSpec(
+                        "rtsp://camera/harbor",
+                        model="model.pt",
+                        vessel_detection=VesselDetectionOptions(enabled=True),
+                        ptz_verification=PtzVerificationOptions(
+                            enabled=True,
+                            camera_id="camera-01",
+                            command_timeout_seconds=2,
+                            maximum_off_home_seconds=5,
+                        ),
+                    )
+                )
+                manager.stop(created["stream_id"])
+
+        self.assertEqual(processes[0].wait_timeouts, [9.0])
 
 
 if __name__ == "__main__":

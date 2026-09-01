@@ -55,6 +55,7 @@ from rtsp_annotator.deepstream_worker import (
     build_tracker_config,
 )
 from rtsp_annotator.vessel_detection import (
+    SMALL_TARGET_PROPOSAL_CLASS_ID,
     VesselDetection,
     VesselDetectionOptions,
     VesselResultCache,
@@ -1220,6 +1221,54 @@ class DeepStreamWorkerTests(unittest.TestCase):
             "船 #1".encode(),
         )
 
+    def test_vessel_osd_hides_internal_ptz_proposals_by_default(self) -> None:
+        frame = FakeFrame([])
+        batch = FakeBatch([frame])
+        snapshot = VesselSnapshot(
+            state="running",
+            detections=(
+                VesselDetection(
+                    object_id=1,
+                    rectangle=NormalizedRect(0.2, 0.3, 0.1, 0.1),
+                    confidence=0.3,
+                    class_id=8,
+                    hits=3,
+                ),
+                VesselDetection(
+                    object_id=2,
+                    rectangle=NormalizedRect(0.5, 0.5, 0.03, 0.02),
+                    confidence=0.2,
+                    class_id=SMALL_TARGET_PROPOSAL_CLASS_ID,
+                    hits=5,
+                ),
+            ),
+            result_version=2,
+            updated_at=time.monotonic(),
+        )
+        fake_osd = SimpleNamespace(
+            Color=FakeColor,
+            Line=FakeLine,
+            Text=FakeText,
+            FontFamily=SimpleNamespace(Serif="serif"),
+        )
+
+        OverlayProcessor._draw_vessels(
+            batch,
+            frame,
+            snapshot,
+            VesselDetectionOptions(enabled=True),
+            fake_osd,
+            width=1000,
+            height=500,
+        )
+
+        texts = [
+            item.display_text.decode()
+            for meta in frame.display_meta
+            for item in meta.texts
+        ]
+        self.assertEqual(texts, ["船舶：1", "船"])
+
     def test_vessel_osd_marks_only_matching_risk_candidate(self) -> None:
         frame = FakeFrame([])
         batch = FakeBatch([frame])
@@ -1337,6 +1386,75 @@ class DeepStreamWorkerTests(unittest.TestCase):
 
         self.assertEqual(engine.calls, 1)
         self.assertEqual(risk_cache.snapshot(0).state, "running")
+
+    def test_vessel_frame_processor_pauses_risk_but_keeps_closeup_sampling(self) -> None:
+        class FakeClient:
+            def __init__(self) -> None:
+                self.submits = 0
+                self.verification_modes: list[bool] = []
+                self.view_generations: list[int] = []
+
+            def accepts(self, _pad_index: int, *, timestamp: float) -> bool:
+                del timestamp
+                return True
+
+            def submit(self, *_args: object, **kwargs: object) -> None:
+                self.submits += 1
+                self.verification_modes.append(
+                    bool(kwargs.get("verification_active"))
+                )
+                self.view_generations.append(
+                    int(kwargs.get("view_generation", -1))
+                )
+
+        class FakeRiskEngine:
+            def __init__(self) -> None:
+                self.resets = 0
+                self.calls = 0
+
+            def reset_tracking(self) -> None:
+                self.resets += 1
+
+            def observe(self, **_kwargs: object) -> object:
+                self.calls += 1
+                return SimpleNamespace(
+                    snapshot=FishingRiskSnapshot(state="running"),
+                    events=[],
+                )
+
+        vessel_cache = VesselResultCache()
+        vessel_cache.store_snapshot(
+            0,
+            VesselSnapshot(
+                state="running",
+                detections=(),
+                result_version=7,
+                updated_at=time.monotonic(),
+            ),
+        )
+        risk_cache = FishingRiskResultCache()
+        engine = FakeRiskEngine()
+        client = FakeClient()
+        coordinator = SimpleNamespace(is_busy=True, view_generation=7)
+        processor = VesselFrameProcessor(
+            client,  # type: ignore[arg-type]
+            vessel_cache=vessel_cache,
+            fishing_risk_engines={0: engine},  # type: ignore[dict-item]
+            fishing_risk_cache=risk_cache,
+            ptz_verification_coordinators={0: coordinator},  # type: ignore[dict-item]
+        )
+        batch = FakeBatch([FakeFrame([])])
+        frames = [np.zeros((8, 8, 3), dtype=np.uint8)]
+
+        processor.process(batch, frames)
+        processor.process(batch, frames)
+
+        self.assertEqual(engine.resets, 1)
+        self.assertEqual(engine.calls, 0)
+        self.assertEqual(client.submits, 2)
+        self.assertEqual(client.verification_modes, [True, True])
+        self.assertEqual(client.view_generations, [7, 7])
+        self.assertEqual(risk_cache.snapshot(0).state, "paused")
 
     def test_gas_cylinder_alarm_starts_only_above_threshold(self) -> None:
         fake_osd = SimpleNamespace(
@@ -1540,6 +1658,76 @@ class DeepStreamWorkerTests(unittest.TestCase):
         self.assertEqual(hidden_conf.rect_params.border_width, 0)
         self.assertEqual(len(frame.display_meta), 1)
         self.assertEqual(len(frame.display_meta[0].lines), 4)
+
+    def test_ptz_closeup_hides_home_rois_and_uses_full_frame(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            metrics = MetricsState(
+                stream_ids=["stream-1"],
+                metrics_path=Path(directory) / "metrics.json",
+                interval_seconds=60,
+                minimum_healthy_fps=20,
+                group_id="group",
+                generation=1,
+            )
+            policy = StreamPolicy(
+                stream_id="stream-1",
+                classes=frozenset({8}),
+                conf=0.1,
+                roi=[
+                    [0.0, 0.0],
+                    [0.5, 0.0],
+                    [0.5, 1.0],
+                    [0.0, 1.0],
+                ],
+                labels={8: "船舶"},
+                vessel_detection=VesselDetectionOptions(
+                    enabled=True,
+                    roi=(
+                        (0.0, 0.5),
+                        (1.0, 0.5),
+                        (1.0, 1.0),
+                        (0.0, 1.0),
+                    ),
+                    display_roi=True,
+                ),
+            )
+            vessel_cache = VesselResultCache()
+            vessel_cache.store_snapshot(
+                0,
+                VesselSnapshot(
+                    state="running",
+                    detections=(),
+                    result_version=1,
+                    updated_at=time.monotonic(),
+                ),
+            )
+            outside_home_roi = fake_object(8, 0.9, left=800, top=100)
+            frame = FakeFrame([outside_home_roi])
+            fake_osd = SimpleNamespace(
+                Color=FakeColor,
+                Line=FakeLine,
+                Text=FakeText,
+                FontFamily=SimpleNamespace(Serif="serif"),
+            )
+
+            OverlayProcessor(
+                {0: policy},
+                metrics,
+                vessel_detection_cache=vessel_cache,
+                ptz_verification_coordinators={
+                    0: SimpleNamespace(is_busy=True)
+                },
+            ).process(FakeBatch([frame]), fake_osd)
+
+        self.assertEqual(outside_home_roi.rect_params.border_width, 3)
+        self.assertEqual(
+            outside_home_roi.text_params.display_text,
+            "船舶".encode(),
+        )
+        self.assertEqual(
+            sum(len(item.lines) for item in frame.display_meta),
+            0,
+        )
 
     def test_plate_overlay_is_chinese_and_stable_by_track_id(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

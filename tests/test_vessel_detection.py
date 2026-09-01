@@ -9,6 +9,8 @@ import numpy as np
 
 from rtsp_annotator.event_engine import NormalizedRect
 from rtsp_annotator.vessel_detection import (
+    SMALL_TARGET_PROPOSAL_CLASS_ID,
+    TemporalSmallTargetProposer,
     UltralyticsVesselDetector,
     VesselCandidate,
     VesselDetectionOptions,
@@ -238,11 +240,173 @@ class VesselDetectionTests(unittest.TestCase):
             large_box_area_threshold=0.30,
             large_box_minimum_confidence=0.35,
             maximum_box_area=0.80,
+            proposal_appearance_threshold=22,
+            proposal_appearance_blur_pixels=41,
+            proposal_border_margin=0.02,
+            display_proposals=True,
+            proposal_roi=((0.0, 0.4), (1.0, 0.4), (1.0, 0.8), (0.0, 0.8)),
+            proposal_minimum_fill_ratio=0.3,
+            proposal_minimum_motion_ratio=0.1,
+            proposal_maximum_candidates=4,
         )
 
         restored = VesselDetectionOptions.from_payload(original.to_payload())
 
         self.assertEqual(restored, original)
+
+    def test_tracker_reset_preserves_monotonic_result_version(self) -> None:
+        options = VesselDetectionOptions(minimum_hits=1)
+        tracker = VesselTrackManager(options)
+        candidate = VesselCandidate(
+            NormalizedRect(0.4, 0.4, 0.1, 0.1),
+            confidence=0.5,
+            class_id=8,
+            source_region=0,
+        )
+        before = tracker.update(
+            [candidate],
+            timestamp=1.0,
+            inference_ms=1.0,
+        )
+
+        tracker.reset_tracking()
+        after = tracker.update(
+            [candidate],
+            timestamp=2.0,
+            inference_ms=1.0,
+        )
+
+        self.assertGreater(after.result_version, before.result_version)
+        self.assertEqual(after.detections[0].object_id, 2)
+
+    def test_proposal_roi_limits_candidates_without_shrinking_vessel_roi(self) -> None:
+        proposer = TemporalSmallTargetProposer()
+        options = VesselDetectionOptions(
+            small_target_proposals=True,
+            roi=((0.0, 0.2), (1.0, 0.2), (1.0, 1.0), (0.0, 1.0)),
+            proposal_roi=((0.0, 0.4), (1.0, 0.4), (1.0, 0.7), (0.0, 0.7)),
+            proposal_threshold=255,
+            proposal_appearance_threshold=10,
+            proposal_minimum_area_pixels=6,
+            proposal_maximum_area_pixels=500,
+        )
+        frame = np.full((100, 160, 3), 128, dtype=np.uint8)
+        frame[50:58, 40:52] = 20
+        frame[82:90, 100:112] = 20
+
+        candidates = proposer.detect(frame, options)
+
+        self.assertEqual(len(candidates), 1)
+        self.assertLess(candidates[0].rectangle.center[1], 0.7)
+
+    def test_motion_ratio_rejects_static_appearance_but_keeps_new_object(self) -> None:
+        options = VesselDetectionOptions(
+            small_target_proposals=True,
+            proposal_threshold=15,
+            proposal_appearance_threshold=10,
+            proposal_minimum_area_pixels=6,
+            proposal_maximum_area_pixels=500,
+            proposal_minimum_motion_ratio=0.1,
+        )
+        plain = np.full((100, 160, 3), 128, dtype=np.uint8)
+        object_frame = plain.copy()
+        object_frame[50:58, 80:92] = 20
+
+        static_proposer = TemporalSmallTargetProposer()
+        self.assertEqual(static_proposer.detect(object_frame, options), [])
+
+        moving_proposer = TemporalSmallTargetProposer()
+        self.assertEqual(moving_proposer.detect(plain, options), [])
+        self.assertEqual(len(moving_proposer.detect(object_frame, options)), 1)
+
+    def test_temporal_small_target_proposer_finds_motion_in_water_roi(self) -> None:
+        proposer = TemporalSmallTargetProposer()
+        options = VesselDetectionOptions(
+            small_target_proposals=True,
+            roi=((0.0, 0.4), (1.0, 0.4), (1.0, 1.0), (0.0, 1.0)),
+            proposal_threshold=15,
+            proposal_minimum_area_pixels=6,
+            proposal_maximum_area_pixels=500,
+        )
+        background = np.full((100, 160, 3), 128, dtype=np.uint8)
+        changed = background.copy()
+        changed[60:68, 80:92] = 20
+
+        self.assertEqual(proposer.detect(background, options), [])
+        candidates = proposer.detect(changed, options)
+
+        self.assertEqual(len(candidates), 1)
+        self.assertEqual(
+            candidates[0].class_id,
+            SMALL_TARGET_PROPOSAL_CLASS_ID,
+        )
+        self.assertGreater(candidates[0].rectangle.center[1], 0.4)
+
+    def test_small_target_appearance_survives_background_adaptation(self) -> None:
+        proposer = TemporalSmallTargetProposer()
+        options = VesselDetectionOptions(
+            small_target_proposals=True,
+            roi=((0.0, 0.4), (1.0, 0.4), (1.0, 1.0), (0.0, 1.0)),
+            proposal_threshold=255,
+            proposal_appearance_enabled=True,
+            proposal_appearance_threshold=10,
+            proposal_appearance_blur_pixels=21,
+            proposal_minimum_area_pixels=6,
+            proposal_maximum_area_pixels=500,
+        )
+        frame = np.full((100, 160, 3), 128, dtype=np.uint8)
+        frame[60:68, 80:92] = 20
+
+        initial = proposer.detect(frame, options)
+        latest = initial
+        for _ in range(100):
+            latest = proposer.detect(frame, options)
+
+        self.assertEqual(len(initial), 1)
+        self.assertEqual(len(latest), 1)
+        self.assertEqual(
+            latest[0].class_id,
+            SMALL_TARGET_PROPOSAL_CLASS_ID,
+        )
+
+    def test_small_target_border_margin_rejects_edge_noise(self) -> None:
+        proposer = TemporalSmallTargetProposer()
+        options = VesselDetectionOptions(
+            small_target_proposals=True,
+            proposal_threshold=255,
+            proposal_appearance_threshold=10,
+            proposal_minimum_area_pixels=6,
+            proposal_maximum_area_pixels=500,
+            proposal_border_margin=0.05,
+        )
+        frame = np.full((100, 160, 3), 128, dtype=np.uint8)
+        frame[50:58, 0:8] = 20
+
+        self.assertEqual(proposer.detect(frame, options), [])
+
+    def test_confirmed_yolo_box_wins_over_overlapping_motion_proposal(self) -> None:
+        rectangle = NormalizedRect(0.4, 0.4, 0.1, 0.1)
+        proposal = VesselCandidate(
+            rectangle,
+            confidence=0.9,
+            class_id=SMALL_TARGET_PROPOSAL_CLASS_ID,
+            source_region=-1,
+        )
+        confirmed = VesselCandidate(
+            rectangle,
+            confidence=0.2,
+            class_id=8,
+            source_region=0,
+        )
+
+        selected = deduplicate_candidates(
+            [proposal, confirmed],
+            iou_threshold=0.45,
+            containment_threshold=0.8,
+            limit=10,
+        )
+
+        self.assertEqual(selected, [confirmed])
 
     def test_invalid_regions_and_model_paths_are_rejected(self) -> None:
         with self.assertRaisesRegex(ValueError, "推理区域"):
@@ -255,6 +419,10 @@ class VesselDetectionTests(unittest.TestCase):
             VesselDetectionOptions(
                 large_box_area_threshold=0.5,
                 maximum_box_area=0.4,
+            ).validate()
+        with self.assertRaisesRegex(ValueError, "奇数"):
+            VesselDetectionOptions(
+                proposal_appearance_blur_pixels=20,
             ).validate()
 
 
