@@ -17,6 +17,7 @@ from .config import RoiPolygon
 from .events import EventDetectionOptions
 from .fishing_risk import FishingRiskOptions
 from .gas_cylinder import GasCylinderOptions
+from .ground_litter_detection import GroundLitterDetectionOptions
 from .license_plate import LicensePlateOptions
 from .ptz_verification import PtzVerificationOptions
 from .vessel_detection import VesselDetectionOptions
@@ -34,6 +35,10 @@ class ModelNotFoundError(ValueError):
 
 
 class StreamCapacityError(RuntimeError):
+    pass
+
+
+class PtzControlUnavailableError(RuntimeError):
     pass
 
 
@@ -89,11 +94,13 @@ class StreamSpec:
     roi: RoiPolygon | None = None
     output_fps: float | None = None
     bitrate: str = "2500k"
+    display_detections: bool = True
     license_plate: LicensePlateOptions = LicensePlateOptions()
     night_vision: NightVisionOptions = NightVisionOptions()
     event_detection: EventDetectionOptions = EventDetectionOptions()
     gas_cylinder: GasCylinderOptions = GasCylinderOptions()
     vessel_detection: VesselDetectionOptions = VesselDetectionOptions()
+    ground_litter: GroundLitterDetectionOptions = GroundLitterDetectionOptions()
     fishing_risk: FishingRiskOptions = FishingRiskOptions()
     ptz_verification: PtzVerificationOptions = PtzVerificationOptions()
 
@@ -202,6 +209,10 @@ class StreamManager:
             raise ModelNotFoundError(
                 "高召回船舶识别仅支持DeepStream后端"
             )
+        if spec.ground_litter.enabled:
+            raise ModelNotFoundError(
+                "零散垃圾识别仅支持DeepStream后端"
+            )
         if spec.fishing_risk.enabled:
             raise ModelNotFoundError(
                 "疑似非法捕捞分析仅支持DeepStream后端"
@@ -277,6 +288,10 @@ class StreamManager:
     ) -> dict[str, Any]:
         del stream_id, options
         raise ModelNotFoundError("疑似非法捕捞分析仅支持DeepStream后端")
+
+    def return_ptz_home(self, stream_id: str) -> dict[str, Any]:
+        del stream_id
+        raise PtzControlUnavailableError("PTZ控制仅支持DeepStream后端")
 
     def stop(self, stream_id: str) -> dict[str, Any]:
         with self._lock:

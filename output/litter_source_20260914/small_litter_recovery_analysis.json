@@ -1,0 +1,32 @@
+{
+  "confirmed_by_user": true,
+  "object_box": [
+    803,
+    565,
+    818,
+    573
+  ],
+  "sample_indices_30s": [
+    0,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    10,
+    11,
+    12,
+    14,
+    16
+  ],
+  "raw_candidate_frame_count": 13,
+  "sample_window_seconds": 570,
+  "raw_presence_fraction": 0.65,
+  "largest_sample_gap_frames": 2,
+  "largest_sample_gap_seconds": 60,
+  "final_retained_frame_count": 0,
+  "conclusion": "Lowering size threshold could surface intermittent raw candidates but does not establish continuous detection; at current rule this item is a final-stage miss.",
+  "production_change": false
+}

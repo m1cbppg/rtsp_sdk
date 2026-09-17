@@ -11,6 +11,7 @@ from rtsp_annotator.vessel_detection import (
     VesselCandidate,
     VesselDetectionOptions,
     VesselSnapshot,
+    VesselResultCache,
 )
 from rtsp_annotator.vessel_detection_process import (
     VesselDetectionProcessClient,
@@ -21,6 +22,22 @@ from rtsp_annotator.vessel_detection_process import (
 
 
 class VesselDetectionProcessTests(unittest.TestCase):
+    def test_late_inference_from_old_view_is_not_published(self) -> None:
+        client = VesselDetectionProcessClient.__new__(VesselDetectionProcessClient)
+        client._last_view_generation = {0: 4}
+        client._output_queue = queue.Queue()
+        client._cache = VesselResultCache()
+        client._output_queue.put((0, VesselSnapshot(
+            state="running", result_version=9, view_generation=3,
+        )))
+        client.drain_results()
+        self.assertEqual(client._cache.snapshot(0).state, "disabled")
+        client._output_queue.put((0, VesselSnapshot(
+            state="running", result_version=10, view_generation=4,
+        )))
+        client.drain_results()
+        self.assertEqual(client._cache.snapshot(0).result_version, 10)
+
     def test_failed_view_event_enqueue_is_retried_on_next_frame(self) -> None:
         class FullQueue:
             def put_nowait(self, _item) -> None:
@@ -108,8 +125,8 @@ class VesselDetectionProcessTests(unittest.TestCase):
         self.assertIsNone(closeup.roi)
         self.assertEqual(closeup.exclude_rois, ())
         self.assertEqual(closeup.inference_regions, ((0.0, 0.0, 1.0, 1.0),))
-        self.assertEqual(closeup.large_box_area_threshold, 1.0)
-        self.assertEqual(closeup.maximum_box_area, 1.0)
+        self.assertEqual(closeup.large_box_area_threshold, 0.2)
+        self.assertEqual(closeup.maximum_box_area, 0.8)
         self.assertIsNotNone(closeup.proposal_roi)
         self.assertEqual(closeup.proposal_minimum_motion_ratio, 0.0)
         self.assertIsNotNone(home.roi)

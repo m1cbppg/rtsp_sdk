@@ -1,0 +1,1574 @@
+[
+  {
+    "sample": "live018",
+    "stage": "raw",
+    "box": [
+      147,
+      533,
+      321,
+      840
+    ],
+    "label": "Plastic",
+    "confidence": 0.3058941066265106
+  },
+  {
+    "sample": "live018",
+    "stage": "raw",
+    "box": [
+      566,
+      627,
+      598,
+      651
+    ],
+    "label": "Plastic",
+    "confidence": 0.28336843848228455
+  },
+  {
+    "sample": "live018",
+    "stage": "raw",
+    "box": [
+      364,
+      610,
+      438,
+      670
+    ],
+    "label": "Paper",
+    "confidence": 0.24190105497837067
+  },
+  {
+    "sample": "live018",
+    "stage": "raw",
+    "box": [
+      364,
+      611,
+      438,
+      669
+    ],
+    "label": "Paper",
+    "confidence": 0.2571814954280853
+  },
+  {
+    "sample": "live018",
+    "stage": "raw",
+    "box": [
+      566,
+      627,
+      598,
+      651
+    ],
+    "label": "Plastic",
+    "confidence": 0.2448517382144928
+  },
+  {
+    "sample": "live018",
+    "stage": "outside_roi",
+    "box": [
+      147,
+      533,
+      321,
+      840
+    ],
+    "label": "Plastic",
+    "confidence": 0.3058941066265106
+  },
+  {
+    "sample": "live018",
+    "stage": "outside_roi",
+    "box": [
+      364,
+      611,
+      438,
+      669
+    ],
+    "label": "Paper",
+    "confidence": 0.2571814954280853
+  },
+  {
+    "sample": "live019",
+    "stage": "raw",
+    "box": [
+      567,
+      628,
+      598,
+      650
+    ],
+    "label": "Plastic",
+    "confidence": 0.47067517042160034
+  },
+  {
+    "sample": "live019",
+    "stage": "raw",
+    "box": [
+      414,
+      521,
+      425,
+      527
+    ],
+    "label": "Waste",
+    "confidence": 0.2404891848564148
+  },
+  {
+    "sample": "live019",
+    "stage": "raw",
+    "box": [
+      297,
+      580,
+      311,
+      606
+    ],
+    "label": "Paper",
+    "confidence": 0.23396454751491547
+  },
+  {
+    "sample": "live019",
+    "stage": "raw",
+    "box": [
+      567,
+      628,
+      598,
+      650
+    ],
+    "label": "Plastic",
+    "confidence": 0.46897441148757935
+  },
+  {
+    "sample": "live019",
+    "stage": "raw",
+    "box": [
+      838,
+      598,
+      921,
+      667
+    ],
+    "label": "Plastic",
+    "confidence": 0.37896132469177246
+  },
+  {
+    "sample": "live019",
+    "stage": "raw",
+    "box": [
+      414,
+      521,
+      425,
+      527
+    ],
+    "label": "Waste",
+    "confidence": 0.22940781712532043
+  },
+  {
+    "sample": "live019",
+    "stage": "outside_roi",
+    "box": [
+      414,
+      521,
+      425,
+      527
+    ],
+    "label": "Waste",
+    "confidence": 0.2404891848564148
+  },
+  {
+    "sample": "live019",
+    "stage": "outside_roi",
+    "box": [
+      297,
+      580,
+      311,
+      606
+    ],
+    "label": "Paper",
+    "confidence": 0.23396454751491547
+  },
+  {
+    "sample": "live003",
+    "stage": "raw",
+    "box": [
+      148,
+      523,
+      314,
+      851
+    ],
+    "label": "Plastic",
+    "confidence": 0.27839407324790955
+  },
+  {
+    "sample": "live003",
+    "stage": "raw",
+    "box": [
+      487,
+      522,
+      508,
+      568
+    ],
+    "label": "Paper",
+    "confidence": 0.2202247679233551
+  },
+  {
+    "sample": "live003",
+    "stage": "raw",
+    "box": [
+      836,
+      597,
+      921,
+      645
+    ],
+    "label": "Plastic",
+    "confidence": 0.28963640332221985
+  },
+  {
+    "sample": "live003",
+    "stage": "raw",
+    "box": [
+      487,
+      522,
+      508,
+      568
+    ],
+    "label": "Paper",
+    "confidence": 0.23449639976024628
+  },
+  {
+    "sample": "live003",
+    "stage": "raw",
+    "box": [
+      805,
+      565,
+      818,
+      573
+    ],
+    "label": "Metal",
+    "confidence": 0.22214975953102112
+  },
+  {
+    "sample": "live003",
+    "stage": "outside_roi",
+    "box": [
+      148,
+      523,
+      314,
+      851
+    ],
+    "label": "Plastic",
+    "confidence": 0.27839407324790955
+  },
+  {
+    "sample": "live003",
+    "stage": "outside_roi",
+    "box": [
+      487,
+      522,
+      508,
+      568
+    ],
+    "label": "Paper",
+    "confidence": 0.23449639976024628
+  },
+  {
+    "sample": "live003",
+    "stage": "too_small",
+    "box": [
+      805,
+      565,
+      818,
+      573
+    ],
+    "label": "Metal",
+    "confidence": 0.22214975953102112
+  },
+  {
+    "sample": "live004",
+    "stage": "raw",
+    "box": [
+      148,
+      535,
+      299,
+      847
+    ],
+    "label": "Plastic",
+    "confidence": 0.292148619890213
+  },
+  {
+    "sample": "live004",
+    "stage": "raw",
+    "box": [
+      488,
+      519,
+      510,
+      568
+    ],
+    "label": "Paper",
+    "confidence": 0.22529657185077667
+  },
+  {
+    "sample": "live004",
+    "stage": "raw",
+    "box": [
+      836,
+      597,
+      922,
+      651
+    ],
+    "label": "Plastic",
+    "confidence": 0.31153252720832825
+  },
+  {
+    "sample": "live004",
+    "stage": "raw",
+    "box": [
+      488,
+      519,
+      510,
+      568
+    ],
+    "label": "Paper",
+    "confidence": 0.23354709148406982
+  },
+  {
+    "sample": "live004",
+    "stage": "raw",
+    "box": [
+      805,
+      565,
+      817,
+      573
+    ],
+    "label": "Plastic",
+    "confidence": 0.22143206000328064
+  },
+  {
+    "sample": "live004",
+    "stage": "outside_roi",
+    "box": [
+      148,
+      535,
+      299,
+      847
+    ],
+    "label": "Plastic",
+    "confidence": 0.292148619890213
+  },
+  {
+    "sample": "live004",
+    "stage": "outside_roi",
+    "box": [
+      488,
+      519,
+      510,
+      568
+    ],
+    "label": "Paper",
+    "confidence": 0.23354709148406982
+  },
+  {
+    "sample": "live004",
+    "stage": "too_small",
+    "box": [
+      805,
+      565,
+      817,
+      573
+    ],
+    "label": "Plastic",
+    "confidence": 0.22143206000328064
+  },
+  {
+    "sample": "live005",
+    "stage": "raw",
+    "box": [
+      381,
+      995,
+      389,
+      1001
+    ],
+    "label": "Waste",
+    "confidence": 0.20085954666137695
+  },
+  {
+    "sample": "live005",
+    "stage": "raw",
+    "box": [
+      836,
+      597,
+      921,
+      643
+    ],
+    "label": "Plastic",
+    "confidence": 0.4164885878562927
+  },
+  {
+    "sample": "live005",
+    "stage": "raw",
+    "box": [
+      804,
+      565,
+      817,
+      573
+    ],
+    "label": "Plastic",
+    "confidence": 0.34292617440223694
+  },
+  {
+    "sample": "live005",
+    "stage": "raw",
+    "box": [
+      838,
+      596,
+      919,
+      644
+    ],
+    "label": "Paper",
+    "confidence": 0.2840332090854645
+  },
+  {
+    "sample": "live005",
+    "stage": "raw",
+    "box": [
+      381,
+      995,
+      389,
+      1001
+    ],
+    "label": "Waste",
+    "confidence": 0.20413123071193695
+  },
+  {
+    "sample": "live005",
+    "stage": "too_small",
+    "box": [
+      804,
+      565,
+      817,
+      573
+    ],
+    "label": "Plastic",
+    "confidence": 0.34292617440223694
+  },
+  {
+    "sample": "live005",
+    "stage": "too_small",
+    "box": [
+      381,
+      995,
+      389,
+      1001
+    ],
+    "label": "Waste",
+    "confidence": 0.20413123071193695
+  },
+  {
+    "sample": "live006",
+    "stage": "raw",
+    "box": [
+      836,
+      596,
+      923,
+      655
+    ],
+    "label": "Plastic",
+    "confidence": 0.4024003744125366
+  },
+  {
+    "sample": "live006",
+    "stage": "raw",
+    "box": [
+      906,
+      497,
+      930,
+      511
+    ],
+    "label": "Paper",
+    "confidence": 0.2732657492160797
+  },
+  {
+    "sample": "live006",
+    "stage": "raw",
+    "box": [
+      805,
+      566,
+      817,
+      573
+    ],
+    "label": "Plastic",
+    "confidence": 0.20349347591400146
+  },
+  {
+    "sample": "live006",
+    "stage": "outside_roi",
+    "box": [
+      906,
+      497,
+      930,
+      511
+    ],
+    "label": "Paper",
+    "confidence": 0.2732657492160797
+  },
+  {
+    "sample": "live006",
+    "stage": "too_small",
+    "box": [
+      805,
+      566,
+      817,
+      573
+    ],
+    "label": "Plastic",
+    "confidence": 0.20349347591400146
+  },
+  {
+    "sample": "live007",
+    "stage": "raw",
+    "box": [
+      148,
+      530,
+      321,
+      846
+    ],
+    "label": "Plastic",
+    "confidence": 0.30200374126434326
+  },
+  {
+    "sample": "live007",
+    "stage": "raw",
+    "box": [
+      836,
+      597,
+      924,
+      667
+    ],
+    "label": "Plastic",
+    "confidence": 0.4979865849018097
+  },
+  {
+    "sample": "live007",
+    "stage": "raw",
+    "box": [
+      804,
+      565,
+      818,
+      573
+    ],
+    "label": "Plastic",
+    "confidence": 0.2174108475446701
+  },
+  {
+    "sample": "live007",
+    "stage": "outside_roi",
+    "box": [
+      148,
+      530,
+      321,
+      846
+    ],
+    "label": "Plastic",
+    "confidence": 0.30200374126434326
+  },
+  {
+    "sample": "live007",
+    "stage": "too_small",
+    "box": [
+      804,
+      565,
+      818,
+      573
+    ],
+    "label": "Plastic",
+    "confidence": 0.2174108475446701
+  },
+  {
+    "sample": "live008",
+    "stage": "raw",
+    "box": [
+      148,
+      533,
+      318,
+      846
+    ],
+    "label": "Plastic",
+    "confidence": 0.4008648693561554
+  },
+  {
+    "sample": "live008",
+    "stage": "raw",
+    "box": [
+      836,
+      597,
+      921,
+      653
+    ],
+    "label": "Plastic",
+    "confidence": 0.4731519818305969
+  },
+  {
+    "sample": "live008",
+    "stage": "raw",
+    "box": [
+      803,
+      565,
+      817,
+      574
+    ],
+    "label": "Metal",
+    "confidence": 0.2406301349401474
+  },
+  {
+    "sample": "live008",
+    "stage": "raw",
+    "box": [
+      863,
+      642,
+      925,
+      667
+    ],
+    "label": "Plastic",
+    "confidence": 0.20164242386817932
+  },
+  {
+    "sample": "live008",
+    "stage": "outside_roi",
+    "box": [
+      148,
+      533,
+      318,
+      846
+    ],
+    "label": "Plastic",
+    "confidence": 0.4008648693561554
+  },
+  {
+    "sample": "live008",
+    "stage": "too_small",
+    "box": [
+      803,
+      565,
+      817,
+      574
+    ],
+    "label": "Metal",
+    "confidence": 0.2406301349401474
+  },
+  {
+    "sample": "live008",
+    "stage": "outside_roi",
+    "box": [
+      863,
+      642,
+      925,
+      667
+    ],
+    "label": "Plastic",
+    "confidence": 0.20164242386817932
+  },
+  {
+    "sample": "live009",
+    "stage": "raw",
+    "box": [
+      836,
+      597,
+      926,
+      671
+    ],
+    "label": "Plastic",
+    "confidence": 0.3783887028694153
+  },
+  {
+    "sample": "live009",
+    "stage": "raw",
+    "box": [
+      906,
+      497,
+      930,
+      512
+    ],
+    "label": "Plastic",
+    "confidence": 0.27348753809928894
+  },
+  {
+    "sample": "live009",
+    "stage": "raw",
+    "box": [
+      836,
+      598,
+      927,
+      642
+    ],
+    "label": "Plastic",
+    "confidence": 0.23446591198444366
+  },
+  {
+    "sample": "live009",
+    "stage": "raw",
+    "box": [
+      907,
+      497,
+      929,
+      511
+    ],
+    "label": "Paper",
+    "confidence": 0.22133493423461914
+  },
+  {
+    "sample": "live009",
+    "stage": "outside_roi",
+    "box": [
+      906,
+      497,
+      930,
+      512
+    ],
+    "label": "Plastic",
+    "confidence": 0.27348753809928894
+  },
+  {
+    "sample": "live010",
+    "stage": "raw",
+    "box": [
+      149,
+      531,
+      306,
+      851
+    ],
+    "label": "Plastic",
+    "confidence": 0.2443985641002655
+  },
+  {
+    "sample": "live010",
+    "stage": "raw",
+    "box": [
+      836,
+      598,
+      922,
+      644
+    ],
+    "label": "Plastic",
+    "confidence": 0.5090490579605103
+  },
+  {
+    "sample": "live010",
+    "stage": "raw",
+    "box": [
+      837,
+      597,
+      919,
+      645
+    ],
+    "label": "Paper",
+    "confidence": 0.43882498145103455
+  },
+  {
+    "sample": "live010",
+    "stage": "raw",
+    "box": [
+      803,
+      565,
+      817,
+      573
+    ],
+    "label": "Plastic",
+    "confidence": 0.27655982971191406
+  },
+  {
+    "sample": "live010",
+    "stage": "raw",
+    "box": [
+      906,
+      497,
+      930,
+      512
+    ],
+    "label": "Plastic",
+    "confidence": 0.22552381455898285
+  },
+  {
+    "sample": "live010",
+    "stage": "raw",
+    "box": [
+      906,
+      497,
+      929,
+      512
+    ],
+    "label": "Paper",
+    "confidence": 0.2080632597208023
+  },
+  {
+    "sample": "live010",
+    "stage": "too_small",
+    "box": [
+      803,
+      565,
+      817,
+      573
+    ],
+    "label": "Plastic",
+    "confidence": 0.27655982971191406
+  },
+  {
+    "sample": "live010",
+    "stage": "outside_roi",
+    "box": [
+      149,
+      531,
+      306,
+      851
+    ],
+    "label": "Plastic",
+    "confidence": 0.2443985641002655
+  },
+  {
+    "sample": "live010",
+    "stage": "outside_roi",
+    "box": [
+      906,
+      497,
+      930,
+      512
+    ],
+    "label": "Plastic",
+    "confidence": 0.22552381455898285
+  },
+  {
+    "sample": "live011",
+    "stage": "raw",
+    "box": [
+      147,
+      530,
+      310,
+      851
+    ],
+    "label": "Plastic",
+    "confidence": 0.2918340563774109
+  },
+  {
+    "sample": "live011",
+    "stage": "raw",
+    "box": [
+      836,
+      597,
+      922,
+      648
+    ],
+    "label": "Plastic",
+    "confidence": 0.3056460916996002
+  },
+  {
+    "sample": "live011",
+    "stage": "raw",
+    "box": [
+      804,
+      565,
+      817,
+      573
+    ],
+    "label": "Plastic",
+    "confidence": 0.22009889781475067
+  },
+  {
+    "sample": "live011",
+    "stage": "outside_roi",
+    "box": [
+      147,
+      530,
+      310,
+      851
+    ],
+    "label": "Plastic",
+    "confidence": 0.2918340563774109
+  },
+  {
+    "sample": "live011",
+    "stage": "too_small",
+    "box": [
+      804,
+      565,
+      817,
+      573
+    ],
+    "label": "Plastic",
+    "confidence": 0.22009889781475067
+  },
+  {
+    "sample": "live012",
+    "stage": "raw",
+    "box": [
+      836,
+      597,
+      920,
+      646
+    ],
+    "label": "Plastic",
+    "confidence": 0.43549829721450806
+  },
+  {
+    "sample": "live012",
+    "stage": "raw",
+    "box": [
+      887,
+      570,
+      925,
+      589
+    ],
+    "label": "Paper",
+    "confidence": 0.28474488854408264
+  },
+  {
+    "sample": "live012",
+    "stage": "raw",
+    "box": [
+      804,
+      565,
+      817,
+      573
+    ],
+    "label": "Plastic",
+    "confidence": 0.21425113081932068
+  },
+  {
+    "sample": "live012",
+    "stage": "outside_roi",
+    "box": [
+      887,
+      570,
+      925,
+      589
+    ],
+    "label": "Paper",
+    "confidence": 0.28474488854408264
+  },
+  {
+    "sample": "live012",
+    "stage": "too_small",
+    "box": [
+      804,
+      565,
+      817,
+      573
+    ],
+    "label": "Plastic",
+    "confidence": 0.21425113081932068
+  },
+  {
+    "sample": "live013",
+    "stage": "raw",
+    "box": [
+      149,
+      532,
+      297,
+      849
+    ],
+    "label": "Plastic",
+    "confidence": 0.40291541814804077
+  },
+  {
+    "sample": "live013",
+    "stage": "raw",
+    "box": [
+      837,
+      598,
+      926,
+      665
+    ],
+    "label": "Plastic",
+    "confidence": 0.8397601842880249
+  },
+  {
+    "sample": "live013",
+    "stage": "raw",
+    "box": [
+      907,
+      497,
+      931,
+      512
+    ],
+    "label": "Paper",
+    "confidence": 0.2752295732498169
+  },
+  {
+    "sample": "live013",
+    "stage": "outside_roi",
+    "box": [
+      149,
+      532,
+      297,
+      849
+    ],
+    "label": "Plastic",
+    "confidence": 0.40291541814804077
+  },
+  {
+    "sample": "live013",
+    "stage": "outside_roi",
+    "box": [
+      907,
+      497,
+      931,
+      512
+    ],
+    "label": "Paper",
+    "confidence": 0.2752295732498169
+  },
+  {
+    "sample": "live014",
+    "stage": "raw",
+    "box": [
+      906,
+      497,
+      930,
+      511
+    ],
+    "label": "Paper",
+    "confidence": 0.2556211054325104
+  },
+  {
+    "sample": "live014",
+    "stage": "raw",
+    "box": [
+      836,
+      597,
+      921,
+      653
+    ],
+    "label": "Plastic",
+    "confidence": 0.23933255672454834
+  },
+  {
+    "sample": "live014",
+    "stage": "raw",
+    "box": [
+      803,
+      565,
+      818,
+      573
+    ],
+    "label": "Plastic",
+    "confidence": 0.23758403956890106
+  },
+  {
+    "sample": "live014",
+    "stage": "raw",
+    "box": [
+      886,
+      571,
+      926,
+      589
+    ],
+    "label": "Paper",
+    "confidence": 0.20105746388435364
+  },
+  {
+    "sample": "live014",
+    "stage": "outside_roi",
+    "box": [
+      906,
+      497,
+      930,
+      511
+    ],
+    "label": "Paper",
+    "confidence": 0.2556211054325104
+  },
+  {
+    "sample": "live014",
+    "stage": "too_small",
+    "box": [
+      803,
+      565,
+      818,
+      573
+    ],
+    "label": "Plastic",
+    "confidence": 0.23758403956890106
+  },
+  {
+    "sample": "live014",
+    "stage": "outside_roi",
+    "box": [
+      886,
+      571,
+      926,
+      589
+    ],
+    "label": "Paper",
+    "confidence": 0.20105746388435364
+  },
+  {
+    "sample": "live015",
+    "stage": "raw",
+    "box": [
+      148,
+      528,
+      331,
+      853
+    ],
+    "label": "Plastic",
+    "confidence": 0.2670445740222931
+  },
+  {
+    "sample": "live015",
+    "stage": "raw",
+    "box": [
+      565,
+      627,
+      599,
+      651
+    ],
+    "label": "Plastic",
+    "confidence": 0.25476518273353577
+  },
+  {
+    "sample": "live015",
+    "stage": "raw",
+    "box": [
+      673,
+      277,
+      700,
+      335
+    ],
+    "label": "Paper",
+    "confidence": 0.22437232732772827
+  },
+  {
+    "sample": "live015",
+    "stage": "raw",
+    "box": [
+      531,
+      425,
+      585,
+      510
+    ],
+    "label": "Paper",
+    "confidence": 0.2021244615316391
+  },
+  {
+    "sample": "live015",
+    "stage": "raw",
+    "box": [
+      836,
+      597,
+      921,
+      644
+    ],
+    "label": "Plastic",
+    "confidence": 0.4710521697998047
+  },
+  {
+    "sample": "live015",
+    "stage": "raw",
+    "box": [
+      836,
+      596,
+      919,
+      644
+    ],
+    "label": "Paper",
+    "confidence": 0.33518296480178833
+  },
+  {
+    "sample": "live015",
+    "stage": "raw",
+    "box": [
+      565,
+      627,
+      599,
+      650
+    ],
+    "label": "Plastic",
+    "confidence": 0.22365546226501465
+  },
+  {
+    "sample": "live015",
+    "stage": "outside_roi",
+    "box": [
+      148,
+      528,
+      331,
+      853
+    ],
+    "label": "Plastic",
+    "confidence": 0.2670445740222931
+  },
+  {
+    "sample": "live015",
+    "stage": "outside_roi",
+    "box": [
+      673,
+      277,
+      700,
+      335
+    ],
+    "label": "Paper",
+    "confidence": 0.22437232732772827
+  },
+  {
+    "sample": "live015",
+    "stage": "outside_roi",
+    "box": [
+      531,
+      425,
+      585,
+      510
+    ],
+    "label": "Paper",
+    "confidence": 0.2021244615316391
+  },
+  {
+    "sample": "live016",
+    "stage": "raw",
+    "box": [
+      565,
+      627,
+      597,
+      650
+    ],
+    "label": "Plastic",
+    "confidence": 0.5006940364837646
+  },
+  {
+    "sample": "live016",
+    "stage": "raw",
+    "box": [
+      151,
+      529,
+      322,
+      835
+    ],
+    "label": "Plastic",
+    "confidence": 0.4994717538356781
+  },
+  {
+    "sample": "live016",
+    "stage": "raw",
+    "box": [
+      839,
+      595,
+      922,
+      668
+    ],
+    "label": "Plastic",
+    "confidence": 0.46988388895988464
+  },
+  {
+    "sample": "live016",
+    "stage": "raw",
+    "box": [
+      565,
+      627,
+      597,
+      650
+    ],
+    "label": "Plastic",
+    "confidence": 0.46333521604537964
+  },
+  {
+    "sample": "live016",
+    "stage": "raw",
+    "box": [
+      804,
+      564,
+      816,
+      573
+    ],
+    "label": "Plastic",
+    "confidence": 0.285092830657959
+  },
+  {
+    "sample": "live016",
+    "stage": "outside_roi",
+    "box": [
+      151,
+      529,
+      322,
+      835
+    ],
+    "label": "Plastic",
+    "confidence": 0.4994717538356781
+  },
+  {
+    "sample": "live016",
+    "stage": "actor_overlap",
+    "box": [
+      839,
+      595,
+      922,
+      668
+    ],
+    "label": "Plastic",
+    "confidence": 0.46988388895988464
+  },
+  {
+    "sample": "live016",
+    "stage": "too_small",
+    "box": [
+      804,
+      564,
+      816,
+      573
+    ],
+    "label": "Plastic",
+    "confidence": 0.285092830657959
+  },
+  {
+    "sample": "live017",
+    "stage": "raw",
+    "box": [
+      148,
+      528,
+      323,
+      854
+    ],
+    "label": "Plastic",
+    "confidence": 0.31490492820739746
+  },
+  {
+    "sample": "live017",
+    "stage": "raw",
+    "box": [
+      565,
+      627,
+      597,
+      651
+    ],
+    "label": "Plastic",
+    "confidence": 0.2868154048919678
+  },
+  {
+    "sample": "live017",
+    "stage": "raw",
+    "box": [
+      565,
+      627,
+      597,
+      650
+    ],
+    "label": "Plastic",
+    "confidence": 0.2471437007188797
+  },
+  {
+    "sample": "live017",
+    "stage": "outside_roi",
+    "box": [
+      148,
+      528,
+      323,
+      854
+    ],
+    "label": "Plastic",
+    "confidence": 0.31490492820739746
+  },
+  {
+    "sample": "live000",
+    "stage": "raw",
+    "box": [
+      148,
+      536,
+      312,
+      849
+    ],
+    "label": "Plastic",
+    "confidence": 0.48277902603149414
+  },
+  {
+    "sample": "live000",
+    "stage": "raw",
+    "box": [
+      837,
+      597,
+      925,
+      668
+    ],
+    "label": "Plastic",
+    "confidence": 0.4695703685283661
+  },
+  {
+    "sample": "live000",
+    "stage": "raw",
+    "box": [
+      803,
+      565,
+      818,
+      573
+    ],
+    "label": "Plastic",
+    "confidence": 0.2575328052043915
+  },
+  {
+    "sample": "live000",
+    "stage": "outside_roi",
+    "box": [
+      148,
+      536,
+      312,
+      849
+    ],
+    "label": "Plastic",
+    "confidence": 0.48277902603149414
+  },
+  {
+    "sample": "live000",
+    "stage": "too_small",
+    "box": [
+      803,
+      565,
+      818,
+      573
+    ],
+    "label": "Plastic",
+    "confidence": 0.2575328052043915
+  },
+  {
+    "sample": "live001",
+    "stage": "raw",
+    "box": [
+      148,
+      529,
+      325,
+      850
+    ],
+    "label": "Plastic",
+    "confidence": 0.2898796498775482
+  },
+  {
+    "sample": "live001",
+    "stage": "raw",
+    "box": [
+      837,
+      597,
+      922,
+      662
+    ],
+    "label": "Plastic",
+    "confidence": 0.2645139992237091
+  },
+  {
+    "sample": "live001",
+    "stage": "outside_roi",
+    "box": [
+      148,
+      529,
+      325,
+      850
+    ],
+    "label": "Plastic",
+    "confidence": 0.2898796498775482
+  },
+  {
+    "sample": "live002",
+    "stage": "raw",
+    "box": [
+      381,
+      995,
+      389,
+      1002
+    ],
+    "label": "Waste",
+    "confidence": 0.2110110968351364
+  },
+  {
+    "sample": "live002",
+    "stage": "raw",
+    "box": [
+      836,
+      597,
+      920,
+      645
+    ],
+    "label": "Plastic",
+    "confidence": 0.33790484070777893
+  },
+  {
+    "sample": "live002",
+    "stage": "raw",
+    "box": [
+      886,
+      571,
+      926,
+      589
+    ],
+    "label": "Paper",
+    "confidence": 0.25938698649406433
+  },
+  {
+    "sample": "live002",
+    "stage": "raw",
+    "box": [
+      804,
+      565,
+      817,
+      573
+    ],
+    "label": "Plastic",
+    "confidence": 0.2269870787858963
+  },
+  {
+    "sample": "live002",
+    "stage": "raw",
+    "box": [
+      907,
+      496,
+      930,
+      512
+    ],
+    "label": "Paper",
+    "confidence": 0.22511959075927734
+  },
+  {
+    "sample": "live002",
+    "stage": "raw",
+    "box": [
+      381,
+      995,
+      389,
+      1002
+    ],
+    "label": "Waste",
+    "confidence": 0.20099876821041107
+  },
+  {
+    "sample": "live002",
+    "stage": "outside_roi",
+    "box": [
+      886,
+      571,
+      926,
+      589
+    ],
+    "label": "Paper",
+    "confidence": 0.25938698649406433
+  },
+  {
+    "sample": "live002",
+    "stage": "too_small",
+    "box": [
+      804,
+      565,
+      817,
+      573
+    ],
+    "label": "Plastic",
+    "confidence": 0.2269870787858963
+  },
+  {
+    "sample": "live002",
+    "stage": "outside_roi",
+    "box": [
+      907,
+      496,
+      930,
+      512
+    ],
+    "label": "Paper",
+    "confidence": 0.22511959075927734
+  },
+  {
+    "sample": "live002",
+    "stage": "too_small",
+    "box": [
+      381,
+      995,
+      389,
+      1002
+    ],
+    "label": "Waste",
+    "confidence": 0.2110110968351364
+  }
+]

@@ -1,0 +1,1430 @@
+[
+  {
+    "sample_id": "s000",
+    "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T181538.942230Z-44180209031322001021.jpg",
+    "sha256": "49df01b66786988d0522d5892d39b22b9dc74ad81613a091edc3aaba69972221",
+    "size": [
+      2560,
+      1440
+    ],
+    "camera_id": "44180209031322001021",
+    "view_id": "fixed-v1",
+    "saved_at_utc": "20260912T181538.942230Z",
+    "split": "development_regression",
+    "osd_time": null,
+    "label_source": "assistant_visual_review_provisional_not_independent_truth",
+    "targets": [
+      {
+        "target_id": "white_ground_object",
+        "box": [
+          450,
+          1230,
+          496,
+          1296
+        ],
+        "state": "visible",
+        "semantic_label": "white_object_at_roof_edge_not_verified_ground_litter",
+        "region_status": "crosses_roof_exclusion_boundary_plane_uncertain",
+        "eligible_ground_truth": false
+      },
+      {
+        "target_id": "broom",
+        "box": [
+          557,
+          633,
+          586,
+          663
+        ],
+        "state": "visible",
+        "semantic_label": "non_litter_broom_with_handle"
+      }
+    ],
+    "quality_label": "locally_readable"
+  },
+  {
+    "sample_id": "s001",
+    "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T183049.724467Z-44180209031322001021.jpg",
+    "sha256": "00e4f4d1589aafe1beb06d20d54a19718c380469fe0114020c69bf9d5aa44133",
+    "size": [
+      2560,
+      1440
+    ],
+    "camera_id": "44180209031322001021",
+    "view_id": "fixed-v1",
+    "saved_at_utc": "20260912T183049.724467Z",
+    "split": "development_regression",
+    "osd_time": null,
+    "label_source": "assistant_visual_review_provisional_not_independent_truth",
+    "targets": [
+      {
+        "target_id": "white_ground_object",
+        "box": [
+          450,
+          1230,
+          496,
+          1296
+        ],
+        "state": "visible",
+        "semantic_label": "white_object_at_roof_edge_not_verified_ground_litter",
+        "region_status": "crosses_roof_exclusion_boundary_plane_uncertain",
+        "eligible_ground_truth": false
+      },
+      {
+        "target_id": "broom",
+        "box": [
+          557,
+          633,
+          586,
+          663
+        ],
+        "state": "visible",
+        "semantic_label": "non_litter_broom_with_handle"
+      }
+    ],
+    "quality_label": "locally_readable"
+  },
+  {
+    "sample_id": "s002",
+    "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T184602.130787Z-44180209031322001021.jpg",
+    "sha256": "c1587bd47cc28e7522cb2b1938de533791c18a88359a999ed76e3c6b0d9ad45c",
+    "size": [
+      2560,
+      1440
+    ],
+    "camera_id": "44180209031322001021",
+    "view_id": "fixed-v1",
+    "saved_at_utc": "20260912T184602.130787Z",
+    "split": "development_regression",
+    "osd_time": null,
+    "label_source": "assistant_visual_review_provisional_not_independent_truth",
+    "targets": [
+      {
+        "target_id": "white_ground_object",
+        "box": [
+          450,
+          1230,
+          496,
+          1296
+        ],
+        "state": "visible",
+        "semantic_label": "white_object_at_roof_edge_not_verified_ground_litter",
+        "region_status": "crosses_roof_exclusion_boundary_plane_uncertain",
+        "eligible_ground_truth": false
+      },
+      {
+        "target_id": "broom",
+        "box": [
+          557,
+          633,
+          586,
+          663
+        ],
+        "state": "visible",
+        "semantic_label": "non_litter_broom_with_handle"
+      }
+    ],
+    "quality_label": "locally_readable"
+  },
+  {
+    "sample_id": "s003",
+    "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T190118.194278Z-44180209031322001021.jpg",
+    "sha256": "7b0234a299b3eacdd26f31e1aeae3b6d45d458d7622907d519a3211db7965328",
+    "size": [
+      2560,
+      1440
+    ],
+    "camera_id": "44180209031322001021",
+    "view_id": "fixed-v1",
+    "saved_at_utc": "20260912T190118.194278Z",
+    "split": "development_regression",
+    "osd_time": null,
+    "label_source": "assistant_visual_review_provisional_not_independent_truth",
+    "targets": [
+      {
+        "target_id": "white_ground_object",
+        "box": [
+          450,
+          1230,
+          496,
+          1296
+        ],
+        "state": "unknown_corrupt",
+        "semantic_label": "white_object_at_roof_edge_not_verified_ground_litter",
+        "region_status": "crosses_roof_exclusion_boundary_plane_uncertain",
+        "eligible_ground_truth": false
+      },
+      {
+        "target_id": "broom",
+        "box": [
+          557,
+          633,
+          586,
+          663
+        ],
+        "state": "unknown_corrupt",
+        "semantic_label": "non_litter_broom_with_handle"
+      }
+    ],
+    "quality_label": "corrupt"
+  },
+  {
+    "sample_id": "s004",
+    "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T191629.999639Z-44180209031322001021.jpg",
+    "sha256": "16b53863eeacdca710dee6bb34036b637ce7efabf7528bd5cda2617796dd7e44",
+    "size": [
+      2560,
+      1440
+    ],
+    "camera_id": "44180209031322001021",
+    "view_id": "fixed-v1",
+    "saved_at_utc": "20260912T191629.999639Z",
+    "split": "development_regression",
+    "osd_time": null,
+    "label_source": "assistant_visual_review_provisional_not_independent_truth",
+    "targets": [
+      {
+        "target_id": "white_ground_object",
+        "box": [
+          450,
+          1230,
+          496,
+          1296
+        ],
+        "state": "unknown_corrupt",
+        "semantic_label": "white_object_at_roof_edge_not_verified_ground_litter",
+        "region_status": "crosses_roof_exclusion_boundary_plane_uncertain",
+        "eligible_ground_truth": false
+      },
+      {
+        "target_id": "broom",
+        "box": [
+          557,
+          633,
+          586,
+          663
+        ],
+        "state": "unknown_corrupt",
+        "semantic_label": "non_litter_broom_with_handle"
+      }
+    ],
+    "quality_label": "corrupt"
+  },
+  {
+    "sample_id": "s005",
+    "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T193141.828193Z-44180209031322001021.jpg",
+    "sha256": "af07a37ecc1d9d4cf0899dd09043372989dfb7dd126f4cda81318da3d6181b7e",
+    "size": [
+      2560,
+      1440
+    ],
+    "camera_id": "44180209031322001021",
+    "view_id": "fixed-v1",
+    "saved_at_utc": "20260912T193141.828193Z",
+    "split": "development_regression",
+    "osd_time": null,
+    "label_source": "assistant_visual_review_provisional_not_independent_truth",
+    "targets": [
+      {
+        "target_id": "white_ground_object",
+        "box": [
+          450,
+          1230,
+          496,
+          1296
+        ],
+        "state": "visible",
+        "semantic_label": "white_object_at_roof_edge_not_verified_ground_litter",
+        "region_status": "crosses_roof_exclusion_boundary_plane_uncertain",
+        "eligible_ground_truth": false
+      },
+      {
+        "target_id": "broom",
+        "box": [
+          557,
+          633,
+          586,
+          663
+        ],
+        "state": "visible",
+        "semantic_label": "non_litter_broom_with_handle"
+      }
+    ],
+    "quality_label": "locally_readable"
+  },
+  {
+    "sample_id": "s006",
+    "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T194652.899669Z-44180209031322001021.jpg",
+    "sha256": "d52b20a4cc53d2261176f404f504421765ffb684c2b32a9f72f686d3803709ba",
+    "size": [
+      2560,
+      1440
+    ],
+    "camera_id": "44180209031322001021",
+    "view_id": "fixed-v1",
+    "saved_at_utc": "20260912T194652.899669Z",
+    "split": "development_regression",
+    "osd_time": null,
+    "label_source": "assistant_visual_review_provisional_not_independent_truth",
+    "targets": [
+      {
+        "target_id": "white_ground_object",
+        "box": [
+          450,
+          1230,
+          496,
+          1296
+        ],
+        "state": "visible",
+        "semantic_label": "white_object_at_roof_edge_not_verified_ground_litter",
+        "region_status": "crosses_roof_exclusion_boundary_plane_uncertain",
+        "eligible_ground_truth": false
+      },
+      {
+        "target_id": "broom",
+        "box": [
+          557,
+          633,
+          586,
+          663
+        ],
+        "state": "visible",
+        "semantic_label": "non_litter_broom_with_handle"
+      }
+    ],
+    "quality_label": "locally_readable"
+  },
+  {
+    "sample_id": "s007",
+    "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T200208.970687Z-44180209031322001021.jpg",
+    "sha256": "590c06acc4b042ac8da39de833019a376dfdba545102d9b53c8fc49a0cdb901a",
+    "size": [
+      2560,
+      1440
+    ],
+    "camera_id": "44180209031322001021",
+    "view_id": "fixed-v1",
+    "saved_at_utc": "20260912T200208.970687Z",
+    "split": "development_regression",
+    "osd_time": null,
+    "label_source": "assistant_visual_review_provisional_not_independent_truth",
+    "targets": [
+      {
+        "target_id": "white_ground_object",
+        "box": [
+          450,
+          1230,
+          496,
+          1296
+        ],
+        "state": "visible",
+        "semantic_label": "white_object_at_roof_edge_not_verified_ground_litter",
+        "region_status": "crosses_roof_exclusion_boundary_plane_uncertain",
+        "eligible_ground_truth": false
+      },
+      {
+        "target_id": "broom",
+        "box": [
+          557,
+          633,
+          586,
+          663
+        ],
+        "state": "visible",
+        "semantic_label": "non_litter_broom_with_handle"
+      }
+    ],
+    "quality_label": "locally_readable"
+  },
+  {
+    "sample_id": "s008",
+    "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T201720.867854Z-44180209031322001021.jpg",
+    "sha256": "02781f9a720b69b0187aecb345e21dda15e667eb29c09cf09a66307685ae7804",
+    "size": [
+      2560,
+      1440
+    ],
+    "camera_id": "44180209031322001021",
+    "view_id": "fixed-v1",
+    "saved_at_utc": "20260912T201720.867854Z",
+    "split": "development_regression",
+    "osd_time": null,
+    "label_source": "assistant_visual_review_provisional_not_independent_truth",
+    "targets": [
+      {
+        "target_id": "white_ground_object",
+        "box": [
+          450,
+          1230,
+          496,
+          1296
+        ],
+        "state": "visible",
+        "semantic_label": "white_object_at_roof_edge_not_verified_ground_litter",
+        "region_status": "crosses_roof_exclusion_boundary_plane_uncertain",
+        "eligible_ground_truth": false
+      },
+      {
+        "target_id": "broom",
+        "box": [
+          557,
+          633,
+          586,
+          663
+        ],
+        "state": "visible",
+        "semantic_label": "non_litter_broom_with_handle"
+      }
+    ],
+    "quality_label": "locally_readable"
+  },
+  {
+    "sample_id": "s009",
+    "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T203236.072859Z-44180209031322001021.jpg",
+    "sha256": "fabea3f1188230bb1dbd3a986120c7f92193288274007831fa98a9eb523d4350",
+    "size": [
+      2560,
+      1440
+    ],
+    "camera_id": "44180209031322001021",
+    "view_id": "fixed-v1",
+    "saved_at_utc": "20260912T203236.072859Z",
+    "split": "development_regression",
+    "osd_time": null,
+    "label_source": "assistant_visual_review_provisional_not_independent_truth",
+    "targets": [
+      {
+        "target_id": "white_ground_object",
+        "box": [
+          450,
+          1230,
+          496,
+          1296
+        ],
+        "state": "visible",
+        "semantic_label": "white_object_at_roof_edge_not_verified_ground_litter",
+        "region_status": "crosses_roof_exclusion_boundary_plane_uncertain",
+        "eligible_ground_truth": false
+      },
+      {
+        "target_id": "broom",
+        "box": [
+          557,
+          633,
+          586,
+          663
+        ],
+        "state": "visible",
+        "semantic_label": "non_litter_broom_with_handle"
+      }
+    ],
+    "quality_label": "locally_readable"
+  },
+  {
+    "sample_id": "s010",
+    "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T204748.702419Z-44180209031322001021.jpg",
+    "sha256": "7d7a036828bb687435f972d269de90f1af03424971c78dcf6314013ef321dfcd",
+    "size": [
+      2560,
+      1440
+    ],
+    "camera_id": "44180209031322001021",
+    "view_id": "fixed-v1",
+    "saved_at_utc": "20260912T204748.702419Z",
+    "split": "development_regression",
+    "osd_time": null,
+    "label_source": "assistant_visual_review_provisional_not_independent_truth",
+    "targets": [
+      {
+        "target_id": "white_ground_object",
+        "box": [
+          450,
+          1230,
+          496,
+          1296
+        ],
+        "state": "visible",
+        "semantic_label": "white_object_at_roof_edge_not_verified_ground_litter",
+        "region_status": "crosses_roof_exclusion_boundary_plane_uncertain",
+        "eligible_ground_truth": false
+      },
+      {
+        "target_id": "broom",
+        "box": [
+          557,
+          633,
+          586,
+          663
+        ],
+        "state": "visible",
+        "semantic_label": "non_litter_broom_with_handle"
+      }
+    ],
+    "quality_label": "locally_readable"
+  },
+  {
+    "sample_id": "s011",
+    "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T210259.241842Z-44180209031322001021.jpg",
+    "sha256": "249e571655605a3a312414ec7b2f8867dea98e892470848c7eabb01180876a1d",
+    "size": [
+      2560,
+      1440
+    ],
+    "camera_id": "44180209031322001021",
+    "view_id": "fixed-v1",
+    "saved_at_utc": "20260912T210259.241842Z",
+    "split": "development_regression",
+    "osd_time": null,
+    "label_source": "assistant_visual_review_provisional_not_independent_truth",
+    "targets": [
+      {
+        "target_id": "white_ground_object",
+        "box": [
+          450,
+          1230,
+          496,
+          1296
+        ],
+        "state": "visible",
+        "semantic_label": "white_object_at_roof_edge_not_verified_ground_litter",
+        "region_status": "crosses_roof_exclusion_boundary_plane_uncertain",
+        "eligible_ground_truth": false
+      },
+      {
+        "target_id": "broom",
+        "box": [
+          557,
+          633,
+          586,
+          663
+        ],
+        "state": "visible",
+        "semantic_label": "non_litter_broom_with_handle"
+      }
+    ],
+    "quality_label": "locally_readable"
+  },
+  {
+    "sample_id": "s012",
+    "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T211811.415281Z-44180209031322001021.jpg",
+    "sha256": "8ae31545d338980c5ade7fe2d537e438aa1335a3b1a5c0f66123fc548631696c",
+    "size": [
+      2560,
+      1440
+    ],
+    "camera_id": "44180209031322001021",
+    "view_id": "fixed-v1",
+    "saved_at_utc": "20260912T211811.415281Z",
+    "split": "development_regression",
+    "osd_time": "2026-09-13T05:16:46+08:00",
+    "label_source": "assistant_visual_review_provisional_not_independent_truth",
+    "targets": [
+      {
+        "target_id": "white_ground_object",
+        "box": [
+          450,
+          1230,
+          496,
+          1296
+        ],
+        "state": "visible",
+        "semantic_label": "white_object_at_roof_edge_not_verified_ground_litter",
+        "region_status": "crosses_roof_exclusion_boundary_plane_uncertain",
+        "eligible_ground_truth": false
+      },
+      {
+        "target_id": "broom",
+        "box": [
+          557,
+          633,
+          586,
+          663
+        ],
+        "state": "visible",
+        "semantic_label": "non_litter_broom_with_handle"
+      }
+    ],
+    "quality_label": "locally_readable"
+  },
+  {
+    "sample_id": "s013",
+    "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T212515.733764Z-44180209031322001021.jpg",
+    "sha256": "cb2a5502cb77dba94b5e9d59980c01db8e75cdeef12bdbac66cc6da0a1de24c6",
+    "size": [
+      2560,
+      1440
+    ],
+    "camera_id": "44180209031322001021",
+    "view_id": "fixed-v1",
+    "saved_at_utc": "20260912T212515.733764Z",
+    "split": "development_regression",
+    "osd_time": null,
+    "label_source": "assistant_visual_review_provisional_not_independent_truth",
+    "targets": [
+      {
+        "target_id": "white_ground_object",
+        "box": [
+          450,
+          1230,
+          496,
+          1296
+        ],
+        "state": "visible",
+        "semantic_label": "white_object_at_roof_edge_not_verified_ground_litter",
+        "region_status": "crosses_roof_exclusion_boundary_plane_uncertain",
+        "eligible_ground_truth": false
+      },
+      {
+        "target_id": "broom",
+        "box": [
+          557,
+          633,
+          586,
+          663
+        ],
+        "state": "visible",
+        "semantic_label": "non_litter_broom_with_handle"
+      }
+    ],
+    "quality_label": "locally_readable"
+  },
+  {
+    "sample_id": "s014",
+    "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T212817.703733Z-44180209031322001021.jpg",
+    "sha256": "557bcdae3a514e76402363df857d717110bb9a8eb476f0eba1282b6c7f482029",
+    "size": [
+      2560,
+      1440
+    ],
+    "camera_id": "44180209031322001021",
+    "view_id": "fixed-v1",
+    "saved_at_utc": "20260912T212817.703733Z",
+    "split": "development_regression",
+    "osd_time": null,
+    "label_source": "assistant_visual_review_provisional_not_independent_truth",
+    "targets": [
+      {
+        "target_id": "white_ground_object",
+        "box": [
+          450,
+          1230,
+          496,
+          1296
+        ],
+        "state": "visible",
+        "semantic_label": "white_object_at_roof_edge_not_verified_ground_litter",
+        "region_status": "crosses_roof_exclusion_boundary_plane_uncertain",
+        "eligible_ground_truth": false
+      },
+      {
+        "target_id": "broom",
+        "box": [
+          557,
+          633,
+          586,
+          663
+        ],
+        "state": "visible",
+        "semantic_label": "non_litter_broom_with_handle"
+      }
+    ],
+    "quality_label": "locally_readable"
+  },
+  {
+    "sample_id": "s015",
+    "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T213120.113392Z-44180209031322001021.jpg",
+    "sha256": "f08766348a114b24cb5fee4a1af895c2147a5a2b697f9e57673afa590cf9d549",
+    "size": [
+      2560,
+      1440
+    ],
+    "camera_id": "44180209031322001021",
+    "view_id": "fixed-v1",
+    "saved_at_utc": "20260912T213120.113392Z",
+    "split": "development_regression",
+    "osd_time": null,
+    "label_source": "assistant_visual_review_provisional_not_independent_truth",
+    "targets": [
+      {
+        "target_id": "white_ground_object",
+        "box": [
+          450,
+          1230,
+          496,
+          1296
+        ],
+        "state": "visible",
+        "semantic_label": "white_object_at_roof_edge_not_verified_ground_litter",
+        "region_status": "crosses_roof_exclusion_boundary_plane_uncertain",
+        "eligible_ground_truth": false
+      },
+      {
+        "target_id": "broom",
+        "box": [
+          557,
+          633,
+          586,
+          663
+        ],
+        "state": "visible",
+        "semantic_label": "non_litter_broom_with_handle"
+      }
+    ],
+    "quality_label": "locally_readable"
+  },
+  {
+    "sample_id": "s016",
+    "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T213321.182185Z-44180209031322001021.jpg",
+    "sha256": "d1d6b38938798cea98fa83062f33ede6c31616d2fb415c037b1291e7f09bca5f",
+    "size": [
+      2560,
+      1440
+    ],
+    "camera_id": "44180209031322001021",
+    "view_id": "fixed-v1",
+    "saved_at_utc": "20260912T213321.182185Z",
+    "split": "development_regression",
+    "osd_time": null,
+    "label_source": "assistant_visual_review_provisional_not_independent_truth",
+    "targets": [
+      {
+        "target_id": "white_ground_object",
+        "box": [
+          450,
+          1230,
+          496,
+          1296
+        ],
+        "state": "visible",
+        "semantic_label": "white_object_at_roof_edge_not_verified_ground_litter",
+        "region_status": "crosses_roof_exclusion_boundary_plane_uncertain",
+        "eligible_ground_truth": false
+      },
+      {
+        "target_id": "broom",
+        "box": [
+          557,
+          633,
+          586,
+          663
+        ],
+        "state": "visible",
+        "semantic_label": "non_litter_broom_with_handle"
+      }
+    ],
+    "quality_label": "locally_readable"
+  },
+  {
+    "sample_id": "s017",
+    "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T213421.558650Z-44180209031322001021.jpg",
+    "sha256": "f066f8bb45c21c42310ad2c3b4d82a5c0add4aa94a2e50a763210b16b226cb7c",
+    "size": [
+      2560,
+      1440
+    ],
+    "camera_id": "44180209031322001021",
+    "view_id": "fixed-v1",
+    "saved_at_utc": "20260912T213421.558650Z",
+    "split": "development_regression",
+    "osd_time": null,
+    "label_source": "assistant_visual_review_provisional_not_independent_truth",
+    "targets": [
+      {
+        "target_id": "white_ground_object",
+        "box": [
+          450,
+          1230,
+          496,
+          1296
+        ],
+        "state": "visible",
+        "semantic_label": "white_object_at_roof_edge_not_verified_ground_litter",
+        "region_status": "crosses_roof_exclusion_boundary_plane_uncertain",
+        "eligible_ground_truth": false
+      },
+      {
+        "target_id": "broom",
+        "box": [
+          557,
+          633,
+          586,
+          663
+        ],
+        "state": "visible",
+        "semantic_label": "non_litter_broom_with_handle"
+      }
+    ],
+    "quality_label": "locally_readable"
+  },
+  {
+    "sample_id": "s018",
+    "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T213723.527839Z-44180209031322001021.jpg",
+    "sha256": "94d6c8b6fa345c71fbd90c44912ecd164adc6fe1206fd3edb9c39bb52e937ce8",
+    "size": [
+      2560,
+      1440
+    ],
+    "camera_id": "44180209031322001021",
+    "view_id": "fixed-v1",
+    "saved_at_utc": "20260912T213723.527839Z",
+    "split": "development_regression",
+    "osd_time": null,
+    "label_source": "assistant_visual_review_provisional_not_independent_truth",
+    "targets": [
+      {
+        "target_id": "white_ground_object",
+        "box": [
+          450,
+          1230,
+          496,
+          1296
+        ],
+        "state": "unknown_corrupt",
+        "semantic_label": "white_object_at_roof_edge_not_verified_ground_litter",
+        "region_status": "crosses_roof_exclusion_boundary_plane_uncertain",
+        "eligible_ground_truth": false
+      },
+      {
+        "target_id": "broom",
+        "box": [
+          557,
+          633,
+          586,
+          663
+        ],
+        "state": "unknown_corrupt",
+        "semantic_label": "non_litter_broom_with_handle"
+      }
+    ],
+    "quality_label": "corrupt"
+  },
+  {
+    "sample_id": "s019",
+    "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T214025.404690Z-44180209031322001021.jpg",
+    "sha256": "5f3e4e524be6792fca6f2772855654a95f6b43fca1a4e3e69f2a1120f83d5e97",
+    "size": [
+      2560,
+      1440
+    ],
+    "camera_id": "44180209031322001021",
+    "view_id": "fixed-v1",
+    "saved_at_utc": "20260912T214025.404690Z",
+    "split": "development_regression",
+    "osd_time": "2026-09-13T05:38:40+08:00",
+    "label_source": "assistant_visual_review_provisional_not_independent_truth",
+    "targets": [
+      {
+        "target_id": "white_ground_object",
+        "box": [
+          450,
+          1230,
+          496,
+          1296
+        ],
+        "state": "visible",
+        "semantic_label": "white_object_at_roof_edge_not_verified_ground_litter",
+        "region_status": "crosses_roof_exclusion_boundary_plane_uncertain",
+        "eligible_ground_truth": false
+      },
+      {
+        "target_id": "broom",
+        "box": [
+          557,
+          633,
+          586,
+          663
+        ],
+        "state": "visible",
+        "semantic_label": "non_litter_broom_with_handle"
+      }
+    ],
+    "quality_label": "locally_readable"
+  },
+  {
+    "sample_id": "s020",
+    "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T214327.997885Z-44180209031322001021.jpg",
+    "sha256": "754e4b9dc131c7434fd19347007c98297c8226f4cd2b9894fb830186feb3c2eb",
+    "size": [
+      2560,
+      1440
+    ],
+    "camera_id": "44180209031322001021",
+    "view_id": "fixed-v1",
+    "saved_at_utc": "20260912T214327.997885Z",
+    "split": "development_regression",
+    "osd_time": "2026-09-13T05:42:05+08:00",
+    "label_source": "assistant_visual_review_provisional_not_independent_truth",
+    "targets": [
+      {
+        "target_id": "white_ground_object",
+        "box": [
+          450,
+          1230,
+          496,
+          1296
+        ],
+        "state": "visible",
+        "semantic_label": "white_object_at_roof_edge_not_verified_ground_litter",
+        "region_status": "crosses_roof_exclusion_boundary_plane_uncertain",
+        "eligible_ground_truth": false
+      },
+      {
+        "target_id": "broom",
+        "box": [
+          557,
+          633,
+          586,
+          663
+        ],
+        "state": "visible",
+        "semantic_label": "non_litter_broom_with_handle"
+      }
+    ],
+    "quality_label": "locally_readable"
+  },
+  {
+    "sample_id": "s021",
+    "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T214630.185786Z-44180209031322001021.jpg",
+    "sha256": "b0b1cccd07ac907c6ab5c347930417fe73fc3baca1c5df90a6272f390b22d7b8",
+    "size": [
+      2560,
+      1440
+    ],
+    "camera_id": "44180209031322001021",
+    "view_id": "fixed-v1",
+    "saved_at_utc": "20260912T214630.185786Z",
+    "split": "development_regression",
+    "osd_time": "2026-09-13T05:44:44+08:00",
+    "label_source": "assistant_visual_review_provisional_not_independent_truth",
+    "targets": [
+      {
+        "target_id": "white_ground_object",
+        "box": [
+          450,
+          1230,
+          496,
+          1296
+        ],
+        "state": "absent",
+        "semantic_label": "white_object_at_roof_edge_not_verified_ground_litter",
+        "region_status": "crosses_roof_exclusion_boundary_plane_uncertain",
+        "eligible_ground_truth": false
+      },
+      {
+        "target_id": "broom",
+        "box": [
+          557,
+          633,
+          586,
+          663
+        ],
+        "state": "visible",
+        "semantic_label": "non_litter_broom_with_handle"
+      }
+    ],
+    "quality_label": "locally_readable"
+  },
+  {
+    "sample_id": "s022",
+    "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T214833.116071Z-44180209031322001021.jpg",
+    "sha256": "9a8b7d2bef18ea93bc2a8ce02479eb4bb967e11615f1f194c94107bc9f5525f9",
+    "size": [
+      2560,
+      1440
+    ],
+    "camera_id": "44180209031322001021",
+    "view_id": "fixed-v1",
+    "saved_at_utc": "20260912T214833.116071Z",
+    "split": "development_regression",
+    "osd_time": null,
+    "label_source": "assistant_visual_review_provisional_not_independent_truth",
+    "targets": [
+      {
+        "target_id": "white_ground_object",
+        "box": [
+          450,
+          1230,
+          496,
+          1296
+        ],
+        "state": "unknown_corrupt",
+        "semantic_label": "white_object_at_roof_edge_not_verified_ground_litter",
+        "region_status": "crosses_roof_exclusion_boundary_plane_uncertain",
+        "eligible_ground_truth": false
+      },
+      {
+        "target_id": "broom",
+        "box": [
+          557,
+          633,
+          586,
+          663
+        ],
+        "state": "unknown_corrupt",
+        "semantic_label": "non_litter_broom_with_handle"
+      }
+    ],
+    "quality_label": "corrupt"
+  },
+  {
+    "sample_id": "s023",
+    "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T214933.592307Z-44180209031322001021.jpg",
+    "sha256": "4e907845d7475164ce4142d44668c3f97237716e4fbc2c44364de9348949432f",
+    "size": [
+      2560,
+      1440
+    ],
+    "camera_id": "44180209031322001021",
+    "view_id": "fixed-v1",
+    "saved_at_utc": "20260912T214933.592307Z",
+    "split": "development_regression",
+    "osd_time": "2026-09-13T05:49:25+08:00",
+    "label_source": "assistant_visual_review_provisional_not_independent_truth",
+    "targets": [
+      {
+        "target_id": "white_ground_object",
+        "box": [
+          450,
+          1230,
+          496,
+          1296
+        ],
+        "state": "absent",
+        "semantic_label": "white_object_at_roof_edge_not_verified_ground_litter",
+        "region_status": "crosses_roof_exclusion_boundary_plane_uncertain",
+        "eligible_ground_truth": false
+      },
+      {
+        "target_id": "broom",
+        "box": [
+          557,
+          633,
+          586,
+          663
+        ],
+        "state": "visible",
+        "semantic_label": "non_litter_broom_with_handle"
+      }
+    ],
+    "quality_label": "locally_readable"
+  },
+  {
+    "sample_id": "s024",
+    "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T215236.785337Z-44180209031322001021.jpg",
+    "sha256": "95a60c29bafae2cdfda1ceabb4fe0f47668ad29d982c5c07433c4c341266b129",
+    "size": [
+      2560,
+      1440
+    ],
+    "camera_id": "44180209031322001021",
+    "view_id": "fixed-v1",
+    "saved_at_utc": "20260912T215236.785337Z",
+    "split": "development_regression",
+    "osd_time": null,
+    "label_source": "assistant_visual_review_provisional_not_independent_truth",
+    "targets": [
+      {
+        "target_id": "white_ground_object",
+        "box": [
+          450,
+          1230,
+          496,
+          1296
+        ],
+        "state": "absent",
+        "semantic_label": "white_object_at_roof_edge_not_verified_ground_litter",
+        "region_status": "crosses_roof_exclusion_boundary_plane_uncertain",
+        "eligible_ground_truth": false
+      },
+      {
+        "target_id": "broom",
+        "box": [
+          557,
+          633,
+          586,
+          663
+        ],
+        "state": "visible",
+        "semantic_label": "non_litter_broom_with_handle"
+      }
+    ],
+    "quality_label": "locally_readable"
+  },
+  {
+    "sample_id": "s025",
+    "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T215538.819415Z-44180209031322001021.jpg",
+    "sha256": "9e96f411d7121d3658ed259fac0ceec236a7af34a54a62443451755d3f8d0325",
+    "size": [
+      2560,
+      1440
+    ],
+    "camera_id": "44180209031322001021",
+    "view_id": "fixed-v1",
+    "saved_at_utc": "20260912T215538.819415Z",
+    "split": "development_regression",
+    "osd_time": null,
+    "label_source": "assistant_visual_review_provisional_not_independent_truth",
+    "targets": [
+      {
+        "target_id": "white_ground_object",
+        "box": [
+          450,
+          1230,
+          496,
+          1296
+        ],
+        "state": "absent",
+        "semantic_label": "white_object_at_roof_edge_not_verified_ground_litter",
+        "region_status": "crosses_roof_exclusion_boundary_plane_uncertain",
+        "eligible_ground_truth": false
+      },
+      {
+        "target_id": "broom",
+        "box": [
+          557,
+          633,
+          586,
+          663
+        ],
+        "state": "visible",
+        "semantic_label": "non_litter_broom_with_handle"
+      }
+    ],
+    "quality_label": "locally_readable"
+  },
+  {
+    "sample_id": "s026",
+    "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T215841.029000Z-44180209031322001021.jpg",
+    "sha256": "141958576b563217e2e6752ef7250c645b46478dc28dbdca38d4304a75b557a8",
+    "size": [
+      2560,
+      1440
+    ],
+    "camera_id": "44180209031322001021",
+    "view_id": "fixed-v1",
+    "saved_at_utc": "20260912T215841.029000Z",
+    "split": "development_regression",
+    "osd_time": null,
+    "label_source": "assistant_visual_review_provisional_not_independent_truth",
+    "targets": [
+      {
+        "target_id": "white_ground_object",
+        "box": [
+          450,
+          1230,
+          496,
+          1296
+        ],
+        "state": "absent",
+        "semantic_label": "white_object_at_roof_edge_not_verified_ground_litter",
+        "region_status": "crosses_roof_exclusion_boundary_plane_uncertain",
+        "eligible_ground_truth": false
+      },
+      {
+        "target_id": "broom",
+        "box": [
+          557,
+          633,
+          586,
+          663
+        ],
+        "state": "visible",
+        "semantic_label": "non_litter_broom_with_handle"
+      }
+    ],
+    "quality_label": "locally_readable"
+  },
+  {
+    "sample_id": "s027",
+    "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T220144.007142Z-44180209031322001021.jpg",
+    "sha256": "55fdbbf1430559106ca7a469631ebb0eea97349022c44c224962b07d40ae42fd",
+    "size": [
+      2560,
+      1440
+    ],
+    "camera_id": "44180209031322001021",
+    "view_id": "fixed-v1",
+    "saved_at_utc": "20260912T220144.007142Z",
+    "split": "development_regression",
+    "osd_time": null,
+    "label_source": "assistant_visual_review_provisional_not_independent_truth",
+    "targets": [
+      {
+        "target_id": "white_ground_object",
+        "box": [
+          450,
+          1230,
+          496,
+          1296
+        ],
+        "state": "absent",
+        "semantic_label": "white_object_at_roof_edge_not_verified_ground_litter",
+        "region_status": "crosses_roof_exclusion_boundary_plane_uncertain",
+        "eligible_ground_truth": false
+      },
+      {
+        "target_id": "broom",
+        "box": [
+          557,
+          633,
+          586,
+          663
+        ],
+        "state": "visible",
+        "semantic_label": "non_litter_broom_with_handle"
+      }
+    ],
+    "quality_label": "locally_readable"
+  },
+  {
+    "sample_id": "s028",
+    "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T220346.225100Z-44180209031322001021.jpg",
+    "sha256": "8456b370b33ead3c06bc5ac0e15f049e52ee1c3adab14bf14a6edb76c7ba991b",
+    "size": [
+      2560,
+      1440
+    ],
+    "camera_id": "44180209031322001021",
+    "view_id": "fixed-v1",
+    "saved_at_utc": "20260912T220346.225100Z",
+    "split": "development_regression",
+    "osd_time": null,
+    "label_source": "assistant_visual_review_provisional_not_independent_truth",
+    "targets": [
+      {
+        "target_id": "white_ground_object",
+        "box": [
+          450,
+          1230,
+          496,
+          1296
+        ],
+        "state": "absent",
+        "semantic_label": "white_object_at_roof_edge_not_verified_ground_litter",
+        "region_status": "crosses_roof_exclusion_boundary_plane_uncertain",
+        "eligible_ground_truth": false
+      },
+      {
+        "target_id": "broom",
+        "box": [
+          557,
+          633,
+          586,
+          663
+        ],
+        "state": "visible",
+        "semantic_label": "non_litter_broom_with_handle"
+      }
+    ],
+    "quality_label": "locally_readable"
+  },
+  {
+    "sample_id": "s029",
+    "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T220446.978747Z-44180209031322001021.jpg",
+    "sha256": "b7745f7e83a7282a8e944c18308330d074dbc0ec1d4eeff6ea6fa5c386597df6",
+    "size": [
+      2560,
+      1440
+    ],
+    "camera_id": "44180209031322001021",
+    "view_id": "fixed-v1",
+    "saved_at_utc": "20260912T220446.978747Z",
+    "split": "development_regression",
+    "osd_time": null,
+    "label_source": "assistant_visual_review_provisional_not_independent_truth",
+    "targets": [
+      {
+        "target_id": "white_ground_object",
+        "box": [
+          450,
+          1230,
+          496,
+          1296
+        ],
+        "state": "absent",
+        "semantic_label": "white_object_at_roof_edge_not_verified_ground_litter",
+        "region_status": "crosses_roof_exclusion_boundary_plane_uncertain",
+        "eligible_ground_truth": false
+      },
+      {
+        "target_id": "broom",
+        "box": [
+          557,
+          633,
+          586,
+          663
+        ],
+        "state": "visible",
+        "semantic_label": "non_litter_broom_with_handle"
+      }
+    ],
+    "quality_label": "locally_readable"
+  },
+  {
+    "sample_id": "s030",
+    "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T220748.617438Z-44180209031322001021.jpg",
+    "sha256": "4594de9b91174f2409527586813819894667469d1a8231d9915db5a8730167b1",
+    "size": [
+      2560,
+      1440
+    ],
+    "camera_id": "44180209031322001021",
+    "view_id": "fixed-v1",
+    "saved_at_utc": "20260912T220748.617438Z",
+    "split": "development_regression",
+    "osd_time": null,
+    "label_source": "assistant_visual_review_provisional_not_independent_truth",
+    "targets": [
+      {
+        "target_id": "white_ground_object",
+        "box": [
+          450,
+          1230,
+          496,
+          1296
+        ],
+        "state": "absent",
+        "semantic_label": "white_object_at_roof_edge_not_verified_ground_litter",
+        "region_status": "crosses_roof_exclusion_boundary_plane_uncertain",
+        "eligible_ground_truth": false
+      },
+      {
+        "target_id": "broom",
+        "box": [
+          557,
+          633,
+          586,
+          663
+        ],
+        "state": "visible",
+        "semantic_label": "non_litter_broom_with_handle"
+      }
+    ],
+    "quality_label": "locally_readable"
+  },
+  {
+    "sample_id": "s031",
+    "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T221050.906135Z-44180209031322001021.jpg",
+    "sha256": "d88ba72511688ab852462fa8c5efeeb42a5389c6acc975c9936391d926406698",
+    "size": [
+      2560,
+      1440
+    ],
+    "camera_id": "44180209031322001021",
+    "view_id": "fixed-v1",
+    "saved_at_utc": "20260912T221050.906135Z",
+    "split": "development_regression",
+    "osd_time": null,
+    "label_source": "assistant_visual_review_provisional_not_independent_truth",
+    "targets": [
+      {
+        "target_id": "white_ground_object",
+        "box": [
+          450,
+          1230,
+          496,
+          1296
+        ],
+        "state": "absent",
+        "semantic_label": "white_object_at_roof_edge_not_verified_ground_litter",
+        "region_status": "crosses_roof_exclusion_boundary_plane_uncertain",
+        "eligible_ground_truth": false
+      },
+      {
+        "target_id": "broom",
+        "box": [
+          557,
+          633,
+          586,
+          663
+        ],
+        "state": "visible",
+        "semantic_label": "non_litter_broom_with_handle"
+      }
+    ],
+    "quality_label": "locally_readable"
+  },
+  {
+    "sample_id": "s032",
+    "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T221354.581889Z-44180209031322001021.jpg",
+    "sha256": "ad2f79c86e06ee11a4a5da150f3894752d75b95bcedb3893541c6b7f2a7ff21e",
+    "size": [
+      2560,
+      1440
+    ],
+    "camera_id": "44180209031322001021",
+    "view_id": "fixed-v1",
+    "saved_at_utc": "20260912T221354.581889Z",
+    "split": "development_regression",
+    "osd_time": null,
+    "label_source": "assistant_visual_review_provisional_not_independent_truth",
+    "targets": [
+      {
+        "target_id": "white_ground_object",
+        "box": [
+          450,
+          1230,
+          496,
+          1296
+        ],
+        "state": "absent",
+        "semantic_label": "white_object_at_roof_edge_not_verified_ground_litter",
+        "region_status": "crosses_roof_exclusion_boundary_plane_uncertain",
+        "eligible_ground_truth": false
+      },
+      {
+        "target_id": "broom",
+        "box": [
+          557,
+          633,
+          586,
+          663
+        ],
+        "state": "visible",
+        "semantic_label": "non_litter_broom_with_handle"
+      }
+    ],
+    "quality_label": "locally_readable"
+  },
+  {
+    "sample_id": "s033",
+    "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T221455.080053Z-44180209031322001021.jpg",
+    "sha256": "a2f1c68f34c7b014ebd17a1ff4af4f295fa200955170c71f63f38ccfef437b22",
+    "size": [
+      2560,
+      1440
+    ],
+    "camera_id": "44180209031322001021",
+    "view_id": "fixed-v1",
+    "saved_at_utc": "20260912T221455.080053Z",
+    "split": "development_regression",
+    "osd_time": null,
+    "label_source": "assistant_visual_review_provisional_not_independent_truth",
+    "targets": [
+      {
+        "target_id": "white_ground_object",
+        "box": [
+          450,
+          1230,
+          496,
+          1296
+        ],
+        "state": "absent",
+        "semantic_label": "white_object_at_roof_edge_not_verified_ground_litter",
+        "region_status": "crosses_roof_exclusion_boundary_plane_uncertain",
+        "eligible_ground_truth": false
+      },
+      {
+        "target_id": "broom",
+        "box": [
+          557,
+          633,
+          586,
+          663
+        ],
+        "state": "visible",
+        "semantic_label": "non_litter_broom_with_handle"
+      }
+    ],
+    "quality_label": "locally_readable"
+  }
+]

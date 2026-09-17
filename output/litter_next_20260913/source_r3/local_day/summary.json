@@ -1,0 +1,212 @@
+{
+  "finished_utc": "2026-09-13T10:05:29.750978+00:00",
+  "source_kind": "local_video",
+  "elapsed_seconds": 20.05771312500292,
+  "decoder": "pyav",
+  "status": "completed",
+  "started_utc": "2026-09-13T10:05:09.693394+00:00",
+  "observation_seconds": 20.032482665992575,
+  "stopped_by_signal": [],
+  "decoder_capability": {
+    "pyav_importable": true,
+    "pyav_version": "18.1.0"
+  },
+  "source_counters": {
+    "decoded_frames": 510.0,
+    "corrupt_frames": 0.0,
+    "missing_pts_frames": 0.0,
+    "nonmonotonic_pts_frames": 0.0,
+    "connections": 1.0,
+    "published_frames": 20.0,
+    "mailbox_lock_skips": 0.0,
+    "decode_read_seconds": 3.671364541936782,
+    "convert_seconds": 0.1037478780199308,
+    "pts_observed_frames": 510.0,
+    "trace_lock_skips": 0.0
+  },
+  "samples": [
+    {
+      "sequence": 1.0,
+      "probe_elapsed": 0.41751625000324566,
+      "arrival_elapsed": 0.4046312080026837,
+      "local_age": 0.012885791991720907,
+      "generation": 1.0,
+      "source_elapsed": 0.0
+    },
+    {
+      "sequence": 2.0,
+      "probe_elapsed": 1.4533512499911012,
+      "arrival_elapsed": 1.4149149159929948,
+      "local_age": 0.038437292008893564,
+      "generation": 1.0,
+      "source_elapsed": 1.0
+    },
+    {
+      "sequence": 3.0,
+      "probe_elapsed": 2.487833082996076,
+      "arrival_elapsed": 2.4411516660038615,
+      "local_age": 0.046681749998242594,
+      "generation": 1.0,
+      "source_elapsed": 2.0389999999988504
+    },
+    {
+      "sequence": 4.0,
+      "probe_elapsed": 3.471488082999713,
+      "arrival_elapsed": 3.455313375001424,
+      "local_age": 0.016177707992028445,
+      "generation": 1.0,
+      "source_elapsed": 3.0389999999988504
+    },
+    {
+      "sequence": 5.0,
+      "probe_elapsed": 4.502910374998464,
+      "arrival_elapsed": 4.486883416000637,
+      "local_age": 0.016027083998778835,
+      "generation": 1.0,
+      "source_elapsed": 4.07799999999952
+    },
+    {
+      "sequence": 6.0,
+      "probe_elapsed": 5.532495457999175,
+      "arrival_elapsed": 5.489123124993057,
+      "local_age": 0.043372665997594595,
+      "generation": 1.0,
+      "source_elapsed": 5.07799999999952
+    },
+    {
+      "sequence": 7.0,
+      "probe_elapsed": 6.568366541003343,
+      "arrival_elapsed": 6.524022832993069,
+      "local_age": 0.0443446249992121,
+      "generation": 1.0,
+      "source_elapsed": 6.11699999999837
+    },
+    {
+      "sequence": 8.0,
+      "probe_elapsed": 7.556734832993243,
+      "arrival_elapsed": 7.522078750000219,
+      "local_age": 0.03465670799778309,
+      "generation": 1.0,
+      "source_elapsed": 7.11699999999837
+    },
+    {
+      "sequence": 9.0,
+      "probe_elapsed": 8.599160165991634,
+      "arrival_elapsed": 8.565635291000945,
+      "local_age": 0.033525249993545,
+      "generation": 1.0,
+      "source_elapsed": 8.15599999999904
+    },
+    {
+      "sequence": 10.0,
+      "probe_elapsed": 9.576796833003755,
+      "arrival_elapsed": 9.564405083001475,
+      "local_age": 0.01239316699502524,
+      "generation": 1.0,
+      "source_elapsed": 9.15599999999904
+    },
+    {
+      "sequence": 11.0,
+      "probe_elapsed": 10.618799082993064,
+      "arrival_elapsed": 10.600756040992565,
+      "local_age": 0.018043250005575828,
+      "generation": 1.0,
+      "source_elapsed": 10.194999999999709
+    },
+    {
+      "sequence": 12.0,
+      "probe_elapsed": 11.623944790990208,
+      "arrival_elapsed": 11.604369249995216,
+      "local_age": 0.01957649999530986,
+      "generation": 1.0,
+      "source_elapsed": 11.194999999999709
+    },
+    {
+      "sequence": 13.0,
+      "probe_elapsed": 12.65860487500322,
+      "arrival_elapsed": 12.608707749997848,
+      "local_age": 0.04989754100097343,
+      "generation": 1.0,
+      "source_elapsed": 12.194999999999709
+    },
+    {
+      "sequence": 14.0,
+      "probe_elapsed": 13.645360124995932,
+      "arrival_elapsed": 13.639198082993971,
+      "local_age": 0.006162625009892508,
+      "generation": 1.0,
+      "source_elapsed": 13.23399999999856
+    },
+    {
+      "sequence": 15.0,
+      "probe_elapsed": 14.68455962499138,
+      "arrival_elapsed": 14.644234624996898,
+      "local_age": 0.04032529100368265,
+      "generation": 1.0,
+      "source_elapsed": 14.23399999999856
+    },
+    {
+      "sequence": 16.0,
+      "probe_elapsed": 15.73752812499879,
+      "arrival_elapsed": 15.681978540989803,
+      "local_age": 0.055549834010889754,
+      "generation": 1.0,
+      "source_elapsed": 15.272999999999229
+    },
+    {
+      "sequence": 17.0,
+      "probe_elapsed": 16.70981641599792,
+      "arrival_elapsed": 16.69096854099189,
+      "local_age": 0.018848167004762217,
+      "generation": 1.0,
+      "source_elapsed": 16.27299999999923
+    },
+    {
+      "sequence": 18.0,
+      "probe_elapsed": 17.748325790991657,
+      "arrival_elapsed": 17.718829457997344,
+      "local_age": 0.02949724999780301,
+      "generation": 1.0,
+      "source_elapsed": 17.311999999999898
+    },
+    {
+      "sequence": 19.0,
+      "probe_elapsed": 18.74486533299205,
+      "arrival_elapsed": 18.721649208004237,
+      "local_age": 0.02321670799574349,
+      "generation": 1.0,
+      "source_elapsed": 18.311999999999898
+    },
+    {
+      "sequence": 20.0,
+      "probe_elapsed": 19.77525966599933,
+      "arrival_elapsed": 19.75489108299371,
+      "local_age": 0.020369292004033923,
+      "generation": 1.0,
+      "source_elapsed": 19.35099999999875
+    }
+  ],
+  "reader_alive": false,
+  "exitcode": 0,
+  "end_to_end_freshness_verified": false,
+  "notifications": 0,
+  "inference_executed": false,
+  "visual_quality_verified": false,
+  "corrupt_flag_available": true,
+  "source_pts_available": true,
+  "trace_rows": 510,
+  "trace_overwritten_rows": 0,
+  "trace_limit_reached": false,
+  "publish_timing": {
+    "count": 20,
+    "observed_mailbox_fps": 0.9983785002321396,
+    "wall_span_seconds": 19.350259874991025,
+    "first_frame_seconds": 0.4046312080026837,
+    "interval_p50_seconds": 1.0141617089975625,
+    "interval_p95_seconds": 1.0383251784936873,
+    "interval_max_seconds": 1.0435565410007257,
+    "local_age_p95_seconds": 0.05018015565146925,
+    "local_age_max_seconds": 0.055549834010889754,
+    "inference_executed": false
+  }
+}

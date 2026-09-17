@@ -1,0 +1,347 @@
+{
+  "created_at": "2026-09-17T02:16:53+0800",
+  "scope": "Selected candidate-review sanity check; not end-to-end accuracy or recall.",
+  "label_warning": "Only S07 has historical user confirmation; other labels are provisional assistant visual judgments. S01/S02 share one vehicle.",
+  "prompt": "你审核固定监控中的一个地面零散垃圾候选。输入图1是目标细节，图2是周围环境。\n两图的红色矩形指向同一个待判断目标。只判断框内目标，不判断旁边其他物品。红框仅为定位标记。\n判断是否是遗落在地面、需要清理的纸片、包装、塑料袋、瓶罐等零散垃圾。\n车辆及零件、车罩、车篮、车上物品、正在穿戴或使用的物品、商品、工具、伞棚、固定设施、井盖、地面污渍和反光不是地面零散垃圾。\n靠墙或靠车辆的真实垃圾仍可能是垃圾，不要仅凭位置排除。不要把有塑料/纸材质等同于垃圾。\n不能因目标被提供为候选就假定它是垃圾。细节太少、遮挡或无法确认物体与地面的关系时返回uncertain，不要编造。\n只输出JSON，字段为decision(litter/non_litter/uncertain)、object_description(简短)、ground_relation(on_ground/attached/not_ground/unclear)、reason(不超过60个汉字)。",
+  "prompt_sha256": "12711dfbc08a31131a1732ae9c0a1c8e95ef2b6a6ff31a1188495f1ee1933ec0",
+  "cases": [
+    {
+      "id": "S01",
+      "source": "output/ground_litter_1021_fp_fix/now-clean.jpg",
+      "box": [
+        141,
+        767,
+        226,
+        903
+      ],
+      "expected": "non_litter",
+      "note": "车辆覆盖物",
+      "label_source": "historical_false_positive",
+      "historical_prediction": "Plastic 0.28",
+      "object_group": "vehicle_1",
+      "source_sha256": "0b318fbeaffa7f87435fa9eac07c9af99701aaaa53772bcdb177113e2ddaf6e0",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "images": [
+        "crops/S01-detail.jpg",
+        "crops/S01-context.jpg"
+      ],
+      "detail_sha256": "b296476049ac0c71e85d90f208b177c031631fcea2a8095c38a7a326235d1e68",
+      "context_sha256": "3e381827406d093a4878a001b133337d1de7fdd238eb59cc1a8a0d791498ba30"
+    },
+    {
+      "id": "S02",
+      "source": "output/ground_litter_1021_fp_fix/now-clean.jpg",
+      "box": [
+        142,
+        879,
+        233,
+        963
+      ],
+      "expected": "non_litter",
+      "note": "车辆座椅与篮筐",
+      "label_source": "historical_false_positive",
+      "historical_prediction": "Paper 0.07",
+      "object_group": "vehicle_1",
+      "source_sha256": "0b318fbeaffa7f87435fa9eac07c9af99701aaaa53772bcdb177113e2ddaf6e0",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "images": [
+        "crops/S02-detail.jpg",
+        "crops/S02-context.jpg"
+      ],
+      "detail_sha256": "ffb13ad6afda10442eb3c573d526f6a098eac8fef30f25db6c91ecb468ed73fe",
+      "context_sha256": "f2ab9ad35f9426560de213d20e2e083c7f38b8fcfbe2c0592e7098ae51549422"
+    },
+    {
+      "id": "S03",
+      "source": "output/ground_litter_1021_fp_fix/now-clean.jpg",
+      "box": [
+        313,
+        579,
+        351,
+        611
+      ],
+      "expected": "non_litter",
+      "note": "行人穿着的鞋",
+      "label_source": "historical_false_positive",
+      "historical_prediction": "Plastic 0.54",
+      "object_group": "person_1",
+      "source_sha256": "0b318fbeaffa7f87435fa9eac07c9af99701aaaa53772bcdb177113e2ddaf6e0",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "images": [
+        "crops/S03-detail.jpg",
+        "crops/S03-context.jpg"
+      ],
+      "detail_sha256": "d599ed36a966c218254e252cf1065d3707361c49ecd456d0e730c1ac5129511c",
+      "context_sha256": "db613ce56e81e85f452e6889d3efd69a595b49edef031a60df2c54104952c7b6"
+    },
+    {
+      "id": "S04",
+      "source": "output/ground_litter_1021_fp_fix/now-clean.jpg",
+      "box": [
+        635,
+        421,
+        746,
+        558
+      ],
+      "expected": "non_litter",
+      "note": "遮阳伞边缘",
+      "label_source": "historical_false_positive",
+      "historical_prediction": "Paper 0.69",
+      "object_group": "awning_1",
+      "source_sha256": "0b318fbeaffa7f87435fa9eac07c9af99701aaaa53772bcdb177113e2ddaf6e0",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "images": [
+        "crops/S04-detail.jpg",
+        "crops/S04-context.jpg"
+      ],
+      "detail_sha256": "a44a1260e6ae75a68f9404e452eff65ddd8c4a459af66a8c72360776d795adfc",
+      "context_sha256": "67db2566827c6918fc8586f7f7343ab6e768f94bf0bdbca036f2fadac517474f"
+    },
+    {
+      "id": "S05",
+      "source": "output/ground_litter_1021_fp_fix/now-clean.jpg",
+      "box": [
+        1625,
+        923,
+        1753,
+        982
+      ],
+      "expected": "non_litter",
+      "note": "井盖",
+      "label_source": "negative_control",
+      "historical_prediction": null,
+      "object_group": "manhole_1",
+      "source_sha256": "0b318fbeaffa7f87435fa9eac07c9af99701aaaa53772bcdb177113e2ddaf6e0",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "images": [
+        "crops/S05-detail.jpg",
+        "crops/S05-context.jpg"
+      ],
+      "detail_sha256": "08e7ecbe5492e5cb327270be5acd89e60a86f4ffc33590d5f1900ebbb7686f8b",
+      "context_sha256": "de52c11d60b7604f82a22d5de31c02f17c68f55edcbb341d541fcc3e4fe3490f"
+    },
+    {
+      "id": "S06",
+      "source": "output/ground_litter_1021_fp_fix/now-clean.jpg",
+      "box": [
+        452,
+        866,
+        584,
+        964
+      ],
+      "expected": "non_litter",
+      "note": "地面水渍与纹理",
+      "label_source": "negative_control",
+      "historical_prediction": null,
+      "object_group": "stain_1",
+      "source_sha256": "0b318fbeaffa7f87435fa9eac07c9af99701aaaa53772bcdb177113e2ddaf6e0",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "images": [
+        "crops/S06-detail.jpg",
+        "crops/S06-context.jpg"
+      ],
+      "detail_sha256": "610b38a53f1b235827812aeff4cf7c261f281148a54d56c77d9adc9e026085af",
+      "context_sha256": "28857e2e8378412f6782c91eed52dba093520255da0696da1802fcee2096c403"
+    },
+    {
+      "id": "S07",
+      "source": "output/litter_source_20260914/local_10m_network/snapshots/frame-003.jpg",
+      "box": [
+        803,
+        565,
+        818,
+        573
+      ],
+      "expected": "litter",
+      "note": "历史用户确认的8像素小垃圾",
+      "label_source": "historical_user_confirmed",
+      "historical_prediction": "Metal 0.222 (live003)",
+      "object_group": "small_litter_1",
+      "source_sha256": "a4c48d611bc0729e74a22738a9422f84adfcb24003b6025cac31342a60f7a146",
+      "source_size": [
+        2560,
+        1440
+      ],
+      "images": [
+        "crops/S07-detail.jpg",
+        "crops/S07-context.jpg"
+      ],
+      "detail_sha256": "ea19e75654d0f49d78bc7bd61985eb9ba0a5bd3b32ff96fd116d261421e96d9e",
+      "context_sha256": "c86f3030abd2e809edd0086bc7ae1b95dbb10b32dcb68346851be525ff66bfc1"
+    },
+    {
+      "id": "S08",
+      "source": "output/litter_source_20260914/local_10m_network/snapshots/frame-003.jpg",
+      "box": [
+        835,
+        595,
+        925,
+        672
+      ],
+      "expected": "litter",
+      "note": "路沿白色废弃袋状物",
+      "label_source": "assistant_visual_provisional",
+      "historical_prediction": null,
+      "object_group": "bag_1",
+      "source_sha256": "a4c48d611bc0729e74a22738a9422f84adfcb24003b6025cac31342a60f7a146",
+      "source_size": [
+        2560,
+        1440
+      ],
+      "images": [
+        "crops/S08-detail.jpg",
+        "crops/S08-context.jpg"
+      ],
+      "detail_sha256": "a1d835e8f2290240d8e72a9a85819ed91b9125b6a03f491439edb045d887afd9",
+      "context_sha256": "bcf3970a762afc5653d3b6ff43416ac650529f98e141204ca9cb2638b1e6d415"
+    },
+    {
+      "id": "S09",
+      "source": "output/litter_source_20260914/local_10m_network/snapshots/frame-003.jpg",
+      "box": [
+        827,
+        1393,
+        854,
+        1415
+      ],
+      "expected": "litter",
+      "note": "近端人行道小纸片",
+      "label_source": "assistant_visual_provisional",
+      "historical_prediction": null,
+      "object_group": "paper_1",
+      "source_sha256": "a4c48d611bc0729e74a22738a9422f84adfcb24003b6025cac31342a60f7a146",
+      "source_size": [
+        2560,
+        1440
+      ],
+      "images": [
+        "crops/S09-detail.jpg",
+        "crops/S09-context.jpg"
+      ],
+      "detail_sha256": "a64b9e02c23c0cd67e42dd2e465630b87625e9dbd133b6a87091ab68973b9100",
+      "context_sha256": "007dc698f621e294fde8482fbbdac37efb1679b72b1d7b0f1261fdd3701b58f5"
+    },
+    {
+      "id": "S10",
+      "source": "output/litter_source_20260914/local_10m_network/snapshots/frame-003.jpg",
+      "box": [
+        1032,
+        911,
+        1063,
+        936
+      ],
+      "expected": "litter",
+      "note": "路边方形包装物",
+      "label_source": "assistant_visual_provisional",
+      "historical_prediction": null,
+      "object_group": "package_1",
+      "source_sha256": "a4c48d611bc0729e74a22738a9422f84adfcb24003b6025cac31342a60f7a146",
+      "source_size": [
+        2560,
+        1440
+      ],
+      "images": [
+        "crops/S10-detail.jpg",
+        "crops/S10-context.jpg"
+      ],
+      "detail_sha256": "f8ee7230056ac81e945721478fdbfa47c41eea39ca03dd34f0f38f398ecb1c13",
+      "context_sha256": "15876a7a4028c42bbac9704d6f4bc0a3833aebea19e048629c73413d5052747a"
+    },
+    {
+      "id": "S11",
+      "source": "output/ground_litter_1021_pilot/raw-1021-clean.jpg",
+      "box": [
+        614,
+        1043,
+        640,
+        1068
+      ],
+      "expected": "litter",
+      "note": "白天近端地面白色碎片",
+      "label_source": "assistant_visual_provisional",
+      "historical_prediction": null,
+      "object_group": "paper_2",
+      "source_sha256": "f9a56fe71fc17ffbbc5c1398ed3c4c438358c8f6ccc00a085940205d1f6c2c02",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "images": [
+        "crops/S11-detail.jpg",
+        "crops/S11-context.jpg"
+      ],
+      "detail_sha256": "5b6c1efb0475a196143b9432cc5697aa42ea9489a1784024110a1193c6f8232c",
+      "context_sha256": "67ae27ddc81de2a8ceaa2f7b2cb9482bba4bebfda79e38cb429a2d838b9f9356"
+    },
+    {
+      "id": "S12",
+      "source": "output/litter_source_20260914/local_10m_network/snapshots/frame-003.jpg",
+      "box": [
+        558,
+        621,
+        602,
+        655
+      ],
+      "expected": "uncertain",
+      "note": "店门旁红色物体",
+      "label_source": "ambiguous_control",
+      "historical_prediction": null,
+      "object_group": "unknown_1",
+      "source_sha256": "a4c48d611bc0729e74a22738a9422f84adfcb24003b6025cac31342a60f7a146",
+      "source_size": [
+        2560,
+        1440
+      ],
+      "images": [
+        "crops/S12-detail.jpg",
+        "crops/S12-context.jpg"
+      ],
+      "detail_sha256": "df994a19319b2a01aa53a1a03bc69677ec6962558478510d8c376ad00f7a68ec",
+      "context_sha256": "4f1a6975f56873846b6c3d6b9e33a18a491c336d69eb83b747a322150105e385"
+    },
+    {
+      "id": "S13",
+      "source": "output/ground_litter_1021_fp_fix/now-clean.jpg",
+      "box": [
+        392,
+        643,
+        435,
+        657
+      ],
+      "expected": "uncertain",
+      "note": "阴影边缘细长物体",
+      "label_source": "ambiguous_control",
+      "historical_prediction": "Plastic 0.07",
+      "object_group": "unknown_2",
+      "source_sha256": "0b318fbeaffa7f87435fa9eac07c9af99701aaaa53772bcdb177113e2ddaf6e0",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "images": [
+        "crops/S13-detail.jpg",
+        "crops/S13-context.jpg"
+      ],
+      "detail_sha256": "c29cfd31ba4a9ce679a53c9a2a865375e5af19094d38881b08a1eb72dd01f488",
+      "context_sha256": "5ff08ccd436d2808cd37229104266d02e9ed4cd46a869927df412e8a08f88267"
+    }
+  ]
+}

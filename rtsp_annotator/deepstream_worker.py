@@ -45,6 +45,16 @@ from .gas_cylinder_process import (
     GasCylinderProcessClient,
     GasCylinderProcessConfig,
 )
+from .ground_litter_detection import (
+    GroundLitterDetectionOptions,
+    GroundLitterResultCache,
+    GroundLitterSnapshot,
+    snapshot_is_fresh,
+)
+from .ground_litter_process import (
+    GroundLitterProcessClient,
+    GroundLitterProcessConfig,
+)
 from .labels import chinese_label
 from .license_plate import (
     LICENSE_PLATE_DETECTOR_UID,
@@ -60,9 +70,11 @@ from .ptz_verification import (
 )
 from .vessel_detection import (
     SMALL_TARGET_PROPOSAL_CLASS_ID,
+    VesselDetection,
     VesselDetectionOptions,
     VesselResultCache,
     VesselSnapshot,
+    rectangle_intersection_over_smaller,
 )
 from .vessel_detection_process import (
     VesselDetectionProcessClient,
@@ -73,6 +85,67 @@ from .vessel_detection_process import (
 LOGGER = logging.getLogger("rtsp_annotator.deepstream")
 GARBAGE_DETECTOR_UID = 4
 GST_BUFFER_FLAG_DISCONT = 1 << 6
+
+
+class PtzControlCommandMonitor:
+    """Deliver atomic API control files to in-process PTZ coordinators."""
+
+    def __init__(
+        self,
+        control_dir: Path,
+        coordinators: dict[str, PtzVerificationCoordinator],
+    ) -> None:
+        self._control_dir = control_dir
+        self._coordinators = coordinators
+        self._stop_event = threading.Event()
+        self._thread: threading.Thread | None = None
+
+    def start(self) -> None:
+        self._control_dir.mkdir(parents=True, exist_ok=True)
+        self._thread = threading.Thread(
+            target=self._run,
+            name="ptz-control-command-monitor",
+            daemon=True,
+        )
+        self._thread.start()
+
+    def shutdown(self) -> None:
+        self._stop_event.set()
+        if self._thread is not None:
+            self._thread.join(timeout=1.0)
+
+    def _run(self) -> None:
+        while not self._stop_event.is_set():
+            for path in sorted(self._control_dir.glob("ptz-home-*.json")):
+                self._consume(path)
+            self._stop_event.wait(0.1)
+
+    def _consume(self, path: Path) -> None:
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+            stream_id = str(payload.get("stream_id", ""))
+            request_id = str(payload.get("request_id", ""))
+            action = str(payload.get("action", ""))
+            coordinator = self._coordinators.get(stream_id)
+            if (
+                coordinator is None
+                or action != "return_home"
+                or not request_id
+            ):
+                LOGGER.warning("忽略无效PTZ控制命令: path=%s", path)
+                return
+            coordinator.request_return_home(request_id)
+            LOGGER.warning(
+                "已接收紧急回HOME命令: stream=%s request=%s",
+                stream_id,
+                request_id,
+            )
+        except Exception:
+            LOGGER.exception("处理PTZ控制命令失败: path=%s", path)
+        finally:
+            path.unlink(missing_ok=True)
+
+
 GST_BUFFER_FLAG_CORRUPTED = 1 << 8
 
 
@@ -391,11 +464,13 @@ class StreamPolicy:
     conf: float
     roi: list[list[float]] | None
     labels: dict[int, str]
+    display_detections: bool = True
     license_plate_enabled: bool = False
     minimum_plate_confirmations: int = 2
     event_detection: EventDetectionOptions = EventDetectionOptions()
     gas_cylinder: GasCylinderOptions = GasCylinderOptions()
     vessel_detection: VesselDetectionOptions = VesselDetectionOptions()
+    ground_litter: GroundLitterDetectionOptions = GroundLitterDetectionOptions()
     fishing_risk: FishingRiskOptions = FishingRiskOptions()
     ptz_verification: PtzVerificationOptions = PtzVerificationOptions()
 
@@ -522,6 +597,8 @@ class MetricsState:
         gas_cylinder_cache: GasCylinderResultCache | None = None,
         vessel_detection_enabled: dict[str, bool] | None = None,
         vessel_detection_cache: VesselResultCache | None = None,
+        ground_litter_enabled: dict[str, bool] | None = None,
+        ground_litter_cache: GroundLitterResultCache | None = None,
         fishing_risk_enabled: dict[str, bool] | None = None,
         fishing_risk_cache: FishingRiskResultCache | None = None,
         ptz_verification_coordinators: dict[
@@ -540,6 +617,8 @@ class MetricsState:
         self._gas_cylinder_cache = gas_cylinder_cache
         self._vessel_detection_enabled = vessel_detection_enabled or {}
         self._vessel_detection_cache = vessel_detection_cache
+        self._ground_litter_enabled = ground_litter_enabled or {}
+        self._ground_litter_cache = ground_litter_cache
         self._fishing_risk_enabled = fishing_risk_enabled or {}
         self._fishing_risk_cache = fishing_risk_cache
         self._ptz_verification_coordinators = (
@@ -583,6 +662,9 @@ class MetricsState:
         }
         self._garbage_analysis_ms: dict[str, list[float]] = {
             stream_id: [] for stream_id in stream_ids
+        }
+        self._ground_litter: dict[str, dict[str, Any]] = {
+            stream_id: {} for stream_id in stream_ids
         }
 
     def observe_frame(
@@ -635,6 +717,32 @@ class MetricsState:
         with self._lock:
             self._plate_detections[stream_id] += detections
             self._plate_reads[stream_id] += reads
+
+    def observe_ground_litter(
+        self,
+        stream_id: str,
+        *,
+        state: str,
+        count: int,
+        result_version: int,
+        updated_at: float | None,
+        last_inference_ms: float,
+        analyzed_frames: int,
+        tile_count: int,
+        message: str = "",
+    ) -> None:
+        """Keep the newest side-process snapshot for `/v1/streams/{id}`."""
+        with self._lock:
+            self._ground_litter[stream_id] = {
+                "state": str(state),
+                "count": int(count),
+                "result_version": int(result_version),
+                "updated_at": updated_at,
+                "last_inference_ms": float(last_inference_ms),
+                "analyzed_frames": int(analyzed_frames),
+                "tile_count": int(tile_count),
+                "message": str(message),
+            }
 
     def observe_publish(self, stream_id: str) -> None:
         with self._lock:
@@ -713,6 +821,7 @@ class MetricsState:
                 if self._vessel_detection_cache is not None
                 else VesselSnapshot()
             )
+            litter_entry = self._ground_litter.get(stream_id, {})
             fishing_snapshot = (
                 self._fishing_risk_cache.snapshot(
                     self._stream_pad_index[stream_id]
@@ -805,6 +914,33 @@ class MetricsState:
                 "vessel_detection_last_inference_ms": (
                     vessel_snapshot.last_inference_ms
                 ),
+                "ground_litter_enabled": bool(
+                    self._ground_litter_enabled.get(stream_id, False)
+                ),
+                "ground_litter_state": litter_entry.get(
+                    "state",
+                    "starting"
+                    if self._ground_litter_enabled.get(stream_id, False)
+                    else "disabled",
+                ),
+                "ground_litter_count": int(
+                    litter_entry.get("count", 0)
+                ),
+                "ground_litter_message": str(
+                    litter_entry.get("message", "")
+                ),
+                "ground_litter_result_version": int(
+                    litter_entry.get("result_version", 0)
+                ),
+                "ground_litter_analyzed_frames": int(
+                    litter_entry.get("analyzed_frames", 0)
+                ),
+                "ground_litter_tile_count": int(
+                    litter_entry.get("tile_count", 0)
+                ),
+                "ground_litter_last_inference_ms": float(
+                    litter_entry.get("last_inference_ms", 0.0)
+                ),
                 "fishing_risk_enabled": bool(
                     self._fishing_risk_enabled.get(stream_id, False)
                 ),
@@ -830,6 +966,27 @@ class MetricsState:
                     self._ptz_verification_coordinators[stream_id].last_error
                     if stream_id in self._ptz_verification_coordinators
                     else self._ptz_verification_errors.get(stream_id)
+                ),
+                **(
+                    self._ptz_verification_coordinators[
+                        stream_id
+                    ].tracking_metrics
+                    if stream_id in self._ptz_verification_coordinators
+                    else {
+                        "tracking_duration_seconds": 0.0,
+                        "tracking_corrections": 0,
+                        "tracking_target_width_ratio": 0.0,
+                        "tracking_target_height_ratio": 0.0,
+                        "tracking_last_end_reason": None,
+                        "ptz_last_return_home_request_id": None,
+                        "ptz_manual_hold": False,
+                        "ptz_primary_candidate_count": 0,
+                        "ptz_sidecar_candidate_count": 0,
+                        "ptz_trigger_status": "disabled",
+                        "ptz_trigger_observations": 0,
+                        "ptz_trigger_required_observations": 0,
+                        "ptz_trigger_cooldown_remaining_seconds": 0.0,
+                    }
                 ),
                 "pipeline_healthy": (
                     effective_fps >= self._minimum_healthy_fps
@@ -910,6 +1067,7 @@ class OverlayProcessor:
         garbage_overlay_cache: GarbageOverlayCache | None = None,
         gas_cylinder_cache: GasCylinderResultCache | None = None,
         vessel_detection_cache: VesselResultCache | None = None,
+        ground_litter_cache: GroundLitterResultCache | None = None,
         fishing_risk_cache: FishingRiskResultCache | None = None,
         ptz_verification_coordinators: dict[
             int, PtzVerificationCoordinator
@@ -924,6 +1082,7 @@ class OverlayProcessor:
         self._garbage_overlay_cache = garbage_overlay_cache
         self._gas_cylinder_cache = gas_cylinder_cache
         self._vessel_detection_cache = vessel_detection_cache
+        self._ground_litter_cache = ground_litter_cache
         self._fishing_risk_cache = fishing_risk_cache
         self._ptz_verification_coordinators = (
             ptz_verification_coordinators or {}
@@ -945,6 +1104,20 @@ class OverlayProcessor:
             if policy is None:
                 continue
             coordinator = self._ptz_verification_coordinators.get(pad_index)
+            ptz_overlay = None
+            overlay_state = getattr(coordinator, "overlay_state", None)
+            if callable(overlay_state):
+                ptz_overlay = overlay_state()
+            active_target_rectangle = (
+                ptz_overlay.target_rectangle
+                if ptz_overlay is not None
+                else None
+            )
+            active_vessel_number = (
+                getattr(ptz_overlay, "vessel_number", None)
+                if ptz_overlay is not None
+                else None
+            )
             ptz_busy = bool(
                 coordinator is not None and coordinator.is_busy
             )
@@ -959,7 +1132,10 @@ class OverlayProcessor:
             tracked_objects: list[TrackedObject] = []
             primary_rectangles: dict[int, NormalizedRect] = {}
             visible_vessel_rectangles: list[NormalizedRect] = []
+            primary_vessel_detections: list[VesselDetection] = []
+            tracking_target_assigned = False
             for object_meta in frame_meta.object_items:
+                vessel_rectangle: NormalizedRect | None = None
                 component_id = int(
                     getattr(
                         object_meta,
@@ -1017,15 +1193,90 @@ class OverlayProcessor:
                     policy.vessel_detection.class_ids
                 ):
                     rectangle = object_meta.rect_params
-                    visible_vessel_rectangles.append(
-                        NormalizedRect(
-                            float(rectangle.left) / width,
-                            float(rectangle.top) / height,
-                            float(rectangle.width) / width,
-                            float(rectangle.height) / height,
-                        )
+                    vessel_rectangle = NormalizedRect(
+                        float(rectangle.left) / width,
+                        float(rectangle.top) / height,
+                        float(rectangle.width) / width,
+                        float(rectangle.height) / height,
                     )
-                self._style_object(object_meta, policy, osd)
+                    visible_vessel_rectangles.append(vessel_rectangle)
+                    if coordinator is not None:
+                        tracker_confidence = getattr(object_meta, "tracker_confidence", None)
+                        reliable_tracker_update = (
+                            isinstance(tracker_confidence, (int, float))
+                            and .5 <= tracker_confidence <= 1
+                        )
+                        # Keep IDs distinct from sidecar tracks and the -1
+                        # proposal class while retaining primary tracker
+                        # stability across frames.
+                        primary_object_id = -(
+                            max(track_id, int(frame_meta.frame_number)) + 2
+                            if track_id < 0
+                            else track_id + 2
+                        )
+                        primary_vessel_detections.append(
+                            VesselDetection(
+                                object_id=primary_object_id,
+                                rectangle=vessel_rectangle,
+                                confidence=max(
+                                    float(object_meta.confidence),
+                                    0.0,
+                                ),
+                                class_id=int(object_meta.class_id),
+                                hits=1,
+                                source="primary",
+                                frame_id=int(frame_meta.frame_number),
+                                position_updated_at=time.monotonic(),
+                                observation_kind=(
+                                    "image_tracker_update"
+                                    if reliable_tracker_update
+                                    else "legacy_unknown"
+                                ),
+                            )
+                        )
+                tracking_target = bool(
+                    not tracking_target_assigned
+                    and vessel_rectangle is not None
+                    and active_target_rectangle is not None
+                    and max(
+                        _rectangle_iou(
+                            vessel_rectangle,
+                            active_target_rectangle,
+                        ),
+                        rectangle_intersection_over_smaller(
+                            vessel_rectangle,
+                            active_target_rectangle,
+                        ),
+                    )
+                    >= 0.30
+                )
+                if policy.display_detections:
+                    self._style_object(
+                        object_meta,
+                        policy,
+                        osd,
+                        tracking_target=tracking_target,
+                        vessel_number=(
+                            active_vessel_number if tracking_target else None
+                        ),
+                    )
+                else:
+                    # Display-only switch: metadata, tracking, metrics and the
+                    # ground-litter actor filter all stay intact, only the
+                    # ordinary detection box is not drawn.
+                    self._hide_object(object_meta)
+                tracking_target_assigned = (
+                    tracking_target_assigned or tracking_target
+                )
+            if coordinator is not None:
+                coordinator.publish_primary_detections(
+                    tuple(primary_vessel_detections),
+                    updated_at=time.monotonic(),
+                    view_generation=(
+                        getattr(coordinator, "view_generation", 0)
+                        if coordinator is not None else 0
+                    ),
+                )
             event_engine = self._event_engines.get(int(frame_meta.pad_index))
             if event_engine is not None:
                 timestamp = time.monotonic()
@@ -1110,6 +1361,24 @@ class OverlayProcessor:
                     height=height,
                 )
             if (
+                policy.ground_litter.enabled
+                and self._ground_litter_cache is not None
+            ):
+                self._draw_ground_litter(
+                    batch_meta,
+                    frame_meta,
+                    self._ground_litter_cache.snapshot(
+                        int(frame_meta.pad_index)
+                    ),
+                    policy.ground_litter,
+                    osd,
+                    width=width,
+                    height=height,
+                    now=time.monotonic(),
+                    metrics=self._metrics,
+                    stream_id=policy.stream_id,
+                )
+            if (
                 policy.gas_cylinder.enabled
                 and self._gas_cylinder_cache is not None
             ):
@@ -1165,6 +1434,21 @@ class OverlayProcessor:
                     fishing_options=policy.fishing_risk,
                     fishing_snapshot=fishing_snapshot,
                     monitoring_view=not ptz_busy,
+                    active_target_rectangle=active_target_rectangle,
+                    active_vessel_number=active_vessel_number,
+                )
+            if (
+                ptz_overlay is not None
+                and policy.ptz_verification.display_operation_log
+            ):
+                self._draw_ptz_operation_log(
+                    batch_meta,
+                    frame_meta,
+                    ptz_overlay.state,
+                    ptz_overlay.operation_lines,
+                    active=active_target_rectangle is not None,
+                    osd=osd,
+                    width=width,
                 )
             latency_ms = (
                 self._latency_tracker.finish(
@@ -1280,13 +1564,24 @@ class OverlayProcessor:
         object_meta: Any,
         policy: StreamPolicy,
         osd: Any,
+        *,
+        tracking_target: bool = False,
+        vessel_number: str | None = None,
     ) -> None:
         class_id = int(object_meta.class_id)
         label = policy.labels.get(class_id, f"类别{class_id}")
         rectangle = object_meta.rect_params
-        rectangle.border_width = 3
-        rectangle.border_color = osd.Color(0.0, 1.0, 0.0, 1.0)
+        rectangle.border_width = 5 if tracking_target else 3
+        rectangle.border_color = (
+            osd.Color(1.0, 0.08, 0.08, 1.0)
+            if tracking_target
+            else osd.Color(0.0, 1.0, 0.0, 1.0)
+        )
         text = object_meta.text_params
+        if tracking_target:
+            label = f"追踪中｜{label}"
+            if vessel_number:
+                label += f"｜船号 {vessel_number}"
         text.display_text = label.encode("utf-8")
         text.x_offset = max(int(rectangle.left), 0)
         text.y_offset = max(int(rectangle.top) - 24, 0)
@@ -1297,7 +1592,59 @@ class OverlayProcessor:
         text.font_params.size = 18
         text.font_params.color = osd.Color(1.0, 1.0, 1.0, 1.0)
         text.set_bg_clr = True
-        text.text_bg_clr = osd.Color(0.0, 0.45, 0.0, 0.9)
+        text.text_bg_clr = (
+            osd.Color(0.65, 0.0, 0.0, 0.92)
+            if tracking_target
+            else osd.Color(0.0, 0.45, 0.0, 0.9)
+        )
+
+    @staticmethod
+    def _draw_ptz_operation_log(
+        batch_meta: Any,
+        frame_meta: Any,
+        state: str,
+        operation_lines: tuple[str, ...],
+        *,
+        active: bool,
+        osd: Any,
+        width: float,
+    ) -> None:
+        if not operation_lines and not active:
+            return
+        state_labels = {
+            "verifying": "目标复核",
+            "tracking": "持续追踪",
+            "reacquiring": "重新捕获",
+            "returning_home": "返回HOME",
+            "manual_hold": "已锁停",
+            "recovery_required": "等待恢复",
+            "degraded": "控制异常",
+            "running": "等待目标",
+            "stopped": "已停止",
+        }
+        display_meta = batch_meta.acquire_display_meta()
+        panel_x = max(int(width) - 430, 12)
+        color = (
+            osd.Color(0.72, 0.0, 0.0, 0.90)
+            if active
+            else osd.Color(0.08, 0.08, 0.08, 0.82)
+        )
+        lines = (
+            f"PTZ｜{state_labels.get(state, state)}",
+            *operation_lines[-4:],
+        )
+        for index, value in enumerate(lines):
+            text = osd.Text()
+            text.display_text = value.encode("utf-8")
+            text.x_offset = panel_x
+            text.y_offset = 12 + index * 23
+            text.font.name = osd.FontFamily.Serif
+            text.font.size = 17 if index == 0 else 14
+            text.font.color = osd.Color(1.0, 1.0, 1.0, 1.0)
+            text.set_bg_color = True
+            text.bg_color = color
+            display_meta.add_text(text)
+        frame_meta.append(display_meta)
 
     @staticmethod
     def _style_plate(
@@ -1424,6 +1771,189 @@ class OverlayProcessor:
         frame_meta.append(display_meta)
 
     @staticmethod
+    def _draw_ground_litter(
+        batch_meta: Any,
+        frame_meta: Any,
+        snapshot: GroundLitterSnapshot,
+        options: GroundLitterDetectionOptions,
+        osd: Any,
+        *,
+        width: float,
+        height: float,
+        now: float,
+        metrics: Any = None,
+        stream_id: str = "",
+    ) -> None:
+        """Draw reviewed ground regions plus cached litter candidates."""
+        pixel_width = max(int(width), 1)
+        pixel_height = max(int(height), 1)
+        if options.display_zones:
+            for zone in options.zones:
+                OverlayProcessor._draw_roi(
+                    batch_meta,
+                    frame_meta,
+                    [list(point) for point in zone.polygon],
+                    osd,
+                    width=width,
+                    height=height,
+                )
+                for exclusion in zone.exclude_zones:
+                    OverlayProcessor._draw_exclusion(
+                        batch_meta,
+                        frame_meta,
+                        [list(point) for point in exclusion],
+                        osd,
+                        width=width,
+                        height=height,
+                    )
+            for exclusion in options.overlay_exclude_zones:
+                OverlayProcessor._draw_exclusion(
+                    batch_meta,
+                    frame_meta,
+                    [list(point) for point in exclusion],
+                    osd,
+                    width=width,
+                    height=height,
+                )
+        fresh = snapshot_is_fresh(snapshot, options, now=now)
+        detections = list(snapshot.detections) if fresh else []
+        if metrics is not None and stream_id:
+            metrics.observe_ground_litter(
+                stream_id,
+                state=snapshot.state,
+                count=len(detections),
+                result_version=snapshot.result_version,
+                updated_at=snapshot.updated_at,
+                last_inference_ms=snapshot.last_inference_ms,
+                analyzed_frames=snapshot.analyzed_frames,
+                tile_count=snapshot.tile_count,
+                message=snapshot.message,
+            )
+        if snapshot.state == "error":
+            color = osd.Color(1.0, 0.15, 0.1, 1.0)
+            title = f"{options.label}识别异常"
+        elif snapshot.state in {"starting", "disabled"}:
+            color = osd.Color(1.0, 0.65, 0.0, 1.0)
+            title = f"{options.label}识别启动中"
+        elif detections:
+            color = osd.Color(1.0, 0.35, 0.0, 1.0)
+            title = f"{options.label}：{len(detections)}"
+        else:
+            color = osd.Color(0.0, 0.85, 0.2, 1.0)
+            title = f"{options.label}：未发现"
+        chunks = [
+            detections[index : index + 4]
+            for index in range(0, len(detections), 4)
+        ] or [[]]
+        for chunk_index, chunk in enumerate(chunks):
+            display_meta = batch_meta.acquire_display_meta()
+            if chunk_index == 0:
+                header = osd.Text()
+                header.display_text = title.encode("utf-8")
+                header.x_offset = 12
+                header.y_offset = 12
+                header.font.name = osd.FontFamily.Serif
+                header.font.size = 22
+                header.font.color = osd.Color(1.0, 1.0, 1.0, 1.0)
+                header.set_bg_color = True
+                header.bg_color = color
+                display_meta.add_text(header)
+            for detection in chunk:
+                rectangle = detection.rectangle
+                left = min(
+                    max(int(rectangle.left * pixel_width), 0),
+                    pixel_width - 1,
+                )
+                top = min(
+                    max(int(rectangle.top * pixel_height), 0),
+                    pixel_height - 1,
+                )
+                right = min(
+                    max(
+                        int(
+                            (rectangle.left + rectangle.width)
+                            * pixel_width
+                        ),
+                        0,
+                    ),
+                    pixel_width - 1,
+                )
+                bottom = min(
+                    max(
+                        int(
+                            (rectangle.top + rectangle.height)
+                            * pixel_height
+                        ),
+                        0,
+                    ),
+                    pixel_height - 1,
+                )
+                for x1, y1, x2, y2 in (
+                    (left, top, right, top),
+                    (right, top, right, bottom),
+                    (right, bottom, left, bottom),
+                    (left, bottom, left, top),
+                ):
+                    line = osd.Line()
+                    line.x1 = x1
+                    line.y1 = y1
+                    line.x2 = x2
+                    line.y2 = y2
+                    line.width = 3
+                    line.color = color
+                    display_meta.add_line(line)
+                if not (
+                    options.display_class or options.display_confidence
+                ):
+                    continue
+                label = options.label
+                if options.display_class and detection.class_name:
+                    label += f" {detection.class_name}"
+                if options.display_confidence:
+                    label += f" {detection.confidence:.2f}"
+                text = osd.Text()
+                text.display_text = label.encode("utf-8")
+                text.x_offset = left
+                text.y_offset = max(top - 24, 0)
+                text.font.name = osd.FontFamily.Serif
+                text.font.size = 18
+                text.font.color = osd.Color(1.0, 1.0, 1.0, 1.0)
+                text.set_bg_color = True
+                text.bg_color = color
+                display_meta.add_text(text)
+            frame_meta.append(display_meta)
+
+    @staticmethod
+    def _draw_exclusion(
+        batch_meta: Any,
+        frame_meta: Any,
+        polygon: list[list[float]],
+        osd: Any,
+        *,
+        width: float,
+        height: float,
+    ) -> None:
+        pixel_width = max(int(width), 1)
+        pixel_height = max(int(height), 1)
+        display_meta = batch_meta.acquire_display_meta()
+        for start, end in zip(polygon, polygon[1:] + polygon[:1]):
+            line = osd.Line()
+            line.x1 = min(max(int(start[0] * pixel_width), 0), pixel_width - 1)
+            line.y1 = min(
+                max(int(start[1] * pixel_height), 0),
+                pixel_height - 1,
+            )
+            line.x2 = min(max(int(end[0] * pixel_width), 0), pixel_width - 1)
+            line.y2 = min(
+                max(int(end[1] * pixel_height), 0),
+                pixel_height - 1,
+            )
+            line.width = 2
+            line.color = osd.Color(1.0, 0.15, 0.15, 1.0)
+            display_meta.add_line(line)
+        frame_meta.append(display_meta)
+
+    @staticmethod
     def _draw_gas_cylinders(
         batch_meta: Any,
         frame_meta: Any,
@@ -1529,6 +2059,8 @@ class OverlayProcessor:
         fishing_options: FishingRiskOptions | None = None,
         fishing_snapshot: FishingRiskSnapshot = FishingRiskSnapshot(),
         monitoring_view: bool = True,
+        active_target_rectangle: NormalizedRect | None = None,
+        active_vessel_number: str | None = None,
     ) -> None:
         """Draw temporally confirmed vessel boxes from the lossy sidecar."""
         if options.display_roi and monitoring_view:
@@ -1565,9 +2097,12 @@ class OverlayProcessor:
             detection
             for detection in all_detections
             if not any(
-                _rectangle_iou(
-                    detection.rectangle,
-                    existing,
+                max(
+                    _rectangle_iou(detection.rectangle, existing),
+                    rectangle_intersection_over_smaller(
+                        detection.rectangle,
+                        existing,
+                    ),
                 )
                 >= 0.5
                 for existing in existing_rectangles
@@ -1615,9 +2150,9 @@ class OverlayProcessor:
                 if options.display_proposals
                 else 0
             )
-            confirmed_count = sum(
+            confirmed_count = len(existing_rectangles) + sum(
                 item.class_id != SMALL_TARGET_PROPOSAL_CLASS_ID
-                for item in all_detections
+                for item in detections
             )
             title = f"船舶：{confirmed_count}"
             if proposal_count:
@@ -1633,6 +2168,26 @@ class OverlayProcessor:
         ] or [[]]
         pixel_width = max(int(width), 1)
         pixel_height = max(int(height), 1)
+        active_detection: VesselDetection | None = None
+        if active_target_rectangle is not None and detections:
+            candidate = max(
+                detections,
+                key=lambda item: max(
+                    _rectangle_iou(item.rectangle, active_target_rectangle),
+                    rectangle_intersection_over_smaller(
+                        item.rectangle,
+                        active_target_rectangle,
+                    ),
+                ),
+            )
+            if max(
+                _rectangle_iou(candidate.rectangle, active_target_rectangle),
+                rectangle_intersection_over_smaller(
+                    candidate.rectangle,
+                    active_target_rectangle,
+                ),
+            ) >= 0.30:
+                active_detection = candidate
         for chunk_index, chunk in enumerate(chunks):
             display_meta = batch_meta.acquire_display_meta()
             if chunk_index == 0:
@@ -1647,9 +2202,12 @@ class OverlayProcessor:
                 header.bg_color = color
                 display_meta.add_text(header)
             for detection in chunk:
+                tracking_target = detection is active_detection
                 risk = risk_by_object_id.get(detection.object_id)
                 detection_color = (
-                    osd.Color(1.0, 0.15, 0.05, 1.0)
+                    osd.Color(1.0, 0.08, 0.08, 1.0)
+                    if tracking_target
+                    else osd.Color(1.0, 0.15, 0.05, 1.0)
                     if risk is not None
                     and fishing_options is not None
                     and risk.risk_score >= fishing_options.alert_score
@@ -1699,11 +2257,15 @@ class OverlayProcessor:
                     line.y1 = y1
                     line.x2 = x2
                     line.y2 = y2
-                    line.width = 4
+                    line.width = 5 if tracking_target else 4
                     line.color = detection_color
                     display_meta.add_line(line)
                 label = osd.Text()
-                if risk is not None:
+                if tracking_target:
+                    label_value = "追踪中｜船"
+                    if active_vessel_number:
+                        label_value += f"｜船号 {active_vessel_number}"
+                elif risk is not None:
                     label_value = f"疑似捕捞线索 {risk.risk_score}分"
                 elif detection.class_id == SMALL_TARGET_PROPOSAL_CLASS_ID:
                     label_value = (
@@ -2357,7 +2919,7 @@ class VesselFrameProcessor:
                     coordinator is not None and coordinator.is_busy
                 )
                 view_generation = (
-                    coordinator.view_generation
+                    getattr(coordinator, "view_generation", 0)
                     if coordinator is not None
                     else 0
                 )
@@ -2453,6 +3015,102 @@ class VesselFrameProcessor:
                     "船舶旁路分析失败，主RTSP继续运行: pad=%d",
                     pad_index,
                 )
+
+
+class GroundLitterFrameProcessor:
+    """Feed sampled native-resolution frames to the litter side process.
+
+    Actor (person/vehicle) boxes come from the primary detector metadata that
+    is already tracked on the main chain, so occlusion filtering costs no extra
+    inference.  ``actor_model`` remains available for streams whose primary
+    model filters vehicles out of the metadata.
+    """
+
+    MAXIMUM_ACTOR_BOXES = 64
+
+    def __init__(
+        self,
+        client: GroundLitterProcessClient,
+        *,
+        night_by_pad: dict[int, bool] | None = None,
+        actor_classes_by_pad: dict[int, tuple[int, ...]] | None = None,
+    ) -> None:
+        self._client = client
+        self._night_by_pad = dict(night_by_pad or {})
+        self._actor_classes_by_pad = dict(actor_classes_by_pad or {})
+
+    def process(
+        self,
+        batch_meta: Any,
+        frames: list[Any],
+        *,
+        frame_width: int,
+        frame_height: int,
+    ) -> None:
+        timestamp = time.monotonic()
+        width = max(int(frame_width), 1)
+        height = max(int(frame_height), 1)
+        for frame_index, frame_meta in enumerate(batch_meta.frame_items):
+            if frame_index >= len(frames):
+                continue
+            pad_index = int(frame_meta.pad_index)
+            try:
+                if not self._client.accepts(pad_index, timestamp=timestamp):
+                    continue
+                actors = self._actor_boxes(
+                    frame_meta,
+                    pad_index=pad_index,
+                    width=width,
+                    height=height,
+                )
+                converted = _frame_to_small_numpy(frames[frame_index])
+                self._client.submit(
+                    pad_index,
+                    converted,
+                    timestamp=timestamp,
+                    night=self._night_by_pad.get(pad_index, False),
+                    actors=actors,
+                )
+            except Exception:
+                LOGGER.exception(
+                    "零散垃圾旁路分析失败，主RTSP继续运行: pad=%d",
+                    pad_index,
+                )
+
+    def _actor_boxes(
+        self,
+        frame_meta: Any,
+        *,
+        pad_index: int,
+        width: int,
+        height: int,
+    ) -> list[tuple[float, float, float, float]]:
+        wanted = self._actor_classes_by_pad.get(pad_index)
+        if not wanted:
+            return []
+        allowed = set(int(item) for item in wanted)
+        boxes: list[tuple[float, float, float, float]] = []
+        for object_meta in getattr(frame_meta, "object_items", ()) or ():
+            if int(getattr(object_meta, "class_id", -1)) not in allowed:
+                continue
+            rectangle = object_meta.rect_params
+            left = float(rectangle.left) / width
+            top = float(rectangle.top) / height
+            box_width = float(rectangle.width) / width
+            box_height = float(rectangle.height) / height
+            if box_width <= 0 or box_height <= 0:
+                continue
+            boxes.append(
+                (
+                    min(max(left, 0.0), 1.0),
+                    min(max(top, 0.0), 1.0),
+                    min(max(box_width, 0.0), 1.0),
+                    min(max(box_height, 0.0), 1.0),
+                )
+            )
+            if len(boxes) >= self.MAXIMUM_ACTOR_BOXES:
+                break
+        return boxes
 
 
 def _frame_to_small_numpy(value: Any) -> Any:
@@ -2638,6 +3296,9 @@ def _load_policies(config: dict[str, Any]) -> dict[int, StreamPolicy]:
             conf=float(stream["conf"]),
             roi=stream.get("roi"),
             labels=translated,
+            display_detections=bool(
+                stream.get("display_detections", True)
+            ),
             license_plate_enabled=bool(
                 stream.get("license_plate", {}).get("enabled", False)
             ),
@@ -2655,6 +3316,9 @@ def _load_policies(config: dict[str, Any]) -> dict[int, StreamPolicy]:
             ),
             vessel_detection=VesselDetectionOptions.from_payload(
                 stream.get("vessel_detection")
+            ),
+            ground_litter=GroundLitterDetectionOptions.from_payload(
+                stream.get("ground_litter")
             ),
             fishing_risk=FishingRiskOptions.from_payload(
                 stream.get("fishing_risk")
@@ -2685,6 +3349,8 @@ def _add_pipeline_nodes(
     gas_cylinder_skip_probe: Any | None = None,
     vessel_receiver: Any | None = None,
     vessel_skip_probe: Any | None = None,
+    ground_litter_receiver: Any | None = None,
+    ground_litter_skip_probe: Any | None = None,
 ) -> None:
     gpu_id = int(config["gpu_id"])
     pipeline.add(
@@ -2816,8 +3482,14 @@ def _add_pipeline_nodes(
     vessel_enabled = bool(
         config.get("vessel_detection", {}).get("enabled", False)
     )
+    ground_litter_enabled = bool(
+        config.get("ground_litter", {}).get("enabled", False)
+    )
     analytics_enabled = (
-        garbage_enabled or gas_cylinder_enabled or vessel_enabled
+        garbage_enabled
+        or gas_cylinder_enabled
+        or vessel_enabled
+        or ground_litter_enabled
     )
     if analytics_enabled:
         pipeline.add("tee", "analytics_tee")
@@ -2920,6 +3592,50 @@ def _add_pipeline_nodes(
         pipeline.add(
             "appsink",
             "gas_cylinder_sink",
+            {
+                "sync": False,
+                "async": False,
+                "max-buffers": 1,
+                "drop": True,
+                "emit-signals": True,
+            },
+        )
+    if ground_litter_enabled:
+        if (
+            ground_litter_receiver is None
+            or ground_litter_skip_probe is None
+        ):
+            raise RuntimeError("零散垃圾识别已启用但缺少旁路组件")
+        pipeline.add(
+            "queue",
+            "ground_litter_queue",
+            {
+                # Same lossy contract as the other analysis branches: a slow
+                # 640-tiled litter pass must never stall decode or NVENC.
+                "max-size-buffers": 1,
+                "max-size-bytes": 0,
+                "max-size-time": 0,
+                "leaky": 2,
+            },
+        )
+        pipeline.add(
+            "nvvideoconvert",
+            "ground_litter_convert",
+            {"gpu-id": gpu_id},
+        )
+        pipeline.add(
+            "capsfilter",
+            "ground_litter_rgb_caps",
+            {
+                # Deliberately keep the mux/native resolution: native-pixel
+                # 640 tiles are the whole point of this detector, so this
+                # branch must not be downscaled like the vessel branch.
+                "caps": "video/x-raw(memory:NVMM), format=RGB",
+            },
+        )
+        pipeline.add(
+            "appsink",
+            "ground_litter_sink",
             {
                 "sync": False,
                 "async": False,
@@ -3035,6 +3751,23 @@ def _add_pipeline_nodes(
         pipeline.attach(
             "vessel_sink",
             vessel_receiver,
+            tips="new-sample",
+        )
+    if ground_litter_enabled:
+        pipeline.link(
+            ("analytics_tee", "ground_litter_queue"),
+            ("src_%u", ""),
+        )
+        pipeline.link(
+            "ground_litter_queue",
+            "ground_litter_convert",
+            "ground_litter_rgb_caps",
+            "ground_litter_sink",
+        )
+        pipeline.attach("ground_litter_queue", ground_litter_skip_probe)
+        pipeline.attach(
+            "ground_litter_sink",
+            ground_litter_receiver,
             tips="new-sample",
         )
     if not analytics_enabled:
@@ -3317,6 +4050,42 @@ def run(config_path: Path) -> None:
             # Keep the OSD error state, but do not build a branch without a
             # live receiver. The primary infer/encode path still starts.
             vessel_config["enabled"] = False
+    ground_litter_cache = GroundLitterResultCache()
+    ground_litter_client: GroundLitterProcessClient | None = None
+    ground_litter_config = config.get("ground_litter", {})
+    if bool(ground_litter_config.get("enabled", False)):
+        try:
+            ground_litter_options_by_pad = {
+                pad_index: policy.ground_litter
+                for pad_index, policy in policies.items()
+                if policy.ground_litter.enabled
+            }
+            ground_litter_client = GroundLitterProcessClient(
+                GroundLitterProcessConfig(
+                    model_path=Path(ground_litter_config["model_path"]),
+                    device=f"cuda:{int(config['gpu_id'])}",
+                    half=True,
+                    actor_model_path=(
+                        Path(ground_litter_config["actor_model_path"])
+                        if ground_litter_config.get("actor_model_path")
+                        else None
+                    ),
+                    options_by_pad=ground_litter_options_by_pad,
+                ),
+                ground_litter_cache,
+            )
+        except Exception as exc:
+            LOGGER.exception("零散垃圾组件初始化失败，主RTSP将不受影响")
+            for pad_index, policy in policies.items():
+                if policy.ground_litter.enabled:
+                    ground_litter_cache.mark_state(
+                        pad_index,
+                        "error",
+                        f"零散垃圾组件初始化失败: {type(exc).__name__}",
+                    )
+            # Keep the OSD error state, but never build the branch without a
+            # live receiver. The primary infer/encode path still starts.
+            ground_litter_config["enabled"] = False
     ptz_verification_coordinators: dict[
         str, PtzVerificationCoordinator
     ] = {}
@@ -3363,6 +4132,13 @@ def run(config_path: Path) -> None:
             ptz_verification_errors[stream_id] = (
                 f"{type(exc).__name__}: {exc}"
             )
+    ptz_control_monitor: PtzControlCommandMonitor | None = None
+    if ptz_verification_coordinators:
+        ptz_control_monitor = PtzControlCommandMonitor(
+            Path(config["control_dir"]),
+            ptz_verification_coordinators,
+        )
+        ptz_control_monitor.start()
     fishing_risk_cache = FishingRiskResultCache()
     event_engines: dict[int, EventEngine] = {}
     fishing_risk_engines: dict[int, FishingRiskEngine] = {}
@@ -3440,6 +4216,13 @@ def run(config_path: Path) -> None:
             for item in streams
         },
         vessel_detection_cache=vessel_detection_cache,
+        ground_litter_enabled={
+            item["stream_id"]: bool(
+                item.get("ground_litter", {}).get("enabled", False)
+            )
+            for item in streams
+        },
+        ground_litter_cache=ground_litter_cache,
         fishing_risk_enabled={
             item["stream_id"]: bool(
                 item.get("fishing_risk", {}).get("enabled", False)
@@ -3463,8 +4246,9 @@ def run(config_path: Path) -> None:
                 garbage_overlay_cache,
                 gas_cylinder_cache,
                 vessel_detection_cache,
+                ground_litter_cache,
                 fishing_risk_cache,
-                ptz_verification_coordinators,
+                ptz_verification_by_pad,
                 frame_width=int(config["mux_width"]),
                 frame_height=int(config["mux_height"]),
             )
@@ -3540,6 +4324,44 @@ def run(config_path: Path) -> None:
             # DeepStream 8's BufferRetriever binding expects an integer
             # return. Returning None raises a pybind11 cast_error even when a
             # lossy frame error was handled above.
+            return 1
+
+    class GroundLitterFrames(BufferRetriever):
+        def __init__(self) -> None:
+            super().__init__()
+            assert ground_litter_client is not None
+            self._processor = GroundLitterFrameProcessor(
+                ground_litter_client,
+                night_by_pad={
+                    pad_index: bool(
+                        stream.get("night_vision", {}).get(
+                            "enabled",
+                            False,
+                        )
+                    )
+                    for pad_index, stream in enumerate(config["streams"])
+                },
+                actor_classes_by_pad={
+                    pad_index: policy.ground_litter.actor_class_ids
+                    for pad_index, policy in policies.items()
+                },
+            )
+
+        def consume(self, buffer: Any) -> int:
+            try:
+                frames = [
+                    buffer.extract(index)
+                    for index in range(int(buffer.batch_size))
+                ]
+                self._processor.process(
+                    buffer.batch_meta,
+                    frames,
+                    frame_width=int(config["mux_width"]),
+                    frame_height=int(config["mux_height"]),
+                )
+            except Exception:
+                # A lossy side branch must never terminate the RTSP pipeline.
+                LOGGER.exception("零散垃圾帧提取失败，已跳过且主RTSP继续运行")
             return 1
 
     class GarbageIntervalSkipper(BufferOperator):
@@ -3654,6 +4476,21 @@ def run(config_path: Path) -> None:
         if vessel_detection_client is not None
         else None
     )
+    ground_litter_receiver = (
+        Receiver("ground_litter_frames", GroundLitterFrames())
+        if ground_litter_client is not None
+        else None
+    )
+    ground_litter_skip_probe = (
+        Probe(
+            "ground_litter_interval",
+            GarbageIntervalSkipper(
+                float(ground_litter_config.get("analysis_fps", 1.0))
+            ),
+        )
+        if ground_litter_client is not None
+        else None
+    )
     references.append(latency_probe)
     references.append(plate_metadata_probe)
     if garbage_receiver is not None:
@@ -3668,6 +4505,10 @@ def run(config_path: Path) -> None:
         references.append(vessel_receiver)
     if vessel_skip_probe is not None:
         references.append(vessel_skip_probe)
+    if ground_litter_receiver is not None:
+        references.append(ground_litter_receiver)
+    if ground_litter_skip_probe is not None:
+        references.append(ground_litter_skip_probe)
 
     def counter_probe(
         name: str,
@@ -3725,6 +4566,8 @@ def run(config_path: Path) -> None:
         gas_cylinder_skip_probe,
         vessel_receiver,
         vessel_skip_probe,
+        ground_litter_receiver,
+        ground_litter_skip_probe,
     )
     stopped = threading.Event()
 
@@ -3749,6 +4592,8 @@ def run(config_path: Path) -> None:
     try:
         pipeline.start().wait()
     finally:
+        if ptz_control_monitor is not None:
+            ptz_control_monitor.shutdown()
         for coordinator in ptz_verification_coordinators.values():
             coordinator.shutdown(
                 timeout=coordinator.options.shutdown_timeout_seconds
@@ -3757,6 +4602,8 @@ def run(config_path: Path) -> None:
             gas_cylinder_client.shutdown()
         if vessel_detection_client is not None:
             vessel_detection_client.shutdown()
+        if ground_litter_client is not None:
+            ground_litter_client.shutdown()
         for dispatcher in webhook_dispatchers:
             dispatcher.shutdown()
 

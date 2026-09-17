@@ -1,0 +1,30 @@
+{
+  "id": "S03",
+  "model_requested": "qwen3-vl-plus",
+  "model_returned": "qwen3-vl-plus",
+  "manifest_sha256": "175685c3bd0b3d26a590843690b4fe69a881f2249b62f25eb02421251566eaeb",
+  "seconds": 2.2169563340139575,
+  "usage": {
+    "prompt_tokens": 456,
+    "completion_tokens": 58,
+    "total_tokens": 514,
+    "completion_tokens_details": {
+      "text_tokens": 58
+    },
+    "prompt_tokens_details": {
+      "image_tokens": 212,
+      "text_tokens": 244,
+      "cached_tokens": 0
+    }
+  },
+  "request_id": "chatcmpl-e67c7c07-f0ab-9780-8e29-671bf67cf630",
+  "finish_reason": "stop",
+  "raw_answer": "{\n  \"decision\": \"non_litter\",\n  \"object_description\": \"一双穿在脚上的运动鞋\",\n  \"ground_relation\": \"on_ground\",\n  \"reason\": \"目标为人员穿着的鞋子，属正在使用的物品，非零散垃圾。\"\n}",
+  "parsed": {
+    "decision": "non_litter",
+    "object_description": "一双穿在脚上的运动鞋",
+    "ground_relation": "on_ground",
+    "reason": "目标为人员穿着的鞋子，属正在使用的物品，非零散垃圾。"
+  },
+  "valid": true
+}

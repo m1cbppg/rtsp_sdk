@@ -1,0 +1,30 @@
+{
+  "id": "S13",
+  "model_requested": "qwen3-vl-plus",
+  "model_returned": "qwen3-vl-plus",
+  "manifest_sha256": "175685c3bd0b3d26a590843690b4fe69a881f2249b62f25eb02421251566eaeb",
+  "seconds": 2.075412083999254,
+  "usage": {
+    "prompt_tokens": 456,
+    "completion_tokens": 58,
+    "total_tokens": 514,
+    "completion_tokens_details": {
+      "text_tokens": 58
+    },
+    "prompt_tokens_details": {
+      "image_tokens": 212,
+      "text_tokens": 244,
+      "cached_tokens": 0
+    }
+  },
+  "request_id": "chatcmpl-db6f1aa3-aaf6-9929-bed8-c8c302a1f730",
+  "finish_reason": "stop",
+  "raw_answer": "{\n  \"decision\": \"uncertain\",\n  \"object_description\": \"细长浅色条状物，表面有纹理\",\n  \"ground_relation\": \"unclear\",\n  \"reason\": \"图像分辨率低，无法确认是否接触地面或为固定设施部件\"\n}",
+  "parsed": {
+    "decision": "uncertain",
+    "object_description": "细长浅色条状物，表面有纹理",
+    "ground_relation": "unclear",
+    "reason": "图像分辨率低，无法确认是否接触地面或为固定设施部件"
+  },
+  "valid": true
+}

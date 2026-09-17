@@ -58,8 +58,6 @@ def _verification_options(
         # close-up mode, allow compact appearance proposals to bridge the
         # first zoom round until the boat classifier becomes confident.
         proposal_minimum_motion_ratio=0.0,
-        large_box_area_threshold=1.0,
-        maximum_box_area=1.0,
         display_roi=False,
     )
 
@@ -316,7 +314,9 @@ def _run_vessel_detection_process(
                 )
                 * 1_000.0,
             )
-        _put_latest(output_queue, (pad_index, snapshot))
+        _put_latest(output_queue, (
+            pad_index, replace(snapshot, view_generation=view_generation),
+        ))
 
 
 class VesselDetectionProcessClient:
@@ -492,7 +492,10 @@ class VesselDetectionProcessClient:
                 pad_index, snapshot = self._output_queue.get_nowait()
             except queue.Empty:
                 return
-            self._cache.store_snapshot(int(pad_index), snapshot)
+            pad_index = int(pad_index)
+            if snapshot.view_generation != self._last_view_generation.get(pad_index, 0):
+                continue
+            self._cache.store_snapshot(pad_index, snapshot)
 
     def shutdown(self, timeout: float = 5.0) -> None:
         self.drain_results()

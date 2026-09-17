@@ -1,0 +1,207 @@
+{
+  "summary": {
+    "before": 22,
+    "after": 21,
+    "suppressed": 1,
+    "suppressed_ids": 1,
+    "rows_with_broom_like": 5
+  },
+  "rows": [
+    {
+      "sample_id": "live000",
+      "before": 1,
+      "after": 1,
+      "decisions": []
+    },
+    {
+      "sample_id": "live001",
+      "before": 1,
+      "after": 1,
+      "decisions": []
+    },
+    {
+      "sample_id": "live002",
+      "before": 1,
+      "after": 1,
+      "decisions": []
+    },
+    {
+      "sample_id": "live003",
+      "before": 1,
+      "after": 1,
+      "decisions": []
+    },
+    {
+      "sample_id": "live004",
+      "before": 1,
+      "after": 1,
+      "decisions": []
+    },
+    {
+      "sample_id": "live005",
+      "before": 1,
+      "after": 1,
+      "decisions": []
+    },
+    {
+      "sample_id": "live006",
+      "before": 1,
+      "after": 1,
+      "decisions": []
+    },
+    {
+      "sample_id": "live007",
+      "before": 1,
+      "after": 1,
+      "decisions": []
+    },
+    {
+      "sample_id": "live008",
+      "before": 1,
+      "after": 1,
+      "decisions": []
+    },
+    {
+      "sample_id": "live009",
+      "before": 1,
+      "after": 1,
+      "decisions": []
+    },
+    {
+      "sample_id": "live010",
+      "before": 1,
+      "after": 1,
+      "decisions": []
+    },
+    {
+      "sample_id": "live011",
+      "before": 1,
+      "after": 1,
+      "decisions": []
+    },
+    {
+      "sample_id": "live012",
+      "before": 1,
+      "after": 1,
+      "decisions": []
+    },
+    {
+      "sample_id": "live013",
+      "before": 1,
+      "after": 1,
+      "decisions": []
+    },
+    {
+      "sample_id": "live014",
+      "before": 1,
+      "after": 1,
+      "decisions": []
+    },
+    {
+      "sample_id": "live015",
+      "before": 2,
+      "after": 1,
+      "decisions": [
+        {
+          "box": [
+            565,
+            627,
+            599,
+            651
+          ],
+          "facility_id": "live-night-broom-provisional",
+          "suppressed": true,
+          "item_correlation": 1.0,
+          "context_correlation": 0.9999999403953552,
+          "color_error": 0.0,
+          "reason": "reviewed_non_litter"
+        }
+      ]
+    },
+    {
+      "sample_id": "live016",
+      "before": 1,
+      "after": 1,
+      "decisions": [
+        {
+          "box": [
+            565,
+            627,
+            597,
+            650
+          ],
+          "facility_id": "live-night-broom-provisional",
+          "suppressed": false,
+          "item_correlation": 0.4121769070625305,
+          "context_correlation": 0.7294928431510925,
+          "color_error": 21.678512573242188,
+          "reason": "appearance_changed_or_uncertain"
+        }
+      ]
+    },
+    {
+      "sample_id": "live017",
+      "before": 1,
+      "after": 1,
+      "decisions": [
+        {
+          "box": [
+            565,
+            627,
+            597,
+            651
+          ],
+          "facility_id": "live-night-broom-provisional",
+          "suppressed": false,
+          "item_correlation": 0.5126489400863647,
+          "context_correlation": 0.7386775612831116,
+          "color_error": 17.614788055419922,
+          "reason": "appearance_changed_or_uncertain"
+        }
+      ]
+    },
+    {
+      "sample_id": "live018",
+      "before": 1,
+      "after": 1,
+      "decisions": [
+        {
+          "box": [
+            566,
+            627,
+            598,
+            651
+          ],
+          "facility_id": "live-night-broom-provisional",
+          "suppressed": false,
+          "item_correlation": 0.44886547327041626,
+          "context_correlation": 0.7295190691947937,
+          "color_error": 20.770015716552734,
+          "reason": "appearance_changed_or_uncertain"
+        }
+      ]
+    },
+    {
+      "sample_id": "live019",
+      "before": 2,
+      "after": 2,
+      "decisions": [
+        {
+          "box": [
+            567,
+            628,
+            598,
+            650
+          ],
+          "facility_id": "live-night-broom-provisional",
+          "suppressed": false,
+          "item_correlation": 0.6404334902763367,
+          "context_correlation": 0.6976982951164246,
+          "color_error": 17.127450942993164,
+          "reason": "appearance_changed_or_uncertain"
+        }
+      ]
+    }
+  ],
+  "warning": "Provisional same-run template; not production calibration"
+}

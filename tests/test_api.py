@@ -56,6 +56,16 @@ class FakeManager:
         }
         return result
 
+    def return_ptz_home(self, stream_id: str) -> dict[str, object]:
+        if stream_id != "abc123":
+            raise KeyError(stream_id)
+        return {
+            "stream_id": stream_id,
+            "request_id": "request-123",
+            "action": "return_home",
+            "status": "accepted",
+        }
+
     def shutdown(self) -> None:
         pass
 
@@ -73,6 +83,15 @@ class ApiTests(unittest.TestCase):
         self.assertTrue(spec.vessel_detection.enabled)
         self.assertFalse(spec.ptz_verification.enabled)
         self.assertEqual(spec.ptz_verification.camera_id, "")
+        self.assertFalse(spec.ptz_verification.continuous_tracking)
+        self.assertFalse(spec.ptz_verification.display_operation_log)
+        self.assertEqual(spec.ptz_verification.adaptive_target_width_ratio, 0.33)
+        self.assertEqual(spec.ptz_verification.adaptive_target_height_ratio, 0.33)
+        self.assertEqual(spec.ptz_verification.tracking_initial_extra_zoom_step, 0)
+        self.assertEqual(
+            spec.ptz_verification.primary_target_minimum_observations,
+            1,
+        )
 
     def test_fishing_risk_is_disabled_by_default(self) -> None:
         request = StreamCreateRequest.model_validate(
@@ -225,6 +244,10 @@ class ApiTests(unittest.TestCase):
                     "enabled": True,
                     "camera_id": "camera-01",
                     "camera_control_url": "http://camera-control:8080",
+                    "trace_logging_enabled": True,
+                    "display_operation_log": True,
+                    "vessel_number_recognition_enabled": True,
+                    "vessel_number_fallback": "10032",
                     "zoom_strategy": "adaptive",
                     "adaptive_target_width_ratio": 0.30,
                     "adaptive_max_step": 5,
@@ -242,6 +265,20 @@ class ApiTests(unittest.TestCase):
                     "proposal_minimum_interval_seconds": 45,
                     "proposal_maximum_verifications_per_hour": 6,
                     "confirmed_cooldown_seconds": 900,
+                    "primary_target_minimum_observations": 1,
+                    "continuous_tracking": True,
+                    "tracking_center_deadband": 0.08,
+                    "tracking_command_interval_seconds": 0.4,
+                    "tracking_settle_seconds": 0.1,
+                    "tracking_recovery_enabled": True,
+                    "tracking_recovery_interval_seconds": 1.5,
+                    "tracking_recovery_zoom_out_step": 2,
+                    "tracking_recovery_max_attempts": 4,
+                    "tracking_lost_timeout_seconds": 5,
+                    "tracking_max_duration_seconds": 0,
+                    "tracking_zoom_hysteresis_ratio": 0.15,
+                    "tracking_zoom_step": 2,
+                    "tracking_initial_extra_zoom_step": 1,
                 },
             }
         )
@@ -249,6 +286,10 @@ class ApiTests(unittest.TestCase):
         options = request.to_spec().ptz_verification
         self.assertTrue(options.enabled)
         self.assertEqual(options.camera_id, "camera-01")
+        self.assertTrue(options.trace_logging_enabled)
+        self.assertTrue(options.display_operation_log)
+        self.assertTrue(options.vessel_number_recognition_enabled)
+        self.assertEqual(options.vessel_number_fallback, "10032")
         self.assertEqual(options.zoom_strategy, "adaptive")
         self.assertEqual(options.adaptive_target_width_ratio, 0.30)
         self.assertEqual(options.adaptive_max_step, 5)
@@ -266,12 +307,164 @@ class ApiTests(unittest.TestCase):
         self.assertEqual(options.proposal_minimum_interval_seconds, 45)
         self.assertEqual(options.proposal_maximum_verifications_per_hour, 6)
         self.assertEqual(options.confirmed_cooldown_seconds, 900)
+        self.assertEqual(options.primary_target_minimum_observations, 1)
+        self.assertTrue(options.continuous_tracking)
+        self.assertEqual(options.tracking_center_deadband, 0.08)
+        self.assertEqual(options.tracking_command_interval_seconds, 0.4)
+        self.assertEqual(options.tracking_settle_seconds, 0.1)
+        self.assertTrue(options.tracking_recovery_enabled)
+        self.assertEqual(options.tracking_recovery_interval_seconds, 1.5)
+        self.assertEqual(options.tracking_recovery_zoom_out_step, 2)
+        self.assertEqual(options.tracking_recovery_max_attempts, 4)
+        self.assertEqual(options.tracking_lost_timeout_seconds, 5)
+        self.assertEqual(options.tracking_max_duration_seconds, 0)
+        self.assertEqual(options.tracking_zoom_hysteresis_ratio, 0.15)
+        self.assertEqual(options.tracking_zoom_step, 2)
+        self.assertEqual(options.tracking_initial_extra_zoom_step, 1)
 
     def test_ptz_verification_requires_vessel_detection(self) -> None:
         with self.assertRaisesRegex(ValueError, "必须启用vessel_detection"):
             StreamCreateRequest.model_validate(
                 {
                     "input_url": "rtsp://camera/harbor",
+                    "ptz_verification": {
+                        "enabled": True,
+                        "camera_id": "camera-01",
+                    },
+                }
+            )
+
+    def test_display_detections_defaults_on_and_can_be_disabled(self) -> None:
+        default = StreamCreateRequest.model_validate(
+            {"input_url": "rtsp://camera/walkway"}
+        ).to_spec()
+        hidden = StreamCreateRequest.model_validate(
+            {
+                "input_url": "rtsp://camera/walkway",
+                "classes": [0],
+                "display_detections": False,
+            }
+        ).to_spec()
+        self.assertTrue(default.display_detections)
+        self.assertFalse(hidden.display_detections)
+        # The class filter is a separate concern and stays intact.
+        self.assertEqual(hidden.classes, (0,))
+
+    def test_ground_litter_request_maps_to_options(self) -> None:
+        request = StreamCreateRequest.model_validate(
+            {
+                "input_url": "rtsp://camera/walkway",
+                "classes": [0],
+                "ground_litter": {
+                    "enabled": True,
+                    "confidence": 0.18,
+                    "night_confidence": 0.25,
+                    "analysis_fps": 1.5,
+                    "inference_imgsz": 960,
+                    "actor_model": "yolo26s.pt",
+                    "local_actor_max_crops": 4,
+                    "box_smoothing_alpha": 0.5,
+                    "tile_size_px": 640,
+                    "tile_overlap": 0.2,
+                    "minimum_hits": 2,
+                    "hit_window": 3,
+                    "hold_seconds": 4,
+                    "maximum_boxes": 6,
+                    "display_class": True,
+                    "zones": [
+                        {
+                            "region_id": "merchant_01",
+                            "name": "门店01门前人行道",
+                            "polygon": [
+                                [0.32, 0.15],
+                                [0.367, 0.15],
+                                [0.35, 0.3],
+                                [0.27, 0.3],
+                            ],
+                            "exclude_zones": [
+                                [[0.3, 0.2], [0.34, 0.2], [0.34, 0.25]]
+                            ],
+                            "minimum_short_side_px": 8,
+                            "minimum_box_area_px": 64,
+                        }
+                    ],
+                    "overlay_exclude_zones": [
+                        [[0.0, 0.035], [0.4, 0.035], [0.4, 0.105]]
+                    ],
+                },
+            }
+        )
+
+        options = request.to_spec().ground_litter
+
+        self.assertTrue(options.enabled)
+        self.assertEqual(options.confidence, 0.18)
+        self.assertEqual(options.confidence_for(True), 0.25)
+        self.assertEqual(options.analysis_fps, 1.5)
+        self.assertEqual(options.effective_imgsz, 960)
+        self.assertEqual(options.local_actor_max_crops, 4)
+        self.assertEqual(options.box_smoothing_alpha, 0.5)
+        self.assertEqual(options.region_ids, ("merchant_01",))
+        self.assertEqual(options.zones[0].minimum_short_side_px, 8)
+        self.assertEqual(options.zones[0].minimum_box_area_px, 64)
+        self.assertEqual(len(options.zones[0].exclude_zones), 1)
+        self.assertEqual(len(options.overlay_exclude_zones), 1)
+        self.assertEqual(options.hold_seconds, 4)
+        self.assertEqual(options.maximum_boxes, 6)
+        self.assertTrue(options.display_class)
+        self.assertEqual(options.label, "疑似垃圾")
+        self.assertEqual(options.model, "turhancan_yolov8m_seg_trash.pt")
+
+    def test_ground_litter_defaults_stay_disabled(self) -> None:
+        request = StreamCreateRequest.model_validate(
+            {"input_url": "rtsp://camera/walkway"}
+        )
+        options = request.to_spec().ground_litter
+        self.assertFalse(options.enabled)
+        self.assertEqual(options.zones, ())
+
+    def test_ground_litter_requires_a_zone_when_enabled(self) -> None:
+        with self.assertRaisesRegex(ValueError, "至少需要一个地面区域"):
+            StreamCreateRequest.model_validate(
+                {
+                    "input_url": "rtsp://camera/walkway",
+                    "ground_litter": {"enabled": True},
+                }
+            )
+
+    def test_ground_litter_rejects_escaping_model_path(self) -> None:
+        with self.assertRaisesRegex(ValueError, "越界"):
+            StreamCreateRequest.model_validate(
+                {
+                    "input_url": "rtsp://camera/walkway",
+                    "ground_litter": {
+                        "enabled": True,
+                        "model": "../../etc/passwd.pt",
+                        "zones": [
+                            {
+                                "region_id": "z1",
+                                "polygon": [[0, 0], [1, 0], [1, 1]],
+                            }
+                        ],
+                    },
+                }
+            )
+
+    def test_ground_litter_conflicts_with_ptz_verification(self) -> None:
+        with self.assertRaisesRegex(ValueError, "不能与固定视角功能同时启用"):
+            StreamCreateRequest.model_validate(
+                {
+                    "input_url": "rtsp://camera/walkway",
+                    "vessel_detection": {"enabled": True},
+                    "ground_litter": {
+                        "enabled": True,
+                        "zones": [
+                            {
+                                "region_id": "z1",
+                                "polygon": [[0, 0], [1, 0], [1, 1]],
+                            }
+                        ],
+                    },
                     "ptz_verification": {
                         "enabled": True,
                         "camera_id": "camera-01",
@@ -571,6 +764,10 @@ class ApiTests(unittest.TestCase):
                     headers={"X-API-Key": "test-api-key-1234"},
                     json={"enabled": False},
                 )
+                return_home = client.post(
+                    "/v1/streams/abc123/ptz/return-home",
+                    headers={"X-API-Key": "test-api-key-1234"},
+                )
                 client.app.state.stream_logs.append(
                     "abc123",
                     level="WARNING",
@@ -709,6 +906,9 @@ class ApiTests(unittest.TestCase):
         self.assertNotIn("camera-user", created.text)
         self.assertEqual(fishing_disabled.status_code, 200)
         self.assertFalse(fishing_disabled.json()["fishing_risk"]["enabled"])
+        self.assertEqual(return_home.status_code, 202)
+        self.assertEqual(return_home.json()["action"], "return_home")
+        self.assertEqual(return_home.json()["request_id"], "request-123")
         self.assertEqual(stream_logs.status_code, 200)
         self.assertEqual(stream_logs.json()[0]["details"]["health"], "stalled")
         self.assertEqual(publish_auth.status_code, 200)

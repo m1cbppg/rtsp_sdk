@@ -1,0 +1,144 @@
+{
+  "finished_utc": "2026-09-13T04:34:39.677651+00:00",
+  "source_kind": "local_video",
+  "elapsed_seconds": 20.047594583011232,
+  "decoder": "pyav",
+  "source_counters": {
+    "decoded_frames": 511.0,
+    "corrupt_frames": 0.0,
+    "missing_pts_frames": 0.0,
+    "nonmonotonic_pts_frames": 0.0,
+    "connections": 1.0,
+    "published_frames": 20.0,
+    "mailbox_lock_skips": 0.0,
+    "decode_read_seconds": 3.2108966238592984,
+    "convert_seconds": 0.13393625000026077,
+    "pts_observed_frames": 511.0
+  },
+  "samples": [
+    {
+      "sequence": 1.0,
+      "local_age": 0.038303249995806254,
+      "generation": 1.0,
+      "source_elapsed": 0.0
+    },
+    {
+      "sequence": 2.0,
+      "local_age": 0.01851762499427423,
+      "generation": 1.0,
+      "source_elapsed": 1.0389999999988504
+    },
+    {
+      "sequence": 3.0,
+      "local_age": 0.043919000003370456,
+      "generation": 1.0,
+      "source_elapsed": 2.0389999999988504
+    },
+    {
+      "sequence": 4.0,
+      "local_age": 0.019990082990261726,
+      "generation": 1.0,
+      "source_elapsed": 3.07799999999952
+    },
+    {
+      "sequence": 5.0,
+      "local_age": 0.04939845901390072,
+      "generation": 1.0,
+      "source_elapsed": 4.07799999999952
+    },
+    {
+      "sequence": 6.0,
+      "local_age": 0.05152512498898432,
+      "generation": 1.0,
+      "source_elapsed": 5.117000000000189
+    },
+    {
+      "sequence": 7.0,
+      "local_age": 0.04267354198964313,
+      "generation": 1.0,
+      "source_elapsed": 6.117000000000189
+    },
+    {
+      "sequence": 8.0,
+      "local_age": 0.03676141699543223,
+      "generation": 1.0,
+      "source_elapsed": 7.15599999999904
+    },
+    {
+      "sequence": 9.0,
+      "local_age": 0.026880666991928592,
+      "generation": 1.0,
+      "source_elapsed": 8.15599999999904
+    },
+    {
+      "sequence": 10.0,
+      "local_age": 0.009259332990041003,
+      "generation": 1.0,
+      "source_elapsed": 9.194999999999709
+    },
+    {
+      "sequence": 11.0,
+      "local_age": 0.04416474999743514,
+      "generation": 1.0,
+      "source_elapsed": 10.194999999999709
+    },
+    {
+      "sequence": 12.0,
+      "local_age": 0.021859083994058892,
+      "generation": 1.0,
+      "source_elapsed": 11.194999999999709
+    },
+    {
+      "sequence": 13.0,
+      "local_age": 0.01501470799848903,
+      "generation": 1.0,
+      "source_elapsed": 12.234000000000378
+    },
+    {
+      "sequence": 14.0,
+      "local_age": 0.04839441701187752,
+      "generation": 1.0,
+      "source_elapsed": 13.234000000000378
+    },
+    {
+      "sequence": 15.0,
+      "local_age": 0.03815562500676606,
+      "generation": 1.0,
+      "source_elapsed": 14.272999999999229
+    },
+    {
+      "sequence": 16.0,
+      "local_age": 0.02810558299825061,
+      "generation": 1.0,
+      "source_elapsed": 15.272999999999229
+    },
+    {
+      "sequence": 17.0,
+      "local_age": 0.026599791992339306,
+      "generation": 1.0,
+      "source_elapsed": 16.311999999999898
+    },
+    {
+      "sequence": 18.0,
+      "local_age": 0.04508887500560377,
+      "generation": 1.0,
+      "source_elapsed": 17.311999999999898
+    },
+    {
+      "sequence": 19.0,
+      "local_age": 0.04374454100616276,
+      "generation": 1.0,
+      "source_elapsed": 18.35099999999875
+    },
+    {
+      "sequence": 20.0,
+      "local_age": 0.028179291999549605,
+      "generation": 1.0,
+      "source_elapsed": 19.35099999999875
+    }
+  ],
+  "reader_alive": false,
+  "exitcode": 0,
+  "end_to_end_freshness_verified": false,
+  "notifications": 0
+}

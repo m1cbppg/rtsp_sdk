@@ -92,14 +92,31 @@ export CAMERA_CONTROL_API_KEY='请替换为随机长密钥'
     "enabled": true,
     "camera_id": "river-ptz-01",
     "camera_control_url": "http://camera-control:8080",
+    "trace_logging_enabled": false,
+    "display_operation_log": false,
+    "vessel_number_recognition_enabled": false,
+    "vessel_number_fallback": "",
     "zoom_strategy": "adaptive",
-    "adaptive_target_width_ratio": 0.25,
-    "adaptive_target_height_ratio": 0.18,
+    "adaptive_target_width_ratio": 0.33,
+    "adaptive_target_height_ratio": 0.33,
     "adaptive_min_step": 1,
     "adaptive_max_step": 6,
     "adaptive_max_rounds": 3,
     "adaptive_max_total_zoom_delta": 12,
     "adaptive_min_scale_growth_ratio": 1.12,
+    "continuous_tracking": false,
+    "tracking_center_deadband": 0.10,
+    "tracking_command_interval_seconds": 0.5,
+    "tracking_settle_seconds": 0.25,
+    "tracking_recovery_enabled": false,
+    "tracking_recovery_interval_seconds": 2.0,
+    "tracking_recovery_zoom_out_step": 1,
+    "tracking_recovery_max_attempts": 3,
+    "tracking_lost_timeout_seconds": 4,
+    "tracking_max_duration_seconds": 300,
+    "tracking_zoom_hysteresis_ratio": 0.20,
+    "tracking_zoom_step": 1,
+    "tracking_initial_extra_zoom_step": 0,
     "confirmed_target_fallback_zoom_rounds": 1,
     "confirmed_target_fallback_zoom_step": 3,
     "reacquire_strict_center_radius": 0.22,
@@ -113,6 +130,7 @@ export CAMERA_CONTROL_API_KEY='请替换为随机长密钥'
     "evidence_minimum_sharpness": 12.0,
     "evidence_target_scale_ratio": 0.70,
     "minimum_target_observations": 3,
+    "primary_target_minimum_observations": 1,
     "proposal_merge_radius": 0.04,
     "proposal_minimum_interval_seconds": 30,
     "proposal_maximum_verifications_per_hour": 12,
@@ -151,6 +169,20 @@ export CAMERA_CONTROL_API_KEY='请替换为随机长密钥'
 不会创建`CameraControlClient`，即使`camera_control`服务未启动，船舶识别旁路也可以
 正常框船。查询流状态时会返回`integration_mode:detection_only`和`state:disabled`。
 
+### 每个控制任务的 trace 日志
+
+`trace_logging_enabled`默认`false`。设为`true`后，每次候选成功创建的PTZ复核任务都以
+既有`job_id`同时作为`task_id`和`trace_id`，在
+`event_root/vessel-verifications/task-traces/<job_id>.jsonl`生成一份独立日志文件。
+同一任务中的定位/变焦、自动对焦、原生抓图、持续跟踪纠偏、STOP恢复和回HOME都记录
+开始、成功或失败状态及耗时；首尾另有`task.started`和`task.finished`，可还原完整控制链。
+
+日志只记录归一化坐标、相对变焦步长、动作原因、抓图大小/MIME类型和错误，不记录
+`camera_control` API key、租约令牌、摄像头账号密码或JPEG内容。日志写入采用尽力而为：
+磁盘不可写或序列化失败时会停止该task的trace，但不会阻止定位、STOP或回HOME等安全动作。
+关闭开关时不会创建`task-traces`目录或task日志文件。该开关只覆盖自动PTZ复核任务；
+worker启动时的初始HOME和没有活动复核task时的人工HOME不伪装成候选触发任务。
+
 只识别船、不控制摄像机时，省略 `ptz_verification` 或传：
 
 ```json
@@ -159,12 +191,121 @@ export CAMERA_CONTROL_API_KEY='请替换为随机长密钥'
 
 如果全景已有船模型框，亦可保持 `small_target_proposals:false`，仅对已检测船做近景复核。
 
+### 持续跟踪模式
+
+`continuous_tracking`默认`false`，保持原有“近景确认、截图、回HOME”行为。传`true`后，
+只有真实`boat`完成近景确认才进入持续跟踪；系统仍会先尝试保存首张证据图，但抓图或
+证据复检失败不会阻止已经确认的船继续被跟踪，复核任务会保留
+`evidence_not_confirmed`结果。疑似运动或外观候选不会直接进入跟踪。跟踪期间继续使用
+近景船舶检测结果驱动云台：
+
+- 船框中心偏离画面中心超过`tracking_center_deadband`时才纠偏，避免细小检测抖动导致
+  云台持续振荡；
+- 目标尺度以`adaptive_target_width_ratio`和`adaptive_target_height_ratio`为基准，
+  `tracking_zoom_hysteresis_ratio:0.20`表示低于目标尺度80%时放大、高于120%时缩小，
+  中间区间保持当前倍率；
+- `tracking_initial_extra_zoom_step`只在持续跟踪模式生效，会在初始闭环放大
+  完成后、首次抓图和跟踪前再补一次变倍并重新确认目标。`0`保持原行为，
+  现场需要“再放大一档”时传`1`；
+- 相邻控制命令至少间隔`tracking_command_interval_seconds`，默认最多约每秒两次；
+- 每次持续追踪指令只等待`tracking_settle_seconds`再读取新目标位置，不再复用初次放大
+  的`settle_seconds`；这允许初次变焦等待画面稳定，同时以更短周期纠偏移动船舶；
+- 开启`tracking_recovery_enabled`后，短暂丢框会在船最后出现位置按
+  `tracking_recovery_interval_seconds`逐档缩小画面，最多尝试
+  `tracking_recovery_max_attempts`次，重新找到船后继续跟踪；
+- 连续`tracking_lost_timeout_seconds`仍没有安全重捕获到目标才回HOME。
+  `tracking_max_duration_seconds:0`表示不设跟踪时长上限；非零值到期后回HOME；
+- 流停止、控制失败或任务关闭同样会进入HOME恢复；即使控制请求在摄像机已经移动后
+  超时，也会按“已离开HOME”处理；
+- 多个空间分离目标得分接近时不强行接管其中一艘，超时后安全回HOME。
+
+例如开启演示模式：
+
+```json
+{
+  "ptz_verification": {
+    "enabled": true,
+    "camera_id": "river-ptz-01",
+    "continuous_tracking": true,
+    "adaptive_target_width_ratio": 0.33,
+    "adaptive_target_height_ratio": 0.33,
+    "tracking_initial_extra_zoom_step": 1,
+    "tracking_center_deadband": 0.05,
+    "tracking_command_interval_seconds": 0.2,
+    "tracking_settle_seconds": 0.1,
+    "tracking_recovery_enabled": true,
+    "tracking_recovery_interval_seconds": 2.0,
+    "tracking_recovery_zoom_out_step": 1,
+    "tracking_recovery_max_attempts": 3,
+    "tracking_lost_timeout_seconds": 30,
+    "tracking_max_duration_seconds": 0,
+    "vessel_number_recognition_enabled": true,
+    "vessel_number_fallback": "10032",
+    "lost_retry_seconds": 15
+  }
+}
+```
+
+这里的`0.33`表示船框宽度或高度任一达到画面对应边长约三分之一即停止继续放大，
+不是船框面积占整幅画面的三分之一。船体通常扁长，使用“宽或高任一达到”可以避免为了
+强求高度三分之一而把船头、船尾裁出画面。
+`tracking_initial_extra_zoom_step:1`会在此基础上再补一档。演示环境下建议开启
+扩大视野重捕获，将`tracking_lost_timeout_seconds`设为30秒、
+`tracking_max_duration_seconds`设为0，并将`lost_retry_seconds`设为15秒；否则一次
+短暂丢失会按生产默认值冷却180秒，表现为后续仍识别到船却长时间不再转动。
+即使首张证据图已经确认船舶，只要持续跟踪的结束原因是`target_lost`，也会
+使用`lost_retry_seconds`而不是`confirmed_cooldown_seconds`，使同一艘移动船能够快速
+重新进入联动。
+持续跟踪状态通过流详情中的`ptz_verification.state`返回，可见`tracking`、
+`reacquiring`和`returning_home`；底层metrics还包含跟踪时长、纠偏次数、当前船框宽高比例
+及最近结束原因。当前参数仍属于创建流参数；要切换模式，应先停止原流并确认回HOME，
+再重新创建。
+
+PTZ候选现在同时来自两条路径：主DeepStream检测器画出的绿色船框，以及高分辨率
+船舶旁路画出的青色船框。两条路径在进入PTZ前按空间重叠去重，因此只要画面出现
+满足主流置信度和类别条件的绿色船框，也会直接参与PTZ连续观测，不再要求青色旁路
+必须同时命中。流metrics中的`ptz_primary_candidate_count`和
+`ptz_sidecar_candidate_count`分别表示两条路径当前候选数；`ptz_trigger_status`会显示
+`waiting_for_candidates`、`observing`、`cooldown`、`suppressed`或`triggered`，并配合
+`ptz_trigger_observations`、`ptz_trigger_required_observations`及
+`ptz_trigger_cooldown_remaining_seconds`解释为什么当前尚未转动。
+`primary_target_minimum_observations`单独控制绿色主检测框的触发次数，默认`1`：
+第一个通过类别、置信度和ROI过滤的绿色船框就可以申请PTZ任务。
+`minimum_target_observations`仍用于青色高分辨率旁路候选，避免放宽该路径的误触发。
+
+### 随时中断并紧急回HOME
+
+任何时候都可以调用下面的流级接口，请求中断当前PTZ复核或持续跟踪并回到HOME：
+
+```bash
+curl -X POST \
+  -H 'X-API-Key: API密钥' \
+  'http://API地址/v1/streams/STREAM_ID/ptz/return-home'
+```
+
+接口返回HTTP 202和唯一`request_id`，表示安全命令已经写入对应DeepStream worker的控制
+队列。worker内独立的控制监控线程会立即设置中断信号，并通过当前持有租约的
+`CameraControlClient`先发stop、再由协调器执行HOME，避免绕过租约与正在执行的命令抢占
+摄像头。该动作是锁存式安全停机：流详情状态会先变为`returning_home`，HOME成功且收到
+稳定全景帧后变为`manual_hold`，不再接受新的自动PTZ任务，防止刚回原位又被下一次检测
+立即拉走。需要恢复自动PTZ时，应更新或重建该流。metrics中的
+`ptz_last_return_home_request_id`可与接口返回值核对，`ptz_manual_hold=true`表示锁存已生效。
+流不存在返回404，未启用PTZ或worker未运行返回409。
+
+该接口不会停止识别流，也不会重启DeepStream组；它只锁停当前流的后续自动PTZ动作。
+如果希望完全停止本路任务，仍应调用`DELETE /v1/streams/{stream_id}`；任务停止路径同样
+会先通过控制队列要求仍持有租约的worker中断任何在途PTZ动作并回HOME。API会等待worker
+上报与本次请求匹配的`request_id`、`manual_hold`和HOME完成状态，再停止进程；SIGTERM
+退出路径还会重新获取租约、停止残余运动并再次强制HOME作为兜底。这样不会先杀掉唯一
+持有租约的worker再等待租约TTL自然过期。删除成功后算法不再持有租约或下发控制命令，
+摄像机保持在HOME，除非另一个客户端主动控制它。
+
 ### 自适应变焦
 
 `zoom_strategy`默认是`adaptive`。它不会把`zoom_delta`误当成固定光学倍数，而是在每次
 控制后使用重新检测到的船框作为反馈：
 
-- 船框宽达到画面宽度的25%，或高达到画面高度的18%时，提前停止变焦；
+- 船框宽达到画面宽度的33%，或高达到画面高度的33%时，提前停止变焦；
 - 船越小，首次步长越大，但单次限制在`adaptive_min_step`到`adaptive_max_step`；
 - 放大后重新计算下一步，目标接近所需尺寸时自动减小步长；
 - 已确认船舶在首次转动后短暂丢检时，会保持当前中心做至多
@@ -190,7 +331,7 @@ export CAMERA_CONTROL_API_KEY='请替换为随机长密钥'
 - 无增益目标只有已被真实`boat`类别确认时才可截图，运动提议会被判为未确认；
 - 目标已经足够大时不移动云台，直接自动对焦和抓取原生图片。
 
-目标宽高比例是归一化画面比例。例如1920×1080画面中宽度0.25约为480像素。四台
+目标宽高比例是归一化画面比例。例如1920×1080画面中宽度0.33约为634像素。四台
 摄像机可以分别配置，不要求型号、初始焦距或安装距离相同。
 
 `evidence_minimum_sharpness`使用船框裁剪区域的拉普拉斯方差，只是最低防呆阈值；现场应
@@ -223,6 +364,35 @@ export CAMERA_CONTROL_API_KEY='请替换为随机长密钥'
 
 `ptz_verification`是创建流参数，不建议在摄像机正离开HOME时热切换。需要改变联动模式
 时，应先停止原流并确认摄像机已回HOME，再用目标参数重新创建流。
+
+## 追踪画面提示
+
+启用`ptz_verification`后，当前追踪目标会直接显示在输出视频上。右上角操作日志由
+`display_operation_log`单独控制，默认`false`；演示时设为`true`即可开启：
+
+```json
+{
+  "ptz_verification": {
+    "enabled": true,
+    "display_operation_log": true
+  }
+}
+```
+
+- 当前被锁定、复核或持续追踪的船使用**粗红框**，标签显示`追踪中｜船舶`；
+- 其他普通船舶仍使用原有绿框，避免演示时无法判断摄像头正在跟随哪一艘船；
+- `display_operation_log=true`时，右上角显示一行当前PTZ状态，以及最近4条摄像头操作；
+- 操作日志覆盖定位、追踪纠偏、变焦、自动对焦、证据抓图、停止云台、返回HOME和失败；
+- 日志区采用紧凑字号和半透明底色，最多5行，不会随运行时间持续扩大。
+
+当目标丢失、追踪任务结束或返回HOME后，红色目标框会被清除。日志会保留最近4条操作，
+用于现场确认是否实际下发过云台命令。
+
+放大阶段会使用框包含比例消除主检测器整船框与船舶旁路局部框的重复显示，并且同一时刻
+只允许一个框使用`追踪中`样式。启用`vessel_number_recognition_enabled`后，系统在近景
+抓图中优先搜索当前船框内的蓝色船牌并读取数字；若运行镜像没有OCR组件或结果不可靠，
+则使用`vessel_number_fallback`。演示可传`"10032"`，正式环境应留空并安装、标定OCR
+组件，避免把演示编号误当作真实识别结果。
 
 ## 证据接口
 
@@ -272,3 +442,9 @@ curl -N -H 'X-API-Key: API密钥' \
 现场人员明确允许 `--control` 校准 `invert_x`、`invert_y`、HOME预置位和变倍响应。
 
 在没有设备时已能验证 HTTP 合约、SDK 抓图回调关联与超时、状态机回位、故障注入、SQLite 去重、证据接口和真实录像候选负载；无法离线证明的只有具体机型的坐标方向、实际光学倍率、预置位和 SDK 二进制/固件兼容性。
+# 近景跟踪保护补充（2026-09-07）
+
+用户允许在突然加速或即将出画时小幅拉远，但正常航行应保持连续近景跟随。
+新增默认关闭的 `tracking_edge_guard_enabled`，实现范围、启用参数和明确失败边界见
+[TRACKING_EDGE_GUARD.md](TRACKING_EDGE_GUARD.md)。当前仅修改现有跟踪阶段，
+不是完整连续演示方案，也不保证读清船号或任意加速下不丢失。没有进行真机部署。

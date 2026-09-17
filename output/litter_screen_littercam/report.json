@@ -1,0 +1,4213 @@
+{
+  "model": "models/litter/littercam_yolov9c.pt",
+  "sha256": "27dcb73c02fa9fb57828a75e178f4604d8a378d4c736bdb1e2807444a226c3e3",
+  "classes": {
+    "0": "cigarette_butt",
+    "1": "plastic_bottle",
+    "2": "drinks_can",
+    "3": "fast_food_packaging",
+    "4": "plastic_bag",
+    "5": "coffee_cup",
+    "6": "glass_bottle",
+    "7": "paper_waste",
+    "8": "food_wrapper",
+    "9": "general_litter"
+  },
+  "roi": [
+    [
+      0.02,
+      0.08
+    ],
+    [
+      0.37,
+      0.08
+    ],
+    [
+      0.46,
+      0.96
+    ],
+    [
+      0.02,
+      0.96
+    ]
+  ],
+  "exclusion_zones": [],
+  "mode": "tiles",
+  "imgsz": 640,
+  "confidence": 0.15,
+  "device": "cpu",
+  "nms_iou": 0.5,
+  "sampling": "FFmpeg decoded frame indices 250,500,...; 001 excluded; nominal 10s interval",
+  "frames": [
+    {
+      "image": "day_002.jpg",
+      "nominal_time_s": 10,
+      "inference_seconds": 2.407,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9487719535827637,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.9126312732696533,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8843916058540344,
+          "box": [
+            537,
+            743,
+            1176,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.42153215408325195,
+          "box": [
+            51,
+            115,
+            689,
+            754
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_003.jpg",
+      "nominal_time_s": 20,
+      "inference_seconds": 2.41,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9359439015388489,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.9112244248390198,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.7970885634422302,
+          "box": [
+            537,
+            743,
+            1176,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.580222487449646,
+          "box": [
+            923,
+            914,
+            1177,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.503726065158844,
+          "box": [
+            51,
+            115,
+            690,
+            755
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_004.jpg",
+      "nominal_time_s": 30,
+      "inference_seconds": 2.276,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9458910226821899,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8810413479804993,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8216503262519836,
+          "box": [
+            925,
+            916,
+            1177,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.7237783074378967,
+          "box": [
+            537,
+            915,
+            957,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.6397928595542908,
+          "box": [
+            537,
+            742,
+            939,
+            927
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.4559909701347351,
+          "box": [
+            51,
+            115,
+            690,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.4052456021308899,
+          "box": [
+            537,
+            744,
+            1174,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.23406629264354706,
+          "box": [
+            537,
+            117,
+            685,
+            491
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_005.jpg",
+      "nominal_time_s": 40,
+      "inference_seconds": 2.136,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9454125761985779,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.9326984882354736,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8751875758171082,
+          "box": [
+            537,
+            743,
+            1175,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.39483878016471863,
+          "box": [
+            924,
+            916,
+            1177,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.33337393403053284,
+          "box": [
+            51,
+            115,
+            689,
+            754
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_006.jpg",
+      "nominal_time_s": 50,
+      "inference_seconds": 3.866,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9486412405967712,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.890505313873291,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8591527938842773,
+          "box": [
+            537,
+            743,
+            1176,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.5509382486343384,
+          "box": [
+            51,
+            115,
+            689,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.39119112491607666,
+          "box": [
+            923,
+            912,
+            1177,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.1765763759613037,
+          "box": [
+            537,
+            117,
+            684,
+            493
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_007.jpg",
+      "nominal_time_s": 60,
+      "inference_seconds": 2.418,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.949669599533081,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8960627317428589,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.7239851951599121,
+          "box": [
+            537,
+            744,
+            1175,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.7019185423851013,
+          "box": [
+            923,
+            917,
+            1177,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.4130610525608063,
+          "box": [
+            51,
+            115,
+            689,
+            754
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_008.jpg",
+      "nominal_time_s": 70,
+      "inference_seconds": 2.329,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9392146468162537,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8724634647369385,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8418615460395813,
+          "box": [
+            537,
+            742,
+            958,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.458769828081131,
+          "box": [
+            924,
+            915,
+            1177,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.3867451846599579,
+          "box": [
+            51,
+            115,
+            689,
+            754
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_009.jpg",
+      "nominal_time_s": 80,
+      "inference_seconds": 2.18,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9476810097694397,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8798712491989136,
+          "box": [
+            537,
+            742,
+            958,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.871414840221405,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.6105015873908997,
+          "box": [
+            924,
+            914,
+            1177,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.6001156568527222,
+          "box": [
+            919,
+            742,
+            1177,
+            929
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.5161855220794678,
+          "box": [
+            538,
+            742,
+            932,
+            927
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.4317389726638794,
+          "box": [
+            51,
+            115,
+            689,
+            754
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.24825529754161835,
+          "box": [
+            537,
+            117,
+            689,
+            494
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_010.jpg",
+      "nominal_time_s": 90,
+      "inference_seconds": 2.147,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9362272024154663,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.9171544313430786,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.6274376511573792,
+          "box": [
+            537,
+            743,
+            955,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.6145243048667908,
+          "box": [
+            923,
+            915,
+            1177,
+            1380
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.38034647703170776,
+          "box": [
+            51,
+            115,
+            689,
+            755
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_011.jpg",
+      "nominal_time_s": 100,
+      "inference_seconds": 2.288,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9129469990730286,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8996636867523193,
+          "box": [
+            52,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.864183783531189,
+          "box": [
+            537,
+            742,
+            958,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.6516664624214172,
+          "box": [
+            923,
+            914,
+            1177,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.4829908311367035,
+          "box": [
+            51,
+            115,
+            689,
+            754
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_012.jpg",
+      "nominal_time_s": 110,
+      "inference_seconds": 3.514,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.951090395450592,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8960322141647339,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.7691022753715515,
+          "box": [
+            537,
+            743,
+            958,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.4995806813240051,
+          "box": [
+            921,
+            786,
+            1177,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.3258739411830902,
+          "box": [
+            51,
+            115,
+            690,
+            755
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_013.jpg",
+      "nominal_time_s": 120,
+      "inference_seconds": 2.161,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9445334076881409,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8076854944229126,
+          "box": [
+            537,
+            743,
+            960,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.775035560131073,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.40622374415397644,
+          "box": [
+            51,
+            115,
+            690,
+            754
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.22072161734104156,
+          "box": [
+            916,
+            788,
+            1177,
+            1376
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.19013601541519165,
+          "box": [
+            331,
+            427,
+            691,
+            754
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_014.jpg",
+      "nominal_time_s": 130,
+      "inference_seconds": 2.17,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9359253644943237,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.9248579740524292,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.7880643606185913,
+          "box": [
+            537,
+            742,
+            954,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.3934306502342224,
+          "box": [
+            51,
+            115,
+            690,
+            754
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.3280351459980011,
+          "box": [
+            923,
+            912,
+            1177,
+            1382
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_015.jpg",
+      "nominal_time_s": 140,
+      "inference_seconds": 2.312,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9363864660263062,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.903558075428009,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8332107067108154,
+          "box": [
+            537,
+            743,
+            1176,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.366088330745697,
+          "box": [
+            51,
+            115,
+            690,
+            754
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.19367162883281708,
+          "box": [
+            925,
+            912,
+            1177,
+            1382
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_016.jpg",
+      "nominal_time_s": 150,
+      "inference_seconds": 2.127,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9375397562980652,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8382148146629333,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.7187963128089905,
+          "box": [
+            537,
+            743,
+            958,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.5034826993942261,
+          "box": [
+            923,
+            913,
+            1177,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.33600467443466187,
+          "box": [
+            51,
+            115,
+            689,
+            754
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.20848870277404785,
+          "box": [
+            537,
+            742,
+            939,
+            928
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_017.jpg",
+      "nominal_time_s": 160,
+      "inference_seconds": 2.078,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9351979494094849,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.9300318360328674,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8524316549301147,
+          "box": [
+            537,
+            743,
+            1172,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.28640180826187134,
+          "box": [
+            51,
+            115,
+            690,
+            754
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.17510901391506195,
+          "box": [
+            921,
+            814,
+            1177,
+            1381
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_018.jpg",
+      "nominal_time_s": 170,
+      "inference_seconds": 2.746,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9539932608604431,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.9394775032997131,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8978478908538818,
+          "box": [
+            537,
+            743,
+            1176,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.3606886565685272,
+          "box": [
+            51,
+            115,
+            690,
+            755
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_019.jpg",
+      "nominal_time_s": 180,
+      "inference_seconds": 2.336,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.93508380651474,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.9162417054176331,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8336206674575806,
+          "box": [
+            537,
+            743,
+            1172,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.42196929454803467,
+          "box": [
+            51,
+            115,
+            689,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.40700027346611023,
+          "box": [
+            920,
+            785,
+            1177,
+            1382
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_020.jpg",
+      "nominal_time_s": 190,
+      "inference_seconds": 2.43,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9409258365631104,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.9329270720481873,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8083591461181641,
+          "box": [
+            537,
+            742,
+            956,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.43830445408821106,
+          "box": [
+            51,
+            115,
+            690,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.18679270148277283,
+          "box": [
+            921,
+            830,
+            1177,
+            1381
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_021.jpg",
+      "nominal_time_s": 200,
+      "inference_seconds": 2.41,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9470003843307495,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.9290838837623596,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8446165323257446,
+          "box": [
+            537,
+            743,
+            1176,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.4748436510562897,
+          "box": [
+            51,
+            115,
+            690,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.24850735068321228,
+          "box": [
+            920,
+            795,
+            1177,
+            1381
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_022.jpg",
+      "nominal_time_s": 210,
+      "inference_seconds": 2.258,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9446711540222168,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.9191823601722717,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.7915312647819519,
+          "box": [
+            537,
+            743,
+            1169,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.38861027359962463,
+          "box": [
+            51,
+            115,
+            689,
+            754
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.3426273763179779,
+          "box": [
+            921,
+            811,
+            1177,
+            1382
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_023.jpg",
+      "nominal_time_s": 220,
+      "inference_seconds": 2.239,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9437659382820129,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8806892037391663,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.7628567814826965,
+          "box": [
+            537,
+            743,
+            965,
+            1380
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.32794639468193054,
+          "box": [
+            51,
+            115,
+            690,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.23834609985351562,
+          "box": [
+            922,
+            825,
+            1177,
+            1381
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_024.jpg",
+      "nominal_time_s": 230,
+      "inference_seconds": 3.474,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9294864535331726,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.9209585189819336,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.7954721450805664,
+          "box": [
+            537,
+            742,
+            957,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.3831210732460022,
+          "box": [
+            51,
+            115,
+            690,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.3765290677547455,
+          "box": [
+            922,
+            784,
+            1177,
+            1381
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_025.jpg",
+      "nominal_time_s": 240,
+      "inference_seconds": 2.333,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.943588137626648,
+          "box": [
+            51,
+            742,
+            691,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.9374432563781738,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8953990936279297,
+          "box": [
+            537,
+            742,
+            1175,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.5248198509216309,
+          "box": [
+            51,
+            115,
+            690,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.20737916231155396,
+          "box": [
+            537,
+            117,
+            612,
+            474
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_026.jpg",
+      "nominal_time_s": 250,
+      "inference_seconds": 2.236,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9346784353256226,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.9156912565231323,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8214354515075684,
+          "box": [
+            537,
+            743,
+            961,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.4021640419960022,
+          "box": [
+            51,
+            115,
+            689,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.2533018887042999,
+          "box": [
+            922,
+            786,
+            1177,
+            1381
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_027.jpg",
+      "nominal_time_s": 260,
+      "inference_seconds": 2.392,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9447460770606995,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.9416050910949707,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8256163597106934,
+          "box": [
+            537,
+            743,
+            960,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.46699386835098267,
+          "box": [
+            51,
+            115,
+            689,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.3712562620639801,
+          "box": [
+            920,
+            795,
+            1177,
+            1136
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_028.jpg",
+      "nominal_time_s": 270,
+      "inference_seconds": 2.375,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9390597939491272,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.9224340915679932,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8273219466209412,
+          "box": [
+            537,
+            742,
+            962,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.3817683458328247,
+          "box": [
+            51,
+            115,
+            690,
+            754
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_029.jpg",
+      "nominal_time_s": 280,
+      "inference_seconds": 2.145,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9421027302742004,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.7687768936157227,
+          "box": [
+            537,
+            742,
+            956,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.7392575144767761,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.3088701367378235,
+          "box": [
+            537,
+            117,
+            690,
+            490
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.27867329120635986,
+          "box": [
+            51,
+            115,
+            688,
+            754
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.1974472999572754,
+          "box": [
+            917,
+            793,
+            1177,
+            1142
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_002.jpg",
+      "nominal_time_s": 10,
+      "inference_seconds": 3.546,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9430960416793823,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8990744352340698,
+          "box": [
+            537,
+            742,
+            1177,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8824548721313477,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.611178457736969,
+          "box": [
+            51,
+            115,
+            645,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.2345932573080063,
+          "box": [
+            537,
+            742,
+            1110,
+            931
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_003.jpg",
+      "nominal_time_s": 20,
+      "inference_seconds": 2.484,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9446173310279846,
+          "box": [
+            537,
+            742,
+            1177,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8622609972953796,
+          "box": [
+            537,
+            116,
+            1176,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8121349811553955,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.6325546503067017,
+          "box": [
+            593,
+            120,
+            691,
+            290
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.569490909576416,
+          "box": [
+            51,
+            115,
+            450,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.4549266993999481,
+          "box": [
+            476,
+            115,
+            691,
+            751
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.26153746247291565,
+          "box": [
+            537,
+            117,
+            626,
+            494
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.23272740840911865,
+          "box": [
+            537,
+            120,
+            600,
+            266
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.16429130733013153,
+          "box": [
+            488,
+            718,
+            500,
+            744
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_004.jpg",
+      "nominal_time_s": 30,
+      "inference_seconds": 2.202,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.8427152037620544,
+          "box": [
+            51,
+            115,
+            414,
+            754
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8299676179885864,
+          "box": [
+            537,
+            742,
+            1177,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.7809774875640869,
+          "box": [
+            442,
+            116,
+            691,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.7212169170379639,
+          "box": [
+            546,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.6849637031555176,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.632542610168457,
+          "box": [
+            606,
+            115,
+            931,
+            497
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.31321948766708374,
+          "box": [
+            599,
+            123,
+            691,
+            500
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.3071305751800537,
+          "box": [
+            480,
+            716,
+            501,
+            744
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.2836197018623352,
+          "box": [
+            537,
+            117,
+            622,
+            706
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.24637795984745026,
+          "box": [
+            596,
+            126,
+            690,
+            288
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.1805628538131714,
+          "box": [
+            1013,
+            1064,
+            1047,
+            1077
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_005.jpg",
+      "nominal_time_s": 40,
+      "inference_seconds": 2.286,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.8713043332099915,
+          "box": [
+            537,
+            742,
+            1177,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8288713097572327,
+          "box": [
+            51,
+            115,
+            414,
+            754
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8018591403961182,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.7675435543060303,
+          "box": [
+            569,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.6037356853485107,
+          "box": [
+            396,
+            116,
+            691,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.27629899978637695,
+          "box": [
+            537,
+            115,
+            663,
+            748
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.24547475576400757,
+          "box": [
+            601,
+            128,
+            690,
+            283
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.23267464339733124,
+          "box": [
+            602,
+            127,
+            691,
+            497
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.2148086279630661,
+          "box": [
+            537,
+            119,
+            606,
+            268
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.16792982816696167,
+          "box": [
+            51,
+            846,
+            105,
+            1024
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.15313144028186798,
+          "box": [
+            480,
+            716,
+            501,
+            746
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_006.jpg",
+      "nominal_time_s": 50,
+      "inference_seconds": 2.306,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.8354532122612,
+          "box": [
+            51,
+            116,
+            408,
+            754
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8332610130310059,
+          "box": [
+            546,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8165165185928345,
+          "box": [
+            382,
+            115,
+            691,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8061462044715881,
+          "box": [
+            537,
+            742,
+            1177,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.6639748215675354,
+          "box": [
+            51,
+            742,
+            690,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.28254425525665283,
+          "box": [
+            537,
+            117,
+            619,
+            596
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.26720282435417175,
+          "box": [
+            480,
+            716,
+            501,
+            744
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.16517484188079834,
+          "box": [
+            1013,
+            1063,
+            1047,
+            1077
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.15135526657104492,
+          "box": [
+            601,
+            115,
+            920,
+            487
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_007.jpg",
+      "nominal_time_s": 60,
+      "inference_seconds": 2.344,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9583051204681396,
+          "box": [
+            537,
+            742,
+            1177,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.9522411227226257,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.9399376511573792,
+          "box": [
+            51,
+            742,
+            691,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8153548240661621,
+          "box": [
+            51,
+            115,
+            672,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.7146087884902954,
+          "box": [
+            696,
+            119,
+            879,
+            283
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.20416708290576935,
+          "box": [
+            537,
+            742,
+            1176,
+            931
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.19193458557128906,
+          "box": [
+            594,
+            118,
+            691,
+            753
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_008.jpg",
+      "nominal_time_s": 70,
+      "inference_seconds": 3.925,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.8877807259559631,
+          "box": [
+            537,
+            742,
+            1177,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8789113759994507,
+          "box": [
+            51,
+            115,
+            410,
+            754
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8645324110984802,
+          "box": [
+            51,
+            742,
+            690,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.7536659240722656,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.730177640914917,
+          "box": [
+            601,
+            116,
+            939,
+            529
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.7260546684265137,
+          "box": [
+            385,
+            116,
+            691,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.4526318907737732,
+          "box": [
+            537,
+            117,
+            619,
+            535
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.32837623357772827,
+          "box": [
+            597,
+            129,
+            691,
+            509
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.17548438906669617,
+          "box": [
+            483,
+            716,
+            501,
+            744
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.15527068078517914,
+          "box": [
+            1012,
+            1062,
+            1046,
+            1077
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_009.jpg",
+      "nominal_time_s": 80,
+      "inference_seconds": 2.21,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9493426084518433,
+          "box": [
+            537,
+            742,
+            1177,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.9291946887969971,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.9136767387390137,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8773581981658936,
+          "box": [
+            51,
+            116,
+            423,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.769772469997406,
+          "box": [
+            396,
+            115,
+            691,
+            754
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_010.jpg",
+      "nominal_time_s": 90,
+      "inference_seconds": 2.262,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.8779856562614441,
+          "box": [
+            537,
+            742,
+            1177,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8450275659561157,
+          "box": [
+            51,
+            115,
+            410,
+            754
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8159164786338806,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.7895083427429199,
+          "box": [
+            604,
+            115,
+            925,
+            567
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.688869297504425,
+          "box": [
+            538,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.6772850751876831,
+          "box": [
+            461,
+            117,
+            691,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.47012805938720703,
+          "box": [
+            537,
+            117,
+            619,
+            518
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.39307576417922974,
+          "box": [
+            598,
+            127,
+            691,
+            500
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.2095048725605011,
+          "box": [
+            1012,
+            1063,
+            1046,
+            1077
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.19620224833488464,
+          "box": [
+            51,
+            742,
+            269,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.16426154971122742,
+          "box": [
+            480,
+            717,
+            500,
+            744
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_011.jpg",
+      "nominal_time_s": 100,
+      "inference_seconds": 2.263,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9194127321243286,
+          "box": [
+            537,
+            742,
+            1177,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.883120059967041,
+          "box": [
+            537,
+            115,
+            1176,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8664014339447021,
+          "box": [
+            51,
+            742,
+            690,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8336077332496643,
+          "box": [
+            51,
+            115,
+            418,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.6288041472434998,
+          "box": [
+            386,
+            115,
+            691,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.19677673280239105,
+          "box": [
+            483,
+            716,
+            501,
+            744
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.16118046641349792,
+          "box": [
+            594,
+            125,
+            691,
+            290
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.15407957136631012,
+          "box": [
+            51,
+            844,
+            105,
+            1025
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_012.jpg",
+      "nominal_time_s": 110,
+      "inference_seconds": 2.367,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.8880698084831238,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8671660423278809,
+          "box": [
+            537,
+            742,
+            1177,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8532155752182007,
+          "box": [
+            51,
+            115,
+            413,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8115105628967285,
+          "box": [
+            478,
+            116,
+            691,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.7530597448348999,
+          "box": [
+            538,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.4721704125404358,
+          "box": [
+            606,
+            115,
+            938,
+            588
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.2706521153450012,
+          "box": [
+            537,
+            117,
+            623,
+            560
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.18770259618759155,
+          "box": [
+            1013,
+            1061,
+            1047,
+            1078
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.1545122116804123,
+          "box": [
+            483,
+            716,
+            501,
+            744
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_013.jpg",
+      "nominal_time_s": 120,
+      "inference_seconds": 2.231,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9361703991889954,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8769888281822205,
+          "box": [
+            537,
+            742,
+            1177,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.7642051577568054,
+          "box": [
+            51,
+            115,
+            657,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.5805432796478271,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.36369770765304565,
+          "box": [
+            482,
+            717,
+            500,
+            744
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.29564139246940613,
+          "box": [
+            477,
+            116,
+            690,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.18287618458271027,
+          "box": [
+            51,
+            742,
+            363,
+            1111
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.16914181411266327,
+          "box": [
+            593,
+            122,
+            691,
+            274
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_014.jpg",
+      "nominal_time_s": 130,
+      "inference_seconds": 3.71,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.8924260139465332,
+          "box": [
+            537,
+            742,
+            1177,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.848908543586731,
+          "box": [
+            51,
+            115,
+            409,
+            754
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8150871396064758,
+          "box": [
+            51,
+            742,
+            690,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.778083860874176,
+          "box": [
+            380,
+            116,
+            691,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.6394278407096863,
+          "box": [
+            541,
+            115,
+            913,
+            729
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.20233041048049927,
+          "box": [
+            1013,
+            1063,
+            1046,
+            1077
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.15710757672786713,
+          "box": [
+            51,
+            845,
+            105,
+            1027
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.151030495762825,
+          "box": [
+            481,
+            717,
+            500,
+            744
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_015.jpg",
+      "nominal_time_s": 140,
+      "inference_seconds": 2.409,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9549983143806458,
+          "box": [
+            537,
+            742,
+            1177,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.9511428475379944,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.9304683804512024,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8139742612838745,
+          "box": [
+            51,
+            115,
+            609,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.5536553859710693,
+          "box": [
+            402,
+            116,
+            691,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.30922406911849976,
+          "box": [
+            592,
+            120,
+            691,
+            492
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_016.jpg",
+      "nominal_time_s": 150,
+      "inference_seconds": 2.403,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.930853009223938,
+          "box": [
+            537,
+            742,
+            1177,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.907265841960907,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8644537925720215,
+          "box": [
+            51,
+            115,
+            418,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8568221926689148,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.4835079610347748,
+          "box": [
+            405,
+            116,
+            691,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.45754674077033997,
+          "box": [
+            593,
+            122,
+            691,
+            492
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.187235027551651,
+          "box": [
+            481,
+            716,
+            501,
+            744
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.1674363911151886,
+          "box": [
+            1012,
+            1062,
+            1047,
+            1078
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.15706270933151245,
+          "box": [
+            51,
+            844,
+            105,
+            1016
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_017.jpg",
+      "nominal_time_s": 160,
+      "inference_seconds": 2.265,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9569824934005737,
+          "box": [
+            537,
+            742,
+            1177,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.9107945561408997,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.9025524854660034,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8673316836357117,
+          "box": [
+            389,
+            117,
+            691,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8671901822090149,
+          "box": [
+            51,
+            115,
+            407,
+            754
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.21440517902374268,
+          "box": [
+            51,
+            843,
+            105,
+            1014
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_018.jpg",
+      "nominal_time_s": 170,
+      "inference_seconds": 2.199,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9171015620231628,
+          "box": [
+            537,
+            742,
+            1177,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.9038366079330444,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8539295792579651,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.5274234414100647,
+          "box": [
+            51,
+            115,
+            423,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.49554091691970825,
+          "box": [
+            480,
+            115,
+            691,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.2874935567378998,
+          "box": [
+            592,
+            129,
+            691,
+            272
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_019.jpg",
+      "nominal_time_s": 180,
+      "inference_seconds": 2.214,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.8731518983840942,
+          "box": [
+            51,
+            115,
+            404,
+            754
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8623960018157959,
+          "box": [
+            537,
+            115,
+            1176,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8457521796226501,
+          "box": [
+            384,
+            115,
+            691,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.7970673441886902,
+          "box": [
+            537,
+            743,
+            1177,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.4603689908981323,
+          "box": [
+            51,
+            742,
+            690,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.3989858329296112,
+          "box": [
+            51,
+            742,
+            251,
+            1172
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.17654474079608917,
+          "box": [
+            1013,
+            1061,
+            1047,
+            1078
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_020.jpg",
+      "nominal_time_s": 190,
+      "inference_seconds": 3.314,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9031698107719421,
+          "box": [
+            537,
+            742,
+            1177,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8505206108093262,
+          "box": [
+            51,
+            116,
+            410,
+            754
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.783576488494873,
+          "box": [
+            599,
+            115,
+            912,
+            694
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.7582212686538696,
+          "box": [
+            400,
+            116,
+            691,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.5370699167251587,
+          "box": [
+            51,
+            742,
+            690,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.5262224078178406,
+          "box": [
+            539,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.3684990108013153,
+          "box": [
+            537,
+            117,
+            618,
+            494
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.3200478255748749,
+          "box": [
+            480,
+            717,
+            501,
+            744
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_021.jpg",
+      "nominal_time_s": 200,
+      "inference_seconds": 2.168,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9166414141654968,
+          "box": [
+            539,
+            115,
+            1176,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8885778188705444,
+          "box": [
+            537,
+            742,
+            1177,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8713822960853577,
+          "box": [
+            51,
+            742,
+            690,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8521021008491516,
+          "box": [
+            51,
+            115,
+            427,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.6334323883056641,
+          "box": [
+            384,
+            115,
+            691,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.4818050265312195,
+          "box": [
+            537,
+            117,
+            624,
+            459
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.25621235370635986,
+          "box": [
+            1013,
+            1063,
+            1047,
+            1078
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.25580769777297974,
+          "box": [
+            592,
+            120,
+            691,
+            486
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.1724700629711151,
+          "box": [
+            480,
+            717,
+            501,
+            745
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_022.jpg",
+      "nominal_time_s": 210,
+      "inference_seconds": 2.154,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9574360847473145,
+          "box": [
+            537,
+            742,
+            1177,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.9557316899299622,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.9264493584632874,
+          "box": [
+            51,
+            115,
+            691,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8978869915008545,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.20578508079051971,
+          "box": [
+            51,
+            841,
+            107,
+            1015
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_023.jpg",
+      "nominal_time_s": 220,
+      "inference_seconds": 2.618,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9579166173934937,
+          "box": [
+            537,
+            742,
+            1177,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.9048508405685425,
+          "box": [
+            51,
+            742,
+            691,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8920302391052246,
+          "box": [
+            555,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.6156242489814758,
+          "box": [
+            51,
+            115,
+            615,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.460784912109375,
+          "box": [
+            537,
+            116,
+            688,
+            480
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.3900124728679657,
+          "box": [
+            480,
+            115,
+            691,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.3657904863357544,
+          "box": [
+            592,
+            117,
+            691,
+            280
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.23211170732975006,
+          "box": [
+            51,
+            742,
+            362,
+            1372
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_024.jpg",
+      "nominal_time_s": 230,
+      "inference_seconds": 2.273,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9637171030044556,
+          "box": [
+            537,
+            742,
+            1177,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.9594563841819763,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.9525547027587891,
+          "box": [
+            51,
+            115,
+            691,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.945615828037262,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_025.jpg",
+      "nominal_time_s": 240,
+      "inference_seconds": 2.336,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9584504961967468,
+          "box": [
+            51,
+            742,
+            691,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.9292914271354675,
+          "box": [
+            543,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.9279811382293701,
+          "box": [
+            51,
+            115,
+            691,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8961479663848877,
+          "box": [
+            537,
+            742,
+            1177,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.5206732153892517,
+          "box": [
+            537,
+            742,
+            1176,
+            931
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.3401029407978058,
+          "box": [
+            537,
+            116,
+            630,
+            522
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_026.jpg",
+      "nominal_time_s": 250,
+      "inference_seconds": 4.253,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9579195976257324,
+          "box": [
+            537,
+            742,
+            1177,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.9417733550071716,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.9265773892402649,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.49515387415885925,
+          "box": [
+            475,
+            115,
+            691,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.4856075942516327,
+          "box": [
+            51,
+            115,
+            641,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.20578482747077942,
+          "box": [
+            485,
+            717,
+            500,
+            744
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_027.jpg",
+      "nominal_time_s": 260,
+      "inference_seconds": 2.299,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.8677228093147278,
+          "box": [
+            537,
+            742,
+            1177,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8211606740951538,
+          "box": [
+            51,
+            742,
+            691,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.6181576251983643,
+          "box": [
+            51,
+            115,
+            622,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.6095057129859924,
+          "box": [
+            553,
+            115,
+            1177,
+            754
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.5652787089347839,
+          "box": [
+            537,
+            116,
+            705,
+            513
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.398299902677536,
+          "box": [
+            537,
+            116,
+            704,
+            286
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.327853262424469,
+          "box": [
+            401,
+            115,
+            689,
+            754
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.23001281917095184,
+          "box": [
+            592,
+            117,
+            691,
+            388
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.16712988913059235,
+          "box": [
+            537,
+            262,
+            702,
+            443
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_028.jpg",
+      "nominal_time_s": 270,
+      "inference_seconds": 2.141,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9423242211341858,
+          "box": [
+            537,
+            742,
+            1177,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.933896541595459,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.9280706644058228,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8056163787841797,
+          "box": [
+            51,
+            115,
+            690,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.19611206650733948,
+          "box": [
+            593,
+            117,
+            691,
+            487
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_029.jpg",
+      "nominal_time_s": 280,
+      "inference_seconds": 2.19,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.861238420009613,
+          "box": [
+            537,
+            742,
+            1177,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8583453893661499,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8451992869377136,
+          "box": [
+            51,
+            115,
+            404,
+            754
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8005841374397278,
+          "box": [
+            537,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.796807587146759,
+          "box": [
+            409,
+            115,
+            691,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.18981394171714783,
+          "box": [
+            567,
+            115,
+            917,
+            492
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_030.jpg",
+      "nominal_time_s": 290,
+      "inference_seconds": 2.119,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.8617093563079834,
+          "box": [
+            51,
+            115,
+            408,
+            754
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8040426969528198,
+          "box": [
+            537,
+            742,
+            1177,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.7523080110549927,
+          "box": [
+            51,
+            742,
+            690,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.7269594073295593,
+          "box": [
+            432,
+            116,
+            691,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.7141050696372986,
+          "box": [
+            548,
+            115,
+            1177,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.6464968919754028,
+          "box": [
+            606,
+            115,
+            921,
+            535
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.4318784177303314,
+          "box": [
+            537,
+            117,
+            613,
+            569
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.31382623314857483,
+          "box": [
+            1013,
+            1063,
+            1047,
+            1078
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.2930382192134857,
+          "box": [
+            600,
+            125,
+            691,
+            503
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.2562336325645447,
+          "box": [
+            479,
+            716,
+            501,
+            744
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.19994209706783295,
+          "box": [
+            601,
+            127,
+            691,
+            293
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_031.jpg",
+      "nominal_time_s": 300,
+      "inference_seconds": 2.109,
+      "detections": [
+        {
+          "label": "general_litter",
+          "confidence": 0.9131275415420532,
+          "box": [
+            51,
+            742,
+            691,
+            1382
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8753501176834106,
+          "box": [
+            537,
+            115,
+            1176,
+            755
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8642126321792603,
+          "box": [
+            537,
+            742,
+            1174,
+            1381
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.8222637176513672,
+          "box": [
+            51,
+            115,
+            421,
+            754
+          ]
+        },
+        {
+          "label": "general_litter",
+          "confidence": 0.7212134599685669,
+          "box": [
+            432,
+            115,
+            691,
+            755
+          ]
+        }
+      ]
+    }
+  ],
+  "native_yolov9": {
+    "epoch": 8,
+    "best_fitness": 0.16286243029343841,
+    "source": "/tmp/litter_eval/yolov9_source/yolov9-main",
+    "head": "second dual head, as detect_dual.py"
+  },
+  "summary": {
+    "day": {
+      "sampled_frames": 28,
+      "frames_with_detections": 28,
+      "counts_by_label": {
+        "general_litter": 147
+      },
+      "detection_count": 147
+    },
+    "night": {
+      "sampled_frames": 30,
+      "frames_with_detections": 30,
+      "counts_by_label": {
+        "general_litter": 227
+      },
+      "detection_count": 227
+    }
+  }
+}

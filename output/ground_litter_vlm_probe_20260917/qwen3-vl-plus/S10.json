@@ -1,0 +1,30 @@
+{
+  "id": "S10",
+  "model_requested": "qwen3-vl-plus",
+  "model_returned": "qwen3-vl-plus",
+  "manifest_sha256": "175685c3bd0b3d26a590843690b4fe69a881f2249b62f25eb02421251566eaeb",
+  "seconds": 1.9435752500139643,
+  "usage": {
+    "prompt_tokens": 456,
+    "completion_tokens": 54,
+    "total_tokens": 510,
+    "completion_tokens_details": {
+      "text_tokens": 54
+    },
+    "prompt_tokens_details": {
+      "image_tokens": 212,
+      "text_tokens": 244,
+      "cached_tokens": 0
+    }
+  },
+  "request_id": "chatcmpl-91b369a1-304c-94ec-81c6-70a5ff4d4ffb",
+  "finish_reason": "stop",
+  "raw_answer": "{\n  \"decision\": \"uncertain\",\n  \"object_description\": \"浅色矩形物体，边缘模糊\",\n  \"ground_relation\": \"unclear\",\n  \"reason\": \"图像分辨率低，无法确认是否接触地面或是否为垃圾\"\n}",
+  "parsed": {
+    "decision": "uncertain",
+    "object_description": "浅色矩形物体，边缘模糊",
+    "ground_relation": "unclear",
+    "reason": "图像分辨率低，无法确认是否接触地面或是否为垃圾"
+  },
+  "valid": true
+}

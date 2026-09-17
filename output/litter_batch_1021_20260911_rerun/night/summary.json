@@ -1,0 +1,31 @@
+{
+  "status": "offline_shadow_batch_not_accuracy",
+  "mode": "night",
+  "cameras": [
+    {
+      "status": "offline_shadow_batch_not_accuracy",
+      "camera_id": "44180209031322001021",
+      "source": "20260908000011-20260908000515.ps",
+      "mode": "night",
+      "sample_fps": 0.5,
+      "sampled_frames": 120,
+      "observations": 120,
+      "rejected_frames": 0,
+      "candidate_frames": 69,
+      "confirmed_records": 0,
+      "elapsed_seconds": 222.126,
+      "output_bytes": 7187913,
+      "events": [],
+      "limitations": [
+        "没有人工真值，候选/记录数量不能解释为准确率",
+        "本地文件的源时间用于时序确认，不证明平台回放接口的历史时间参数有效",
+        "本批次不发送通知，不接入生产主链"
+      ],
+      "candidate_review_count": 12
+    }
+  ],
+  "total_sampled_frames": 120,
+  "total_confirmed_records": 0,
+  "notifications_sent": 0,
+  "total_candidate_review_frames": 12
+}

@@ -1,0 +1,94 @@
+{
+  "finished_utc": "2026-09-13T10:12:45.317391+00:00",
+  "source_kind": "local_video",
+  "elapsed_seconds": 5.234309666993795,
+  "decoder": "pyav",
+  "status": "interrupted",
+  "started_utc": "2026-09-13T10:12:40.083114+00:00",
+  "observation_seconds": 5.170037707997835,
+  "stopped_by_signal": [
+    15
+  ],
+  "decoder_capability": {
+    "pyav_importable": true,
+    "pyav_version": "18.1.0"
+  },
+  "source_counters": {
+    "decoded_frames": 129.0,
+    "corrupt_frames": 0.0,
+    "missing_pts_frames": 0.0,
+    "nonmonotonic_pts_frames": 0.0,
+    "connections": 1.0,
+    "published_frames": 5.0,
+    "mailbox_lock_skips": 0.0,
+    "decode_read_seconds": 0.8034149560990045,
+    "convert_seconds": 0.019766623998293653,
+    "pts_observed_frames": 129.0,
+    "trace_lock_skips": 0.0
+  },
+  "samples": [
+    {
+      "sequence": 1.0,
+      "probe_elapsed": 0.3092604169942206,
+      "arrival_elapsed": 0.27574679200188257,
+      "local_age": 0.0335146659926977,
+      "generation": 1.0,
+      "source_elapsed": 0.0
+    },
+    {
+      "sequence": 2.0,
+      "probe_elapsed": 1.3419884169998113,
+      "arrival_elapsed": 1.3219705420051469,
+      "local_age": 0.020019915988086723,
+      "generation": 1.0,
+      "source_elapsed": 1.0389999999988504
+    },
+    {
+      "sequence": 3.0,
+      "probe_elapsed": 2.3660312080028234,
+      "arrival_elapsed": 2.3180541670008097,
+      "local_age": 0.04797724999662023,
+      "generation": 1.0,
+      "source_elapsed": 2.0389999999988504
+    },
+    {
+      "sequence": 4.0,
+      "probe_elapsed": 3.408682958004647,
+      "arrival_elapsed": 3.3549824170040665,
+      "local_age": 0.05370087499613874,
+      "generation": 1.0,
+      "source_elapsed": 3.07799999999952
+    },
+    {
+      "sequence": 5.0,
+      "probe_elapsed": 4.384828666996327,
+      "arrival_elapsed": 4.355447333000484,
+      "local_age": 0.029381625005044043,
+      "generation": 1.0,
+      "source_elapsed": 4.07799999999952
+    }
+  ],
+  "reader_alive": false,
+  "exitcode": 0,
+  "end_to_end_freshness_verified": false,
+  "notifications": 0,
+  "inference_executed": false,
+  "visual_quality_verified": false,
+  "corrupt_flag_available": true,
+  "source_pts_available": true,
+  "trace_rows": 129,
+  "trace_overwritten_rows": 0,
+  "trace_limit_reached": false,
+  "publish_timing": {
+    "count": 5,
+    "observed_mailbox_fps": 0.9671109346582146,
+    "wall_span_seconds": 4.079700540998601,
+    "first_frame_seconds": 0.27574679200188257,
+    "interval_p50_seconds": 1.0186965829998371,
+    "interval_p95_seconds": 1.0448294250032633,
+    "interval_max_seconds": 1.0462237500032643,
+    "local_age_p95_seconds": 0.052556149996235035,
+    "local_age_max_seconds": 0.05370087499613874,
+    "inference_executed": false
+  }
+}

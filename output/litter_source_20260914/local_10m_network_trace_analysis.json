@@ -1,0 +1,22 @@
+{
+  "rows": 15052,
+  "same_generation_arrival_intervals_seconds": {
+    "p50": 0.015144874996622093,
+    "p95": 0.09912987500138115,
+    "max": 1.9783038329915144,
+    "min": 0.0031511660054093227
+  },
+  "same_generation_pts_intervals_seconds": {
+    "p50": 0.03999999999999915,
+    "p95": 0.040000000000020464,
+    "max": 0.08000000000004093,
+    "min": 0.03899999999998727
+  },
+  "recorded_pts_gaps_over_0_1_seconds": 0,
+  "arrival_gaps_over_0_5_seconds": 149,
+  "trace_lock_skips": 8.0,
+  "trace_overwrites": 0,
+  "trace_completeness_verified": false,
+  "note": "Trace gaps may be diagnostic omissions. PTS is relative media time, not camera wall time.",
+  "absolute_latency_verified": false
+}

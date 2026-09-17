@@ -1,0 +1,41 @@
+{
+  "baseline": [
+    {
+      "id": "bd1b5e85ab6442eb82631e1680092c0f",
+      "status": "running",
+      "metrics": {
+        "publish_fps": 25.032795156863926,
+        "unique_publish_fps": 25.032795156863926,
+        "duplicate_publish_fps": 0.0,
+        "pipeline_healthy": true
+      }
+    }
+  ],
+  "after": [
+    {
+      "id": "bd1b5e85ab6442eb82631e1680092c0f",
+      "status": "running",
+      "metrics": {
+        "publish_fps": 25.068880110873998,
+        "unique_publish_fps": 25.068880110873998,
+        "duplicate_publish_fps": 0.0,
+        "pipeline_healthy": true
+      }
+    }
+  ],
+  "results": [
+    {
+      "actor_imgsz": 1280,
+      "returncode": 0,
+      "stop_reason": null,
+      "elapsed_seconds": 106.4194806170417
+    },
+    {
+      "actor_imgsz": 640,
+      "returncode": 0,
+      "stop_reason": null,
+      "elapsed_seconds": 106.48978800303303
+    }
+  ],
+  "new_live_monitor_started": false
+}

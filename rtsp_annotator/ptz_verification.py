@@ -12,6 +12,7 @@ import time
 import uuid
 from collections import deque
 from dataclasses import dataclass
+from dataclasses import replace
 from pathlib import Path
 from typing import Any, Callable, Literal
 from urllib.error import HTTPError, URLError
@@ -19,11 +20,19 @@ from urllib.parse import urljoin, urlsplit
 from urllib.request import Request, urlopen
 
 from .event_engine import NormalizedRect
+from .tracking_edge_guard import TrackingEdgeGuard
+from .continuous_tracking import (
+    DemoTrackingController,
+    ObservationKind,
+    TrackingObservation,
+    LatestIntentDispatcher,
+)
 from .vessel_detection import (
     EvidenceValidationResult,
     SMALL_TARGET_PROPOSAL_CLASS_ID,
     VesselDetection,
     VesselSnapshot,
+    rectangle_intersection_over_smaller,
 )
 
 
@@ -38,6 +47,93 @@ _MAX_STALLED_ZOOM_ROUNDS = 2
 _STRICT_REACQUIRE_FRACTION = 0.60
 
 
+def _ocr_vessel_number(
+    content: bytes,
+    rectangle: NormalizedRect,
+) -> str | None:
+    """Best-effort digit OCR on the largest blue plate inside one vessel."""
+    try:
+        import cv2
+        import numpy as np
+        import pytesseract
+
+        encoded = np.frombuffer(content, dtype=np.uint8)
+        frame = cv2.imdecode(encoded, cv2.IMREAD_COLOR)
+        if frame is None or frame.size == 0:
+            return None
+        height, width = frame.shape[:2]
+        left = min(max(int(rectangle.left * width), 0), width - 1)
+        top = min(max(int(rectangle.top * height), 0), height - 1)
+        right = min(
+            max(int((rectangle.left + rectangle.width) * width), left + 1),
+            width,
+        )
+        bottom = min(
+            max(int((rectangle.top + rectangle.height) * height), top + 1),
+            height,
+        )
+        vessel = frame[top:bottom, left:right]
+        if vessel.size == 0:
+            return None
+        hsv = cv2.cvtColor(vessel, cv2.COLOR_BGR2HSV)
+        blue = cv2.inRange(
+            hsv,
+            np.array((85, 45, 35), dtype=np.uint8),
+            np.array((145, 255, 255), dtype=np.uint8),
+        )
+        blue = cv2.morphologyEx(
+            blue,
+            cv2.MORPH_CLOSE,
+            cv2.getStructuringElement(cv2.MORPH_RECT, (7, 3)),
+        )
+        contours, _hierarchy = cv2.findContours(
+            blue,
+            cv2.RETR_EXTERNAL,
+            cv2.CHAIN_APPROX_SIMPLE,
+        )
+        candidates: list[tuple[int, int, int, int]] = []
+        for contour in contours:
+            x, y, plate_width, plate_height = cv2.boundingRect(contour)
+            if plate_height < 8 or plate_width < 24:
+                continue
+            aspect = plate_width / max(plate_height, 1)
+            if 1.5 <= aspect <= 12.0:
+                candidates.append((x, y, plate_width, plate_height))
+        if not candidates:
+            return None
+        x, y, plate_width, plate_height = max(
+            candidates,
+            key=lambda item: item[2] * item[3],
+        )
+        plate = vessel[y : y + plate_height, x : x + plate_width]
+        gray = cv2.cvtColor(plate, cv2.COLOR_BGR2GRAY)
+        scale = max(2.0, 96.0 / max(gray.shape[0], 1))
+        gray = cv2.resize(
+            gray,
+            None,
+            fx=scale,
+            fy=scale,
+            interpolation=cv2.INTER_CUBIC,
+        )
+        gray = cv2.equalizeHist(gray)
+        _threshold, binary = cv2.threshold(
+            gray,
+            0,
+            255,
+            cv2.THRESH_BINARY + cv2.THRESH_OTSU,
+        )
+        text = pytesseract.image_to_string(
+            binary,
+            config="--psm 7 -c tessedit_char_whitelist=0123456789",
+        )
+        matches = re.findall(r"\d{4,10}", text)
+        return max(matches, key=len) if matches else None
+    except Exception:
+        # OCR is optional in the offline DeepStream image. The configured
+        # demonstration fallback is applied by the coordinator.
+        return None
+
+
 @dataclass(frozen=True, slots=True)
 class PtzVerificationOptions:
     """Optional close-up verification driven by high-recall vessel candidates."""
@@ -46,10 +142,14 @@ class PtzVerificationOptions:
     camera_id: str = ""
     camera_control_url: str = "http://camera-control:8080"
     camera_control_key_env: str = "CAMERA_CONTROL_API_KEY"
+    trace_logging_enabled: bool = False
+    display_operation_log: bool = False
+    vessel_number_recognition_enabled: bool = False
+    vessel_number_fallback: str = ""
     zoom_strategy: Literal["adaptive", "fixed"] = "adaptive"
     zoom_steps: tuple[int, ...] = (4, 4)
-    adaptive_target_width_ratio: float = 0.25
-    adaptive_target_height_ratio: float = 0.18
+    adaptive_target_width_ratio: float = 0.33
+    adaptive_target_height_ratio: float = 0.33
     adaptive_min_step: int = 1
     adaptive_max_step: int = 6
     adaptive_max_rounds: int = 3
@@ -70,6 +170,7 @@ class PtzVerificationOptions:
     home_frame_delay_seconds: float = 1.5
     home_stable_frames: int = 2
     minimum_target_observations: int = 3
+    primary_target_minimum_observations: int = 1
     proposal_merge_radius: float = 0.04
     proposal_minimum_interval_seconds: float = 30.0
     proposal_maximum_verifications_per_hour: int = 12
@@ -83,13 +184,88 @@ class PtzVerificationOptions:
     reacquire_strict_center_radius: float = 0.22
     reacquire_center_radius: float = 0.45
     reacquire_cluster_radius: float = 0.18
+    continuous_tracking: bool = False
+    tracking_profile: Literal["standard", "demo_continuous"] = "standard"
+    tracking_center_deadband: float = 0.10
+    tracking_command_interval_seconds: float = 0.5
+    tracking_settle_seconds: float = 0.25
+    tracking_recovery_enabled: bool = False
+    tracking_recovery_interval_seconds: float = 2.0
+    tracking_recovery_zoom_out_step: int = 1
+    tracking_recovery_max_attempts: int = 3
+    tracking_lost_timeout_seconds: float = 4.0
+    tracking_max_duration_seconds: float = 300.0
+    tracking_zoom_hysteresis_ratio: float = 0.20
+    tracking_zoom_step: int = 1
+    tracking_initial_extra_zoom_step: int = 0
+    tracking_edge_guard_enabled: bool = False
+    tracking_edge_response_seconds: float = 1.0
+    tracking_edge_motion_seconds: float = 0.5
+    tracking_edge_uncertainty_seconds: float = 0.25
+    tracking_edge_cooldown_seconds: float = 8.0
+    tracking_edge_stable_seconds: float = 3.0
+    tracking_edge_maximum_age_seconds: float = 0.5
+
+    @property
+    def demo_continuous(self) -> bool:
+        return self.tracking_profile == "demo_continuous"
+
+    def effective_policy(self) -> dict[str, Any]:
+        if not self.demo_continuous:
+            return {
+                "profile": "standard",
+                "continuous_tracking": self.continuous_tracking,
+                "ignored_parameters": [],
+            }
+        ignored = [
+            "tracking_initial_extra_zoom_step",
+            "tracking_recovery_zoom_out_step",
+            "tracking_recovery_interval_seconds",
+            "tracking_recovery_max_attempts",
+            "tracking_max_duration_seconds",
+            "maximum_off_home_seconds",
+            "settle_seconds",
+        ]
+        return {
+            "profile": "demo_continuous",
+            "continuous_tracking": True,
+            "start_on_first_primary_observation": True,
+            "position_first": True,
+            "evidence_is_async": True,
+            "automatic_home": False,
+            "negative_zoom_without_edge_risk": False,
+            "ignored_parameters": ignored,
+        }
 
     @property
     def shutdown_timeout_seconds(self) -> float:
-        """Time reserved for an active verification to return HOME and finish."""
-        return self.maximum_off_home_seconds + 2.0
+        """Total worker grace needed to interrupt work and confirm final HOME."""
+        # shutdown() gives an in-flight SDK request one command timeout to
+        # unwind, then reserves two full command timeouts for the independent
+        # final HOME retries.  Keep a small fixed allowance for STOP, lease
+        # release, tracing and scheduling overhead.
+        return self.command_timeout_seconds * 3.0 + 10.0
 
     def validate(self) -> None:
+        if self.tracking_profile not in {"standard", "demo_continuous"}:
+            raise ValueError("tracking_profile必须是standard或demo_continuous")
+        if self.demo_continuous and not (self.enabled and self.continuous_tracking):
+            raise ValueError("demo_continuous要求enabled和continuous_tracking均为true")
+        if self.demo_continuous and self.tracking_max_duration_seconds != 0:
+            raise ValueError("demo_continuous不接受tracking_max_duration_seconds自动结束")
+        if self.tracking_edge_guard_enabled and not (self.enabled and self.continuous_tracking):
+            raise ValueError("tracking_edge_guard_enabled要求enabled和continuous_tracking均为true")
+        for name, lower, upper in (
+            ("tracking_edge_response_seconds", .1, 3),
+            ("tracking_edge_motion_seconds", .1, 3),
+            ("tracking_edge_uncertainty_seconds", 0, 2),
+            ("tracking_edge_cooldown_seconds", 1, 60),
+            ("tracking_edge_stable_seconds", .5, 15),
+            ("tracking_edge_maximum_age_seconds", .1, 1),
+        ):
+            value = getattr(self, name)
+            if not math.isfinite(value) or not lower <= value <= upper:
+                raise ValueError(f"{name}必须在[{lower},{upper}]")
         if not self.enabled:
             return
         if not self.camera_id or not _SAFE_IDENTIFIER.fullmatch(self.camera_id):
@@ -101,6 +277,11 @@ class PtzVerificationOptions:
             raise ValueError("camera_control_url中不能包含账号或密钥")
         if not _SAFE_IDENTIFIER.fullmatch(self.camera_control_key_env):
             raise ValueError("camera_control_key_env格式无效")
+        if (
+            self.vessel_number_fallback
+            and not re.fullmatch(r"[A-Za-z0-9\u4e00-\u9fff_-]{1,32}", self.vessel_number_fallback)
+        ):
+            raise ValueError("vessel_number_fallback格式无效")
         if self.zoom_strategy not in {"adaptive", "fixed"}:
             raise ValueError("zoom_strategy必须是adaptive或fixed")
         if not self.zoom_steps or len(self.zoom_steps) > 3:
@@ -151,6 +332,10 @@ class PtzVerificationOptions:
             raise ValueError("home_stable_frames必须在[1,10]")
         if not 1 <= self.minimum_target_observations <= 10:
             raise ValueError("minimum_target_observations必须在[1,10]")
+        if not 1 <= self.primary_target_minimum_observations <= 10:
+            raise ValueError(
+                "primary_target_minimum_observations必须在[1,10]"
+            )
         if not 0 <= self.proposal_merge_radius <= 0.10:
             raise ValueError("proposal_merge_radius必须在[0,0.10]")
         if not 0 <= self.proposal_minimum_interval_seconds <= 3_600:
@@ -181,13 +366,62 @@ class PtzVerificationOptions:
             )
         if not 0.02 <= self.reacquire_cluster_radius <= 0.30:
             raise ValueError("reacquire_cluster_radius必须在[0.02,0.30]")
+        if not 0.03 <= self.tracking_center_deadband <= 0.30:
+            raise ValueError("tracking_center_deadband必须在[0.03,0.30]")
+        if not 0.1 <= self.tracking_command_interval_seconds <= 5.0:
+            raise ValueError(
+                "tracking_command_interval_seconds必须在[0.1,5]"
+            )
+        if not 0 <= self.tracking_settle_seconds <= 2.0:
+            raise ValueError("tracking_settle_seconds必须在[0,2]")
+        if not 0.5 <= self.tracking_recovery_interval_seconds <= 15.0:
+            raise ValueError(
+                "tracking_recovery_interval_seconds必须在[0.5,15]"
+            )
+        if not 1 <= self.tracking_recovery_zoom_out_step <= 4:
+            raise ValueError("tracking_recovery_zoom_out_step必须在[1,4]")
+        if not 1 <= self.tracking_recovery_max_attempts <= 10:
+            raise ValueError("tracking_recovery_max_attempts必须在[1,10]")
+        if not 1 <= self.tracking_lost_timeout_seconds <= 30:
+            raise ValueError("tracking_lost_timeout_seconds必须在[1,30]")
+        if not (
+            self.tracking_max_duration_seconds == 0
+            or 5 <= self.tracking_max_duration_seconds <= 3_600
+        ):
+            raise ValueError(
+                "tracking_max_duration_seconds必须为0或在[5,3600]"
+            )
+        if not 0.05 <= self.tracking_zoom_hysteresis_ratio <= 0.50:
+            raise ValueError(
+                "tracking_zoom_hysteresis_ratio必须在[0.05,0.50]"
+            )
+        if not 1 <= self.tracking_zoom_step <= 4:
+            raise ValueError("tracking_zoom_step必须在[1,4]")
+        if not 0 <= self.tracking_initial_extra_zoom_step <= 4:
+            raise ValueError(
+                "tracking_initial_extra_zoom_step必须在[0,4]"
+            )
 
     def to_payload(self) -> dict[str, Any]:
         return {
+            "tracking_profile": self.tracking_profile,
+            "tracking_edge_guard_enabled": self.tracking_edge_guard_enabled,
+            "tracking_edge_response_seconds": self.tracking_edge_response_seconds,
+            "tracking_edge_motion_seconds": self.tracking_edge_motion_seconds,
+            "tracking_edge_uncertainty_seconds": self.tracking_edge_uncertainty_seconds,
+            "tracking_edge_cooldown_seconds": self.tracking_edge_cooldown_seconds,
+            "tracking_edge_stable_seconds": self.tracking_edge_stable_seconds,
+            "tracking_edge_maximum_age_seconds": self.tracking_edge_maximum_age_seconds,
             "enabled": self.enabled,
             "camera_id": self.camera_id,
             "camera_control_url": self.camera_control_url,
             "camera_control_key_env": self.camera_control_key_env,
+            "trace_logging_enabled": self.trace_logging_enabled,
+            "display_operation_log": self.display_operation_log,
+            "vessel_number_recognition_enabled": (
+                self.vessel_number_recognition_enabled
+            ),
+            "vessel_number_fallback": self.vessel_number_fallback,
             "zoom_strategy": self.zoom_strategy,
             "zoom_steps": list(self.zoom_steps),
             "adaptive_target_width_ratio": self.adaptive_target_width_ratio,
@@ -222,6 +456,9 @@ class PtzVerificationOptions:
             "home_frame_delay_seconds": self.home_frame_delay_seconds,
             "home_stable_frames": self.home_stable_frames,
             "minimum_target_observations": self.minimum_target_observations,
+            "primary_target_minimum_observations": (
+                self.primary_target_minimum_observations
+            ),
             "proposal_merge_radius": self.proposal_merge_radius,
             "proposal_minimum_interval_seconds": (
                 self.proposal_minimum_interval_seconds
@@ -243,6 +480,35 @@ class PtzVerificationOptions:
             ),
             "reacquire_center_radius": self.reacquire_center_radius,
             "reacquire_cluster_radius": self.reacquire_cluster_radius,
+            "continuous_tracking": self.continuous_tracking,
+            "tracking_center_deadband": self.tracking_center_deadband,
+            "tracking_command_interval_seconds": (
+                self.tracking_command_interval_seconds
+            ),
+            "tracking_settle_seconds": self.tracking_settle_seconds,
+            "tracking_recovery_enabled": self.tracking_recovery_enabled,
+            "tracking_recovery_interval_seconds": (
+                self.tracking_recovery_interval_seconds
+            ),
+            "tracking_recovery_zoom_out_step": (
+                self.tracking_recovery_zoom_out_step
+            ),
+            "tracking_recovery_max_attempts": (
+                self.tracking_recovery_max_attempts
+            ),
+            "tracking_lost_timeout_seconds": (
+                self.tracking_lost_timeout_seconds
+            ),
+            "tracking_max_duration_seconds": (
+                self.tracking_max_duration_seconds
+            ),
+            "tracking_zoom_hysteresis_ratio": (
+                self.tracking_zoom_hysteresis_ratio
+            ),
+            "tracking_zoom_step": self.tracking_zoom_step,
+            "tracking_initial_extra_zoom_step": (
+                self.tracking_initial_extra_zoom_step
+            ),
         }
 
     @classmethod
@@ -283,6 +549,81 @@ class _TargetSelection:
     detection: VesselDetection | None = None
     saw_candidates: bool = False
     competing_groups: bool = False
+
+
+@dataclass(frozen=True, slots=True)
+class _TrackingObservation:
+    detection: VesselDetection | None
+    result_version: int
+    end_reason: str | None = None
+
+
+@dataclass(frozen=True, slots=True)
+class PtzOverlayState:
+    """Small immutable snapshot consumed by the video OSD callback."""
+
+    state: str
+    target_rectangle: NormalizedRect | None
+    vessel_number: str | None
+    operation_lines: tuple[str, ...]
+
+
+class _PtzTaskTrace:
+    """Best-effort JSONL trace for one claimed PTZ verification task."""
+
+    def __init__(
+        self,
+        *,
+        root: Path,
+        job_id: str,
+        stream_id: str,
+        camera_id: str,
+    ) -> None:
+        self.job_id = job_id
+        self.stream_id = stream_id
+        self.camera_id = camera_id
+        self.path = root / "task-traces" / f"{job_id}.jsonl"
+        self._started_at = time.monotonic()
+        self._sequence = 0
+        self._lock = threading.Lock()
+        self._enabled = True
+        try:
+            self.path.parent.mkdir(parents=True, exist_ok=True)
+        except OSError:
+            self._enabled = False
+
+    def emit(self, event: str, **fields: Any) -> None:
+        if not self._enabled:
+            return
+        with self._lock:
+            self._sequence += 1
+            record = {
+                "timestamp": time.time(),
+                "elapsed_ms": round(
+                    (time.monotonic() - self._started_at) * 1_000,
+                    3,
+                ),
+                "sequence": self._sequence,
+                "trace_id": self.job_id,
+                "task_id": self.job_id,
+                "stream_id": self.stream_id,
+                "camera_id": self.camera_id,
+                "event": event,
+                **fields,
+            }
+            try:
+                with self.path.open("a", encoding="utf-8") as handle:
+                    handle.write(
+                        json.dumps(
+                            record,
+                            ensure_ascii=False,
+                            separators=(",", ":"),
+                        )
+                        + "\n"
+                    )
+            except (OSError, TypeError, ValueError):
+                # Observability must never prevent safety-critical PTZ control.
+                self._enabled = False
 
 
 class PtzVerificationRepository:
@@ -750,8 +1091,11 @@ class PtzVerificationRepository:
         home_returned: bool,
         now: float,
         options: PtzVerificationOptions,
+        cooldown_seconds_override: float | None = None,
     ) -> None:
-        if result == "boat_confirmed":
+        if cooldown_seconds_override is not None:
+            cooldown = cooldown_seconds_override
+        elif result == "boat_confirmed":
             cooldown = options.confirmed_cooldown_seconds
         elif result == "candidate_not_confirmed":
             cooldown = options.negative_cooldown_seconds
@@ -1088,6 +1432,32 @@ def _merge_proposal_fragments(
     return tuple(selected)
 
 
+def _merge_ptz_detection_sources(
+    primary: tuple[VesselDetection, ...],
+    sidecar: tuple[VesselDetection, ...],
+) -> tuple[VesselDetection, ...]:
+    """Merge green primary boxes with high-resolution sidecar results.
+
+    Primary detections are kept first so a boat visibly confirmed by the main
+    pipeline can always trigger PTZ.  A geometrically matching sidecar box is
+    suppressed to avoid turning the same vessel into an ambiguous pair.
+    """
+    selected = list(primary)
+    for detection in sidecar:
+        if detection.class_id != SMALL_TARGET_PROPOSAL_CLASS_ID and any(
+            current.class_id != SMALL_TARGET_PROPOSAL_CLASS_ID
+            and rectangle_intersection_over_smaller(
+                detection.rectangle,
+                current.rectangle,
+            )
+            >= 0.50
+            for current in selected
+        ):
+            continue
+        selected.append(detection)
+    return tuple(selected)
+
+
 class PtzVerificationCoordinator:
     """One serial verifier per camera; never called from the video callback."""
 
@@ -1113,7 +1483,30 @@ class PtzVerificationCoordinator:
         self._repository = repository
         self._camera = camera_client
         self._evidence_validator = evidence_validator
+        self._active_trace: _PtzTaskTrace | None = None
+        self._overlay_lock = threading.Lock()
+        self._overlay_target_rectangle: NormalizedRect | None = None
+        self._overlay_vessel_number: str | None = None
+        self._overlay_operation_lines: deque[str] = deque(maxlen=4)
+        self._snapshot_lock = threading.Lock()
+        self._primary_snapshot = VesselSnapshot()
+        self._combined_snapshot_version = 0
+        self._combined_snapshot_key: tuple[Any, ...] | None = None
+        self._primary_candidate_count = 0
+        self._sidecar_candidate_count = 0
+        self._trigger_status = "waiting_for_candidates"
+        self._trigger_observations = 0
+        self._trigger_required_observations = (
+            self.options.minimum_target_observations
+        )
+        self._trigger_cooldown_remaining_seconds = 0.0
         self._stop_event = threading.Event()
+        self._return_home_event = threading.Event()
+        # An operator-triggered HOME is an emergency stop, not a momentary
+        # camera movement. Keep automation inhibited after HOME so a fresh
+        # detection cannot immediately move the camera again. Recreating or
+        # updating the stream is the explicit resume operation.
+        self._manual_hold = threading.Event()
         self._thread: threading.Thread | None = None
         self._last_monitoring_version = 0
         self._monitoring_not_before = 0.0
@@ -1122,6 +1515,20 @@ class PtzVerificationCoordinator:
         self._proposal_verification_times: deque[float] = deque()
         self._zoom_gain_per_delta = _DEFAULT_ZOOM_GAIN_PER_DELTA
         self._view_generation = 0
+        self._activity_state = "verifying"
+        self._tracking_started_at: float | None = None
+        self._tracking_duration_seconds = 0.0
+        self._tracking_corrections = 0
+        self._tracking_target_width_ratio = 0.0
+        self._tracking_target_height_ratio = 0.0
+        self._last_tracking_end_reason: str | None = None
+        self._tracking_moved_camera = False
+        self._demo_dispatcher: LatestIntentDispatcher | None = None
+        self._demo_session_target_id: str | None = None
+        self._demo_session_generation = 0
+        self._demo_fault: str | None = None
+        self._demo_allowed_object_ids: set[str] = set()
+        self._last_return_home_request_id: str | None = None
         self._lease_owner = f"rtsp:{stream_id}:{uuid.uuid4().hex}"
         self._lease_ttl_seconds = min(
             max(
@@ -1134,6 +1541,147 @@ class PtzVerificationCoordinator:
         )
         self._lease_renew_after = 0.0
         self.last_error: str | None = None
+
+    def overlay_state(self) -> PtzOverlayState:
+        with self._overlay_lock:
+            return PtzOverlayState(
+                state=self.state,
+                target_rectangle=self._overlay_target_rectangle,
+                vessel_number=self._overlay_vessel_number,
+                operation_lines=tuple(self._overlay_operation_lines),
+            )
+
+    def _set_overlay_target(
+        self,
+        detection: VesselDetection | None,
+    ) -> None:
+        with self._overlay_lock:
+            self._overlay_target_rectangle = (
+                detection.rectangle if detection is not None else None
+            )
+            if detection is None:
+                self._overlay_vessel_number = None
+
+    def _set_overlay_vessel_number(self, value: str | None) -> None:
+        with self._overlay_lock:
+            self._overlay_vessel_number = value or None
+
+    def _recognize_vessel_number(
+        self,
+        content: bytes,
+        detection: VesselDetection,
+    ) -> str | None:
+        if not self.options.vessel_number_recognition_enabled:
+            return None
+        return (
+            _ocr_vessel_number(content, detection.rectangle)
+            or self.options.vessel_number_fallback
+            or None
+        )
+
+    def _append_overlay_operation(self, message: str) -> None:
+        timestamp = time.strftime("%H:%M:%S", time.localtime())
+        with self._overlay_lock:
+            self._overlay_operation_lines.append(
+                f"{timestamp} {message}"
+            )
+
+    def publish_primary_detections(
+        self,
+        detections: tuple[VesselDetection, ...],
+        *,
+        updated_at: float,
+        view_generation: int | None = None,
+    ) -> None:
+        """Publish main-pipeline vessel boxes as a PTZ trigger source."""
+        with self._snapshot_lock:
+            self._primary_snapshot = VesselSnapshot(
+                state="running",
+                detections=detections,
+                result_version=self._primary_snapshot.result_version + 1,
+                updated_at=updated_at,
+                view_generation=(
+                    self._view_generation
+                    if view_generation is None else int(view_generation)
+                ),
+            )
+
+    def _snapshot(self) -> VesselSnapshot:
+        sidecar = self._snapshot_provider()
+        now = time.monotonic()
+        with self._snapshot_lock:
+            primary = self._primary_snapshot
+            primary_fresh = bool(
+                primary.updated_at is not None
+                and 0 <= now - primary.updated_at
+                <= max(self.options.monitoring_interval_seconds * 4.0, 1.0)
+            )
+            primary_view_valid = (
+                not self.options.demo_continuous
+                or primary.view_generation >= self._view_generation
+            )
+            sidecar_fresh = bool(
+                sidecar.updated_at is not None
+                and 0 <= now - sidecar.updated_at
+                <= max(self.options.monitoring_interval_seconds * 4.0, 1.0)
+            )
+            primary_detections = (
+                primary.detections if primary_fresh and primary_view_valid else ()
+            )
+            if self.options.tracking_edge_guard_enabled and self._tracking_started_at is not None:
+                # Unknown primary provenance must not mask a reliable sidecar
+                # box in source fusion while the motion guard is active.
+                primary_detections = tuple(
+                    item for item in primary_detections
+                    if item.observation_kind in ("detector_measurement", "image_tracker_update")
+                )
+            sidecar_detections = tuple(
+                detection for detection in sidecar.detections
+                if sidecar_fresh
+                and sidecar.state == "running"
+                and (
+                    not self.options.demo_continuous
+                    or sidecar.view_generation >= self._view_generation
+                )
+                and detection.observation_kind not in ("held_display", "prediction")
+                and (
+                    detection.position_updated_at is None
+                    or 0 <= now - detection.position_updated_at
+                    <= max(self.options.monitoring_interval_seconds * 4.0, 1.0)
+                )
+            )
+            detections = _merge_ptz_detection_sources(
+                primary_detections,
+                sidecar_detections,
+            )
+            key = (
+                sidecar.result_version,
+                sidecar.updated_at,
+                primary.result_version,
+                primary_fresh,
+                sidecar_fresh,
+            )
+            if key != self._combined_snapshot_key:
+                self._combined_snapshot_key = key
+                self._combined_snapshot_version += 1
+            self._primary_candidate_count = len(primary_detections)
+            self._sidecar_candidate_count = len(sidecar_detections)
+            updated_values = tuple(
+                value
+                for value in (
+                    sidecar.updated_at if sidecar_fresh else None,
+                    primary.updated_at if primary_fresh else None,
+                )
+                if value is not None
+            )
+            return VesselSnapshot(
+                state=("running" if primary_fresh else sidecar.state),
+                detections=detections,
+                result_version=self._combined_snapshot_version,
+                updated_at=(max(updated_values) if updated_values else None),
+                message=sidecar.message,
+                last_inference_ms=sidecar.last_inference_ms,
+            )
 
     def _proposal_budget_available(self, now: float) -> bool:
         cutoff = now - 3_600.0
@@ -1167,17 +1715,109 @@ class PtzVerificationCoordinator:
         self.request_shutdown()
         if self._verifying.is_set():
             try:
-                self._camera.stop()
+                self._camera_control(
+                    "stop",
+                    self._camera.stop,
+                    reason="shutdown",
+                )
             except Exception:
                 # The in-flight command and the mandatory HOME attempt below
                 # remain the source of truth for the final job result.
                 pass
         if self._thread is not None:
-            self._thread.join(timeout=max(timeout, 0.0))
+            # Do not spend the complete worker grace waiting for the tracking
+            # thread.  The previous implementation could consume nearly the
+            # whole timeout here, leaving the final HOME no time before the
+            # parent process sent SIGKILL.
+            self._thread.join(
+                timeout=min(
+                    max(timeout, 0.0),
+                    self.options.command_timeout_seconds + 2.0,
+                )
+            )
+        # Reassert the safe preset even when no verification was active.  The
+        # coordinator thread may already have exited after a startup/recovery
+        # error, or it may have been idle when its stream was deleted; neither
+        # path used to issue a final HOME command.  Do not synchronize against
+        # fresh frames here because the owning pipeline is being torn down.
+        self._return_home_for_shutdown()
+
+    def _return_home_for_shutdown(self) -> None:
+        self._activity_state = "returning_home"
+        self._verifying.set()
+        errors: list[str] = []
+        try:
+            for _attempt in range(2):
+                try:
+                    self._renew_lease(force=True)
+                    try:
+                        self._camera_control(
+                            "stop",
+                            self._camera.stop,
+                            reason="shutdown_final_home",
+                        )
+                    except Exception:
+                        # HOME remains the authoritative safety action.  Some
+                        # devices reject STOP while already idle.
+                        pass
+                    self._advance_view_generation()
+                    self._camera_control(
+                        "home",
+                        self._camera.home,
+                        reason="shutdown_final_home",
+                    )
+                    self._recovery_required = False
+                    self.last_error = None
+                    return
+                except Exception as exc:
+                    errors.append(f"{type(exc).__name__}: {exc}")
+                    time.sleep(0.2)
+            self._recovery_required = True
+            self.last_error = "关闭流回HOME失败: " + "; ".join(errors)
+        finally:
+            try:
+                self._camera.release_lease()
+            except Exception as exc:
+                if self.last_error is None:
+                    self.last_error = f"关闭流释放摄像头控制租约失败: {exc}"
+            self._verifying.clear()
 
     def request_shutdown(self) -> None:
         """Prevent new PTZ work without blocking the worker signal handler."""
         self._stop_event.set()
+
+    def request_return_home(self, request_id: str) -> None:
+        """Interrupt PTZ work, return HOME, and inhibit further movement."""
+        self._last_return_home_request_id = request_id
+        self._manual_hold.set()
+        self._return_home_event.set()
+        if (
+            self._verifying.is_set()
+            and self._activity_state != "returning_home"
+        ):
+            self._activity_state = "returning_home"
+            try:
+                self._camera_control(
+                    "stop",
+                    self._camera.stop,
+                    reason="manual_return_home",
+                )
+            except Exception:
+                # The coordinator observes the event independently and its
+                # mandatory HOME path remains authoritative.
+                pass
+
+    def _operation_interrupted(self) -> bool:
+        return self._stop_event.is_set() or self._return_home_event.is_set()
+
+    def _wait_for_operation_interrupt(self, timeout: float) -> bool:
+        deadline = time.monotonic() + max(timeout, 0.0)
+        while not self._operation_interrupted():
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                return False
+            self._stop_event.wait(min(remaining, 0.1))
+        return True
 
     def _run(self) -> None:
         while not self._stop_event.is_set():
@@ -1193,8 +1833,9 @@ class PtzVerificationCoordinator:
         if self._stop_event.is_set():
             return
         self._verifying.set()
+        self._activity_state = "returning_home"
         try:
-            before_home_version = self._snapshot_provider().result_version
+            before_home_version = self._snapshot().result_version
             home_started_at = time.monotonic()
             self._advance_view_generation()
             self._camera.home()
@@ -1227,6 +1868,9 @@ class PtzVerificationCoordinator:
         while not self._stop_event.is_set():
             try:
                 self._renew_lease()
+                if self._return_home_event.is_set():
+                    self._return_home_while_monitoring()
+                    continue
                 self.run_once()
                 self.last_error = None
             except Exception as exc:
@@ -1247,8 +1891,90 @@ class PtzVerificationCoordinator:
         )
         self._lease_renew_after = now + self._lease_ttl_seconds / 3.0
 
+    def _camera_control(
+        self,
+        action: str,
+        operation: Callable[[], Any],
+        **parameters: Any,
+    ) -> Any:
+        """Run and trace one physical camera-control operation."""
+        if action == "locate":
+            zoom_delta = int(parameters.get("zoom_delta", 0))
+            reason = str(parameters.get("reason", ""))
+            if reason == "continuous_tracking":
+                label = "追踪纠偏"
+            elif reason == "tracking_recovery":
+                label = "扩大视野重捕获"
+            else:
+                label = "定位目标"
+            if zoom_delta:
+                label += f" 变焦{zoom_delta:+d}"
+            self._append_overlay_operation(label)
+        elif action == "home":
+            self._append_overlay_operation("返回HOME")
+        elif action == "stop":
+            self._append_overlay_operation("停止云台")
+        elif action == "autofocus":
+            self._append_overlay_operation("自动对焦")
+        elif action == "capture":
+            self._append_overlay_operation("抓取证据图")
+        trace = self._active_trace
+        started = time.monotonic()
+        if trace is not None:
+            trace.emit(
+                "camera_control.started",
+                action=action,
+                parameters=parameters,
+            )
+        try:
+            result = operation()
+        except Exception as exc:
+            self._append_overlay_operation(f"{action}失败")
+            if trace is not None:
+                trace.emit(
+                    "camera_control.failed",
+                    action=action,
+                    parameters=parameters,
+                    duration_ms=round(
+                        (time.monotonic() - started) * 1_000,
+                        3,
+                    ),
+                    error_type=type(exc).__name__,
+                    error=str(exc),
+                )
+            raise
+        if trace is not None:
+            result_fields: dict[str, Any] = {}
+            if action == "capture" and isinstance(result, tuple):
+                content, mime_type, captured_at = result
+                result_fields = {
+                    "result": {
+                        "size_bytes": len(content),
+                        "mime_type": mime_type,
+                        "captured_at": captured_at,
+                    }
+                }
+            trace.emit(
+                "camera_control.completed",
+                action=action,
+                parameters=parameters,
+                duration_ms=round(
+                    (time.monotonic() - started) * 1_000,
+                    3,
+                ),
+                **result_fields,
+            )
+        return result
+
     def _advance_view_generation(self) -> int:
         self._view_generation += 1
+        # Coordinates from the previous physical view become invalid as soon
+        # as a PTZ command is issued. Do not let a still-fresh green box from
+        # the old frame compete with the first close-up detection.
+        with self._snapshot_lock:
+            self._primary_snapshot = VesselSnapshot(
+                result_version=self._primary_snapshot.result_version + 1,
+            )
         return self._view_generation
 
     @property
@@ -1260,7 +1986,9 @@ class PtzVerificationCoordinator:
         if self._recovery_required:
             return "recovery_required"
         if self._verifying.is_set():
-            return "verifying"
+            return self._activity_state
+        if self._manual_hold.is_set():
+            return "manual_hold"
         if self.last_error:
             return "degraded"
         if self._thread is not None and self._thread.is_alive():
@@ -1272,10 +2000,62 @@ class PtzVerificationCoordinator:
         """Whether the camera view may differ from its monitoring preset."""
         return self._verifying.is_set() or self._recovery_required
 
+    @property
+    def tracking_metrics(self) -> dict[str, float | int | str | None]:
+        duration = self._tracking_duration_seconds
+        if self._tracking_started_at is not None:
+            duration = max(time.monotonic() - self._tracking_started_at, 0.0)
+        return {
+            "tracking_duration_seconds": duration,
+            "tracking_corrections": self._tracking_corrections,
+            "tracking_target_width_ratio": self._tracking_target_width_ratio,
+            "tracking_target_height_ratio": self._tracking_target_height_ratio,
+            "tracking_last_end_reason": self._last_tracking_end_reason,
+            "ptz_last_return_home_request_id": (
+                self._last_return_home_request_id
+            ),
+            "ptz_manual_hold": self._manual_hold.is_set(),
+            "ptz_primary_candidate_count": self._primary_candidate_count,
+            "ptz_sidecar_candidate_count": self._sidecar_candidate_count,
+            "ptz_trigger_status": self._trigger_status,
+            "ptz_trigger_observations": self._trigger_observations,
+            "ptz_trigger_required_observations": (
+                self._trigger_required_observations
+            ),
+            "ptz_trigger_cooldown_remaining_seconds": (
+                self._trigger_cooldown_remaining_seconds
+            ),
+        }
+
+    def _return_home_while_monitoring(self) -> None:
+        """Reassert HOME even if the worker believes it is already there."""
+        self._verifying.set()
+        self._activity_state = "returning_home"
+        try:
+            before_version = self._snapshot().result_version
+            home_started_at = time.monotonic()
+            self._advance_view_generation()
+            self._renew_lease(force=True)
+            self._camera.home()
+            self._monitoring_not_before = (
+                home_started_at + self.options.home_frame_delay_seconds
+            )
+            self._synchronize_monitoring_view(
+                before_version,
+                required=not self._stop_event.is_set(),
+            )
+            self._recovery_required = False
+        except Exception as exc:
+            self._recovery_required = True
+            self.last_error = f"紧急回HOME失败: {type(exc).__name__}: {exc}"
+        finally:
+            self._return_home_event.clear()
+            self._verifying.clear()
+
     def run_once(self) -> str | None:
-        if self._recovery_required:
+        if self._recovery_required or self._manual_hold.is_set():
             return None
-        snapshot = self._snapshot_provider()
+        snapshot = self._snapshot()
         if snapshot.result_version <= self._last_monitoring_version:
             return None
         self._last_monitoring_version = snapshot.result_version
@@ -1285,7 +2065,15 @@ class PtzVerificationCoordinator:
         ):
             return None
         if snapshot.state != "running" or not snapshot.detections:
+            self._trigger_status = "waiting_for_candidates"
+            self._trigger_observations = 0
+            self._trigger_required_observations = (
+                self.options.minimum_target_observations
+            )
+            self._trigger_cooldown_remaining_seconds = 0.0
             return None
+        self._trigger_observations = 0
+        self._trigger_cooldown_remaining_seconds = 0.0
         now = time.time()
         candidates: list[tuple[VesselDetection, ObservedTarget]] = []
         observed_target_ids: set[str] = set()
@@ -1318,7 +2106,25 @@ class PtzVerificationCoordinator:
             reverse=True,
         )
         for detection, target in candidates:
-            if target.observations < self.options.minimum_target_observations:
+            required_observations = (
+                self.options.primary_target_minimum_observations
+                if detection.object_id <= -2
+                else self.options.minimum_target_observations
+            )
+            self._trigger_required_observations = required_observations
+            self._trigger_observations = max(
+                self._trigger_observations,
+                target.observations,
+            )
+            if target.observations < required_observations:
+                self._trigger_status = "observing"
+                continue
+            if target.cooldown_until > now:
+                self._trigger_status = "cooldown"
+                self._trigger_cooldown_remaining_seconds = max(
+                    target.cooldown_until - now,
+                    0.0,
+                )
                 continue
             job = self._repository.claim(
                 stream_id=self.stream_id,
@@ -1327,7 +2133,10 @@ class PtzVerificationCoordinator:
                 now=now,
             )
             if job is None:
+                self._trigger_status = "suppressed"
                 continue
+            self._trigger_status = "triggered"
+            self._trigger_cooldown_remaining_seconds = 0.0
             if detection.class_id == SMALL_TARGET_PROPOSAL_CLASS_ID:
                 self._proposal_verification_times.append(now)
             self._execute(job, detection)
@@ -1386,7 +2195,25 @@ class PtzVerificationCoordinator:
         return max(step, 0)
 
     def _execute(self, job: ClaimedJob, detection: VesselDetection) -> None:
+        if self.options.demo_continuous:
+            self._execute_demo_continuous(job, detection)
+            return
         self._verifying.set()
+        self._activity_state = "verifying"
+        self._tracking_started_at = None
+        self._tracking_duration_seconds = 0.0
+        self._tracking_corrections = 0
+        self._tracking_target_width_ratio = 0.0
+        self._tracking_target_height_ratio = 0.0
+        self._last_tracking_end_reason = None
+        self._tracking_moved_camera = False
+        self._demo_fault = None
+        self._demo_session_target_id = f"{self.stream_id}:{job.job_id}"
+        self._demo_session_generation += 1
+        self._demo_allowed_object_ids = {str(detection.object_id)}
+        self._set_overlay_target(detection)
+        self._set_overlay_vessel_number(None)
+        self._append_overlay_operation("锁定追踪船只")
         result = "target_lost"
         error: str | None = None
         departed_home = False
@@ -1394,6 +2221,25 @@ class PtzVerificationCoordinator:
         point_x = detection.rectangle.left + detection.rectangle.width / 2.0
         point_y = detection.rectangle.top + detection.rectangle.height / 2.0
         started = time.monotonic()
+        if self.options.trace_logging_enabled:
+            self._active_trace = _PtzTaskTrace(
+                root=self._repository.root,
+                job_id=job.job_id,
+                stream_id=self.stream_id,
+                camera_id=self.options.camera_id,
+            )
+            self._active_trace.emit(
+                "task.started",
+                source_track_id=job.target.source_track_id,
+                trigger={
+                    "x": job.target.x,
+                    "y": job.target.y,
+                    "width": job.target.width,
+                    "height": job.target.height,
+                },
+                continuous_tracking=self.options.continuous_tracking,
+                zoom_strategy=self.options.zoom_strategy,
+            )
         try:
             self._repository.mark_running(job.job_id, time.time())
             current = detection
@@ -1406,9 +2252,9 @@ class PtzVerificationCoordinator:
                 else self.options.adaptive_max_rounds
             )
             for step_index in range(maximum_rounds):
-                if self._stop_event.is_set():
+                if self._operation_interrupted():
                     raise InterruptedError(
-                        "PTZ verification interrupted by shutdown"
+                        "PTZ verification interrupted by shutdown or return-home request"
                     )
                 if (
                     time.monotonic() - started
@@ -1445,23 +2291,46 @@ class PtzVerificationCoordinator:
                         and after_step_total
                         < self.options.adaptive_max_total_zoom_delta
                     )
-                before_version = self._snapshot_provider().result_version
+                before_version = self._snapshot().result_version
                 self._renew_lease(force=True)
                 # A locate command can move the camera and then time out. Mark
                 # the view unsafe before issuing it so the finally block always
                 # attempts HOME even when the control request raises.
                 departed_home = True
                 self._advance_view_generation()
-                self._camera.locate(point_x, point_y, zoom_step)
+                self._camera_control(
+                    "locate",
+                    lambda: self._camera.locate(
+                        point_x,
+                        point_y,
+                        zoom_step,
+                    ),
+                    x=point_x,
+                    y=point_y,
+                    zoom_delta=zoom_step,
+                    reason="verification",
+                    round=step_index + 1,
+                )
                 total_zoom_delta += zoom_step
                 minimum_updated_at = time.monotonic()
                 if self.options.settle_seconds:
-                    self._stop_event.wait(self.options.settle_seconds)
+                    self._wait_for_operation_interrupt(
+                        self.options.settle_seconds
+                    )
                 reacquired = self._wait_for_centered_detection(
                     after_version=before_version,
                     minimum_updated_at=minimum_updated_at,
                     allow_proposal=allow_proposal,
                     reference=current,
+                    minimum_scale_ratio=(
+                        self.options.adaptive_min_scale_growth_ratio
+                        if (
+                            self.options.zoom_strategy == "adaptive"
+                            and zoom_step >= 3
+                            and self.options.settle_seconds > 0
+                        )
+                        else None
+                    ),
                 )
                 closeup = reacquired.detection
                 fallback_zoom_delta = 0
@@ -1488,9 +2357,9 @@ class PtzVerificationCoordinator:
                     total_zoom_delta += fallback_zoom_delta
                     fallback_zoom_rounds_used += fallback_rounds
                 if closeup is None:
-                    if self._stop_event.is_set():
+                    if self._operation_interrupted():
                         raise InterruptedError(
-                            "PTZ verification interrupted by shutdown"
+                            "PTZ verification interrupted by shutdown or return-home request"
                         )
                     if current.class_id == SMALL_TARGET_PROPOSAL_CLASS_ID:
                         result = "candidate_not_confirmed"
@@ -1502,6 +2371,7 @@ class PtzVerificationCoordinator:
                 previous = current
                 previous_scale = self._visual_scale(previous)
                 current = closeup
+                self._set_overlay_target(current)
                 point_x = closeup.rectangle.left + closeup.rectangle.width / 2.0
                 point_y = closeup.rectangle.top + closeup.rectangle.height / 2.0
                 effective_zoom_step = zoom_step + fallback_zoom_delta
@@ -1548,34 +2418,120 @@ class PtzVerificationCoordinator:
                 result = "candidate_not_confirmed"
                 return
             if (
+                self.options.continuous_tracking
+                and self.options.tracking_initial_extra_zoom_step > 0
+            ):
+                if (
+                    time.monotonic() - started
+                    >= self.options.maximum_off_home_seconds
+                ):
+                    raise RuntimeError("进入持续跟踪前已超过最大离开全景时间")
+                if self._operation_interrupted():
+                    raise InterruptedError(
+                        "PTZ verification interrupted by shutdown or return-home request"
+                    )
+                before_version = self._snapshot().result_version
+                self._renew_lease(force=True)
+                departed_home = True
+                self._advance_view_generation()
+                self._camera_control(
+                    "locate",
+                    lambda: self._camera.locate(
+                        point_x,
+                        point_y,
+                        self.options.tracking_initial_extra_zoom_step,
+                    ),
+                    x=point_x,
+                    y=point_y,
+                    zoom_delta=self.options.tracking_initial_extra_zoom_step,
+                    reason="tracking_initial_extra_zoom",
+                )
+                minimum_updated_at = time.monotonic()
+                if self.options.settle_seconds:
+                    self._wait_for_operation_interrupt(
+                        self.options.settle_seconds
+                    )
+                final_reacquired = self._wait_for_centered_detection(
+                    after_version=before_version,
+                    minimum_updated_at=minimum_updated_at,
+                    allow_proposal=False,
+                    reference=current,
+                )
+                if final_reacquired.detection is None:
+                    if self._operation_interrupted():
+                        raise InterruptedError(
+                            "PTZ verification interrupted by shutdown or return-home request"
+                        )
+                    result = (
+                        "target_ambiguous"
+                        if final_reacquired.competing_groups
+                        else "target_lost"
+                    )
+                    return
+                current = final_reacquired.detection
+                self._set_overlay_target(current)
+                point_x, point_y = current.rectangle.center
+            if (
                 self.options.zoom_strategy == "adaptive"
                 and (
                     not self._adaptive_target_reached(current)
                     or not self._capture_target_centered(current)
                 )
+                and not self.options.continuous_tracking
             ):
                 result = "insufficient_resolution"
                 return
-            if self._stop_event.is_set():
+            if self._operation_interrupted():
                 raise InterruptedError(
-                    "PTZ verification interrupted by shutdown"
+                    "PTZ verification interrupted by shutdown or return-home request"
                 )
             self._renew_lease(force=True)
-            self._camera.autofocus()
+            self._camera_control(
+                "autofocus",
+                self._camera.autofocus,
+                reason="evidence_capture",
+            )
             validation_error = ""
+            recognized_vessel_number: str | None = None
             for capture_attempt in range(
                 self.options.evidence_capture_attempts
             ):
-                if self._stop_event.is_set():
+                if self._operation_interrupted():
                     raise InterruptedError(
-                        "PTZ verification interrupted by shutdown"
+                        "PTZ verification interrupted by shutdown or return-home request"
                     )
-                self._renew_lease(force=True)
-                content, mime_type, captured_at = self._camera.capture()
-                valid, validation_error = self._validate_evidence_capture(
-                    content,
-                    current,
-                )
+                try:
+                    self._renew_lease(force=True)
+                    content, mime_type, captured_at = self._camera_control(
+                        "capture",
+                        self._camera.capture,
+                        attempt=capture_attempt + 1,
+                        quality=self.options.capture_quality,
+                    )
+                    if (
+                        self.options.vessel_number_recognition_enabled
+                        and recognized_vessel_number is None
+                    ):
+                        recognized_vessel_number = self._recognize_vessel_number(
+                            content,
+                            current,
+                        )
+                        if recognized_vessel_number is not None:
+                            self._set_overlay_vessel_number(
+                                recognized_vessel_number
+                            )
+                            self._append_overlay_operation(
+                                f"识别船号 {recognized_vessel_number}"
+                            )
+                    valid, validation_error = self._validate_evidence_capture(
+                        content,
+                        current,
+                    )
+                except Exception as exc:
+                    valid = False
+                    validation_error = (
+                        f"{type(exc).__name__}: {exc}"
+                    )
                 if valid:
                     self._repository.store_evidence(
                         job_id=job.job_id,
@@ -1589,21 +2545,28 @@ class PtzVerificationCoordinator:
                     capture_attempt + 1
                     < self.options.evidence_capture_attempts
                 ):
-                    self._stop_event.wait(0.3)
+                    self._wait_for_operation_interrupt(0.3)
             else:
                 result = "evidence_not_confirmed"
                 error = validation_error or "证据图片未通过二次验真"
-                return
+                if not self.options.continuous_tracking:
+                    return
+            if self.options.continuous_tracking:
+                tracking_moved, tracking_reason = self._track_target(current)
+                departed_home = departed_home or tracking_moved
+                self._last_tracking_end_reason = tracking_reason
         except Exception as exc:
             error = f"{type(exc).__name__}: {exc}"
             result = "target_lost"
         finally:
+            departed_home = departed_home or self._tracking_moved_camera
             if departed_home:
+                self._activity_state = "returning_home"
                 home_errors: list[str] = []
                 for _attempt in range(2):
                     try:
                         before_home_version = (
-                            self._snapshot_provider().result_version
+                            self._snapshot().result_version
                         )
                         home_started_at = time.monotonic()
                         self._advance_view_generation()
@@ -1611,7 +2574,12 @@ class PtzVerificationCoordinator:
                         # call. A long multi-round verification must not let
                         # its exclusive camera lease expire while off preset.
                         self._renew_lease(force=True)
-                        self._camera.home()
+                        self._camera_control(
+                            "home",
+                            self._camera.home,
+                            reason="task_finalization",
+                            attempt=_attempt + 1,
+                        )
                         self._monitoring_not_before = (
                             home_started_at
                             + self.options.home_frame_delay_seconds
@@ -1630,7 +2598,11 @@ class PtzVerificationCoordinator:
                     except Exception as exc:
                         home_errors.append(f"{type(exc).__name__}: {exc}")
                         try:
-                            self._camera.stop()
+                            self._camera_control(
+                                "stop",
+                                self._camera.stop,
+                                reason="home_retry_recovery",
+                            )
                         except Exception:
                             pass
                         self._stop_event.wait(0.2)
@@ -1650,7 +2622,659 @@ class PtzVerificationCoordinator:
                 home_returned=home_returned,
                 now=time.time(),
                 options=self.options,
+                cooldown_seconds_override=(
+                    self.options.lost_retry_seconds
+                    if (
+                        self.options.continuous_tracking
+                        and self._last_tracking_end_reason == "target_lost"
+                    )
+                    else None
+                ),
             )
+            if self._active_trace is not None:
+                self._active_trace.emit(
+                    "task.finished",
+                    result=result,
+                    error=error,
+                    home_returned=home_returned,
+                    duration_ms=round(
+                        (time.monotonic() - started) * 1_000,
+                        3,
+                    ),
+                )
+                self._active_trace = None
+            self._return_home_event.clear()
+            self._set_overlay_target(None)
+
+    def _execute_demo_continuous(self, job: ClaimedJob, detection: VesselDetection) -> None:
+        """Run the activity demo as one session from first lock onward.
+
+        Evidence is deliberately best effort and asynchronous.  The tracking
+        loop owns the camera lease and never performs an automatic HOME; only
+        an explicit return-home/shutdown path can terminate the physical view.
+        """
+        self._verifying.set()
+        self._activity_state = "following"
+        self._tracking_started_at = time.monotonic()
+        self._tracking_duration_seconds = 0.0
+        self._tracking_corrections = 0
+        self._tracking_target_width_ratio = detection.rectangle.width
+        self._tracking_target_height_ratio = detection.rectangle.height
+        self._last_tracking_end_reason = None
+        self._tracking_moved_camera = False
+        self._set_overlay_target(detection)
+        self._set_overlay_vessel_number(None)
+        self._append_overlay_operation("演示模式：首次观测立即跟随")
+        started = time.monotonic()
+        result = "target_lost"
+        error: str | None = None
+        evidence_thread: threading.Thread | None = None
+        try:
+            self._repository.mark_running(job.job_id, time.time())
+            if self.options.trace_logging_enabled:
+                self._active_trace = _PtzTaskTrace(
+                    root=self._repository.root,
+                    job_id=job.job_id,
+                    stream_id=self.stream_id,
+                    camera_id=self.options.camera_id,
+                )
+                self._active_trace.emit(
+                    "demo.session.started",
+                    session_target_id=f"{self.stream_id}:{job.job_id}",
+                    tracking_profile=self.options.tracking_profile,
+                    first_observation={
+                        "source": detection.source,
+                        "object_id": detection.object_id,
+                        "frame_id": detection.frame_id,
+                    },
+                )
+            # Capture/OCR runs independently and can never block following.
+            evidence_thread = threading.Thread(
+                target=self._demo_evidence_task,
+                args=(job, detection),
+                name=f"ptz-evidence-{job.job_id}",
+                daemon=True,
+            )
+            controller = DemoTrackingController(
+                target_width=self.options.adaptive_target_width_ratio,
+                target_height=self.options.adaptive_target_height_ratio,
+                center_deadband=self.options.tracking_center_deadband,
+                maximum_age=max(self.options.tracking_edge_maximum_age_seconds, 0.75),
+                prediction_horizon=min(
+                    max(self.options.tracking_edge_response_seconds, 0.5), 1.0
+                ),
+            )
+            dispatcher = LatestIntentDispatcher(
+                self._dispatch_demo_intent,
+                on_error=self._on_demo_dispatch_error,
+                on_complete=self._on_demo_dispatch_complete,
+            )
+            self._demo_dispatcher = dispatcher
+            edge_guard = (
+                TrackingEdgeGuard(
+                    response_seconds=self.options.tracking_edge_response_seconds,
+                    motion_seconds=self.options.tracking_edge_motion_seconds,
+                    uncertainty_seconds=self.options.tracking_edge_uncertainty_seconds,
+                    cooldown_seconds=self.options.tracking_edge_cooldown_seconds,
+                    stable_seconds=self.options.tracking_edge_stable_seconds,
+                    maximum_age_seconds=self.options.tracking_edge_maximum_age_seconds,
+                    target_width=self.options.adaptive_target_width_ratio,
+                    target_height=self.options.adaptive_target_height_ratio,
+                    deadband=self.options.tracking_center_deadband,
+                )
+                if self.options.tracking_edge_guard_enabled else None
+            )
+            self._demo_edge_guard = edge_guard
+            evidence_thread.start()
+            reference = detection
+            previous_observation: TrackingObservation | None = None
+            last_version = self._snapshot().result_version - 1
+            last_observation_at = time.monotonic()
+            try:
+                while not self._operation_interrupted():
+                    if dispatcher.failed or self._demo_fault is not None:
+                        self._activity_state = "fault_hold"
+                        result = "control_fault"
+                        break
+                    snapshot = self._snapshot()
+                    if snapshot.state in {"error", "stopped"}:
+                        result = "stream_unavailable"
+                        break
+                    selected = self._select_tracking_target(
+                        tuple(
+                            item
+                            for item in snapshot.detections
+                            if item.class_id != SMALL_TARGET_PROPOSAL_CLASS_ID
+                            and item.observation_kind
+                            in {"detector_measurement", "image_tracker_update"}
+                        ),
+                        reference,
+                        center_radius=self.options.reacquire_center_radius,
+                        allow_center_fallback=False,
+                    )
+                    if selected.detection is not None and snapshot.result_version > last_version:
+                        current = selected.detection
+                        last_version = snapshot.result_version
+                        reference = current
+                        self._demo_allowed_object_ids.add(str(current.object_id))
+                        last_observation_at = time.monotonic()
+                        self._activity_state = "following"
+                        self._set_overlay_target(current)
+                        self._tracking_target_width_ratio = current.rectangle.width
+                        self._tracking_target_height_ratio = current.rectangle.height
+                        observation = TrackingObservation(
+                            target_id=str(current.object_id),
+                            x=current.rectangle.left,
+                            y=current.rectangle.top,
+                            width=current.rectangle.width,
+                            height=current.rectangle.height,
+                            source=current.source,
+                            frame_id=current.frame_id,
+                            view_epoch=snapshot.view_generation,
+                            source_timestamp=(
+                                current.position_updated_at
+                                if current.position_updated_at is not None
+                                else -math.inf
+                            ),
+                            received_at=time.monotonic(),
+                            kind=(
+                                ObservationKind.TRACKER
+                                if current.observation_kind == "image_tracker_update"
+                                else ObservationKind.MEASUREMENT
+                            ),
+                            confidence=current.confidence,
+                        )
+                        if previous_observation is not None:
+                            dt = max(
+                                observation.received_at
+                                - previous_observation.received_at,
+                                1e-3,
+                            )
+                            observation = replace(
+                                observation,
+                                velocity_x=(
+                                    observation.center[0]
+                                    - previous_observation.center[0]
+                                ) / dt,
+                                velocity_y=(
+                                    observation.center[1]
+                                    - previous_observation.center[1]
+                                ) / dt,
+                            )
+                        previous_observation = observation
+                        if edge_guard is not None:
+                            guard_decision = edge_guard.update(
+                                current, now=time.monotonic()
+                            )
+                        else:
+                            guard_decision = None
+                        decision = controller.decide(
+                            observation,
+                            now=time.monotonic(),
+                            view_epoch=self._view_generation,
+                        )
+                        if guard_decision is not None and guard_decision.x is not None:
+                            if guard_decision.zoom_delta < 0:
+                                decision = (
+                                    guard_decision.x,
+                                    guard_decision.y,
+                                    guard_decision.zoom_delta,
+                                    guard_decision.reason,
+                                )
+                            elif decision is not None:
+                                decision = (
+                                    guard_decision.x,
+                                    guard_decision.y,
+                                    decision[2],
+                                    decision[3],
+                                )
+                        if decision is not None:
+                            x, y, zoom_delta, reason = decision
+                            if dispatcher.in_flight:
+                                # Position updates continue in memory; only the
+                                # latest intent is retained until the device is idle.
+                                dispatcher.submit(
+                                    target_id=observation.target_id,
+                                    x=x, y=y, zoom_delta=zoom_delta,
+                                    reason=reason,
+                                    view_epoch=self._view_generation,
+                                )
+                            else:
+                                dispatcher.submit(
+                                    target_id=observation.target_id,
+                                    x=x, y=y, zoom_delta=zoom_delta,
+                                    reason=reason,
+                                    view_epoch=self._view_generation,
+                                )
+                    elif time.monotonic() - last_observation_at > self.options.tracking_lost_timeout_seconds:
+                        self._activity_state = "lost_hold"
+                        dispatcher.cancel()
+                        # Keep this session alive and hold the current view.
+                        # A later observation may recover the same target; no
+                        # stale frame or competing boat may issue control.
+                        self._set_overlay_target(None)
+                        self._append_overlay_operation("目标失锁，停止云台控制，等待同船重捕获")
+                        last_observation_at = time.monotonic()
+                        previous_observation = None
+                        reference = reference
+                    self._renew_lease()
+                    self._stop_event.wait(self.options.monitoring_interval_seconds)
+            finally:
+                dispatcher.close()
+                self._demo_dispatcher = None
+                self._demo_edge_guard = None
+            if self._return_home_event.is_set():
+                result = "manual_return_home"
+            elif self._stop_event.is_set():
+                result = "shutdown"
+            elif result == "target_lost":
+                self._activity_state = "lost_hold"
+        except Exception as exc:
+            error = f"{type(exc).__name__}: {exc}"
+            result = "target_lost"
+            self._activity_state = "fault_hold"
+        finally:
+            if evidence_thread is not None:
+                evidence_thread.join(timeout=0.05)
+            self._tracking_duration_seconds = max(time.monotonic() - started, 0.0)
+            self._tracking_started_at = None
+            self._last_tracking_end_reason = result
+            self._repository.finish(
+                job_id=job.job_id,
+                result=result,
+                error=error,
+                home_returned=False,
+                now=time.time(),
+                options=self.options,
+                cooldown_seconds_override=self.options.lost_retry_seconds,
+            )
+            if self._active_trace is not None:
+                self._active_trace.emit(
+                    "demo.session.finished",
+                    result=result,
+                    error=error,
+                    automatic_home=False,
+                    duration_ms=round((time.monotonic() - started) * 1000, 3),
+                )
+                self._active_trace = None
+            if result in {"manual_return_home", "shutdown", "control_fault", "stream_unavailable"}:
+                self._verifying.clear()
+            if result not in {"manual_return_home", "shutdown"} and self._activity_state != "lost_hold":
+                self._set_overlay_target(None)
+
+    def _dispatch_demo_intent(self, intent: Any) -> bool:
+        if (
+            self._operation_interrupted()
+            or intent.view_epoch != self._view_generation
+            or self._activity_state in {"lost_hold", "fault_hold", "manual_hold"}
+            or (
+                self._demo_allowed_object_ids
+                and str(intent.target_id) not in self._demo_allowed_object_ids
+            )
+        ):
+            return False
+        self._renew_lease(force=True)
+        self._advance_view_generation()
+        self._tracking_moved_camera = True
+        self._camera_control(
+            "locate",
+            lambda: self._camera.locate(intent.x, intent.y, intent.zoom_delta),
+            x=intent.x,
+            y=intent.y,
+            zoom_delta=intent.zoom_delta,
+            reason=f"demo_{intent.reason}",
+            sequence=intent.sequence,
+        )
+        self._tracking_corrections += 1
+        return True
+
+    def _on_demo_dispatch_error(self, intent: Any, exc: BaseException) -> None:
+        self._demo_fault = f"{type(exc).__name__}: {exc}"
+        self._activity_state = "fault_hold"
+        if self._active_trace is not None:
+            self._active_trace.emit(
+                "demo.control.failed",
+                sequence=getattr(intent, "sequence", None),
+                error_type=type(exc).__name__,
+                error=str(exc),
+            )
+
+    def _on_demo_dispatch_complete(self, intent: Any, result: Any) -> None:
+        # The edge guard must acknowledge the physical action only after the
+        # camera client returns. This clears motion history and starts the
+        # configured upstream-video uncertainty window.
+        if result is False:
+            return
+        guard = getattr(self, "_demo_edge_guard", None)
+        if guard is not None:
+            guard.action_completed(time.monotonic(), zoom_delta=int(intent.zoom_delta))
+
+    def _demo_evidence_task(self, job: ClaimedJob, detection: VesselDetection) -> None:
+        """Best-effort evidence; all failures are trace-only in demo mode."""
+        try:
+            # camera-control serializes operations per camera. Never let a
+            # slow autofocus/capture acquire that lock while locate intents
+            # are active; evidence is optional and may be skipped for this
+            # session rather than delaying the tracking loop.
+            deadline = time.monotonic() + 2.0
+            while time.monotonic() < deadline:
+                dispatcher = self._demo_dispatcher
+                if dispatcher is None:
+                    return
+                if dispatcher.status == "idle" and not dispatcher.failed:
+                    break
+                time.sleep(0.05)
+            else:
+                if self._active_trace is not None:
+                    self._active_trace.emit(
+                        "demo.evidence.skipped",
+                        reason="tracking_control_busy",
+                    )
+                return
+            self._camera_control("autofocus", self._camera.autofocus, reason="demo_evidence")
+            content, mime_type, captured_at = self._camera_control(
+                "capture", self._camera.capture,
+                attempt=1, quality=self.options.capture_quality,
+            )
+            if self.options.vessel_number_recognition_enabled:
+                number = self._recognize_vessel_number(content, detection)
+                if number:
+                    self._set_overlay_vessel_number(number)
+            self._repository.store_evidence(
+                job_id=job.job_id,
+                content=content,
+                mime_type=mime_type,
+                captured_at=captured_at,
+            )
+        except Exception as exc:
+            if self._active_trace is not None:
+                self._active_trace.emit(
+                    "demo.evidence.failed",
+                    error_type=type(exc).__name__,
+                    error=str(exc),
+                )
+
+    def _tracking_size_score(self, detection: VesselDetection) -> float:
+        return max(
+            detection.rectangle.width
+            / self.options.adaptive_target_width_ratio,
+            detection.rectangle.height
+            / self.options.adaptive_target_height_ratio,
+        )
+
+    def _tracking_zoom_delta(self, detection: VesselDetection) -> int:
+        score = self._tracking_size_score(detection)
+        hysteresis = self.options.tracking_zoom_hysteresis_ratio
+        if score < 1.0 - hysteresis:
+            return self.options.tracking_zoom_step
+        if score > 1.0 + hysteresis:
+            return -self.options.tracking_zoom_step
+        return 0
+
+    def _wait_for_tracking_detection(
+        self,
+        *,
+        after_version: int,
+        reference: VesselDetection,
+    ) -> _TrackingObservation:
+        deadline = time.monotonic() + self.options.tracking_lost_timeout_seconds
+        last_checked_version = after_version
+        recovery_attempts = 0
+        next_recovery_at = (
+            time.monotonic()
+            + self.options.tracking_recovery_interval_seconds
+        )
+        while time.monotonic() < deadline and not self._operation_interrupted():
+            snapshot = self._snapshot()
+            if snapshot.state in {"error", "stopped"}:
+                return _TrackingObservation(
+                    None,
+                    last_checked_version,
+                    "stream_unavailable",
+                )
+            if (
+                snapshot.state == "running"
+                and snapshot.result_version > last_checked_version
+            ):
+                last_checked_version = snapshot.result_version
+                confirmed = tuple(
+                    item
+                    for item in snapshot.detections
+                    if item.class_id != SMALL_TARGET_PROPOSAL_CLASS_ID
+                )
+                selected = self._select_tracking_target(
+                    confirmed,
+                    reference,
+                    center_radius=self.options.reacquire_center_radius,
+                )
+                if selected.detection is not None:
+                    self._activity_state = "tracking"
+                    return _TrackingObservation(
+                        selected.detection,
+                        last_checked_version,
+                    )
+                self._activity_state = "reacquiring"
+            now = time.monotonic()
+            if (
+                self.options.tracking_recovery_enabled
+                and not self.options.tracking_edge_guard_enabled
+                and recovery_attempts
+                < self.options.tracking_recovery_max_attempts
+                and now >= next_recovery_at
+            ):
+                center_x, center_y = reference.rectangle.center
+                zoom_delta = -self.options.tracking_recovery_zoom_out_step
+                self._renew_lease(force=True)
+                self._advance_view_generation()
+                self._tracking_moved_camera = True
+                self._camera_control(
+                    "locate",
+                    lambda: self._camera.locate(
+                        center_x,
+                        center_y,
+                        zoom_delta,
+                    ),
+                    x=center_x,
+                    y=center_y,
+                    zoom_delta=zoom_delta,
+                    reason="tracking_recovery",
+                    attempt=recovery_attempts + 1,
+                )
+                self._tracking_corrections += 1
+                recovery_attempts += 1
+                next_recovery_at = (
+                    time.monotonic()
+                    + self.options.tracking_recovery_interval_seconds
+                )
+                if self.options.tracking_settle_seconds:
+                    self._wait_for_operation_interrupt(
+                        self.options.tracking_settle_seconds
+                    )
+            self._stop_event.wait(0.1)
+        return _TrackingObservation(
+            None,
+            last_checked_version,
+            (
+                "shutdown"
+                if self._stop_event.is_set()
+                else (
+                    "manual_return_home"
+                    if self._return_home_event.is_set()
+                    else "target_lost"
+                )
+            ),
+        )
+
+    def _track_target(
+        self,
+        initial: VesselDetection,
+    ) -> tuple[bool, str]:
+        """Keep one confirmed boat centred and near the configured scale."""
+        self._activity_state = "tracking"
+        self._tracking_started_at = time.monotonic()
+        self._tracking_target_width_ratio = initial.rectangle.width
+        self._tracking_target_height_ratio = initial.rectangle.height
+        reference = initial
+        after_version = self._snapshot().result_version
+        last_command_at = -math.inf
+        moved = False
+        end_reason = "target_lost"
+        edge_guard = (
+            TrackingEdgeGuard(
+                response_seconds=self.options.tracking_edge_response_seconds,
+                motion_seconds=self.options.tracking_edge_motion_seconds,
+                uncertainty_seconds=self.options.tracking_edge_uncertainty_seconds,
+                cooldown_seconds=self.options.tracking_edge_cooldown_seconds,
+                stable_seconds=self.options.tracking_edge_stable_seconds,
+                maximum_age_seconds=self.options.tracking_edge_maximum_age_seconds,
+                target_width=self.options.adaptive_target_width_ratio,
+                target_height=self.options.adaptive_target_height_ratio,
+                deadband=self.options.tracking_center_deadband,
+            ) if self.options.tracking_edge_guard_enabled else None
+        )
+        try:
+            while not self._operation_interrupted():
+                assert self._tracking_started_at is not None
+                if (
+                    self.options.tracking_max_duration_seconds > 0
+                    and time.monotonic() - self._tracking_started_at
+                    >= self.options.tracking_max_duration_seconds
+                ):
+                    end_reason = "maximum_duration"
+                    break
+                observation = self._wait_for_tracking_detection(
+                    after_version=after_version,
+                    reference=reference,
+                )
+                after_version = observation.result_version
+                current = observation.detection
+                if current is None:
+                    end_reason = observation.end_reason or "target_lost"
+                    break
+                reference = current
+                self._set_overlay_target(current)
+                self._tracking_target_width_ratio = current.rectangle.width
+                self._tracking_target_height_ratio = current.rectangle.height
+                # A stable target may require no PTZ commands for minutes.
+                # Keep the exclusive lease alive even while the camera is
+                # stationary so manual or competing workers cannot take over.
+                self._renew_lease()
+                center_x, center_y = current.rectangle.center
+                command_reason = "continuous_tracking"
+                if edge_guard is not None:
+                    decision = edge_guard.update(current, now=time.monotonic())
+                    if self._active_trace is not None:
+                        self._active_trace.emit(
+                            "tracking.edge_guard", reason=decision.reason,
+                            zoom_delta=decision.zoom_delta,
+                            velocity_reliable=decision.velocity_reliable,
+                            time_to_edge_seconds=decision.time_to_edge_seconds,
+                            predicted_margin=decision.predicted_margin,
+                            latency_source="configured_assumption",
+                        )
+                    if decision.x is None or decision.y is None:
+                        continue
+                    center_x, center_y = decision.x, decision.y
+                    zoom_delta = decision.zoom_delta
+                    command_reason = decision.reason
+                else:
+                    zoom_delta = self._tracking_zoom_delta(current)
+                center_error = math.hypot(center_x - 0.5, center_y - 0.5)
+                recenter = center_error > self.options.tracking_center_deadband
+                if not recenter and zoom_delta == 0:
+                    continue
+                now = time.monotonic()
+                if (
+                    now - last_command_at
+                    < self.options.tracking_command_interval_seconds
+                    and command_reason != "edge_escape"
+                ):
+                    continue
+                self._renew_lease(force=True)
+                self._advance_view_generation()
+                # A locate request may move the physical camera and then time
+                # out. Record the unsafe view before sending it so _execute()
+                # still performs the mandatory HOME recovery on exceptions.
+                self._tracking_moved_camera = True
+                self._camera_control(
+                    "locate",
+                    lambda: self._camera.locate(
+                        center_x,
+                        center_y,
+                        zoom_delta,
+                    ),
+                    x=center_x,
+                    y=center_y,
+                    zoom_delta=zoom_delta,
+                    reason=command_reason,
+                )
+                moved = True
+                self._tracking_corrections += 1
+                last_command_at = time.monotonic()
+                if edge_guard is not None:
+                    edge_guard.action_completed(last_command_at, zoom_delta=zoom_delta)
+                if self.options.tracking_settle_seconds:
+                    self._wait_for_operation_interrupt(
+                        self.options.tracking_settle_seconds
+                    )
+            else:
+                end_reason = (
+                    "shutdown"
+                    if self._stop_event.is_set()
+                    else "manual_return_home"
+                )
+        finally:
+            assert self._tracking_started_at is not None
+            self._tracking_duration_seconds = max(
+                time.monotonic() - self._tracking_started_at,
+                0.0,
+            )
+            self._tracking_started_at = None
+        return moved, end_reason
+
+    def _select_tracking_target(
+        self,
+        detections: tuple[VesselDetection, ...],
+        reference: VesselDetection,
+        *,
+        center_radius: float,
+        allow_center_fallback: bool = True,
+    ) -> _TargetSelection:
+        """Associate a frame with the locked vessel without center hijacking."""
+        same_track = tuple(
+            item
+            for item in detections
+            if item.object_id == reference.object_id
+        )
+        if len(same_track) == 1:
+            return _TargetSelection(
+                detection=same_track[0],
+                saw_candidates=True,
+            )
+        # During a demo session, an ID change after a PTZ move is common, but
+        # selecting whichever vessel is closest to screen center would silently
+        # switch targets. Require geometric and scale continuity and a clear
+        # winner; otherwise remain in reacquisition/lost_hold.
+        if not allow_center_fallback:
+            rx, ry = reference.rectangle.center
+            rscale = max(reference.rectangle.width, reference.rectangle.height)
+            scored: list[tuple[float, VesselDetection]] = []
+            for item in detections:
+                cx, cy = item.rectangle.center
+                distance = math.hypot(cx - rx, cy - ry)
+                scale = max(item.rectangle.width, item.rectangle.height)
+                scale_error = abs(math.log(max(scale, 1e-6) / max(rscale, 1e-6)))
+                if distance <= min(max(center_radius, 0.30), 0.18) and scale_error <= math.log(2.5):
+                    scored.append((distance + 0.15 * scale_error, item))
+            scored.sort(key=lambda pair: pair[0])
+            if scored and (len(scored) == 1 or scored[1][0] - scored[0][0] >= _REACQUIRE_AMBIGUITY_MARGIN):
+                return _TargetSelection(detection=scored[0][1], saw_candidates=True)
+            return _TargetSelection(saw_candidates=bool(detections), competing_groups=bool(scored))
+        return self._select_centered(
+            detections,
+            reference,
+            center_radius=center_radius,
+        )
 
     def _validate_evidence_capture(
         self,
@@ -1716,7 +3340,7 @@ class PtzVerificationCoordinator:
         consumed_zoom_delta = 0
         attempted_rounds = 0
         for _round in range(maximum_rounds):
-            if self._stop_event.is_set():
+            if self._operation_interrupted():
                 break
             if (
                 time.monotonic() - started
@@ -1734,23 +3358,37 @@ class PtzVerificationCoordinator:
             )
             if zoom_step <= 0:
                 break
-            before_version = self._snapshot_provider().result_version
+            before_version = self._snapshot().result_version
             # FASTGOTO coordinates are relative to the current view.  After
             # the first locate, (0.5, 0.5) preserves the acquired direction
             # and requests optical zoom without another blind pan/tilt move.
             self._advance_view_generation()
             self._renew_lease(force=True)
-            self._camera.locate(0.5, 0.5, zoom_step)
+            self._camera_control(
+                "locate",
+                lambda: self._camera.locate(0.5, 0.5, zoom_step),
+                x=0.5,
+                y=0.5,
+                zoom_delta=zoom_step,
+                reason="confirmed_target_fallback",
+            )
             attempted_rounds += 1
             consumed_zoom_delta += zoom_step
             minimum_updated_at = time.monotonic()
             if self.options.settle_seconds:
-                self._stop_event.wait(self.options.settle_seconds)
+                self._wait_for_operation_interrupt(
+                    self.options.settle_seconds
+                )
             reacquired = self._wait_for_centered_detection(
                 after_version=before_version,
                 minimum_updated_at=minimum_updated_at,
                 allow_proposal=True,
                 reference=reference,
+                minimum_scale_ratio=(
+                    self.options.adaptive_min_scale_growth_ratio
+                    if self.options.settle_seconds > 0
+                    else None
+                ),
             )
             if reacquired.detection is not None:
                 return (
@@ -1772,6 +3410,7 @@ class PtzVerificationCoordinator:
         minimum_updated_at: float,
         allow_proposal: bool,
         reference: VesselDetection,
+        minimum_scale_ratio: float | None = None,
     ) -> _TargetSelection:
         started = time.monotonic()
         deadline = started + self.options.reacquire_timeout_seconds
@@ -1784,8 +3423,8 @@ class PtzVerificationCoordinator:
         latest_proposals: tuple[VesselDetection, ...] = ()
         saw_candidates = False
         competing_groups = False
-        while time.monotonic() < deadline and not self._stop_event.is_set():
-            snapshot = self._snapshot_provider()
+        while time.monotonic() < deadline and not self._operation_interrupted():
+            snapshot = self._snapshot()
             if (
                 snapshot.state == "running"
                 and snapshot.result_version > last_checked_version
@@ -1818,7 +3457,12 @@ class PtzVerificationCoordinator:
                 competing_groups or confirmed.competing_groups
             )
             if confirmed.detection is not None:
-                return confirmed
+                if (
+                    minimum_scale_ratio is None
+                    or self._visual_scale(confirmed.detection)
+                    >= self._visual_scale(reference) * minimum_scale_ratio
+                ):
+                    return confirmed
             if allow_proposal and not confirmed.competing_groups:
                 proposal = self._select_centered(
                     latest_proposals,
@@ -1830,8 +3474,14 @@ class PtzVerificationCoordinator:
                     competing_groups or proposal.competing_groups
                 )
                 if proposal.detection is not None:
-                    return proposal
-            self._stop_event.wait(0.1)
+                    if (
+                        minimum_scale_ratio is None
+                        or self._visual_scale(proposal.detection)
+                        >= self._visual_scale(reference)
+                        * minimum_scale_ratio
+                    ):
+                        return proposal
+            self._wait_for_operation_interrupt(0.1)
         return _TargetSelection(
             saw_candidates=saw_candidates,
             competing_groups=competing_groups,
@@ -2051,7 +3701,7 @@ class PtzVerificationCoordinator:
         stable_versions = 0
         previous_version = after_version
         while time.monotonic() < deadline and not self._stop_event.is_set():
-            snapshot = self._snapshot_provider()
+            snapshot = self._snapshot()
             if snapshot.result_version > self._last_monitoring_version:
                 self._last_monitoring_version = snapshot.result_version
             if (

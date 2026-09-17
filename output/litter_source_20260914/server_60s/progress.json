@@ -1,0 +1,39 @@
+{
+  "status": "completed",
+  "started_utc": "2026-09-13T16:39:42.573417+00:00",
+  "updated_utc": "2026-09-13T16:40:42.653458+00:00",
+  "requested_seconds": 60.0,
+  "observation_seconds": 60.04924543190282,
+  "decoder": "pyav",
+  "source_state": 1,
+  "source_counters": {
+    "decoded_frames": 1525.0,
+    "corrupt_frames": 0.0,
+    "missing_pts_frames": 1.0,
+    "nonmonotonic_pts_frames": 0.0,
+    "connections": 1.0,
+    "published_frames": 50.0,
+    "mailbox_lock_skips": 0.0,
+    "decode_read_seconds": 55.44478323182557,
+    "convert_seconds": 0.29292964574415237,
+    "pts_observed_frames": 1523.0,
+    "trace_lock_skips": 0.0
+  },
+  "last_frame_local_age_seconds": 0.38743866607546806,
+  "publish_timing": {
+    "count": 50,
+    "observed_mailbox_fps": 0.8326499299096292,
+    "wall_span_seconds": 55.354311452945694,
+    "first_frame_seconds": 4.338315029977821,
+    "interval_p50_seconds": 1.0246162409894168,
+    "interval_p95_seconds": 1.6344678227556864,
+    "interval_max_seconds": 1.9920495878905058,
+    "local_age_p95_seconds": 0.055782512557925656,
+    "local_age_max_seconds": 0.06359215395059437,
+    "inference_executed": false
+  },
+  "trace_rows": 1525,
+  "trace_overwritten_rows": 0,
+  "end_to_end_freshness_verified": false,
+  "inference_executed": false
+}

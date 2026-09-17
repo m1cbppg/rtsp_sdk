@@ -1,0 +1,457 @@
+[
+  {
+    "t": 0.0,
+    "proposals": [
+      {
+        "label": "Paper",
+        "confidence": 0.59,
+        "box": [
+          450,
+          1230,
+          496,
+          1295
+        ]
+      },
+      {
+        "label": "Plastic",
+        "confidence": 0.555,
+        "box": [
+          557,
+          633,
+          586,
+          663
+        ]
+      }
+    ],
+    "confirmed": 0,
+    "created": [],
+    "diag": {
+      "method": "sift",
+      "matches": 38,
+      "inliers": 27,
+      "inlier_fraction": 0.7105,
+      "hull_fraction": 0.5812,
+      "displacement_native_px": 1.28
+    }
+  },
+  {
+    "t": 5.0,
+    "proposals": [
+      {
+        "label": "Plastic",
+        "confidence": 0.576,
+        "box": [
+          451,
+          1230,
+          496,
+          1295
+        ]
+      },
+      {
+        "label": "Plastic",
+        "confidence": 0.378,
+        "box": [
+          557,
+          635,
+          587,
+          663
+        ]
+      }
+    ],
+    "confirmed": 0,
+    "created": [],
+    "diag": {
+      "method": "sift",
+      "matches": 33,
+      "inliers": 27,
+      "inlier_fraction": 0.8182,
+      "hull_fraction": 0.6115,
+      "displacement_native_px": 1.761
+    }
+  },
+  {
+    "t": 10.0,
+    "proposals": [
+      {
+        "label": "Plastic",
+        "confidence": 0.558,
+        "box": [
+          450,
+          1229,
+          496,
+          1296
+        ]
+      },
+      {
+        "label": "Plastic",
+        "confidence": 0.486,
+        "box": [
+          557,
+          631,
+          587,
+          663
+        ]
+      }
+    ],
+    "confirmed": 0,
+    "created": [],
+    "diag": {
+      "method": "sift",
+      "matches": 35,
+      "inliers": 24,
+      "inlier_fraction": 0.6857,
+      "hull_fraction": 0.4219,
+      "displacement_native_px": 0.824
+    }
+  },
+  {
+    "t": 15.0,
+    "proposals": [
+      {
+        "label": "Plastic",
+        "confidence": 0.537,
+        "box": [
+          450,
+          1229,
+          496,
+          1296
+        ]
+      },
+      {
+        "label": "Plastic",
+        "confidence": 0.341,
+        "box": [
+          556,
+          632,
+          586,
+          663
+        ]
+      }
+    ],
+    "confirmed": 0,
+    "created": [],
+    "diag": {
+      "method": "sift",
+      "matches": 33,
+      "inliers": 24,
+      "inlier_fraction": 0.7273,
+      "hull_fraction": 0.4856,
+      "displacement_native_px": 1.618
+    }
+  },
+  {
+    "t": 20.0,
+    "proposals": [
+      {
+        "label": "Plastic",
+        "confidence": 0.592,
+        "box": [
+          450,
+          1230,
+          496,
+          1296
+        ]
+      },
+      {
+        "label": "Plastic",
+        "confidence": 0.562,
+        "box": [
+          556,
+          630,
+          586,
+          663
+        ]
+      }
+    ],
+    "confirmed": 0,
+    "created": [],
+    "diag": {
+      "method": "sift",
+      "matches": 33,
+      "inliers": 24,
+      "inlier_fraction": 0.7273,
+      "hull_fraction": 0.4735,
+      "displacement_native_px": 1.737
+    }
+  },
+  {
+    "t": 25.0,
+    "proposals": [
+      {
+        "label": "Plastic",
+        "confidence": 0.586,
+        "box": [
+          450,
+          1230,
+          496,
+          1295
+        ]
+      },
+      {
+        "label": "Plastic",
+        "confidence": 0.443,
+        "box": [
+          556,
+          634,
+          587,
+          663
+        ]
+      }
+    ],
+    "confirmed": 0,
+    "created": [],
+    "diag": {
+      "method": "sift",
+      "matches": 39,
+      "inliers": 33,
+      "inlier_fraction": 0.8462,
+      "hull_fraction": 0.5791,
+      "displacement_native_px": 1.42
+    }
+  },
+  {
+    "t": 30.0,
+    "proposals": [
+      {
+        "label": "Plastic",
+        "confidence": 0.54,
+        "box": [
+          450,
+          1230,
+          496,
+          1295
+        ]
+      },
+      {
+        "label": "Plastic",
+        "confidence": 0.416,
+        "box": [
+          557,
+          631,
+          587,
+          663
+        ]
+      }
+    ],
+    "confirmed": 0,
+    "created": [],
+    "diag": {
+      "method": "sift",
+      "matches": 34,
+      "inliers": 23,
+      "inlier_fraction": 0.6765,
+      "hull_fraction": 0.5136,
+      "displacement_native_px": 1.301
+    }
+  },
+  {
+    "t": 35.0,
+    "proposals": [
+      {
+        "label": "Plastic",
+        "confidence": 0.508,
+        "box": [
+          450,
+          1230,
+          496,
+          1296
+        ]
+      },
+      {
+        "label": "Plastic",
+        "confidence": 0.416,
+        "box": [
+          557,
+          632,
+          587,
+          663
+        ]
+      }
+    ],
+    "confirmed": 0,
+    "created": [],
+    "diag": {
+      "method": "sift",
+      "matches": 37,
+      "inliers": 29,
+      "inlier_fraction": 0.7838,
+      "hull_fraction": 0.565,
+      "displacement_native_px": 1.031
+    }
+  },
+  {
+    "t": 40.0,
+    "proposals": [
+      {
+        "label": "Plastic",
+        "confidence": 0.572,
+        "box": [
+          557,
+          634,
+          586,
+          663
+        ]
+      },
+      {
+        "label": "Paper",
+        "confidence": 0.545,
+        "box": [
+          450,
+          1230,
+          496,
+          1296
+        ]
+      }
+    ],
+    "confirmed": 0,
+    "created": [],
+    "diag": {
+      "method": "sift",
+      "matches": 33,
+      "inliers": 26,
+      "inlier_fraction": 0.7879,
+      "hull_fraction": 0.5529,
+      "displacement_native_px": 1.873
+    }
+  },
+  {
+    "t": 45.0,
+    "proposals": [
+      {
+        "label": "Plastic",
+        "confidence": 0.584,
+        "box": [
+          556,
+          635,
+          586,
+          663
+        ]
+      },
+      {
+        "label": "Plastic",
+        "confidence": 0.582,
+        "box": [
+          450,
+          1230,
+          495,
+          1296
+        ]
+      }
+    ],
+    "confirmed": 0,
+    "created": [],
+    "diag": {
+      "method": "sift",
+      "matches": 30,
+      "inliers": 24,
+      "inlier_fraction": 0.8,
+      "hull_fraction": 0.5086,
+      "displacement_native_px": 1.752
+    }
+  },
+  {
+    "t": 50.0,
+    "proposals": [
+      {
+        "label": "Plastic",
+        "confidence": 0.611,
+        "box": [
+          450,
+          1229,
+          496,
+          1296
+        ]
+      },
+      {
+        "label": "Plastic",
+        "confidence": 0.512,
+        "box": [
+          557,
+          635,
+          586,
+          663
+        ]
+      }
+    ],
+    "confirmed": 0,
+    "created": [],
+    "diag": {
+      "method": "sift",
+      "matches": 30,
+      "inliers": 22,
+      "inlier_fraction": 0.7333,
+      "hull_fraction": 0.4905,
+      "displacement_native_px": 1.786
+    }
+  },
+  {
+    "t": 55.0,
+    "proposals": [
+      {
+        "label": "Plastic",
+        "confidence": 0.576,
+        "box": [
+          451,
+          1229,
+          496,
+          1296
+        ]
+      },
+      {
+        "label": "Plastic",
+        "confidence": 0.511,
+        "box": [
+          557,
+          633,
+          587,
+          663
+        ]
+      }
+    ],
+    "confirmed": 0,
+    "created": [],
+    "diag": {
+      "method": "sift",
+      "matches": 27,
+      "inliers": 21,
+      "inlier_fraction": 0.7778,
+      "hull_fraction": 0.5177,
+      "displacement_native_px": 1.482
+    }
+  },
+  {
+    "t": 60.0,
+    "proposals": [
+      {
+        "label": "Paper",
+        "confidence": 0.517,
+        "box": [
+          450,
+          1229,
+          496,
+          1296
+        ]
+      },
+      {
+        "label": "Plastic",
+        "confidence": 0.486,
+        "box": [
+          556,
+          634,
+          586,
+          663
+        ]
+      }
+    ],
+    "confirmed": 0,
+    "created": [],
+    "diag": {
+      "method": "sift",
+      "matches": 27,
+      "inliers": 20,
+      "inlier_fraction": 0.7407,
+      "hull_fraction": 0.5149,
+      "displacement_native_px": 1.135
+    }
+  }
+]

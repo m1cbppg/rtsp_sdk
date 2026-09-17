@@ -1,0 +1,468 @@
+{
+  "items": [
+    {
+      "item_id": "item-001",
+      "label_set": [
+        "true_litter"
+      ],
+      "frame_count": 17,
+      "observation_count": 17,
+      "frame_ids": [
+        "live000",
+        "live001",
+        "live002",
+        "live003",
+        "live004",
+        "live005",
+        "live006",
+        "live007",
+        "live008",
+        "live009",
+        "live010",
+        "live011",
+        "live012",
+        "live013",
+        "live014",
+        "live015",
+        "live019"
+      ],
+      "first_frame": "live000",
+      "last_frame": "live019",
+      "center_range_px": {
+        "x_min": 878.0,
+        "x_max": 881.5,
+        "y_min": 620.0,
+        "y_max": 634.0
+      },
+      "observations": [
+        {
+          "frame_id": "live000",
+          "candidate_index": 0,
+          "label": "true_litter",
+          "note": "",
+          "box": [
+            837,
+            597,
+            925,
+            668
+          ],
+          "center_px": [
+            881.0,
+            632.5
+          ],
+          "source_time_seconds": null
+        },
+        {
+          "frame_id": "live001",
+          "candidate_index": 0,
+          "label": "true_litter",
+          "note": "",
+          "box": [
+            837,
+            597,
+            922,
+            662
+          ],
+          "center_px": [
+            879.5,
+            629.5
+          ],
+          "source_time_seconds": null
+        },
+        {
+          "frame_id": "live002",
+          "candidate_index": 0,
+          "label": "true_litter",
+          "note": "",
+          "box": [
+            836,
+            597,
+            920,
+            645
+          ],
+          "center_px": [
+            878.0,
+            621.0
+          ],
+          "source_time_seconds": null
+        },
+        {
+          "frame_id": "live003",
+          "candidate_index": 0,
+          "label": "true_litter",
+          "note": "",
+          "box": [
+            836,
+            597,
+            921,
+            645
+          ],
+          "center_px": [
+            878.5,
+            621.0
+          ],
+          "source_time_seconds": null
+        },
+        {
+          "frame_id": "live004",
+          "candidate_index": 0,
+          "label": "true_litter",
+          "note": "",
+          "box": [
+            836,
+            597,
+            922,
+            651
+          ],
+          "center_px": [
+            879.0,
+            624.0
+          ],
+          "source_time_seconds": null
+        },
+        {
+          "frame_id": "live005",
+          "candidate_index": 0,
+          "label": "true_litter",
+          "note": "",
+          "box": [
+            836,
+            597,
+            921,
+            643
+          ],
+          "center_px": [
+            878.5,
+            620.0
+          ],
+          "source_time_seconds": null
+        },
+        {
+          "frame_id": "live006",
+          "candidate_index": 0,
+          "label": "true_litter",
+          "note": "",
+          "box": [
+            836,
+            596,
+            923,
+            655
+          ],
+          "center_px": [
+            879.5,
+            625.5
+          ],
+          "source_time_seconds": null
+        },
+        {
+          "frame_id": "live007",
+          "candidate_index": 0,
+          "label": "true_litter",
+          "note": "",
+          "box": [
+            836,
+            597,
+            924,
+            667
+          ],
+          "center_px": [
+            880.0,
+            632.0
+          ],
+          "source_time_seconds": null
+        },
+        {
+          "frame_id": "live008",
+          "candidate_index": 0,
+          "label": "true_litter",
+          "note": "",
+          "box": [
+            836,
+            597,
+            921,
+            653
+          ],
+          "center_px": [
+            878.5,
+            625.0
+          ],
+          "source_time_seconds": null
+        },
+        {
+          "frame_id": "live009",
+          "candidate_index": 0,
+          "label": "true_litter",
+          "note": "",
+          "box": [
+            836,
+            597,
+            926,
+            671
+          ],
+          "center_px": [
+            881.0,
+            634.0
+          ],
+          "source_time_seconds": null
+        },
+        {
+          "frame_id": "live010",
+          "candidate_index": 0,
+          "label": "true_litter",
+          "note": "",
+          "box": [
+            836,
+            598,
+            922,
+            644
+          ],
+          "center_px": [
+            879.0,
+            621.0
+          ],
+          "source_time_seconds": null
+        },
+        {
+          "frame_id": "live011",
+          "candidate_index": 0,
+          "label": "true_litter",
+          "note": "",
+          "box": [
+            836,
+            597,
+            922,
+            648
+          ],
+          "center_px": [
+            879.0,
+            622.5
+          ],
+          "source_time_seconds": null
+        },
+        {
+          "frame_id": "live012",
+          "candidate_index": 0,
+          "label": "true_litter",
+          "note": "",
+          "box": [
+            836,
+            597,
+            920,
+            646
+          ],
+          "center_px": [
+            878.0,
+            621.5
+          ],
+          "source_time_seconds": null
+        },
+        {
+          "frame_id": "live013",
+          "candidate_index": 0,
+          "label": "true_litter",
+          "note": "",
+          "box": [
+            837,
+            598,
+            926,
+            665
+          ],
+          "center_px": [
+            881.5,
+            631.5
+          ],
+          "source_time_seconds": null
+        },
+        {
+          "frame_id": "live014",
+          "candidate_index": 0,
+          "label": "true_litter",
+          "note": "",
+          "box": [
+            836,
+            597,
+            921,
+            653
+          ],
+          "center_px": [
+            878.5,
+            625.0
+          ],
+          "source_time_seconds": null
+        },
+        {
+          "frame_id": "live015",
+          "candidate_index": 0,
+          "label": "true_litter",
+          "note": "",
+          "box": [
+            836,
+            597,
+            921,
+            644
+          ],
+          "center_px": [
+            878.5,
+            620.5
+          ],
+          "source_time_seconds": null
+        },
+        {
+          "frame_id": "live019",
+          "candidate_index": 1,
+          "label": "true_litter",
+          "note": "",
+          "box": [
+            838,
+            598,
+            921,
+            667
+          ],
+          "center_px": [
+            879.5,
+            632.5
+          ],
+          "source_time_seconds": null
+        }
+      ]
+    },
+    {
+      "item_id": "item-002",
+      "label_set": [
+        "true_litter"
+      ],
+      "frame_count": 5,
+      "observation_count": 5,
+      "frame_ids": [
+        "live015",
+        "live016",
+        "live017",
+        "live018",
+        "live019"
+      ],
+      "first_frame": "live015",
+      "last_frame": "live019",
+      "center_range_px": {
+        "x_min": 581.0,
+        "x_max": 582.5,
+        "y_min": 638.5,
+        "y_max": 639.0
+      },
+      "observations": [
+        {
+          "frame_id": "live015",
+          "candidate_index": 1,
+          "label": "true_litter",
+          "note": "",
+          "box": [
+            565,
+            627,
+            599,
+            651
+          ],
+          "center_px": [
+            582.0,
+            639.0
+          ],
+          "source_time_seconds": null
+        },
+        {
+          "frame_id": "live016",
+          "candidate_index": 0,
+          "label": "true_litter",
+          "note": "",
+          "box": [
+            565,
+            627,
+            597,
+            650
+          ],
+          "center_px": [
+            581.0,
+            638.5
+          ],
+          "source_time_seconds": null
+        },
+        {
+          "frame_id": "live017",
+          "candidate_index": 0,
+          "label": "true_litter",
+          "note": "",
+          "box": [
+            565,
+            627,
+            597,
+            651
+          ],
+          "center_px": [
+            581.0,
+            639.0
+          ],
+          "source_time_seconds": null
+        },
+        {
+          "frame_id": "live018",
+          "candidate_index": 0,
+          "label": "true_litter",
+          "note": "",
+          "box": [
+            566,
+            627,
+            598,
+            651
+          ],
+          "center_px": [
+            582.0,
+            639.0
+          ],
+          "source_time_seconds": null
+        },
+        {
+          "frame_id": "live019",
+          "candidate_index": 0,
+          "label": "true_litter",
+          "note": "",
+          "box": [
+            567,
+            628,
+            598,
+            650
+          ],
+          "center_px": [
+            582.5,
+            639.0
+          ],
+          "source_time_seconds": null
+        }
+      ]
+    }
+  ],
+  "input_frame_labels": 20,
+  "input_candidate_observations": 22,
+  "deduplicated_item_count": 2,
+  "radius_px": 80.0,
+  "accuracy": null,
+  "cleanup": null,
+  "note": "Frame labels were supplied by the reviewer. Spatial clustering removes repeated views; it does not prove object identity during unseen intervals.",
+  "user_confirmed_additions": [
+    {
+      "item_id": "item-003",
+      "description": "白色小型独立零散垃圾",
+      "location_box_native_px": [
+        803,
+        565,
+        818,
+        573
+      ],
+      "source": "user_confirmation_2026-09-14",
+      "raw_candidate_frames": 13,
+      "final_retained_frames": 0,
+      "filtered_reason": "too_small"
+    }
+  ],
+  "known_independent_litter_count": 3,
+  "known_detected_item_count": 2,
+  "known_missed_by_size_item_count": 1,
+  "limited_sample_item_recall": 0.6666666666666666,
+  "limited_sample_recall_note": "仅基于用户确认的3件物体和本次20张稀疏样本；不是全天/全场景召回率"
+}

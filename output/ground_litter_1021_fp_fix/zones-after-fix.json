@@ -1,0 +1,180 @@
+[
+  {
+    "region_id": "merchant_01",
+    "name": "门店01门前人行道（远端）",
+    "merchant_id": "merchant_01",
+    "merchant_name": "门店01（待核对）",
+    "physical_area_id": "walkway_01",
+    "polygon": [
+      [
+        0.32,
+        0.15
+      ],
+      [
+        0.367,
+        0.15
+      ],
+      [
+        0.35,
+        0.3
+      ],
+      [
+        0.27,
+        0.3
+      ]
+    ],
+    "exclude_zones": [],
+    "minimum_short_side_px": 6,
+    "minimum_box_area_px": 36
+  },
+  {
+    "region_id": "merchant_02",
+    "name": "门店02门前人行道",
+    "merchant_id": "merchant_02",
+    "merchant_name": "门店02（待核对）",
+    "physical_area_id": "walkway_02",
+    "polygon": [
+      [
+        0.27,
+        0.3
+      ],
+      [
+        0.35,
+        0.3
+      ],
+      [
+        0.33,
+        0.45
+      ],
+      [
+        0.2,
+        0.45
+      ]
+    ],
+    "exclude_zones": [],
+    "minimum_short_side_px": 6,
+    "minimum_box_area_px": 36
+  },
+  {
+    "region_id": "merchant_03",
+    "name": "门店03门前人行道",
+    "merchant_id": "merchant_03",
+    "merchant_name": "门店03（待核对）",
+    "physical_area_id": "walkway_03",
+    "polygon": [
+      [
+        0.2,
+        0.45
+      ],
+      [
+        0.33,
+        0.45
+      ],
+      [
+        0.29,
+        0.62
+      ],
+      [
+        0.15,
+        0.62
+      ]
+    ],
+    "exclude_zones": [],
+    "minimum_short_side_px": 6,
+    "minimum_box_area_px": 36
+  },
+  {
+    "region_id": "merchant_04",
+    "name": "门店04门前人行道",
+    "merchant_id": "merchant_04",
+    "merchant_name": "门店04（待核对）",
+    "physical_area_id": "walkway_04",
+    "polygon": [
+      [
+        0.15,
+        0.62
+      ],
+      [
+        0.29,
+        0.62
+      ],
+      [
+        0.22,
+        0.78
+      ],
+      [
+        0.09,
+        0.78
+      ]
+    ],
+    "exclude_zones": [
+      [
+        [
+          0.07,
+          0.7
+        ],
+        [
+          0.16,
+          0.7
+        ],
+        [
+          0.16,
+          0.85
+        ],
+        [
+          0.07,
+          0.85
+        ]
+      ]
+    ],
+    "minimum_short_side_px": 6,
+    "minimum_box_area_px": 36
+  },
+  {
+    "region_id": "merchant_05",
+    "name": "门店05门前人行道（近端）",
+    "merchant_id": "merchant_05",
+    "merchant_name": "门店05（待核对）",
+    "physical_area_id": "walkway_05",
+    "polygon": [
+      [
+        0.09,
+        0.78
+      ],
+      [
+        0.22,
+        0.78
+      ],
+      [
+        0.175,
+        0.97
+      ],
+      [
+        0.055,
+        0.97
+      ]
+    ],
+    "exclude_zones": [
+      [
+        [
+          0.07,
+          0.7
+        ],
+        [
+          0.16,
+          0.7
+        ],
+        [
+          0.16,
+          0.85
+        ],
+        [
+          0.07,
+          0.85
+        ]
+      ]
+    ],
+    "minimum_short_side_px": 6,
+    "minimum_box_area_px": 36
+  }
+]

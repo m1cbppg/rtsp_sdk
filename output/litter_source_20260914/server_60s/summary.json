@@ -1,0 +1,452 @@
+{
+  "finished_utc": "2026-09-13T16:40:42.653802+00:00",
+  "source_kind": "authorized_live_device",
+  "elapsed_seconds": 60.080397286918014,
+  "decoder": "pyav",
+  "status": "completed",
+  "started_utc": "2026-09-13T16:39:42.573417+00:00",
+  "observation_seconds": 60.04924543190282,
+  "stopped_by_signal": [],
+  "decoder_capability": {
+    "pyav_importable": true,
+    "pyav_version": "16.1.0"
+  },
+  "source_counters": {
+    "decoded_frames": 1525.0,
+    "corrupt_frames": 0.0,
+    "missing_pts_frames": 1.0,
+    "nonmonotonic_pts_frames": 0.0,
+    "connections": 1.0,
+    "published_frames": 50.0,
+    "mailbox_lock_skips": 0.0,
+    "decode_read_seconds": 55.44478323182557,
+    "convert_seconds": 0.29292964574415237,
+    "pts_observed_frames": 1523.0,
+    "trace_lock_skips": 0.0
+  },
+  "samples": [
+    {
+      "sequence": 1.0,
+      "probe_elapsed": 4.366693869000301,
+      "arrival_elapsed": 4.338315029977821,
+      "local_age": 0.028379834024235606,
+      "generation": 1.0,
+      "source_elapsed": 0.0
+    },
+    {
+      "sequence": 2.0,
+      "probe_elapsed": 5.372945023002103,
+      "arrival_elapsed": 5.338618237990886,
+      "local_age": 0.03432786895427853,
+      "generation": 1.0,
+      "source_elapsed": 5.318
+    },
+    {
+      "sequence": 3.0,
+      "probe_elapsed": 6.380107181961648,
+      "arrival_elapsed": 6.340200648992322,
+      "local_age": 0.03990732994861901,
+      "generation": 1.0,
+      "source_elapsed": 7.157
+    },
+    {
+      "sequence": 4.0,
+      "probe_elapsed": 7.388344424893148,
+      "arrival_elapsed": 7.372878286987543,
+      "local_age": 0.015466691926121712,
+      "generation": 1.0,
+      "source_elapsed": 8.237
+    },
+    {
+      "sequence": 5.0,
+      "probe_elapsed": 8.994913536938839,
+      "arrival_elapsed": 8.942716282908805,
+      "local_age": 0.052197921089828014,
+      "generation": 1.0,
+      "source_elapsed": 9.236
+    },
+    {
+      "sequence": 6.0,
+      "probe_elapsed": 10.000099072000012,
+      "arrival_elapsed": 9.960219190921634,
+      "local_age": 0.03988048597238958,
+      "generation": 1.0,
+      "source_elapsed": 10.795000000000002
+    },
+    {
+      "sequence": 7.0,
+      "probe_elapsed": 11.00559389591217,
+      "arrival_elapsed": 10.973096262896433,
+      "local_age": 0.03249798307660967,
+      "generation": 1.0,
+      "source_elapsed": 11.835
+    },
+    {
+      "sequence": 8.0,
+      "probe_elapsed": 12.010871170903556,
+      "arrival_elapsed": 11.98576393793337,
+      "local_age": 0.025107788969762623,
+      "generation": 1.0,
+      "source_elapsed": 12.835
+    },
+    {
+      "sequence": 9.0,
+      "probe_elapsed": 13.418638784904033,
+      "arrival_elapsed": 13.373539759893902,
+      "local_age": 0.045100273098796606,
+      "generation": 1.0,
+      "source_elapsed": 13.514000000000001
+    },
+    {
+      "sequence": 10.0,
+      "probe_elapsed": 15.127409568987787,
+      "arrival_elapsed": 15.063818251946941,
+      "local_age": 0.06359215395059437,
+      "generation": 1.0,
+      "source_elapsed": 15.233
+    },
+    {
+      "sequence": 11.0,
+      "probe_elapsed": 16.08234460290987,
+      "arrival_elapsed": 16.067538215895183,
+      "local_age": 0.01480697700753808,
+      "generation": 1.0,
+      "source_elapsed": 16.913
+    },
+    {
+      "sequence": 12.0,
+      "probe_elapsed": 17.540160176926292,
+      "arrival_elapsed": 17.508165370905772,
+      "local_age": 0.031995731056667864,
+      "generation": 1.0,
+      "source_elapsed": 17.512
+    },
+    {
+      "sequence": 13.0,
+      "probe_elapsed": 18.5445180949755,
+      "arrival_elapsed": 18.53278161189519,
+      "local_age": 0.011736790998838842,
+      "generation": 1.0,
+      "source_elapsed": 19.312
+    },
+    {
+      "sequence": 14.0,
+      "probe_elapsed": 19.599185620900244,
+      "arrival_elapsed": 19.553312710952014,
+      "local_age": 0.04587334196548909,
+      "generation": 1.0,
+      "source_elapsed": 20.311
+    },
+    {
+      "sequence": 15.0,
+      "probe_elapsed": 20.95675658993423,
+      "arrival_elapsed": 20.901317879906856,
+      "local_age": 0.05543951003346592,
+      "generation": 1.0,
+      "source_elapsed": 21.351
+    },
+    {
+      "sequence": 16.0,
+      "probe_elapsed": 21.96099782595411,
+      "arrival_elapsed": 21.940026167896576,
+      "local_age": 0.020971927093341947,
+      "generation": 1.0,
+      "source_elapsed": 21.551000000000002
+    },
+    {
+      "sequence": 17.0,
+      "probe_elapsed": 23.01514320797287,
+      "arrival_elapsed": 22.962762242997997,
+      "local_age": 0.052381369983777404,
+      "generation": 1.0,
+      "source_elapsed": 23.79
+    },
+    {
+      "sequence": 18.0,
+      "probe_elapsed": 24.01958217797801,
+      "arrival_elapsed": 23.974886686890386,
+      "local_age": 0.0446958860848099,
+      "generation": 1.0,
+      "source_elapsed": 24.789
+    },
+    {
+      "sequence": 19.0,
+      "probe_elapsed": 25.426958218915388,
+      "arrival_elapsed": 25.404388375929557,
+      "local_age": 0.02257032203488052,
+      "generation": 1.0,
+      "source_elapsed": 25.509
+    },
+    {
+      "sequence": 20.0,
+      "probe_elapsed": 26.431380147929303,
+      "arrival_elapsed": 26.41139757691417,
+      "local_age": 0.019982930039986968,
+      "generation": 1.0,
+      "source_elapsed": 26.908
+    },
+    {
+      "sequence": 21.0,
+      "probe_elapsed": 27.435585099970922,
+      "arrival_elapsed": 27.417588466894813,
+      "local_age": 0.017996939015574753,
+      "generation": 1.0,
+      "source_elapsed": 27.748
+    },
+    {
+      "sequence": 22.0,
+      "probe_elapsed": 28.49078275996726,
+      "arrival_elapsed": 28.45225065399427,
+      "local_age": 0.038532557897269726,
+      "generation": 1.0,
+      "source_elapsed": 29.267
+    },
+    {
+      "sequence": 23.0,
+      "probe_elapsed": 29.49485293298494,
+      "arrival_elapsed": 29.481853545992635,
+      "local_age": 0.012999690952710807,
+      "generation": 1.0,
+      "source_elapsed": 29.547
+    },
+    {
+      "sequence": 24.0,
+      "probe_elapsed": 30.550680915941484,
+      "arrival_elapsed": 30.531085746944882,
+      "local_age": 0.019595616962760687,
+      "generation": 1.0,
+      "source_elapsed": 31.346
+    },
+    {
+      "sequence": 25.0,
+      "probe_elapsed": 31.60606056789402,
+      "arrival_elapsed": 31.590767691959627,
+      "local_age": 0.015293325996026397,
+      "generation": 1.0,
+      "source_elapsed": 32.386
+    },
+    {
+      "sequence": 26.0,
+      "probe_elapsed": 33.312676441972144,
+      "arrival_elapsed": 33.268322065938264,
+      "local_age": 0.044354952056892216,
+      "generation": 1.0,
+      "source_elapsed": 33.465
+    },
+    {
+      "sequence": 27.0,
+      "probe_elapsed": 34.316760970978066,
+      "arrival_elapsed": 34.27877539396286,
+      "local_age": 0.03798586397897452,
+      "generation": 1.0,
+      "source_elapsed": 34.865
+    },
+    {
+      "sequence": 28.0,
+      "probe_elapsed": 35.32281748391688,
+      "arrival_elapsed": 35.30018747993745,
+      "local_age": 0.022630347055383027,
+      "generation": 1.0,
+      "source_elapsed": 36.104
+    },
+    {
+      "sequence": 29.0,
+      "probe_elapsed": 36.32710981590208,
+      "arrival_elapsed": 36.31930339196697,
+      "local_age": 0.007806872949004173,
+      "generation": 1.0,
+      "source_elapsed": 37.104
+    },
+    {
+      "sequence": 30.0,
+      "probe_elapsed": 37.481542496941984,
+      "arrival_elapsed": 37.47095204796642,
+      "local_age": 0.01059096702374518,
+      "generation": 1.0,
+      "source_elapsed": 37.503
+    },
+    {
+      "sequence": 31.0,
+      "probe_elapsed": 38.5367593789706,
+      "arrival_elapsed": 38.480696662911214,
+      "local_age": 0.056063150987029076,
+      "generation": 1.0,
+      "source_elapsed": 39.303000000000004
+    },
+    {
+      "sequence": 32.0,
+      "probe_elapsed": 39.541960432892665,
+      "arrival_elapsed": 39.49290984496474,
+      "local_age": 0.04905128001701087,
+      "generation": 1.0,
+      "source_elapsed": 40.262
+    },
+    {
+      "sequence": 33.0,
+      "probe_elapsed": 40.547682978911325,
+      "arrival_elapsed": 40.50677089788951,
+      "local_age": 0.04091254202648997,
+      "generation": 1.0,
+      "source_elapsed": 41.302
+    },
+    {
+      "sequence": 34.0,
+      "probe_elapsed": 41.55178940098267,
+      "arrival_elapsed": 41.53412769990973,
+      "local_age": 0.017662025056779385,
+      "generation": 1.0,
+      "source_elapsed": 41.502
+    },
+    {
+      "sequence": 35.0,
+      "probe_elapsed": 42.607030181912705,
+      "arrival_elapsed": 42.552970526972786,
+      "local_age": 0.05406035401392728,
+      "generation": 1.0,
+      "source_elapsed": 43.381
+    },
+    {
+      "sequence": 36.0,
+      "probe_elapsed": 43.612106249900535,
+      "arrival_elapsed": 43.560331645887345,
+      "local_age": 0.05177504604216665,
+      "generation": 1.0,
+      "source_elapsed": 44.38
+    },
+    {
+      "sequence": 37.0,
+      "probe_elapsed": 44.66691789694596,
+      "arrival_elapsed": 44.63830345496535,
+      "local_age": 0.028615201939828694,
+      "generation": 1.0,
+      "source_elapsed": 45.34
+    },
+    {
+      "sequence": 38.0,
+      "probe_elapsed": 45.671636149985716,
+      "arrival_elapsed": 45.643427442992106,
+      "local_age": 0.028209124924615026,
+      "generation": 1.0,
+      "source_elapsed": 45.62
+    },
+    {
+      "sequence": 39.0,
+      "probe_elapsed": 46.67730667698197,
+      "arrival_elapsed": 46.660153310978785,
+      "local_age": 0.017154127941466868,
+      "generation": 1.0,
+      "source_elapsed": 47.499
+    },
+    {
+      "sequence": 40.0,
+      "probe_elapsed": 47.732472837902606,
+      "arrival_elapsed": 47.68978542496916,
+      "local_age": 0.04268789093475789,
+      "generation": 1.0,
+      "source_elapsed": 48.499
+    },
+    {
+      "sequence": 41.0,
+      "probe_elapsed": 49.13987230695784,
+      "arrival_elapsed": 49.12135710497387,
+      "local_age": 0.018515774980187416,
+      "generation": 1.0,
+      "source_elapsed": 49.498
+    },
+    {
+      "sequence": 42.0,
+      "probe_elapsed": 50.14574379497208,
+      "arrival_elapsed": 50.13640591793228,
+      "local_age": 0.009338582050986588,
+      "generation": 1.0,
+      "source_elapsed": 50.977000000000004
+    },
+    {
+      "sequence": 43.0,
+      "probe_elapsed": 51.35287437296938,
+      "arrival_elapsed": 51.31830544292461,
+      "local_age": 0.0345699570607394,
+      "generation": 1.0,
+      "source_elapsed": 51.617
+    },
+    {
+      "sequence": 44.0,
+      "probe_elapsed": 52.409062941907905,
+      "arrival_elapsed": 52.35961880290415,
+      "local_age": 0.049444930045865476,
+      "generation": 1.0,
+      "source_elapsed": 53.176
+    },
+    {
+      "sequence": 45.0,
+      "probe_elapsed": 53.66583356494084,
+      "arrival_elapsed": 53.61598086997401,
+      "local_age": 0.049853704986162484,
+      "generation": 1.0,
+      "source_elapsed": 53.496
+    },
+    {
+      "sequence": 46.0,
+      "probe_elapsed": 54.67188105091918,
+      "arrival_elapsed": 54.64895804191474,
+      "local_age": 0.02292353706434369,
+      "generation": 1.0,
+      "source_elapsed": 55.495
+    },
+    {
+      "sequence": 47.0,
+      "probe_elapsed": 55.73021277389489,
+      "arrival_elapsed": 55.673747811000794,
+      "local_age": 0.056465881993062794,
+      "generation": 1.0,
+      "source_elapsed": 56.495
+    },
+    {
+      "sequence": 48.0,
+      "probe_elapsed": 57.68838762992527,
+      "arrival_elapsed": 57.6657973988913,
+      "local_age": 0.02259064104873687,
+      "generation": 1.0,
+      "source_elapsed": 57.494
+    },
+    {
+      "sequence": 49.0,
+      "probe_elapsed": 58.69337586290203,
+      "arrival_elapsed": 58.683804475935176,
+      "local_age": 0.009571981034241617,
+      "generation": 1.0,
+      "source_elapsed": 59.534
+    },
+    {
+      "sequence": 50.0,
+      "probe_elapsed": 59.69795185199473,
+      "arrival_elapsed": 59.692626482923515,
+      "local_age": 0.00532567803747952,
+      "generation": 1.0,
+      "source_elapsed": 60.453
+    }
+  ],
+  "reader_alive": false,
+  "exitcode": 0,
+  "end_to_end_freshness_verified": false,
+  "notifications": 0,
+  "inference_executed": false,
+  "visual_quality_verified": false,
+  "corrupt_flag_available": true,
+  "source_pts_available": true,
+  "trace_rows": 1525,
+  "trace_overwritten_rows": 0,
+  "trace_limit_reached": false,
+  "publish_timing": {
+    "count": 50,
+    "observed_mailbox_fps": 0.8326499299096292,
+    "wall_span_seconds": 55.354311452945694,
+    "first_frame_seconds": 4.338315029977821,
+    "interval_p50_seconds": 1.0246162409894168,
+    "interval_p95_seconds": 1.6344678227556864,
+    "interval_max_seconds": 1.9920495878905058,
+    "local_age_p95_seconds": 0.055782512557925656,
+    "local_age_max_seconds": 0.06359215395059437,
+    "inference_executed": false
+  }
+}

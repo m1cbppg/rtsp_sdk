@@ -1,0 +1,41 @@
+{
+  "date": "2026-09-14",
+  "camera": "44180209031322001021",
+  "decision": "do_not_deploy",
+  "p2": "failed",
+  "p1_source_read": "passed_for_source_only",
+  "p2_small_litter": "failed",
+  "p2_fixed_object_false_positive": "failed",
+  "secondary_facility_filter": "not_stable",
+  "threshold_lowering": "not_approved",
+  "independent_accuracy": null,
+  "production_changed": false,
+  "next_action": "limit_to_review_queue_or_collect_verified_same-view_negative/positive samples before any classifier trial",
+  "reasons": [
+    "8px target raw boxes are filtered",
+    "lowering area threshold adds low-confidence Metal/Plastic observations",
+    "old facility templates suppress zero live candidates",
+    "same-run provisional template suppresses only its own frame",
+    "no independent truth labels"
+  ],
+  "artifacts": [
+    "REPORT.md",
+    "review/index.html",
+    "review_summary.json",
+    "facility_filter_experiment.json",
+    "facility_filter_fresh_night_experiment.json",
+    "threshold_sensitivity_experiment.json"
+  ],
+  "reviewed_frame_count": 20,
+  "reviewed_frame_true_litter_count": 20,
+  "reviewed_frame_precision_on_candidate_only_sample": 1.0,
+  "unique_reviewed_litter_count": 2,
+  "deduplication": "spatial_center_radius_80px",
+  "deduplication_note": "22 candidate observations across 20 frames collapse to 2 spatial items; this is not recall/overall precision",
+  "user_confirmed_missed_item": true,
+  "known_independent_litter_count": 3,
+  "known_detected_item_count": 2,
+  "known_missed_by_size_item_count": 1,
+  "limited_sample_item_recall": 0.6666666666666666,
+  "limited_sample_recall_note": "3件已知物体中2件进入候选、1件被too_small过滤；样本选择和时间稀疏，不作生产召回率"
+}

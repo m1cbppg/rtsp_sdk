@@ -1,0 +1,281 @@
+{
+  "groups": {
+    "small-white-803": {
+      "count": 13,
+      "frames": [
+        "live000",
+        "live002",
+        "live003",
+        "live004",
+        "live005",
+        "live006",
+        "live007",
+        "live008",
+        "live010",
+        "live011",
+        "live012",
+        "live014",
+        "live016"
+      ],
+      "labels": [
+        "Metal",
+        "Plastic"
+      ],
+      "interpretation": "原始框被too_small过滤；是否真实垃圾需人工核实"
+    },
+    "tiny-bright-381": {
+      "count": 2,
+      "frames": [
+        "live002",
+        "live005"
+      ],
+      "labels": [
+        "Waste"
+      ],
+      "interpretation": "原始框被too_small过滤；是否真实垃圾需人工核实"
+    }
+  },
+  "observations": [
+    {
+      "group": "small-white-803",
+      "sample_id": "live003",
+      "box": [
+        805,
+        565,
+        818,
+        573
+      ],
+      "label": "Metal",
+      "confidence": 0.22214975953102112,
+      "reason": "too_small",
+      "image": "small-white-803-00.jpg",
+      "source_image": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-003.jpg",
+      "source_sha256": "a4c48d611bc0729e74a22738a9422f84adfcb24003b6025cac31342a60f7a146"
+    },
+    {
+      "group": "small-white-803",
+      "sample_id": "live004",
+      "box": [
+        805,
+        565,
+        817,
+        573
+      ],
+      "label": "Plastic",
+      "confidence": 0.22143206000328064,
+      "reason": "too_small",
+      "image": "small-white-803-01.jpg",
+      "source_image": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-004.jpg",
+      "source_sha256": "9988a347a70bc88a99024e03b75bc1cdaee9234c1276aaf235251405165a1bd7"
+    },
+    {
+      "group": "small-white-803",
+      "sample_id": "live005",
+      "box": [
+        804,
+        565,
+        817,
+        573
+      ],
+      "label": "Plastic",
+      "confidence": 0.34292617440223694,
+      "reason": "too_small",
+      "image": "small-white-803-02.jpg",
+      "source_image": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-005.jpg",
+      "source_sha256": "a6bef53ee0c326c562b6b6ce2b0ee056a51b2098a9e109e7858f56edb1d72925"
+    },
+    {
+      "group": "tiny-bright-381",
+      "sample_id": "live005",
+      "box": [
+        381,
+        995,
+        389,
+        1001
+      ],
+      "label": "Waste",
+      "confidence": 0.20413123071193695,
+      "reason": "too_small",
+      "image": "tiny-bright-381-00.jpg",
+      "source_image": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-005.jpg",
+      "source_sha256": "a6bef53ee0c326c562b6b6ce2b0ee056a51b2098a9e109e7858f56edb1d72925"
+    },
+    {
+      "group": "small-white-803",
+      "sample_id": "live006",
+      "box": [
+        805,
+        566,
+        817,
+        573
+      ],
+      "label": "Plastic",
+      "confidence": 0.20349347591400146,
+      "reason": "too_small",
+      "image": "small-white-803-03.jpg",
+      "source_image": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-006.jpg",
+      "source_sha256": "b32a1d17c68f9eab8b2089715fa3702877901075b13212e819526f3d19362b13"
+    },
+    {
+      "group": "small-white-803",
+      "sample_id": "live007",
+      "box": [
+        804,
+        565,
+        818,
+        573
+      ],
+      "label": "Plastic",
+      "confidence": 0.2174108475446701,
+      "reason": "too_small",
+      "image": "small-white-803-04.jpg",
+      "source_image": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-007.jpg",
+      "source_sha256": "e1373aee4a891a8b2c52ef1b266b64e41707a106f3acc3f2fc5c603673dadf63"
+    },
+    {
+      "group": "small-white-803",
+      "sample_id": "live008",
+      "box": [
+        803,
+        565,
+        817,
+        574
+      ],
+      "label": "Metal",
+      "confidence": 0.2406301349401474,
+      "reason": "too_small",
+      "image": "small-white-803-05.jpg",
+      "source_image": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-008.jpg",
+      "source_sha256": "25efb8c022a6fdf487c8122596e9b0aa93b05735455cc1da235c47b53a42ae8f"
+    },
+    {
+      "group": "small-white-803",
+      "sample_id": "live010",
+      "box": [
+        803,
+        565,
+        817,
+        573
+      ],
+      "label": "Plastic",
+      "confidence": 0.27655982971191406,
+      "reason": "too_small",
+      "image": "small-white-803-06.jpg",
+      "source_image": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-010.jpg",
+      "source_sha256": "df944a814bc4f4a803ffef9e40695e09fbd08e00881b46bc1fe83eb78198ec17"
+    },
+    {
+      "group": "small-white-803",
+      "sample_id": "live011",
+      "box": [
+        804,
+        565,
+        817,
+        573
+      ],
+      "label": "Plastic",
+      "confidence": 0.22009889781475067,
+      "reason": "too_small",
+      "image": "small-white-803-07.jpg",
+      "source_image": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-011.jpg",
+      "source_sha256": "227ef241ce7e6643a6cd51dc1c94dafdac5e991dae701f481c7e2aa94b3d5588"
+    },
+    {
+      "group": "small-white-803",
+      "sample_id": "live012",
+      "box": [
+        804,
+        565,
+        817,
+        573
+      ],
+      "label": "Plastic",
+      "confidence": 0.21425113081932068,
+      "reason": "too_small",
+      "image": "small-white-803-08.jpg",
+      "source_image": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-012.jpg",
+      "source_sha256": "8e05135e23bb1fef6d3fd1257298e6382e6029521901952e50e817bbda19c8bd"
+    },
+    {
+      "group": "small-white-803",
+      "sample_id": "live014",
+      "box": [
+        803,
+        565,
+        818,
+        573
+      ],
+      "label": "Plastic",
+      "confidence": 0.23758403956890106,
+      "reason": "too_small",
+      "image": "small-white-803-09.jpg",
+      "source_image": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-014.jpg",
+      "source_sha256": "0269f10de3502f654a5a926513c6e6d656af1766ddc49e71fc43e8dc8afcfb30"
+    },
+    {
+      "group": "small-white-803",
+      "sample_id": "live016",
+      "box": [
+        804,
+        564,
+        816,
+        573
+      ],
+      "label": "Plastic",
+      "confidence": 0.285092830657959,
+      "reason": "too_small",
+      "image": "small-white-803-10.jpg",
+      "source_image": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-016.jpg",
+      "source_sha256": "db55a2b680313df362b6ef0f853560a578c71462255b6449eca533a4411ebf2a"
+    },
+    {
+      "group": "small-white-803",
+      "sample_id": "live000",
+      "box": [
+        803,
+        565,
+        818,
+        573
+      ],
+      "label": "Plastic",
+      "confidence": 0.2575328052043915,
+      "reason": "too_small",
+      "image": "small-white-803-11.jpg",
+      "source_image": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-000.jpg",
+      "source_sha256": "eb609ec927dcce303e9c572b83b1a5f6fd87e6129dabbd6178a1c3339436c05f"
+    },
+    {
+      "group": "small-white-803",
+      "sample_id": "live002",
+      "box": [
+        804,
+        565,
+        817,
+        573
+      ],
+      "label": "Plastic",
+      "confidence": 0.2269870787858963,
+      "reason": "too_small",
+      "image": "small-white-803-12.jpg",
+      "source_image": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-002.jpg",
+      "source_sha256": "8b1cba2100e89012ea916c1e3b9e7c4c90e87c7d3f4d5105b43955b86b46638a"
+    },
+    {
+      "group": "tiny-bright-381",
+      "sample_id": "live002",
+      "box": [
+        381,
+        995,
+        389,
+        1002
+      ],
+      "label": "Waste",
+      "confidence": 0.2110110968351364,
+      "reason": "too_small",
+      "image": "tiny-bright-381-01.jpg",
+      "source_image": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-002.jpg",
+      "source_sha256": "8b1cba2100e89012ea916c1e3b9e7c4c90e87c7d3f4d5105b43955b86b46638a"
+    }
+  ],
+  "accuracy": null
+}

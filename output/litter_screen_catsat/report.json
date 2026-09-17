@@ -1,0 +1,4390 @@
+{
+  "model": "models/litter/catsat_litter_yolo11s_seg.pt",
+  "sha256": "e48518a798b05ef6a8a123526aedc6ee9afe508796dd0b1bc37c0c2eb333a164",
+  "classes": {
+    "0": "Plastic",
+    "1": "Metal",
+    "2": "Glass",
+    "3": "Paper",
+    "4": "Other"
+  },
+  "roi": [
+    [
+      0.02,
+      0.08
+    ],
+    [
+      0.37,
+      0.08
+    ],
+    [
+      0.46,
+      0.96
+    ],
+    [
+      0.02,
+      0.96
+    ]
+  ],
+  "exclusion_zones": [],
+  "mode": "tiles",
+  "imgsz": 640,
+  "confidence": 0.15,
+  "device": "cpu",
+  "nms_iou": 0.5,
+  "sampling": "FFmpeg decoded frame indices 250,500,...; 001 excluded; nominal 10s interval",
+  "frames": [
+    {
+      "image": "day_002.jpg",
+      "nominal_time_s": 10,
+      "inference_seconds": 1.967,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.5298264622688293,
+          "box": [
+            626,
+            897,
+            647,
+            914
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.4722177982330322,
+          "box": [
+            502,
+            905,
+            543,
+            953
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.4525918960571289,
+          "box": [
+            527,
+            1097,
+            543,
+            1103
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.38475164771080017,
+          "box": [
+            806,
+            178,
+            826,
+            199
+          ]
+        },
+        {
+          "label": "Paper",
+          "confidence": 0.23368090391159058,
+          "box": [
+            875,
+            522,
+            1174,
+            752
+          ]
+        },
+        {
+          "label": "Glass",
+          "confidence": 0.21090273559093475,
+          "box": [
+            538,
+            836,
+            568,
+            885
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.204759880900383,
+          "box": [
+            489,
+            835,
+            571,
+            952
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.1569797694683075,
+          "box": [
+            588,
+            504,
+            637,
+            525
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_003.jpg",
+      "nominal_time_s": 20,
+      "inference_seconds": 0.694,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.3359329402446747,
+          "box": [
+            808,
+            179,
+            826,
+            198
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.26673173904418945,
+          "box": [
+            354,
+            836,
+            434,
+            862
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.23057053983211517,
+          "box": [
+            560,
+            422,
+            587,
+            471
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_004.jpg",
+      "nominal_time_s": 30,
+      "inference_seconds": 0.757,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.39713478088378906,
+          "box": [
+            839,
+            743,
+            923,
+            917
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3364110291004181,
+          "box": [
+            807,
+            178,
+            826,
+            199
+          ]
+        },
+        {
+          "label": "Paper",
+          "confidence": 0.1658153086900711,
+          "box": [
+            875,
+            523,
+            1174,
+            750
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.16387984156608582,
+          "box": [
+            562,
+            446,
+            583,
+            470
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.15737859904766083,
+          "box": [
+            837,
+            742,
+            867,
+            795
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_005.jpg",
+      "nominal_time_s": 40,
+      "inference_seconds": 0.747,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.3282439410686493,
+          "box": [
+            353,
+            836,
+            435,
+            862
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.22225116193294525,
+          "box": [
+            806,
+            178,
+            826,
+            198
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_006.jpg",
+      "nominal_time_s": 50,
+      "inference_seconds": 0.711,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.43925076723098755,
+          "box": [
+            835,
+            742,
+            922,
+            917
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.36081889271736145,
+          "box": [
+            806,
+            178,
+            828,
+            199
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_007.jpg",
+      "nominal_time_s": 60,
+      "inference_seconds": 0.727,
+      "detections": [
+        {
+          "label": "Metal",
+          "confidence": 0.1662878692150116,
+          "box": [
+            562,
+            455,
+            577,
+            470
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_008.jpg",
+      "nominal_time_s": 70,
+      "inference_seconds": 0.871,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.4004460573196411,
+          "box": [
+            806,
+            178,
+            826,
+            199
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3015719950199127,
+          "box": [
+            353,
+            836,
+            435,
+            863
+          ]
+        },
+        {
+          "label": "Glass",
+          "confidence": 0.24584266543388367,
+          "box": [
+            799,
+            720,
+            837,
+            755
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_009.jpg",
+      "nominal_time_s": 80,
+      "inference_seconds": 1.256,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.4541168510913849,
+          "box": [
+            835,
+            742,
+            930,
+            919
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3093127906322479,
+          "box": [
+            807,
+            178,
+            826,
+            198
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.16671167314052582,
+          "box": [
+            875,
+            522,
+            1175,
+            749
+          ]
+        },
+        {
+          "label": "Glass",
+          "confidence": 0.15527929365634918,
+          "box": [
+            800,
+            722,
+            837,
+            755
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_010.jpg",
+      "nominal_time_s": 90,
+      "inference_seconds": 1.121,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.4638713002204895,
+          "box": [
+            807,
+            178,
+            826,
+            199
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_011.jpg",
+      "nominal_time_s": 100,
+      "inference_seconds": 1.011,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.8398817777633667,
+          "box": [
+            474,
+            898,
+            564,
+            997
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.5321351885795593,
+          "box": [
+            568,
+            774,
+            613,
+            865
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.4708833396434784,
+          "box": [
+            537,
+            950,
+            564,
+            997
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.28322213888168335,
+          "box": [
+            806,
+            178,
+            826,
+            198
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.18469862639904022,
+          "box": [
+            538,
+            424,
+            585,
+            473
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.18042069673538208,
+          "box": [
+            561,
+            456,
+            577,
+            471
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.15480317175388336,
+          "box": [
+            866,
+            523,
+            1174,
+            750
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.1540958732366562,
+          "box": [
+            537,
+            530,
+            554,
+            598
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_012.jpg",
+      "nominal_time_s": 110,
+      "inference_seconds": 1.107,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.5842596888542175,
+          "box": [
+            807,
+            178,
+            826,
+            199
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.15073911845684052,
+          "box": [
+            801,
+            719,
+            838,
+            755
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_013.jpg",
+      "nominal_time_s": 120,
+      "inference_seconds": 0.994,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.5890364050865173,
+          "box": [
+            836,
+            744,
+            916,
+            918
+          ]
+        },
+        {
+          "label": "Paper",
+          "confidence": 0.388235867023468,
+          "box": [
+            876,
+            522,
+            1175,
+            753
+          ]
+        },
+        {
+          "label": "Glass",
+          "confidence": 0.3835843503475189,
+          "box": [
+            420,
+            1065,
+            480,
+            1184
+          ]
+        },
+        {
+          "label": "Glass",
+          "confidence": 0.27020061016082764,
+          "box": [
+            463,
+            1136,
+            483,
+            1181
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2518566846847534,
+          "box": [
+            806,
+            178,
+            826,
+            199
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.23381705582141876,
+          "box": [
+            624,
+            662,
+            644,
+            686
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.1721123605966568,
+          "box": [
+            353,
+            836,
+            435,
+            861
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_014.jpg",
+      "nominal_time_s": 130,
+      "inference_seconds": 0.818,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.39365726709365845,
+          "box": [
+            837,
+            743,
+            920,
+            919
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3378961384296417,
+          "box": [
+            806,
+            178,
+            826,
+            199
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.24248504638671875,
+          "box": [
+            627,
+            897,
+            638,
+            903
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.21430422365665436,
+          "box": [
+            353,
+            836,
+            434,
+            862
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.16000990569591522,
+          "box": [
+            849,
+            593,
+            864,
+            600
+          ]
+        },
+        {
+          "label": "Glass",
+          "confidence": 0.1543756127357483,
+          "box": [
+            809,
+            722,
+            837,
+            755
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_015.jpg",
+      "nominal_time_s": 140,
+      "inference_seconds": 1.196,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.4917072355747223,
+          "box": [
+            807,
+            178,
+            825,
+            199
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.4058956801891327,
+          "box": [
+            626,
+            898,
+            648,
+            917
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.25877583026885986,
+          "box": [
+            836,
+            743,
+            915,
+            918
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2406238615512848,
+          "box": [
+            626,
+            897,
+            645,
+            903
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.22926679253578186,
+          "box": [
+            353,
+            836,
+            436,
+            862
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.17658531665802002,
+          "box": [
+            562,
+            455,
+            577,
+            470
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_016.jpg",
+      "nominal_time_s": 150,
+      "inference_seconds": 0.748,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.30632707476615906,
+          "box": [
+            836,
+            743,
+            915,
+            918
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3023335039615631,
+          "box": [
+            806,
+            178,
+            826,
+            199
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2541303038597107,
+          "box": [
+            354,
+            837,
+            435,
+            862
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.22865445911884308,
+          "box": [
+            626,
+            897,
+            638,
+            904
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.22095398604869843,
+          "box": [
+            562,
+            455,
+            576,
+            470
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_017.jpg",
+      "nominal_time_s": 160,
+      "inference_seconds": 0.73,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.44278547167778015,
+          "box": [
+            626,
+            897,
+            649,
+            912
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.35322335362434387,
+          "box": [
+            626,
+            897,
+            647,
+            904
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.30627480149269104,
+          "box": [
+            807,
+            178,
+            827,
+            198
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.2785230278968811,
+          "box": [
+            363,
+            571,
+            401,
+            614
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.18692004680633545,
+          "box": [
+            353,
+            836,
+            436,
+            862
+          ]
+        },
+        {
+          "label": "Glass",
+          "confidence": 0.17828905582427979,
+          "box": [
+            800,
+            722,
+            835,
+            755
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.17786182463169098,
+          "box": [
+            463,
+            952,
+            469,
+            960
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.15276676416397095,
+          "box": [
+            562,
+            455,
+            576,
+            471
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_018.jpg",
+      "nominal_time_s": 170,
+      "inference_seconds": 0.695,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.5146949887275696,
+          "box": [
+            876,
+            524,
+            1175,
+            742
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.4615904986858368,
+          "box": [
+            807,
+            179,
+            825,
+            199
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.45712944865226746,
+          "box": [
+            836,
+            743,
+            919,
+            917
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_019.jpg",
+      "nominal_time_s": 180,
+      "inference_seconds": 0.699,
+      "detections": [
+        {
+          "label": "Paper",
+          "confidence": 0.398062139749527,
+          "box": [
+            870,
+            522,
+            1174,
+            750
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2630921006202698,
+          "box": [
+            626,
+            898,
+            649,
+            909
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.26018568873405457,
+          "box": [
+            553,
+            417,
+            588,
+            474
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2449260950088501,
+          "box": [
+            835,
+            743,
+            914,
+            918
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.23420274257659912,
+          "box": [
+            627,
+            897,
+            639,
+            903
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.22356081008911133,
+          "box": [
+            562,
+            456,
+            577,
+            470
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.21546213328838348,
+          "box": [
+            353,
+            836,
+            436,
+            862
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.21455438435077667,
+          "box": [
+            806,
+            178,
+            826,
+            199
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.193825364112854,
+          "box": [
+            626,
+            897,
+            647,
+            904
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.1769309937953949,
+          "box": [
+            613,
+            462,
+            634,
+            480
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_020.jpg",
+      "nominal_time_s": 190,
+      "inference_seconds": 0.753,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.4874853491783142,
+          "box": [
+            835,
+            742,
+            918,
+            919
+          ]
+        },
+        {
+          "label": "Paper",
+          "confidence": 0.44710513949394226,
+          "box": [
+            876,
+            524,
+            1175,
+            748
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_021.jpg",
+      "nominal_time_s": 200,
+      "inference_seconds": 0.724,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.5024779438972473,
+          "box": [
+            835,
+            743,
+            916,
+            918
+          ]
+        },
+        {
+          "label": "Paper",
+          "confidence": 0.47168466448783875,
+          "box": [
+            877,
+            522,
+            1174,
+            740
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.42333751916885376,
+          "box": [
+            807,
+            178,
+            826,
+            198
+          ]
+        },
+        {
+          "label": "Paper",
+          "confidence": 0.15510421991348267,
+          "box": [
+            797,
+            742,
+            838,
+            777
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_022.jpg",
+      "nominal_time_s": 210,
+      "inference_seconds": 0.719,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.4217202663421631,
+          "box": [
+            836,
+            743,
+            915,
+            919
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.24372626841068268,
+          "box": [
+            806,
+            178,
+            825,
+            199
+          ]
+        },
+        {
+          "label": "Glass",
+          "confidence": 0.20054446160793304,
+          "box": [
+            800,
+            721,
+            834,
+            755
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.19713714718818665,
+          "box": [
+            589,
+            504,
+            638,
+            523
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.1879969984292984,
+          "box": [
+            353,
+            836,
+            435,
+            862
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_023.jpg",
+      "nominal_time_s": 220,
+      "inference_seconds": 0.785,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.6674790978431702,
+          "box": [
+            835,
+            743,
+            917,
+            920
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3103717863559723,
+          "box": [
+            807,
+            178,
+            825,
+            198
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.24741390347480774,
+          "box": [
+            353,
+            836,
+            434,
+            862
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.15988312661647797,
+          "box": [
+            835,
+            742,
+            890,
+            796
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_024.jpg",
+      "nominal_time_s": 230,
+      "inference_seconds": 0.594,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.8157234787940979,
+          "box": [
+            838,
+            744,
+            915,
+            918
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2844908535480499,
+          "box": [
+            627,
+            897,
+            638,
+            904
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.24586740136146545,
+          "box": [
+            626,
+            898,
+            648,
+            908
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.23260100185871124,
+          "box": [
+            807,
+            178,
+            827,
+            199
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.22028659284114838,
+          "box": [
+            562,
+            455,
+            577,
+            470
+          ]
+        },
+        {
+          "label": "Paper",
+          "confidence": 0.19745218753814697,
+          "box": [
+            795,
+            742,
+            841,
+            778
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_025.jpg",
+      "nominal_time_s": 240,
+      "inference_seconds": 0.628,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.49930691719055176,
+          "box": [
+            875,
+            524,
+            1175,
+            739
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.42592912912368774,
+          "box": [
+            805,
+            179,
+            826,
+            199
+          ]
+        },
+        {
+          "label": "Glass",
+          "confidence": 0.3109290599822998,
+          "box": [
+            800,
+            721,
+            836,
+            755
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.21835298836231232,
+          "box": [
+            833,
+            742,
+            923,
+            917
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_026.jpg",
+      "nominal_time_s": 250,
+      "inference_seconds": 1.1,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.7284718751907349,
+          "box": [
+            837,
+            743,
+            916,
+            918
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.27712592482566833,
+          "box": [
+            353,
+            837,
+            435,
+            862
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.27406442165374756,
+          "box": [
+            626,
+            897,
+            639,
+            904
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2487805038690567,
+          "box": [
+            806,
+            178,
+            826,
+            199
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.230609729886055,
+          "box": [
+            625,
+            896,
+            645,
+            906
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_027.jpg",
+      "nominal_time_s": 260,
+      "inference_seconds": 1.123,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.564229428768158,
+          "box": [
+            837,
+            743,
+            922,
+            916
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.4017699658870697,
+          "box": [
+            872,
+            523,
+            1175,
+            749
+          ]
+        },
+        {
+          "label": "Glass",
+          "confidence": 0.2911045551300049,
+          "box": [
+            828,
+            228,
+            857,
+            297
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_028.jpg",
+      "nominal_time_s": 270,
+      "inference_seconds": 0.646,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.6797253489494324,
+          "box": [
+            840,
+            744,
+            915,
+            918
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.29081615805625916,
+          "box": [
+            627,
+            897,
+            638,
+            904
+          ]
+        },
+        {
+          "label": "Glass",
+          "confidence": 0.22297346591949463,
+          "box": [
+            800,
+            724,
+            835,
+            755
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2082807719707489,
+          "box": [
+            627,
+            899,
+            647,
+            906
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.20031528174877167,
+          "box": [
+            866,
+            520,
+            1175,
+            752
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.17139597237110138,
+          "box": [
+            560,
+            448,
+            580,
+            470
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_029.jpg",
+      "nominal_time_s": 280,
+      "inference_seconds": 0.649,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.33052685856819153,
+          "box": [
+            353,
+            836,
+            435,
+            862
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2492108941078186,
+          "box": [
+            1049,
+            1048,
+            1167,
+            1134
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.24150657653808594,
+          "box": [
+            627,
+            897,
+            640,
+            904
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.22356081008911133,
+          "box": [
+            627,
+            899,
+            647,
+            907
+          ]
+        },
+        {
+          "label": "Paper",
+          "confidence": 0.1922619789838791,
+          "box": [
+            797,
+            742,
+            842,
+            778
+          ]
+        },
+        {
+          "label": "Glass",
+          "confidence": 0.18510133028030396,
+          "box": [
+            800,
+            720,
+            836,
+            755
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.16394589841365814,
+          "box": [
+            562,
+            455,
+            577,
+            470
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_002.jpg",
+      "nominal_time_s": 10,
+      "inference_seconds": 0.656,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.43307361006736755,
+          "box": [
+            51,
+            219,
+            429,
+            751
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.32901936769485474,
+          "box": [
+            408,
+            1107,
+            429,
+            1118
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.28095442056655884,
+          "box": [
+            1005,
+            1180,
+            1104,
+            1256
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.23115582764148712,
+          "box": [
+            482,
+            718,
+            500,
+            745
+          ]
+        },
+        {
+          "label": "Glass",
+          "confidence": 0.1979496330022812,
+          "box": [
+            946,
+            1179,
+            1106,
+            1326
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_003.jpg",
+      "nominal_time_s": 20,
+      "inference_seconds": 0.625,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.7449647188186646,
+          "box": [
+            343,
+            837,
+            455,
+            1042
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.7177205085754395,
+          "box": [
+            1005,
+            1178,
+            1102,
+            1260
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.710453450679779,
+          "box": [
+            604,
+            527,
+            650,
+            616
+          ]
+        },
+        {
+          "label": "Glass",
+          "confidence": 0.5006807446479797,
+          "box": [
+            950,
+            1179,
+            1103,
+            1318
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.2684110403060913,
+          "box": [
+            1013,
+            1058,
+            1047,
+            1077
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.20809149742126465,
+          "box": [
+            51,
+            841,
+            102,
+            1017
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.1912510246038437,
+          "box": [
+            949,
+            1220,
+            976,
+            1247
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.1757907122373581,
+          "box": [
+            1092,
+            1291,
+            1108,
+            1317
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.16257841885089874,
+          "box": [
+            482,
+            716,
+            505,
+            747
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_004.jpg",
+      "nominal_time_s": 30,
+      "inference_seconds": 0.64,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.8171605467796326,
+          "box": [
+            607,
+            530,
+            648,
+            613
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.6132630109786987,
+          "box": [
+            1005,
+            1177,
+            1101,
+            1272
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.4973202645778656,
+          "box": [
+            51,
+            846,
+            102,
+            1010
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.4800367057323456,
+          "box": [
+            868,
+            593,
+            931,
+            641
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.3554568886756897,
+          "box": [
+            1039,
+            1358,
+            1051,
+            1364
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.33314311504364014,
+          "box": [
+            1012,
+            1056,
+            1048,
+            1077
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3317263126373291,
+          "box": [
+            554,
+            1011,
+            570,
+            1025
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2628791928291321,
+          "box": [
+            564,
+            630,
+            586,
+            648
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.25747618079185486,
+          "box": [
+            879,
+            611,
+            930,
+            640
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.20900583267211914,
+          "box": [
+            984,
+            430,
+            1008,
+            435
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_005.jpg",
+      "nominal_time_s": 40,
+      "inference_seconds": 0.727,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.8562869429588318,
+          "box": [
+            868,
+            594,
+            931,
+            640
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.8199135065078735,
+          "box": [
+            607,
+            530,
+            647,
+            614
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.6506443619728088,
+          "box": [
+            1005,
+            1177,
+            1102,
+            1270
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.4843841791152954,
+          "box": [
+            1012,
+            1056,
+            1051,
+            1089
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.4751794934272766,
+          "box": [
+            1038,
+            1358,
+            1051,
+            1365
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.4516647160053253,
+          "box": [
+            51,
+            847,
+            101,
+            1009
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3573535084724426,
+          "box": [
+            951,
+            1219,
+            975,
+            1248
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3417220115661621,
+          "box": [
+            564,
+            630,
+            585,
+            649
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.32241547107696533,
+          "box": [
+            414,
+            742,
+            514,
+            805
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2092292606830597,
+          "box": [
+            985,
+            430,
+            1008,
+            435
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.1819617748260498,
+          "box": [
+            866,
+            636,
+            938,
+            754
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.17996898293495178,
+          "box": [
+            349,
+            838,
+            458,
+            1043
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.16204281151294708,
+          "box": [
+            926,
+            987,
+            933,
+            994
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.1593339592218399,
+          "box": [
+            627,
+            604,
+            633,
+            612
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_006.jpg",
+      "nominal_time_s": 50,
+      "inference_seconds": 0.752,
+      "detections": [
+        {
+          "label": "Metal",
+          "confidence": 0.7370547652244568,
+          "box": [
+            1011,
+            1056,
+            1048,
+            1078
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.7276384830474854,
+          "box": [
+            1006,
+            1178,
+            1102,
+            1274
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.7172672152519226,
+          "box": [
+            605,
+            528,
+            646,
+            614
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.5893121361732483,
+          "box": [
+            52,
+            846,
+            102,
+            1010
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.4680929183959961,
+          "box": [
+            1038,
+            1358,
+            1051,
+            1364
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.27315112948417664,
+          "box": [
+            984,
+            430,
+            1008,
+            436
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.23314718902111053,
+          "box": [
+            951,
+            1220,
+            976,
+            1247
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.22766435146331787,
+          "box": [
+            565,
+            630,
+            585,
+            649
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.2193305343389511,
+          "box": [
+            1096,
+            1333,
+            1128,
+            1345
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.204203262925148,
+          "box": [
+            925,
+            987,
+            933,
+            994
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_007.jpg",
+      "nominal_time_s": 60,
+      "inference_seconds": 0.711,
+      "detections": [
+        {
+          "label": "Metal",
+          "confidence": 0.3054008483886719,
+          "box": [
+            368,
+            1105,
+            385,
+            1116
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.20655125379562378,
+          "box": [
+            482,
+            718,
+            500,
+            745
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.20363399386405945,
+          "box": [
+            354,
+            837,
+            435,
+            864
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.1886412650346756,
+          "box": [
+            566,
+            625,
+            585,
+            652
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.18203116953372955,
+          "box": [
+            950,
+            1218,
+            985,
+            1246
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.16532613337039948,
+          "box": [
+            407,
+            1107,
+            428,
+            1117
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.16401447355747223,
+          "box": [
+            101,
+            1266,
+            214,
+            1382
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_008.jpg",
+      "nominal_time_s": 70,
+      "inference_seconds": 0.635,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.8603475689888,
+          "box": [
+            606,
+            530,
+            646,
+            613
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.7926791310310364,
+          "box": [
+            1005,
+            1177,
+            1101,
+            1269
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.6754437685012817,
+          "box": [
+            1039,
+            1358,
+            1052,
+            1365
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.6574677228927612,
+          "box": [
+            1011,
+            1056,
+            1048,
+            1077
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.5369555354118347,
+          "box": [
+            52,
+            841,
+            101,
+            1006
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.40127527713775635,
+          "box": [
+            869,
+            593,
+            932,
+            641
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2893799841403961,
+          "box": [
+            596,
+            519,
+            619,
+            530
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.24953478574752808,
+          "box": [
+            628,
+            604,
+            633,
+            612
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.23841212689876556,
+          "box": [
+            995,
+            1291,
+            1106,
+            1329
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.23646347224712372,
+          "box": [
+            986,
+            1288,
+            1032,
+            1319
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.211088627576828,
+          "box": [
+            984,
+            430,
+            1009,
+            435
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.19132159650325775,
+          "box": [
+            951,
+            1218,
+            976,
+            1248
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_009.jpg",
+      "nominal_time_s": 80,
+      "inference_seconds": 0.483,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.8527449369430542,
+          "box": [
+            1007,
+            1178,
+            1102,
+            1254
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.6094610095024109,
+          "box": [
+            990,
+            1291,
+            1108,
+            1329
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.4740087687969208,
+          "box": [
+            1011,
+            1055,
+            1048,
+            1079
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.36583033204078674,
+          "box": [
+            52,
+            846,
+            101,
+            1003
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2917354106903076,
+          "box": [
+            880,
+            611,
+            933,
+            640
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.19583743810653687,
+          "box": [
+            562,
+            629,
+            585,
+            649
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.16191180050373077,
+          "box": [
+            950,
+            1188,
+            1023,
+            1259
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_010.jpg",
+      "nominal_time_s": 90,
+      "inference_seconds": 0.497,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.8283115029335022,
+          "box": [
+            605,
+            529,
+            651,
+            614
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.7976189255714417,
+          "box": [
+            339,
+            1171,
+            391,
+            1213
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.7904378771781921,
+          "box": [
+            1004,
+            1177,
+            1101,
+            1270
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.7483153939247131,
+          "box": [
+            869,
+            593,
+            933,
+            641
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.6734995245933533,
+          "box": [
+            51,
+            845,
+            102,
+            1002
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.572899580001831,
+          "box": [
+            1011,
+            1056,
+            1049,
+            1078
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.49261635541915894,
+          "box": [
+            565,
+            632,
+            585,
+            650
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2877160906791687,
+          "box": [
+            985,
+            430,
+            1009,
+            435
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.26378557085990906,
+          "box": [
+            1038,
+            1357,
+            1052,
+            1366
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.22367045283317566,
+          "box": [
+            596,
+            519,
+            619,
+            530
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.16601403057575226,
+          "box": [
+            838,
+            815,
+            853,
+            832
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.1520693004131317,
+          "box": [
+            951,
+            1185,
+            1021,
+            1256
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_011.jpg",
+      "nominal_time_s": 100,
+      "inference_seconds": 0.523,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.7903329133987427,
+          "box": [
+            1007,
+            1179,
+            1101,
+            1271
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.6830543279647827,
+          "box": [
+            607,
+            530,
+            649,
+            623
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.5989534854888916,
+          "box": [
+            879,
+            611,
+            933,
+            641
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.49513423442840576,
+          "box": [
+            51,
+            844,
+            102,
+            1007
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.48321986198425293,
+          "box": [
+            986,
+            1292,
+            1105,
+            1329
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.33651429414749146,
+          "box": [
+            565,
+            629,
+            585,
+            651
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.2896740734577179,
+          "box": [
+            1012,
+            1057,
+            1048,
+            1077
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.257308691740036,
+          "box": [
+            340,
+            837,
+            456,
+            1041
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.24074751138687134,
+          "box": [
+            950,
+            1219,
+            977,
+            1247
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.17829322814941406,
+          "box": [
+            350,
+            836,
+            434,
+            869
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.15546885132789612,
+          "box": [
+            952,
+            1185,
+            1019,
+            1253
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_012.jpg",
+      "nominal_time_s": 110,
+      "inference_seconds": 0.49,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.822580873966217,
+          "box": [
+            605,
+            532,
+            651,
+            613
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.7962791323661804,
+          "box": [
+            1005,
+            1178,
+            1101,
+            1250
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.48729223012924194,
+          "box": [
+            52,
+            844,
+            102,
+            1007
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.4620126783847809,
+          "box": [
+            1012,
+            1056,
+            1048,
+            1079
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.364510178565979,
+          "box": [
+            1039,
+            1358,
+            1051,
+            1364
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.32770219445228577,
+          "box": [
+            879,
+            611,
+            931,
+            640
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.303965300321579,
+          "box": [
+            1014,
+            965,
+            1025,
+            974
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2406301349401474,
+          "box": [
+            627,
+            603,
+            633,
+            612
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.20959407091140747,
+          "box": [
+            1107,
+            1332,
+            1130,
+            1344
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_013.jpg",
+      "nominal_time_s": 120,
+      "inference_seconds": 0.515,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.3068908452987671,
+          "box": [
+            867,
+            595,
+            901,
+            627
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.29452943801879883,
+          "box": [
+            479,
+            718,
+            503,
+            746
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.29108119010925293,
+          "box": [
+            564,
+            628,
+            587,
+            651
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.2246156632900238,
+          "box": [
+            728,
+            404,
+            742,
+            420
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.2078281193971634,
+          "box": [
+            621,
+            485,
+            625,
+            495
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.20301268994808197,
+          "box": [
+            51,
+            848,
+            104,
+            1008
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.16534797847270966,
+          "box": [
+            706,
+            416,
+            716,
+            423
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_014.jpg",
+      "nominal_time_s": 130,
+      "inference_seconds": 0.497,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.7630227208137512,
+          "box": [
+            606,
+            530,
+            648,
+            614
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.72708660364151,
+          "box": [
+            869,
+            593,
+            930,
+            641
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.6816017031669617,
+          "box": [
+            1012,
+            1056,
+            1047,
+            1078
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.6108136177062988,
+          "box": [
+            1005,
+            1178,
+            1102,
+            1267
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.5863513350486755,
+          "box": [
+            51,
+            844,
+            102,
+            1007
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.529807448387146,
+          "box": [
+            564,
+            629,
+            586,
+            649
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.41207194328308105,
+          "box": [
+            628,
+            603,
+            633,
+            612
+          ]
+        },
+        {
+          "label": "Glass",
+          "confidence": 0.39514508843421936,
+          "box": [
+            986,
+            1292,
+            1106,
+            1329
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3846750855445862,
+          "box": [
+            984,
+            430,
+            1008,
+            435
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3098074495792389,
+          "box": [
+            888,
+            390,
+            961,
+            629
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.28385093808174133,
+          "box": [
+            1038,
+            1358,
+            1051,
+            1364
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.21489377319812775,
+          "box": [
+            951,
+            1188,
+            1013,
+            1271
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.17865005135536194,
+          "box": [
+            951,
+            1219,
+            975,
+            1246
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_015.jpg",
+      "nominal_time_s": 140,
+      "inference_seconds": 0.496,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.8183724284172058,
+          "box": [
+            1007,
+            1177,
+            1101,
+            1257
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.4988870322704315,
+          "box": [
+            111,
+            1268,
+            220,
+            1382
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2669113874435425,
+          "box": [
+            988,
+            1287,
+            1034,
+            1320
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.17500364780426025,
+          "box": [
+            949,
+            1191,
+            1010,
+            1253
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_016.jpg",
+      "nominal_time_s": 150,
+      "inference_seconds": 0.499,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.8521954417228699,
+          "box": [
+            1009,
+            1234,
+            1176,
+            1381
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.544536828994751,
+          "box": [
+            604,
+            531,
+            647,
+            613
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.525633692741394,
+          "box": [
+            51,
+            845,
+            102,
+            1002
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.40477409958839417,
+          "box": [
+            1009,
+            1056,
+            1050,
+            1078
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2884017825126648,
+          "box": [
+            985,
+            430,
+            1009,
+            435
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.16953541338443756,
+          "box": [
+            879,
+            595,
+            931,
+            640
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_017.jpg",
+      "nominal_time_s": 160,
+      "inference_seconds": 0.481,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.862116277217865,
+          "box": [
+            879,
+            612,
+            931,
+            640
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.6634418368339539,
+          "box": [
+            1013,
+            1054,
+            1048,
+            1079
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.650683581829071,
+          "box": [
+            1011,
+            1234,
+            1177,
+            1381
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.6222915053367615,
+          "box": [
+            52,
+            845,
+            103,
+            1004
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.3985667824745178,
+          "box": [
+            1068,
+            984,
+            1080,
+            996
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_018.jpg",
+      "nominal_time_s": 170,
+      "inference_seconds": 0.48,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.5665650367736816,
+          "box": [
+            51,
+            847,
+            102,
+            1004
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.5617489218711853,
+          "box": [
+            1009,
+            1238,
+            1176,
+            1381
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.5443645715713501,
+          "box": [
+            878,
+            609,
+            930,
+            640
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.22917798161506653,
+          "box": [
+            1012,
+            1056,
+            1032,
+            1082
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.20674660801887512,
+          "box": [
+            648,
+            404,
+            668,
+            450
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_019.jpg",
+      "nominal_time_s": 180,
+      "inference_seconds": 0.477,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.7633056640625,
+          "box": [
+            606,
+            531,
+            647,
+            614
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.5254988074302673,
+          "box": [
+            1012,
+            1056,
+            1048,
+            1078
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.5025574564933777,
+          "box": [
+            868,
+            593,
+            932,
+            641
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.49057379364967346,
+          "box": [
+            1004,
+            1179,
+            1101,
+            1250
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.4035941958427429,
+          "box": [
+            987,
+            1288,
+            1105,
+            1326
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.31383252143859863,
+          "box": [
+            951,
+            1219,
+            976,
+            1248
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.267252653837204,
+          "box": [
+            51,
+            843,
+            102,
+            1006
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.24059057235717773,
+          "box": [
+            598,
+            519,
+            620,
+            531
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.2260047197341919,
+          "box": [
+            705,
+            415,
+            716,
+            423
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.22159211337566376,
+          "box": [
+            331,
+            446,
+            378,
+            618
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_020.jpg",
+      "nominal_time_s": 190,
+      "inference_seconds": 0.492,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.7649476528167725,
+          "box": [
+            600,
+            529,
+            650,
+            618
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.5909604430198669,
+          "box": [
+            1004,
+            1178,
+            1102,
+            1268
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.5340044498443604,
+          "box": [
+            950,
+            1219,
+            976,
+            1248
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.5263686776161194,
+          "box": [
+            1011,
+            1056,
+            1048,
+            1078
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.51441490650177,
+          "box": [
+            1039,
+            1358,
+            1052,
+            1365
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.43494510650634766,
+          "box": [
+            51,
+            845,
+            101,
+            1009
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.363037645816803,
+          "box": [
+            564,
+            630,
+            585,
+            649
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2996476888656616,
+          "box": [
+            984,
+            430,
+            1008,
+            435
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.29429858922958374,
+          "box": [
+            843,
+            794,
+            907,
+            915
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.22966153919696808,
+          "box": [
+            350,
+            838,
+            457,
+            1044
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.22578802704811096,
+          "box": [
+            986,
+            1288,
+            1032,
+            1320
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.17211970686912537,
+          "box": [
+            1065,
+            1192,
+            1089,
+            1208
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.1642269790172577,
+          "box": [
+            596,
+            519,
+            620,
+            530
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_021.jpg",
+      "nominal_time_s": 200,
+      "inference_seconds": 0.481,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.753463625907898,
+          "box": [
+            1004,
+            1178,
+            1102,
+            1256
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.7295163869857788,
+          "box": [
+            870,
+            593,
+            931,
+            641
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.6416304707527161,
+          "box": [
+            880,
+            612,
+            930,
+            641
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.6383553147315979,
+          "box": [
+            600,
+            532,
+            644,
+            613
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.560653805732727,
+          "box": [
+            895,
+            457,
+            956,
+            627
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.5233413577079773,
+          "box": [
+            1011,
+            1056,
+            1050,
+            1078
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.4236869215965271,
+          "box": [
+            1039,
+            1358,
+            1052,
+            1365
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3309440612792969,
+          "box": [
+            984,
+            430,
+            1008,
+            435
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2248326987028122,
+          "box": [
+            565,
+            630,
+            585,
+            649
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2237706333398819,
+          "box": [
+            897,
+            640,
+            937,
+            698
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.1819619983434677,
+          "box": [
+            597,
+            519,
+            620,
+            530
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.1750325858592987,
+          "box": [
+            838,
+            814,
+            853,
+            833
+          ]
+        },
+        {
+          "label": "Glass",
+          "confidence": 0.1512511819601059,
+          "box": [
+            867,
+            161,
+            921,
+            265
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.15101508796215057,
+          "box": [
+            951,
+            1219,
+            975,
+            1247
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_022.jpg",
+      "nominal_time_s": 210,
+      "inference_seconds": 1.154,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.5372365713119507,
+          "box": [
+            51,
+            847,
+            102,
+            1007
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.45201265811920166,
+          "box": [
+            869,
+            594,
+            930,
+            641
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2162363976240158,
+          "box": [
+            1048,
+            1059,
+            1167,
+            1135
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.20573876798152924,
+          "box": [
+            989,
+            1286,
+            1106,
+            1326
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_023.jpg",
+      "nominal_time_s": 220,
+      "inference_seconds": 0.504,
+      "detections": [
+        {
+          "label": "Metal",
+          "confidence": 0.36053022742271423,
+          "box": [
+            481,
+            718,
+            501,
+            745
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3329303562641144,
+          "box": [
+            1013,
+            1057,
+            1048,
+            1078
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.310517817735672,
+          "box": [
+            983,
+            426,
+            1011,
+            436
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.27368542551994324,
+          "box": [
+            984,
+            633,
+            993,
+            640
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.1742669641971588,
+          "box": [
+            1039,
+            1358,
+            1051,
+            1363
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.1642371267080307,
+          "box": [
+            331,
+            444,
+            377,
+            615
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.16347788274288177,
+          "box": [
+            51,
+            847,
+            102,
+            1017
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_024.jpg",
+      "nominal_time_s": 230,
+      "inference_seconds": 0.486,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.2920125126838684,
+          "box": [
+            51,
+            829,
+            100,
+            1005
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.17093361914157867,
+          "box": [
+            880,
+            599,
+            932,
+            641
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_025.jpg",
+      "nominal_time_s": 240,
+      "inference_seconds": 0.578,
+      "detections": [
+        {
+          "label": "Metal",
+          "confidence": 0.42324817180633545,
+          "box": [
+            368,
+            1104,
+            386,
+            1117
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.30994856357574463,
+          "box": [
+            1053,
+            1286,
+            1107,
+            1322
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2131602168083191,
+          "box": [
+            948,
+            1179,
+            1102,
+            1317
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_026.jpg",
+      "nominal_time_s": 250,
+      "inference_seconds": 0.514,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.8588013052940369,
+          "box": [
+            328,
+            834,
+            455,
+            1040
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.34403786063194275,
+          "box": [
+            1006,
+            1178,
+            1102,
+            1251
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.28993576765060425,
+          "box": [
+            480,
+            717,
+            500,
+            745
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2879197299480438,
+          "box": [
+            671,
+            292,
+            691,
+            324
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.25068673491477966,
+          "box": [
+            955,
+            986,
+            963,
+            991
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.20133939385414124,
+          "box": [
+            415,
+            758,
+            476,
+            800
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.1979856938123703,
+          "box": [
+            1012,
+            1062,
+            1048,
+            1077
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.19294556975364685,
+          "box": [
+            564,
+            628,
+            586,
+            650
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.16994300484657288,
+          "box": [
+            869,
+            593,
+            899,
+            618
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.16771046817302704,
+          "box": [
+            934,
+            1244,
+            951,
+            1254
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_027.jpg",
+      "nominal_time_s": 260,
+      "inference_seconds": 0.474,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.3695490062236786,
+          "box": [
+            51,
+            843,
+            101,
+            1010
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.36215850710868835,
+          "box": [
+            866,
+            594,
+            902,
+            626
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3312746584415436,
+          "box": [
+            832,
+            811,
+            850,
+            832
+          ]
+        },
+        {
+          "label": "Paper",
+          "confidence": 0.23988698422908783,
+          "box": [
+            866,
+            594,
+            932,
+            641
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.1665649712085724,
+          "box": [
+            482,
+            716,
+            504,
+            749
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.16553792357444763,
+          "box": [
+            354,
+            836,
+            434,
+            865
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_028.jpg",
+      "nominal_time_s": 270,
+      "inference_seconds": 0.471,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.8120270371437073,
+          "box": [
+            1005,
+            1178,
+            1102,
+            1253
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.5474805235862732,
+          "box": [
+            949,
+            1178,
+            1108,
+            1327
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3650120198726654,
+          "box": [
+            988,
+            1287,
+            1108,
+            1327
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.22627268731594086,
+          "box": [
+            51,
+            827,
+            101,
+            999
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.18827511370182037,
+          "box": [
+            485,
+            718,
+            499,
+            744
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_029.jpg",
+      "nominal_time_s": 280,
+      "inference_seconds": 0.487,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.7023417353630066,
+          "box": [
+            1005,
+            1177,
+            1101,
+            1261
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.6067245602607727,
+          "box": [
+            596,
+            529,
+            653,
+            614
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.5964481830596924,
+          "box": [
+            1011,
+            1056,
+            1049,
+            1078
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.4746361970901489,
+          "box": [
+            349,
+            838,
+            457,
+            1041
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.42940422892570496,
+          "box": [
+            51,
+            845,
+            102,
+            1009
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.29316088557243347,
+          "box": [
+            951,
+            1220,
+            976,
+            1247
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2713985741138458,
+          "box": [
+            955,
+            1187,
+            1019,
+            1248
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2613067328929901,
+          "box": [
+            895,
+            642,
+            937,
+            696
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.24483850598335266,
+          "box": [
+            987,
+            1289,
+            1032,
+            1320
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.21003219485282898,
+          "box": [
+            332,
+            441,
+            377,
+            618
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.1784995198249817,
+          "box": [
+            1039,
+            1357,
+            1051,
+            1364
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.1756269931793213,
+          "box": [
+            974,
+            632,
+            996,
+            643
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.1641201376914978,
+          "box": [
+            595,
+            519,
+            619,
+            532
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_030.jpg",
+      "nominal_time_s": 290,
+      "inference_seconds": 0.485,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.873630702495575,
+          "box": [
+            605,
+            530,
+            648,
+            613
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.7820450067520142,
+          "box": [
+            1005,
+            1176,
+            1102,
+            1271
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.6488261222839355,
+          "box": [
+            1012,
+            1057,
+            1049,
+            1078
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.6147024035453796,
+          "box": [
+            52,
+            845,
+            103,
+            1008
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.46720948815345764,
+          "box": [
+            871,
+            593,
+            932,
+            642
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.38067102432250977,
+          "box": [
+            1039,
+            1358,
+            1052,
+            1364
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.25593021512031555,
+          "box": [
+            627,
+            605,
+            633,
+            612
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.24611380696296692,
+          "box": [
+            564,
+            631,
+            585,
+            649
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.23729674518108368,
+          "box": [
+            984,
+            430,
+            1008,
+            435
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.23395797610282898,
+          "box": [
+            597,
+            519,
+            619,
+            530
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.22054168581962585,
+          "box": [
+            950,
+            1219,
+            975,
+            1248
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.19146661460399628,
+          "box": [
+            864,
+            596,
+            936,
+            750
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.18960116803646088,
+          "box": [
+            842,
+            795,
+            907,
+            917
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_031.jpg",
+      "nominal_time_s": 300,
+      "inference_seconds": 0.485,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.6115289330482483,
+          "box": [
+            1004,
+            1177,
+            1103,
+            1260
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.6077666282653809,
+          "box": [
+            1010,
+            1055,
+            1047,
+            1078
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.5864613652229309,
+          "box": [
+            986,
+            1286,
+            1108,
+            1326
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.572626531124115,
+          "box": [
+            1038,
+            1357,
+            1054,
+            1366
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.40151289105415344,
+          "box": [
+            869,
+            593,
+            933,
+            644
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.38332611322402954,
+          "box": [
+            1107,
+            1331,
+            1129,
+            1340
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.35215771198272705,
+          "box": [
+            950,
+            1219,
+            976,
+            1248
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.30687686800956726,
+          "box": [
+            986,
+            1288,
+            1033,
+            1320
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2972165048122406,
+          "box": [
+            52,
+            845,
+            103,
+            1006
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.29016587138175964,
+          "box": [
+            564,
+            630,
+            585,
+            648
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.28391942381858826,
+          "box": [
+            905,
+            1340,
+            912,
+            1351
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2662374675273895,
+          "box": [
+            601,
+            530,
+            654,
+            628
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.2650965750217438,
+          "box": [
+            951,
+            1302,
+            957,
+            1323
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2162008285522461,
+          "box": [
+            1007,
+            659,
+            1017,
+            668
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.2020590603351593,
+          "box": [
+            1120,
+            1370,
+            1130,
+            1379
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.18210621178150177,
+          "box": [
+            1092,
+            1341,
+            1106,
+            1347
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "day": {
+      "sampled_frames": 28,
+      "frames_with_detections": 28,
+      "counts_by_label": {
+        "Plastic": 91,
+        "Metal": 16,
+        "Paper": 9,
+        "Glass": 12,
+        "Other": 2
+      },
+      "detection_count": 130
+    },
+    "night": {
+      "sampled_frames": 30,
+      "frames_with_detections": 30,
+      "counts_by_label": {
+        "Plastic": 192,
+        "Metal": 35,
+        "Glass": 4,
+        "Other": 30,
+        "Paper": 1
+      },
+      "detection_count": 262
+    }
+  }
+}

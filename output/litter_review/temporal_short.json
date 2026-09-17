@@ -1,0 +1,25 @@
+{
+  "report": "output/litter_screen_turhancan/report.json",
+  "parameters": {
+    "association_distance": 0.06,
+    "persistence": 15.0,
+    "confidence": 0.2,
+    "confirm_hits": 3,
+    "max_motion": 0.035
+  },
+  "result": {
+    "day": {
+      "events": 10,
+      "candidate_observations": 145
+    },
+    "night": {
+      "events": 39,
+      "candidate_observations": 319
+    },
+    "total": {
+      "events": 49,
+      "candidate_observations": 464
+    }
+  },
+  "limitation": "筛查报告没有穷尽真值，events不能解释为准确率或误报率"
+}

@@ -420,6 +420,17 @@ class ObservedStreamManager:
         self._observe_record(record, force=True)
         return record
 
+    def return_ptz_home(self, stream_id: str) -> dict[str, Any]:
+        result = self._manager.return_ptz_home(stream_id)
+        self.log_store.append(
+            stream_id,
+            level="WARNING",
+            event="ptz.return_home_requested",
+            message="已请求中断PTZ任务并紧急回HOME",
+            details={"request_id": result.get("request_id")},
+        )
+        return result
+
     def stop(self, stream_id: str) -> dict[str, Any]:
         record = self._manager.stop(stream_id)
         self.log_store.append(

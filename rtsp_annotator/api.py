@@ -45,6 +45,13 @@ from .fishing_risk import (
     FishingRiskScheduleOptions,
     FishingRiskZoneOptions,
 )
+from .ground_litter_detection import (
+    DEFAULT_MODEL as DEFAULT_GROUND_LITTER_MODEL,
+    GroundLitterDetectionOptions,
+    GroundLitterZone,
+    PERSON_VEHICLE_CLASS_IDS,
+    GROUND_CONTEXT_CLASS_IDS,
+)
 from .license_plate import DEFAULT_VEHICLE_CLASSES, LicensePlateOptions
 from .ptz_verification import (
     PtzVerificationOptions,
@@ -54,6 +61,7 @@ from .shared_stream_manager import SharedStreamManager
 from .stream_manager import (
     ModelNotFoundError,
     NightVisionOptions,
+    PtzControlUnavailableError,
     StreamCapacityError,
     StreamManager,
     StreamNotFoundError,
@@ -399,6 +407,285 @@ class VesselDetectionRequest(BaseModel):
         return options
 
 
+class GroundLitterZoneRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    region_id: str = Field(
+        min_length=1,
+        max_length=64,
+        description="区域ID，例如merchant_01或left_walkway",
+    )
+    name: str | None = Field(
+        default=None,
+        max_length=128,
+        description="区域显示名，例如门店01门前人行道",
+    )
+    polygon: list[tuple[float, float]] = Field(
+        min_length=3,
+        description="归一化地面多边形，顶点顺序任意",
+    )
+    exclude_zones: list[list[tuple[float, float]]] = Field(
+        default_factory=list,
+        max_length=16,
+        description="该区域内已知固定物/棚体的排除多边形",
+    )
+    minimum_short_side_px: int = Field(
+        default=12,
+        ge=1,
+        le=4096,
+        description="原生像素最小短边；小于该值的框不显示",
+    )
+    minimum_box_area_px: int = Field(
+        default=160,
+        ge=1,
+        le=16_777_216,
+        description="原生像素最小框面积",
+    )
+    confidence: float | None = Field(default=None, gt=0, le=1, description="该区域白天最低置信度")
+    night_confidence: float | None = Field(default=None, gt=0, le=1, description="该区域夜间最低置信度")
+
+    @field_validator("polygon")
+    @classmethod
+    def validate_polygon(
+        cls,
+        value: list[tuple[float, float]],
+    ) -> list[tuple[float, float]]:
+        return GroundLitterRequest._validate_polygon(value)
+
+    @field_validator("exclude_zones")
+    @classmethod
+    def validate_exclude_zones(
+        cls,
+        value: list[list[tuple[float, float]]],
+    ) -> list[list[tuple[float, float]]]:
+        return [
+            GroundLitterRequest._validate_polygon(item) for item in value
+        ]
+
+    def to_options(self) -> GroundLitterZone:
+        zone = GroundLitterZone(
+            region_id=self.region_id,
+            polygon=tuple(self.polygon),
+            name=self.name or self.region_id,
+            exclude_zones=tuple(
+                tuple(polygon) for polygon in self.exclude_zones
+            ),
+            minimum_short_side_px=self.minimum_short_side_px,
+            minimum_box_area_px=self.minimum_box_area_px,
+            confidence=self.confidence,
+            night_confidence=self.night_confidence,
+        )
+        zone.validate()
+        return zone
+
+
+class GroundLitterRequest(BaseModel):
+    """地面零散垃圾识别：原生像素分块推理 + 地面区域框显示。"""
+
+    model_config = ConfigDict(extra="forbid")
+
+    enabled: bool = False
+    model: str = Field(
+        default=DEFAULT_GROUND_LITTER_MODEL,
+        description=(
+            "垃圾模型.pt；相对models目录，可写litter/子目录，"
+            "默认litter/turhancan_yolov8m_seg_trash.pt"
+        ),
+    )
+    actor_model: str | None = Field(
+        default=None,
+        description=(
+            "可选的人车遮挡模型；默认复用主链已跟踪目标，"
+            "主模型类别被过滤时可设为yolo26s.pt"
+        ),
+    )
+    analysis_fps: float = Field(default=1.0, ge=0.1, le=5)
+    confidence: float = Field(
+        default=0.20,
+        gt=0,
+        le=1,
+        description="垃圾模型原始候选阈值；显示层会再要求多次命中",
+    )
+    night_confidence: float | None = Field(
+        default=None,
+        gt=0,
+        le=1,
+        description="夜间阈值；仅在流的night_vision.enabled为true时生效",
+    )
+    tile_size_px: int = Field(
+        default=640,
+        ge=160,
+        le=1920,
+        description="原生像素裁剪边长；推理输入由inference_imgsz控制，未设时等于裁剪边长",
+    )
+    tile_overlap: float = Field(default=0.20, ge=0, lt=0.8)
+    inference_imgsz: int | None = Field(
+        default=None, ge=160, le=1920,
+        description="垃圾模型输入尺寸；null沿用分块边长，320裁剪+640输入可放大候选",
+    )
+    local_actor_max_crops: int = Field(
+        default=0, ge=0, le=8,
+        description="每次分析局部人车复核裁剪上限；0关闭，需actor_model",
+    )
+    box_smoothing_alpha: float = Field(
+        default=1.0, gt=0, le=1,
+        description="显示框平滑系数；1不平滑，不影响原始候选关联",
+    )
+    nms_iou: float = Field(default=0.50, gt=0, le=1)
+    maximum_tiles: int = Field(default=64, ge=1, le=128)
+    actor_imgsz: int = Field(
+        default=1280,
+        ge=320,
+        le=1920,
+        description="仅当设置actor_model时使用的人车推理尺寸",
+    )
+    actor_confidence: float = Field(default=0.20, gt=0, le=1)
+    actor_class_ids: list[int] = Field(
+        default_factory=lambda: list(PERSON_VEHICLE_CLASS_IDS),
+        min_length=1,
+    )
+    context_class_ids: list[int] = Field(
+        default_factory=lambda: list(GROUND_CONTEXT_CLASS_IDS),
+        min_length=0,
+        description="地面遮挡物COCO类别，如雨伞/长椅/花盆；仅作为当前遮挡，不永久排除垃圾",
+    )
+    actor_overlap_threshold: float = Field(default=0.20, ge=0, le=1)
+    zones: list[GroundLitterZoneRequest] = Field(
+        default_factory=list,
+        max_length=16,
+        description="地面识别区域；enabled为true时至少一个",
+    )
+    overlay_exclude_zones: list[list[tuple[float, float]]] = Field(
+        default_factory=list,
+        max_length=16,
+        description="全画面排除区，例如摄像头水印、固定棚体",
+    )
+    minimum_hits: int = Field(
+        default=2,
+        ge=1,
+        le=20,
+        description="窗口内至少命中次数才显示",
+    )
+    hit_window: int = Field(default=3, ge=1, le=20)
+    hold_seconds: float = Field(
+        default=3.0,
+        ge=0.1,
+        le=30,
+        description="最后一次命中后保持显示的时间，用于消除闪烁",
+    )
+    maximum_age_seconds: float = Field(default=12.0, ge=0.1, le=120)
+    maximum_boxes: int = Field(default=8, ge=1, le=64)
+    display_zones: bool = Field(
+        default=True,
+        description="是否在输出画面绘制地面识别区域轮廓",
+    )
+    display_class: bool = Field(
+        default=False,
+        description="是否在标签后附加模型材质类别(Glass/Metal/...)",
+    )
+    display_confidence: bool = False
+    label: str = Field(default="疑似垃圾", min_length=1, max_length=24)
+
+    @staticmethod
+    def _validate_polygon(
+        value: list[tuple[float, float]],
+    ) -> list[tuple[float, float]]:
+        serialized = ";".join(f"{x},{y}" for x, y in value)
+        parsed = parse_roi(serialized)
+        assert parsed is not None
+        return list(parsed)
+
+    @field_validator("overlay_exclude_zones")
+    @classmethod
+    def validate_overlay_exclude_zones(
+        cls,
+        value: list[list[tuple[float, float]]],
+    ) -> list[list[tuple[float, float]]]:
+        return [cls._validate_polygon(item) for item in value]
+
+    @field_validator("actor_class_ids")
+    @classmethod
+    def validate_actor_class_ids(cls, value: list[int]) -> list[int]:
+        if any(item < 0 for item in value):
+            raise ValueError(
+                "ground_litter.actor_class_ids不能为负数"
+            )
+        return list(dict.fromkeys(value))
+
+    @field_validator("context_class_ids")
+    @classmethod
+    def validate_context_class_ids(cls, value: list[int]) -> list[int]:
+        if any(item < 0 for item in value):
+            raise ValueError("ground_litter.context_class_ids不能为负数")
+        return list(dict.fromkeys(value))
+
+    @field_validator("model", "actor_model")
+    @classmethod
+    def validate_model(cls, value: str | None) -> str | None:
+        if value is None:
+            return None
+        if not value or not value.endswith(".pt"):
+            raise ValueError("ground_litter模型必须是.pt文件")
+        if value.startswith("/") or ".." in Path(value).parts:
+            raise ValueError("ground_litter模型不能是绝对路径或越界路径")
+        return value
+
+    @model_validator(mode="after")
+    def validate_zones(self) -> "GroundLitterRequest":
+        if self.local_actor_max_crops and self.actor_model is None:
+            raise ValueError("local_actor_max_crops需要actor_model")
+        if not self.enabled:
+            return self
+        if not self.zones:
+            raise ValueError("启用ground_litter时至少需要一个地面区域")
+        if self.minimum_hits > self.hit_window:
+            raise ValueError(
+                "ground_litter.minimum_hits不能大于hit_window"
+            )
+        if self.maximum_age_seconds < self.hold_seconds:
+            raise ValueError(
+                "ground_litter.maximum_age_seconds不能小于hold_seconds"
+            )
+        return self
+
+    def to_options(self) -> GroundLitterDetectionOptions:
+        options = GroundLitterDetectionOptions(
+            enabled=self.enabled,
+            model=self.model,
+            actor_model=self.actor_model,
+            analysis_fps=self.analysis_fps,
+            confidence=self.confidence,
+            night_confidence=self.night_confidence,
+            tile_size_px=self.tile_size_px,
+            inference_imgsz=self.inference_imgsz,
+            local_actor_max_crops=self.local_actor_max_crops,
+            box_smoothing_alpha=self.box_smoothing_alpha,
+            tile_overlap=self.tile_overlap,
+            nms_iou=self.nms_iou,
+            maximum_tiles=self.maximum_tiles,
+            actor_imgsz=self.actor_imgsz,
+            actor_confidence=self.actor_confidence,
+            actor_class_ids=tuple(self.actor_class_ids),
+            context_class_ids=tuple(self.context_class_ids),
+            actor_overlap_threshold=self.actor_overlap_threshold,
+            zones=tuple(zone.to_options() for zone in self.zones),
+            overlay_exclude_zones=tuple(
+                tuple(polygon) for polygon in self.overlay_exclude_zones
+            ),
+            minimum_hits=self.minimum_hits,
+            hit_window=self.hit_window,
+            hold_seconds=self.hold_seconds,
+            maximum_age_seconds=self.maximum_age_seconds,
+            maximum_boxes=self.maximum_boxes,
+            display_zones=self.display_zones,
+            display_class=self.display_class,
+            display_confidence=self.display_confidence,
+            label=self.label,
+        )
+        options.validate()
+        return options
+
+
 class PtzVerificationRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
@@ -412,13 +699,36 @@ class PtzVerificationRequest(BaseModel):
     camera_id: str = Field(default="", max_length=128)
     camera_control_url: str = "http://camera-control:8080"
     camera_control_key_env: str = "CAMERA_CONTROL_API_KEY"
+    trace_logging_enabled: bool = Field(
+        default=False,
+        description=(
+            "是否为每个PTZ复核task输出独立JSONL控制trace；"
+            "默认关闭，日志写入vessel-verifications/task-traces"
+        ),
+    )
+    display_operation_log: bool = Field(
+        default=False,
+        description=(
+            "是否在输出视频右上角显示PTZ状态和最近4条摄像头操作；"
+            "不影响当前追踪船只的区别框选"
+        ),
+    )
+    vessel_number_recognition_enabled: bool = Field(
+        default=False,
+        description="近景船舶达到目标尺寸后是否识别并显示船号",
+    )
+    vessel_number_fallback: str = Field(
+        default="",
+        max_length=32,
+        description="OCR未得到可靠数字时使用的演示船号；空字符串表示不回退",
+    )
     zoom_strategy: Literal["adaptive", "fixed"] = Field(
         default="adaptive",
         description="adaptive按重捕获船框闭环调节；fixed使用zoom_steps",
     )
     zoom_steps: list[int] = Field(default_factory=lambda: [4, 4], min_length=1, max_length=3)
-    adaptive_target_width_ratio: float = Field(default=0.25, ge=0.03, le=0.8)
-    adaptive_target_height_ratio: float = Field(default=0.18, ge=0.03, le=0.8)
+    adaptive_target_width_ratio: float = Field(default=0.33, ge=0.03, le=0.8)
+    adaptive_target_height_ratio: float = Field(default=0.33, ge=0.03, le=0.8)
     adaptive_min_step: int = Field(default=1, ge=1, le=16)
     adaptive_max_step: int = Field(default=6, ge=1, le=16)
     adaptive_max_rounds: int = Field(default=3, ge=1, le=6)
@@ -460,6 +770,15 @@ class PtzVerificationRequest(BaseModel):
         description="回HOME后至少连续接收多少个新全景分析帧才恢复ROI",
     )
     minimum_target_observations: int = Field(default=3, ge=1, le=10)
+    primary_target_minimum_observations: int = Field(
+        default=1,
+        ge=1,
+        le=10,
+        description=(
+            "主DeepStream检测器绿色船框触发PTZ前的最少观测次数；"
+            "1表示首个绿框立即触发"
+        ),
+    )
     proposal_merge_radius: float = Field(default=0.04, ge=0, le=0.10)
     proposal_minimum_interval_seconds: float = Field(
         default=30,
@@ -493,6 +812,110 @@ class PtzVerificationRequest(BaseModel):
         le=0.30,
         description="近景中相邻小船合并为同一控制目标簇的中心距离",
     )
+    continuous_tracking: bool = Field(
+        default=False,
+        description=(
+            "近景确认和首次截图后是否持续锁定船舶；false保持截图后回HOME"
+        ),
+    )
+    tracking_profile: Literal["standard", "demo_continuous"] = Field(
+        default="standard",
+        description=(
+            "PTZ策略；demo_continuous从首个合格观测立即跟随，"
+            "证据任务异步执行且活动会话不自动HOME"
+        ),
+    )
+    tracking_center_deadband: float = Field(
+        default=0.10,
+        ge=0.03,
+        le=0.30,
+        description="船框中心允许偏离画面中心的半径，超出后才纠偏",
+    )
+    tracking_command_interval_seconds: float = Field(
+        default=0.5,
+        ge=0.1,
+        le=5,
+        description="持续跟踪期间相邻PTZ控制指令的最短间隔",
+    )
+    tracking_settle_seconds: float = Field(
+        default=0.25,
+        ge=0,
+        le=2,
+        description=(
+            "持续追踪指令后的独立等待时间；与初次放大使用的settle_seconds分离"
+        ),
+    )
+    tracking_recovery_enabled: bool = Field(
+        default=False,
+        description=(
+            "持续追踪短暂丢框时是否先在最后位置逐档缩小视野重捕获，"
+            "重捕获失败后才回HOME"
+        ),
+    )
+    tracking_recovery_interval_seconds: float = Field(
+        default=2.0,
+        ge=0.5,
+        le=15,
+        description="丢框后相邻两次扩大视野重捕获的间隔",
+    )
+    tracking_recovery_zoom_out_step: int = Field(
+        default=1,
+        ge=1,
+        le=4,
+        description="每次重捕获使用的相对缩小步长",
+    )
+    tracking_recovery_max_attempts: int = Field(
+        default=3,
+        ge=1,
+        le=10,
+        description="一次连续丢框期间最多执行多少次扩大视野重捕获",
+    )
+    tracking_lost_timeout_seconds: float = Field(
+        default=4,
+        ge=1,
+        le=30,
+        description="持续未重识别到锁定船舶多久后结束跟踪并回HOME",
+    )
+    tracking_max_duration_seconds: float = Field(
+        default=300,
+        ge=0,
+        le=3_600,
+        description=(
+            "单艘船最长持续跟踪时间；设为0表示不设时长上限，"
+            "直到丢失目标、停流或手动中断"
+        ),
+    )
+    tracking_zoom_hysteresis_ratio: float = Field(
+        default=0.20,
+        ge=0.05,
+        le=0.50,
+        description="目标尺寸相对设定值的缩放滞回比例，防止反复变倍",
+    )
+    tracking_zoom_step: int = Field(
+        default=1,
+        ge=1,
+        le=4,
+        description="持续跟踪时每次放大或缩小的相对步长",
+    )
+    tracking_initial_extra_zoom_step: int = Field(
+        default=0,
+        ge=0,
+        le=4,
+        description=(
+            "进入持续跟踪和首次抓图前额外补充的相对放大步长；"
+            "0保持原行为，1表示额外放大一档"
+        ),
+    )
+    tracking_edge_guard_enabled: bool = Field(
+        default=False,
+        description="持续跟踪阶段启用边缘风险保护：不按尺寸缩小，只在可靠出画风险时减一档；关闭丢框盲缩小",
+    )
+    tracking_edge_response_seconds: float = Field(default=1, ge=.1, le=3)
+    tracking_edge_motion_seconds: float = Field(default=.5, ge=.1, le=3)
+    tracking_edge_uncertainty_seconds: float = Field(default=.25, ge=0, le=2)
+    tracking_edge_cooldown_seconds: float = Field(default=8, ge=1, le=60)
+    tracking_edge_stable_seconds: float = Field(default=3, ge=.5, le=15)
+    tracking_edge_maximum_age_seconds: float = Field(default=.5, ge=.1, le=1)
 
     @model_validator(mode="after")
     def validate_adaptive_zoom(self) -> "PtzVerificationRequest":
@@ -828,6 +1251,13 @@ class StreamCreateRequest(BaseModel):
     )
     output_fps: float | None = Field(default=None, ge=0.1, le=120)
     bitrate: str = Field(default="2500k", pattern=r"^\d+[kKmM]?$")
+    display_detections: bool = Field(
+        default=True,
+        description=(
+            "是否在输出画面绘制普通检测框（人/车等）。关闭后只保留业务叠加，"
+            "例如地面区域轮廓与垃圾框；跟踪、事件和旁路人车遮挡判定不受影响"
+        ),
+    )
     license_plate: LicensePlateRequest = Field(
         default_factory=LicensePlateRequest,
         description="中国车牌检测、跟踪和字符识别配置",
@@ -847,6 +1277,10 @@ class StreamCreateRequest(BaseModel):
     vessel_detection: VesselDetectionRequest = Field(
         default_factory=VesselDetectionRequest,
         description="高分辨率、低延迟解耦的船舶检测旁路",
+    )
+    ground_litter: GroundLitterRequest = Field(
+        default_factory=GroundLitterRequest,
+        description="地面零散垃圾识别：原生像素分块+地面区域框显示",
     )
     fishing_risk: FishingRiskRequest = Field(
         default_factory=FishingRiskRequest,
@@ -914,6 +1348,9 @@ class StreamCreateRequest(BaseModel):
                 conflicts.append("event_detection")
             if self.gas_cylinder.enabled:
                 conflicts.append("gas_cylinder")
+            if self.ground_litter.enabled:
+                # A moving camera invalidates reviewed ground regions.
+                conflicts.append("ground_litter")
             if conflicts:
                 raise ValueError(
                     "ptz_verification不能与固定视角功能同时启用: "
@@ -934,11 +1371,13 @@ class StreamCreateRequest(BaseModel):
             roi=roi,
             output_fps=self.output_fps,
             bitrate=self.bitrate,
+            display_detections=self.display_detections,
             license_plate=self.license_plate.to_options(),
             night_vision=self.night_vision.to_options(),
             event_detection=self.event_detection.to_options(),
             gas_cylinder=self.gas_cylinder.to_options(),
             vessel_detection=self.vessel_detection.to_options(),
+            ground_litter=self.ground_litter.to_options(),
             fishing_risk=self.fishing_risk.to_options(),
             ptz_verification=self.ptz_verification.to_options(),
         )
@@ -958,8 +1397,16 @@ class StreamResponse(BaseModel):
     event_detection: dict[str, Any] | None = None
     gas_cylinder: dict[str, Any] | None = None
     vessel_detection: dict[str, Any] | None = None
+    ground_litter: dict[str, Any] | None = None
     fishing_risk: dict[str, Any] | None = None
     ptz_verification: dict[str, Any] | None = None
+
+
+class PtzReturnHomeResponse(BaseModel):
+    stream_id: str
+    request_id: str
+    action: Literal["return_home"]
+    status: Literal["accepted"]
 
 
 class MediaMtxAuthRequest(BaseModel):
@@ -1166,6 +1613,23 @@ def create_app(config_path: Path = Path("config/api.json")) -> FastAPI:
             raise HTTPException(status_code=404, detail="流任务不存在") from exc
         except ModelNotFoundError as exc:
             raise HTTPException(status_code=422, detail=str(exc)) from exc
+
+    @application.post(
+        "/v1/streams/{stream_id}/ptz/return-home",
+        response_model=PtzReturnHomeResponse,
+        status_code=status.HTTP_202_ACCEPTED,
+        dependencies=[Depends(require_api_key)],
+    )
+    def return_ptz_home(
+        stream_id: str,
+        request: Request,
+    ) -> dict[str, Any]:
+        try:
+            return _manager(request).return_ptz_home(stream_id)
+        except StreamNotFoundError as exc:
+            raise HTTPException(status_code=404, detail="流任务不存在") from exc
+        except PtzControlUnavailableError as exc:
+            raise HTTPException(status_code=409, detail=str(exc)) from exc
 
     @application.delete(
         "/v1/streams/{stream_id}",

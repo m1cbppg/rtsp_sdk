@@ -1,0 +1,29 @@
+{
+  "created_at": "2026-09-17T02:27:38+0800",
+  "scope": "One user-confirmed 8px litter object; temporal evidence probe, not an accuracy test.",
+  "label_warning": "The physical target was historically confirmed by the user. The model did not receive this fact.",
+  "prompt": "这三张图按时间顺序拍摄同一个固定位置，中央是同一个极小目标，已做普通像素放大，没有生成或修复细节。请综合三帧判断该目标。\n判断它是否是遗落在地面、需要清理的纸片、包装、塑料袋、瓶罐等零散垃圾。车辆及零件、车罩、车篮、车上物品、正在使用的物品、商品、工具、固定设施、井盖、污渍和反光不是垃圾。\n不要因为它被提交审核就假定为垃圾；多帧一致只能证明目标存在，不能证明语义。若像素仍不足以确认物体性质或与地面的关系，必须返回uncertain。\n只输出JSON，字段为decision(litter/non_litter/uncertain)、object_description(简短)、ground_relation(on_ground/attached/not_ground/unclear)、reason(不超过60个汉字)。",
+  "prompt_sha256": "56791343cabbd0b6e8ee9e50475454d5b50cdc2c103805ea085d82307a648817",
+  "cases": [
+    {
+      "id": "T01",
+      "source": "three historical frames",
+      "box": null,
+      "expected": "litter",
+      "note": "用户确认的8像素小垃圾，三时刻",
+      "label_source": "historical_user_confirmed",
+      "historical_prediction": "single-frame VLM uncertain",
+      "object_group": "small_litter_1",
+      "images": [
+        "crops/small-white-803-00.jpg",
+        "crops/small-white-803-05.jpg",
+        "crops/small-white-803-10.jpg"
+      ],
+      "image_sha256s": [
+        "a61f677e7bf9c1b590618795e02f6273b165bb196c30576b6eda3194648bee54",
+        "92ceed1b71167e643ce118f6f246e361c49eb7d4493450c735ab3ab5515d8428",
+        "03418e6477c791081098534945c6fb12472876115cc658d656e64473aacb6848"
+      ]
+    }
+  ]
+}

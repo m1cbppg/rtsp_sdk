@@ -1,0 +1,110 @@
+[
+  {
+    "name": "day",
+    "container_returncode": 0,
+    "summary": {
+      "finished_utc": "2026-09-13T11:28:12.288043+00:00",
+      "source_kind": "local_video",
+      "elapsed_seconds": 20.035120170912705,
+      "decoder": "pyav",
+      "status": "completed",
+      "started_utc": "2026-09-13T11:27:52.252933+00:00",
+      "observation_seconds": 20.006256807944737,
+      "stopped_by_signal": [],
+      "decoder_capability": {
+        "pyav_importable": true,
+        "pyav_version": "16.1.0"
+      },
+      "source_counters": {
+        "decoded_frames": 485.0,
+        "corrupt_frames": 0.0,
+        "missing_pts_frames": 0.0,
+        "nonmonotonic_pts_frames": 0.0,
+        "connections": 1.0,
+        "published_frames": 19.0,
+        "mailbox_lock_skips": 0.0,
+        "decode_read_seconds": 7.9685353230452165,
+        "convert_seconds": 0.05600197229068726,
+        "pts_observed_frames": 485.0,
+        "trace_lock_skips": 0.0
+      },
+      "reader_alive": false,
+      "exitcode": 0,
+      "end_to_end_freshness_verified": false,
+      "notifications": 0,
+      "inference_executed": false,
+      "visual_quality_verified": false,
+      "corrupt_flag_available": true,
+      "source_pts_available": true,
+      "trace_rows": 485,
+      "trace_overwritten_rows": 0,
+      "trace_limit_reached": false,
+      "publish_timing": {
+        "count": 19,
+        "observed_mailbox_fps": 0.949702894569206,
+        "wall_span_seconds": 18.31077685893979,
+        "first_frame_seconds": 1.2043378329835832,
+        "interval_p50_seconds": 1.001302779011894,
+        "interval_p95_seconds": 1.0390385598409921,
+        "interval_max_seconds": 1.039086504955776,
+        "local_age_p95_seconds": 0.05084600010886786,
+        "local_age_max_seconds": 0.05878220102749765,
+        "inference_executed": false
+      }
+    }
+  },
+  {
+    "name": "night",
+    "container_returncode": 0,
+    "summary": {
+      "finished_utc": "2026-09-13T11:28:32.752450+00:00",
+      "source_kind": "local_video",
+      "elapsed_seconds": 20.02097094198689,
+      "decoder": "pyav",
+      "status": "completed",
+      "started_utc": "2026-09-13T11:28:12.731488+00:00",
+      "observation_seconds": 20.000523590948433,
+      "stopped_by_signal": [],
+      "decoder_capability": {
+        "pyav_importable": true,
+        "pyav_version": "16.1.0"
+      },
+      "source_counters": {
+        "decoded_frames": 485.0,
+        "corrupt_frames": 0.0,
+        "missing_pts_frames": 0.0,
+        "nonmonotonic_pts_frames": 0.0,
+        "connections": 1.0,
+        "published_frames": 19.0,
+        "mailbox_lock_skips": 0.0,
+        "decode_read_seconds": 6.338907349505462,
+        "convert_seconds": 0.05661386298015714,
+        "pts_observed_frames": 485.0,
+        "trace_lock_skips": 0.0
+      },
+      "reader_alive": false,
+      "exitcode": 0,
+      "end_to_end_freshness_verified": false,
+      "notifications": 0,
+      "inference_executed": false,
+      "visual_quality_verified": false,
+      "corrupt_flag_available": true,
+      "source_pts_available": true,
+      "trace_rows": 485,
+      "trace_overwritten_rows": 0,
+      "trace_limit_reached": false,
+      "publish_timing": {
+        "count": 19,
+        "observed_mailbox_fps": 0.9499751300810326,
+        "wall_span_seconds": 18.348976782057434,
+        "first_frame_seconds": 0.8932492779567838,
+        "interval_p50_seconds": 1.0178133294684812,
+        "interval_p95_seconds": 1.0395321587566286,
+        "interval_max_seconds": 1.0407156290020794,
+        "local_age_p95_seconds": 0.053168151981662914,
+        "local_age_max_seconds": 0.07323431805707514,
+        "inference_executed": false
+      }
+    }
+  }
+]

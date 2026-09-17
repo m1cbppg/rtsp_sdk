@@ -1,0 +1,47 @@
+{
+  "images": 20,
+  "raw_box_occurrences": 85,
+  "candidate_box_occurrences": 22,
+  "frames_with_candidates": 20,
+  "old_reference_alignment": {
+    "view_alignment_unknown": 20
+  },
+  "new_reference_alignment_excluding_reference": {
+    "accepted": 19
+  },
+  "target_position_probes": {
+    "walkway_small_white": {
+      "frames_with_raw_match": 11,
+      "frames_with_retained_match": 0,
+      "reasons": {
+        "too_small": 11
+      }
+    },
+    "broom": {
+      "frames_with_raw_match": 5,
+      "frames_with_retained_match": 5,
+      "reasons": {}
+    },
+    "bucket": {
+      "frames_with_raw_match": 0,
+      "frames_with_retained_match": 0,
+      "reasons": {}
+    },
+    "curb_bags": {
+      "frames_with_raw_match": 12,
+      "frames_with_retained_match": 11,
+      "reasons": {
+        "actor_overlap": 1
+      }
+    }
+  },
+  "model_cpu_seconds": {
+    "p50": 1.9047928125000908,
+    "p95": 2.9832152934533953,
+    "max": 3.1068950420012698,
+    "min": 1.7044031669938704
+  },
+  "independent_accuracy": null,
+  "temporal_validation": false,
+  "notifications": 0
+}

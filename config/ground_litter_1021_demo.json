@@ -1,0 +1,118 @@
+{
+  "schema_version": 2,
+  "status": "single_camera_demo",
+  "source": {
+    "kind": "local_reference_frames",
+    "device_code": "44180209031322001021",
+    "temporary_url_storage": "memory_only"
+  },
+  "model": {
+    "path": "models/litter/turhancan_yolov8m_seg_trash.pt",
+    "tile_size_px": 640,
+    "tile_overlap": 0.2,
+    "nms_iou": 0.5
+  },
+  "inventory": {
+    "path": "output/ground_litter_1021_demo/items.sqlite3",
+    "repeat_while_present": false,
+    "clear_requires_local_visible_ground_evidence": true,
+    "clear_seconds": 60,
+    "max_observation_gap_seconds": 3,
+    "ownership": "region_first_confirmed",
+    "cross_camera_ownership": "one_primary_camera_per_physical_area"
+  },
+  "cameras": [
+    {
+      "device_code": "44180209031322001021",
+      "view_id": "fixed-v1-demo",
+      "enabled": true,
+      "calibration_status": "demo_ready",
+      "reference_image": "output/litter_camera_calibration/preview_20260910/44180209031322001021.jpg",
+      "reference_size": [2560, 1440],
+      "trial_priority": 1,
+      "analysis_fps": 1.0,
+      "frame_max_age_seconds": 2.0,
+      "day": {
+        "reference_image": "output/litter_camera_calibration/preview_20260910/44180209031322001021.jpg",
+        "minimum_confidence": 0.2,
+        "confirm_seconds": 30,
+        "reviewed_non_litter": []
+      },
+      "night": {
+        "reference_image": "output/litter_source_20260914/local_10m_network/snapshots/frame-003.jpg",
+        "minimum_confidence": 0.2,
+        "confirm_seconds": 45,
+        "reviewed_non_litter": []
+      },
+      "evidence": {
+        "hit_window": 5,
+        "minimum_hits": 3,
+        "minimum_hit_fraction": 0.6,
+        "actor_clear_seconds": 3
+      },
+      "notes": "样板演示：左侧人行道按远到近分成5个商户责任区；商户名称暂用门店01-05，需现场核对后替换。黄色区域只覆盖门前人行道，路面和右侧摊位不纳入识别。底部红色排除区用于屏蔽固定车辆/棚体，避免把车辆误当垃圾。",
+      "zones": [
+        {
+          "region_id": "merchant_01",
+          "name": "门店01门前人行道（远端）",
+          "merchant_id": "merchant_01",
+          "merchant_name": "门店01（待核对）",
+          "physical_area_id": "walkway_01",
+          "polygon": [[0.320, 0.150], [0.367, 0.150], [0.350, 0.300], [0.270, 0.300]],
+          "exclude_zones": [],
+          "minimum_short_side_px": 8,
+          "minimum_box_area_px": 64
+        },
+        {
+          "region_id": "merchant_02",
+          "name": "门店02门前人行道",
+          "merchant_id": "merchant_02",
+          "merchant_name": "门店02（待核对）",
+          "physical_area_id": "walkway_02",
+          "polygon": [[0.270, 0.300], [0.350, 0.300], [0.330, 0.450], [0.200, 0.450]],
+          "exclude_zones": [],
+          "minimum_short_side_px": 8,
+          "minimum_box_area_px": 64
+        },
+        {
+          "region_id": "merchant_03",
+          "name": "门店03门前人行道",
+          "merchant_id": "merchant_03",
+          "merchant_name": "门店03（待核对）",
+          "physical_area_id": "walkway_03",
+          "polygon": [[0.200, 0.450], [0.330, 0.450], [0.290, 0.620], [0.150, 0.620]],
+          "exclude_zones": [],
+          "minimum_short_side_px": 8,
+          "minimum_box_area_px": 64
+        },
+        {
+          "region_id": "merchant_04",
+          "name": "门店04门前人行道",
+          "merchant_id": "merchant_04",
+          "merchant_name": "门店04（待核对）",
+          "physical_area_id": "walkway_04",
+          "polygon": [[0.150, 0.620], [0.290, 0.620], [0.220, 0.780], [0.090, 0.780]],
+          "exclude_zones": [],
+          "minimum_short_side_px": 8,
+          "minimum_box_area_px": 64
+        },
+        {
+          "region_id": "merchant_05",
+          "name": "门店05门前人行道（近端）",
+          "merchant_id": "merchant_05",
+          "merchant_name": "门店05（待核对）",
+          "physical_area_id": "walkway_05",
+          "polygon": [[0.090, 0.780], [0.220, 0.780], [0.175, 0.970], [0.055, 0.970]],
+          "exclude_zones": [],
+          "minimum_short_side_px": 8,
+          "minimum_box_area_px": 64
+        }
+      ],
+      "overlay_exclude_zones": [
+        [[0.000, 0.035], [0.400, 0.035], [0.400, 0.105], [0.000, 0.105]],
+        [[0.720, 0.882], [0.855, 0.882], [0.855, 0.938], [0.720, 0.938]],
+        [[0.238, 0.645], [0.349, 0.635], [0.360, 1.000], [0.160, 1.000]]
+      ]
+    }
+  ]
+}

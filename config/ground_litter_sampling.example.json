@@ -1,0 +1,20 @@
+{
+  "timezone": "Asia/Shanghai",
+  "sample_fps": 0.5,
+  "windows": [
+    {
+      "device_code": "44180209031322001021",
+      "start": "2026-09-11T08:00:00+08:00",
+      "end": "2026-09-11T08:10:00+08:00",
+      "mode": "day",
+      "label": "day-quiet"
+    },
+    {
+      "device_code": "44180209031322001021",
+      "start": "2026-09-11T20:00:00+08:00",
+      "end": "2026-09-11T20:10:00+08:00",
+      "mode": "night",
+      "label": "night-quiet"
+    }
+  ]
+}

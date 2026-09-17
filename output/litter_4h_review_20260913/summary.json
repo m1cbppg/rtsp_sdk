@@ -1,0 +1,31 @@
+{
+  "elapsed_seconds": 14394.651249594055,
+  "cameras": {
+    "44180209031322001021": {
+      "state": "analyzing",
+      "analyzed": 6129,
+      "rejected_frames": 4364,
+      "skipped_analysis_frames": 3129,
+      "created_items": 0,
+      "cleared_items": 0,
+      "effective_analysis_fps": 0.426,
+      "last_frame_at": "2026-09-12T22:15:27.805344+00:00",
+      "mode": "night",
+      "decoder": "opencv",
+      "rejection_reasons": {
+        "analysis_result_stale": 2749,
+        "view_alignment_unknown": 1360,
+        "view_changed_recalibration_required": 254,
+        "image_quality_unknown": 1
+      },
+      "source_time_seconds": 1514.08,
+      "result_age_seconds": 1.98,
+      "inference_seconds": 1.199,
+      "candidate_count": 1,
+      "confirmed_visible": 0
+    }
+  },
+  "active_items": 0,
+  "reader_processes_alive": 0,
+  "notifications_sent": 0
+}

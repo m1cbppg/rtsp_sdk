@@ -1,0 +1,2396 @@
+{
+  "scope": "Dedicated litter evaluation artifacts, scripts and task temporary files. Excludes user original ZIP, shared installed Python environment and existing application files/models.",
+  "roots": [
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/models/litter",
+      "files": 11,
+      "bytes": 804553473,
+      "allocated_bytes": 812744704
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_alope",
+      "files": 0,
+      "bytes": 0,
+      "allocated_bytes": 0
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_alope.json",
+      "files": 1,
+      "bytes": 5573,
+      "allocated_bytes": 8192
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_bower",
+      "files": 0,
+      "bytes": 0,
+      "allocated_bytes": 0
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_coco",
+      "files": 24,
+      "bytes": 36683965,
+      "allocated_bytes": 36724736
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_coco.json",
+      "files": 1,
+      "bytes": 204685,
+      "allocated_bytes": 204800
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_jhandry",
+      "files": 0,
+      "bytes": 0,
+      "allocated_bytes": 0
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri",
+      "files": 40,
+      "bytes": 64348505,
+      "allocated_bytes": 64421888
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri.json",
+      "files": 1,
+      "bytes": 18900,
+      "allocated_bytes": 20480
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_pile",
+      "files": 24,
+      "bytes": 38981306,
+      "allocated_bytes": 39026688
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_pile.json",
+      "files": 1,
+      "bytes": 35123,
+      "allocated_bytes": 36864
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_trash_yolov8m",
+      "files": 0,
+      "bytes": 0,
+      "allocated_bytes": 0
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_trash_yolov8m.json",
+      "files": 1,
+      "bytes": 5574,
+      "allocated_bytes": 8192
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan",
+      "files": 40,
+      "bytes": 64359075,
+      "allocated_bytes": 64450560
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan.json",
+      "files": 1,
+      "bytes": 52501,
+      "allocated_bytes": 53248
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld",
+      "files": 24,
+      "bytes": 38357595,
+      "allocated_bytes": 38404096
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld.json",
+      "files": 1,
+      "bytes": 17020,
+      "allocated_bytes": 20480
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld_tiled",
+      "files": 24,
+      "bytes": 38155233,
+      "allocated_bytes": 38199296
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld_tiled.json",
+      "files": 1,
+      "bytes": 24672,
+      "allocated_bytes": 28672
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_review",
+      "files": 11,
+      "bytes": 5819303,
+      "allocated_bytes": 5836800
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat",
+      "files": 59,
+      "bytes": 86448362,
+      "allocated_bytes": 86564864
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full",
+      "files": 59,
+      "bytes": 86484884,
+      "allocated_bytes": 86601728
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi",
+      "files": 59,
+      "bytes": 86435602,
+      "allocated_bytes": 86556672
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam",
+      "files": 59,
+      "bytes": 87358613,
+      "allocated_bytes": 87474176
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam_smoke",
+      "files": 3,
+      "bytes": 3021549,
+      "allocated_bytes": 3026944
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan",
+      "files": 59,
+      "bytes": 86756696,
+      "allocated_bytes": 86872064
+    },
+    {
+      "path": "/tmp/litter_eval",
+      "files": 7687,
+      "bytes": 274468310,
+      "allocated_bytes": 295190528
+    },
+    {
+      "path": "/tmp/litter_day.jpg",
+      "files": 1,
+      "bytes": 213932,
+      "allocated_bytes": 217088
+    },
+    {
+      "path": "/tmp/litter_day_full.jpg",
+      "files": 1,
+      "bytes": 78606,
+      "allocated_bytes": 81920
+    },
+    {
+      "path": "/tmp/litter_day_full2.jpg",
+      "files": 1,
+      "bytes": 1469968,
+      "allocated_bytes": 1470464
+    },
+    {
+      "path": "/tmp/litter_hf_garbage.json",
+      "files": 1,
+      "bytes": 36516,
+      "allocated_bytes": 36864
+    },
+    {
+      "path": "/tmp/litter_hf_litter.json",
+      "files": 1,
+      "bytes": 6221,
+      "allocated_bytes": 8192
+    },
+    {
+      "path": "/tmp/litter_hf_taco.json",
+      "files": 1,
+      "bytes": 38858,
+      "allocated_bytes": 40960
+    },
+    {
+      "path": "/tmp/litter_hf_waste.json",
+      "files": 1,
+      "bytes": 33450,
+      "allocated_bytes": 36864
+    },
+    {
+      "path": "/tmp/litter_night.jpg",
+      "files": 1,
+      "bytes": 136429,
+      "allocated_bytes": 139264
+    },
+    {
+      "path": "/tmp/litter_night_full.jpg",
+      "files": 1,
+      "bytes": 103220,
+      "allocated_bytes": 106496
+    },
+    {
+      "path": "/tmp/litter_night_full2.jpg",
+      "files": 1,
+      "bytes": 786469,
+      "allocated_bytes": 790528
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/LITTER_MODEL_EVALUATION.md",
+      "files": 1,
+      "bytes": 12202,
+      "allocated_bytes": 12288
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/scripts/evaluate_litter_frames.py",
+      "files": 1,
+      "bytes": 7433,
+      "allocated_bytes": 8192
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/scripts/evaluate_litter_models.py",
+      "files": 1,
+      "bytes": 9574,
+      "allocated_bytes": 12288
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/scripts/evaluate_litter_pt.py",
+      "files": 1,
+      "bytes": 4038,
+      "allocated_bytes": 4096
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/scripts/review_litter_candidates.py",
+      "files": 1,
+      "bytes": 2695,
+      "allocated_bytes": 4096
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/scripts/__pycache__/evaluate_litter_frames.cpython-312.pyc",
+      "files": 1,
+      "bytes": 12758,
+      "allocated_bytes": 16384
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/scripts/__pycache__/evaluate_litter_models.cpython-312.pyc",
+      "files": 1,
+      "bytes": 14934,
+      "allocated_bytes": 16384
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/scripts/__pycache__/evaluate_litter_pt.cpython-312.pyc",
+      "files": 1,
+      "bytes": 8688,
+      "allocated_bytes": 12288
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/scripts/__pycache__/review_litter_candidates.cpython-312.pyc",
+      "files": 1,
+      "bytes": 5109,
+      "allocated_bytes": 8192
+    }
+  ],
+  "before": {
+    "files": 8210,
+    "bytes": 1805577619,
+    "allocated_bytes": 1835499520
+  },
+  "source_zip": "/Users/mlcbppg/Desktop/荷兴广场视频/新建文件夹.zip",
+  "source_zip_bytes": 157730214,
+  "source_zip_crc_verified": true,
+  "removed": [
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/models/litter/catsat_litter_yolo11s_seg.pt",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/models/litter/esapzoi_litter_yolov8.pt",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/models/litter/littercam_yolov9c.pt",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/models/litter/alope_trash_yolo11n.pt",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/models/litter/oguri_trash_yolo11l.pt",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/models/litter/bower_yolov8m_object_material.pt",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/models/litter/jhandry_trash.pt",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/models/litter/trash_detection_best.pt",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_coco/20260908000011-20260908000515_00.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_coco/20260908000011-20260908000515_01.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_coco/20260908000011-20260908000515_02.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_coco/20260908000011-20260908000515_03.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_coco/20260908000011-20260908000515_04.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_coco/20260908000011-20260908000515_05.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_coco/20260908000011-20260908000515_06.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_coco/20260908000011-20260908000515_07.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_coco/20260908000011-20260908000515_08.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_coco/20260908000011-20260908000515_09.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_coco/20260908000011-20260908000515_10.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_coco/20260908000011-20260908000515_11.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_coco/20260908115917-20260908120421_00.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_coco/20260908115917-20260908120421_01.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_coco/20260908115917-20260908120421_02.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_coco/20260908115917-20260908120421_03.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_coco/20260908115917-20260908120421_04.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_coco/20260908115917-20260908120421_05.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_coco/20260908115917-20260908120421_06.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_coco/20260908115917-20260908120421_07.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_coco/20260908115917-20260908120421_08.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_coco/20260908115917-20260908120421_09.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_coco/20260908115917-20260908120421_10.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_coco/20260908115917-20260908120421_11.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908000011-20260908000515_00.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908000011-20260908000515_01.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908000011-20260908000515_02.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908000011-20260908000515_03.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908000011-20260908000515_04.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908000011-20260908000515_05.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908000011-20260908000515_06.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908000011-20260908000515_07.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908000011-20260908000515_08.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908000011-20260908000515_09.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908000011-20260908000515_10.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908000011-20260908000515_11.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908000011-20260908000515_12.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908000011-20260908000515_13.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908000011-20260908000515_14.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908000011-20260908000515_15.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908000011-20260908000515_16.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908000011-20260908000515_17.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908000011-20260908000515_18.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908000011-20260908000515_19.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908115917-20260908120421_00.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908115917-20260908120421_01.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908115917-20260908120421_02.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908115917-20260908120421_03.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908115917-20260908120421_04.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908115917-20260908120421_05.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908115917-20260908120421_06.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908115917-20260908120421_07.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908115917-20260908120421_08.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908115917-20260908120421_09.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908115917-20260908120421_10.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908115917-20260908120421_11.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908115917-20260908120421_12.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908115917-20260908120421_13.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908115917-20260908120421_14.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908115917-20260908120421_15.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908115917-20260908120421_16.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908115917-20260908120421_17.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908115917-20260908120421_18.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri/20260908115917-20260908120421_19.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_pile/20260908000011-20260908000515_00.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_pile/20260908000011-20260908000515_01.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_pile/20260908000011-20260908000515_02.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_pile/20260908000011-20260908000515_03.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_pile/20260908000011-20260908000515_04.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_pile/20260908000011-20260908000515_05.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_pile/20260908000011-20260908000515_06.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_pile/20260908000011-20260908000515_07.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_pile/20260908000011-20260908000515_08.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_pile/20260908000011-20260908000515_09.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_pile/20260908000011-20260908000515_10.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_pile/20260908000011-20260908000515_11.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_pile/20260908115917-20260908120421_00.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_pile/20260908115917-20260908120421_01.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_pile/20260908115917-20260908120421_02.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_pile/20260908115917-20260908120421_03.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_pile/20260908115917-20260908120421_04.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_pile/20260908115917-20260908120421_05.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_pile/20260908115917-20260908120421_06.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_pile/20260908115917-20260908120421_07.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_pile/20260908115917-20260908120421_08.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_pile/20260908115917-20260908120421_09.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_pile/20260908115917-20260908120421_10.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_pile/20260908115917-20260908120421_11.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908000011-20260908000515_00.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908000011-20260908000515_01.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908000011-20260908000515_02.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908000011-20260908000515_03.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908000011-20260908000515_04.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908000011-20260908000515_05.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908000011-20260908000515_06.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908000011-20260908000515_07.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908000011-20260908000515_08.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908000011-20260908000515_09.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908000011-20260908000515_10.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908000011-20260908000515_11.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908000011-20260908000515_12.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908000011-20260908000515_13.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908000011-20260908000515_14.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908000011-20260908000515_15.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908000011-20260908000515_16.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908000011-20260908000515_17.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908000011-20260908000515_18.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908000011-20260908000515_19.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908115917-20260908120421_00.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908115917-20260908120421_01.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908115917-20260908120421_02.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908115917-20260908120421_03.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908115917-20260908120421_04.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908115917-20260908120421_05.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908115917-20260908120421_06.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908115917-20260908120421_07.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908115917-20260908120421_08.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908115917-20260908120421_09.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908115917-20260908120421_10.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908115917-20260908120421_11.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908115917-20260908120421_12.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908115917-20260908120421_13.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908115917-20260908120421_14.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908115917-20260908120421_15.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908115917-20260908120421_16.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908115917-20260908120421_17.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908115917-20260908120421_18.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan/20260908115917-20260908120421_19.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld/20260908000011-20260908000515_00.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld/20260908000011-20260908000515_01.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld/20260908000011-20260908000515_02.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld/20260908000011-20260908000515_03.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld/20260908000011-20260908000515_04.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld/20260908000011-20260908000515_05.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld/20260908000011-20260908000515_06.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld/20260908000011-20260908000515_07.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld/20260908000011-20260908000515_08.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld/20260908000011-20260908000515_09.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld/20260908000011-20260908000515_10.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld/20260908000011-20260908000515_11.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld/20260908115917-20260908120421_00.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld/20260908115917-20260908120421_01.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld/20260908115917-20260908120421_02.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld/20260908115917-20260908120421_03.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld/20260908115917-20260908120421_04.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld/20260908115917-20260908120421_05.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld/20260908115917-20260908120421_06.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld/20260908115917-20260908120421_07.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld/20260908115917-20260908120421_08.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld/20260908115917-20260908120421_09.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld/20260908115917-20260908120421_10.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld/20260908115917-20260908120421_11.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld_tiled/20260908000011-20260908000515_00.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld_tiled/20260908000011-20260908000515_01.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld_tiled/20260908000011-20260908000515_02.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld_tiled/20260908000011-20260908000515_03.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld_tiled/20260908000011-20260908000515_04.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld_tiled/20260908000011-20260908000515_05.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld_tiled/20260908000011-20260908000515_06.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld_tiled/20260908000011-20260908000515_07.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld_tiled/20260908000011-20260908000515_08.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld_tiled/20260908000011-20260908000515_09.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld_tiled/20260908000011-20260908000515_10.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld_tiled/20260908000011-20260908000515_11.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld_tiled/20260908115917-20260908120421_00.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld_tiled/20260908115917-20260908120421_01.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld_tiled/20260908115917-20260908120421_02.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld_tiled/20260908115917-20260908120421_03.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld_tiled/20260908115917-20260908120421_04.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld_tiled/20260908115917-20260908120421_05.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld_tiled/20260908115917-20260908120421_06.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld_tiled/20260908115917-20260908120421_07.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld_tiled/20260908115917-20260908120421_08.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld_tiled/20260908115917-20260908120421_09.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld_tiled/20260908115917-20260908120421_10.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld_tiled/20260908115917-20260908120421_11.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/day_002.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/day_003.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/day_004.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/day_005.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/day_006.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/day_007.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/day_008.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/day_009.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/day_010.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/day_011.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/day_012.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/day_013.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/day_014.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/day_015.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/day_016.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/day_017.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/day_018.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/day_019.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/day_020.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/day_021.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/day_022.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/day_023.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/day_024.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/day_025.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/day_026.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/day_027.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/day_028.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/day_029.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/night_002.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/night_003.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/night_004.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/night_005.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/night_006.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/night_007.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/night_008.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/night_009.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/night_010.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/night_011.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/night_012.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/night_013.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/night_014.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/night_015.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/night_016.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/night_017.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/night_018.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/night_019.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/night_020.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/night_021.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/night_022.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/night_023.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/night_024.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/night_025.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/night_026.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/night_027.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/night_028.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/night_029.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/night_030.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat/night_031.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/day_002.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/day_003.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/day_004.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/day_005.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/day_006.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/day_007.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/day_008.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/day_009.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/day_010.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/day_011.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/day_012.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/day_013.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/day_014.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/day_015.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/day_016.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/day_017.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/day_018.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/day_019.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/day_020.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/day_021.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/day_022.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/day_023.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/day_024.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/day_025.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/day_026.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/day_027.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/day_028.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/day_029.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/night_002.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/night_003.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/night_004.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/night_005.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/night_006.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/night_007.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/night_008.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/night_009.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/night_010.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/night_011.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/night_012.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/night_013.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/night_014.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/night_015.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/night_016.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/night_017.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/night_018.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/night_019.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/night_020.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/night_021.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/night_022.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/night_023.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/night_024.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/night_025.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/night_026.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/night_027.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/night_028.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/night_029.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/night_030.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full/night_031.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/day_002.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/day_003.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/day_004.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/day_005.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/day_006.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/day_007.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/day_008.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/day_009.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/day_010.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/day_011.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/day_012.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/day_013.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/day_014.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/day_015.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/day_016.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/day_017.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/day_018.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/day_019.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/day_020.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/day_021.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/day_022.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/day_023.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/day_024.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/day_025.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/day_026.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/day_027.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/day_028.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/day_029.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/night_002.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/night_003.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/night_004.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/night_005.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/night_006.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/night_007.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/night_008.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/night_009.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/night_010.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/night_011.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/night_012.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/night_013.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/night_014.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/night_015.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/night_016.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/night_017.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/night_018.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/night_019.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/night_020.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/night_021.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/night_022.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/night_023.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/night_024.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/night_025.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/night_026.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/night_027.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/night_028.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/night_029.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/night_030.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi/night_031.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/day_002.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/day_003.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/day_004.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/day_005.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/day_006.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/day_007.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/day_008.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/day_009.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/day_010.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/day_011.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/day_012.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/day_013.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/day_014.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/day_015.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/day_016.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/day_017.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/day_018.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/day_019.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/day_020.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/day_021.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/day_022.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/day_023.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/day_024.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/day_025.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/day_026.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/day_027.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/day_028.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/day_029.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/night_002.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/night_003.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/night_004.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/night_005.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/night_006.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/night_007.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/night_008.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/night_009.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/night_010.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/night_011.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/night_012.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/night_013.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/night_014.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/night_015.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/night_016.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/night_017.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/night_018.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/night_019.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/night_020.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/night_021.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/night_022.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/night_023.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/night_024.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/night_025.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/night_026.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/night_027.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/night_028.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/night_029.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/night_030.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam/night_031.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam_smoke/day_002.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam_smoke/night_002.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam_smoke/report.json",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/day_002.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/day_003.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/day_004.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/day_005.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/day_006.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/day_007.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/day_008.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/day_009.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/day_010.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/day_011.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/day_012.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/day_013.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/day_014.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/day_015.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/day_016.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/day_017.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/day_018.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/day_019.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/day_020.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/day_021.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/day_022.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/day_023.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/day_024.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/day_025.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/day_026.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/day_027.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/day_028.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/day_029.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/night_002.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/night_003.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/night_004.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/night_005.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/night_006.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/night_007.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/night_008.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/night_009.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/night_010.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/night_011.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/night_012.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/night_013.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/night_014.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/night_015.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/night_016.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/night_017.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/night_018.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/night_019.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/night_020.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/night_021.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/night_022.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/night_023.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/night_024.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/night_025.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/night_026.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/night_027.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/night_028.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/night_029.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/night_030.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan/night_031.jpg",
+      "files": 1
+    },
+    {
+      "path": "/tmp/litter_eval",
+      "files": 7687
+    },
+    {
+      "path": "/tmp/litter_day.jpg",
+      "files": 1
+    },
+    {
+      "path": "/tmp/litter_day_full.jpg",
+      "files": 1
+    },
+    {
+      "path": "/tmp/litter_day_full2.jpg",
+      "files": 1
+    },
+    {
+      "path": "/tmp/litter_hf_garbage.json",
+      "files": 1
+    },
+    {
+      "path": "/tmp/litter_hf_litter.json",
+      "files": 1
+    },
+    {
+      "path": "/tmp/litter_hf_taco.json",
+      "files": 1
+    },
+    {
+      "path": "/tmp/litter_hf_waste.json",
+      "files": 1
+    },
+    {
+      "path": "/tmp/litter_night.jpg",
+      "files": 1
+    },
+    {
+      "path": "/tmp/litter_night_full.jpg",
+      "files": 1
+    },
+    {
+      "path": "/tmp/litter_night_full2.jpg",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/scripts/__pycache__/evaluate_litter_frames.cpython-312.pyc",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/scripts/__pycache__/evaluate_litter_models.cpython-312.pyc",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/scripts/__pycache__/evaluate_litter_pt.cpython-312.pyc",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/scripts/__pycache__/review_litter_candidates.cpython-312.pyc",
+      "files": 1
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_review/littercam_day_context.jpg",
+      "files": 1
+    }
+  ],
+  "removed_file_count": 8179,
+  "retained_model": "turhancan_yolov8m_seg_trash.pt",
+  "date": "2026-09-09",
+  "remaining_roots": [
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/models/litter",
+      "files": 3,
+      "bytes": 54794573,
+      "allocated_bytes": 54800384
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_alope.json",
+      "files": 1,
+      "bytes": 5573,
+      "allocated_bytes": 8192
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_coco.json",
+      "files": 1,
+      "bytes": 204685,
+      "allocated_bytes": 204800
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_oguri.json",
+      "files": 1,
+      "bytes": 18900,
+      "allocated_bytes": 20480
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_pile.json",
+      "files": 1,
+      "bytes": 35123,
+      "allocated_bytes": 36864
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_trash_yolov8m.json",
+      "files": 1,
+      "bytes": 5574,
+      "allocated_bytes": 8192
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_turhancan.json",
+      "files": 1,
+      "bytes": 52501,
+      "allocated_bytes": 53248
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld.json",
+      "files": 1,
+      "bytes": 17020,
+      "allocated_bytes": 20480
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_eval_yoloworld_tiled.json",
+      "files": 1,
+      "bytes": 24672,
+      "allocated_bytes": 28672
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_review",
+      "files": 13,
+      "bytes": 4947034,
+      "allocated_bytes": 4968448
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat",
+      "files": 1,
+      "bytes": 85037,
+      "allocated_bytes": 86016
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_catsat_full",
+      "files": 1,
+      "bytes": 81586,
+      "allocated_bytes": 81920
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_esapzoi",
+      "files": 1,
+      "bytes": 39498,
+      "allocated_bytes": 40960
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_littercam",
+      "files": 1,
+      "bytes": 84266,
+      "allocated_bytes": 86016
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_screen_turhancan",
+      "files": 1,
+      "bytes": 126822,
+      "allocated_bytes": 126976
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/LITTER_MODEL_EVALUATION.md",
+      "files": 1,
+      "bytes": 12797,
+      "allocated_bytes": 16384
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/scripts/evaluate_litter_frames.py",
+      "files": 1,
+      "bytes": 7433,
+      "allocated_bytes": 8192
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/scripts/evaluate_litter_models.py",
+      "files": 1,
+      "bytes": 9574,
+      "allocated_bytes": 12288
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/scripts/evaluate_litter_pt.py",
+      "files": 1,
+      "bytes": 4038,
+      "allocated_bytes": 4096
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/scripts/review_litter_candidates.py",
+      "files": 1,
+      "bytes": 2695,
+      "allocated_bytes": 4096
+    }
+  ],
+  "after": {
+    "files": 34,
+    "bytes": 60559401,
+    "allocated_bytes": 60616704
+  },
+  "reduced_bytes": 1745018218,
+  "reduced_allocated_bytes": 1774882816,
+  "measurement": "File byte sizes and st_blocks*512 allocation; excludes directory metadata and shared installed Python environment. Source ZIP is preserved and excluded. Files added for audit/log preservation are included in after."
+}

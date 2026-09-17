@@ -1,0 +1,34 @@
+[
+  {
+    "name": "/rtsp-yolo-api",
+    "id": "3680d0a49ab6812ed06ee1862fa5c5b8cfc540b5ec058afc37f6971ea5d90038",
+    "image": "sha256:8f4bf64b95f47ea551b66b3e6ec5f734c5769c71029386e0d8decc163693db88",
+    "started_at": "2026-09-10T02:28:19.166272338Z",
+    "restarts": 0,
+    "running": true
+  },
+  {
+    "name": "/camera-control",
+    "id": "a474734106074cffb67ce2d7508ea47b9d76b46042534ca817a56a57c30d01b1",
+    "image": "sha256:c891e8d5379fa569586ca30a55a1b9f8251bf5f903c8ccdafc44c5cde45ab0f3",
+    "started_at": "2026-09-10T02:27:50.293273703Z",
+    "restarts": 0,
+    "running": true
+  },
+  {
+    "name": "/rtsp-mediamtx",
+    "id": "60176df1961c489b8abfe373574871624b8de980c2925fad34bba19c2be4f4a6",
+    "image": "sha256:482fe138c9a16df19222e5449ab27af73d866fd1965217fe493358402000b257",
+    "started_at": "2026-09-06T06:38:27.129734608Z",
+    "restarts": 0,
+    "running": true
+  },
+  {
+    "name": "/rtsp-web-gateway",
+    "id": "f2814850aaecc4adca38f516c81ba74989b2dabe9ed6f3a132d3df1ed3c3eef2",
+    "image": "sha256:d6d273e263b9066e138361c2ec9b1c964be75e5b357d5e6ec0111da2cd598c51",
+    "started_at": "2026-09-06T06:38:27.229011227Z",
+    "restarts": 0,
+    "running": true
+  }
+]

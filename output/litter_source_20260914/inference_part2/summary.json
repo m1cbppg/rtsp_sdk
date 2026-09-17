@@ -1,0 +1,32 @@
+{
+  "samples": 15,
+  "alignment": {
+    "view_alignment_unknown": 15
+  },
+  "stage_seconds": {
+    "actor_full": {
+      "p50": 0.20810479199280962,
+      "p95": 0.6179552957983093
+    },
+    "actor_local": {
+      "p50": 0.10731204100011382,
+      "p95": 0.15923155440541442
+    },
+    "litter_tiles": {
+      "p50": 1.5665009159856709,
+      "p95": 1.7092571544751989
+    },
+    "model_total": {
+      "p50": 1.9304419170075562,
+      "p95": 2.4601092170079926
+    },
+    "nms": {
+      "p50": 2.7332993340678513e-05,
+      "p95": 4.62714990135282e-05
+    }
+  },
+  "candidate_count": 16,
+  "accuracy": null,
+  "temporal_validation": false,
+  "notifications": 0
+}

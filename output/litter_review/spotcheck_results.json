@@ -1,0 +1,1132 @@
+{
+  "reference_metadata": {
+    "status": "analyst visual references, not user-validated ground truth; selected after screening",
+    "iou": 0.3,
+    "references": [
+      {
+        "id": "day_white",
+        "image": "day_002.jpg",
+        "box": [
+          795,
+          612,
+          812,
+          630
+        ]
+      },
+      {
+        "id": "day_white",
+        "image": "day_007.jpg",
+        "box": [
+          795,
+          612,
+          812,
+          630
+        ]
+      },
+      {
+        "id": "day_small",
+        "image": "day_002.jpg",
+        "box": [
+          624,
+          895,
+          651,
+          914
+        ]
+      },
+      {
+        "id": "day_small",
+        "image": "day_007.jpg",
+        "box": [
+          624,
+          895,
+          651,
+          914
+        ]
+      },
+      {
+        "id": "day_small",
+        "image": "day_012.jpg",
+        "box": [
+          624,
+          895,
+          651,
+          914
+        ]
+      },
+      {
+        "id": "day_small",
+        "image": "day_017.jpg",
+        "box": [
+          624,
+          895,
+          651,
+          914
+        ]
+      },
+      {
+        "id": "day_small",
+        "image": "day_022.jpg",
+        "box": [
+          624,
+          895,
+          651,
+          914
+        ]
+      },
+      {
+        "id": "day_small",
+        "image": "day_027.jpg",
+        "box": [
+          624,
+          895,
+          651,
+          914
+        ]
+      },
+      {
+        "id": "night_white",
+        "image": "night_002.jpg",
+        "box": [
+          871,
+          590,
+          932,
+          638
+        ]
+      },
+      {
+        "id": "night_white",
+        "image": "night_007.jpg",
+        "box": [
+          871,
+          590,
+          932,
+          638
+        ]
+      },
+      {
+        "id": "night_white",
+        "image": "night_012.jpg",
+        "box": [
+          871,
+          590,
+          932,
+          638
+        ]
+      },
+      {
+        "id": "night_white",
+        "image": "night_017.jpg",
+        "box": [
+          871,
+          590,
+          932,
+          638
+        ]
+      },
+      {
+        "id": "night_white",
+        "image": "night_022.jpg",
+        "box": [
+          871,
+          590,
+          932,
+          638
+        ]
+      },
+      {
+        "id": "night_white",
+        "image": "night_027.jpg",
+        "box": [
+          871,
+          590,
+          932,
+          638
+        ]
+      },
+      {
+        "id": "night_red",
+        "image": "night_002.jpg",
+        "box": [
+          1005,
+          1181,
+          1103,
+          1260
+        ]
+      },
+      {
+        "id": "night_red",
+        "image": "night_007.jpg",
+        "box": [
+          1005,
+          1181,
+          1103,
+          1260
+        ]
+      },
+      {
+        "id": "night_red",
+        "image": "night_012.jpg",
+        "box": [
+          1005,
+          1181,
+          1103,
+          1260
+        ]
+      },
+      {
+        "id": "night_red",
+        "image": "night_022.jpg",
+        "box": [
+          1005,
+          1181,
+          1103,
+          1260
+        ]
+      },
+      {
+        "id": "night_red",
+        "image": "night_027.jpg",
+        "box": [
+          1005,
+          1181,
+          1103,
+          1260
+        ]
+      },
+      {
+        "id": "night_clear",
+        "image": "night_002.jpg",
+        "box": [
+          980,
+          1290,
+          1106,
+          1333
+        ]
+      },
+      {
+        "id": "night_clear",
+        "image": "night_007.jpg",
+        "box": [
+          980,
+          1290,
+          1106,
+          1333
+        ]
+      },
+      {
+        "id": "night_clear",
+        "image": "night_012.jpg",
+        "box": [
+          980,
+          1290,
+          1106,
+          1333
+        ]
+      },
+      {
+        "id": "night_clear",
+        "image": "night_022.jpg",
+        "box": [
+          980,
+          1290,
+          1106,
+          1333
+        ]
+      },
+      {
+        "id": "night_clear",
+        "image": "night_027.jpg",
+        "box": [
+          980,
+          1290,
+          1106,
+          1333
+        ]
+      }
+    ],
+    "limitations": [
+      "5 visually selected ground objects, 24 appearances; not exhaustive labels",
+      "Chosen after model screening; same objects repeated; no independent holdout",
+      "Class-agnostic localization only, not precision/recall or material correctness",
+      "Reviewer is the assistant; no user/human verification of labels",
+      "Occluded red bag and clear object in night_017 excluded; white day object absent after early frames"
+    ]
+  },
+  "models": {
+    "litter_screen_turhancan": {
+      "report": "output/litter_screen_turhancan/report.json",
+      "sha256": "a2f8de0c7f714e2ab8b70c62490e2a41fd4a6681ca4a8dd442797c809a140278",
+      "mode": "tiles",
+      "checks": [
+        {
+          "confidence": 0.15,
+          "minimum_iou": 0.3,
+          "counts": {
+            "day_white": {
+              "matches": 1,
+              "appearances": 2
+            },
+            "day_small": {
+              "matches": 5,
+              "appearances": 6
+            },
+            "night_white": {
+              "matches": 6,
+              "appearances": 6
+            },
+            "night_red": {
+              "matches": 5,
+              "appearances": 5
+            },
+            "night_clear": {
+              "matches": 3,
+              "appearances": 5
+            }
+          },
+          "matches": 20,
+          "appearances": 24
+        },
+        {
+          "confidence": 0.15,
+          "minimum_iou": 0.5,
+          "counts": {
+            "day_white": {
+              "matches": 0,
+              "appearances": 2
+            },
+            "day_small": {
+              "matches": 3,
+              "appearances": 6
+            },
+            "night_white": {
+              "matches": 5,
+              "appearances": 6
+            },
+            "night_red": {
+              "matches": 5,
+              "appearances": 5
+            },
+            "night_clear": {
+              "matches": 3,
+              "appearances": 5
+            }
+          },
+          "matches": 16,
+          "appearances": 24
+        },
+        {
+          "confidence": 0.25,
+          "minimum_iou": 0.3,
+          "counts": {
+            "day_white": {
+              "matches": 0,
+              "appearances": 2
+            },
+            "day_small": {
+              "matches": 3,
+              "appearances": 6
+            },
+            "night_white": {
+              "matches": 6,
+              "appearances": 6
+            },
+            "night_red": {
+              "matches": 5,
+              "appearances": 5
+            },
+            "night_clear": {
+              "matches": 3,
+              "appearances": 5
+            }
+          },
+          "matches": 17,
+          "appearances": 24
+        },
+        {
+          "confidence": 0.25,
+          "minimum_iou": 0.5,
+          "counts": {
+            "day_white": {
+              "matches": 0,
+              "appearances": 2
+            },
+            "day_small": {
+              "matches": 3,
+              "appearances": 6
+            },
+            "night_white": {
+              "matches": 3,
+              "appearances": 6
+            },
+            "night_red": {
+              "matches": 5,
+              "appearances": 5
+            },
+            "night_clear": {
+              "matches": 3,
+              "appearances": 5
+            }
+          },
+          "matches": 14,
+          "appearances": 24
+        },
+        {
+          "confidence": 0.4,
+          "minimum_iou": 0.3,
+          "counts": {
+            "day_white": {
+              "matches": 0,
+              "appearances": 2
+            },
+            "day_small": {
+              "matches": 2,
+              "appearances": 6
+            },
+            "night_white": {
+              "matches": 2,
+              "appearances": 6
+            },
+            "night_red": {
+              "matches": 4,
+              "appearances": 5
+            },
+            "night_clear": {
+              "matches": 0,
+              "appearances": 5
+            }
+          },
+          "matches": 8,
+          "appearances": 24
+        },
+        {
+          "confidence": 0.4,
+          "minimum_iou": 0.5,
+          "counts": {
+            "day_white": {
+              "matches": 0,
+              "appearances": 2
+            },
+            "day_small": {
+              "matches": 2,
+              "appearances": 6
+            },
+            "night_white": {
+              "matches": 0,
+              "appearances": 6
+            },
+            "night_red": {
+              "matches": 4,
+              "appearances": 5
+            },
+            "night_clear": {
+              "matches": 0,
+              "appearances": 5
+            }
+          },
+          "matches": 6,
+          "appearances": 24
+        }
+      ]
+    },
+    "litter_screen_catsat": {
+      "report": "output/litter_screen_catsat/report.json",
+      "sha256": "e48518a798b05ef6a8a123526aedc6ee9afe508796dd0b1bc37c0c2eb333a164",
+      "mode": "tiles",
+      "checks": [
+        {
+          "confidence": 0.15,
+          "minimum_iou": 0.3,
+          "counts": {
+            "day_white": {
+              "matches": 0,
+              "appearances": 2
+            },
+            "day_small": {
+              "matches": 2,
+              "appearances": 6
+            },
+            "night_white": {
+              "matches": 4,
+              "appearances": 6
+            },
+            "night_red": {
+              "matches": 2,
+              "appearances": 5
+            },
+            "night_clear": {
+              "matches": 1,
+              "appearances": 5
+            }
+          },
+          "matches": 9,
+          "appearances": 24
+        },
+        {
+          "confidence": 0.15,
+          "minimum_iou": 0.5,
+          "counts": {
+            "day_white": {
+              "matches": 0,
+              "appearances": 2
+            },
+            "day_small": {
+              "matches": 2,
+              "appearances": 6
+            },
+            "night_white": {
+              "matches": 2,
+              "appearances": 6
+            },
+            "night_red": {
+              "matches": 2,
+              "appearances": 5
+            },
+            "night_clear": {
+              "matches": 1,
+              "appearances": 5
+            }
+          },
+          "matches": 7,
+          "appearances": 24
+        },
+        {
+          "confidence": 0.25,
+          "minimum_iou": 0.3,
+          "counts": {
+            "day_white": {
+              "matches": 0,
+              "appearances": 2
+            },
+            "day_small": {
+              "matches": 2,
+              "appearances": 6
+            },
+            "night_white": {
+              "matches": 4,
+              "appearances": 6
+            },
+            "night_red": {
+              "matches": 2,
+              "appearances": 5
+            },
+            "night_clear": {
+              "matches": 0,
+              "appearances": 5
+            }
+          },
+          "matches": 8,
+          "appearances": 24
+        },
+        {
+          "confidence": 0.25,
+          "minimum_iou": 0.5,
+          "counts": {
+            "day_white": {
+              "matches": 0,
+              "appearances": 2
+            },
+            "day_small": {
+              "matches": 2,
+              "appearances": 6
+            },
+            "night_white": {
+              "matches": 1,
+              "appearances": 6
+            },
+            "night_red": {
+              "matches": 2,
+              "appearances": 5
+            },
+            "night_clear": {
+              "matches": 0,
+              "appearances": 5
+            }
+          },
+          "matches": 5,
+          "appearances": 24
+        },
+        {
+          "confidence": 0.4,
+          "minimum_iou": 0.3,
+          "counts": {
+            "day_white": {
+              "matches": 0,
+              "appearances": 2
+            },
+            "day_small": {
+              "matches": 2,
+              "appearances": 6
+            },
+            "night_white": {
+              "matches": 2,
+              "appearances": 6
+            },
+            "night_red": {
+              "matches": 1,
+              "appearances": 5
+            },
+            "night_clear": {
+              "matches": 0,
+              "appearances": 5
+            }
+          },
+          "matches": 5,
+          "appearances": 24
+        },
+        {
+          "confidence": 0.4,
+          "minimum_iou": 0.5,
+          "counts": {
+            "day_white": {
+              "matches": 0,
+              "appearances": 2
+            },
+            "day_small": {
+              "matches": 2,
+              "appearances": 6
+            },
+            "night_white": {
+              "matches": 1,
+              "appearances": 6
+            },
+            "night_red": {
+              "matches": 1,
+              "appearances": 5
+            },
+            "night_clear": {
+              "matches": 0,
+              "appearances": 5
+            }
+          },
+          "matches": 4,
+          "appearances": 24
+        }
+      ]
+    },
+    "litter_screen_catsat_full": {
+      "report": "output/litter_screen_catsat_full/report.json",
+      "sha256": "e48518a798b05ef6a8a123526aedc6ee9afe508796dd0b1bc37c0c2eb333a164",
+      "mode": "full",
+      "checks": [
+        {
+          "confidence": 0.15,
+          "minimum_iou": 0.3,
+          "counts": {
+            "day_white": {
+              "matches": 0,
+              "appearances": 2
+            },
+            "day_small": {
+              "matches": 0,
+              "appearances": 6
+            },
+            "night_white": {
+              "matches": 0,
+              "appearances": 6
+            },
+            "night_red": {
+              "matches": 5,
+              "appearances": 5
+            },
+            "night_clear": {
+              "matches": 1,
+              "appearances": 5
+            }
+          },
+          "matches": 6,
+          "appearances": 24
+        },
+        {
+          "confidence": 0.15,
+          "minimum_iou": 0.5,
+          "counts": {
+            "day_white": {
+              "matches": 0,
+              "appearances": 2
+            },
+            "day_small": {
+              "matches": 0,
+              "appearances": 6
+            },
+            "night_white": {
+              "matches": 0,
+              "appearances": 6
+            },
+            "night_red": {
+              "matches": 5,
+              "appearances": 5
+            },
+            "night_clear": {
+              "matches": 0,
+              "appearances": 5
+            }
+          },
+          "matches": 5,
+          "appearances": 24
+        },
+        {
+          "confidence": 0.25,
+          "minimum_iou": 0.3,
+          "counts": {
+            "day_white": {
+              "matches": 0,
+              "appearances": 2
+            },
+            "day_small": {
+              "matches": 0,
+              "appearances": 6
+            },
+            "night_white": {
+              "matches": 0,
+              "appearances": 6
+            },
+            "night_red": {
+              "matches": 4,
+              "appearances": 5
+            },
+            "night_clear": {
+              "matches": 0,
+              "appearances": 5
+            }
+          },
+          "matches": 4,
+          "appearances": 24
+        },
+        {
+          "confidence": 0.25,
+          "minimum_iou": 0.5,
+          "counts": {
+            "day_white": {
+              "matches": 0,
+              "appearances": 2
+            },
+            "day_small": {
+              "matches": 0,
+              "appearances": 6
+            },
+            "night_white": {
+              "matches": 0,
+              "appearances": 6
+            },
+            "night_red": {
+              "matches": 4,
+              "appearances": 5
+            },
+            "night_clear": {
+              "matches": 0,
+              "appearances": 5
+            }
+          },
+          "matches": 4,
+          "appearances": 24
+        },
+        {
+          "confidence": 0.4,
+          "minimum_iou": 0.3,
+          "counts": {
+            "day_white": {
+              "matches": 0,
+              "appearances": 2
+            },
+            "day_small": {
+              "matches": 0,
+              "appearances": 6
+            },
+            "night_white": {
+              "matches": 0,
+              "appearances": 6
+            },
+            "night_red": {
+              "matches": 3,
+              "appearances": 5
+            },
+            "night_clear": {
+              "matches": 0,
+              "appearances": 5
+            }
+          },
+          "matches": 3,
+          "appearances": 24
+        },
+        {
+          "confidence": 0.4,
+          "minimum_iou": 0.5,
+          "counts": {
+            "day_white": {
+              "matches": 0,
+              "appearances": 2
+            },
+            "day_small": {
+              "matches": 0,
+              "appearances": 6
+            },
+            "night_white": {
+              "matches": 0,
+              "appearances": 6
+            },
+            "night_red": {
+              "matches": 3,
+              "appearances": 5
+            },
+            "night_clear": {
+              "matches": 0,
+              "appearances": 5
+            }
+          },
+          "matches": 3,
+          "appearances": 24
+        }
+      ]
+    },
+    "litter_screen_esapzoi": {
+      "report": "output/litter_screen_esapzoi/report.json",
+      "sha256": "1b78b25c684e82f584e806205c15cefdd5e3f26a79473e2e6e17d9cc6561eaa2",
+      "mode": "tiles",
+      "checks": [
+        {
+          "confidence": 0.15,
+          "minimum_iou": 0.3,
+          "counts": {
+            "day_white": {
+              "matches": 0,
+              "appearances": 2
+            },
+            "day_small": {
+              "matches": 0,
+              "appearances": 6
+            },
+            "night_white": {
+              "matches": 0,
+              "appearances": 6
+            },
+            "night_red": {
+              "matches": 1,
+              "appearances": 5
+            },
+            "night_clear": {
+              "matches": 0,
+              "appearances": 5
+            }
+          },
+          "matches": 1,
+          "appearances": 24
+        },
+        {
+          "confidence": 0.15,
+          "minimum_iou": 0.5,
+          "counts": {
+            "day_white": {
+              "matches": 0,
+              "appearances": 2
+            },
+            "day_small": {
+              "matches": 0,
+              "appearances": 6
+            },
+            "night_white": {
+              "matches": 0,
+              "appearances": 6
+            },
+            "night_red": {
+              "matches": 1,
+              "appearances": 5
+            },
+            "night_clear": {
+              "matches": 0,
+              "appearances": 5
+            }
+          },
+          "matches": 1,
+          "appearances": 24
+        },
+        {
+          "confidence": 0.25,
+          "minimum_iou": 0.3,
+          "counts": {
+            "day_white": {
+              "matches": 0,
+              "appearances": 2
+            },
+            "day_small": {
+              "matches": 0,
+              "appearances": 6
+            },
+            "night_white": {
+              "matches": 0,
+              "appearances": 6
+            },
+            "night_red": {
+              "matches": 0,
+              "appearances": 5
+            },
+            "night_clear": {
+              "matches": 0,
+              "appearances": 5
+            }
+          },
+          "matches": 0,
+          "appearances": 24
+        },
+        {
+          "confidence": 0.25,
+          "minimum_iou": 0.5,
+          "counts": {
+            "day_white": {
+              "matches": 0,
+              "appearances": 2
+            },
+            "day_small": {
+              "matches": 0,
+              "appearances": 6
+            },
+            "night_white": {
+              "matches": 0,
+              "appearances": 6
+            },
+            "night_red": {
+              "matches": 0,
+              "appearances": 5
+            },
+            "night_clear": {
+              "matches": 0,
+              "appearances": 5
+            }
+          },
+          "matches": 0,
+          "appearances": 24
+        },
+        {
+          "confidence": 0.4,
+          "minimum_iou": 0.3,
+          "counts": {
+            "day_white": {
+              "matches": 0,
+              "appearances": 2
+            },
+            "day_small": {
+              "matches": 0,
+              "appearances": 6
+            },
+            "night_white": {
+              "matches": 0,
+              "appearances": 6
+            },
+            "night_red": {
+              "matches": 0,
+              "appearances": 5
+            },
+            "night_clear": {
+              "matches": 0,
+              "appearances": 5
+            }
+          },
+          "matches": 0,
+          "appearances": 24
+        },
+        {
+          "confidence": 0.4,
+          "minimum_iou": 0.5,
+          "counts": {
+            "day_white": {
+              "matches": 0,
+              "appearances": 2
+            },
+            "day_small": {
+              "matches": 0,
+              "appearances": 6
+            },
+            "night_white": {
+              "matches": 0,
+              "appearances": 6
+            },
+            "night_red": {
+              "matches": 0,
+              "appearances": 5
+            },
+            "night_clear": {
+              "matches": 0,
+              "appearances": 5
+            }
+          },
+          "matches": 0,
+          "appearances": 24
+        }
+      ]
+    },
+    "litter_screen_littercam": {
+      "report": "output/litter_screen_littercam/report.json",
+      "sha256": "27dcb73c02fa9fb57828a75e178f4604d8a378d4c736bdb1e2807444a226c3e3",
+      "mode": "tiles",
+      "checks": [
+        {
+          "confidence": 0.15,
+          "minimum_iou": 0.3,
+          "counts": {
+            "day_white": {
+              "matches": 0,
+              "appearances": 2
+            },
+            "day_small": {
+              "matches": 0,
+              "appearances": 6
+            },
+            "night_white": {
+              "matches": 0,
+              "appearances": 6
+            },
+            "night_red": {
+              "matches": 0,
+              "appearances": 5
+            },
+            "night_clear": {
+              "matches": 0,
+              "appearances": 5
+            }
+          },
+          "matches": 0,
+          "appearances": 24
+        },
+        {
+          "confidence": 0.15,
+          "minimum_iou": 0.5,
+          "counts": {
+            "day_white": {
+              "matches": 0,
+              "appearances": 2
+            },
+            "day_small": {
+              "matches": 0,
+              "appearances": 6
+            },
+            "night_white": {
+              "matches": 0,
+              "appearances": 6
+            },
+            "night_red": {
+              "matches": 0,
+              "appearances": 5
+            },
+            "night_clear": {
+              "matches": 0,
+              "appearances": 5
+            }
+          },
+          "matches": 0,
+          "appearances": 24
+        },
+        {
+          "confidence": 0.25,
+          "minimum_iou": 0.3,
+          "counts": {
+            "day_white": {
+              "matches": 0,
+              "appearances": 2
+            },
+            "day_small": {
+              "matches": 0,
+              "appearances": 6
+            },
+            "night_white": {
+              "matches": 0,
+              "appearances": 6
+            },
+            "night_red": {
+              "matches": 0,
+              "appearances": 5
+            },
+            "night_clear": {
+              "matches": 0,
+              "appearances": 5
+            }
+          },
+          "matches": 0,
+          "appearances": 24
+        },
+        {
+          "confidence": 0.25,
+          "minimum_iou": 0.5,
+          "counts": {
+            "day_white": {
+              "matches": 0,
+              "appearances": 2
+            },
+            "day_small": {
+              "matches": 0,
+              "appearances": 6
+            },
+            "night_white": {
+              "matches": 0,
+              "appearances": 6
+            },
+            "night_red": {
+              "matches": 0,
+              "appearances": 5
+            },
+            "night_clear": {
+              "matches": 0,
+              "appearances": 5
+            }
+          },
+          "matches": 0,
+          "appearances": 24
+        },
+        {
+          "confidence": 0.4,
+          "minimum_iou": 0.3,
+          "counts": {
+            "day_white": {
+              "matches": 0,
+              "appearances": 2
+            },
+            "day_small": {
+              "matches": 0,
+              "appearances": 6
+            },
+            "night_white": {
+              "matches": 0,
+              "appearances": 6
+            },
+            "night_red": {
+              "matches": 0,
+              "appearances": 5
+            },
+            "night_clear": {
+              "matches": 0,
+              "appearances": 5
+            }
+          },
+          "matches": 0,
+          "appearances": 24
+        },
+        {
+          "confidence": 0.4,
+          "minimum_iou": 0.5,
+          "counts": {
+            "day_white": {
+              "matches": 0,
+              "appearances": 2
+            },
+            "day_small": {
+              "matches": 0,
+              "appearances": 6
+            },
+            "night_white": {
+              "matches": 0,
+              "appearances": 6
+            },
+            "night_red": {
+              "matches": 0,
+              "appearances": 5
+            },
+            "night_clear": {
+              "matches": 0,
+              "appearances": 5
+            }
+          },
+          "matches": 0,
+          "appearances": 24
+        }
+      ]
+    }
+  }
+}

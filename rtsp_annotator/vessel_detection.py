@@ -330,6 +330,10 @@ class VesselDetection:
     confidence: float
     class_id: int
     hits: int
+    observation_kind: str = "legacy_unknown"
+    position_updated_at: float | None = None
+    source: str = "unknown"
+    frame_id: int | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -340,6 +344,7 @@ class VesselSnapshot:
     updated_at: float | None = None
     message: str = ""
     last_inference_ms: float = 0.0
+    view_generation: int = 0
 
     @property
     def count(self) -> int:
@@ -377,6 +382,17 @@ class VesselResultCache:
         snapshot: VesselSnapshot,
     ) -> None:
         with self._lock:
+            previous = self._entries.get(pad_index)
+            if previous is not None and (
+                snapshot.view_generation < previous.view_generation
+                or (
+                    snapshot.view_generation == previous.view_generation
+                    and snapshot.updated_at is not None
+                    and previous.updated_at is not None
+                    and snapshot.updated_at < previous.updated_at
+                )
+            ):
+                return
             self._entries[pad_index] = snapshot
 
     def mark_state(
@@ -394,6 +410,7 @@ class VesselResultCache:
                 updated_at=previous.updated_at,
                 message=message,
                 last_inference_ms=previous.last_inference_ms,
+                view_generation=previous.view_generation,
             )
 
 
@@ -485,6 +502,13 @@ class VesselTrackManager:
                 confidence=track.confidence,
                 class_id=track.class_id,
                 hits=track.hits,
+                observation_kind=(
+                    "detector_measurement"
+                    if track.last_seen == timestamp else "held_display"
+                ),
+                position_updated_at=track.last_seen,
+                source="sidecar",
+                frame_id=self._version if track.last_seen == timestamp else None,
             )
             for track in sorted(
                 self._tracks.values(),

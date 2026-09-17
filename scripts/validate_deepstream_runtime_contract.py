@@ -157,6 +157,62 @@ def validate_complete_pipeline_construction() -> None:
     )
 
 
+def validate_ground_litter_branch_construction() -> None:
+    """Exercise the native-resolution litter branch against real ServiceMaker.
+
+    The litter side path must not carry an explicit width/height capsfilter:
+    downscaling it would destroy the 8-12 px objects the scenario exists for.
+    """
+    class BufferPass(BufferOperator):
+        def handle_buffer(self, _buffer: object) -> bool:
+            return True
+
+    class MetadataPass(BatchMetadataOperator):
+        def handle_metadata(self, _batch_meta: object) -> None:
+            pass
+
+    pipeline = Pipeline("validate-ground-litter-branch")
+    _add_pipeline_nodes(
+        pipeline,
+        {
+            "gpu_id": 0,
+            "batch_size": 1,
+            "batch_push_timeout_us": 20_000,
+            "mux_width": 1920,
+            "mux_height": 1080,
+            "source_latency_ms": 100,
+            "encoder_iframe_interval": 25,
+            "tracker_config": (
+                "/opt/nvidia/deepstream/deepstream/samples/configs/"
+                "deepstream-app/config_tracker_NvDCF_perf.yml"
+            ),
+            "tracker_library": (
+                "/opt/nvidia/deepstream/deepstream/lib/"
+                "libnvds_nvmultiobjecttracker.so"
+            ),
+            "ground_litter": {"enabled": True, "analysis_fps": 1.0},
+            "streams": [
+                {
+                    "input_url": "rtsp://127.0.0.1/input",
+                    "output_url": "rtsp://127.0.0.1/output",
+                    "bitrate_bps": 2_500_000,
+                }
+            ],
+        },
+        Path(
+            "/opt/nvidia/deepstream/deepstream/samples/configs/"
+            "deepstream-app/config_infer_primary.txt"
+        ),
+        Probe("latency", MetadataPass()),
+        Probe("overlay", MetadataPass()),
+        Probe("plate", MetadataPass()),
+        lambda index: Probe(f"pre-encode-{index}", BufferPass()),
+        lambda index: Probe(f"publish-{index}", BufferPass()),
+        ground_litter_receiver=Probe("litter-frames", BufferPass()),
+        ground_litter_skip_probe=Probe("litter-interval", BufferPass()),
+    )
+
+
 def main() -> None:
     validate_metadata_style()
     validate_request_pad_links()
@@ -166,6 +222,7 @@ def main() -> None:
     # build always validates the request pads, clock element and probe API.
     if os.environ.get("VALIDATE_COMPLETE_PIPELINE") == "1":
         validate_complete_pipeline_construction()
+    validate_ground_litter_branch_construction()
     print("DEEPSTREAM_RUNTIME_CONTRACT_OK")
 
 

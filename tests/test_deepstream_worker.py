@@ -36,23 +36,34 @@ from rtsp_annotator.fishing_risk import (
 )
 from rtsp_annotator.deepstream_worker import (
     GarbageOverlayCache,
+    GroundLitterFrameProcessor,
     MetricsState,
     GarbageFrameProcessor,
     GarbageMetadataProcessor,
     OverlayProcessor,
     PlateIdentityTracker,
+    PtzControlCommandMonitor,
     StreamPolicy,
     InferenceLatencyTracker,
     VesselFrameProcessor,
     _add_pipeline_nodes,
     _buffer_quality_flags,
     _merge_pile_detections,
+    _load_policies,
     _point_in_polygon,
     build_inference_config,
     build_garbage_config,
     build_lpd_config,
     build_lpr_config,
     build_tracker_config,
+)
+from rtsp_annotator.ptz_verification import PtzVerificationOptions
+from rtsp_annotator.ground_litter_detection import (
+    GroundLitterDetection,
+    GroundLitterDetectionOptions,
+    GroundLitterResultCache,
+    GroundLitterSnapshot,
+    GroundLitterZone,
 )
 from rtsp_annotator.vessel_detection import (
     SMALL_TARGET_PROPOSAL_CLASS_ID,
@@ -153,7 +164,64 @@ def fake_object(
     )
 
 
+class FakePipeline:
+    """Minimal ServiceMaker pipeline stand-in for graph-shape assertions."""
+
+    def __init__(self) -> None:
+        self.nodes: dict[str, tuple[str, dict[str, object]]] = {}
+        self.links: list[tuple[object, ...]] = []
+        self.attachments: list[tuple[object, ...]] = []
+
+    def add(
+        self,
+        type_name: str,
+        name: str,
+        properties: dict[str, object] | None = None,
+    ) -> "FakePipeline":
+        self.nodes[name] = (type_name, properties or {})
+        return self
+
+    def link(self, *args: object) -> "FakePipeline":
+        self.links.append(args)
+        return self
+
+    def attach(self, *args: object, **_kwargs: object) -> "FakePipeline":
+        self.attachments.append(tuple(args))
+        return self
+
+
 class DeepStreamWorkerTests(unittest.TestCase):
+    def test_ptz_control_monitor_delivers_and_removes_home_command(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            control_dir = Path(directory)
+            command_path = control_dir / "ptz-home-stream-1-request-1.json"
+            command_path.write_text(
+                json.dumps(
+                    {
+                        "stream_id": "stream-1",
+                        "request_id": "request-1",
+                        "action": "return_home",
+                    }
+                ),
+                encoding="utf-8",
+            )
+            coordinator = SimpleNamespace(
+                request_return_home=lambda request_id: setattr(
+                    coordinator,
+                    "request_id",
+                    request_id,
+                )
+            )
+            monitor = PtzControlCommandMonitor(
+                control_dir,
+                {"stream-1": coordinator},  # type: ignore[dict-item]
+            )
+
+            monitor._consume(command_path)
+
+            self.assertEqual(coordinator.request_id, "request-1")
+            self.assertFalse(command_path.exists())
+
     def test_gstreamer_buffer_flags_expose_corruption_and_discontinuity(self) -> None:
         buffer = SimpleNamespace(get_flags=lambda: (1 << 8) | (1 << 6))
 
@@ -1269,6 +1337,49 @@ class DeepStreamWorkerTests(unittest.TestCase):
         ]
         self.assertEqual(texts, ["船舶：1", "船"])
 
+    def test_vessel_osd_suppresses_contained_sidecar_box(self) -> None:
+        frame = FakeFrame([])
+        batch = FakeBatch([frame])
+        snapshot = VesselSnapshot(
+            state="running",
+            detections=(
+                VesselDetection(
+                    object_id=2,
+                    rectangle=NormalizedRect(0.25, 0.35, 0.25, 0.15),
+                    confidence=0.8,
+                    class_id=8,
+                    hits=3,
+                ),
+            ),
+            result_version=2,
+            updated_at=time.monotonic(),
+        )
+        fake_osd = SimpleNamespace(
+            Color=FakeColor,
+            Line=FakeLine,
+            Text=FakeText,
+            FontFamily=SimpleNamespace(Serif="serif"),
+        )
+
+        OverlayProcessor._draw_vessels(
+            batch,
+            frame,
+            snapshot,
+            VesselDetectionOptions(enabled=True),
+            fake_osd,
+            width=1000,
+            height=500,
+            existing_rectangles=(
+                NormalizedRect(0.1, 0.2, 0.7, 0.5),
+            ),
+        )
+
+        self.assertEqual(len(frame.display_meta[0].lines), 0)
+        self.assertEqual(
+            frame.display_meta[0].texts[0].display_text,
+            "船舶：1".encode(),
+        )
+
     def test_vessel_osd_marks_only_matching_risk_candidate(self) -> None:
         frame = FakeFrame([])
         batch = FakeBatch([frame])
@@ -1659,6 +1770,127 @@ class DeepStreamWorkerTests(unittest.TestCase):
         self.assertEqual(len(frame.display_meta), 1)
         self.assertEqual(len(frame.display_meta[0].lines), 4)
 
+    def test_overlay_hides_all_detection_boxes_when_disabled(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            metrics = MetricsState(
+                stream_ids=["stream-1"],
+                metrics_path=Path(directory) / "metrics.json",
+                interval_seconds=0,
+                minimum_healthy_fps=20,
+                group_id="group",
+                generation=1,
+            )
+            policy = StreamPolicy(
+                stream_id="stream-1",
+                # No class filter, so both objects pass the ordinary gating and
+                # only the display switch can remove their boxes.
+                classes=None,
+                conf=0.25,
+                roi=None,
+                labels={0: "人员", 2: "车辆"},
+                display_detections=False,
+                ground_litter=GroundLitterDetectionOptions(
+                    enabled=True,
+                    zones=(
+                        GroundLitterZone(
+                            region_id="z1",
+                            polygon=(
+                                (0.05, 0.05),
+                                (0.4, 0.05),
+                                (0.4, 0.6),
+                                (0.05, 0.6),
+                            ),
+                        ),
+                    ),
+                ),
+            )
+            person = fake_object(0, 0.9)
+            vehicle = fake_object(2, 0.9)
+            frame = FakeFrame([person, vehicle])
+            batch = FakeBatch([frame])
+            cache = GroundLitterResultCache()
+            cache.store_snapshot(
+                0,
+                GroundLitterSnapshot(
+                    state="running",
+                    detections=(
+                        GroundLitterDetection(
+                            object_id=1,
+                            rectangle=NormalizedRect(0.1, 0.2, 0.05, 0.05),
+                            confidence=0.5,
+                        ),
+                    ),
+                    result_version=1,
+                    updated_at=time.monotonic(),
+                ),
+            )
+            fake_osd = SimpleNamespace(
+                Color=FakeColor,
+                Line=FakeLine,
+                Text=FakeText,
+                FontFamily=SimpleNamespace(Serif="serif"),
+            )
+
+            OverlayProcessor(
+                {0: policy},
+                metrics,
+                ground_litter_cache=cache,
+            ).process(batch, fake_osd)
+            report = json.loads(
+                (Path(directory) / "metrics.json").read_text(encoding="utf-8")
+            )
+
+        # Ordinary boxes are gone, business overlays remain.
+        self.assertEqual(person.rect_params.border_width, 0)
+        self.assertEqual(person.text_params.display_text, b"")
+        self.assertEqual(vehicle.rect_params.border_width, 0)
+        self.assertTrue(frame.display_meta)
+        line_total = sum(len(item.lines) for item in frame.display_meta)
+        self.assertGreater(line_total, 0)
+        titles = [
+            text.display_text
+            for item in frame.display_meta
+            for text in item.texts
+        ]
+        self.assertIn("疑似垃圾：1".encode(), titles)
+        # Detection accounting still reflects the real detections.
+        self.assertEqual(
+            report["streams"]["stream-1"]["interval_detections"],
+            2,
+        )
+
+    def test_overlay_draws_detections_by_default(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            metrics = MetricsState(
+                stream_ids=["stream-1"],
+                metrics_path=Path(directory) / "metrics.json",
+                interval_seconds=60,
+                minimum_healthy_fps=20,
+                group_id="group",
+                generation=1,
+            )
+            policy = StreamPolicy(
+                stream_id="stream-1",
+                classes=frozenset({0}),
+                conf=0.25,
+                roi=None,
+                labels={0: "人员"},
+            )
+            person = fake_object(0, 0.9)
+            fake_osd = SimpleNamespace(
+                Color=FakeColor,
+                Line=FakeLine,
+                FontFamily=SimpleNamespace(Serif="serif"),
+            )
+
+            OverlayProcessor({0: policy}, metrics).process(
+                FakeBatch([FakeFrame([person])]),
+                fake_osd,
+            )
+
+        self.assertTrue(person.rect_params.border_width > 0)
+        self.assertEqual(person.text_params.display_text, "人员".encode())
+
     def test_ptz_closeup_hides_home_rois_and_uses_full_frame(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             metrics = MetricsState(
@@ -1715,7 +1947,10 @@ class DeepStreamWorkerTests(unittest.TestCase):
                 metrics,
                 vessel_detection_cache=vessel_cache,
                 ptz_verification_coordinators={
-                    0: SimpleNamespace(is_busy=True)
+                    0: SimpleNamespace(
+                        is_busy=True,
+                        publish_primary_detections=lambda *_args, **_kwargs: None,
+                    )
                 },
             ).process(FakeBatch([frame]), fake_osd)
 
@@ -1727,6 +1962,227 @@ class DeepStreamWorkerTests(unittest.TestCase):
         self.assertEqual(
             sum(len(item.lines) for item in frame.display_meta),
             0,
+        )
+
+    def test_green_primary_vessel_box_is_published_to_ptz(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            metrics = MetricsState(
+                stream_ids=["stream-1"],
+                metrics_path=Path(directory) / "metrics.json",
+                interval_seconds=60,
+                minimum_healthy_fps=20,
+                group_id="group",
+                generation=1,
+            )
+            policy = StreamPolicy(
+                stream_id="stream-1",
+                classes=frozenset({8}),
+                conf=0.1,
+                roi=None,
+                labels={8: "船舶"},
+                vessel_detection=VesselDetectionOptions(enabled=True),
+            )
+            published: list[tuple[VesselDetection, ...]] = []
+            coordinator = SimpleNamespace(
+                is_busy=False,
+                publish_primary_detections=lambda detections, **_kwargs: (
+                    published.append(detections)
+                ),
+            )
+            vessel = fake_object(8, 0.8, left=400, top=150)
+            vessel.object_id = 77
+            fake_osd = SimpleNamespace(
+                Color=FakeColor,
+                Line=FakeLine,
+                Text=FakeText,
+                FontFamily=SimpleNamespace(Serif="serif"),
+            )
+
+            OverlayProcessor(
+                {0: policy},
+                metrics,
+                ptz_verification_coordinators={0: coordinator},
+            ).process(FakeBatch([FakeFrame([vessel])]), fake_osd)
+
+        self.assertEqual(len(published), 1)
+        self.assertEqual(len(published[0]), 1)
+        self.assertEqual(published[0][0].class_id, 8)
+        self.assertEqual(published[0][0].object_id, -79)
+
+    def test_active_ptz_target_is_red_and_operation_log_is_top_right(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            metrics = MetricsState(
+                stream_ids=["stream-1"],
+                metrics_path=Path(directory) / "metrics.json",
+                interval_seconds=60,
+                minimum_healthy_fps=20,
+                group_id="group",
+                generation=1,
+            )
+            policy = StreamPolicy(
+                stream_id="stream-1",
+                classes=frozenset({8}),
+                conf=0.1,
+                roi=None,
+                labels={8: "船舶"},
+                vessel_detection=VesselDetectionOptions(enabled=True),
+                ptz_verification=PtzVerificationOptions(
+                    display_operation_log=True,
+                ),
+            )
+            target = fake_object(8, 0.9, left=100, top=100)
+            target.object_id = 10
+            other = fake_object(8, 0.9, left=500, top=100)
+            other.object_id = 11
+            coordinator = SimpleNamespace(
+                is_busy=True,
+                publish_primary_detections=lambda *_args, **_kwargs: None,
+                overlay_state=lambda: SimpleNamespace(
+                    state="tracking",
+                    target_rectangle=NormalizedRect(0.1, 0.2, 0.1, 0.2),
+                    vessel_number="10032",
+                    operation_lines=(
+                        "16:30:01 锁定追踪船只",
+                        "16:30:02 追踪纠偏 变焦+1",
+                    ),
+                ),
+            )
+            frame = FakeFrame([target, other])
+            batch = FakeBatch([frame])
+            fake_osd = SimpleNamespace(
+                Color=FakeColor,
+                Line=FakeLine,
+                Text=FakeText,
+                FontFamily=SimpleNamespace(Serif="serif"),
+            )
+
+            OverlayProcessor(
+                {0: policy},
+                metrics,
+                ptz_verification_coordinators={0: coordinator},
+            ).process(batch, fake_osd)
+
+        self.assertEqual(target.rect_params.border_width, 5)
+        self.assertEqual(
+            target.rect_params.border_color,
+            (1.0, 0.08, 0.08, 1.0),
+        )
+        self.assertEqual(
+            target.text_params.display_text,
+            "追踪中｜船舶｜船号 10032".encode(),
+        )
+        self.assertEqual(other.rect_params.border_width, 3)
+        self.assertEqual(
+            other.rect_params.border_color,
+            (0.0, 1.0, 0.0, 1.0),
+        )
+        self.assertEqual(other.text_params.display_text, "船舶".encode())
+        log_texts = [
+            text.display_text.decode()
+            for meta in frame.display_meta
+            for text in meta.texts
+            if text.x_offset >= 570
+        ]
+        self.assertEqual(
+            log_texts,
+            [
+                "PTZ｜持续追踪",
+                "16:30:01 锁定追踪船只",
+                "16:30:02 追踪纠偏 变焦+1",
+            ],
+        )
+
+    def test_ptz_operation_log_is_hidden_when_display_switch_is_false(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            metrics = MetricsState(
+                stream_ids=["stream-1"],
+                metrics_path=Path(directory) / "metrics.json",
+                interval_seconds=60,
+                minimum_healthy_fps=20,
+                group_id="group",
+                generation=1,
+            )
+            policy = StreamPolicy(
+                stream_id="stream-1",
+                classes=frozenset({8}),
+                conf=0.1,
+                roi=None,
+                labels={8: "船舶"},
+                vessel_detection=VesselDetectionOptions(enabled=True),
+                ptz_verification=PtzVerificationOptions(
+                    display_operation_log=False,
+                ),
+            )
+            vessel = fake_object(8, 0.9)
+            coordinator = SimpleNamespace(
+                is_busy=True,
+                publish_primary_detections=lambda *_args, **_kwargs: None,
+                overlay_state=lambda: SimpleNamespace(
+                    state="tracking",
+                    target_rectangle=NormalizedRect(0.1, 0.2, 0.1, 0.2),
+                    operation_lines=("16:30:01 定位目标",),
+                ),
+            )
+            frame = FakeFrame([vessel])
+            batch = FakeBatch([frame])
+            fake_osd = SimpleNamespace(
+                Color=FakeColor,
+                Line=FakeLine,
+                Text=FakeText,
+                FontFamily=SimpleNamespace(Serif="serif"),
+            )
+
+            OverlayProcessor(
+                {0: policy},
+                metrics,
+                ptz_verification_coordinators={0: coordinator},
+            ).process(batch, fake_osd)
+
+        self.assertEqual(vessel.rect_params.border_width, 5)
+        self.assertEqual(frame.display_meta, [])
+
+    def test_cached_active_vessel_target_uses_tracking_style(self) -> None:
+        frame = FakeFrame([])
+        batch = FakeBatch([frame])
+        target_rectangle = NormalizedRect(0.2, 0.3, 0.1, 0.1)
+        snapshot = VesselSnapshot(
+            state="running",
+            detections=(
+                VesselDetection(
+                    object_id=7,
+                    rectangle=target_rectangle,
+                    confidence=0.4,
+                    class_id=8,
+                    hits=3,
+                ),
+            ),
+            result_version=2,
+            updated_at=time.monotonic(),
+        )
+        fake_osd = SimpleNamespace(
+            Color=FakeColor,
+            Line=FakeLine,
+            Text=FakeText,
+            FontFamily=SimpleNamespace(Serif="serif"),
+        )
+
+        OverlayProcessor._draw_vessels(
+            batch,
+            frame,
+            snapshot,
+            VesselDetectionOptions(enabled=True),
+            fake_osd,
+            width=1000,
+            height=500,
+            active_target_rectangle=target_rectangle,
+        )
+
+        self.assertTrue(
+            all(line.width == 5 for line in frame.display_meta[0].lines)
+        )
+        self.assertEqual(
+            frame.display_meta[0].texts[1].display_text,
+            "追踪中｜船".encode(),
         )
 
     def test_plate_overlay_is_chinese_and_stable_by_track_id(self) -> None:
@@ -1794,6 +2250,428 @@ class DeepStreamWorkerTests(unittest.TestCase):
         self.assertTrue(_point_in_polygon((0.5, 0.5), polygon))
         self.assertTrue(_point_in_polygon((0.1, 0.1), polygon))
         self.assertFalse(_point_in_polygon((0.95, 0.5), polygon))
+
+
+    def test_ground_litter_branch_keeps_native_resolution(self) -> None:
+        pipeline = FakePipeline()
+        config = {
+            "gpu_id": 0,
+            "batch_size": 2,
+            "batch_push_timeout_us": 20_000,
+            "mux_width": 2560,
+            "mux_height": 1440,
+            "source_latency_ms": 100,
+            "encoder_iframe_interval": 25,
+            "tracker_config": "/tracker.yml",
+            "tracker_library": "/tracker.so",
+            "ground_litter": {"enabled": True, "analysis_fps": 1.0},
+            "streams": [
+                {
+                    "input_url": "rtsp://camera/walkway",
+                    "output_url": "rtsp://mediamtx/detected/litter",
+                    "bitrate_bps": 2_500_000,
+                }
+            ],
+        }
+        receiver = object()
+        skip_probe = object()
+        pipeline = FakePipeline()
+        _add_pipeline_nodes(
+            pipeline,
+            config,
+            Path("/runtime/nvinfer.txt"),
+            object(),
+            lambda _index: object(),
+            object(),
+            lambda _index: object(),
+            lambda _index: object(),
+            ground_litter_receiver=receiver,
+            ground_litter_skip_probe=skip_probe,
+        )
+
+        self.assertEqual(
+            pipeline.nodes["ground_litter_queue"][1]["leaky"],
+            2,
+        )
+        self.assertEqual(
+            pipeline.nodes["ground_litter_queue"][1]["max-size-buffers"],
+            1,
+        )
+        self.assertEqual(
+            pipeline.nodes["ground_litter_rgb_caps"][1]["caps"],
+            "video/x-raw(memory:NVMM), format=RGB",
+        )
+        self.assertEqual(
+            pipeline.nodes["ground_litter_sink"][1]["drop"],
+            True,
+        )
+        self.assertIn(
+            (
+                "ground_litter_queue",
+                "ground_litter_convert",
+                "ground_litter_rgb_caps",
+                "ground_litter_sink",
+            ),
+            pipeline.links,
+        )
+        self.assertIn(
+            ("ground_litter_queue", skip_probe),
+            pipeline.attachments,
+        )
+        self.assertIn(
+            ("ground_litter_sink", receiver),
+            pipeline.attachments,
+        )
+
+    def test_ground_litter_branch_requires_its_receiver(self) -> None:
+        pipeline = FakePipeline()
+        config = {
+            "gpu_id": 0,
+            "batch_size": 1,
+            "batch_push_timeout_us": 20_000,
+            "mux_width": 1280,
+            "mux_height": 720,
+            "source_latency_ms": 100,
+            "encoder_iframe_interval": 25,
+            "tracker_config": "/tracker.yml",
+            "tracker_library": "/tracker.so",
+            "ground_litter": {"enabled": True},
+            "streams": [
+                {
+                    "input_url": "rtsp://camera/one",
+                    "output_url": "rtsp://mediamtx/detected/one",
+                    "bitrate_bps": 2_000_000,
+                }
+            ],
+        }
+        with self.assertRaisesRegex(RuntimeError, "缺少旁路组件"):
+            _add_pipeline_nodes(
+                pipeline,
+                config,
+                Path("/runtime/nvinfer.txt"),
+                object(),
+                lambda _index: object(),
+                object(),
+                lambda _index: object(),
+                lambda _index: object(),
+            )
+
+    def test_ground_litter_osd_draws_zones_and_cached_boxes(self) -> None:
+        frame = FakeFrame([])
+        batch = FakeBatch([frame])
+        cache = GroundLitterResultCache()
+        cache.store_snapshot(
+            0,
+            GroundLitterSnapshot(
+                state="running",
+                detections=tuple(
+                    GroundLitterDetection(
+                        object_id=index + 1,
+                        rectangle=NormalizedRect(
+                            0.05 + index * 0.1,
+                            0.2,
+                            0.07,
+                            0.15,
+                        ),
+                        confidence=0.5,
+                        class_name="Plastic",
+                    )
+                    for index in range(5)
+                ),
+                result_version=3,
+                updated_at=time.monotonic(),
+            ),
+        )
+        fake_osd = SimpleNamespace(
+            Color=FakeColor,
+            Line=FakeLine,
+            Text=FakeText,
+            FontFamily=SimpleNamespace(Serif="serif"),
+        )
+        options = GroundLitterDetectionOptions(
+            enabled=True,
+            display_class=True,
+            zones=(
+                GroundLitterZone(
+                    region_id="merchant_01",
+                    polygon=(
+                        (0.1, 0.1),
+                        (0.5, 0.1),
+                        (0.5, 0.5),
+                        (0.1, 0.5),
+                    ),
+                ),
+            ),
+        )
+
+        OverlayProcessor._draw_ground_litter(
+            batch,
+            frame,
+            cache.snapshot(0),
+            options,
+            fake_osd,
+            width=1000,
+            height=500,
+            now=time.monotonic(),
+        )
+
+        # One display meta for the zone outline plus two box batches, and the
+        # zone outline is 4 lines while 5 boxes become 16 + 4 line segments.
+        line_counts = [len(item.lines) for item in frame.display_meta]
+        self.assertEqual(line_counts, [4, 16, 4])
+        self.assertEqual(
+            frame.display_meta[1].texts[0].display_text,
+            "疑似垃圾：5".encode(),
+        )
+        self.assertEqual(
+            frame.display_meta[1].texts[1].display_text,
+            "疑似垃圾 Plastic".encode(),
+        )
+
+    def test_ground_litter_osd_hides_stale_snapshots(self) -> None:
+        frame = FakeFrame([])
+        batch = FakeBatch([frame])
+        cache = GroundLitterResultCache()
+        cache.store_snapshot(
+            0,
+            GroundLitterSnapshot(
+                state="running",
+                detections=(
+                    GroundLitterDetection(
+                        object_id=1,
+                        rectangle=NormalizedRect(0.1, 0.1, 0.05, 0.05),
+                        confidence=0.5,
+                    ),
+                ),
+                result_version=1,
+                updated_at=1.0,
+            ),
+        )
+        fake_osd = SimpleNamespace(
+            Color=FakeColor,
+            Line=FakeLine,
+            Text=FakeText,
+            FontFamily=SimpleNamespace(Serif="serif"),
+        )
+        options = GroundLitterDetectionOptions(
+            enabled=True,
+            zones=(
+                GroundLitterZone(
+                    region_id="z1",
+                    polygon=(
+                        (0.1, 0.1),
+                        (0.5, 0.1),
+                        (0.5, 0.5),
+                        (0.1, 0.5),
+                    ),
+                ),
+            ),
+        )
+
+        OverlayProcessor._draw_ground_litter(
+            batch,
+            frame,
+            cache.snapshot(0),
+            options,
+            fake_osd,
+            width=1000,
+            height=500,
+            now=1_000.0,
+        )
+
+        self.assertEqual(
+            frame.display_meta[1].texts[0].display_text,
+            "疑似垃圾：未发现".encode(),
+        )
+        self.assertEqual(len(frame.display_meta), 2)
+        self.assertEqual(len(frame.display_meta[1].lines), 0)
+
+    def test_ground_litter_frame_processor_sends_native_frames(self) -> None:
+        class FakeClient:
+            def __init__(self) -> None:
+                self.accepted: list[int] = []
+                self.submitted: list[dict] = []
+
+            def accepts(self, pad_index: int, *, timestamp=None) -> bool:
+                self.accepted.append(pad_index)
+                return pad_index == 0
+
+            def submit(
+                self,
+                pad_index: int,
+                frame: object,
+                *,
+                timestamp: float,
+                night: bool = False,
+                actors: object = (),
+            ) -> bool:
+                self.submitted.append(
+                    {
+                        "pad": pad_index,
+                        "frame": frame,
+                        "night": night,
+                        "actors": list(actors),
+                    }
+                )
+                return True
+
+        client = FakeClient()
+        processor = GroundLitterFrameProcessor(
+            client,
+            night_by_pad={0: True},
+            actor_classes_by_pad={0: (0, 2), 1: (0,)},
+        )
+        actor = SimpleNamespace(
+            class_id=0,
+            rect_params=SimpleNamespace(
+                left=100.0,
+                top=50.0,
+                width=200.0,
+                height=100.0,
+            ),
+        )
+        ignored = SimpleNamespace(
+            class_id=8,
+            rect_params=SimpleNamespace(
+                left=0.0,
+                top=0.0,
+                width=10.0,
+                height=10.0,
+            ),
+        )
+        frame = FakeFrame([actor, ignored])
+        frame.pad_index = 0
+        batch = FakeBatch([frame])
+        frames = [np.zeros((500, 1000, 3), np.uint8)]
+
+        processor.process(
+            batch,
+            frames,
+            frame_width=1000,
+            frame_height=500,
+        )
+
+        self.assertEqual(client.accepted, [0])
+        self.assertEqual(len(client.submitted), 1)
+        submitted = client.submitted[0]
+        self.assertEqual(submitted["pad"], 0)
+        self.assertTrue(submitted["night"])
+        self.assertEqual(submitted["actors"], [(0.1, 0.1, 0.2, 0.2)])
+
+    def test_ground_litter_frame_processor_skips_disabled_pads(self) -> None:
+        class FakeClient:
+            def __init__(self) -> None:
+                self.submitted: list[int] = []
+
+            def accepts(self, pad_index: int, *, timestamp=None) -> bool:
+                return False
+
+            def submit(self, pad_index: int, *_args, **_kwargs) -> bool:
+                self.submitted.append(pad_index)
+                return True
+
+        client = FakeClient()
+        processor = GroundLitterFrameProcessor(
+            client,
+            actor_classes_by_pad={0: (0,)},
+        )
+        frame = FakeFrame([])
+        processor.process(
+            FakeBatch([frame]),
+            [np.zeros((10, 10, 3), np.uint8)],
+            frame_width=10,
+            frame_height=10,
+        )
+        self.assertEqual(client.submitted, [])
+
+    def test_ground_litter_metrics_are_reported(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "metrics.json"
+            metrics = MetricsState(
+                stream_ids=["stream-1"],
+                metrics_path=path,
+                interval_seconds=0,
+                minimum_healthy_fps=20,
+                group_id="group",
+                generation=1,
+                ground_litter_enabled={"stream-1": True},
+            )
+            metrics.observe_ground_litter(
+                "stream-1",
+                state="running",
+                count=2,
+                result_version=7,
+                updated_at=time.monotonic(),
+                last_inference_ms=420.5,
+                analyzed_frames=11,
+                tile_count=9,
+                message="",
+            )
+            # The periodic writer is driven by the per-frame observer, exactly
+            # like the OSD path where both are called for the same frame.
+            metrics.observe_frame("stream-1", detections=0)
+            report = json.loads(path.read_text(encoding="utf-8"))
+            stream = report["streams"]["stream-1"]
+
+        self.assertTrue(stream["ground_litter_enabled"])
+        self.assertEqual(stream["ground_litter_state"], "running")
+        self.assertEqual(stream["ground_litter_count"], 2)
+        self.assertEqual(stream["ground_litter_result_version"], 7)
+        self.assertEqual(stream["ground_litter_tile_count"], 9)
+        self.assertEqual(stream["ground_litter_analyzed_frames"], 11)
+        self.assertAlmostEqual(
+            stream["ground_litter_last_inference_ms"],
+            420.5,
+        )
+
+    def test_load_policies_rebuilds_ground_litter_options(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            labels = Path(directory) / "labels.txt"
+            labels.write_text("person\nbicycle\n", encoding="utf-8")
+            config = {
+                "labels_path": str(labels),
+                "streams": [
+                    {
+                        "stream_id": "stream-1",
+                        "classes": [0],
+                        "conf": 0.25,
+                        "ground_litter": {
+                            "enabled": True,
+                            "analysis_fps": 1.5,
+                            "confidence": 0.18,
+                            "hold_seconds": 4,
+                            "zones": [
+                                {
+                                    "region_id": "merchant_01",
+                                    "polygon": [
+                                        [0.3, 0.1],
+                                        [0.4, 0.1],
+                                        [0.35, 0.4],
+                                    ],
+                                    "minimum_short_side_px": 8,
+                                    "minimum_box_area_px": 64,
+                                }
+                            ],
+                        },
+                    },
+                    {"stream_id": "stream-2", "classes": None, "conf": 0.25},
+                ],
+            }
+
+            policies = _load_policies(config)
+
+        self.assertTrue(policies[0].ground_litter.enabled)
+        self.assertEqual(policies[0].ground_litter.analysis_fps, 1.5)
+        self.assertEqual(
+            policies[0].ground_litter.region_ids,
+            ("merchant_01",),
+        )
+        self.assertEqual(
+            policies[0].ground_litter.zones[0].minimum_short_side_px,
+            8,
+        )
+        self.assertFalse(policies[1].ground_litter.enabled)
+        self.assertEqual(policies[1].ground_litter.zones, ())
 
 
 if __name__ == "__main__":

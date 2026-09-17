@@ -1,0 +1,30 @@
+{
+  "id": "S08",
+  "model_requested": "qwen3-vl-plus",
+  "model_returned": "qwen3-vl-plus",
+  "manifest_sha256": "175685c3bd0b3d26a590843690b4fe69a881f2249b62f25eb02421251566eaeb",
+  "seconds": 2.6947627079789527,
+  "usage": {
+    "prompt_tokens": 456,
+    "completion_tokens": 67,
+    "total_tokens": 523,
+    "completion_tokens_details": {
+      "text_tokens": 67
+    },
+    "prompt_tokens_details": {
+      "image_tokens": 212,
+      "text_tokens": 244,
+      "cached_tokens": 0
+    }
+  },
+  "request_id": "chatcmpl-4ee7eb1a-c42d-9b51-bcc0-4261610492d5",
+  "finish_reason": "stop",
+  "raw_answer": "{\n  \"decision\": \"litter\",\n  \"object_description\": \"白色蓬松物含绿色标签，疑似废弃塑料袋或包装\",\n  \"ground_relation\": \"on_ground\",\n  \"reason\": \"物体置于地面砖缝旁，无支撑，形态松散，符合零散垃圾特征。\"\n}",
+  "parsed": {
+    "decision": "litter",
+    "object_description": "白色蓬松物含绿色标签，疑似废弃塑料袋或包装",
+    "ground_relation": "on_ground",
+    "reason": "物体置于地面砖缝旁，无支撑，形态松散，符合零散垃圾特征。"
+  },
+  "valid": true
+}

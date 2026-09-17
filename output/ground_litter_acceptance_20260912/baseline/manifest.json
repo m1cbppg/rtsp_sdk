@@ -1,0 +1,261 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-09-12T14:35:48.431871+00:00",
+  "git_head": "ac48c2938b3a99ad155187c188f26e3190c8d167",
+  "worktree_dirty": true,
+  "purpose": "experimental_baseline_not_production_approval",
+  "files": [
+    {
+      "path": "config/ground_litter_profiles.example.json",
+      "sha256": "c78ed69ca344cb688d236f7fe2cfd9d05de5081fdb72c8f47d3f272f8c5faa9d",
+      "bytes": 13038
+    },
+    {
+      "path": "models/litter/manifest.json",
+      "sha256": "ba60f89bb852dc702f44d6750ac30b27ec872b98f09dfb7f351d10bc09faef21",
+      "bytes": 4430
+    },
+    {
+      "path": "models/litter/turhancan_yolov8m_seg_trash.pt",
+      "sha256": "a2f8de0c7f714e2ab8b70c62490e2a41fd4a6681ca4a8dd442797c809a140278",
+      "bytes": 54786410
+    },
+    {
+      "path": "models/yolo26s.pt",
+      "sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b",
+      "bytes": 20422725
+    },
+    {
+      "path": "output/litter_camera_calibration/preview_20260910/44180209031322001021.jpg",
+      "sha256": "403e73e35e27999df8e4bb3766bab463f749cc4e3875db07f2cca08de2e7886b",
+      "bytes": 2162851
+    },
+    {
+      "path": "output/litter_camera_calibration/preview_20260910/44180209031322001022.jpg",
+      "sha256": "d72e81eaacaa684cc408bab0ec27ce1c98237723ec54131266070a8ab76ffa99",
+      "bytes": 2223009
+    },
+    {
+      "path": "output/litter_camera_calibration/preview_20260910/44180209031322001027.jpg",
+      "sha256": "592019e03837d661af09c4dd596668558c59e75795e9f04c946194e90d3a1969",
+      "bytes": 1929613
+    },
+    {
+      "path": "output/litter_camera_calibration/preview_20260910/44180209031322001028.jpg",
+      "sha256": "06aa62d4c9bfef86911f3711ffd2d1937f4cb99014c418312b96e5ea7bdb81ad",
+      "bytes": 2028688
+    },
+    {
+      "path": "output/litter_camera_calibration/preview_20260910/44180209031322001030.jpg",
+      "sha256": "f28e7094dff3f92e5a33881895852de174ec7d98c9e1b7cfb2d12dea73215da4",
+      "bytes": 1999721
+    },
+    {
+      "path": "rtsp_annotator/ground_litter.py",
+      "sha256": "6b5f84c682f824284dc3260a3ce6bf7d9174346b726b39f2d5d13e37c837a0ea",
+      "bytes": 11121
+    },
+    {
+      "path": "rtsp_annotator/ground_litter_acceptance.py",
+      "sha256": "cbf9e2b5814537e7b067154c7400829626755fc33fd4320c2db89bd229040fe7",
+      "bytes": 19552
+    },
+    {
+      "path": "rtsp_annotator/ground_litter_alignment.py",
+      "sha256": "7a087c73607bf369bcf37b08f4b15419b7ca63117b4d70742fd9c57a856a0214",
+      "bytes": 4562
+    },
+    {
+      "path": "rtsp_annotator/ground_litter_batch.py",
+      "sha256": "337fc56995fb3f78257f8147428a3f97f58ef37ecf8d0873eebdfe5dee601331",
+      "bytes": 17194
+    },
+    {
+      "path": "rtsp_annotator/ground_litter_change.py",
+      "sha256": "ccdf6b93af1b0df60ac133c87cd2d9d961f8b45fbf8a3081ed3561b31379e692",
+      "bytes": 6116
+    },
+    {
+      "path": "rtsp_annotator/ground_litter_geometry.py",
+      "sha256": "0a550a8825b32cf6294eda839503edc9a0e30b33ae7ccf13dfcee1a9d7db700c",
+      "bytes": 2697
+    },
+    {
+      "path": "rtsp_annotator/ground_litter_inventory.py",
+      "sha256": "008f7f2310bc5642d417510245bfb591f6c776e17ec1fe11df25c5f9d8536963",
+      "bytes": 9076
+    },
+    {
+      "path": "rtsp_annotator/ground_litter_journal.py",
+      "sha256": "585acd6aa63c70731839e388ceb9c682f3c41093a1609e2ed04f3270606f3f3f",
+      "bytes": 1513
+    },
+    {
+      "path": "rtsp_annotator/ground_litter_profile.py",
+      "sha256": "68e697fcb7b84eb5356a281debfbfe2f0dfccbdebd005a2107ca81592f05edd3",
+      "bytes": 1790
+    },
+    {
+      "path": "rtsp_annotator/ground_litter_replay.py",
+      "sha256": "2c41765b3f4b91b1a20dbd1bc50fc2e88095d44cee2994c0b07dce425ccb54b6",
+      "bytes": 4710
+    },
+    {
+      "path": "rtsp_annotator/ground_litter_review.py",
+      "sha256": "e47ef0b0146c263ece1fb4c164ab3a180c4a9ee20b000bdc11e6a81d398ababa",
+      "bytes": 3606
+    },
+    {
+      "path": "rtsp_annotator/ground_litter_runner.py",
+      "sha256": "e9f69c1c5c05f73936083e6d912926137f9c3bf65d69a1e9c705848d38b1d3a4",
+      "bytes": 17615
+    },
+    {
+      "path": "rtsp_annotator/ground_litter_runtime.py",
+      "sha256": "d70e35095c62a07d1363a1aff45c49baa1cdbd836f7936b9a52ae52312550526",
+      "bytes": 18365
+    },
+    {
+      "path": "rtsp_annotator/ground_litter_sampling.py",
+      "sha256": "05934663327378e568b32127993ba9e901491f6457d7f0935266480860c06aea",
+      "bytes": 3309
+    },
+    {
+      "path": "rtsp_annotator/ground_litter_source.py",
+      "sha256": "4a32c49d0a7bf3b35bd686b1f6348dade26de0e368dffcae7d3135e48e57df91",
+      "bytes": 6855
+    },
+    {
+      "path": "rtsp_annotator/playback_source.py",
+      "sha256": "fbbaffcb872a1287933c3e9e7d70112e4eec20d3bf47d3220be62a72386d7b9f",
+      "bytes": 6571
+    },
+    {
+      "path": "scripts/analyze_ground_litter_run.py",
+      "sha256": "d524044cd963fd5aff93be3c0e6931d933fec6b8db35325359b7bf1fe161dbdf",
+      "bytes": 11267
+    },
+    {
+      "path": "scripts/build_ground_litter_calibration_page.py",
+      "sha256": "98173bfa89c7554ba7072bf347be3c91960a6695f554e9f1a9104bb91fb20823",
+      "bytes": 11746
+    },
+    {
+      "path": "scripts/capture_ground_litter_previews.py",
+      "sha256": "cbe0618ede304f6a36495d8baa1119d77bb1d99dcb56f2afef28f17dfc0672bd",
+      "bytes": 3271
+    },
+    {
+      "path": "scripts/evaluate_ground_litter_acceptance.py",
+      "sha256": "9ef26ab4fb5a9ab801a72972abbb04a281dbab56b5e59cb290ded314f3818d5b",
+      "bytes": 2136
+    },
+    {
+      "path": "scripts/evaluate_ground_litter_batch.py",
+      "sha256": "f5f4f0b8c3b566c5be262d54a9c47c4137c77b04938e300e5c971c7e22689352",
+      "bytes": 3562
+    },
+    {
+      "path": "scripts/evaluate_ground_litter_temporal.py",
+      "sha256": "adef51d94c1b9a4c47ddb0d9e4de087a8176cea87356b48dc572e413f5facd25",
+      "bytes": 4326
+    },
+    {
+      "path": "scripts/make_ground_litter_replay_profile.py",
+      "sha256": "a20a67ac05171cb54c5358679c2d6f201716fce4d2d15cb0acece3b748d44188",
+      "bytes": 2375
+    },
+    {
+      "path": "scripts/prepare_ground_litter_acceptance.py",
+      "sha256": "c37964d38c3442029034eca12134d1e2fae83b4c52342d4dcc96b4de5908b685",
+      "bytes": 6725
+    },
+    {
+      "path": "scripts/review_ground_litter_profiles.py",
+      "sha256": "ae64ed6741ce4a53f922e1d55d36c6acb990724726488691286fc22eab1072d1",
+      "bytes": 5870
+    },
+    {
+      "path": "scripts/sample_ground_litter_playback.py",
+      "sha256": "8206b9783e22e6453740ce074088880b65b441d891d7c3549a366773409a77e7",
+      "bytes": 1720
+    },
+    {
+      "path": "scripts/sample_ground_litter_video.py",
+      "sha256": "f9c852b60dcaef590d6cbdf49c6b8052319179b1f66a345d15d37b2ba3e7c2d7",
+      "bytes": 788
+    },
+    {
+      "path": "tests/test_ground_litter.py",
+      "sha256": "b5cdecfd917842c6d565ad1fec3d151b366d6a9d1b0384f7b512ac853e38dcab",
+      "bytes": 4006
+    },
+    {
+      "path": "tests/test_ground_litter_acceptance.py",
+      "sha256": "45eed41049f99e9249278add94cc38f86aaaa1e443757d0c6b9b306b76015937",
+      "bytes": 12040
+    },
+    {
+      "path": "tests/test_ground_litter_alignment.py",
+      "sha256": "546e186755f324bdb1eef1bd361a0810ede570ab959f11a5ced77f4a1426ea33",
+      "bytes": 2334
+    },
+    {
+      "path": "tests/test_ground_litter_batch.py",
+      "sha256": "ea2d8733024d48717a350fa7e98f41144d158e86093bff8bff2a63470f324860",
+      "bytes": 2798
+    },
+    {
+      "path": "tests/test_ground_litter_change.py",
+      "sha256": "43a765af62a822d370fee282c87156415c88a1e8760e71815cb8cfd0bbedf502",
+      "bytes": 1436
+    },
+    {
+      "path": "tests/test_ground_litter_inventory.py",
+      "sha256": "e1a96ac90f234f9e397cdc43c162588a022feaed1e6d206fd05b6e1f4bfd39be",
+      "bytes": 5266
+    },
+    {
+      "path": "tests/test_ground_litter_logs.py",
+      "sha256": "b9c0722abf67c1718bc1c013771a3db2b2c8367fad3cd916cc60fb9a270ab5df",
+      "bytes": 3348
+    },
+    {
+      "path": "tests/test_ground_litter_profile.py",
+      "sha256": "52828edd129f2af35c791e0cf8b438b72fb68985a9f3cf0f7ff9d5f523df1520",
+      "bytes": 1212
+    },
+    {
+      "path": "tests/test_ground_litter_replay.py",
+      "sha256": "5b176893276aed1230e0d1fbf75b7fbac077e40ea25d3261792840837456a747",
+      "bytes": 1387
+    },
+    {
+      "path": "tests/test_ground_litter_review.py",
+      "sha256": "7e2b265974184dcb7fb0b51a0227d982bd3d9d791cd8a02e402ca5a956eb299d",
+      "bytes": 2360
+    },
+    {
+      "path": "tests/test_ground_litter_sampling.py",
+      "sha256": "adf42ddfef5a130bc5a5077812a04c681e295933d2a1439f912a3cc66ba3f10a",
+      "bytes": 1892
+    },
+    {
+      "path": "tests/test_ground_litter_source.py",
+      "sha256": "965a250c1558c6ac2419ac680f694d24404e0dc7dd11fa3f04a0049bc22516b3",
+      "bytes": 1016
+    },
+    {
+      "path": "tests/test_playback_source.py",
+      "sha256": "ceb542e19a8bae8a15902839a73b63a4464ca06ff16b1b813ccc9af2d044cb09",
+      "bytes": 5175
+    }
+  ],
+  "notifications_enabled": false,
+  "production_integration": false,
+  "notes": [
+    "文件散列绑定当前未提交代码；Git HEAD 不能独自重现本次基线。",
+    "只冻结实验资产；尚无现场效果、五路吞吐或生产共存验收。",
+    "本目录为验收准备材料，不是可运行的部署包。"
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "status": "pilot_log_summary_not_accuracy",
+  "run_directory": "/tmp/litter-1021-run",
+  "summary": {
+    "elapsed_seconds": 1800.1368988819886,
+    "cameras": {
+      "44180209031322001021": {
+        "state": "analyzing",
+        "analyzed": 1609,
+        "rejected_frames": 1,
+        "skipped_analysis_frames": 1,
+        "created_items": 2,
+        "cleared_items": 0,
+        "effective_analysis_fps": 0.894,
+        "last_frame_at": "2026-09-11T02:53:43.677405+00:00",
+        "mode": "day",
+        "decoder": "opencv",
+        "rejection_reasons": {
+          "analysis_result_stale": 1
+        },
+        "source_time_seconds": 1801.44,
+        "result_age_seconds": 0.533,
+        "inference_seconds": 0.477,
+        "candidate_count": 1,
+        "confirmed_visible": 0
+      }
+    },
+    "active_items": 2,
+    "reader_processes_alive": 0,
+    "notifications_sent": 0
+  },
+  "event_counts": {
+    "run_started": 1,
+    "storage": 30,
+    "source_state": 1,
+    "sample": 30,
+    "rejected": 1,
+    "observation": 1609,
+    "run_stopped": 1
+  },
+  "rejection_counts": {
+    "analysis_result_stale": 1
+  },
+  "source_state_counts": {
+    "live": 1
+  },
+  "storage_bytes_max": 45366485,
+  "cameras": {
+    "44180209031322001021": {
+      "observations": 1609,
+      "candidates": 2666,
+      "candidate_labels": {
+        "Plastic": 1678,
+        "Paper": 955,
+        "Metal": 33
+      },
+      "rejection_counts": {
+        "analysis_result_stale": 1
+      },
+      "source_state_counts": {
+        "live": 1
+      },
+      "created_item_ids": [
+        "4c4fc313ae684ef8a63f03f5d9e05352",
+        "1f7b263b86ee4e5a81d5446485c9ff4a"
+      ],
+      "cleared_item_ids": [],
+      "duplicate_created_ids": [],
+      "capture_generations": {
+        "1.0": 1609
+      },
+      "inference_seconds_p50": 0.259,
+      "inference_seconds_p95": 0.482,
+      "result_age_seconds_p95": 0.516,
+      "review": {}
+    }
+  },
+  "created_id_count": 2,
+  "unique_created_id_count": 2,
+  "duplicate_created_ids": [],
+  "duplicate_id_scope": "repeated ID writes only; distinct IDs for the same physical object require image review",
+  "review_counts": {},
+  "unreviewed_created_ids": [
+    "4c4fc313ae684ef8a63f03f5d9e05352",
+    "1f7b263b86ee4e5a81d5446485c9ff4a"
+  ],
+  "optimization_queue": [
+    "review every created item before enabling notifications",
+    "inspect rejected/stale/view-change counters from summary.json",
+    "compare candidate labels and ROI boundaries before changing confidence",
+    "run a fixed day/night replay after each profile or threshold change"
+  ]
+}

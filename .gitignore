@@ -9,3 +9,41 @@ dist/
 *.egg-info/
 .env.ptz-test
 ptz-test-runtime/
+
+# ---------------------------------------------------------------------------
+# 测试/演示/证据产物：现场素材、抓帧、录像、日志与导出一律不入库。
+# 目的：避免一次提交带入数 GB 图片与视频（历史一次 add -A 曾暂存约 2.6 GB）。
+# 需要保留的只有文字结论：output/ 下的 *.md 与结构化小结 *.json。
+# ---------------------------------------------------------------------------
+
+# output/ 只放行文字报告和 JSON 小结，其余（图片/视频/HTML 导出/jsonl/sqlite/wheel）忽略。
+# 注意：git 要求父目录未被忽略才能放行文件，因此必须同时放行 output/**/ 目录本身。
+output/**
+!output/**/
+!output/**/*.md
+!output/**/*.json
+
+# 运行期数据、TensorRT 引擎与部署构建上下文。
+data/
+engines/
+runtime/
+releases/
+
+# 现场录像与抓帧（.pt 权重已在上方忽略，这里只补媒体与导出格式）。
+*.mp4
+*.mkv
+*.avi
+*.mov
+*.m4v
+*.webm
+
+# 日志、逐帧记录、SQLite 与打包产物。
+*.jsonl
+*.jsonl.*
+*.log
+*.sqlite3
+*.sqlite3-wal
+*.sqlite3-shm
+*.db
+*.ses
+*.whl

@@ -1,0 +1,134 @@
+{
+  "kind": "frozen_image_diagnostics_not_temporal_or_accuracy",
+  "device": "cpu",
+  "actor_imgsz": 1280,
+  "sample_period": 0,
+  "confidence": 0.2,
+  "tiles": [
+    [
+      141,
+      216,
+      781,
+      856
+    ],
+    [
+      141,
+      728,
+      781,
+      1368
+    ],
+    [
+      141,
+      758,
+      781,
+      1398
+    ],
+    [
+      301,
+      216,
+      941,
+      856
+    ],
+    [
+      301,
+      728,
+      941,
+      1368
+    ],
+    [
+      301,
+      758,
+      941,
+      1398
+    ]
+  ],
+  "tile_layout": "minimal",
+  "roi_area_px": 314646,
+  "profile_sha256": "2978ee2d5542108e6ff0ad66d25a4d00b25c23cdaa4e822fb23d698bb3a0654c",
+  "manifest_sha256": "e7fae1462efd1ee52009934143901499aa9241b25055721ce16625098db45f46",
+  "runtime": {
+    "python": "3.12.0",
+    "files": [
+      {
+        "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/rtsp_annotator/ground_litter.py",
+        "sha256": "6b5f84c682f824284dc3260a3ce6bf7d9174346b726b39f2d5d13e37c837a0ea"
+      },
+      {
+        "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/rtsp_annotator/ground_litter_acceptance.py",
+        "sha256": "cbf9e2b5814537e7b067154c7400829626755fc33fd4320c2db89bd229040fe7"
+      },
+      {
+        "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/rtsp_annotator/ground_litter_alignment.py",
+        "sha256": "86dcf8041cbacca7c61ac9b8a82632ce8e5587511019e4a9f3f5c3805865830d"
+      },
+      {
+        "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/rtsp_annotator/ground_litter_batch.py",
+        "sha256": "337fc56995fb3f78257f8147428a3f97f58ef37ecf8d0873eebdfe5dee601331"
+      },
+      {
+        "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/rtsp_annotator/ground_litter_change.py",
+        "sha256": "ccdf6b93af1b0df60ac133c87cd2d9d961f8b45fbf8a3081ed3561b31379e692"
+      },
+      {
+        "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/rtsp_annotator/ground_litter_diagnostics.py",
+        "sha256": "85b1211010789f565aad657debbddaaf84f48b3560dab5fa453a8014c090686f"
+      },
+      {
+        "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/rtsp_annotator/ground_litter_facility.py",
+        "sha256": "3a2cc259c9f608a77fb24b5044f61df85f81a2271276afa0f50d59d022184259"
+      },
+      {
+        "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/rtsp_annotator/ground_litter_geometry.py",
+        "sha256": "0a550a8825b32cf6294eda839503edc9a0e30b33ae7ccf13dfcee1a9d7db700c"
+      },
+      {
+        "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/rtsp_annotator/ground_litter_inventory.py",
+        "sha256": "ecaadc868fb7ee854b3e2ee1b5bece1c69013c7deb2d33bb0b796dd41754a9cd"
+      },
+      {
+        "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/rtsp_annotator/ground_litter_journal.py",
+        "sha256": "585acd6aa63c70731839e388ceb9c682f3c41093a1609e2ed04f3270606f3f3f"
+      },
+      {
+        "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/rtsp_annotator/ground_litter_profile.py",
+        "sha256": "68e697fcb7b84eb5356a281debfbfe2f0dfccbdebd005a2107ca81592f05edd3"
+      },
+      {
+        "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/rtsp_annotator/ground_litter_quality.py",
+        "sha256": "0d6f8e90b849ce5f94e1037c2b49184cdd67ec974cc76e08e3e19348d0de6572"
+      },
+      {
+        "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/rtsp_annotator/ground_litter_replay.py",
+        "sha256": "b1b73179cf25bad7483389172e6709583bcee39eb89de26060444af23bb4c225"
+      },
+      {
+        "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/rtsp_annotator/ground_litter_review.py",
+        "sha256": "e47ef0b0146c263ece1fb4c164ab3a180c4a9ee20b000bdc11e6a81d398ababa"
+      },
+      {
+        "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/rtsp_annotator/ground_litter_runner.py",
+        "sha256": "a301ec75422e8e138616f907573c144c93711f4e5eadcef5c272a4c889dbb79c"
+      },
+      {
+        "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/rtsp_annotator/ground_litter_runtime.py",
+        "sha256": "8e35a346f8f4133ebb82e4e0c6d8452d36c18e21e26e5561463dca90c19b023c"
+      },
+      {
+        "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/rtsp_annotator/ground_litter_sampling.py",
+        "sha256": "05934663327378e568b32127993ba9e901491f6457d7f0935266480860c06aea"
+      },
+      {
+        "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/rtsp_annotator/ground_litter_source.py",
+        "sha256": "c36c66bd2f84d8b0b38661a58e89fd5368b3004cb3f21984d801bbfa5edc7512"
+      },
+      {
+        "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/models/litter/turhancan_yolov8m_seg_trash.pt",
+        "sha256": "a2f8de0c7f714e2ab8b70c62490e2a41fd4a6681ca4a8dd442797c809a140278"
+      },
+      {
+        "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/models/yolo26s.pt",
+        "sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b"
+      }
+    ]
+  }
+}

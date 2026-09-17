@@ -1,0 +1,46 @@
+{
+  "label_source": "assistant_visual_provisional_before_inference",
+  "scope": "position probes only, not exhaustive or independent accuracy truth",
+  "first_frame_targets": [
+    {
+      "target_id": "walkway_small_white",
+      "box": [
+        802,
+        560,
+        820,
+        579
+      ],
+      "state": "visible_small_ground_object_probable_litter_unverified"
+    },
+    {
+      "target_id": "broom",
+      "box": [
+        554,
+        625,
+        602,
+        670
+      ],
+      "state": "non_litter_tool_provisional"
+    },
+    {
+      "target_id": "bucket",
+      "box": [
+        548,
+        529,
+        609,
+        592
+      ],
+      "state": "non_litter_container_provisional"
+    },
+    {
+      "target_id": "curb_bags",
+      "box": [
+        826,
+        567,
+        951,
+        681
+      ],
+      "state": "bag_like_objects_check_roi_membership"
+    }
+  ]
+}

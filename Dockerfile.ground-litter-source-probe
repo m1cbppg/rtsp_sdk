@@ -1,0 +1,16 @@
+# Isolated source diagnostics only. Build with the prepared release as context.
+# Does not change the production image tag or install into running containers.
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
+COPY wheels /opt/probe-wheels
+COPY wheel_manifest.json /opt/probe-wheels/manifest.json
+RUN python3 -c "import hashlib,json,pathlib; p=pathlib.Path('/opt/probe-wheels'); m=json.loads((p/'manifest.json').read_text()); assert all(hashlib.sha256((p/n).read_bytes()).hexdigest()==s for n,s in m.items())" \
+    && python3 -m pip install --no-index --no-deps --no-cache-dir --break-system-packages \
+        /opt/probe-wheels/av-16.1.0-cp312-cp312-manylinux_2_28_x86_64.whl \
+    && python3 -c "import av; assert av.__version__=='16.1.0'"
+ENV PYTHONPATH=/probe/src
+COPY src /probe/src
+COPY scripts /probe/scripts
+ENTRYPOINT ["python3", "/probe/scripts/probe_ground_litter_source.py"]
+CMD ["--help"]

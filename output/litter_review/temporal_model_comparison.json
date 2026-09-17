@@ -1,0 +1,29 @@
+{
+  "parameters": {
+    "persistence_seconds": 30,
+    "confirm_hits": 4,
+    "association_distance": 0.15,
+    "minimum_confidence": 0.2,
+    "lost_track_seconds": 20,
+    "note": "lost_track_seconds=20 only bridges 10s offline sampling"
+  },
+  "results": [
+    {
+      "model": "turhancan",
+      "events_30s_4hits": 22
+    },
+    {
+      "model": "catsat",
+      "events_30s_4hits": 13
+    },
+    {
+      "model": "esapzoi",
+      "events_30s_4hits": 7
+    },
+    {
+      "model": "littercam",
+      "events_30s_4hits": 14
+    }
+  ],
+  "limitation": "无穷尽真值；事件数不是准确率"
+}

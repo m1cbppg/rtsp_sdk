@@ -1,0 +1,14 @@
+{
+  "date": "2026-09-10",
+  "api_image_id": "sha256:1add8299293c131abee033761f48ecfe96a3509e5b241b808c118ffb120dbf9a",
+  "camera_image_id": "sha256:966377e2432590e529f5157bf50a8d8ed09143cf6b4a8d622c92f81a526dd522",
+  "core_pending_files": 10,
+  "helper_scripts_missing_from_deployment": 6,
+  "api_health": "ok",
+  "camera_healthz": "ok",
+  "stream_count": 0,
+  "unit_test_command": ".venv/bin/python -B -m unittest tests.test_continuous_tracking tests.test_tracking_edge_guard tests.test_tracking_observation_contract -q",
+  "unit_tests_passed": 23,
+  "unit_tests_duration_seconds": 29.038,
+  "server_mutations": false
+}

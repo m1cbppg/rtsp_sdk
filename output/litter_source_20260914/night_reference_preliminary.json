@@ -1,0 +1,155 @@
+[
+  {
+    "horizontal_shift_native_px": 20,
+    "status": "view_changed_recalibration_required",
+    "diagnostics": {
+      "method": "sift",
+      "matches": 934,
+      "inliers": 920,
+      "quality": {
+        "detail_loss_fraction": 0.00023,
+        "largest_detail_loss_fraction": 0.00023,
+        "usable": true
+      },
+      "inlier_fraction": 0.985,
+      "hull_fraction": 0.8656,
+      "displacement_native_px": 20.085
+    }
+  },
+  {
+    "horizontal_shift_native_px": -20,
+    "status": "view_changed_recalibration_required",
+    "diagnostics": {
+      "method": "sift",
+      "matches": 942,
+      "inliers": 928,
+      "quality": {
+        "detail_loss_fraction": 0.00011,
+        "largest_detail_loss_fraction": 0.0001,
+        "usable": true
+      },
+      "inlier_fraction": 0.9851,
+      "hull_fraction": 0.868,
+      "displacement_native_px": 20.047
+    }
+  },
+  {
+    "image": "frame-001.jpg",
+    "status": "accepted",
+    "diagnostics": {
+      "method": "sift",
+      "matches": 886,
+      "inliers": 870,
+      "quality": {
+        "detail_loss_fraction": 0.0,
+        "largest_detail_loss_fraction": 0.0,
+        "usable": true
+      },
+      "inlier_fraction": 0.9819,
+      "hull_fraction": 0.8852,
+      "displacement_native_px": 0.205
+    }
+  },
+  {
+    "image": "frame-002.jpg",
+    "status": "accepted",
+    "diagnostics": {
+      "method": "sift",
+      "matches": 823,
+      "inliers": 796,
+      "quality": {
+        "detail_loss_fraction": 0.0,
+        "largest_detail_loss_fraction": 0.0,
+        "usable": true
+      },
+      "inlier_fraction": 0.9672,
+      "hull_fraction": 0.8807,
+      "displacement_native_px": 0.22
+    }
+  },
+  {
+    "image": "frame-003.jpg",
+    "status": "accepted",
+    "diagnostics": {
+      "method": "sift",
+      "matches": 888,
+      "inliers": 862,
+      "quality": {
+        "detail_loss_fraction": 0.0,
+        "largest_detail_loss_fraction": 0.0,
+        "usable": true
+      },
+      "inlier_fraction": 0.9707,
+      "hull_fraction": 0.8836,
+      "displacement_native_px": 0.089
+    }
+  },
+  {
+    "image": "frame-004.jpg",
+    "status": "accepted",
+    "diagnostics": {
+      "method": "sift",
+      "matches": 933,
+      "inliers": 904,
+      "quality": {
+        "detail_loss_fraction": 0.0,
+        "largest_detail_loss_fraction": 0.0,
+        "usable": true
+      },
+      "inlier_fraction": 0.9689,
+      "hull_fraction": 0.8869,
+      "displacement_native_px": 0.187
+    }
+  },
+  {
+    "image": "frame-005.jpg",
+    "status": "accepted",
+    "diagnostics": {
+      "method": "sift",
+      "matches": 859,
+      "inliers": 838,
+      "quality": {
+        "detail_loss_fraction": 0.0,
+        "largest_detail_loss_fraction": 0.0,
+        "usable": true
+      },
+      "inlier_fraction": 0.9756,
+      "hull_fraction": 0.845,
+      "displacement_native_px": 0.149
+    }
+  },
+  {
+    "image": "frame-006.jpg",
+    "status": "accepted",
+    "diagnostics": {
+      "method": "sift",
+      "matches": 735,
+      "inliers": 713,
+      "quality": {
+        "detail_loss_fraction": 0.0,
+        "largest_detail_loss_fraction": 0.0,
+        "usable": true
+      },
+      "inlier_fraction": 0.9701,
+      "hull_fraction": 0.832,
+      "displacement_native_px": 0.265
+    }
+  },
+  {
+    "image": "frame-007.jpg",
+    "status": "accepted",
+    "diagnostics": {
+      "method": "sift",
+      "matches": 911,
+      "inliers": 904,
+      "quality": {
+        "detail_loss_fraction": 0.0,
+        "largest_detail_loss_fraction": 0.0,
+        "usable": true
+      },
+      "inlier_fraction": 0.9923,
+      "hull_fraction": 0.888,
+      "displacement_native_px": 0.195
+    }
+  }
+]

@@ -1,0 +1,30 @@
+{
+  "id": "S07",
+  "model_requested": "qwen3-vl-plus",
+  "model_returned": "qwen3-vl-plus",
+  "manifest_sha256": "175685c3bd0b3d26a590843690b4fe69a881f2249b62f25eb02421251566eaeb",
+  "seconds": 2.0249970000004396,
+  "usage": {
+    "prompt_tokens": 456,
+    "completion_tokens": 56,
+    "total_tokens": 512,
+    "completion_tokens_details": {
+      "text_tokens": 56
+    },
+    "prompt_tokens_details": {
+      "image_tokens": 212,
+      "text_tokens": 244,
+      "cached_tokens": 0
+    }
+  },
+  "request_id": "chatcmpl-2663c9cd-2101-9674-8af5-dc5a81ccfb7c",
+  "finish_reason": "stop",
+  "raw_answer": "{\n  \"decision\": \"uncertain\",\n  \"object_description\": \"红框内灰白块状物，细节模糊\",\n  \"ground_relation\": \"unclear\",\n  \"reason\": \"图像分辨率低，无法确认是否接触地面及物体性质\"\n}",
+  "parsed": {
+    "decision": "uncertain",
+    "object_description": "红框内灰白块状物，细节模糊",
+    "ground_relation": "unclear",
+    "reason": "图像分辨率低，无法确认是否接触地面及物体性质"
+  },
+  "valid": true
+}

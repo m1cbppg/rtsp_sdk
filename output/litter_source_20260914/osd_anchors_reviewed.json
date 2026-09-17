@@ -1,0 +1,65 @@
+[
+  {
+    "index": 0,
+    "sequence": 1.0,
+    "probe_elapsed": 3.3679259170021396,
+    "arrival_elapsed": 3.3367719579982804,
+    "local_age": 0.031155167001998052,
+    "generation": 1.0,
+    "source_elapsed": 0.0,
+    "decoded_at_utc": "2026-09-13T16:47:04.284227+00:00",
+    "image": "snapshots/frame-000.jpg",
+    "sha256": "eb609ec927dcce303e9c572b83b1a5f6fd87e6129dabbd6178a1c3339436c05f",
+    "size": [
+      2560,
+      1440
+    ],
+    "osd_time_verified": false,
+    "osd_time": "2026-09-14T00:46:58+08:00",
+    "osd_read_source": "assistant_visual_transcription",
+    "decoded_wall_minus_osd_seconds": 6.284227,
+    "note": "Displayed seconds are quantized; camera clock sync unverified, not absolute latency"
+  },
+  {
+    "index": 10,
+    "sequence": 271.0,
+    "probe_elapsed": 310.1134202079993,
+    "arrival_elapsed": 310.0640870000061,
+    "local_age": 0.04933620798692573,
+    "generation": 1.0,
+    "source_elapsed": 311.18,
+    "decoded_at_utc": "2026-09-13T16:52:11.011542+00:00",
+    "image": "snapshots/frame-010.jpg",
+    "sha256": "df944a814bc4f4a803ffef9e40695e09fbd08e00881b46bc1fe83eb78198ec17",
+    "size": [
+      2560,
+      1440
+    ],
+    "osd_time_verified": false,
+    "osd_time": "2026-09-14T00:52:10+08:00",
+    "osd_read_source": "assistant_visual_transcription",
+    "decoded_wall_minus_osd_seconds": 1.011542,
+    "note": "Displayed seconds are quantized; camera clock sync unverified, not absolute latency"
+  },
+  {
+    "index": 19,
+    "sequence": 523.0,
+    "probe_elapsed": 585.6608774170018,
+    "arrival_elapsed": 585.6271880830027,
+    "local_age": 0.03368958400096744,
+    "generation": 1.0,
+    "source_elapsed": 587.097,
+    "decoded_at_utc": "2026-09-13T16:56:46.574643+00:00",
+    "image": "snapshots/frame-019.jpg",
+    "sha256": "b16ba9d2113e7a0ecd6cdf3f76de91a09984126d6842b8a4f3fcdb60388674f8",
+    "size": [
+      2560,
+      1440
+    ],
+    "osd_time_verified": false,
+    "osd_time": "2026-09-14T00:56:45+08:00",
+    "osd_read_source": "assistant_visual_transcription",
+    "decoded_wall_minus_osd_seconds": 1.574643,
+    "note": "Displayed seconds are quantized; camera clock sync unverified, not absolute latency"
+  }
+]

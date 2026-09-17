@@ -1,0 +1,886 @@
+[
+  {
+    "review_id": "audit-0000",
+    "kind": "audit",
+    "source_time_seconds": 4.796,
+    "frame_sequence": 3,
+    "image": "review_frames/audit-0000.jpg",
+    "crop_images": [],
+    "candidates": [],
+    "confirmation": []
+  },
+  {
+    "review_id": "candidate-0000",
+    "kind": "candidate",
+    "source_time_seconds": 13.033,
+    "frame_sequence": 11,
+    "image": "review_frames/candidate-0000.jpg",
+    "crop_images": [
+      "review_frames/candidate-0000-object-00.jpg",
+      "review_frames/candidate-0000-object-01.jpg",
+      "review_frames/candidate-0000-object-02.jpg",
+      "review_frames/candidate-0000-object-03.jpg"
+    ],
+    "candidates": [
+      {
+        "box": [
+          1439,
+          738,
+          1537,
+          801
+        ],
+        "confidence": 0.6405295729637146,
+        "label": "Plastic",
+        "region_id": "right_walkway",
+        "merchant_id": null,
+        "source": "model"
+      },
+      {
+        "box": [
+          1461,
+          819,
+          1533,
+          856
+        ],
+        "confidence": 0.6217890381813049,
+        "label": "Metal",
+        "region_id": "right_walkway",
+        "merchant_id": null,
+        "source": "model"
+      },
+      {
+        "box": [
+          1305,
+          589,
+          1445,
+          668
+        ],
+        "confidence": 0.42403507232666016,
+        "label": "Paper",
+        "region_id": "right_walkway",
+        "merchant_id": null,
+        "source": "model"
+      },
+      {
+        "box": [
+          1261,
+          594,
+          1348,
+          651
+        ],
+        "confidence": 0.2660442292690277,
+        "label": "Paper",
+        "region_id": "right_walkway",
+        "merchant_id": null,
+        "source": "model"
+      }
+    ],
+    "confirmation": [
+      {
+        "rectangle": [
+          0.562109375,
+          0.5125,
+          0.03828125,
+          0.04375
+        ],
+        "span_seconds": 0.0,
+        "required_seconds": 45,
+        "recent_hits": 0,
+        "observations": 1,
+        "hit_fraction": 0.0,
+        "actor_overlap": 1.0,
+        "confirmed": false,
+        "visible": false,
+        "reasons": [
+          "actor_occluded",
+          "confirm_duration",
+          "actor_clear_duration",
+          "recent_hits",
+          "hit_fraction"
+        ]
+      },
+      {
+        "rectangle": [
+          0.570703125,
+          0.56875,
+          0.028125,
+          0.025694444444444443
+        ],
+        "span_seconds": 0.0,
+        "required_seconds": 45,
+        "recent_hits": 0,
+        "observations": 1,
+        "hit_fraction": 0.0,
+        "actor_overlap": 1.0,
+        "confirmed": false,
+        "visible": false,
+        "reasons": [
+          "actor_occluded",
+          "confirm_duration",
+          "actor_clear_duration",
+          "recent_hits",
+          "hit_fraction"
+        ]
+      },
+      {
+        "rectangle": [
+          0.509765625,
+          0.40902777777777777,
+          0.0546875,
+          0.05486111111111111
+        ],
+        "span_seconds": 0.0,
+        "required_seconds": 45,
+        "recent_hits": 0,
+        "observations": 1,
+        "hit_fraction": 0.0,
+        "actor_overlap": 0.2924,
+        "confirmed": false,
+        "visible": false,
+        "reasons": [
+          "actor_occluded",
+          "confirm_duration",
+          "actor_clear_duration",
+          "recent_hits",
+          "hit_fraction"
+        ]
+      },
+      {
+        "rectangle": [
+          0.492578125,
+          0.4125,
+          0.033984375,
+          0.03958333333333333
+        ],
+        "span_seconds": 0.0,
+        "required_seconds": 45,
+        "recent_hits": 1,
+        "observations": 1,
+        "hit_fraction": 1.0,
+        "actor_overlap": 0.0,
+        "confirmed": false,
+        "visible": true,
+        "reasons": [
+          "confirm_duration",
+          "actor_clear_duration",
+          "recent_hits"
+        ]
+      }
+    ]
+  },
+  {
+    "review_id": "candidate-0001",
+    "kind": "candidate",
+    "source_time_seconds": 20.404,
+    "frame_sequence": 18,
+    "image": "review_frames/candidate-0001.jpg",
+    "crop_images": [
+      "review_frames/candidate-0001-object-00.jpg",
+      "review_frames/candidate-0001-object-01.jpg",
+      "review_frames/candidate-0001-object-02.jpg",
+      "review_frames/candidate-0001-object-03.jpg",
+      "review_frames/candidate-0001-object-04.jpg"
+    ],
+    "candidates": [
+      {
+        "box": [
+          1442,
+          738,
+          1536,
+          826
+        ],
+        "confidence": 0.7733611464500427,
+        "label": "Plastic",
+        "region_id": "right_walkway",
+        "merchant_id": null,
+        "source": "model"
+      },
+      {
+        "box": [
+          1463,
+          822,
+          1530,
+          855
+        ],
+        "confidence": 0.5455053448677063,
+        "label": "Metal",
+        "region_id": "right_walkway",
+        "merchant_id": null,
+        "source": "model"
+      },
+      {
+        "box": [
+          1482,
+          872,
+          1550,
+          975
+        ],
+        "confidence": 0.5450090169906616,
+        "label": "Paper",
+        "region_id": "right_walkway",
+        "merchant_id": null,
+        "source": "model"
+      },
+      {
+        "box": [
+          1333,
+          587,
+          1448,
+          674
+        ],
+        "confidence": 0.3155108094215393,
+        "label": "Paper",
+        "region_id": "right_walkway",
+        "merchant_id": null,
+        "source": "model"
+      },
+      {
+        "box": [
+          1518,
+          1315,
+          1711,
+          1398
+        ],
+        "confidence": 0.26661890745162964,
+        "label": "Plastic",
+        "region_id": "right_walkway",
+        "merchant_id": null,
+        "source": "model"
+      }
+    ],
+    "confirmation": [
+      {
+        "rectangle": [
+          0.56328125,
+          0.5125,
+          0.03671875,
+          0.06111111111111111
+        ],
+        "span_seconds": 0.0,
+        "required_seconds": 45,
+        "recent_hits": 1,
+        "observations": 1,
+        "hit_fraction": 1.0,
+        "actor_overlap": 0.0,
+        "confirmed": false,
+        "visible": true,
+        "reasons": [
+          "confirm_duration",
+          "actor_clear_duration",
+          "recent_hits"
+        ]
+      },
+      {
+        "rectangle": [
+          0.571484375,
+          0.5708333333333333,
+          0.026171875,
+          0.022916666666666665
+        ],
+        "span_seconds": 0.0,
+        "required_seconds": 45,
+        "recent_hits": 1,
+        "observations": 1,
+        "hit_fraction": 1.0,
+        "actor_overlap": 0.0,
+        "confirmed": false,
+        "visible": true,
+        "reasons": [
+          "confirm_duration",
+          "actor_clear_duration",
+          "recent_hits"
+        ]
+      },
+      {
+        "rectangle": [
+          0.57890625,
+          0.6055555555555555,
+          0.0265625,
+          0.07152777777777777
+        ],
+        "span_seconds": 0.0,
+        "required_seconds": 45,
+        "recent_hits": 1,
+        "observations": 1,
+        "hit_fraction": 1.0,
+        "actor_overlap": 0.0,
+        "confirmed": false,
+        "visible": true,
+        "reasons": [
+          "confirm_duration",
+          "actor_clear_duration",
+          "recent_hits"
+        ]
+      },
+      {
+        "rectangle": [
+          0.520703125,
+          0.4076388888888889,
+          0.044921875,
+          0.06041666666666667
+        ],
+        "span_seconds": 0.0,
+        "required_seconds": 45,
+        "recent_hits": 1,
+        "observations": 1,
+        "hit_fraction": 1.0,
+        "actor_overlap": 0.0,
+        "confirmed": false,
+        "visible": true,
+        "reasons": [
+          "confirm_duration",
+          "actor_clear_duration",
+          "recent_hits"
+        ]
+      },
+      {
+        "rectangle": [
+          0.59296875,
+          0.9131944444444444,
+          0.075390625,
+          0.05763888888888889
+        ],
+        "span_seconds": 0.0,
+        "required_seconds": 45,
+        "recent_hits": 1,
+        "observations": 1,
+        "hit_fraction": 1.0,
+        "actor_overlap": 0.0563,
+        "confirmed": false,
+        "visible": true,
+        "reasons": [
+          "confirm_duration",
+          "actor_clear_duration",
+          "recent_hits"
+        ]
+      }
+    ]
+  },
+  {
+    "review_id": "candidate-0002",
+    "kind": "candidate",
+    "source_time_seconds": 50.257,
+    "frame_sequence": 47,
+    "image": "review_frames/candidate-0002.jpg",
+    "crop_images": [
+      "review_frames/candidate-0002-object-00.jpg",
+      "review_frames/candidate-0002-object-01.jpg",
+      "review_frames/candidate-0002-object-02.jpg",
+      "review_frames/candidate-0002-object-03.jpg",
+      "review_frames/candidate-0002-object-04.jpg"
+    ],
+    "candidates": [
+      {
+        "box": [
+          1462,
+          818,
+          1535,
+          856
+        ],
+        "confidence": 0.6549661159515381,
+        "label": "Metal",
+        "region_id": "right_walkway",
+        "merchant_id": null,
+        "source": "model"
+      },
+      {
+        "box": [
+          1441,
+          739,
+          1537,
+          814
+        ],
+        "confidence": 0.316825270652771,
+        "label": "Plastic",
+        "region_id": "right_walkway",
+        "merchant_id": null,
+        "source": "model"
+      },
+      {
+        "box": [
+          1482,
+          875,
+          1549,
+          974
+        ],
+        "confidence": 0.2835335433483124,
+        "label": "Paper",
+        "region_id": "right_walkway",
+        "merchant_id": null,
+        "source": "model"
+      },
+      {
+        "box": [
+          1432,
+          827,
+          1448,
+          848
+        ],
+        "confidence": 0.2707388699054718,
+        "label": "Metal",
+        "region_id": "right_walkway",
+        "merchant_id": null,
+        "source": "model"
+      },
+      {
+        "box": [
+          1261,
+          594,
+          1348,
+          651
+        ],
+        "confidence": 0.2547243535518646,
+        "label": "Paper",
+        "region_id": "right_walkway",
+        "merchant_id": null,
+        "source": "model"
+      }
+    ],
+    "confirmation": [
+      {
+        "rectangle": [
+          0.57109375,
+          0.5680555555555555,
+          0.028515625,
+          0.02638888888888889
+        ],
+        "span_seconds": 0.0,
+        "required_seconds": 45,
+        "recent_hits": 0,
+        "observations": 1,
+        "hit_fraction": 0.0,
+        "actor_overlap": 1.0,
+        "confirmed": false,
+        "visible": false,
+        "reasons": [
+          "actor_occluded",
+          "confirm_duration",
+          "actor_clear_duration",
+          "recent_hits",
+          "hit_fraction"
+        ]
+      },
+      {
+        "rectangle": [
+          0.562890625,
+          0.5131944444444444,
+          0.0375,
+          0.052083333333333336
+        ],
+        "span_seconds": 0.0,
+        "required_seconds": 45,
+        "recent_hits": 0,
+        "observations": 1,
+        "hit_fraction": 0.0,
+        "actor_overlap": 1.0,
+        "confirmed": false,
+        "visible": false,
+        "reasons": [
+          "actor_occluded",
+          "confirm_duration",
+          "actor_clear_duration",
+          "recent_hits",
+          "hit_fraction"
+        ]
+      },
+      {
+        "rectangle": [
+          0.57890625,
+          0.6076388888888888,
+          0.026171875,
+          0.06875
+        ],
+        "span_seconds": 0.0,
+        "required_seconds": 45,
+        "recent_hits": 0,
+        "observations": 1,
+        "hit_fraction": 0.0,
+        "actor_overlap": 0.6496,
+        "confirmed": false,
+        "visible": false,
+        "reasons": [
+          "actor_occluded",
+          "confirm_duration",
+          "actor_clear_duration",
+          "recent_hits",
+          "hit_fraction"
+        ]
+      },
+      {
+        "rectangle": [
+          0.559375,
+          0.5743055555555555,
+          0.00625,
+          0.014583333333333334
+        ],
+        "span_seconds": 0.0,
+        "required_seconds": 45,
+        "recent_hits": 0,
+        "observations": 1,
+        "hit_fraction": 0.0,
+        "actor_overlap": 1.0,
+        "confirmed": false,
+        "visible": false,
+        "reasons": [
+          "actor_occluded",
+          "confirm_duration",
+          "actor_clear_duration",
+          "recent_hits",
+          "hit_fraction"
+        ]
+      },
+      {
+        "rectangle": [
+          0.492578125,
+          0.4125,
+          0.033984375,
+          0.03958333333333333
+        ],
+        "span_seconds": 0.0,
+        "required_seconds": 45,
+        "recent_hits": 1,
+        "observations": 1,
+        "hit_fraction": 1.0,
+        "actor_overlap": 0.0,
+        "confirmed": false,
+        "visible": true,
+        "reasons": [
+          "confirm_duration",
+          "actor_clear_duration",
+          "recent_hits"
+        ]
+      }
+    ]
+  },
+  {
+    "review_id": "audit-0001",
+    "kind": "audit",
+    "source_time_seconds": 71.035,
+    "frame_sequence": 67,
+    "image": "review_frames/audit-0001.jpg",
+    "crop_images": [],
+    "candidates": [],
+    "confirmation": []
+  },
+  {
+    "review_id": "candidate-0003",
+    "kind": "candidate",
+    "source_time_seconds": 85.529,
+    "frame_sequence": 81,
+    "image": "review_frames/candidate-0003.jpg",
+    "crop_images": [
+      "review_frames/candidate-0003-object-00.jpg",
+      "review_frames/candidate-0003-object-01.jpg",
+      "review_frames/candidate-0003-object-02.jpg",
+      "review_frames/candidate-0003-object-03.jpg"
+    ],
+    "candidates": [
+      {
+        "box": [
+          1462,
+          819,
+          1532,
+          855
+        ],
+        "confidence": 0.5400608777999878,
+        "label": "Metal",
+        "region_id": "right_walkway",
+        "merchant_id": null,
+        "source": "model"
+      },
+      {
+        "box": [
+          1340,
+          586,
+          1445,
+          666
+        ],
+        "confidence": 0.3772428631782532,
+        "label": "Paper",
+        "region_id": "right_walkway",
+        "merchant_id": null,
+        "source": "model"
+      },
+      {
+        "box": [
+          1443,
+          738,
+          1537,
+          811
+        ],
+        "confidence": 0.3118685483932495,
+        "label": "Plastic",
+        "region_id": "right_walkway",
+        "merchant_id": null,
+        "source": "model"
+      },
+      {
+        "box": [
+          1261,
+          594,
+          1348,
+          651
+        ],
+        "confidence": 0.29705318808555603,
+        "label": "Paper",
+        "region_id": "right_walkway",
+        "merchant_id": null,
+        "source": "model"
+      }
+    ],
+    "confirmation": [
+      {
+        "rectangle": [
+          0.57109375,
+          0.56875,
+          0.02734375,
+          0.025
+        ],
+        "span_seconds": 0.0,
+        "required_seconds": 45,
+        "recent_hits": 1,
+        "observations": 1,
+        "hit_fraction": 1.0,
+        "actor_overlap": 0.0,
+        "confirmed": false,
+        "visible": true,
+        "reasons": [
+          "confirm_duration",
+          "actor_clear_duration",
+          "recent_hits"
+        ]
+      },
+      {
+        "rectangle": [
+          0.5234375,
+          0.40694444444444444,
+          0.041015625,
+          0.05555555555555555
+        ],
+        "span_seconds": 0.0,
+        "required_seconds": 45,
+        "recent_hits": 1,
+        "observations": 1,
+        "hit_fraction": 1.0,
+        "actor_overlap": 0.0,
+        "confirmed": false,
+        "visible": true,
+        "reasons": [
+          "confirm_duration",
+          "actor_clear_duration",
+          "recent_hits"
+        ]
+      },
+      {
+        "rectangle": [
+          0.563671875,
+          0.5125,
+          0.03671875,
+          0.050694444444444445
+        ],
+        "span_seconds": 0.0,
+        "required_seconds": 45,
+        "recent_hits": 1,
+        "observations": 1,
+        "hit_fraction": 1.0,
+        "actor_overlap": 0.0,
+        "confirmed": false,
+        "visible": true,
+        "reasons": [
+          "confirm_duration",
+          "actor_clear_duration",
+          "recent_hits"
+        ]
+      },
+      {
+        "rectangle": [
+          0.492578125,
+          0.4125,
+          0.033984375,
+          0.03958333333333333
+        ],
+        "span_seconds": 0.0,
+        "required_seconds": 45,
+        "recent_hits": 1,
+        "observations": 1,
+        "hit_fraction": 1.0,
+        "actor_overlap": 0.0,
+        "confirmed": false,
+        "visible": true,
+        "reasons": [
+          "confirm_duration",
+          "actor_clear_duration",
+          "recent_hits"
+        ]
+      }
+    ]
+  },
+  {
+    "review_id": "candidate-0004",
+    "kind": "candidate",
+    "source_time_seconds": 104.019,
+    "frame_sequence": 99,
+    "image": "review_frames/candidate-0004.jpg",
+    "crop_images": [
+      "review_frames/candidate-0004-object-00.jpg",
+      "review_frames/candidate-0004-object-01.jpg",
+      "review_frames/candidate-0004-object-02.jpg"
+    ],
+    "candidates": [
+      {
+        "box": [
+          1461,
+          821,
+          1528,
+          856
+        ],
+        "confidence": 0.5010194778442383,
+        "label": "Metal",
+        "region_id": "right_walkway",
+        "merchant_id": null,
+        "source": "model"
+      },
+      {
+        "box": [
+          1261,
+          593,
+          1348,
+          651
+        ],
+        "confidence": 0.3642047345638275,
+        "label": "Plastic",
+        "region_id": "right_walkway",
+        "merchant_id": null,
+        "source": "model"
+      },
+      {
+        "box": [
+          1517,
+          1314,
+          1715,
+          1398
+        ],
+        "confidence": 0.2188975065946579,
+        "label": "Metal",
+        "region_id": "right_walkway",
+        "merchant_id": null,
+        "source": "model"
+      }
+    ],
+    "confirmation": [
+      {
+        "rectangle": [
+          0.570703125,
+          0.5701388888888889,
+          0.026171875,
+          0.024305555555555556
+        ],
+        "span_seconds": 0.0,
+        "required_seconds": 45,
+        "recent_hits": 0,
+        "observations": 1,
+        "hit_fraction": 0.0,
+        "actor_overlap": 1.0,
+        "confirmed": false,
+        "visible": false,
+        "reasons": [
+          "actor_occluded",
+          "confirm_duration",
+          "actor_clear_duration",
+          "recent_hits",
+          "hit_fraction"
+        ]
+      },
+      {
+        "rectangle": [
+          0.492578125,
+          0.41180555555555554,
+          0.033984375,
+          0.04027777777777778
+        ],
+        "span_seconds": 0.0,
+        "required_seconds": 45,
+        "recent_hits": 1,
+        "observations": 1,
+        "hit_fraction": 1.0,
+        "actor_overlap": 0.0,
+        "confirmed": false,
+        "visible": true,
+        "reasons": [
+          "confirm_duration",
+          "actor_clear_duration",
+          "recent_hits"
+        ]
+      },
+      {
+        "rectangle": [
+          0.592578125,
+          0.9125,
+          0.07734375,
+          0.058333333333333334
+        ],
+        "span_seconds": 0.0,
+        "required_seconds": 45,
+        "recent_hits": 1,
+        "observations": 1,
+        "hit_fraction": 1.0,
+        "actor_overlap": 0.0613,
+        "confirmed": false,
+        "visible": true,
+        "reasons": [
+          "confirm_duration",
+          "actor_clear_duration",
+          "recent_hits"
+        ]
+      }
+    ]
+  },
+  {
+    "review_id": "candidate-0005",
+    "kind": "candidate",
+    "source_time_seconds": 109.184,
+    "frame_sequence": 104,
+    "image": "review_frames/candidate-0005.jpg",
+    "crop_images": [
+      "review_frames/candidate-0005-object-00.jpg"
+    ],
+    "candidates": [
+      {
+        "box": [
+          1517,
+          1314,
+          1713,
+          1398
+        ],
+        "confidence": 0.20085003972053528,
+        "label": "Metal",
+        "region_id": "right_walkway",
+        "merchant_id": null,
+        "source": "model"
+      }
+    ],
+    "confirmation": [
+      {
+        "rectangle": [
+          0.592578125,
+          0.9125,
+          0.0765625,
+          0.058333333333333334
+        ],
+        "span_seconds": 0.0,
+        "required_seconds": 45,
+        "recent_hits": 1,
+        "observations": 1,
+        "hit_fraction": 1.0,
+        "actor_overlap": 0.0594,
+        "confirmed": false,
+        "visible": true,
+        "reasons": [
+          "confirm_duration",
+          "actor_clear_duration",
+          "recent_hits"
+        ]
+      }
+    ]
+  }
+]

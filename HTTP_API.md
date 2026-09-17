@@ -263,6 +263,96 @@ YOLO、夜间模式和车牌识别同时配置，完整请求、事件接口、W
 固定机位燃气瓶识别通过`gas_cylinder`启用，仅支持DeepStream后端。它不会
 逐帧运行YOLOE，完整参数、摄像头Profile和RTSP质量要求见`GAS_CYLINDER.md`。
 
+地面零散垃圾识别通过`ground_litter`启用，仅支持DeepStream后端。一次调用即可在
+同一条输出流上得到"地面识别区域轮廓 + 疑似垃圾框"，不需要另建脚本或第二路流。
+只想要区域和垃圾框、不要人/车框时，加`"display_detections": false`：
+
+```bash
+curl --location 'http://14.21.88.97:38080/v1/streams' \
+  --header 'X-API-Key: API密钥' \
+  --header 'Content-Type: application/json' \
+  --data-raw '{
+      "input_url": "rtsp://admin:密码@摄像头:554/Streaming/channels/101",
+      "model": "yolo26s.pt",
+      "conf": 0.35,
+      "bitrate": "2000k",
+      "display_detections": false,
+      "ground_litter": {
+          "enabled": true,
+          "analysis_fps": 1.0,
+          "confidence": 0.20,
+          "tile_size_px": 640,
+          "tile_overlap": 0.2,
+          "minimum_hits": 2,
+          "hit_window": 3,
+          "hold_seconds": 3,
+          "maximum_boxes": 8,
+          "label": "疑似垃圾",
+          "display_zones": true,
+          "zones": [
+              {
+                  "region_id": "merchant_01",
+                  "name": "门店01门前人行道",
+                  "polygon": [[0.32,0.15],[0.367,0.15],[0.35,0.30],[0.27,0.30]],
+                  "exclude_zones": [],
+                  "minimum_short_side_px": 6,
+                  "minimum_box_area_px": 36
+              }
+          ],
+          "overlay_exclude_zones": [
+              [[0.0,0.035],[0.4,0.035],[0.4,0.105],[0.0,0.105]]
+          ]
+      }
+  }'
+```
+
+`display_detections`语义：**只控制输出画面是否绘制普通检测框**（人/车等，绿色框与中文
+标签）。它不影响跟踪、事件状态机、逐流`interval_detections`统计，也不影响
+`ground_litter`的人车遮挡判定——元数据里始终有全部80类，`classes`和
+`display_detections`都只是显示过滤。默认`true`保持原有行为。
+
+垃圾结果与参数语义：
+
+- `zones`是归一化地面多边形，`enabled=true`时至少一个；`exclude_zones`用于排除
+  该区域内的固定物，`overlay_exclude_zones`是整幅画面的固定排除区（水印、棚顶等）。
+- `minimum_short_side_px`/`minimum_box_area_px`是**原生像素**门槛，按
+  `DEEPSTREAM_MUX_WIDTH x DEEPSTREAM_MUX_HEIGHT`计算。要保持摄像头原生像素
+  （推荐），必须把mux尺寸设成摄像头分辨率；否则门槛值会按缩小的画面解释。
+- `zones[].confidence`/`zones[].night_confidence`允许按区域设置阈值：远端小目标可降低，
+  近端固定设施密集区域可提高。模型先按所有区域最低阈值保留候选，再按所属区域过滤。
+- `context_class_ids`用于动态遮挡物（默认包含雨伞、长椅、椅子、花盆、餐桌的COCO类别）。
+  这些框只让被遮挡候选进入暂缓状态，不会把区域永久屏蔽；遮挡物移动后区域仍可检测新垃圾。
+- 模型支持`tile_size_px`选择分块尺寸（常用`640`或`320`）：分块是**原生像素裁剪**，
+  `inference_imgsz:null`（默认）时推理输入与分块同尺寸、不做整图缩放。实测 1021 该区域在 1920×1080 下
+  `640`为2块、`320`为7块；320分块对已确认的小垃圾置信度更高（约0.14 对 0.11），
+  但服务器 GPU 上单帧更慢（约63–79ms 对 33ms），1 FPS 下都可接受。
+- `inference_imgsz`可独立设置160–1920，例如`tile_size_px:320,inference_imgsz:640`
+  表示裁剪320再按640推理；省略/null保持旧模式。放大不会恢复mux之前丢失的细节。
+- `local_actor_max_crops`默认0（关闭），范围0–8；需`actor_model`。对通过ROI的候选做
+  最多N个局部人车复核，合并全图/主链人车框后重新过滤，不能保证检出所有俯视停放车辆。
+- `box_smoothing_alpha`默认1（不平滑），可设0.5平滑显示框；关联仍用原始框。
+- 模型在原生像素裁剪上推理；
+  分块数由区域形状决定，受`maximum_tiles`上限保护；超限时该流创建失败。
+- `analysis_fps`默认`1.0`，是旁路分析频率而不是显示帧率。显示层要求
+  首次在`hit_window`次分析里至少`minimum_hits`次命中后确认。确认后允许模型短时漏检，
+  最后一次命中超过`hold_seconds`即隐藏且须重新确认。重复/倒序时间戳不累计命中。
+- 人车框覆盖候选达到阈值时立即隐藏并重置确认；仅在旁边、不重叠不应隐藏。
+- `display_confidence`显示最近一次命中的置信度（短时保持期间是最后一次命中值），
+  不再使用轨迹历史最大值。旁路停止更新时仍受OSD新鲜度限制。
+- 查询流的`ground_litter.options`返回生效参数，`effective_imgsz`返回实际选择的输入尺寸；
+  `last_inference_ms`包含整图人车、分块垃圾及局部复核耗时。
+- `confidence`/`night_confidence`：后者只在流的`night_vision.enabled`为`true`
+  时生效；两者都是模型原始阈值，不是最终判定。
+- 框上默认只写`label`（默认"疑似垃圾"）。模型类别（Glass/Metal/Paper/
+  Plastic/Waste）是材质不是业务结论，需要时必须显式打开`display_class`。
+- 结果只是"疑似垃圾"的人工复核线索，不产生`item_id`、不写清理状态、不发通知。
+- `ground_litter`不能与`ptz_verification`同时启用（云台运动会让固定地面区域失效）。
+- 完整参数、离线校准方法、当前精度边界见`GROUND_LITTER_IMPLEMENTATION.md`。
+- 请求体是严格校验的（`extra="forbid"`），不要加自定义注释字段；1021 单路起步范例见
+  `config/ground_litter_1021_stream_request.example.json`（其中`input_url`是占位地址，
+  真实的摄像头账号密码不要写进仓库）。该范例在2560x1440下生成5个原生640分块，
+  实际分块数随区域形状变化，受`maximum_tiles`保护。
+
 远距离船舶框选通过`vessel_detection`启用，仅支持DeepStream后端。它使用
 1280推理尺寸、低阈值候选和时序确认，并可给每个机位配置水域ROI、透视分区与
 固定误报排除区；完整请求和验收方法见`VESSEL_DETECTION.md`。
@@ -300,10 +390,58 @@ SQLite中记住已看过的位置，避免目标ID变化后反复放大。同一
 →只测控制→再启用联动”三阶段验收，摄像头控制的独立诊断接口见
 `camera_control/docs/API.md`。
 
+需要逐任务排查控制链时，可在创建流的`ptz_verification`中传
+`"trace_logging_enabled":true`。每个PTZ复核`job_id`对应一份
+`event_root/vessel-verifications/task-traces/<job_id>.jsonl`，记录控制动作、耗时、错误和
+最终HOME状态；默认关闭，且不会写入密钥、租约令牌、摄像头凭据或图片内容。
+
 联动默认使用`zoom_strategy:adaptive`：每次放大后依据重捕获船框的宽高和实际增长
 重新选择下一步，达到目标尺寸、无有效增长、达到最大轮数/累计增量或丢失目标时立即
 停止；最终只有真实`boat`类别可以截图。需要现场保守回退时可传
 `zoom_strategy:fixed`和`zoom_steps`。完整参数见`PTZ_VESSEL_VERIFICATION.md`。
+
+需要近景确认后持续跟随同一艘船时，创建流传
+`ptz_verification.continuous_tracking:true`；默认`false`仍是截图后回HOME。持续模式以
+`adaptive_target_width_ratio:0.33`和`adaptive_target_height_ratio:0.33`作为船框宽或高
+约占对应画面边长三分之一的目标，并用中心死区、
+缩放滞回和控制间隔避免云台抖动。开启`tracking_recovery_enabled`后，短暂
+丢框会先在最后目标位置逐档缩小视野重捕获；船持续丢失、流停止、达到非零的
+最长跟踪时间或控制异常后
+都会回HOME。流详情中的`ptz_verification.state`会返回`tracking`、`reacquiring`或
+`returning_home`，metrics包含`tracking_duration_seconds`、`tracking_corrections`、
+`tracking_target_width_ratio`、`tracking_target_height_ratio`和
+`tracking_last_end_reason`。
+如果需要在达到目标尺寸后再放大一档，传
+`tracking_initial_extra_zoom_step:1`；默认`0`保持兼容。演示场景建议同时传
+`tracking_recovery_enabled:true`、`tracking_lost_timeout_seconds:30`和
+`tracking_max_duration_seconds:0`，表示短暂丢检先扩大视野重捕获，并且不因时长到期
+中断。同时传`lost_retry_seconds:15`可避免真正丢失回HOME后长时间冷却。
+
+PTZ触发同时接收主检测器绿色船框和高分辨率旁路船框，重叠框会自动合并。
+metrics中的`ptz_primary_candidate_count`、`ptz_sidecar_candidate_count`、
+`ptz_trigger_status`、`ptz_trigger_observations`和
+`ptz_trigger_cooldown_remaining_seconds`可用于判断当前是尚未累积足够观测，
+还是正处于冷却。
+`primary_target_minimum_observations`默认为`1`，表示绿色主检测船框首次出现就申请
+PTZ任务；`minimum_target_observations`仍只要求青色高分辨率旁路累积观测。
+
+需要人工立即终止当前复核/跟踪并回到预置位时调用：
+
+```text
+POST /v1/streams/{stream_id}/ptz/return-home
+```
+
+接口返回HTTP 202及`request_id`。worker通过独立控制监控线程停止当前动作，并使用原PTZ
+租约执行HOME，不重启流或DeepStream组。可轮询流详情：状态从`returning_home`变为锁存的
+`manual_hold`，且metrics中的`ptz_last_return_home_request_id`等于返回的`request_id`、
+`ptz_manual_hold=true`时，表示worker已接收请求并禁止新的自动PTZ动作。更新或重建流后才
+恢复自动PTZ。流不存在返回404，未启用PTZ或worker未运行返回409。
+
+删除PTZ流时，`DELETE /v1/streams/{stream_id}`会在worker退出前停止在途控制并再次下发
+HOME。删除采用两阶段握手：先由仍持有租约的worker执行紧急HOME，并等待metrics上报匹配
+的`request_id`和`manual_hold`确认；确认后才发送SIGTERM停止worker。进程退出路径会再做
+一次最终HOME作为兜底。即使删除时没有活动跟踪，也不会依赖租约TTL自然过期。删除完成
+后该流释放控制租约，不再发送任何摄像机命令。
 
 `vessel_detection.display_proposals`默认`false`：未分类疑似目标不画到输出RTSP，但仍
 可供PTZ后台复核。可用`proposal_roi`和运动/形状阈值压制浪纹，并用
@@ -422,3 +560,10 @@ ffplay \
 - 公网生产环境应使用HTTPS反向代理，或通过机房ACL只允许固定调用方IP访问
   API端口；
 - 普通RTSP本身也不加密，敏感场景使用RTSPS、VPN或专线ACL。
+# 持续跟踪边缘保护补充（2026-09-07）
+
+`ptz_verification.tracking_edge_guard_enabled` 默认 `false`。启用时要求 `enabled=true`
+和 `continuous_tracking=true`：在持续跟踪阶段按出画风险而非尺寸偏大决定是否减一档，
+关闭丢框后的盲目缩小，稳定后才恢复渐进放大。参数、延迟假设、详情响应与尚未通过的
+模拟场景见 [TRACKING_EDGE_GUARD.md](TRACKING_EDGE_GUARD.md)。此开关不替代完整
+`demo_continuous` 会话；前置抓图、初始放大和原停止/HOME 生命周期尚未改变。

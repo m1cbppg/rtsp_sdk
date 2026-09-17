@@ -1,0 +1,73 @@
+ARG BASE_IMAGE=rtsp-yolo-annotator:deepstream8-amd64
+FROM ${BASE_IMAGE}
+
+WORKDIR /app
+
+# Ground-litter (零散垃圾识别) incremental update. Pure-Python code plus the one
+# reviewed Turhancan weight: the side branch reuses the ultralytics/torch stack
+# that is already inside the DeepStream image, so no TensorRT engine is rebuilt
+# and no existing .engine file is touched.
+COPY rtsp_annotator/api.py /app/rtsp_annotator/api.py
+COPY rtsp_annotator/deepstream_manager.py /app/rtsp_annotator/deepstream_manager.py
+COPY rtsp_annotator/deepstream_worker.py /app/rtsp_annotator/deepstream_worker.py
+COPY rtsp_annotator/stream_manager.py /app/rtsp_annotator/stream_manager.py
+COPY rtsp_annotator/ground_litter_detection.py /app/rtsp_annotator/ground_litter_detection.py
+COPY rtsp_annotator/ground_litter_process.py /app/rtsp_annotator/ground_litter_process.py
+COPY rtsp_annotator/ground_litter_geometry.py /app/rtsp_annotator/ground_litter_geometry.py
+COPY THIRD_PARTY_MODEL_NOTICES.md /app/THIRD_PARTY_MODEL_NOTICES.md
+
+# The litter weight is archived in the repository model directory and is not
+# covered by the base image, so copy it explicitly. Single reviewed file only.
+COPY models/litter/turhancan_yolov8m_seg_trash.pt \
+    /app/models/litter/turhancan_yolov8m_seg_trash.pt
+
+RUN python3 -m py_compile \
+    /app/rtsp_annotator/api.py \
+    /app/rtsp_annotator/deepstream_manager.py \
+    /app/rtsp_annotator/deepstream_worker.py \
+    /app/rtsp_annotator/stream_manager.py \
+    /app/rtsp_annotator/ground_litter_detection.py \
+    /app/rtsp_annotator/ground_litter_process.py \
+    /app/rtsp_annotator/ground_litter_geometry.py \
+    && python3 -c "import pathlib,sys; p=pathlib.Path('/app/models/litter/turhancan_yolov8m_seg_trash.pt'); sys.exit(0 if p.is_file() and p.stat().st_size > 0 else 1)"
+
+# Fail the build, not the stream, when the base image is not the stack this
+# feature needs. The litter side process imports cv2/numpy directly and loads
+# the Turhancan .pt through ultralytics on torch; the API and every worker also
+# import the options module, so a missing dependency would break all streams.
+# A 2026-08-02 era base image has numpy/cupy only, hence this guard.
+RUN python3 - <<'PY'
+import sys
+
+missing = []
+for name in ("cv2", "numpy", "torch", "ultralytics"):
+    try:
+        module = __import__(name)
+    except Exception as exc:  # noqa: BLE001 - report the exact import error
+        missing.append(f"{name}: {type(exc).__name__}: {exc}")
+        continue
+    print(f"{name} {getattr(module, '__version__', 'unknown')}")
+if missing:
+    sys.exit(
+        "基础镜像缺少零散垃圾场景所需依赖: " + "; ".join(missing)
+    )
+
+from rtsp_annotator.ground_litter_detection import (  # noqa: E402
+    GroundLitterDetectionOptions,
+    GroundLitterZone,
+    build_ground_litter_tiles,
+)
+
+options = GroundLitterDetectionOptions(
+    enabled=True,
+    zones=(
+        GroundLitterZone(
+            region_id="build_check",
+            polygon=((0.1, 0.1), (0.4, 0.1), (0.4, 0.6), (0.1, 0.6)),
+        ),
+    ),
+)
+masks, tiles = build_ground_litter_tiles(options, 1280, 720)
+assert masks and tiles, "分块规划为空"
+print(f"ground_litter build check ok: tiles={len(tiles)}")
+PY

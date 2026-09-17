@@ -1,0 +1,4342 @@
+{
+  "finished_utc": "2026-09-13T16:57:01.008865+00:00",
+  "source_kind": "authorized_live_device",
+  "elapsed_seconds": 600.076528916994,
+  "decoder": "pyav",
+  "status": "completed",
+  "started_utc": "2026-09-13T16:47:00.947455+00:00",
+  "observation_seconds": 600.0301646669977,
+  "stopped_by_signal": [],
+  "decoder_capability": {
+    "pyav_importable": true,
+    "pyav_version": "18.1.0"
+  },
+  "source_counters": {
+    "decoded_frames": 15060.0,
+    "corrupt_frames": 0.0,
+    "missing_pts_frames": 1.0,
+    "nonmonotonic_pts_frames": 0.0,
+    "connections": 1.0,
+    "published_frames": 536.0,
+    "mailbox_lock_skips": 0.0,
+    "decode_read_seconds": 595.0197256147076,
+    "convert_seconds": 0.6082902051566634,
+    "pts_observed_frames": 15058.0,
+    "trace_lock_skips": 8.0
+  },
+  "samples": [
+    {
+      "sequence": 1.0,
+      "probe_elapsed": 3.3679259170021396,
+      "arrival_elapsed": 3.3367719579982804,
+      "local_age": 0.031155167001998052,
+      "generation": 1.0,
+      "source_elapsed": 0.0
+    },
+    {
+      "sequence": 2.0,
+      "probe_elapsed": 4.369233332996373,
+      "arrival_elapsed": 4.355703374996665,
+      "local_age": 0.013530500000342727,
+      "generation": 1.0,
+      "source_elapsed": 6.357
+    },
+    {
+      "sequence": 3.0,
+      "probe_elapsed": 5.673042082999018,
+      "arrival_elapsed": 5.622256542003015,
+      "local_age": 0.0507859999925131,
+      "generation": 1.0,
+      "source_elapsed": 7.317
+    },
+    {
+      "sequence": 4.0,
+      "probe_elapsed": 6.651308417000109,
+      "arrival_elapsed": 6.626120750006521,
+      "local_age": 0.025187999999616295,
+      "generation": 1.0,
+      "source_elapsed": 8.636000000000001
+    },
+    {
+      "sequence": 5.0,
+      "probe_elapsed": 7.679876750000403,
+      "arrival_elapsed": 7.672772207995877,
+      "local_age": 0.0071046670054784045,
+      "generation": 1.0,
+      "source_elapsed": 9.596
+    },
+    {
+      "sequence": 6.0,
+      "probe_elapsed": 8.82443754200358,
+      "arrival_elapsed": 8.793879207994905,
+      "local_age": 0.030558875005226582,
+      "generation": 1.0,
+      "source_elapsed": 10.475000000000001
+    },
+    {
+      "sequence": 7.0,
+      "probe_elapsed": 9.969884542006184,
+      "arrival_elapsed": 9.94472266700177,
+      "local_age": 0.02516216599906329,
+      "generation": 1.0,
+      "source_elapsed": 11.315000000000001
+    },
+    {
+      "sequence": 8.0,
+      "probe_elapsed": 11.00156745800632,
+      "arrival_elapsed": 10.963383291993523,
+      "local_age": 0.03818441600014921,
+      "generation": 1.0,
+      "source_elapsed": 12.994000000000002
+    },
+    {
+      "sequence": 9.0,
+      "probe_elapsed": 12.037613124994095,
+      "arrival_elapsed": 11.989642250002362,
+      "local_age": 0.04797258299367968,
+      "generation": 1.0,
+      "source_elapsed": 13.994000000000002
+    },
+    {
+      "sequence": 10.0,
+      "probe_elapsed": 13.022615207999479,
+      "arrival_elapsed": 13.002151916996809,
+      "local_age": 0.02046400000108406,
+      "generation": 1.0,
+      "source_elapsed": 14.993
+    },
+    {
+      "sequence": 11.0,
+      "probe_elapsed": 14.119220958004007,
+      "arrival_elapsed": 14.090068749996135,
+      "local_age": 0.029152375005651265,
+      "generation": 1.0,
+      "source_elapsed": 15.353000000000002
+    },
+    {
+      "sequence": 12.0,
+      "probe_elapsed": 15.200566125000478,
+      "arrival_elapsed": 15.155314999996335,
+      "local_age": 0.045251417002873495,
+      "generation": 1.0,
+      "source_elapsed": 16.633
+    },
+    {
+      "sequence": 13.0,
+      "probe_elapsed": 16.174812583005405,
+      "arrival_elapsed": 16.164630166997085,
+      "local_age": 0.010182665995671414,
+      "generation": 1.0,
+      "source_elapsed": 18.112000000000002
+    },
+    {
+      "sequence": 14.0,
+      "probe_elapsed": 17.20795562499552,
+      "arrival_elapsed": 17.173293542000465,
+      "local_age": 0.03466274999664165,
+      "generation": 1.0,
+      "source_elapsed": 19.151
+    },
+    {
+      "sequence": 15.0,
+      "probe_elapsed": 18.18890912500501,
+      "arrival_elapsed": 18.17962374999479,
+      "local_age": 0.009285624997573905,
+      "generation": 1.0,
+      "source_elapsed": 20.191000000000003
+    },
+    {
+      "sequence": 16.0,
+      "probe_elapsed": 19.215308166996692,
+      "arrival_elapsed": 19.18791258300189,
+      "local_age": 0.027395833996706642,
+      "generation": 1.0,
+      "source_elapsed": 21.191000000000003
+    },
+    {
+      "sequence": 17.0,
+      "probe_elapsed": 20.245802042001742,
+      "arrival_elapsed": 20.213750166993123,
+      "local_age": 0.032052250011474825,
+      "generation": 1.0,
+      "source_elapsed": 22.23
+    },
+    {
+      "sequence": 18.0,
+      "probe_elapsed": 21.272371957995347,
+      "arrival_elapsed": 21.256150125002023,
+      "local_age": 0.0162222499930067,
+      "generation": 1.0,
+      "source_elapsed": 23.11
+    },
+    {
+      "sequence": 19.0,
+      "probe_elapsed": 22.40699770799256,
+      "arrival_elapsed": 22.36715258299955,
+      "local_age": 0.03984537499491125,
+      "generation": 1.0,
+      "source_elapsed": 23.35
+    },
+    {
+      "sequence": 20.0,
+      "probe_elapsed": 23.436055041995132,
+      "arrival_elapsed": 23.392231332996744,
+      "local_age": 0.04382416700536851,
+      "generation": 1.0,
+      "source_elapsed": 25.389
+    },
+    {
+      "sequence": 21.0,
+      "probe_elapsed": 24.414544750005007,
+      "arrival_elapsed": 24.394313291995786,
+      "local_age": 0.020232249997206964,
+      "generation": 1.0,
+      "source_elapsed": 26.428
+    },
+    {
+      "sequence": 22.0,
+      "probe_elapsed": 26.062606332998257,
+      "arrival_elapsed": 26.011022332997527,
+      "local_age": 0.05158412500168197,
+      "generation": 1.0,
+      "source_elapsed": 27.308
+    },
+    {
+      "sequence": 23.0,
+      "probe_elapsed": 27.247817374998704,
+      "arrival_elapsed": 27.196368624994648,
+      "local_age": 0.05144887500500772,
+      "generation": 1.0,
+      "source_elapsed": 28.747
+    },
+    {
+      "sequence": 24.0,
+      "probe_elapsed": 28.278038499993272,
+      "arrival_elapsed": 28.273280042005354,
+      "local_age": 0.0047591659968020394,
+      "generation": 1.0,
+      "source_elapsed": 30.226
+    },
+    {
+      "sequence": 25.0,
+      "probe_elapsed": 29.361250000001746,
+      "arrival_elapsed": 29.320596125005977,
+      "local_age": 0.04065408298629336,
+      "generation": 1.0,
+      "source_elapsed": 31.266000000000002
+    },
+    {
+      "sequence": 26.0,
+      "probe_elapsed": 30.51863391700317,
+      "arrival_elapsed": 30.492933582994738,
+      "local_age": 0.02570058401033748,
+      "generation": 1.0,
+      "source_elapsed": 31.346
+    },
+    {
+      "sequence": 27.0,
+      "probe_elapsed": 31.599381916996208,
+      "arrival_elapsed": 31.55315070800134,
+      "local_age": 0.046231749991420656,
+      "generation": 1.0,
+      "source_elapsed": 33.545
+    },
+    {
+      "sequence": 28.0,
+      "probe_elapsed": 32.63127387499844,
+      "arrival_elapsed": 32.584430832997896,
+      "local_age": 0.04684333399927709,
+      "generation": 1.0,
+      "source_elapsed": 34.585
+    },
+    {
+      "sequence": 29.0,
+      "probe_elapsed": 34.45142520799709,
+      "arrival_elapsed": 34.409427666993,
+      "local_age": 0.04199816600885242,
+      "generation": 1.0,
+      "source_elapsed": 35.304
+    },
+    {
+      "sequence": 30.0,
+      "probe_elapsed": 35.42687029199442,
+      "arrival_elapsed": 35.41325854200113,
+      "local_age": 0.013612124996143393,
+      "generation": 1.0,
+      "source_elapsed": 37.423
+    },
+    {
+      "sequence": 31.0,
+      "probe_elapsed": 36.45579758299573,
+      "arrival_elapsed": 36.425130125004216,
+      "local_age": 0.030667707993416116,
+      "generation": 1.0,
+      "source_elapsed": 38.383
+    },
+    {
+      "sequence": 32.0,
+      "probe_elapsed": 38.20942195800308,
+      "arrival_elapsed": 38.18703549999918,
+      "local_age": 0.022386708005797118,
+      "generation": 1.0,
+      "source_elapsed": 39.302
+    },
+    {
+      "sequence": 33.0,
+      "probe_elapsed": 39.29583079200529,
+      "arrival_elapsed": 39.2877840000001,
+      "local_age": 0.008047082999837585,
+      "generation": 1.0,
+      "source_elapsed": 41.142
+    },
+    {
+      "sequence": 34.0,
+      "probe_elapsed": 40.3289406249969,
+      "arrival_elapsed": 40.31665554200299,
+      "local_age": 0.012285457996767946,
+      "generation": 1.0,
+      "source_elapsed": 42.261
+    },
+    {
+      "sequence": 35.0,
+      "probe_elapsed": 41.411502582996036,
+      "arrival_elapsed": 41.36545212499914,
+      "local_age": 0.046051750003243797,
+      "generation": 1.0,
+      "source_elapsed": 43.261
+    },
+    {
+      "sequence": 36.0,
+      "probe_elapsed": 42.72271620799438,
+      "arrival_elapsed": 42.68814337499498,
+      "local_age": 0.03457308300130535,
+      "generation": 1.0,
+      "source_elapsed": 43.341
+    },
+    {
+      "sequence": 37.0,
+      "probe_elapsed": 43.75066424999386,
+      "arrival_elapsed": 43.71154025000578,
+      "local_age": 0.03912474999378901,
+      "generation": 1.0,
+      "source_elapsed": 45.7
+    },
+    {
+      "sequence": 38.0,
+      "probe_elapsed": 44.78697162499884,
+      "arrival_elapsed": 44.77351749999798,
+      "local_age": 0.013454917003400624,
+      "generation": 1.0,
+      "source_elapsed": 46.459
+    },
+    {
+      "sequence": 39.0,
+      "probe_elapsed": 46.249522875004914,
+      "arrival_elapsed": 46.23610916700272,
+      "local_age": 0.013414082990493625,
+      "generation": 1.0,
+      "source_elapsed": 47.299
+    },
+    {
+      "sequence": 40.0,
+      "probe_elapsed": 47.29003433299658,
+      "arrival_elapsed": 47.255678874993464,
+      "local_age": 0.034355625000898726,
+      "generation": 1.0,
+      "source_elapsed": 49.258
+    },
+    {
+      "sequence": 41.0,
+      "probe_elapsed": 48.320605582994176,
+      "arrival_elapsed": 48.27397462500085,
+      "local_age": 0.04663141700439155,
+      "generation": 1.0,
+      "source_elapsed": 50.257
+    },
+    {
+      "sequence": 42.0,
+      "probe_elapsed": 49.35058791699703,
+      "arrival_elapsed": 49.324727041996084,
+      "local_age": 0.02586150000570342,
+      "generation": 1.0,
+      "source_elapsed": 51.257
+    },
+    {
+      "sequence": 43.0,
+      "probe_elapsed": 50.86579337499279,
+      "arrival_elapsed": 50.82039883300604,
+      "local_age": 0.045394958986435086,
+      "generation": 1.0,
+      "source_elapsed": 51.297000000000004
+    },
+    {
+      "sequence": 44.0,
+      "probe_elapsed": 51.895313166998676,
+      "arrival_elapsed": 51.86061729199719,
+      "local_age": 0.034696000002440996,
+      "generation": 1.0,
+      "source_elapsed": 53.816
+    },
+    {
+      "sequence": 45.0,
+      "probe_elapsed": 52.8775408329966,
+      "arrival_elapsed": 52.8717217920057,
+      "local_age": 0.00581937498645857,
+      "generation": 1.0,
+      "source_elapsed": 54.815
+    },
+    {
+      "sequence": 46.0,
+      "probe_elapsed": 53.910078582994174,
+      "arrival_elapsed": 53.89177533300244,
+      "local_age": 0.018303459000890143,
+      "generation": 1.0,
+      "source_elapsed": 55.895
+    },
+    {
+      "sequence": 47.0,
+      "probe_elapsed": 54.94498937499884,
+      "arrival_elapsed": 54.911978332995204,
+      "local_age": 0.033011584004270844,
+      "generation": 1.0,
+      "source_elapsed": 56.895
+    },
+    {
+      "sequence": 48.0,
+      "probe_elapsed": 55.978109000003315,
+      "arrival_elapsed": 55.959278249996714,
+      "local_age": 0.018831082998076454,
+      "generation": 1.0,
+      "source_elapsed": 57.934
+    },
+    {
+      "sequence": 49.0,
+      "probe_elapsed": 57.01212720799958,
+      "arrival_elapsed": 56.9676844170026,
+      "local_age": 0.044442957994760945,
+      "generation": 1.0,
+      "source_elapsed": 58.494
+    },
+    {
+      "sequence": 50.0,
+      "probe_elapsed": 58.08801391700399,
+      "arrival_elapsed": 58.040103791994625,
+      "local_age": 0.04791025001031812,
+      "generation": 1.0,
+      "source_elapsed": 59.333
+    },
+    {
+      "sequence": 51.0,
+      "probe_elapsed": 59.1206231249962,
+      "arrival_elapsed": 59.087052041999414,
+      "local_age": 0.033571499996469356,
+      "generation": 1.0,
+      "source_elapsed": 61.013
+    },
+    {
+      "sequence": 52.0,
+      "probe_elapsed": 60.2021042080014,
+      "arrival_elapsed": 60.170200249995105,
+      "local_age": 0.03190425000502728,
+      "generation": 1.0,
+      "source_elapsed": 62.132
+    },
+    {
+      "sequence": 53.0,
+      "probe_elapsed": 61.232273250003345,
+      "arrival_elapsed": 61.20766504200583,
+      "local_age": 0.024608583000372164,
+      "generation": 1.0,
+      "source_elapsed": 63.132
+    },
+    {
+      "sequence": 54.0,
+      "probe_elapsed": 62.359266083003604,
+      "arrival_elapsed": 62.354831167001976,
+      "local_age": 0.004435041002579965,
+      "generation": 1.0,
+      "source_elapsed": 63.332
+    },
+    {
+      "sequence": 55.0,
+      "probe_elapsed": 63.50350041700585,
+      "arrival_elapsed": 63.46769116699579,
+      "local_age": 0.03580958300153725,
+      "generation": 1.0,
+      "source_elapsed": 65.17099999999999
+    },
+    {
+      "sequence": 56.0,
+      "probe_elapsed": 64.58469787500508,
+      "arrival_elapsed": 64.54638358300144,
+      "local_age": 0.03831499999796506,
+      "generation": 1.0,
+      "source_elapsed": 66.49
+    },
+    {
+      "sequence": 57.0,
+      "probe_elapsed": 66.13941420799529,
+      "arrival_elapsed": 66.11278762499569,
+      "local_age": 0.026629333005985245,
+      "generation": 1.0,
+      "source_elapsed": 67.28999999999999
+    },
+    {
+      "sequence": 58.0,
+      "probe_elapsed": 67.17516883299686,
+      "arrival_elapsed": 67.12624237500131,
+      "local_age": 0.04892695799935609,
+      "generation": 1.0,
+      "source_elapsed": 69.12899999999999
+    },
+    {
+      "sequence": 59.0,
+      "probe_elapsed": 68.21780608300469,
+      "arrival_elapsed": 68.16977183299605,
+      "local_age": 0.04803491701022722,
+      "generation": 1.0,
+      "source_elapsed": 70.169
+    },
+    {
+      "sequence": 60.0,
+      "probe_elapsed": 69.1969059999974,
+      "arrival_elapsed": 69.17480466699635,
+      "local_age": 0.022101499998825602,
+      "generation": 1.0,
+      "source_elapsed": 70.80799999999999
+    },
+    {
+      "sequence": 61.0,
+      "probe_elapsed": 70.48405195800296,
+      "arrival_elapsed": 70.4728971250006,
+      "local_age": 0.011155041996971704,
+      "generation": 1.0,
+      "source_elapsed": 71.32799999999999
+    },
+    {
+      "sequence": 62.0,
+      "probe_elapsed": 71.51559837500099,
+      "arrival_elapsed": 71.47701012500329,
+      "local_age": 0.03858870799012948,
+      "generation": 1.0,
+      "source_elapsed": 73.44699999999999
+    },
+    {
+      "sequence": 63.0,
+      "probe_elapsed": 72.54263825000089,
+      "arrival_elapsed": 72.53798591700615,
+      "local_age": 0.004652790987165645,
+      "generation": 1.0,
+      "source_elapsed": 74.487
+    },
+    {
+      "sequence": 64.0,
+      "probe_elapsed": 73.98436720800237,
+      "arrival_elapsed": 73.94209625000076,
+      "local_age": 0.04227175000414718,
+      "generation": 1.0,
+      "source_elapsed": 75.28599999999999
+    },
+    {
+      "sequence": 65.0,
+      "probe_elapsed": 75.07296941700042,
+      "arrival_elapsed": 75.05137520800054,
+      "local_age": 0.021594709003693424,
+      "generation": 1.0,
+      "source_elapsed": 76.56599999999999
+    },
+    {
+      "sequence": 66.0,
+      "probe_elapsed": 76.15241137500561,
+      "arrival_elapsed": 76.1143854999973,
+      "local_age": 0.03802633300074376,
+      "generation": 1.0,
+      "source_elapsed": 78.04499999999999
+    },
+    {
+      "sequence": 67.0,
+      "probe_elapsed": 77.13610008299293,
+      "arrival_elapsed": 77.12017962499522,
+      "local_age": 0.01592075001099147,
+      "generation": 1.0,
+      "source_elapsed": 79.125
+    },
+    {
+      "sequence": 68.0,
+      "probe_elapsed": 78.32163458300056,
+      "arrival_elapsed": 78.27600479200191,
+      "local_age": 0.04562999999325257,
+      "generation": 1.0,
+      "source_elapsed": 79.324
+    },
+    {
+      "sequence": 69.0,
+      "probe_elapsed": 79.35567712500051,
+      "arrival_elapsed": 79.30510949999734,
+      "local_age": 0.050568125006975606,
+      "generation": 1.0,
+      "source_elapsed": 81.28399999999999
+    },
+    {
+      "sequence": 70.0,
+      "probe_elapsed": 80.34025649999967,
+      "arrival_elapsed": 80.31801724999968,
+      "local_age": 0.02223966699966695,
+      "generation": 1.0,
+      "source_elapsed": 82.28299999999999
+    },
+    {
+      "sequence": 71.0,
+      "probe_elapsed": 82.30816533300094,
+      "arrival_elapsed": 82.28454662500008,
+      "local_age": 0.023619457992026582,
+      "generation": 1.0,
+      "source_elapsed": 83.243
+    },
+    {
+      "sequence": 72.0,
+      "probe_elapsed": 83.33183891700173,
+      "arrival_elapsed": 83.32418620800308,
+      "local_age": 0.007653124994249083,
+      "generation": 1.0,
+      "source_elapsed": 85.32199999999999
+    },
+    {
+      "sequence": 73.0,
+      "probe_elapsed": 84.37091625000176,
+      "arrival_elapsed": 84.33599187499203,
+      "local_age": 0.03492470800119918,
+      "generation": 1.0,
+      "source_elapsed": 86.36099999999999
+    },
+    {
+      "sequence": 74.0,
+      "probe_elapsed": 86.71430633300042,
+      "arrival_elapsed": 86.67178324999986,
+      "local_age": 0.04252370800531935,
+      "generation": 1.0,
+      "source_elapsed": 87.28099999999999
+    },
+    {
+      "sequence": 75.0,
+      "probe_elapsed": 87.69252087500354,
+      "arrival_elapsed": 87.67425758299942,
+      "local_age": 0.018263459001900628,
+      "generation": 1.0,
+      "source_elapsed": 89.64
+    },
+    {
+      "sequence": 76.0,
+      "probe_elapsed": 88.7250556670042,
+      "arrival_elapsed": 88.70985562499845,
+      "local_age": 0.015200167006696574,
+      "generation": 1.0,
+      "source_elapsed": 90.719
+    },
+    {
+      "sequence": 77.0,
+      "probe_elapsed": 89.8207237500028,
+      "arrival_elapsed": 89.78112662500644,
+      "local_age": 0.03959866699005943,
+      "generation": 1.0,
+      "source_elapsed": 91.279
+    },
+    {
+      "sequence": 78.0,
+      "probe_elapsed": 90.85803087499517,
+      "arrival_elapsed": 90.81557304199669,
+      "local_age": 0.0424582499981625,
+      "generation": 1.0,
+      "source_elapsed": 92.838
+    },
+    {
+      "sequence": 79.0,
+      "probe_elapsed": 91.93759450000653,
+      "arrival_elapsed": 91.90565895799955,
+      "local_age": 0.03193579199432861,
+      "generation": 1.0,
+      "source_elapsed": 93.878
+    },
+    {
+      "sequence": 80.0,
+      "probe_elapsed": 92.96174225000141,
+      "arrival_elapsed": 92.92063870800484,
+      "local_age": 0.041103666997514665,
+      "generation": 1.0,
+      "source_elapsed": 94.55799999999999
+    },
+    {
+      "sequence": 81.0,
+      "probe_elapsed": 94.14281070799916,
+      "arrival_elapsed": 94.10376704200462,
+      "local_age": 0.03904395799327176,
+      "generation": 1.0,
+      "source_elapsed": 95.317
+    },
+    {
+      "sequence": 82.0,
+      "probe_elapsed": 95.12303291699209,
+      "arrival_elapsed": 95.11927145799564,
+      "local_age": 0.0037616250046994537,
+      "generation": 1.0,
+      "source_elapsed": 97.116
+    },
+    {
+      "sequence": 83.0,
+      "probe_elapsed": 96.27124037500471,
+      "arrival_elapsed": 96.24991924999631,
+      "local_age": 0.02132141700712964,
+      "generation": 1.0,
+      "source_elapsed": 98.15599999999999
+    },
+    {
+      "sequence": 84.0,
+      "probe_elapsed": 98.02279704199464,
+      "arrival_elapsed": 97.9797254169971,
+      "local_age": 0.04307195800356567,
+      "generation": 1.0,
+      "source_elapsed": 99.276
+    },
+    {
+      "sequence": 85.0,
+      "probe_elapsed": 99.10093849999248,
+      "arrival_elapsed": 99.08496912500414,
+      "local_age": 0.01596962499024812,
+      "generation": 1.0,
+      "source_elapsed": 100.63499999999999
+    },
+    {
+      "sequence": 86.0,
+      "probe_elapsed": 100.1304427080031,
+      "arrival_elapsed": 100.11690154200187,
+      "local_age": 0.013541499996790662,
+      "generation": 1.0,
+      "source_elapsed": 102.11399999999999
+    },
+    {
+      "sequence": 87.0,
+      "probe_elapsed": 101.26358579199587,
+      "arrival_elapsed": 101.23523583299539,
+      "local_age": 0.028350209002383053,
+      "generation": 1.0,
+      "source_elapsed": 103.154
+    },
+    {
+      "sequence": 88.0,
+      "probe_elapsed": 102.52875220800343,
+      "arrival_elapsed": 102.52431270800298,
+      "local_age": 0.004439791999175213,
+      "generation": 1.0,
+      "source_elapsed": 103.314
+    },
+    {
+      "sequence": 89.0,
+      "probe_elapsed": 103.6083350830013,
+      "arrival_elapsed": 103.57211237499723,
+      "local_age": 0.036223041999619454,
+      "generation": 1.0,
+      "source_elapsed": 105.553
+    },
+    {
+      "sequence": 90.0,
+      "probe_elapsed": 105.04793020800571,
+      "arrival_elapsed": 105.01672370800225,
+      "local_age": 0.031206749990815297,
+      "generation": 1.0,
+      "source_elapsed": 106.592
+    },
+    {
+      "sequence": 91.0,
+      "probe_elapsed": 106.24583491700469,
+      "arrival_elapsed": 106.2281673749967,
+      "local_age": 0.0176677919953363,
+      "generation": 1.0,
+      "source_elapsed": 107.312
+    },
+    {
+      "sequence": 92.0,
+      "probe_elapsed": 107.2776794579986,
+      "arrival_elapsed": 107.2725328749948,
+      "local_age": 0.005146833005710505,
+      "generation": 1.0,
+      "source_elapsed": 109.231
+    },
+    {
+      "sequence": 93.0,
+      "probe_elapsed": 108.31306958300411,
+      "arrival_elapsed": 108.27672500000335,
+      "local_age": 0.036345250002341345,
+      "generation": 1.0,
+      "source_elapsed": 110.231
+    },
+    {
+      "sequence": 94.0,
+      "probe_elapsed": 109.82560633300454,
+      "arrival_elapsed": 109.80566675000591,
+      "local_age": 0.01994149999518413,
+      "generation": 1.0,
+      "source_elapsed": 111.27
+    },
+    {
+      "sequence": 95.0,
+      "probe_elapsed": 110.90434974999516,
+      "arrival_elapsed": 110.85331470800156,
+      "local_age": 0.05103524999867659,
+      "generation": 1.0,
+      "source_elapsed": 112.35
+    },
+    {
+      "sequence": 96.0,
+      "probe_elapsed": 111.8821912919957,
+      "arrival_elapsed": 111.86751962499693,
+      "local_age": 0.014672375007648952,
+      "generation": 1.0,
+      "source_elapsed": 113.869
+    },
+    {
+      "sequence": 97.0,
+      "probe_elapsed": 112.92690395799582,
+      "arrival_elapsed": 112.90152579199639,
+      "local_age": 0.0253783329972066,
+      "generation": 1.0,
+      "source_elapsed": 114.829
+    },
+    {
+      "sequence": 98.0,
+      "probe_elapsed": 114.06332233299327,
+      "arrival_elapsed": 114.0523933749937,
+      "local_age": 0.010929374999250285,
+      "generation": 1.0,
+      "source_elapsed": 115.268
+    },
+    {
+      "sequence": 99.0,
+      "probe_elapsed": 115.14706733300409,
+      "arrival_elapsed": 115.12473658300587,
+      "local_age": 0.0223310839937767,
+      "generation": 1.0,
+      "source_elapsed": 117.10799999999999
+    },
+    {
+      "sequence": 100.0,
+      "probe_elapsed": 116.29436862499279,
+      "arrival_elapsed": 116.25370595800632,
+      "local_age": 0.04066299999249168,
+      "generation": 1.0,
+      "source_elapsed": 118.187
+    },
+    {
+      "sequence": 101.0,
+      "probe_elapsed": 117.33837933299947,
+      "arrival_elapsed": 117.29139450000366,
+      "local_age": 0.04698516699136235,
+      "generation": 1.0,
+      "source_elapsed": 119.02699999999999
+    },
+    {
+      "sequence": 102.0,
+      "probe_elapsed": 118.32512583299831,
+      "arrival_elapsed": 118.30529387500428,
+      "local_age": 0.01983220799593255,
+      "generation": 1.0,
+      "source_elapsed": 120.306
+    },
+    {
+      "sequence": 103.0,
+      "probe_elapsed": 119.3557819169946,
+      "arrival_elapsed": 119.3405253749952,
+      "local_age": 0.015256792001309805,
+      "generation": 1.0,
+      "source_elapsed": 121.34599999999999
+    },
+    {
+      "sequence": 104.0,
+      "probe_elapsed": 120.38584637499298,
+      "arrival_elapsed": 120.38057162500627,
+      "local_age": 0.0052749579917872325,
+      "generation": 1.0,
+      "source_elapsed": 122.30499999999999
+    },
+    {
+      "sequence": 105.0,
+      "probe_elapsed": 122.01309045800008,
+      "arrival_elapsed": 121.98596941700089,
+      "local_age": 0.027121624996652827,
+      "generation": 1.0,
+      "source_elapsed": 123.265
+    },
+    {
+      "sequence": 106.0,
+      "probe_elapsed": 123.00371020799503,
+      "arrival_elapsed": 122.99706966700614,
+      "local_age": 0.00664087499899324,
+      "generation": 1.0,
+      "source_elapsed": 124.624
+    },
+    {
+      "sequence": 107.0,
+      "probe_elapsed": 124.0296415000048,
+      "arrival_elapsed": 124.01909912499832,
+      "local_age": 0.010542582997004502,
+      "generation": 1.0,
+      "source_elapsed": 126.02399999999999
+    },
+    {
+      "sequence": 108.0,
+      "probe_elapsed": 125.05885641700297,
+      "arrival_elapsed": 125.02393095800653,
+      "local_age": 0.034925749991089106,
+      "generation": 1.0,
+      "source_elapsed": 127.023
+    },
+    {
+      "sequence": 109.0,
+      "probe_elapsed": 126.41390454200155,
+      "arrival_elapsed": 126.40311091700278,
+      "local_age": 0.01079383298929315,
+      "generation": 1.0,
+      "source_elapsed": 127.303
+    },
+    {
+      "sequence": 110.0,
+      "probe_elapsed": 127.45725449999736,
+      "arrival_elapsed": 127.42359541699989,
+      "local_age": 0.033659624998108484,
+      "generation": 1.0,
+      "source_elapsed": 129.422
+    },
+    {
+      "sequence": 111.0,
+      "probe_elapsed": 128.7461560829979,
+      "arrival_elapsed": 128.73977254200145,
+      "local_age": 0.006383749991073273,
+      "generation": 1.0,
+      "source_elapsed": 130.422
+    },
+    {
+      "sequence": 112.0,
+      "probe_elapsed": 130.30499183299253,
+      "arrival_elapsed": 130.25859470799332,
+      "local_age": 0.046397666999837384,
+      "generation": 1.0,
+      "source_elapsed": 131.261
+    },
+    {
+      "sequence": 113.0,
+      "probe_elapsed": 131.3353986669972,
+      "arrival_elapsed": 131.2993498750002,
+      "local_age": 0.036049957998329774,
+      "generation": 1.0,
+      "source_elapsed": 133.3
+    },
+    {
+      "sequence": 114.0,
+      "probe_elapsed": 132.37244137500238,
+      "arrival_elapsed": 132.3218670829956,
+      "local_age": 0.050574709006468765,
+      "generation": 1.0,
+      "source_elapsed": 134.3
+    },
+    {
+      "sequence": 115.0,
+      "probe_elapsed": 133.92143445799593,
+      "arrival_elapsed": 133.88288816700515,
+      "local_age": 0.03854704099649098,
+      "generation": 1.0,
+      "source_elapsed": 135.25900000000001
+    },
+    {
+      "sequence": 116.0,
+      "probe_elapsed": 135.22363237499667,
+      "arrival_elapsed": 135.16951479199633,
+      "local_age": 0.05411804100731388,
+      "generation": 1.0,
+      "source_elapsed": 136.65900000000002
+    },
+    {
+      "sequence": 117.0,
+      "probe_elapsed": 136.2200012079993,
+      "arrival_elapsed": 136.19040329199925,
+      "local_age": 0.02959841600386426,
+      "generation": 1.0,
+      "source_elapsed": 138.138
+    },
+    {
+      "sequence": 118.0,
+      "probe_elapsed": 137.24873824999668,
+      "arrival_elapsed": 137.24528166699747,
+      "local_age": 0.0034570830030133948,
+      "generation": 1.0,
+      "source_elapsed": 139.21800000000002
+    },
+    {
+      "sequence": 119.0,
+      "probe_elapsed": 138.60333875000651,
+      "arrival_elapsed": 138.56841887500195,
+      "local_age": 0.03492008299508598,
+      "generation": 1.0,
+      "source_elapsed": 139.298
+    },
+    {
+      "sequence": 120.0,
+      "probe_elapsed": 139.63178333299584,
+      "arrival_elapsed": 139.6263628750021,
+      "local_age": 0.005420957997557707,
+      "generation": 1.0,
+      "source_elapsed": 141.61700000000002
+    },
+    {
+      "sequence": 121.0,
+      "probe_elapsed": 140.83551854199322,
+      "arrival_elapsed": 140.82081049999397,
+      "local_age": 0.014708500006236136,
+      "generation": 1.0,
+      "source_elapsed": 142.45600000000002
+    },
+    {
+      "sequence": 122.0,
+      "probe_elapsed": 142.53039670799626,
+      "arrival_elapsed": 142.49609912499727,
+      "local_age": 0.03429891700216103,
+      "generation": 1.0,
+      "source_elapsed": 143.256
+    },
+    {
+      "sequence": 123.0,
+      "probe_elapsed": 143.5613534580043,
+      "arrival_elapsed": 143.54472066699236,
+      "local_age": 0.016658000007737428,
+      "generation": 1.0,
+      "source_elapsed": 145.535
+    },
+    {
+      "sequence": 124.0,
+      "probe_elapsed": 144.5985191249929,
+      "arrival_elapsed": 144.55804208299378,
+      "local_age": 0.04047825001180172,
+      "generation": 1.0,
+      "source_elapsed": 146.53400000000002
+    },
+    {
+      "sequence": 125.0,
+      "probe_elapsed": 145.74902699999802,
+      "arrival_elapsed": 145.74295145799988,
+      "local_age": 0.006076125006075017,
+      "generation": 1.0,
+      "source_elapsed": 147.25400000000002
+    },
+    {
+      "sequence": 126.0,
+      "probe_elapsed": 146.7511835829937,
+      "arrival_elapsed": 146.74723629199434,
+      "local_age": 0.003947707999031991,
+      "generation": 1.0,
+      "source_elapsed": 148.333
+    },
+    {
+      "sequence": 127.0,
+      "probe_elapsed": 147.77963616700436,
+      "arrival_elapsed": 147.75046183299855,
+      "local_age": 0.029174750001402572,
+      "generation": 1.0,
+      "source_elapsed": 149.733
+    },
+    {
+      "sequence": 128.0,
+      "probe_elapsed": 148.81469841700164,
+      "arrival_elapsed": 148.78971037500014,
+      "local_age": 0.024989333003759384,
+      "generation": 1.0,
+      "source_elapsed": 150.77200000000002
+    },
+    {
+      "sequence": 129.0,
+      "probe_elapsed": 150.11138920800295,
+      "arrival_elapsed": 150.10516237499542,
+      "local_age": 0.006227250007214025,
+      "generation": 1.0,
+      "source_elapsed": 151.252
+    },
+    {
+      "sequence": 130.0,
+      "probe_elapsed": 151.13953554199543,
+      "arrival_elapsed": 151.12434204199235,
+      "local_age": 0.015193708008155227,
+      "generation": 1.0,
+      "source_elapsed": 153.091
+    },
+    {
+      "sequence": 131.0,
+      "probe_elapsed": 152.17290733300615,
+      "arrival_elapsed": 152.16262016700057,
+      "local_age": 0.01028733300336171,
+      "generation": 1.0,
+      "source_elapsed": 154.131
+    },
+    {
+      "sequence": 132.0,
+      "probe_elapsed": 153.2133653750061,
+      "arrival_elapsed": 153.18009841699677,
+      "local_age": 0.03326720799668692,
+      "generation": 1.0,
+      "source_elapsed": 154.731
+    },
+    {
+      "sequence": 133.0,
+      "probe_elapsed": 154.24884829200164,
+      "arrival_elapsed": 154.22304937499575,
+      "local_age": 0.025799333001486957,
+      "generation": 1.0,
+      "source_elapsed": 156.21
+    },
+    {
+      "sequence": 134.0,
+      "probe_elapsed": 155.28467637499853,
+      "arrival_elapsed": 155.2596942079981,
+      "local_age": 0.024982792005175725,
+      "generation": 1.0,
+      "source_elapsed": 157.249
+    },
+    {
+      "sequence": 135.0,
+      "probe_elapsed": 156.3180871670047,
+      "arrival_elapsed": 156.2658335419983,
+      "local_age": 0.052254166002967395,
+      "generation": 1.0,
+      "source_elapsed": 158.249
+    },
+    {
+      "sequence": 136.0,
+      "probe_elapsed": 157.71498629200505,
+      "arrival_elapsed": 157.7011938749929,
+      "local_age": 0.013793042002362199,
+      "generation": 1.0,
+      "source_elapsed": 159.249
+    },
+    {
+      "sequence": 137.0,
+      "probe_elapsed": 158.80928216699976,
+      "arrival_elapsed": 158.7664054170018,
+      "local_age": 0.04287762500462122,
+      "generation": 1.0,
+      "source_elapsed": 160.448
+    },
+    {
+      "sequence": 138.0,
+      "probe_elapsed": 159.83983341700514,
+      "arrival_elapsed": 159.80818037499557,
+      "local_age": 0.03165325000009034,
+      "generation": 1.0,
+      "source_elapsed": 161.767
+    },
+    {
+      "sequence": 139.0,
+      "probe_elapsed": 160.86744291700597,
+      "arrival_elapsed": 160.85849620800582,
+      "local_age": 0.008946874993853271,
+      "generation": 1.0,
+      "source_elapsed": 162.847
+    },
+    {
+      "sequence": 140.0,
+      "probe_elapsed": 162.22413687499647,
+      "arrival_elapsed": 162.2047952080029,
+      "local_age": 0.01934308400086593,
+      "generation": 1.0,
+      "source_elapsed": 163.247
+    },
+    {
+      "sequence": 141.0,
+      "probe_elapsed": 163.25692070799414,
+      "arrival_elapsed": 163.2114158750046,
+      "local_age": 0.04550537499017082,
+      "generation": 1.0,
+      "source_elapsed": 165.20600000000002
+    },
+    {
+      "sequence": 142.0,
+      "probe_elapsed": 164.28830645799462,
+      "arrival_elapsed": 164.27496779199282,
+      "local_age": 0.013339041004655883,
+      "generation": 1.0,
+      "source_elapsed": 166.245
+    },
+    {
+      "sequence": 143.0,
+      "probe_elapsed": 165.8631829579972,
+      "arrival_elapsed": 165.81585070799338,
+      "local_age": 0.047333000009530224,
+      "generation": 1.0,
+      "source_elapsed": 167.245
+    },
+    {
+      "sequence": 144.0,
+      "probe_elapsed": 166.86124504200416,
+      "arrival_elapsed": 166.85665479200543,
+      "local_age": 0.004590540993376635,
+      "generation": 1.0,
+      "source_elapsed": 168.844
+    },
+    {
+      "sequence": 145.0,
+      "probe_elapsed": 167.8978961249959,
+      "arrival_elapsed": 167.87603691700497,
+      "local_age": 0.021859582993783988,
+      "generation": 1.0,
+      "source_elapsed": 169.804
+    },
+    {
+      "sequence": 146.0,
+      "probe_elapsed": 168.88443049999478,
+      "arrival_elapsed": 168.87677129199437,
+      "local_age": 0.007659374998183921,
+      "generation": 1.0,
+      "source_elapsed": 170.84300000000002
+    },
+    {
+      "sequence": 147.0,
+      "probe_elapsed": 170.09125866700197,
+      "arrival_elapsed": 170.07221804199798,
+      "local_age": 0.019041040999582037,
+      "generation": 1.0,
+      "source_elapsed": 171.243
+    },
+    {
+      "sequence": 148.0,
+      "probe_elapsed": 171.12344379199203,
+      "arrival_elapsed": 171.0794433330011,
+      "local_age": 0.04400083399377763,
+      "generation": 1.0,
+      "source_elapsed": 172.603
+    },
+    {
+      "sequence": 149.0,
+      "probe_elapsed": 172.1579186250019,
+      "arrival_elapsed": 172.11675066700263,
+      "local_age": 0.041168333002133295,
+      "generation": 1.0,
+      "source_elapsed": 174.122
+    },
+    {
+      "sequence": 150.0,
+      "probe_elapsed": 173.24281333299587,
+      "arrival_elapsed": 173.23126208300528,
+      "local_age": 0.011551541989319958,
+      "generation": 1.0,
+      "source_elapsed": 175.20100000000002
+    },
+    {
+      "sequence": 151.0,
+      "probe_elapsed": 174.27828366699396,
+      "arrival_elapsed": 174.2351033330051,
+      "local_age": 0.04318045898980927,
+      "generation": 1.0,
+      "source_elapsed": 175.961
+    },
+    {
+      "sequence": 152.0,
+      "probe_elapsed": 175.25413616700098,
+      "arrival_elapsed": 175.23572529200464,
+      "local_age": 0.018410999997286126,
+      "generation": 1.0,
+      "source_elapsed": 177.281
+    },
+    {
+      "sequence": 153.0,
+      "probe_elapsed": 176.28801445799763,
+      "arrival_elapsed": 176.26883170800284,
+      "local_age": 0.01918341699638404,
+      "generation": 1.0,
+      "source_elapsed": 178.20000000000002
+    },
+    {
+      "sequence": 154.0,
+      "probe_elapsed": 177.28205662500113,
+      "arrival_elapsed": 177.27447733300505,
+      "local_age": 0.007580334000522271,
+      "generation": 1.0,
+      "source_elapsed": 178.72
+    },
+    {
+      "sequence": 155.0,
+      "probe_elapsed": 178.32487125000625,
+      "arrival_elapsed": 178.28466941700026,
+      "local_age": 0.040201957992394455,
+      "generation": 1.0,
+      "source_elapsed": 179.28
+    },
+    {
+      "sequence": 156.0,
+      "probe_elapsed": 179.3521211250045,
+      "arrival_elapsed": 179.32479641700047,
+      "local_age": 0.0273250409954926,
+      "generation": 1.0,
+      "source_elapsed": 181.359
+    },
+    {
+      "sequence": 157.0,
+      "probe_elapsed": 180.3853640830057,
+      "arrival_elapsed": 180.34343554200314,
+      "local_age": 0.04192883300129324,
+      "generation": 1.0,
+      "source_elapsed": 182.358
+    },
+    {
+      "sequence": 158.0,
+      "probe_elapsed": 182.2592911249958,
+      "arrival_elapsed": 182.2072341250023,
+      "local_age": 0.052057708002394065,
+      "generation": 1.0,
+      "source_elapsed": 183.238
+    },
+    {
+      "sequence": 159.0,
+      "probe_elapsed": 183.24480483299703,
+      "arrival_elapsed": 183.20935183299298,
+      "local_age": 0.03545329200278502,
+      "generation": 1.0,
+      "source_elapsed": 185.11700000000002
+    },
+    {
+      "sequence": 160.0,
+      "probe_elapsed": 184.27316075000272,
+      "arrival_elapsed": 184.25786920799874,
+      "local_age": 0.015292166994186118,
+      "generation": 1.0,
+      "source_elapsed": 186.23600000000002
+    },
+    {
+      "sequence": 161.0,
+      "probe_elapsed": 185.3583879170037,
+      "arrival_elapsed": 185.3099357500032,
+      "local_age": 0.048452791990712285,
+      "generation": 1.0,
+      "source_elapsed": 187.196
+    },
+    {
+      "sequence": 162.0,
+      "probe_elapsed": 186.5963531669986,
+      "arrival_elapsed": 186.55288683300023,
+      "local_age": 0.0434664999920642,
+      "generation": 1.0,
+      "source_elapsed": 187.276
+    },
+    {
+      "sequence": 163.0,
+      "probe_elapsed": 187.627122417005,
+      "arrival_elapsed": 187.59108916700643,
+      "local_age": 0.03603366599418223,
+      "generation": 1.0,
+      "source_elapsed": 189.555
+    },
+    {
+      "sequence": 164.0,
+      "probe_elapsed": 188.73349195800256,
+      "arrival_elapsed": 188.69242466699507,
+      "local_age": 0.04106795800908003,
+      "generation": 1.0,
+      "source_elapsed": 190.435
+    },
+    {
+      "sequence": 165.0,
+      "probe_elapsed": 189.69924212500337,
+      "arrival_elapsed": 189.69502045800618,
+      "local_age": 0.004221874987706542,
+      "generation": 1.0,
+      "source_elapsed": 191.514
+    },
+    {
+      "sequence": 166.0,
+      "probe_elapsed": 190.72827491699718,
+      "arrival_elapsed": 190.70852070799447,
+      "local_age": 0.019754624998313375,
+      "generation": 1.0,
+      "source_elapsed": 192.714
+    },
+    {
+      "sequence": 167.0,
+      "probe_elapsed": 191.76523362500302,
+      "arrival_elapsed": 191.71568554200348,
+      "local_age": 0.04954900000302587,
+      "generation": 1.0,
+      "source_elapsed": 193.713
+    },
+    {
+      "sequence": 168.0,
+      "probe_elapsed": 192.79346954199718,
+      "arrival_elapsed": 192.76243141699524,
+      "local_age": 0.031038458007969894,
+      "generation": 1.0,
+      "source_elapsed": 194.713
+    },
+    {
+      "sequence": 169.0,
+      "probe_elapsed": 193.87611933299922,
+      "arrival_elapsed": 193.84948433299724,
+      "local_age": 0.026635208996594884,
+      "generation": 1.0,
+      "source_elapsed": 195.27200000000002
+    },
+    {
+      "sequence": 170.0,
+      "probe_elapsed": 195.06938779199845,
+      "arrival_elapsed": 195.02527583300252,
+      "local_age": 0.04411220899783075,
+      "generation": 1.0,
+      "source_elapsed": 196.352
+    },
+    {
+      "sequence": 171.0,
+      "probe_elapsed": 196.1054803750012,
+      "arrival_elapsed": 196.05528391699772,
+      "local_age": 0.05019833300320897,
+      "generation": 1.0,
+      "source_elapsed": 198.071
+    },
+    {
+      "sequence": 172.0,
+      "probe_elapsed": 197.09673262499564,
+      "arrival_elapsed": 197.05970233300468,
+      "local_age": 0.03703158399730455,
+      "generation": 1.0,
+      "source_elapsed": 199.071
+    },
+    {
+      "sequence": 173.0,
+      "probe_elapsed": 198.12729529199714,
+      "arrival_elapsed": 198.11895216700213,
+      "local_age": 0.008343416004208848,
+      "generation": 1.0,
+      "source_elapsed": 199.27100000000002
+    },
+    {
+      "sequence": 174.0,
+      "probe_elapsed": 199.15569133299869,
+      "arrival_elapsed": 199.13310304199695,
+      "local_age": 0.022589000000152737,
+      "generation": 1.0,
+      "source_elapsed": 201.15
+    },
+    {
+      "sequence": 175.0,
+      "probe_elapsed": 200.15448549999564,
+      "arrival_elapsed": 200.13898437499302,
+      "local_age": 0.015501292000408284,
+      "generation": 1.0,
+      "source_elapsed": 202.149
+    },
+    {
+      "sequence": 176.0,
+      "probe_elapsed": 201.14836249999644,
+      "arrival_elapsed": 201.14154133299598,
+      "local_age": 0.006821417002356611,
+      "generation": 1.0,
+      "source_elapsed": 202.90900000000002
+    },
+    {
+      "sequence": 177.0,
+      "probe_elapsed": 202.22578591700585,
+      "arrival_elapsed": 202.208471542006,
+      "local_age": 0.017314582990366034,
+      "generation": 1.0,
+      "source_elapsed": 204.228
+    },
+    {
+      "sequence": 178.0,
+      "probe_elapsed": 203.25925987500523,
+      "arrival_elapsed": 203.21105800000078,
+      "local_age": 0.0482028749975143,
+      "generation": 1.0,
+      "source_elapsed": 205.228
+    },
+    {
+      "sequence": 179.0,
+      "probe_elapsed": 204.2893953330058,
+      "arrival_elapsed": 204.25028649999877,
+      "local_age": 0.03910937500768341,
+      "generation": 1.0,
+      "source_elapsed": 206.268
+    },
+    {
+      "sequence": 180.0,
+      "probe_elapsed": 205.31771258299705,
+      "arrival_elapsed": 205.28881287500553,
+      "local_age": 0.028900457997224294,
+      "generation": 1.0,
+      "source_elapsed": 207.187
+    },
+    {
+      "sequence": 181.0,
+      "probe_elapsed": 207.28762237500632,
+      "arrival_elapsed": 207.26711670799705,
+      "local_age": 0.020506333996308967,
+      "generation": 1.0,
+      "source_elapsed": 207.227
+    },
+    {
+      "sequence": 182.0,
+      "probe_elapsed": 208.32462979199772,
+      "arrival_elapsed": 208.27340345800621,
+      "local_age": 0.05122658399341162,
+      "generation": 1.0,
+      "source_elapsed": 210.14600000000002
+    },
+    {
+      "sequence": 183.0,
+      "probe_elapsed": 210.20294395799283,
+      "arrival_elapsed": 210.15092666700366,
+      "local_age": 0.05201949999900535,
+      "generation": 1.0,
+      "source_elapsed": 211.225
+    },
+    {
+      "sequence": 184.0,
+      "probe_elapsed": 211.23407662499812,
+      "arrival_elapsed": 211.18159074999858,
+      "local_age": 0.05248616699827835,
+      "generation": 1.0,
+      "source_elapsed": 213.184
+    },
+    {
+      "sequence": 185.0,
+      "probe_elapsed": 212.26022429199656,
+      "arrival_elapsed": 212.2293432919978,
+      "local_age": 0.030881583006703295,
+      "generation": 1.0,
+      "source_elapsed": 214.22400000000002
+    },
+    {
+      "sequence": 186.0,
+      "probe_elapsed": 213.29315895799664,
+      "arrival_elapsed": 213.2409172500047,
+      "local_age": 0.05224195799382869,
+      "generation": 1.0,
+      "source_elapsed": 215.06400000000002
+    },
+    {
+      "sequence": 187.0,
+      "probe_elapsed": 214.76752220799972,
+      "arrival_elapsed": 214.72309499999392,
+      "local_age": 0.04442737500357907,
+      "generation": 1.0,
+      "source_elapsed": 215.263
+    },
+    {
+      "sequence": 188.0,
+      "probe_elapsed": 215.74628645800112,
+      "arrival_elapsed": 215.73081166700285,
+      "local_age": 0.01547545799985528,
+      "generation": 1.0,
+      "source_elapsed": 217.74200000000002
+    },
+    {
+      "sequence": 189.0,
+      "probe_elapsed": 216.7738478329993,
+      "arrival_elapsed": 216.76917349999712,
+      "local_age": 0.004674833005992696,
+      "generation": 1.0,
+      "source_elapsed": 218.74200000000002
+    },
+    {
+      "sequence": 190.0,
+      "probe_elapsed": 217.9842999169923,
+      "arrival_elapsed": 217.92892449999636,
+      "local_age": 0.05537670799822081,
+      "generation": 1.0,
+      "source_elapsed": 219.222
+    },
+    {
+      "sequence": 191.0,
+      "probe_elapsed": 218.96412958299334,
+      "arrival_elapsed": 218.93628016699222,
+      "local_age": 0.02784966600302141,
+      "generation": 1.0,
+      "source_elapsed": 220.381
+    },
+    {
+      "sequence": 192.0,
+      "probe_elapsed": 219.95957770799578,
+      "arrival_elapsed": 219.94201116700424,
+      "local_age": 0.017566999988048337,
+      "generation": 1.0,
+      "source_elapsed": 221.9
+    },
+    {
+      "sequence": 193.0,
+      "probe_elapsed": 220.98651341699588,
+      "arrival_elapsed": 220.97267779200047,
+      "local_age": 0.013835791003657505,
+      "generation": 1.0,
+      "source_elapsed": 222.98000000000002
+    },
+    {
+      "sequence": 194.0,
+      "probe_elapsed": 222.29210575000616,
+      "arrival_elapsed": 222.27769291699224,
+      "local_age": 0.014413000011700206,
+      "generation": 1.0,
+      "source_elapsed": 223.22
+    },
+    {
+      "sequence": 195.0,
+      "probe_elapsed": 223.32626170800359,
+      "arrival_elapsed": 223.30575008300366,
+      "local_age": 0.020511791997705586,
+      "generation": 1.0,
+      "source_elapsed": 225.25900000000001
+    },
+    {
+      "sequence": 196.0,
+      "probe_elapsed": 224.77303850000317,
+      "arrival_elapsed": 224.76020550000248,
+      "local_age": 0.012833375003538094,
+      "generation": 1.0,
+      "source_elapsed": 226.338
+    },
+    {
+      "sequence": 197.0,
+      "probe_elapsed": 225.80567975000304,
+      "arrival_elapsed": 225.7797174169973,
+      "local_age": 0.025963624997530133,
+      "generation": 1.0,
+      "source_elapsed": 227.21800000000002
+    },
+    {
+      "sequence": 198.0,
+      "probe_elapsed": 226.84160820799298,
+      "arrival_elapsed": 226.78939058299875,
+      "local_age": 0.05221808400528971,
+      "generation": 1.0,
+      "source_elapsed": 228.77700000000002
+    },
+    {
+      "sequence": 199.0,
+      "probe_elapsed": 227.86960829199234,
+      "arrival_elapsed": 227.8350072500034,
+      "local_age": 0.03460120799718425,
+      "generation": 1.0,
+      "source_elapsed": 229.817
+    },
+    {
+      "sequence": 200.0,
+      "probe_elapsed": 228.89557100000093,
+      "arrival_elapsed": 228.88216808300058,
+      "local_age": 0.013403417004155926,
+      "generation": 1.0,
+      "source_elapsed": 230.856
+    },
+    {
+      "sequence": 201.0,
+      "probe_elapsed": 230.32203979199403,
+      "arrival_elapsed": 230.2673802920035,
+      "local_age": 0.05466083298961166,
+      "generation": 1.0,
+      "source_elapsed": 231.216
+    },
+    {
+      "sequence": 202.0,
+      "probe_elapsed": 231.4170637079951,
+      "arrival_elapsed": 231.4118186669948,
+      "local_age": 0.0052460000006249174,
+      "generation": 1.0,
+      "source_elapsed": 233.095
+    },
+    {
+      "sequence": 203.0,
+      "probe_elapsed": 232.45681166699796,
+      "arrival_elapsed": 232.44025474999216,
+      "local_age": 0.016557292008656077,
+      "generation": 1.0,
+      "source_elapsed": 234.41500000000002
+    },
+    {
+      "sequence": 204.0,
+      "probe_elapsed": 234.3185819999926,
+      "arrival_elapsed": 234.2851882919931,
+      "local_age": 0.033394333004252985,
+      "generation": 1.0,
+      "source_elapsed": 235.215
+    },
+    {
+      "sequence": 205.0,
+      "probe_elapsed": 235.3165549999976,
+      "arrival_elapsed": 235.30588899999566,
+      "local_age": 0.010666250003851019,
+      "generation": 1.0,
+      "source_elapsed": 237.294
+    },
+    {
+      "sequence": 206.0,
+      "probe_elapsed": 236.33987825000077,
+      "arrival_elapsed": 236.31555329200637,
+      "local_age": 0.024325249993125908,
+      "generation": 1.0,
+      "source_elapsed": 238.293
+    },
+    {
+      "sequence": 207.0,
+      "probe_elapsed": 238.21724787499988,
+      "arrival_elapsed": 238.17935029200453,
+      "local_age": 0.037898290989687666,
+      "generation": 1.0,
+      "source_elapsed": 239.213
+    },
+    {
+      "sequence": 208.0,
+      "probe_elapsed": 239.2147352920001,
+      "arrival_elapsed": 239.1814565829991,
+      "local_age": 0.03327891700610053,
+      "generation": 1.0,
+      "source_elapsed": 241.172
+    },
+    {
+      "sequence": 209.0,
+      "probe_elapsed": 240.29764545800572,
+      "arrival_elapsed": 240.28865249999217,
+      "local_age": 0.008993667011964135,
+      "generation": 1.0,
+      "source_elapsed": 242.05100000000002
+    },
+    {
+      "sequence": 210.0,
+      "probe_elapsed": 241.54736320799566,
+      "arrival_elapsed": 241.49923975000274,
+      "local_age": 0.04812466699513607,
+      "generation": 1.0,
+      "source_elapsed": 243.17100000000002
+    },
+    {
+      "sequence": 211.0,
+      "probe_elapsed": 242.5963690829958,
+      "arrival_elapsed": 242.55552458300372,
+      "local_age": 0.0408447090012487,
+      "generation": 1.0,
+      "source_elapsed": 244.41
+    },
+    {
+      "sequence": 212.0,
+      "probe_elapsed": 243.58294345799368,
+      "arrival_elapsed": 243.57549870799994,
+      "local_age": 0.00744499999564141,
+      "generation": 1.0,
+      "source_elapsed": 244.85
+    },
+    {
+      "sequence": 213.0,
+      "probe_elapsed": 244.61664966700482,
+      "arrival_elapsed": 244.5955565829936,
+      "local_age": 0.021093625007779337,
+      "generation": 1.0,
+      "source_elapsed": 246.56900000000002
+    },
+    {
+      "sequence": 214.0,
+      "probe_elapsed": 246.21361245799926,
+      "arrival_elapsed": 246.20586050000566,
+      "local_age": 0.007752332996460609,
+      "generation": 1.0,
+      "source_elapsed": 247.209
+    },
+    {
+      "sequence": 215.0,
+      "probe_elapsed": 247.24785245799285,
+      "arrival_elapsed": 247.20818050000526,
+      "local_age": 0.03967212499992456,
+      "generation": 1.0,
+      "source_elapsed": 249.208
+    },
+    {
+      "sequence": 216.0,
+      "probe_elapsed": 248.27251379200607,
+      "arrival_elapsed": 248.23169604199938,
+      "local_age": 0.04081820799910929,
+      "generation": 1.0,
+      "source_elapsed": 250.208
+    },
+    {
+      "sequence": 217.0,
+      "probe_elapsed": 249.4591790419945,
+      "arrival_elapsed": 249.43985633300326,
+      "local_age": 0.019322916996316053,
+      "generation": 1.0,
+      "source_elapsed": 250.92700000000002
+    },
+    {
+      "sequence": 218.0,
+      "probe_elapsed": 250.71531820799282,
+      "arrival_elapsed": 250.7124519170029,
+      "local_age": 0.002866750000976026,
+      "generation": 1.0,
+      "source_elapsed": 251.247
+    },
+    {
+      "sequence": 219.0,
+      "probe_elapsed": 251.79545008299465,
+      "arrival_elapsed": 251.7549849999923,
+      "local_age": 0.04046579200075939,
+      "generation": 1.0,
+      "source_elapsed": 253.726
+    },
+    {
+      "sequence": 220.0,
+      "probe_elapsed": 252.78485887500574,
+      "arrival_elapsed": 252.7696438330022,
+      "local_age": 0.015215209001326002,
+      "generation": 1.0,
+      "source_elapsed": 254.76600000000002
+    },
+    {
+      "sequence": 221.0,
+      "probe_elapsed": 254.13374666699383,
+      "arrival_elapsed": 254.09278375000576,
+      "local_age": 0.040963666993775405,
+      "generation": 1.0,
+      "source_elapsed": 255.20600000000002
+    },
+    {
+      "sequence": 222.0,
+      "probe_elapsed": 255.41909133299487,
+      "arrival_elapsed": 255.37082199999713,
+      "local_age": 0.04826949999551289,
+      "generation": 1.0,
+      "source_elapsed": 256.72499999999997
+    },
+    {
+      "sequence": 223.0,
+      "probe_elapsed": 256.39830883299874,
+      "arrival_elapsed": 256.38696933300525,
+      "local_age": 0.011339749995386228,
+      "generation": 1.0,
+      "source_elapsed": 258.364
+    },
+    {
+      "sequence": 224.0,
+      "probe_elapsed": 257.8534803329967,
+      "arrival_elapsed": 257.8054854170041,
+      "local_age": 0.047995624991017394,
+      "generation": 1.0,
+      "source_elapsed": 259.204
+    },
+    {
+      "sequence": 225.0,
+      "probe_elapsed": 258.8498564170004,
+      "arrival_elapsed": 258.8391030829953,
+      "local_age": 0.01075354201020673,
+      "generation": 1.0,
+      "source_elapsed": 260.803
+    },
+    {
+      "sequence": 226.0,
+      "probe_elapsed": 259.93373666699335,
+      "arrival_elapsed": 259.88402949999727,
+      "local_age": 0.04970754199894145,
+      "generation": 1.0,
+      "source_elapsed": 261.84299999999996
+    },
+    {
+      "sequence": 227.0,
+      "probe_elapsed": 261.14268333300424,
+      "arrival_elapsed": 261.1076095000026,
+      "local_age": 0.03507408300356474,
+      "generation": 1.0,
+      "source_elapsed": 262.56199999999995
+    },
+    {
+      "sequence": 228.0,
+      "probe_elapsed": 262.23605712500284,
+      "arrival_elapsed": 262.23130933300126,
+      "local_age": 0.004748084000311792,
+      "generation": 1.0,
+      "source_elapsed": 263.202
+    },
+    {
+      "sequence": 229.0,
+      "probe_elapsed": 263.37063200000557,
+      "arrival_elapsed": 263.3554692079924,
+      "local_age": 0.015163375006522983,
+      "generation": 1.0,
+      "source_elapsed": 265.281
+    },
+    {
+      "sequence": 230.0,
+      "probe_elapsed": 264.4527346669929,
+      "arrival_elapsed": 264.403299957994,
+      "local_age": 0.04943525000999216,
+      "generation": 1.0,
+      "source_elapsed": 266.40099999999995
+    },
+    {
+      "sequence": 231.0,
+      "probe_elapsed": 266.00148562500544,
+      "arrival_elapsed": 265.9535032499989,
+      "local_age": 0.04798316699452698,
+      "generation": 1.0,
+      "source_elapsed": 267.2
+    },
+    {
+      "sequence": 232.0,
+      "probe_elapsed": 267.14372620799986,
+      "arrival_elapsed": 267.128329500003,
+      "local_age": 0.015396916991448961,
+      "generation": 1.0,
+      "source_elapsed": 268.47999999999996
+    },
+    {
+      "sequence": 233.0,
+      "probe_elapsed": 268.17613300000085,
+      "arrival_elapsed": 268.170832667005,
+      "local_age": 0.005300749995512888,
+      "generation": 1.0,
+      "source_elapsed": 270.159
+    },
+    {
+      "sequence": 234.0,
+      "probe_elapsed": 270.09482574999856,
+      "arrival_elapsed": 270.0481563749927,
+      "local_age": 0.04667150000750553,
+      "generation": 1.0,
+      "source_elapsed": 271.198
+    },
+    {
+      "sequence": 235.0,
+      "probe_elapsed": 271.12911929200345,
+      "arrival_elapsed": 271.0918340000062,
+      "local_age": 0.03728554199915379,
+      "generation": 1.0,
+      "source_elapsed": 273.078
+    },
+    {
+      "sequence": 236.0,
+      "probe_elapsed": 272.15905641700374,
+      "arrival_elapsed": 272.1124091249949,
+      "local_age": 0.046647542010759935,
+      "generation": 1.0,
+      "source_elapsed": 274.11699999999996
+    },
+    {
+      "sequence": 237.0,
+      "probe_elapsed": 273.186448708002,
+      "arrival_elapsed": 273.15361049999774,
+      "local_age": 0.0328384169988567,
+      "generation": 1.0,
+      "source_elapsed": 275.077
+    },
+    {
+      "sequence": 238.0,
+      "probe_elapsed": 274.2145695829968,
+      "arrival_elapsed": 274.18000875000143,
+      "local_age": 0.03456154199375305,
+      "generation": 1.0,
+      "source_elapsed": 276.19599999999997
+    },
+    {
+      "sequence": 239.0,
+      "probe_elapsed": 275.19233441700635,
+      "arrival_elapsed": 275.18846929199935,
+      "local_age": 0.003865416001644917,
+      "generation": 1.0,
+      "source_elapsed": 277.236
+    },
+    {
+      "sequence": 240.0,
+      "probe_elapsed": 276.32323895799345,
+      "arrival_elapsed": 276.2719102080009,
+      "local_age": 0.051328959001693875,
+      "generation": 1.0,
+      "source_elapsed": 278.23499999999996
+    },
+    {
+      "sequence": 241.0,
+      "probe_elapsed": 277.5262952500052,
+      "arrival_elapsed": 277.5170861249935,
+      "local_age": 0.009209333002218045,
+      "generation": 1.0,
+      "source_elapsed": 279.155
+    },
+    {
+      "sequence": 242.0,
+      "probe_elapsed": 278.55528645799495,
+      "arrival_elapsed": 278.522975083004,
+      "local_age": 0.03231479199894238,
+      "generation": 1.0,
+      "source_elapsed": 280.394
+    },
+    {
+      "sequence": 243.0,
+      "probe_elapsed": 279.59248325000226,
+      "arrival_elapsed": 279.5890107919986,
+      "local_age": 0.0034726659941952676,
+      "generation": 1.0,
+      "source_elapsed": 281.594
+    },
+    {
+      "sequence": 244.0,
+      "probe_elapsed": 280.6436214999994,
+      "arrival_elapsed": 280.6342081250041,
+      "local_age": 0.009414166997885332,
+      "generation": 1.0,
+      "source_elapsed": 282.59299999999996
+    },
+    {
+      "sequence": 245.0,
+      "probe_elapsed": 281.87619904200255,
+      "arrival_elapsed": 281.8531068750017,
+      "local_age": 0.023092374991392717,
+      "generation": 1.0,
+      "source_elapsed": 283.233
+    },
+    {
+      "sequence": 246.0,
+      "probe_elapsed": 282.9608331670024,
+      "arrival_elapsed": 282.90932091699506,
+      "local_age": 0.05151250000926666,
+      "generation": 1.0,
+      "source_elapsed": 284.912
+    },
+    {
+      "sequence": 247.0,
+      "probe_elapsed": 283.94308112500585,
+      "arrival_elapsed": 283.92748154199217,
+      "local_age": 0.015600208003888838,
+      "generation": 1.0,
+      "source_elapsed": 285.75199999999995
+    },
+    {
+      "sequence": 248.0,
+      "probe_elapsed": 285.0809590830031,
+      "arrival_elapsed": 285.06776700000046,
+      "local_age": 0.01319258299190551,
+      "generation": 1.0,
+      "source_elapsed": 286.59099999999995
+    },
+    {
+      "sequence": 249.0,
+      "probe_elapsed": 286.15858166699763,
+      "arrival_elapsed": 286.1066037080018,
+      "local_age": 0.05197837499144953,
+      "generation": 1.0,
+      "source_elapsed": 288.111
+    },
+    {
+      "sequence": 250.0,
+      "probe_elapsed": 287.1940196670039,
+      "arrival_elapsed": 287.1409350419999,
+      "local_age": 0.05308537499513477,
+      "generation": 1.0,
+      "source_elapsed": 289.15
+    },
+    {
+      "sequence": 251.0,
+      "probe_elapsed": 288.2216218329995,
+      "arrival_elapsed": 288.1881850829959,
+      "local_age": 0.03343708399916068,
+      "generation": 1.0,
+      "source_elapsed": 290.19
+    },
+    {
+      "sequence": 252.0,
+      "probe_elapsed": 289.2517256249994,
+      "arrival_elapsed": 289.19911429200147,
+      "local_age": 0.052611708000767976,
+      "generation": 1.0,
+      "source_elapsed": 291.149
+    },
+    {
+      "sequence": 253.0,
+      "probe_elapsed": 290.2409014580044,
+      "arrival_elapsed": 290.20709891700244,
+      "local_age": 0.033802915990236215,
+      "generation": 1.0,
+      "source_elapsed": 292.229
+    },
+    {
+      "sequence": 254.0,
+      "probe_elapsed": 291.22845133299415,
+      "arrival_elapsed": 291.20719558300334,
+      "local_age": 0.02125595899997279,
+      "generation": 1.0,
+      "source_elapsed": 293.109
+    },
+    {
+      "sequence": 255.0,
+      "probe_elapsed": 292.31132445800176,
+      "arrival_elapsed": 292.2725529169984,
+      "local_age": 0.038772250001784414,
+      "generation": 1.0,
+      "source_elapsed": 294.268
+    },
+    {
+      "sequence": 256.0,
+      "probe_elapsed": 293.8090261670004,
+      "arrival_elapsed": 293.7931711669953,
+      "local_age": 0.015855791003559716,
+      "generation": 1.0,
+      "source_elapsed": 295.188
+    },
+    {
+      "sequence": 257.0,
+      "probe_elapsed": 294.8526078330033,
+      "arrival_elapsed": 294.8028073750029,
+      "local_age": 0.0498011250019772,
+      "generation": 1.0,
+      "source_elapsed": 296.74699999999996
+    },
+    {
+      "sequence": 258.0,
+      "probe_elapsed": 295.83359420800116,
+      "arrival_elapsed": 295.82341091700073,
+      "local_age": 0.010183582999161445,
+      "generation": 1.0,
+      "source_elapsed": 297.82599999999996
+    },
+    {
+      "sequence": 259.0,
+      "probe_elapsed": 296.91551212499326,
+      "arrival_elapsed": 296.90698683299706,
+      "local_age": 0.008525666999048553,
+      "generation": 1.0,
+      "source_elapsed": 298.426
+    },
+    {
+      "sequence": 260.0,
+      "probe_elapsed": 298.0058215829922,
+      "arrival_elapsed": 297.9595907500043,
+      "local_age": 0.04623108298983425,
+      "generation": 1.0,
+      "source_elapsed": 299.226
+    },
+    {
+      "sequence": 261.0,
+      "probe_elapsed": 298.98492962500313,
+      "arrival_elapsed": 298.9754081249994,
+      "local_age": 0.009521707994281314,
+      "generation": 1.0,
+      "source_elapsed": 300.945
+    },
+    {
+      "sequence": 262.0,
+      "probe_elapsed": 300.0177348750003,
+      "arrival_elapsed": 299.9837833329948,
+      "local_age": 0.03395204200933222,
+      "generation": 1.0,
+      "source_elapsed": 301.98499999999996
+    },
+    {
+      "sequence": 263.0,
+      "probe_elapsed": 301.0473466669937,
+      "arrival_elapsed": 301.00899033299356,
+      "local_age": 0.03835658400203101,
+      "generation": 1.0,
+      "source_elapsed": 302.984
+    },
+    {
+      "sequence": 264.0,
+      "probe_elapsed": 302.2419781250064,
+      "arrival_elapsed": 302.2269596249971,
+      "local_age": 0.015018749996670522,
+      "generation": 1.0,
+      "source_elapsed": 303.224
+    },
+    {
+      "sequence": 265.0,
+      "probe_elapsed": 303.23294058299507,
+      "arrival_elapsed": 303.2274320419965,
+      "local_age": 0.0055087910004658625,
+      "generation": 1.0,
+      "source_elapsed": 305.10299999999995
+    },
+    {
+      "sequence": 266.0,
+      "probe_elapsed": 304.31318604199623,
+      "arrival_elapsed": 304.2742508329975,
+      "local_age": 0.03893558400159236,
+      "generation": 1.0,
+      "source_elapsed": 306.263
+    },
+    {
+      "sequence": 267.0,
+      "probe_elapsed": 305.7028511249955,
+      "arrival_elapsed": 305.6956470419973,
+      "local_age": 0.007204583002021536,
+      "generation": 1.0,
+      "source_elapsed": 307.18199999999996
+    },
+    {
+      "sequence": 268.0,
+      "probe_elapsed": 306.7336587500031,
+      "arrival_elapsed": 306.72409970799345,
+      "local_age": 0.009559375001117587,
+      "generation": 1.0,
+      "source_elapsed": 308.702
+    },
+    {
+      "sequence": 269.0,
+      "probe_elapsed": 307.7674762499955,
+      "arrival_elapsed": 307.73383516700414,
+      "local_age": 0.03364137499011122,
+      "generation": 1.0,
+      "source_elapsed": 309.70099999999996
+    },
+    {
+      "sequence": 270.0,
+      "probe_elapsed": 308.97594570799265,
+      "arrival_elapsed": 308.9226236669929,
+      "local_age": 0.05332250001083594,
+      "generation": 1.0,
+      "source_elapsed": 310.26099999999997
+    },
+    {
+      "sequence": 271.0,
+      "probe_elapsed": 310.1134202079993,
+      "arrival_elapsed": 310.0640870000061,
+      "local_age": 0.04933620798692573,
+      "generation": 1.0,
+      "source_elapsed": 311.18
+    },
+    {
+      "sequence": 272.0,
+      "probe_elapsed": 311.14130970799306,
+      "arrival_elapsed": 311.10898637499486,
+      "local_age": 0.0323237499978859,
+      "generation": 1.0,
+      "source_elapsed": 313.09999999999997
+    },
+    {
+      "sequence": 273.0,
+      "probe_elapsed": 312.1277105420013,
+      "arrival_elapsed": 312.1227596249955,
+      "local_age": 0.004951458002324216,
+      "generation": 1.0,
+      "source_elapsed": 314.13899999999995
+    },
+    {
+      "sequence": 274.0,
+      "probe_elapsed": 313.1710168749996,
+      "arrival_elapsed": 313.14204662499833,
+      "local_age": 0.028971374995307997,
+      "generation": 1.0,
+      "source_elapsed": 315.13899999999995
+    },
+    {
+      "sequence": 275.0,
+      "probe_elapsed": 314.159250333003,
+      "arrival_elapsed": 314.14724350000324,
+      "local_age": 0.012007124998490326,
+      "generation": 1.0,
+      "source_elapsed": 315.219
+    },
+    {
+      "sequence": 276.0,
+      "probe_elapsed": 315.1955221249955,
+      "arrival_elapsed": 315.151413457992,
+      "local_age": 0.044108917005360126,
+      "generation": 1.0,
+      "source_elapsed": 316.738
+    },
+    {
+      "sequence": 277.0,
+      "probe_elapsed": 316.228084375005,
+      "arrival_elapsed": 316.2125785829994,
+      "local_age": 0.015506249997997656,
+      "generation": 1.0,
+      "source_elapsed": 318.17699999999996
+    },
+    {
+      "sequence": 278.0,
+      "probe_elapsed": 317.9891706250055,
+      "arrival_elapsed": 317.9353187079978,
+      "local_age": 0.053854792000493035,
+      "generation": 1.0,
+      "source_elapsed": 319.17699999999996
+    },
+    {
+      "sequence": 279.0,
+      "probe_elapsed": 319.0206932500005,
+      "arrival_elapsed": 318.9672040419973,
+      "local_age": 0.05348945800506044,
+      "generation": 1.0,
+      "source_elapsed": 320.936
+    },
+    {
+      "sequence": 280.0,
+      "probe_elapsed": 319.99566466700344,
+      "arrival_elapsed": 319.9813555419969,
+      "local_age": 0.014309375008451752,
+      "generation": 1.0,
+      "source_elapsed": 321.936
+    },
+    {
+      "sequence": 281.0,
+      "probe_elapsed": 320.9998268329946,
+      "arrival_elapsed": 320.98380579199875,
+      "local_age": 0.016021415998693556,
+      "generation": 1.0,
+      "source_elapsed": 322.61499999999995
+    },
+    {
+      "sequence": 282.0,
+      "probe_elapsed": 322.2440849169943,
+      "arrival_elapsed": 322.2014850419946,
+      "local_age": 0.042600333006703295,
+      "generation": 1.0,
+      "source_elapsed": 323.215
+    },
+    {
+      "sequence": 283.0,
+      "probe_elapsed": 323.22270050000225,
+      "arrival_elapsed": 323.21897295799863,
+      "local_age": 0.0037279170064721256,
+      "generation": 1.0,
+      "source_elapsed": 325.214
+    },
+    {
+      "sequence": 284.0,
+      "probe_elapsed": 324.2564375420043,
+      "arrival_elapsed": 324.2250088330038,
+      "local_age": 0.03142899999511428,
+      "generation": 1.0,
+      "source_elapsed": 326.01399999999995
+    },
+    {
+      "sequence": 285.0,
+      "probe_elapsed": 325.34027274999244,
+      "arrival_elapsed": 325.2928943750012,
+      "local_age": 0.047378749994095415,
+      "generation": 1.0,
+      "source_elapsed": 327.173
+    },
+    {
+      "sequence": 286.0,
+      "probe_elapsed": 326.5321552079986,
+      "arrival_elapsed": 326.50199737500225,
+      "local_age": 0.03015854199475143,
+      "generation": 1.0,
+      "source_elapsed": 328.013
+    },
+    {
+      "sequence": 287.0,
+      "probe_elapsed": 327.5693784169998,
+      "arrival_elapsed": 327.54324495799665,
+      "local_age": 0.026133874998777173,
+      "generation": 1.0,
+      "source_elapsed": 329.532
+    },
+    {
+      "sequence": 288.0,
+      "probe_elapsed": 328.6024136250053,
+      "arrival_elapsed": 328.5655560830055,
+      "local_age": 0.03685912500077393,
+      "generation": 1.0,
+      "source_elapsed": 330.532
+    },
+    {
+      "sequence": 289.0,
+      "probe_elapsed": 329.84459537500516,
+      "arrival_elapsed": 329.8042240420036,
+      "local_age": 0.040374249991145916,
+      "generation": 1.0,
+      "source_elapsed": 331.171
+    },
+    {
+      "sequence": 290.0,
+      "probe_elapsed": 330.8281617920002,
+      "arrival_elapsed": 330.81459808300133,
+      "local_age": 0.013563959000748582,
+      "generation": 1.0,
+      "source_elapsed": 332.811
+    },
+    {
+      "sequence": 291.0,
+      "probe_elapsed": 331.857107082993,
+      "arrival_elapsed": 331.81825754199235,
+      "local_age": 0.0388499580003554,
+      "generation": 1.0,
+      "source_elapsed": 333.81
+    },
+    {
+      "sequence": 292.0,
+      "probe_elapsed": 332.89774158300133,
+      "arrival_elapsed": 332.88033516699215,
+      "local_age": 0.017406833008863032,
+      "generation": 1.0,
+      "source_elapsed": 333.93
+    },
+    {
+      "sequence": 293.0,
+      "probe_elapsed": 333.9328212499968,
+      "arrival_elapsed": 333.91404737500125,
+      "local_age": 0.018774832991766743,
+      "generation": 1.0,
+      "source_elapsed": 335.16999999999996
+    },
+    {
+      "sequence": 294.0,
+      "probe_elapsed": 334.9591462919925,
+      "arrival_elapsed": 334.9141746249952,
+      "local_age": 0.04497187500237487,
+      "generation": 1.0,
+      "source_elapsed": 336.88899999999995
+    },
+    {
+      "sequence": 295.0,
+      "probe_elapsed": 335.93635579200054,
+      "arrival_elapsed": 335.9223682919983,
+      "local_age": 0.013987790996907279,
+      "generation": 1.0,
+      "source_elapsed": 337.928
+    },
+    {
+      "sequence": 296.0,
+      "probe_elapsed": 336.9722622499976,
+      "arrival_elapsed": 336.9332621670037,
+      "local_age": 0.039000415999908,
+      "generation": 1.0,
+      "source_elapsed": 338.928
+    },
+    {
+      "sequence": 297.0,
+      "probe_elapsed": 338.06943141699594,
+      "arrival_elapsed": 338.0186362079985,
+      "local_age": 0.05079966700577643,
+      "generation": 1.0,
+      "source_elapsed": 339.168
+    },
+    {
+      "sequence": 298.0,
+      "probe_elapsed": 339.1055643330037,
+      "arrival_elapsed": 339.05420433300606,
+      "local_age": 0.05136024999956135,
+      "generation": 1.0,
+      "source_elapsed": 340.767
+    },
+    {
+      "sequence": 299.0,
+      "probe_elapsed": 340.13539349999337,
+      "arrival_elapsed": 340.08966100000544,
+      "local_age": 0.04573279198666569,
+      "generation": 1.0,
+      "source_elapsed": 342.007
+    },
+    {
+      "sequence": 300.0,
+      "probe_elapsed": 341.1862200829928,
+      "arrival_elapsed": 341.1805046249938,
+      "local_age": 0.0057156670081894845,
+      "generation": 1.0,
+      "source_elapsed": 343.126
+    },
+    {
+      "sequence": 301.0,
+      "probe_elapsed": 342.27936404199863,
+      "arrival_elapsed": 342.26803725000354,
+      "local_age": 0.01132787499227561,
+      "generation": 1.0,
+      "source_elapsed": 343.166
+    },
+    {
+      "sequence": 302.0,
+      "probe_elapsed": 343.3200986669981,
+      "arrival_elapsed": 343.29333887499524,
+      "local_age": 0.026760167005704716,
+      "generation": 1.0,
+      "source_elapsed": 345.28499999999997
+    },
+    {
+      "sequence": 303.0,
+      "probe_elapsed": 344.8107108749973,
+      "arrival_elapsed": 344.7773468749947,
+      "local_age": 0.033364417002303526,
+      "generation": 1.0,
+      "source_elapsed": 346.205
+    },
+    {
+      "sequence": 304.0,
+      "probe_elapsed": 346.0076230419945,
+      "arrival_elapsed": 345.9950114999956,
+      "local_age": 0.01261183300812263,
+      "generation": 1.0,
+      "source_elapsed": 347.164
+    },
+    {
+      "sequence": 305.0,
+      "probe_elapsed": 347.03111070800514,
+      "arrival_elapsed": 347.000847000003,
+      "local_age": 0.030263874999945983,
+      "generation": 1.0,
+      "source_elapsed": 349.003
+    },
+    {
+      "sequence": 306.0,
+      "probe_elapsed": 348.01156737499696,
+      "arrival_elapsed": 348.0045726249955,
+      "local_age": 0.00699508300749585,
+      "generation": 1.0,
+      "source_elapsed": 349.96299999999997
+    },
+    {
+      "sequence": 307.0,
+      "probe_elapsed": 349.09322245800286,
+      "arrival_elapsed": 349.0431886669976,
+      "local_age": 0.050033958003041334,
+      "generation": 1.0,
+      "source_elapsed": 351.043
+    },
+    {
+      "sequence": 308.0,
+      "probe_elapsed": 350.53956441700575,
+      "arrival_elapsed": 350.52992066700244,
+      "local_age": 0.009644249992561527,
+      "generation": 1.0,
+      "source_elapsed": 351.202
+    },
+    {
+      "sequence": 309.0,
+      "probe_elapsed": 351.5689138750022,
+      "arrival_elapsed": 351.5510352499987,
+      "local_age": 0.017879125007311814,
+      "generation": 1.0,
+      "source_elapsed": 353.52099999999996
+    },
+    {
+      "sequence": 310.0,
+      "probe_elapsed": 352.6037012500019,
+      "arrival_elapsed": 352.5541690419923,
+      "local_age": 0.0495329160039546,
+      "generation": 1.0,
+      "source_elapsed": 354.561
+    },
+    {
+      "sequence": 311.0,
+      "probe_elapsed": 353.91521766700316,
+      "arrival_elapsed": 353.88537958299275,
+      "local_age": 0.029838875008863397,
+      "generation": 1.0,
+      "source_elapsed": 355.161
+    },
+    {
+      "sequence": 312.0,
+      "probe_elapsed": 354.95352399999683,
+      "arrival_elapsed": 354.9297044999985,
+      "local_age": 0.023819750000257045,
+      "generation": 1.0,
+      "source_elapsed": 356.91999999999996
+    },
+    {
+      "sequence": 313.0,
+      "probe_elapsed": 355.98070133299916,
+      "arrival_elapsed": 355.93497383300564,
+      "local_age": 0.045727833989076316,
+      "generation": 1.0,
+      "source_elapsed": 357.959
+    },
+    {
+      "sequence": 314.0,
+      "probe_elapsed": 356.9752319169929,
+      "arrival_elapsed": 356.9709980829939,
+      "local_age": 0.004234250009176321,
+      "generation": 1.0,
+      "source_elapsed": 358.279
+    },
+    {
+      "sequence": 315.0,
+      "probe_elapsed": 357.9987708749977,
+      "arrival_elapsed": 357.9769626670022,
+      "local_age": 0.021808457997394726,
+      "generation": 1.0,
+      "source_elapsed": 359.55899999999997
+    },
+    {
+      "sequence": 316.0,
+      "probe_elapsed": 359.0269779579976,
+      "arrival_elapsed": 358.99410016699403,
+      "local_age": 0.032878041005460545,
+      "generation": 1.0,
+      "source_elapsed": 361.03799999999995
+    },
+    {
+      "sequence": 317.0,
+      "probe_elapsed": 360.06136962499295,
+      "arrival_elapsed": 360.0184339169937,
+      "local_age": 0.042936208003084175,
+      "generation": 1.0,
+      "source_elapsed": 362.03799999999995
+    },
+    {
+      "sequence": 318.0,
+      "probe_elapsed": 361.09057583300455,
+      "arrival_elapsed": 361.04326399999263,
+      "local_age": 0.04731291701318696,
+      "generation": 1.0,
+      "source_elapsed": 363.037
+    },
+    {
+      "sequence": 319.0,
+      "probe_elapsed": 362.07666379200236,
+      "arrival_elapsed": 362.05247224999766,
+      "local_age": 0.02419187499617692,
+      "generation": 1.0,
+      "source_elapsed": 363.87699999999995
+    },
+    {
+      "sequence": 320.0,
+      "probe_elapsed": 363.1038509999926,
+      "arrival_elapsed": 363.08831558299426,
+      "local_age": 0.015535709011601284,
+      "generation": 1.0,
+      "source_elapsed": 365.036
+    },
+    {
+      "sequence": 321.0,
+      "probe_elapsed": 364.1371174579981,
+      "arrival_elapsed": 364.0897318329953,
+      "local_age": 0.047386042002472095,
+      "generation": 1.0,
+      "source_elapsed": 366.116
+    },
+    {
+      "sequence": 322.0,
+      "probe_elapsed": 365.22300570800144,
+      "arrival_elapsed": 365.1736830000009,
+      "local_age": 0.049324958003126085,
+      "generation": 1.0,
+      "source_elapsed": 367.11499999999995
+    },
+    {
+      "sequence": 323.0,
+      "probe_elapsed": 366.4330420000042,
+      "arrival_elapsed": 366.3816413750028,
+      "local_age": 0.05140079199918546,
+      "generation": 1.0,
+      "source_elapsed": 367.195
+    },
+    {
+      "sequence": 324.0,
+      "probe_elapsed": 367.41726824999205,
+      "arrival_elapsed": 367.38862762499775,
+      "local_age": 0.028641083001275547,
+      "generation": 1.0,
+      "source_elapsed": 369.43399999999997
+    },
+    {
+      "sequence": 325.0,
+      "probe_elapsed": 368.6611861249985,
+      "arrival_elapsed": 368.62757783300185,
+      "local_age": 0.03360854199854657,
+      "generation": 1.0,
+      "source_elapsed": 370.19399999999996
+    },
+    {
+      "sequence": 326.0,
+      "probe_elapsed": 369.90659854200203,
+      "arrival_elapsed": 369.87272587500047,
+      "local_age": 0.03387312499398831,
+      "generation": 1.0,
+      "source_elapsed": 371.154
+    },
+    {
+      "sequence": 327.0,
+      "probe_elapsed": 370.88504779200593,
+      "arrival_elapsed": 370.8737077919941,
+      "local_age": 0.011340249999193475,
+      "generation": 1.0,
+      "source_elapsed": 372.873
+    },
+    {
+      "sequence": 328.0,
+      "probe_elapsed": 371.8880347920058,
+      "arrival_elapsed": 371.8738172500016,
+      "local_age": 0.014217791991541162,
+      "generation": 1.0,
+      "source_elapsed": 373.832
+    },
+    {
+      "sequence": 329.0,
+      "probe_elapsed": 372.96926708299725,
+      "arrival_elapsed": 372.9240294170013,
+      "local_age": 0.0452381249924656,
+      "generation": 1.0,
+      "source_elapsed": 374.832
+    },
+    {
+      "sequence": 330.0,
+      "probe_elapsed": 374.33884625000064,
+      "arrival_elapsed": 374.3278045000043,
+      "local_age": 0.011041958001442254,
+      "generation": 1.0,
+      "source_elapsed": 375.192
+    },
+    {
+      "sequence": 331.0,
+      "probe_elapsed": 375.3872862080025,
+      "arrival_elapsed": 375.32785462499305,
+      "local_age": 0.059433625006931834,
+      "generation": 1.0,
+      "source_elapsed": 377.351
+    },
+    {
+      "sequence": 332.0,
+      "probe_elapsed": 376.38568895800563,
+      "arrival_elapsed": 376.35669087499264,
+      "local_age": 0.028998833004152402,
+      "generation": 1.0,
+      "source_elapsed": 378.31
+    },
+    {
+      "sequence": 333.0,
+      "probe_elapsed": 378.04633425000065,
+      "arrival_elapsed": 377.99599312500504,
+      "local_age": 0.05034187500132248,
+      "generation": 1.0,
+      "source_elapsed": 379.15
+    },
+    {
+      "sequence": 334.0,
+      "probe_elapsed": 379.0195359999925,
+      "arrival_elapsed": 379.00787462499284,
+      "local_age": 0.011661875003483146,
+      "generation": 1.0,
+      "source_elapsed": 381.029
+    },
+    {
+      "sequence": 335.0,
+      "probe_elapsed": 380.1117777079926,
+      "arrival_elapsed": 380.05861629199353,
+      "local_age": 0.05316295800730586,
+      "generation": 1.0,
+      "source_elapsed": 382.06899999999996
+    },
+    {
+      "sequence": 336.0,
+      "probe_elapsed": 381.13744150000275,
+      "arrival_elapsed": 381.1141225419997,
+      "local_age": 0.0233192909945501,
+      "generation": 1.0,
+      "source_elapsed": 383.108
+    },
+    {
+      "sequence": 337.0,
+      "probe_elapsed": 382.2490924169979,
+      "arrival_elapsed": 382.23761341700447,
+      "local_age": 0.011479207998490892,
+      "generation": 1.0,
+      "source_elapsed": 383.188
+    },
+    {
+      "sequence": 338.0,
+      "probe_elapsed": 383.27950829200563,
+      "arrival_elapsed": 383.23961312499887,
+      "local_age": 0.03989579199696891,
+      "generation": 1.0,
+      "source_elapsed": 385.267
+    },
+    {
+      "sequence": 339.0,
+      "probe_elapsed": 384.3630411250051,
+      "arrival_elapsed": 384.311594083003,
+      "local_age": 0.05144733400084078,
+      "generation": 1.0,
+      "source_elapsed": 386.30699999999996
+    },
+    {
+      "sequence": 340.0,
+      "probe_elapsed": 385.5969730420038,
+      "arrival_elapsed": 385.5561386670015,
+      "local_age": 0.04083504099980928,
+      "generation": 1.0,
+      "source_elapsed": 387.14599999999996
+    },
+    {
+      "sequence": 341.0,
+      "probe_elapsed": 386.9386634169932,
+      "arrival_elapsed": 386.9148071249947,
+      "local_age": 0.0238566250045551,
+      "generation": 1.0,
+      "source_elapsed": 388.426
+    },
+    {
+      "sequence": 342.0,
+      "probe_elapsed": 387.97311133300536,
+      "arrival_elapsed": 387.9267140830052,
+      "local_age": 0.04639745899476111,
+      "generation": 1.0,
+      "source_elapsed": 389.945
+    },
+    {
+      "sequence": 343.0,
+      "probe_elapsed": 388.95104341699334,
+      "arrival_elapsed": 388.9331994999957,
+      "local_age": 0.017844208006863482,
+      "generation": 1.0,
+      "source_elapsed": 390.945
+    },
+    {
+      "sequence": 344.0,
+      "probe_elapsed": 389.9813889999932,
+      "arrival_elapsed": 389.9769253330014,
+      "local_age": 0.004463874996872619,
+      "generation": 1.0,
+      "source_elapsed": 391.984
+    },
+    {
+      "sequence": 345.0,
+      "probe_elapsed": 391.0212345829932,
+      "arrival_elapsed": 390.9968015420018,
+      "local_age": 0.02443341599428095,
+      "generation": 1.0,
+      "source_elapsed": 393.024
+    },
+    {
+      "sequence": 346.0,
+      "probe_elapsed": 392.0990447499935,
+      "arrival_elapsed": 392.0752928330039,
+      "local_age": 0.023752249995595776,
+      "generation": 1.0,
+      "source_elapsed": 394.02299999999997
+    },
+    {
+      "sequence": 347.0,
+      "probe_elapsed": 393.1268802919949,
+      "arrival_elapsed": 393.08380458300235,
+      "local_age": 0.04307608399540186,
+      "generation": 1.0,
+      "source_elapsed": 395.02299999999997
+    },
+    {
+      "sequence": 348.0,
+      "probe_elapsed": 394.10942312500265,
+      "arrival_elapsed": 394.0951683750027,
+      "local_age": 0.01425504199869465,
+      "generation": 1.0,
+      "source_elapsed": 396.102
+    },
+    {
+      "sequence": 349.0,
+      "probe_elapsed": 395.1455900000001,
+      "arrival_elapsed": 395.11350495800434,
+      "local_age": 0.03208541699859779,
+      "generation": 1.0,
+      "source_elapsed": 397.102
+    },
+    {
+      "sequence": 350.0,
+      "probe_elapsed": 396.1803717080038,
+      "arrival_elapsed": 396.12956895800016,
+      "local_age": 0.050803167003323324,
+      "generation": 1.0,
+      "source_elapsed": 398.101
+    },
+    {
+      "sequence": 351.0,
+      "probe_elapsed": 397.3806894580048,
+      "arrival_elapsed": 397.34000608300266,
+      "local_age": 0.04068558399740141,
+      "generation": 1.0,
+      "source_elapsed": 399.14099999999996
+    },
+    {
+      "sequence": 352.0,
+      "probe_elapsed": 398.52486870800203,
+      "arrival_elapsed": 398.4814955000038,
+      "local_age": 0.04337408299033996,
+      "generation": 1.0,
+      "source_elapsed": 400.101
+    },
+    {
+      "sequence": 353.0,
+      "probe_elapsed": 399.50619891700626,
+      "arrival_elapsed": 399.4985335829988,
+      "local_age": 0.007665833996725269,
+      "generation": 1.0,
+      "source_elapsed": 401.5
+    },
+    {
+      "sequence": 354.0,
+      "probe_elapsed": 400.53934533300344,
+      "arrival_elapsed": 400.53217562500504,
+      "local_age": 0.007170124998083338,
+      "generation": 1.0,
+      "source_elapsed": 402.419
+    },
+    {
+      "sequence": 355.0,
+      "probe_elapsed": 401.7294267919933,
+      "arrival_elapsed": 401.68110095799784,
+      "local_age": 0.04832595899642911,
+      "generation": 1.0,
+      "source_elapsed": 403.179
+    },
+    {
+      "sequence": 356.0,
+      "probe_elapsed": 402.77745620800124,
+      "arrival_elapsed": 402.7291105829936,
+      "local_age": 0.04834645900700707,
+      "generation": 1.0,
+      "source_elapsed": 404.698
+    },
+    {
+      "sequence": 357.0,
+      "probe_elapsed": 403.9183501249936,
+      "arrival_elapsed": 403.8578940419975,
+      "local_age": 0.060456374994828366,
+      "generation": 1.0,
+      "source_elapsed": 405.578
+    },
+    {
+      "sequence": 358.0,
+      "probe_elapsed": 404.9434799580049,
+      "arrival_elapsed": 404.9210940000048,
+      "local_age": 0.02238641699659638,
+      "generation": 1.0,
+      "source_elapsed": 406.618
+    },
+    {
+      "sequence": 359.0,
+      "probe_elapsed": 405.93029016700166,
+      "arrival_elapsed": 405.9229125419952,
+      "local_age": 0.007377916001132689,
+      "generation": 1.0,
+      "source_elapsed": 407.37699999999995
+    },
+    {
+      "sequence": 360.0,
+      "probe_elapsed": 406.9577811670024,
+      "arrival_elapsed": 406.92297279200284,
+      "local_age": 0.03480870799103286,
+      "generation": 1.0,
+      "source_elapsed": 408.93699999999995
+    },
+    {
+      "sequence": 361.0,
+      "probe_elapsed": 407.98963654199906,
+      "arrival_elapsed": 407.9753897079936,
+      "local_age": 0.01424720900831744,
+      "generation": 1.0,
+      "source_elapsed": 409.936
+    },
+    {
+      "sequence": 362.0,
+      "probe_elapsed": 409.0283676669933,
+      "arrival_elapsed": 408.9845139999961,
+      "local_age": 0.04385391699906904,
+      "generation": 1.0,
+      "source_elapsed": 411.01599999999996
+    },
+    {
+      "sequence": 363.0,
+      "probe_elapsed": 410.01903058300377,
+      "arrival_elapsed": 409.9853180420032,
+      "local_age": 0.03371287499612663,
+      "generation": 1.0,
+      "source_elapsed": 411.495
+    },
+    {
+      "sequence": 364.0,
+      "probe_elapsed": 410.9957449999929,
+      "arrival_elapsed": 410.987684791995,
+      "local_age": 0.00806037501024548,
+      "generation": 1.0,
+      "source_elapsed": 412.895
+    },
+    {
+      "sequence": 365.0,
+      "probe_elapsed": 412.0279617079941,
+      "arrival_elapsed": 411.98826529200596,
+      "local_age": 0.0396965830004774,
+      "generation": 1.0,
+      "source_elapsed": 414.01399999999995
+    },
+    {
+      "sequence": 366.0,
+      "probe_elapsed": 413.012739333004,
+      "arrival_elapsed": 413.0032975829963,
+      "local_age": 0.009442292008316144,
+      "generation": 1.0,
+      "source_elapsed": 415.01399999999995
+    },
+    {
+      "sequence": 367.0,
+      "probe_elapsed": 414.0590237080032,
+      "arrival_elapsed": 414.0404754170013,
+      "local_age": 0.01854879099118989,
+      "generation": 1.0,
+      "source_elapsed": 416.013
+    },
+    {
+      "sequence": 368.0,
+      "probe_elapsed": 415.09860258300614,
+      "arrival_elapsed": 415.0512029579986,
+      "local_age": 0.04739999999583233,
+      "generation": 1.0,
+      "source_elapsed": 416.933
+    },
+    {
+      "sequence": 369.0,
+      "probe_elapsed": 416.5513681250013,
+      "arrival_elapsed": 416.52688308300276,
+      "local_age": 0.024485458998242393,
+      "generation": 1.0,
+      "source_elapsed": 418.092
+    },
+    {
+      "sequence": 370.0,
+      "probe_elapsed": 417.7443267500057,
+      "arrival_elapsed": 417.70538524999574,
+      "local_age": 0.038941708000493236,
+      "generation": 1.0,
+      "source_elapsed": 419.17199999999997
+    },
+    {
+      "sequence": 371.0,
+      "probe_elapsed": 418.7675593330059,
+      "arrival_elapsed": 418.7321828749991,
+      "local_age": 0.035376957996049896,
+      "generation": 1.0,
+      "source_elapsed": 420.731
+    },
+    {
+      "sequence": 372.0,
+      "probe_elapsed": 419.7447311249998,
+      "arrival_elapsed": 419.7401683749922,
+      "local_age": 0.00456308301363606,
+      "generation": 1.0,
+      "source_elapsed": 421.731
+    },
+    {
+      "sequence": 373.0,
+      "probe_elapsed": 420.8254520420014,
+      "arrival_elapsed": 420.80644650000613,
+      "local_age": 0.01900587498676032,
+      "generation": 1.0,
+      "source_elapsed": 422.77
+    },
+    {
+      "sequence": 374.0,
+      "probe_elapsed": 422.0213318330061,
+      "arrival_elapsed": 422.0137371250021,
+      "local_age": 0.0075952920014970005,
+      "generation": 1.0,
+      "source_elapsed": 423.16999999999996
+    },
+    {
+      "sequence": 375.0,
+      "probe_elapsed": 423.0745079579938,
+      "arrival_elapsed": 423.0425627079967,
+      "local_age": 0.031945499998982996,
+      "generation": 1.0,
+      "source_elapsed": 424.88899999999995
+    },
+    {
+      "sequence": 376.0,
+      "probe_elapsed": 424.1069212919974,
+      "arrival_elapsed": 424.08237141699647,
+      "local_age": 0.024550083006033674,
+      "generation": 1.0,
+      "source_elapsed": 426.00899999999996
+    },
+    {
+      "sequence": 377.0,
+      "probe_elapsed": 425.2012002499978,
+      "arrival_elapsed": 425.1559647499962,
+      "local_age": 0.04523650000919588,
+      "generation": 1.0,
+      "source_elapsed": 427.08799999999997
+    },
+    {
+      "sequence": 378.0,
+      "probe_elapsed": 426.2445916669967,
+      "arrival_elapsed": 426.2413690419926,
+      "local_age": 0.003222833009203896,
+      "generation": 1.0,
+      "source_elapsed": 427.168
+    },
+    {
+      "sequence": 379.0,
+      "probe_elapsed": 427.29654233300244,
+      "arrival_elapsed": 427.242431916995,
+      "local_age": 0.05411112500587478,
+      "generation": 1.0,
+      "source_elapsed": 429.24699999999996
+    },
+    {
+      "sequence": 380.0,
+      "probe_elapsed": 428.2704175419931,
+      "arrival_elapsed": 428.25974199999473,
+      "local_age": 0.010676167003111914,
+      "generation": 1.0,
+      "source_elapsed": 430.24699999999996
+    },
+    {
+      "sequence": 381.0,
+      "probe_elapsed": 430.13852866699744,
+      "arrival_elapsed": 430.1134911249974,
+      "local_age": 0.0250387080013752,
+      "generation": 1.0,
+      "source_elapsed": 431.12699999999995
+    },
+    {
+      "sequence": 382.0,
+      "probe_elapsed": 431.1703320420056,
+      "arrival_elapsed": 431.1424341249949,
+      "local_age": 0.02789854200091213,
+      "generation": 1.0,
+      "source_elapsed": 433.126
+    },
+    {
+      "sequence": 383.0,
+      "probe_elapsed": 432.19716383299965,
+      "arrival_elapsed": 432.15158141699794,
+      "local_age": 0.04558308300329372,
+      "generation": 1.0,
+      "source_elapsed": 434.125
+    },
+    {
+      "sequence": 384.0,
+      "probe_elapsed": 433.45666174999496,
+      "arrival_elapsed": 433.4357260419929,
+      "local_age": 0.020936166009050794,
+      "generation": 1.0,
+      "source_elapsed": 435.125
+    },
+    {
+      "sequence": 385.0,
+      "probe_elapsed": 434.8946514999989,
+      "arrival_elapsed": 434.8631684580032,
+      "local_age": 0.03148374999000225,
+      "generation": 1.0,
+      "source_elapsed": 436.24399999999997
+    },
+    {
+      "sequence": 386.0,
+      "probe_elapsed": 435.93515504199604,
+      "arrival_elapsed": 435.89096674999746,
+      "local_age": 0.04418854200048372,
+      "generation": 1.0,
+      "source_elapsed": 437.844
+    },
+    {
+      "sequence": 387.0,
+      "probe_elapsed": 436.9091548330034,
+      "arrival_elapsed": 436.89225320800324,
+      "local_age": 0.016901958995731547,
+      "generation": 1.0,
+      "source_elapsed": 438.883
+    },
+    {
+      "sequence": 388.0,
+      "probe_elapsed": 438.12773954200384,
+      "arrival_elapsed": 438.06960362500104,
+      "local_age": 0.058140124994679354,
+      "generation": 1.0,
+      "source_elapsed": 439.123
+    },
+    {
+      "sequence": 389.0,
+      "probe_elapsed": 439.1099815829948,
+      "arrival_elapsed": 439.099526082995,
+      "local_age": 0.010455959010869265,
+      "generation": 1.0,
+      "source_elapsed": 441.12199999999996
+    },
+    {
+      "sequence": 390.0,
+      "probe_elapsed": 440.5673833750043,
+      "arrival_elapsed": 440.5120597500063,
+      "local_age": 0.05532416699861642,
+      "generation": 1.0,
+      "source_elapsed": 442.162
+    },
+    {
+      "sequence": 391.0,
+      "probe_elapsed": 441.7234214170021,
+      "arrival_elapsed": 441.71386016700126,
+      "local_age": 0.009562040999298915,
+      "generation": 1.0,
+      "source_elapsed": 443.121
+    },
+    {
+      "sequence": 392.0,
+      "probe_elapsed": 442.76720183300495,
+      "arrival_elapsed": 442.71944179199636,
+      "local_age": 0.04776033300731797,
+      "generation": 1.0,
+      "source_elapsed": 444.721
+    },
+    {
+      "sequence": 393.0,
+      "probe_elapsed": 443.78317229199456,
+      "arrival_elapsed": 443.74547270800394,
+      "local_age": 0.03770349999831524,
+      "generation": 1.0,
+      "source_elapsed": 445.76
+    },
+    {
+      "sequence": 394.0,
+      "probe_elapsed": 444.81528770799923,
+      "arrival_elapsed": 444.763953917005,
+      "local_age": 0.051333999988855794,
+      "generation": 1.0,
+      "source_elapsed": 446.71999999999997
+    },
+    {
+      "sequence": 395.0,
+      "probe_elapsed": 445.85530483299226,
+      "arrival_elapsed": 445.8061863750045,
+      "local_age": 0.04911862500011921,
+      "generation": 1.0,
+      "source_elapsed": 447.75899999999996
+    },
+    {
+      "sequence": 396.0,
+      "probe_elapsed": 446.84112666700094,
+      "arrival_elapsed": 446.80991216699476,
+      "local_age": 0.03121470801124815,
+      "generation": 1.0,
+      "source_elapsed": 448.719
+    },
+    {
+      "sequence": 397.0,
+      "probe_elapsed": 447.8702079170034,
+      "arrival_elapsed": 447.8409819170047,
+      "local_age": 0.029226457991171628,
+      "generation": 1.0,
+      "source_elapsed": 449.798
+    },
+    {
+      "sequence": 398.0,
+      "probe_elapsed": 448.900584832998,
+      "arrival_elapsed": 448.8772442920017,
+      "local_age": 0.023341291001997888,
+      "generation": 1.0,
+      "source_elapsed": 450.878
+    },
+    {
+      "sequence": 399.0,
+      "probe_elapsed": 449.88200899999356,
+      "arrival_elapsed": 449.8778706669982,
+      "local_age": 0.004138541000429541,
+      "generation": 1.0,
+      "source_elapsed": 451.637
+    },
+    {
+      "sequence": 400.0,
+      "probe_elapsed": 450.9120518330019,
+      "arrival_elapsed": 450.9039008330001,
+      "local_age": 0.008151166999596171,
+      "generation": 1.0,
+      "source_elapsed": 452.87699999999995
+    },
+    {
+      "sequence": 401.0,
+      "probe_elapsed": 451.99053220800124,
+      "arrival_elapsed": 451.9641234169976,
+      "local_age": 0.02640908300236333,
+      "generation": 1.0,
+      "source_elapsed": 453.95599999999996
+    },
+    {
+      "sequence": 402.0,
+      "probe_elapsed": 453.0186786669947,
+      "arrival_elapsed": 452.96662116699736,
+      "local_age": 0.052057749999221414,
+      "generation": 1.0,
+      "source_elapsed": 454.796
+    },
+    {
+      "sequence": 403.0,
+      "probe_elapsed": 454.1080423749954,
+      "arrival_elapsed": 454.0570782080031,
+      "local_age": 0.050964291993295774,
+      "generation": 1.0,
+      "source_elapsed": 456.03499999999997
+    },
+    {
+      "sequence": 404.0,
+      "probe_elapsed": 455.0913226249977,
+      "arrival_elapsed": 455.0865500420041,
+      "local_age": 0.0047732909879414365,
+      "generation": 1.0,
+      "source_elapsed": 457.075
+    },
+    {
+      "sequence": 405.0,
+      "probe_elapsed": 456.1200872500049,
+      "arrival_elapsed": 456.11430737499904,
+      "local_age": 0.005780207997304387,
+      "generation": 1.0,
+      "source_elapsed": 458.11499999999995
+    },
+    {
+      "sequence": 406.0,
+      "probe_elapsed": 457.43304162500135,
+      "arrival_elapsed": 457.38496333299554,
+      "local_age": 0.04807925000204705,
+      "generation": 1.0,
+      "source_elapsed": 459.114
+    },
+    {
+      "sequence": 407.0,
+      "probe_elapsed": 458.4124517500022,
+      "arrival_elapsed": 458.38718558299297,
+      "local_age": 0.025266834010835737,
+      "generation": 1.0,
+      "source_elapsed": 460.354
+    },
+    {
+      "sequence": 408.0,
+      "probe_elapsed": 459.393474957993,
+      "arrival_elapsed": 459.3919204999984,
+      "local_age": 0.0015547920047538355,
+      "generation": 1.0,
+      "source_elapsed": 461.433
+    },
+    {
+      "sequence": 409.0,
+      "probe_elapsed": 460.41831433300104,
+      "arrival_elapsed": 460.39711020799587,
+      "local_age": 0.021204667005804367,
+      "generation": 1.0,
+      "source_elapsed": 462.393
+    },
+    {
+      "sequence": 410.0,
+      "probe_elapsed": 461.60665908300143,
+      "arrival_elapsed": 461.58785275000264,
+      "local_age": 0.018807041997206397,
+      "generation": 1.0,
+      "source_elapsed": 463.11199999999997
+    },
+    {
+      "sequence": 411.0,
+      "probe_elapsed": 462.6642029170034,
+      "arrival_elapsed": 462.6429270420049,
+      "local_age": 0.02127683299477212,
+      "generation": 1.0,
+      "source_elapsed": 464.55199999999996
+    },
+    {
+      "sequence": 412.0,
+      "probe_elapsed": 463.72399020800367,
+      "arrival_elapsed": 463.6738806670037,
+      "local_age": 0.05011012499744538,
+      "generation": 1.0,
+      "source_elapsed": 465.631
+    },
+    {
+      "sequence": 413.0,
+      "probe_elapsed": 464.8084696250007,
+      "arrival_elapsed": 464.78880054199544,
+      "local_age": 0.01966954099771101,
+      "generation": 1.0,
+      "source_elapsed": 466.471
+    },
+    {
+      "sequence": 414.0,
+      "probe_elapsed": 465.99713666699245,
+      "arrival_elapsed": 465.9630604999984,
+      "local_age": 0.0340766250010347,
+      "generation": 1.0,
+      "source_elapsed": 467.15
+    },
+    {
+      "sequence": 415.0,
+      "probe_elapsed": 466.97415816699504,
+      "arrival_elapsed": 466.96857124999224,
+      "local_age": 0.005587125007878058,
+      "generation": 1.0,
+      "source_elapsed": 468.90999999999997
+    },
+    {
+      "sequence": 416.0,
+      "probe_elapsed": 468.00248091699905,
+      "arrival_elapsed": 467.9852468750032,
+      "local_age": 0.017234749990166165,
+      "generation": 1.0,
+      "source_elapsed": 469.94899999999996
+    },
+    {
+      "sequence": 417.0,
+      "probe_elapsed": 469.0380542500061,
+      "arrival_elapsed": 469.0076470829954,
+      "local_age": 0.03040750000218395,
+      "generation": 1.0,
+      "source_elapsed": 471.029
+    },
+    {
+      "sequence": 418.0,
+      "probe_elapsed": 470.0705328750046,
+      "arrival_elapsed": 470.0538704999926,
+      "local_age": 0.01666262501385063,
+      "generation": 1.0,
+      "source_elapsed": 472.02799999999996
+    },
+    {
+      "sequence": 419.0,
+      "probe_elapsed": 471.0649299999932,
+      "arrival_elapsed": 471.0607352920051,
+      "local_age": 0.0041948750003939494,
+      "generation": 1.0,
+      "source_elapsed": 472.628
+    },
+    {
+      "sequence": 420.0,
+      "probe_elapsed": 472.1100989999977,
+      "arrival_elapsed": 472.0776119170041,
+      "local_age": 0.03248791598889511,
+      "generation": 1.0,
+      "source_elapsed": 474.067
+    },
+    {
+      "sequence": 421.0,
+      "probe_elapsed": 473.5106428750005,
+      "arrival_elapsed": 473.5074308329931,
+      "local_age": 0.0032122920092660934,
+      "generation": 1.0,
+      "source_elapsed": 475.10699999999997
+    },
+    {
+      "sequence": 422.0,
+      "probe_elapsed": 474.5834814169939,
+      "arrival_elapsed": 474.5366722500039,
+      "local_age": 0.04680966699379496,
+      "generation": 1.0,
+      "source_elapsed": 476.426
+    },
+    {
+      "sequence": 423.0,
+      "probe_elapsed": 475.56159420800395,
+      "arrival_elapsed": 475.5453717920027,
+      "local_age": 0.016222666003159247,
+      "generation": 1.0,
+      "source_elapsed": 477.506
+    },
+    {
+      "sequence": 424.0,
+      "probe_elapsed": 476.77140912499453,
+      "arrival_elapsed": 476.71517024999775,
+      "local_age": 0.05624145800538827,
+      "generation": 1.0,
+      "source_elapsed": 478.34499999999997
+    },
+    {
+      "sequence": 425.0,
+      "probe_elapsed": 477.99094804200286,
+      "arrival_elapsed": 477.96950737500447,
+      "local_age": 0.021441166987642646,
+      "generation": 1.0,
+      "source_elapsed": 479.145
+    },
+    {
+      "sequence": 426.0,
+      "probe_elapsed": 479.01852491700265,
+      "arrival_elapsed": 478.9721262079984,
+      "local_age": 0.04639929199765902,
+      "generation": 1.0,
+      "source_elapsed": 480.984
+    },
+    {
+      "sequence": 427.0,
+      "probe_elapsed": 480.00697612500517,
+      "arrival_elapsed": 479.9834531249944,
+      "local_age": 0.02352370800508652,
+      "generation": 1.0,
+      "source_elapsed": 481.984
+    },
+    {
+      "sequence": 428.0,
+      "probe_elapsed": 481.0407881669962,
+      "arrival_elapsed": 481.01940720800485,
+      "local_age": 0.02138133399421349,
+      "generation": 1.0,
+      "source_elapsed": 483.02299999999997
+    },
+    {
+      "sequence": 429.0,
+      "probe_elapsed": 482.12637979199644,
+      "arrival_elapsed": 482.10338849999243,
+      "local_age": 0.022991417004959658,
+      "generation": 1.0,
+      "source_elapsed": 483.143
+    },
+    {
+      "sequence": 430.0,
+      "probe_elapsed": 483.1181859999924,
+      "arrival_elapsed": 483.1138520829991,
+      "local_age": 0.004335334000643343,
+      "generation": 1.0,
+      "source_elapsed": 484.46299999999997
+    },
+    {
+      "sequence": 431.0,
+      "probe_elapsed": 484.2034943750041,
+      "arrival_elapsed": 484.1706749580044,
+      "local_age": 0.03281962499022484,
+      "generation": 1.0,
+      "source_elapsed": 485.702
+    },
+    {
+      "sequence": 432.0,
+      "probe_elapsed": 485.6049578749953,
+      "arrival_elapsed": 485.601508791995,
+      "local_age": 0.003449374999036081,
+      "generation": 1.0,
+      "source_elapsed": 487.102
+    },
+    {
+      "sequence": 433.0,
+      "probe_elapsed": 486.63061949999246,
+      "arrival_elapsed": 486.62225791699893,
+      "local_age": 0.008362082997336984,
+      "generation": 1.0,
+      "source_elapsed": 488.621
+    },
+    {
+      "sequence": 434.0,
+      "probe_elapsed": 487.6909003329929,
+      "arrival_elapsed": 487.6762117920007,
+      "local_age": 0.014688750001369044,
+      "generation": 1.0,
+      "source_elapsed": 489.65999999999997
+    },
+    {
+      "sequence": 435.0,
+      "probe_elapsed": 489.09138600000006,
+      "arrival_elapsed": 489.0543609169981,
+      "local_age": 0.03702533300383948,
+      "generation": 1.0,
+      "source_elapsed": 490.5
+    },
+    {
+      "sequence": 436.0,
+      "probe_elapsed": 490.4009834580065,
+      "arrival_elapsed": 490.35252487499383,
+      "local_age": 0.04845916701015085,
+      "generation": 1.0,
+      "source_elapsed": 491.14
+    },
+    {
+      "sequence": 437.0,
+      "probe_elapsed": 491.438572250001,
+      "arrival_elapsed": 491.4342993750033,
+      "local_age": 0.004273291997378692,
+      "generation": 1.0,
+      "source_elapsed": 493.339
+    },
+    {
+      "sequence": 438.0,
+      "probe_elapsed": 492.53770933300257,
+      "arrival_elapsed": 492.489537417001,
+      "local_age": 0.04817258300317917,
+      "generation": 1.0,
+      "source_elapsed": 494.45799999999997
+    },
+    {
+      "sequence": 439.0,
+      "probe_elapsed": 493.78757374999986,
+      "arrival_elapsed": 493.75445658300305,
+      "local_age": 0.03312100000039209,
+      "generation": 1.0,
+      "source_elapsed": 495.09799999999996
+    },
+    {
+      "sequence": 440.0,
+      "probe_elapsed": 495.21921454199764,
+      "arrival_elapsed": 495.20510483300313,
+      "local_age": 0.014109999989159405,
+      "generation": 1.0,
+      "source_elapsed": 496.61699999999996
+    },
+    {
+      "sequence": 441.0,
+      "probe_elapsed": 496.2541167080053,
+      "arrival_elapsed": 496.2345496670023,
+      "local_age": 0.019567583003663458,
+      "generation": 1.0,
+      "source_elapsed": 498.217
+    },
+    {
+      "sequence": 442.0,
+      "probe_elapsed": 498.0126895419962,
+      "arrival_elapsed": 497.96722458300064,
+      "local_age": 0.045465999995940365,
+      "generation": 1.0,
+      "source_elapsed": 499.096
+    },
+    {
+      "sequence": 443.0,
+      "probe_elapsed": 499.00132745799783,
+      "arrival_elapsed": 498.96999408300326,
+      "local_age": 0.0313337919942569,
+      "generation": 1.0,
+      "source_elapsed": 500.97499999999997
+    },
+    {
+      "sequence": 444.0,
+      "probe_elapsed": 499.98463895800523,
+      "arrival_elapsed": 499.97723624999344,
+      "local_age": 0.0074030830000992864,
+      "generation": 1.0,
+      "source_elapsed": 501.97499999999997
+    },
+    {
+      "sequence": 445.0,
+      "probe_elapsed": 501.0261804579932,
+      "arrival_elapsed": 500.98280766699463,
+      "local_age": 0.04337304100045003,
+      "generation": 1.0,
+      "source_elapsed": 502.495
+    },
+    {
+      "sequence": 446.0,
+      "probe_elapsed": 502.4229988330044,
+      "arrival_elapsed": 502.390816041996,
+      "local_age": 0.032182958006160334,
+      "generation": 1.0,
+      "source_elapsed": 503.13399999999996
+    },
+    {
+      "sequence": 447.0,
+      "probe_elapsed": 503.4521251249971,
+      "arrival_elapsed": 503.42823283300095,
+      "local_age": 0.023893000005045906,
+      "generation": 1.0,
+      "source_elapsed": 505.41299999999995
+    },
+    {
+      "sequence": 448.0,
+      "probe_elapsed": 504.48105212500377,
+      "arrival_elapsed": 504.46961945800285,
+      "local_age": 0.01143279200186953,
+      "generation": 1.0,
+      "source_elapsed": 506.453
+    },
+    {
+      "sequence": 449.0,
+      "probe_elapsed": 505.72929025000485,
+      "arrival_elapsed": 505.71629799999937,
+      "local_age": 0.012992707997909747,
+      "generation": 1.0,
+      "source_elapsed": 507.09299999999996
+    },
+    {
+      "sequence": 450.0,
+      "probe_elapsed": 506.8049869170063,
+      "arrival_elapsed": 506.79605404200265,
+      "local_age": 0.008933082994190045,
+      "generation": 1.0,
+      "source_elapsed": 508.412
+    },
+    {
+      "sequence": 451.0,
+      "probe_elapsed": 507.82958900000085,
+      "arrival_elapsed": 507.7960943749931,
+      "local_age": 0.03349479200551286,
+      "generation": 1.0,
+      "source_elapsed": 509.77099999999996
+    },
+    {
+      "sequence": 452.0,
+      "probe_elapsed": 508.8311751669971,
+      "arrival_elapsed": 508.8259002499981,
+      "local_age": 0.005275083007290959,
+      "generation": 1.0,
+      "source_elapsed": 510.851
+    },
+    {
+      "sequence": 453.0,
+      "probe_elapsed": 509.873767875004,
+      "arrival_elapsed": 509.84313616699365,
+      "local_age": 0.030632458001491614,
+      "generation": 1.0,
+      "source_elapsed": 511.09099999999995
+    },
+    {
+      "sequence": 454.0,
+      "probe_elapsed": 510.8970549170044,
+      "arrival_elapsed": 510.8536007920047,
+      "local_age": 0.043454874990857206,
+      "generation": 1.0,
+      "source_elapsed": 512.85
+    },
+    {
+      "sequence": 455.0,
+      "probe_elapsed": 511.8807107080065,
+      "arrival_elapsed": 511.8729694579961,
+      "local_age": 0.0077417499996954575,
+      "generation": 1.0,
+      "source_elapsed": 513.85
+    },
+    {
+      "sequence": 456.0,
+      "probe_elapsed": 512.8818319580023,
+      "arrival_elapsed": 512.8795064169972,
+      "local_age": 0.002325833003851585,
+      "generation": 1.0,
+      "source_elapsed": 514.529
+    },
+    {
+      "sequence": 457.0,
+      "probe_elapsed": 513.9672182499926,
+      "arrival_elapsed": 513.9465570829925,
+      "local_age": 0.02066137500514742,
+      "generation": 1.0,
+      "source_elapsed": 515.129
+    },
+    {
+      "sequence": 458.0,
+      "probe_elapsed": 514.9979754999949,
+      "arrival_elapsed": 514.9572157920047,
+      "local_age": 0.04076004099624697,
+      "generation": 1.0,
+      "source_elapsed": 516.9680000000001
+    },
+    {
+      "sequence": 459.0,
+      "probe_elapsed": 515.9770123329945,
+      "arrival_elapsed": 515.9610775829933,
+      "local_age": 0.015935375005938113,
+      "generation": 1.0,
+      "source_elapsed": 517.9680000000001
+    },
+    {
+      "sequence": 460.0,
+      "probe_elapsed": 517.0051454579952,
+      "arrival_elapsed": 516.9767509999947,
+      "local_age": 0.028394708002451807,
+      "generation": 1.0,
+      "source_elapsed": 519.0070000000001
+    },
+    {
+      "sequence": 461.0,
+      "probe_elapsed": 518.0034547499963,
+      "arrival_elapsed": 517.9771970830043,
+      "local_age": 0.02625787499709986,
+      "generation": 1.0,
+      "source_elapsed": 519.4870000000001
+    },
+    {
+      "sequence": 462.0,
+      "probe_elapsed": 519.0312885000021,
+      "arrival_elapsed": 519.008858250003,
+      "local_age": 0.0224305000010645,
+      "generation": 1.0,
+      "source_elapsed": 520.806
+    },
+    {
+      "sequence": 463.0,
+      "probe_elapsed": 520.0666660830029,
+      "arrival_elapsed": 520.0102052080038,
+      "local_age": 0.05646149998938199,
+      "generation": 1.0,
+      "source_elapsed": 522.0060000000001
+    },
+    {
+      "sequence": 464.0,
+      "probe_elapsed": 521.1020503750042,
+      "arrival_elapsed": 521.05842175,
+      "local_age": 0.043629332998534665,
+      "generation": 1.0,
+      "source_elapsed": 523.0450000000001
+    },
+    {
+      "sequence": 465.0,
+      "probe_elapsed": 522.1501285419945,
+      "arrival_elapsed": 522.1332473329967,
+      "local_age": 0.0168814589997055,
+      "generation": 1.0,
+      "source_elapsed": 523.125
+    },
+    {
+      "sequence": 466.0,
+      "probe_elapsed": 523.1889636669948,
+      "arrival_elapsed": 523.1668268329959,
+      "local_age": 0.022137417006888427,
+      "generation": 1.0,
+      "source_elapsed": 525.164
+    },
+    {
+      "sequence": 467.0,
+      "probe_elapsed": 524.2123314170021,
+      "arrival_elapsed": 524.1987710829999,
+      "local_age": 0.013560459003201686,
+      "generation": 1.0,
+      "source_elapsed": 526.164
+    },
+    {
+      "sequence": 468.0,
+      "probe_elapsed": 525.2832824579964,
+      "arrival_elapsed": 525.2474674580008,
+      "local_age": 0.03581566699722316,
+      "generation": 1.0,
+      "source_elapsed": 526.844
+    },
+    {
+      "sequence": 469.0,
+      "probe_elapsed": 526.264718624996,
+      "arrival_elapsed": 526.260206417006,
+      "local_age": 0.004512499988777563,
+      "generation": 1.0,
+      "source_elapsed": 528.243
+    },
+    {
+      "sequence": 470.0,
+      "probe_elapsed": 527.2926710419997,
+      "arrival_elapsed": 527.2630080829986,
+      "local_age": 0.02966329200717155,
+      "generation": 1.0,
+      "source_elapsed": 529.283
+    },
+    {
+      "sequence": 471.0,
+      "probe_elapsed": 528.3215422079957,
+      "arrival_elapsed": 528.3148321670014,
+      "local_age": 0.006710457993904129,
+      "generation": 1.0,
+      "source_elapsed": 530.322
+    },
+    {
+      "sequence": 472.0,
+      "probe_elapsed": 529.3592612499924,
+      "arrival_elapsed": 529.3226370829943,
+      "local_age": 0.036627167006372474,
+      "generation": 1.0,
+      "source_elapsed": 531.082
+    },
+    {
+      "sequence": 473.0,
+      "probe_elapsed": 530.4552801249956,
+      "arrival_elapsed": 530.4307891250064,
+      "local_age": 0.02449179199174978,
+      "generation": 1.0,
+      "source_elapsed": 532.361
+    },
+    {
+      "sequence": 474.0,
+      "probe_elapsed": 531.5421660830034,
+      "arrival_elapsed": 531.5215591669985,
+      "local_age": 0.02060712499951478,
+      "generation": 1.0,
+      "source_elapsed": 533.2810000000001
+    },
+    {
+      "sequence": 475.0,
+      "probe_elapsed": 532.575199458006,
+      "arrival_elapsed": 532.5523077499965,
+      "local_age": 0.022892125009093434,
+      "generation": 1.0,
+      "source_elapsed": 534.6
+    },
+    {
+      "sequence": 476.0,
+      "probe_elapsed": 533.9321463749948,
+      "arrival_elapsed": 533.922379333002,
+      "local_age": 0.009767249997821636,
+      "generation": 1.0,
+      "source_elapsed": 535.12
+    },
+    {
+      "sequence": 477.0,
+      "probe_elapsed": 534.9596852919931,
+      "arrival_elapsed": 534.9229600419931,
+      "local_age": 0.036726000005728565,
+      "generation": 1.0,
+      "source_elapsed": 536.9590000000001
+    },
+    {
+      "sequence": 478.0,
+      "probe_elapsed": 535.9493199999997,
+      "arrival_elapsed": 535.9401760420005,
+      "local_age": 0.009144249997916631,
+      "generation": 1.0,
+      "source_elapsed": 537.999
+    },
+    {
+      "sequence": 479.0,
+      "probe_elapsed": 537.233124958002,
+      "arrival_elapsed": 537.1910516250064,
+      "local_age": 0.042073999997228384,
+      "generation": 1.0,
+      "source_elapsed": 538.5980000000001
+    },
+    {
+      "sequence": 480.0,
+      "probe_elapsed": 538.2133014169958,
+      "arrival_elapsed": 538.1982217920013,
+      "local_age": 0.015079916003742255,
+      "generation": 1.0,
+      "source_elapsed": 540.238
+    },
+    {
+      "sequence": 481.0,
+      "probe_elapsed": 539.2414490420051,
+      "arrival_elapsed": 539.2355963330047,
+      "local_age": 0.0058530419919406995,
+      "generation": 1.0,
+      "source_elapsed": 541.2370000000001
+    },
+    {
+      "sequence": 482.0,
+      "probe_elapsed": 540.2700468749972,
+      "arrival_elapsed": 540.2631534579996,
+      "local_age": 0.006893541998579167,
+      "generation": 1.0,
+      "source_elapsed": 542.277
+    },
+    {
+      "sequence": 483.0,
+      "probe_elapsed": 541.6333792499936,
+      "arrival_elapsed": 541.5910647499986,
+      "local_age": 0.042315500002587214,
+      "generation": 1.0,
+      "source_elapsed": 543.076
+    },
+    {
+      "sequence": 484.0,
+      "probe_elapsed": 543.1342147919931,
+      "arrival_elapsed": 543.1207375829981,
+      "local_age": 0.013478334003593773,
+      "generation": 1.0,
+      "source_elapsed": 544.2760000000001
+    },
+    {
+      "sequence": 485.0,
+      "probe_elapsed": 544.1742991249921,
+      "arrival_elapsed": 544.1676495830034,
+      "local_age": 0.006649999995715916,
+      "generation": 1.0,
+      "source_elapsed": 546.195
+    },
+    {
+      "sequence": 486.0,
+      "probe_elapsed": 545.8817134580022,
+      "arrival_elapsed": 545.8359073750034,
+      "local_age": 0.04580624999653082,
+      "generation": 1.0,
+      "source_elapsed": 547.075
+    },
+    {
+      "sequence": 487.0,
+      "probe_elapsed": 546.8557723749982,
+      "arrival_elapsed": 546.8417007079988,
+      "local_age": 0.01407229200412985,
+      "generation": 1.0,
+      "source_elapsed": 548.874
+    },
+    {
+      "sequence": 488.0,
+      "probe_elapsed": 547.882269416994,
+      "arrival_elapsed": 547.8496106670063,
+      "local_age": 0.03265895799268037,
+      "generation": 1.0,
+      "source_elapsed": 549.873
+    },
+    {
+      "sequence": 489.0,
+      "probe_elapsed": 548.9632229999988,
+      "arrival_elapsed": 548.950437499996,
+      "local_age": 0.012785750004695728,
+      "generation": 1.0,
+      "source_elapsed": 550.7130000000001
+    },
+    {
+      "sequence": 490.0,
+      "probe_elapsed": 549.9923376249935,
+      "arrival_elapsed": 549.9835845829948,
+      "local_age": 0.008753375004744157,
+      "generation": 1.0,
+      "source_elapsed": 551.9920000000001
+    },
+    {
+      "sequence": 491.0,
+      "probe_elapsed": 551.0745296249952,
+      "arrival_elapsed": 551.0368323750008,
+      "local_age": 0.037697666994063184,
+      "generation": 1.0,
+      "source_elapsed": 553.072
+    },
+    {
+      "sequence": 492.0,
+      "probe_elapsed": 552.0483528750046,
+      "arrival_elapsed": 552.0405045829975,
+      "local_age": 0.007848666995414533,
+      "generation": 1.0,
+      "source_elapsed": 554.071
+    },
+    {
+      "sequence": 493.0,
+      "probe_elapsed": 553.0756543750031,
+      "arrival_elapsed": 553.0481676250056,
+      "local_age": 0.027487291998113506,
+      "generation": 1.0,
+      "source_elapsed": 555.0310000000001
+    },
+    {
+      "sequence": 494.0,
+      "probe_elapsed": 554.1005160420027,
+      "arrival_elapsed": 554.0591057919955,
+      "local_age": 0.04141050000907853,
+      "generation": 1.0,
+      "source_elapsed": 556.071
+    },
+    {
+      "sequence": 495.0,
+      "probe_elapsed": 555.1272646669968,
+      "arrival_elapsed": 555.0740770830016,
+      "local_age": 0.05318779200024437,
+      "generation": 1.0,
+      "source_elapsed": 557.11
+    },
+    {
+      "sequence": 496.0,
+      "probe_elapsed": 556.1229939579935,
+      "arrival_elapsed": 556.0917265419994,
+      "local_age": 0.03126762500323821,
+      "generation": 1.0,
+      "source_elapsed": 558.11
+    },
+    {
+      "sequence": 497.0,
+      "probe_elapsed": 557.4579088750033,
+      "arrival_elapsed": 557.4114076249971,
+      "local_age": 0.04650150000816211,
+      "generation": 1.0,
+      "source_elapsed": 559.0690000000001
+    },
+    {
+      "sequence": 498.0,
+      "probe_elapsed": 558.4867230829987,
+      "arrival_elapsed": 558.4450604580052,
+      "local_age": 0.04166283398808446,
+      "generation": 1.0,
+      "source_elapsed": 560.469
+    },
+    {
+      "sequence": 499.0,
+      "probe_elapsed": 559.5682019170054,
+      "arrival_elapsed": 559.5208230419958,
+      "local_age": 0.047379291005199775,
+      "generation": 1.0,
+      "source_elapsed": 561.508
+    },
+    {
+      "sequence": 500.0,
+      "probe_elapsed": 560.8005205829977,
+      "arrival_elapsed": 560.769972042006,
+      "local_age": 0.0305486249999376,
+      "generation": 1.0,
+      "source_elapsed": 562.188
+    },
+    {
+      "sequence": 501.0,
+      "probe_elapsed": 561.8260648330033,
+      "arrival_elapsed": 561.7983281670022,
+      "local_age": 0.027737083000829443,
+      "generation": 1.0,
+      "source_elapsed": 563.827
+    },
+    {
+      "sequence": 502.0,
+      "probe_elapsed": 562.8549154170032,
+      "arrival_elapsed": 562.8016802079947,
+      "local_age": 0.0532355000032112,
+      "generation": 1.0,
+      "source_elapsed": 564.827
+    },
+    {
+      "sequence": 503.0,
+      "probe_elapsed": 563.8334068749973,
+      "arrival_elapsed": 563.8149238329934,
+      "local_age": 0.018483750012819655,
+      "generation": 1.0,
+      "source_elapsed": 565.826
+    },
+    {
+      "sequence": 504.0,
+      "probe_elapsed": 564.8650968330039,
+      "arrival_elapsed": 564.835507041993,
+      "local_age": 0.029589875004603527,
+      "generation": 1.0,
+      "source_elapsed": 566.826
+    },
+    {
+      "sequence": 505.0,
+      "probe_elapsed": 566.199672082992,
+      "arrival_elapsed": 566.1602376670053,
+      "local_age": 0.03943483300099615,
+      "generation": 1.0,
+      "source_elapsed": 567.106
+    },
+    {
+      "sequence": 506.0,
+      "probe_elapsed": 567.2268822500046,
+      "arrival_elapsed": 567.2026364170015,
+      "local_age": 0.024246165994554758,
+      "generation": 1.0,
+      "source_elapsed": 569.0250000000001
+    },
+    {
+      "sequence": 507.0,
+      "probe_elapsed": 568.2547391249973,
+      "arrival_elapsed": 568.2194696249935,
+      "local_age": 0.03526987500663381,
+      "generation": 1.0,
+      "source_elapsed": 570.224
+    },
+    {
+      "sequence": 508.0,
+      "probe_elapsed": 569.5371952919959,
+      "arrival_elapsed": 569.5000746250007,
+      "local_age": 0.0371216670027934,
+      "generation": 1.0,
+      "source_elapsed": 571.0640000000001
+    },
+    {
+      "sequence": 509.0,
+      "probe_elapsed": 570.564890374997,
+      "arrival_elapsed": 570.5196028749924,
+      "local_age": 0.04528766700241249,
+      "generation": 1.0,
+      "source_elapsed": 572.543
+    },
+    {
+      "sequence": 510.0,
+      "probe_elapsed": 571.5982110000041,
+      "arrival_elapsed": 571.5859373330022,
+      "local_age": 0.012273917003767565,
+      "generation": 1.0,
+      "source_elapsed": 573.543
+    },
+    {
+      "sequence": 511.0,
+      "probe_elapsed": 572.7312920830009,
+      "arrival_elapsed": 572.6927530419925,
+      "local_age": 0.03853920800611377,
+      "generation": 1.0,
+      "source_elapsed": 574.422
+    },
+    {
+      "sequence": 512.0,
+      "probe_elapsed": 573.9657665419945,
+      "arrival_elapsed": 573.9621247079922,
+      "local_age": 0.0036420420074136928,
+      "generation": 1.0,
+      "source_elapsed": 575.1020000000001
+    },
+    {
+      "sequence": 513.0,
+      "probe_elapsed": 575.0000337920064,
+      "arrival_elapsed": 574.9723288749956,
+      "local_age": 0.027705291999154724,
+      "generation": 1.0,
+      "source_elapsed": 576.981
+    },
+    {
+      "sequence": 514.0,
+      "probe_elapsed": 576.026000333004,
+      "arrival_elapsed": 575.9766268749954,
+      "local_age": 0.049373708010534756,
+      "generation": 1.0,
+      "source_elapsed": 577.981
+    },
+    {
+      "sequence": 515.0,
+      "probe_elapsed": 577.0529004999989,
+      "arrival_elapsed": 577.0119399169926,
+      "local_age": 0.04096091601240914,
+      "generation": 1.0,
+      "source_elapsed": 579.02
+    },
+    {
+      "sequence": 516.0,
+      "probe_elapsed": 578.0307924579974,
+      "arrival_elapsed": 578.0141221249942,
+      "local_age": 0.016670541997882538,
+      "generation": 1.0,
+      "source_elapsed": 579.5
+    },
+    {
+      "sequence": 517.0,
+      "probe_elapsed": 579.0539557080047,
+      "arrival_elapsed": 579.0147693329927,
+      "local_age": 0.0391866249992745,
+      "generation": 1.0,
+      "source_elapsed": 580.8190000000001
+    },
+    {
+      "sequence": 518.0,
+      "probe_elapsed": 580.0822170829924,
+      "arrival_elapsed": 580.0345652079995,
+      "local_age": 0.047652541994466446,
+      "generation": 1.0,
+      "source_elapsed": 582.0590000000001
+    },
+    {
+      "sequence": 519.0,
+      "probe_elapsed": 581.4767979580065,
+      "arrival_elapsed": 581.4484558330005,
+      "local_age": 0.028342584002530202,
+      "generation": 1.0,
+      "source_elapsed": 583.058
+    },
+    {
+      "sequence": 520.0,
+      "probe_elapsed": 582.5608342920023,
+      "arrival_elapsed": 582.5111867079977,
+      "local_age": 0.04964816699794028,
+      "generation": 1.0,
+      "source_elapsed": 584.4580000000001
+    },
+    {
+      "sequence": 521.0,
+      "probe_elapsed": 583.5899096249923,
+      "arrival_elapsed": 583.5585161250056,
+      "local_age": 0.03139383299276233,
+      "generation": 1.0,
+      "source_elapsed": 585.537
+    },
+    {
+      "sequence": 522.0,
+      "probe_elapsed": 584.6187718750007,
+      "arrival_elapsed": 584.5995415829966,
+      "local_age": 0.019230667006922886,
+      "generation": 1.0,
+      "source_elapsed": 586.217
+    },
+    {
+      "sequence": 523.0,
+      "probe_elapsed": 585.6608774170018,
+      "arrival_elapsed": 585.6271880830027,
+      "local_age": 0.03368958400096744,
+      "generation": 1.0,
+      "source_elapsed": 587.097
+    },
+    {
+      "sequence": 524.0,
+      "probe_elapsed": 586.6492610419955,
+      "arrival_elapsed": 586.6407458750036,
+      "local_age": 0.008515541994711384,
+      "generation": 1.0,
+      "source_elapsed": 588.616
+    },
+    {
+      "sequence": 525.0,
+      "probe_elapsed": 587.6775965419947,
+      "arrival_elapsed": 587.6523466670042,
+      "local_age": 0.02525074999721255,
+      "generation": 1.0,
+      "source_elapsed": 589.616
+    },
+    {
+      "sequence": 526.0,
+      "probe_elapsed": 588.663101416998,
+      "arrival_elapsed": 588.6563211250032,
+      "local_age": 0.006780582989449613,
+      "generation": 1.0,
+      "source_elapsed": 590.6550000000001
+    },
+    {
+      "sequence": 527.0,
+      "probe_elapsed": 590.0104691669985,
+      "arrival_elapsed": 589.9776523329929,
+      "local_age": 0.03281704201071989,
+      "generation": 1.0,
+      "source_elapsed": 591.095
+    },
+    {
+      "sequence": 528.0,
+      "probe_elapsed": 591.1543069170002,
+      "arrival_elapsed": 591.110806333003,
+      "local_age": 0.0435010419896571,
+      "generation": 1.0,
+      "source_elapsed": 592.9340000000001
+    },
+    {
+      "sequence": 529.0,
+      "probe_elapsed": 592.1830910830031,
+      "arrival_elapsed": 592.1697375829972,
+      "local_age": 0.013354499998968095,
+      "generation": 1.0,
+      "source_elapsed": 594.173
+    },
+    {
+      "sequence": 530.0,
+      "probe_elapsed": 593.3119816249964,
+      "arrival_elapsed": 593.3005244579981,
+      "local_age": 0.011457583997980691,
+      "generation": 1.0,
+      "source_elapsed": 595.053
+    },
+    {
+      "sequence": 531.0,
+      "probe_elapsed": 594.3428552080004,
+      "arrival_elapsed": 594.3035415829945,
+      "local_age": 0.039314125009696,
+      "generation": 1.0,
+      "source_elapsed": 596.293
+    },
+    {
+      "sequence": 532.0,
+      "probe_elapsed": 595.3835435420042,
+      "arrival_elapsed": 595.3423342919996,
+      "local_age": 0.04120958299608901,
+      "generation": 1.0,
+      "source_elapsed": 597.332
+    },
+    {
+      "sequence": 533.0,
+      "probe_elapsed": 596.6791855420015,
+      "arrival_elapsed": 596.6685539579921,
+      "local_age": 0.010632125005940907,
+      "generation": 1.0,
+      "source_elapsed": 598.2520000000001
+    },
+    {
+      "sequence": 534.0,
+      "probe_elapsed": 597.7091921669926,
+      "arrival_elapsed": 597.6868435420038,
+      "local_age": 0.022348957994836383,
+      "generation": 1.0,
+      "source_elapsed": 599.691
+    },
+    {
+      "sequence": 535.0,
+      "probe_elapsed": 598.6922942079982,
+      "arrival_elapsed": 598.6881884169998,
+      "local_age": 0.004106458000023849,
+      "generation": 1.0,
+      "source_elapsed": 600.691
+    },
+    {
+      "sequence": 536.0,
+      "probe_elapsed": 599.774192708006,
+      "arrival_elapsed": 599.7358985829924,
+      "local_age": 0.038294792000669986,
+      "generation": 1.0,
+      "source_elapsed": 601.69
+    }
+  ],
+  "reader_alive": false,
+  "exitcode": 0,
+  "end_to_end_freshness_verified": false,
+  "notifications": 0,
+  "inference_executed": false,
+  "visual_quality_verified": false,
+  "corrupt_flag_available": true,
+  "source_pts_available": true,
+  "trace_rows": 15052,
+  "trace_overwritten_rows": 0,
+  "trace_limit_reached": false,
+  "snapshot_count": 20,
+  "snapshot_write_seconds": 0.49543370699393563,
+  "publish_timing": {
+    "count": 536,
+    "observed_mailbox_fps": 0.8932884237536076,
+    "wall_span_seconds": 596.3991266249941,
+    "first_frame_seconds": 3.3367719579982804,
+    "interval_p50_seconds": 1.0383618329942692,
+    "interval_p95_seconds": 1.519360991193389,
+    "interval_max_seconds": 2.3357913750078296,
+    "local_age_p95_seconds": 0.05153040625737049,
+    "local_age_max_seconds": 0.060456374994828366,
+    "inference_executed": false
+  }
+}

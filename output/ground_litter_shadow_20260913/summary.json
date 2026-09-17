@@ -1,0 +1,99 @@
+{
+  "elapsed_seconds": 182.1664854720002,
+  "cameras": {
+    "44180209031322001021": {
+      "state": "analysis_result_stale",
+      "analyzed": 14,
+      "rejected_frames": 14,
+      "skipped_analysis_frames": 136,
+      "created_items": 0,
+      "cleared_items": 0,
+      "effective_analysis_fps": 0.077,
+      "last_frame_at": "2026-09-12T17:02:15.877298+00:00",
+      "mode": "day",
+      "decoder": "opencv",
+      "source_time_seconds": 134.84,
+      "result_age_seconds": 1.997,
+      "inference_seconds": 1.674,
+      "candidate_count": 2,
+      "confirmed_visible": 0,
+      "rejection_reasons": {
+        "analysis_result_stale": 14
+      }
+    },
+    "44180209031322001022": {
+      "state": "analyzing",
+      "analyzed": 21,
+      "rejected_frames": 7,
+      "skipped_analysis_frames": 137,
+      "created_items": 0,
+      "cleared_items": 0,
+      "effective_analysis_fps": 0.115,
+      "last_frame_at": "2026-09-12T17:02:17.555431+00:00",
+      "mode": "day",
+      "decoder": "opencv",
+      "source_time_seconds": 126.84,
+      "result_age_seconds": 1.852,
+      "inference_seconds": 1.484,
+      "candidate_count": 0,
+      "confirmed_visible": 0,
+      "rejection_reasons": {
+        "analysis_result_stale": 7
+      }
+    },
+    "44180209031322001027": {
+      "state": "view_alignment_unknown",
+      "analyzed": 0,
+      "rejected_frames": 29,
+      "skipped_analysis_frames": 139,
+      "created_items": 0,
+      "cleared_items": 0,
+      "effective_analysis_fps": 0.0,
+      "last_frame_at": "2026-09-12T17:02:19.100026+00:00",
+      "mode": "day",
+      "decoder": "opencv",
+      "rejection_reasons": {
+        "view_alignment_unknown": 27,
+        "analysis_result_stale": 2
+      }
+    },
+    "44180209031322001028": {
+      "state": "analysis_result_stale",
+      "analyzed": 15,
+      "rejected_frames": 14,
+      "skipped_analysis_frames": 141,
+      "created_items": 0,
+      "cleared_items": 0,
+      "effective_analysis_fps": 0.082,
+      "last_frame_at": "2026-09-12T17:02:20.326157+00:00",
+      "mode": "day",
+      "decoder": "opencv",
+      "rejection_reasons": {
+        "analysis_result_stale": 14
+      },
+      "source_time_seconds": 126.92,
+      "result_age_seconds": 1.556,
+      "inference_seconds": 1.521,
+      "candidate_count": 2,
+      "confirmed_visible": 0
+    },
+    "44180209031322001030": {
+      "state": "view_alignment_unknown",
+      "analyzed": 0,
+      "rejected_frames": 29,
+      "skipped_analysis_frames": 142,
+      "created_items": 0,
+      "cleared_items": 0,
+      "effective_analysis_fps": 0.0,
+      "last_frame_at": "2026-09-12T17:02:21.878822+00:00",
+      "mode": "day",
+      "decoder": "opencv",
+      "rejection_reasons": {
+        "view_alignment_unknown": 29
+      }
+    }
+  },
+  "active_items": 0,
+  "reader_processes_alive": 0,
+  "notifications_sent": 0
+}

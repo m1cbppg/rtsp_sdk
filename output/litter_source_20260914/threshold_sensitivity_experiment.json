@@ -1,0 +1,367 @@
+{
+  "input_too_small_observations": 15,
+  "experiments": [
+    {
+      "minimum_box_area_px": 160,
+      "minimum_short_side_px": 8,
+      "retained_raw_observations": 0,
+      "sample_ids": [],
+      "labels": {},
+      "positions": []
+    },
+    {
+      "minimum_box_area_px": 120,
+      "minimum_short_side_px": 8,
+      "retained_raw_observations": 3,
+      "sample_ids": [
+        "live000",
+        "live008",
+        "live014"
+      ],
+      "labels": {
+        "Metal": 1,
+        "Plastic": 2
+      },
+      "positions": [
+        {
+          "sample_id": "live008",
+          "box": [
+            803,
+            565,
+            817,
+            574
+          ],
+          "label": "Metal",
+          "confidence": 0.2406301349401474
+        },
+        {
+          "sample_id": "live014",
+          "box": [
+            803,
+            565,
+            818,
+            573
+          ],
+          "label": "Plastic",
+          "confidence": 0.23758403956890106
+        },
+        {
+          "sample_id": "live000",
+          "box": [
+            803,
+            565,
+            818,
+            573
+          ],
+          "label": "Plastic",
+          "confidence": 0.2575328052043915
+        }
+      ]
+    },
+    {
+      "minimum_box_area_px": 100,
+      "minimum_short_side_px": 8,
+      "retained_raw_observations": 11,
+      "sample_ids": [
+        "live000",
+        "live002",
+        "live003",
+        "live005",
+        "live007",
+        "live008",
+        "live010",
+        "live011",
+        "live012",
+        "live014",
+        "live016"
+      ],
+      "labels": {
+        "Metal": 2,
+        "Plastic": 9
+      },
+      "positions": [
+        {
+          "sample_id": "live003",
+          "box": [
+            805,
+            565,
+            818,
+            573
+          ],
+          "label": "Metal",
+          "confidence": 0.22214975953102112
+        },
+        {
+          "sample_id": "live005",
+          "box": [
+            804,
+            565,
+            817,
+            573
+          ],
+          "label": "Plastic",
+          "confidence": 0.34292617440223694
+        },
+        {
+          "sample_id": "live007",
+          "box": [
+            804,
+            565,
+            818,
+            573
+          ],
+          "label": "Plastic",
+          "confidence": 0.2174108475446701
+        },
+        {
+          "sample_id": "live008",
+          "box": [
+            803,
+            565,
+            817,
+            574
+          ],
+          "label": "Metal",
+          "confidence": 0.2406301349401474
+        },
+        {
+          "sample_id": "live010",
+          "box": [
+            803,
+            565,
+            817,
+            573
+          ],
+          "label": "Plastic",
+          "confidence": 0.27655982971191406
+        },
+        {
+          "sample_id": "live011",
+          "box": [
+            804,
+            565,
+            817,
+            573
+          ],
+          "label": "Plastic",
+          "confidence": 0.22009889781475067
+        },
+        {
+          "sample_id": "live012",
+          "box": [
+            804,
+            565,
+            817,
+            573
+          ],
+          "label": "Plastic",
+          "confidence": 0.21425113081932068
+        },
+        {
+          "sample_id": "live014",
+          "box": [
+            803,
+            565,
+            818,
+            573
+          ],
+          "label": "Plastic",
+          "confidence": 0.23758403956890106
+        },
+        {
+          "sample_id": "live016",
+          "box": [
+            804,
+            564,
+            816,
+            573
+          ],
+          "label": "Plastic",
+          "confidence": 0.285092830657959
+        },
+        {
+          "sample_id": "live000",
+          "box": [
+            803,
+            565,
+            818,
+            573
+          ],
+          "label": "Plastic",
+          "confidence": 0.2575328052043915
+        },
+        {
+          "sample_id": "live002",
+          "box": [
+            804,
+            565,
+            817,
+            573
+          ],
+          "label": "Plastic",
+          "confidence": 0.2269870787858963
+        }
+      ]
+    },
+    {
+      "minimum_box_area_px": 80,
+      "minimum_short_side_px": 8,
+      "retained_raw_observations": 12,
+      "sample_ids": [
+        "live000",
+        "live002",
+        "live003",
+        "live004",
+        "live005",
+        "live007",
+        "live008",
+        "live010",
+        "live011",
+        "live012",
+        "live014",
+        "live016"
+      ],
+      "labels": {
+        "Metal": 2,
+        "Plastic": 10
+      },
+      "positions": [
+        {
+          "sample_id": "live003",
+          "box": [
+            805,
+            565,
+            818,
+            573
+          ],
+          "label": "Metal",
+          "confidence": 0.22214975953102112
+        },
+        {
+          "sample_id": "live004",
+          "box": [
+            805,
+            565,
+            817,
+            573
+          ],
+          "label": "Plastic",
+          "confidence": 0.22143206000328064
+        },
+        {
+          "sample_id": "live005",
+          "box": [
+            804,
+            565,
+            817,
+            573
+          ],
+          "label": "Plastic",
+          "confidence": 0.34292617440223694
+        },
+        {
+          "sample_id": "live007",
+          "box": [
+            804,
+            565,
+            818,
+            573
+          ],
+          "label": "Plastic",
+          "confidence": 0.2174108475446701
+        },
+        {
+          "sample_id": "live008",
+          "box": [
+            803,
+            565,
+            817,
+            574
+          ],
+          "label": "Metal",
+          "confidence": 0.2406301349401474
+        },
+        {
+          "sample_id": "live010",
+          "box": [
+            803,
+            565,
+            817,
+            573
+          ],
+          "label": "Plastic",
+          "confidence": 0.27655982971191406
+        },
+        {
+          "sample_id": "live011",
+          "box": [
+            804,
+            565,
+            817,
+            573
+          ],
+          "label": "Plastic",
+          "confidence": 0.22009889781475067
+        },
+        {
+          "sample_id": "live012",
+          "box": [
+            804,
+            565,
+            817,
+            573
+          ],
+          "label": "Plastic",
+          "confidence": 0.21425113081932068
+        },
+        {
+          "sample_id": "live014",
+          "box": [
+            803,
+            565,
+            818,
+            573
+          ],
+          "label": "Plastic",
+          "confidence": 0.23758403956890106
+        },
+        {
+          "sample_id": "live016",
+          "box": [
+            804,
+            564,
+            816,
+            573
+          ],
+          "label": "Plastic",
+          "confidence": 0.285092830657959
+        },
+        {
+          "sample_id": "live000",
+          "box": [
+            803,
+            565,
+            818,
+            573
+          ],
+          "label": "Plastic",
+          "confidence": 0.2575328052043915
+        },
+        {
+          "sample_id": "live002",
+          "box": [
+            804,
+            565,
+            817,
+            573
+          ],
+          "label": "Plastic",
+          "confidence": 0.2269870787858963
+        }
+      ]
+    }
+  ],
+  "applied_to_runtime": false,
+  "accuracy": null,
+  "note": "Raw candidates only; actor, facility and temporal filters not rerun. Lowering thresholds is not a production recommendation."
+}

@@ -1,0 +1,136 @@
+{
+  "created_at": "2026-09-13T03:02:38.355213+00:00",
+  "git_head": "ac48c2938b3a99ad155187c188f26e3190c8d167",
+  "worktree_dirty": true,
+  "local_files_before_changes": [
+    {
+      "path": "rtsp_annotator/ground_litter_runner.py",
+      "sha256": "e9f69c1c5c05f73936083e6d912926137f9c3bf65d69a1e9c705848d38b1d3a4"
+    },
+    {
+      "path": "rtsp_annotator/ground_litter_inventory.py",
+      "sha256": "008f7f2310bc5642d417510245bfb591f6c776e17ec1fe11df25c5f9d8536963"
+    },
+    {
+      "path": "rtsp_annotator/ground_litter_profile.py",
+      "sha256": "68e697fcb7b84eb5356a281debfbfe2f0dfccbdebd005a2107ca81592f05edd3"
+    },
+    {
+      "path": "rtsp_annotator/ground_litter_runtime.py",
+      "sha256": "404b74911f3cbe9b50c2f278ef8197e2b48c38f6be1000d359539a48100e693b"
+    },
+    {
+      "path": "rtsp_annotator/ground_litter_acceptance.py",
+      "sha256": "cbf9e2b5814537e7b067154c7400829626755fc33fd4320c2db89bd229040fe7"
+    },
+    {
+      "path": "rtsp_annotator/ground_litter.py",
+      "sha256": "6b5f84c682f824284dc3260a3ce6bf7d9174346b726b39f2d5d13e37c837a0ea"
+    },
+    {
+      "path": "rtsp_annotator/ground_litter_review.py",
+      "sha256": "e47ef0b0146c263ece1fb4c164ab3a180c4a9ee20b000bdc11e6a81d398ababa"
+    },
+    {
+      "path": "rtsp_annotator/ground_litter_journal.py",
+      "sha256": "585acd6aa63c70731839e388ceb9c682f3c41093a1609e2ed04f3270606f3f3f"
+    },
+    {
+      "path": "rtsp_annotator/ground_litter_replay.py",
+      "sha256": "b1b73179cf25bad7483389172e6709583bcee39eb89de26060444af23bb4c225"
+    },
+    {
+      "path": "rtsp_annotator/ground_litter_batch.py",
+      "sha256": "337fc56995fb3f78257f8147428a3f97f58ef37ecf8d0873eebdfe5dee601331"
+    },
+    {
+      "path": "rtsp_annotator/ground_litter_alignment.py",
+      "sha256": "7a087c73607bf369bcf37b08f4b15419b7ca63117b4d70742fd9c57a856a0214"
+    },
+    {
+      "path": "rtsp_annotator/ground_litter_geometry.py",
+      "sha256": "0a550a8825b32cf6294eda839503edc9a0e30b33ae7ccf13dfcee1a9d7db700c"
+    },
+    {
+      "path": "rtsp_annotator/ground_litter_sampling.py",
+      "sha256": "05934663327378e568b32127993ba9e901491f6457d7f0935266480860c06aea"
+    },
+    {
+      "path": "rtsp_annotator/ground_litter_source.py",
+      "sha256": "4a32c49d0a7bf3b35bd686b1f6348dade26de0e368dffcae7d3135e48e57df91"
+    },
+    {
+      "path": "rtsp_annotator/ground_litter_change.py",
+      "sha256": "ccdf6b93af1b0df60ac133c87cd2d9d961f8b45fbf8a3081ed3561b31379e692"
+    },
+    {
+      "path": "scripts/evaluate_ground_litter_batch.py",
+      "sha256": "f5f4f0b8c3b566c5be262d54a9c47c4137c77b04938e300e5c971c7e22689352"
+    },
+    {
+      "path": "scripts/build_ground_litter_calibration_page.py",
+      "sha256": "98173bfa89c7554ba7072bf347be3c91960a6695f554e9f1a9104bb91fb20823"
+    },
+    {
+      "path": "scripts/analyze_ground_litter_run.py",
+      "sha256": "d524044cd963fd5aff93be3c0e6931d933fec6b8db35325359b7bf1fe161dbdf"
+    },
+    {
+      "path": "scripts/sample_ground_litter_playback.py",
+      "sha256": "25c5b375d41d4e65deda7004eb869d950950d5274c35bf4ee57054b1f21250ca"
+    },
+    {
+      "path": "scripts/make_ground_litter_replay_profile.py",
+      "sha256": "a20a67ac05171cb54c5358679c2d6f201716fce4d2d15cb0acece3b748d44188"
+    },
+    {
+      "path": "scripts/sample_ground_litter_video.py",
+      "sha256": "f9c852b60dcaef590d6cbdf49c6b8052319179b1f66a345d15d37b2ba3e7c2d7"
+    },
+    {
+      "path": "scripts/evaluate_ground_litter_acceptance.py",
+      "sha256": "9ef26ab4fb5a9ab801a72972abbb04a281dbab56b5e59cb290ded314f3818d5b"
+    },
+    {
+      "path": "scripts/prepare_ground_litter_acceptance.py",
+      "sha256": "c37964d38c3442029034eca12134d1e2fae83b4c52342d4dcc96b4de5908b685"
+    },
+    {
+      "path": "scripts/evaluate_ground_litter_temporal.py",
+      "sha256": "adef51d94c1b9a4c47ddb0d9e4de087a8176cea87356b48dc572e413f5facd25"
+    },
+    {
+      "path": "scripts/capture_ground_litter_previews.py",
+      "sha256": "cbe0618ede304f6a36495d8baa1119d77bb1d99dcb56f2afef28f17dfc0672bd"
+    },
+    {
+      "path": "scripts/review_ground_litter_profiles.py",
+      "sha256": "ae64ed6741ce4a53f922e1d55d36c6acb990724726488691286fc22eab1072d1"
+    },
+    {
+      "path": "config/ground_litter_profiles.example.json",
+      "sha256": "c78ed69ca344cb688d236f7fe2cfd9d05de5081fdb72c8f47d3f272f8c5faa9d",
+      "bytes": 13038
+    },
+    {
+      "path": "models/litter/turhancan_yolov8m_seg_trash.pt",
+      "sha256": "a2f8de0c7f714e2ab8b70c62490e2a41fd4a6681ca4a8dd442797c809a140278",
+      "bytes": 54786410
+    },
+    {
+      "path": "models/yolo26s.pt",
+      "sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b",
+      "bytes": 20422725
+    }
+  ],
+  "historical_server": {
+    "audit_path": "output/litter_4h_review_20260913/server_audit.json",
+    "runtime_sha256": "d70e35095c62a07d1363a1aff45c49baa1cdbd836f7936b9a52ae52312550526",
+    "profile_sha256": "3db383536b5bd2f744c88ca24dcd471a00ebca4913add45d52611ff9456b513e",
+    "runtime_staging_verified": true,
+    "profile_staging_verified": true,
+    "actor_imgsz": 1280
+  },
+  "diagnostic_profile_sha256": "f64722d4a9a83dc8f31817ff4f40db25c2e8dbb569c8f0f04ffea33a57343074",
+  "note": "Reference path relocated only; profile geometry and thresholds unchanged. Historical GPU runtime is not identical to current local code."
+}

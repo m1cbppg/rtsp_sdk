@@ -20,6 +20,10 @@ from rtsp_annotator.events import (
     GarbageAnalysisOptions,
 )
 from rtsp_annotator.gas_cylinder import GasCylinderOptions
+from rtsp_annotator.ground_litter_detection import (
+    GroundLitterDetectionOptions,
+    GroundLitterZone,
+)
 from rtsp_annotator.fishing_risk import (
     FishingRiskOptions,
     FishingRiskRuleOptions,
@@ -95,6 +99,52 @@ def make_settings(root: Path) -> DeepStreamManagerSettings:
 
 
 class DeepStreamManagerTests(unittest.TestCase):
+    def test_emergency_home_command_is_enqueued_for_ptz_stream(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            settings = make_settings(root)
+            models = settings.manager.model_root
+            (models / "model.pt").touch()
+            (models / "model.onnx").touch()
+            (models / "model.labels.txt").write_text(
+                "\n".join(f"class_{index}" for index in range(9)),
+                encoding="utf-8",
+            )
+            processes: list[FakeProcess] = []
+
+            def factory(command: list[str], **kwargs: object) -> FakeProcess:
+                process = FakeProcess(command, **kwargs)
+                processes.append(process)
+                return process
+
+            manager = DeepStreamStreamManager(settings, factory)
+            with patch("os.killpg"):
+                created = manager.create(
+                    StreamSpec(
+                        "rtsp://camera/harbor",
+                        model="model.pt",
+                        vessel_detection=VesselDetectionOptions(enabled=True),
+                        ptz_verification=PtzVerificationOptions(
+                            enabled=True,
+                            camera_id="camera-01",
+                        ),
+                    )
+                )
+                response = manager.return_ptz_home(created["stream_id"])
+                command_paths = list(
+                    settings.runtime_root.glob("*/control/ptz-home-*.json")
+                )
+                self.assertEqual(len(command_paths), 1)
+                command = json.loads(
+                    command_paths[0].read_text(encoding="utf-8")
+                )
+                manager.shutdown()
+
+        self.assertEqual(response["status"], "accepted")
+        self.assertEqual(command["action"], "return_home")
+        self.assertEqual(command["stream_id"], created["stream_id"])
+        self.assertEqual(command["request_id"], response["request_id"])
+
     def test_vessel_only_mode_reports_camera_control_disabled(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -134,6 +184,7 @@ class DeepStreamManagerTests(unittest.TestCase):
             result["ptz_verification"]["integration_mode"],
             "detection_only",
         )
+        self.assertFalse(result["ptz_verification"]["continuous_tracking"])
 
     def test_ptz_verification_rejects_fixed_view_feature_branch(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -871,7 +922,331 @@ class DeepStreamManagerTests(unittest.TestCase):
                 )
                 manager.stop(created["stream_id"])
 
-        self.assertEqual(processes[0].wait_timeouts, [9.0])
+        # 3 command timeouts + 10 seconds coordinator budget + 2 seconds
+        # worker shutdown overhead.
+        self.assertEqual(processes[0].wait_timeouts, [18.0])
+
+    def test_stopping_ptz_stream_requests_home_before_signalling_worker(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            settings = make_settings(Path(directory))
+            models = settings.manager.model_root
+            (models / "model.pt").touch()
+            (models / "model.onnx").touch()
+            (models / "model.labels.txt").write_text(
+                "\n".join(f"class_{index}" for index in range(9)),
+                encoding="utf-8",
+            )
+            manager = DeepStreamStreamManager(settings, FakeProcess)
+            with patch("os.killpg"):
+                created = manager.create(
+                    StreamSpec(
+                        "rtsp://camera/harbor",
+                        model="model.pt",
+                        vessel_detection=VesselDetectionOptions(enabled=True),
+                        ptz_verification=PtzVerificationOptions(
+                            enabled=True,
+                            camera_id="camera-01",
+                        ),
+                    )
+                )
+                record = manager._records[created["stream_id"]]
+                group = manager._groups[record.group_id]
+                with patch.object(
+                    manager,
+                    "_read_metrics",
+                    return_value={"ptz_verification_state": "running"},
+                ), patch.object(
+                    manager,
+                    "_return_ptz_home_before_stop",
+                    return_value=True,
+                ) as return_home:
+                    manager.stop(created["stream_id"])
+
+            return_home.assert_called_once_with(record, group)
+
+    def test_delete_home_handshake_waits_for_matching_worker_ack(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            settings = make_settings(Path(directory))
+            models = settings.manager.model_root
+            (models / "model.pt").touch()
+            (models / "model.onnx").touch()
+            (models / "model.labels.txt").write_text(
+                "\n".join(f"class_{index}" for index in range(9)),
+                encoding="utf-8",
+            )
+            manager = DeepStreamStreamManager(settings, FakeProcess)
+            created = manager.create(
+                StreamSpec(
+                    "rtsp://camera/harbor",
+                    model="model.pt",
+                    vessel_detection=VesselDetectionOptions(enabled=True),
+                    ptz_verification=PtzVerificationOptions(
+                        enabled=True,
+                        camera_id="camera-01",
+                    ),
+                )
+            )
+            record = manager._records[created["stream_id"]]
+            group = manager._groups[record.group_id]
+            running = {"ptz_verification_state": "running"}
+            acknowledged = {
+                "ptz_verification_state": "manual_hold",
+                "ptz_last_return_home_request_id": "home-request",
+                "ptz_manual_hold": True,
+            }
+            with patch.object(
+                manager,
+                "_enqueue_ptz_home",
+                return_value="home-request",
+            ), patch.object(
+                manager,
+                "_read_metrics",
+                side_effect=[running, running, acknowledged],
+            ), patch("time.sleep"):
+                completed = manager._return_ptz_home_before_stop(
+                    record,
+                    group,
+                )
+
+        self.assertTrue(completed)
+
+
+    def test_ground_litter_stream_gets_a_native_resolution_branch(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            settings = make_settings(Path(directory))
+            models = settings.manager.model_root
+            (models / "model.pt").touch()
+            (models / "model.onnx").touch()
+            (models / "model.labels.txt").write_text(
+                "\n".join(f"class_{index}" for index in range(9)),
+                encoding="utf-8",
+            )
+            litter_root = models / "litter"
+            litter_root.mkdir()
+            litter_model = litter_root / "turhancan_yolov8m_seg_trash.pt"
+            litter_model.touch()
+            processes: list[FakeProcess] = []
+
+            def factory(command: list[str], **kwargs: object) -> FakeProcess:
+                process = FakeProcess(command, **kwargs)
+                processes.append(process)
+                return process
+
+            manager = DeepStreamStreamManager(settings, factory)
+            with patch("os.killpg"):
+                result = manager.create(
+                    StreamSpec(
+                        "rtsp://camera/walkway",
+                        model="model.pt",
+                        classes=(0,),
+                        ground_litter=GroundLitterDetectionOptions(
+                            enabled=True,
+                            confidence=0.18,
+                            zones=(
+                                GroundLitterZone(
+                                    region_id="merchant_01",
+                                    polygon=(
+                                        (0.32, 0.15),
+                                        (0.367, 0.15),
+                                        (0.35, 0.3),
+                                        (0.27, 0.3),
+                                    ),
+                                    minimum_short_side_px=8,
+                                    minimum_box_area_px=64,
+                                ),
+                            ),
+                        ),
+                    )
+                )
+                payload = json.loads(
+                    Path(processes[-1].command[-1]).read_text(
+                        encoding="utf-8"
+                    )
+                )
+                manager.shutdown()
+
+        self.assertTrue(payload["ground_litter"]["enabled"])
+        self.assertEqual(
+            payload["ground_litter"]["model_path"],
+            str(litter_model.resolve()),
+        )
+        self.assertEqual(payload["ground_litter"]["tile_size_px"], 640)
+        self.assertEqual(payload["ground_litter"]["analysis_fps"], 1.0)
+        stream_options = payload["streams"][0]["ground_litter"]
+        self.assertTrue(stream_options["enabled"])
+        self.assertEqual(
+            stream_options["zones"][0]["region_id"],
+            "merchant_01",
+        )
+        self.assertEqual(
+            stream_options["zones"][0]["minimum_short_side_px"],
+            8,
+        )
+        self.assertTrue(result["ground_litter"]["enabled"])
+        self.assertEqual(result["ground_litter"]["region_count"], 1)
+        self.assertEqual(
+            result["ground_litter"]["model"],
+            "turhancan_yolov8m_seg_trash.pt",
+        )
+
+    def test_display_detections_is_forwarded_to_the_worker(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            settings = make_settings(Path(directory))
+            models = settings.manager.model_root
+            (models / "model.pt").touch()
+            (models / "model.onnx").touch()
+            (models / "model.labels.txt").write_text(
+                "class_0\n", encoding="utf-8"
+            )
+            processes: list[FakeProcess] = []
+
+            def factory(command: list[str], **kwargs: object) -> FakeProcess:
+                process = FakeProcess(command, **kwargs)
+                processes.append(process)
+                return process
+
+            manager = DeepStreamStreamManager(settings, factory)
+            with patch("os.killpg"):
+                manager.create(
+                    StreamSpec(
+                        "rtsp://camera/walkway",
+                        model="model.pt",
+                        display_detections=False,
+                    )
+                )
+                payload = json.loads(
+                    Path(processes[-1].command[-1]).read_text(
+                        encoding="utf-8"
+                    )
+                )
+                manager.shutdown()
+
+        self.assertFalse(payload["streams"][0]["display_detections"])
+
+    def test_ground_litter_model_may_be_addressed_with_subdirectory(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            settings = make_settings(Path(directory))
+            models = settings.manager.model_root
+            (models / "model.pt").touch()
+            (models / "model.onnx").touch()
+            (models / "model.labels.txt").write_text(
+                "class_0\n", encoding="utf-8"
+            )
+            litter_root = models / "litter"
+            litter_root.mkdir()
+            (litter_root / "custom.pt").touch()
+            manager = DeepStreamStreamManager(settings, FakeProcess)
+            resolved = manager._resolve_ground_litter_model(
+                "litter/custom.pt"
+            )
+            bare = manager._resolve_ground_litter_model("custom.pt")
+        self.assertEqual(resolved.name, "custom.pt")
+        self.assertEqual(resolved, bare)
+
+    def test_missing_ground_litter_model_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            settings = make_settings(Path(directory))
+            models = settings.manager.model_root
+            (models / "model.pt").touch()
+            (models / "model.onnx").touch()
+            (models / "model.labels.txt").write_text(
+                "class_0\n", encoding="utf-8"
+            )
+            manager = DeepStreamStreamManager(settings, FakeProcess)
+            with self.assertRaisesRegex(
+                ModelNotFoundError,
+                "零散垃圾模型不存在",
+            ):
+                manager.create(
+                    StreamSpec(
+                        "rtsp://camera/walkway",
+                        model="model.pt",
+                        ground_litter=GroundLitterDetectionOptions(
+                            enabled=True,
+                            zones=(
+                                GroundLitterZone(
+                                    region_id="z1",
+                                    polygon=(
+                                        (0.0, 0.0),
+                                        (1.0, 0.0),
+                                        (1.0, 1.0),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    )
+                )
+
+    def test_incompatible_ground_litter_tile_sizes_use_separate_groups(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            settings = make_settings(Path(directory))
+            models = settings.manager.model_root
+            (models / "model.pt").touch()
+            (models / "model.onnx").touch()
+            (models / "model.labels.txt").write_text(
+                "class_0\n", encoding="utf-8"
+            )
+            (models / "litter").mkdir()
+            (models / "litter" / "litter.pt").touch()
+            manager = DeepStreamStreamManager(settings, FakeProcess)
+            zone = GroundLitterZone(
+                region_id="z1",
+                polygon=((0.0, 0.0), (1.0, 0.0), (1.0, 1.0), (0.0, 1.0)),
+            )
+            with patch("os.killpg"):
+                first = manager.create(
+                    StreamSpec(
+                        "rtsp://camera/a",
+                        model="model.pt",
+                        ground_litter=GroundLitterDetectionOptions(
+                            enabled=True,
+                            model="litter/litter.pt",
+                            tile_size_px=640,
+                            zones=(zone,),
+                        ),
+                    )
+                )
+                second = manager.create(
+                    StreamSpec(
+                        "rtsp://camera/b",
+                        model="model.pt",
+                        ground_litter=GroundLitterDetectionOptions(
+                            enabled=True,
+                            model="litter/litter.pt",
+                            tile_size_px=320,
+                            zones=(zone,),
+                        ),
+                    )
+                )
+                third = manager.create(
+                    StreamSpec(
+                        "rtsp://camera/c",
+                        model="model.pt",
+                        ground_litter=GroundLitterDetectionOptions(
+                            enabled=True,
+                            model="litter/litter.pt",
+                            tile_size_px=640,
+                            zones=(zone,),
+                        ),
+                    )
+                )
+                first_group = manager._records[
+                    first["stream_id"]
+                ].group_id
+                second_group = manager._records[
+                    second["stream_id"]
+                ].group_id
+                third_group = manager._records[
+                    third["stream_id"]
+                ].group_id
+                manager.shutdown()
+
+        self.assertNotEqual(first_group, second_group)
+        self.assertEqual(first_group, third_group)
 
 
 if __name__ == "__main__":

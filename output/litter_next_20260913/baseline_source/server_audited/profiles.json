@@ -1,0 +1,617 @@
+{
+  "schema_version": 2,
+  "status": "design_draft_not_stream_api_payload",
+  "source": {
+    "kind": "device_code_api",
+    "temporary_url_storage": "memory_only"
+  },
+  "model": {
+    "path": "models/litter/turhancan_yolov8m_seg_trash.pt",
+    "tile_size_px": 640,
+    "tile_overlap": 0.2,
+    "nms_iou": 0.5
+  },
+  "inventory": {
+    "path": "data/ground-litter/items.sqlite3",
+    "repeat_while_present": false,
+    "clear_requires_local_visible_ground_evidence": true,
+    "clear_seconds": 60,
+    "max_observation_gap_seconds": 3,
+    "ownership": "region_first_confirmed",
+    "cross_camera_ownership": "one_primary_camera_per_physical_area"
+  },
+  "cameras": [
+    {
+      "device_code": "44180209031322001021",
+      "view_id": "fixed-v1",
+      "enabled": false,
+      "calibration_status": "draft",
+      "reference_image": "config/refs/44180209031322001021.jpg",
+      "reference_size": [
+        2560,
+        1440
+      ],
+      "trial_priority": 3,
+      "analysis_fps": 1.0,
+      "frame_max_age_seconds": 2.0,
+      "day": {
+        "minimum_confidence": 0.2,
+        "confirm_seconds": 30
+      },
+      "night": {
+        "minimum_confidence": 0.2,
+        "confirm_seconds": 45
+      },
+      "evidence": {
+        "hit_window": 5,
+        "minimum_hits": 3,
+        "minimum_hit_fraction": 0.6,
+        "actor_clear_seconds": 3
+      },
+      "notes": "仅识别左侧人行道；路边停车区域不纳入识别。近景棚顶是遮挡物，不是地面。右侧流动摊位暂不用于自动归属。",
+      "zones": [
+        {
+          "region_id": "left_walkway",
+          "name": "左侧人行道建议范围",
+          "merchant_id": null,
+          "merchant_name": null,
+          "physical_area_id": null,
+          "polygon": [
+            [
+              0.32,
+              0.15
+            ],
+            [
+              0.367,
+              0.15
+            ],
+            [
+              0.348,
+              0.42
+            ],
+            [
+              0.316,
+              0.63
+            ],
+            [
+              0.175,
+              0.97
+            ],
+            [
+              0.055,
+              0.97
+            ],
+            [
+              0.15,
+              0.64
+            ],
+            [
+              0.26,
+              0.35
+            ]
+          ],
+          "exclude_zones": [
+            [
+              [
+                0.238,
+                0.645
+              ],
+              [
+                0.349,
+                0.635
+              ],
+              [
+                0.36,
+                1
+              ],
+              [
+                0.16,
+                1
+              ]
+            ]
+          ],
+          "minimum_short_side_px": 12,
+          "minimum_box_area_px": 160
+        }
+      ],
+      "overlay_exclude_zones": [
+        [
+          [
+            0.0,
+            0.035
+          ],
+          [
+            0.4,
+            0.035
+          ],
+          [
+            0.4,
+            0.105
+          ],
+          [
+            0.0,
+            0.105
+          ]
+        ],
+        [
+          [
+            0.72,
+            0.882
+          ],
+          [
+            0.855,
+            0.882
+          ],
+          [
+            0.855,
+            0.938
+          ],
+          [
+            0.72,
+            0.938
+          ]
+        ]
+      ]
+    },
+    {
+      "device_code": "44180209031322001022",
+      "view_id": "fixed-v1",
+      "enabled": false,
+      "calibration_status": "draft",
+      "reference_image": "config/refs/44180209031322001022.jpg",
+      "reference_size": [
+        2560,
+        1440
+      ],
+      "trial_priority": 4,
+      "analysis_fps": 1.0,
+      "frame_max_age_seconds": 2.0,
+      "day": {
+        "minimum_confidence": 0.2,
+        "confirm_seconds": 30
+      },
+      "night": {
+        "minimum_confidence": 0.2,
+        "confirm_seconds": 45
+      },
+      "evidence": {
+        "hit_window": 5,
+        "minimum_hits": 3,
+        "minimum_hit_fraction": 0.6,
+        "actor_clear_seconds": 3
+      },
+      "notes": "右侧狭长人行道；车辆、电动车和门店物品需要动态遮挡处理。",
+      "zones": [
+        {
+          "region_id": "right_walkway",
+          "name": "右侧人行道建议范围",
+          "merchant_id": null,
+          "merchant_name": null,
+          "physical_area_id": null,
+          "polygon": [
+            [
+              0.423,
+              0.25
+            ],
+            [
+              0.477,
+              0.25
+            ],
+            [
+              0.521,
+              0.4
+            ],
+            [
+              0.589,
+              0.5
+            ],
+            [
+              0.658,
+              0.62
+            ],
+            [
+              0.758,
+              0.97
+            ],
+            [
+              0.51,
+              0.97
+            ],
+            [
+              0.457,
+              0.6
+            ]
+          ],
+          "exclude_zones": [],
+          "minimum_short_side_px": 12,
+          "minimum_box_area_px": 160
+        }
+      ],
+      "overlay_exclude_zones": [
+        [
+          [
+            0.0,
+            0.035
+          ],
+          [
+            0.4,
+            0.035
+          ],
+          [
+            0.4,
+            0.105
+          ],
+          [
+            0.0,
+            0.105
+          ]
+        ],
+        [
+          [
+            0.72,
+            0.882
+          ],
+          [
+            0.855,
+            0.882
+          ],
+          [
+            0.855,
+            0.938
+          ],
+          [
+            0.72,
+            0.938
+          ]
+        ]
+      ]
+    },
+    {
+      "device_code": "44180209031322001027",
+      "view_id": "fixed-v1",
+      "enabled": false,
+      "calibration_status": "draft",
+      "reference_image": "config/refs/44180209031322001027.jpg",
+      "reference_size": [
+        2560,
+        1440
+      ],
+      "trial_priority": 2,
+      "analysis_fps": 1.0,
+      "frame_max_age_seconds": 2.0,
+      "day": {
+        "minimum_confidence": 0.2,
+        "confirm_seconds": 20
+      },
+      "night": {
+        "minimum_confidence": 0.2,
+        "confirm_seconds": 30
+      },
+      "evidence": {
+        "hit_window": 5,
+        "minimum_hits": 3,
+        "minimum_hit_fraction": 0.6,
+        "actor_clear_seconds": 3
+      },
+      "notes": "左侧商铺沿街步道优先；右侧停车遮挡严重，车行道不默认归属商户。",
+      "zones": [
+        {
+          "region_id": "left_walkway",
+          "name": "左侧商铺步道建议范围",
+          "merchant_id": null,
+          "merchant_name": null,
+          "physical_area_id": null,
+          "polygon": [
+            [
+              0.247,
+              0.253
+            ],
+            [
+              0.273,
+              0.268
+            ],
+            [
+              0.168,
+              0.461
+            ],
+            [
+              0.045,
+              0.697
+            ],
+            [
+              0.003,
+              0.744
+            ],
+            [
+              0.003,
+              0.533
+            ],
+            [
+              0.091,
+              0.411
+            ]
+          ],
+          "exclude_zones": [],
+          "minimum_short_side_px": 12,
+          "minimum_box_area_px": 160
+        }
+      ],
+      "overlay_exclude_zones": [
+        [
+          [
+            0.0,
+            0.035
+          ],
+          [
+            0.4,
+            0.035
+          ],
+          [
+            0.4,
+            0.105
+          ],
+          [
+            0.0,
+            0.105
+          ]
+        ],
+        [
+          [
+            0.72,
+            0.882
+          ],
+          [
+            0.855,
+            0.882
+          ],
+          [
+            0.855,
+            0.938
+          ],
+          [
+            0.72,
+            0.938
+          ]
+        ]
+      ]
+    },
+    {
+      "device_code": "44180209031322001028",
+      "view_id": "fixed-v1",
+      "enabled": false,
+      "calibration_status": "draft",
+      "reference_image": "config/refs/44180209031322001028.jpg",
+      "reference_size": [
+        2560,
+        1440
+      ],
+      "trial_priority": 5,
+      "analysis_fps": 1.0,
+      "frame_max_age_seconds": 2.0,
+      "day": {
+        "minimum_confidence": 0.2,
+        "confirm_seconds": 30
+      },
+      "night": {
+        "minimum_confidence": 0.2,
+        "confirm_seconds": 45
+      },
+      "evidence": {
+        "hit_window": 5,
+        "minimum_hits": 3,
+        "minimum_hit_fraction": 0.6,
+        "actor_clear_seconds": 3
+      },
+      "notes": "两侧步道分别设置区域；摊位台面和商品不能作为地面垃圾。",
+      "zones": [
+        {
+          "region_id": "left_walkway",
+          "name": "左侧门前步道建议范围",
+          "merchant_id": null,
+          "merchant_name": null,
+          "physical_area_id": null,
+          "polygon": [
+            [
+              0.337,
+              0.369
+            ],
+            [
+              0.362,
+              0.406
+            ],
+            [
+              0.207,
+              0.547
+            ],
+            [
+              0.005,
+              0.703
+            ],
+            [
+              0.005,
+              0.616
+            ],
+            [
+              0.191,
+              0.485
+            ]
+          ],
+          "exclude_zones": [],
+          "minimum_short_side_px": 12,
+          "minimum_box_area_px": 160
+        },
+        {
+          "region_id": "right_walkway",
+          "name": "右侧步道建议范围",
+          "merchant_id": null,
+          "merchant_name": null,
+          "physical_area_id": null,
+          "polygon": [
+            [
+              0.677,
+              0.345
+            ],
+            [
+              0.722,
+              0.348
+            ],
+            [
+              0.753,
+              0.512
+            ],
+            [
+              0.802,
+              0.747
+            ],
+            [
+              0.706,
+              0.75
+            ],
+            [
+              0.68,
+              0.59
+            ]
+          ],
+          "exclude_zones": [],
+          "minimum_short_side_px": 12,
+          "minimum_box_area_px": 160
+        }
+      ],
+      "overlay_exclude_zones": [
+        [
+          [
+            0.0,
+            0.035
+          ],
+          [
+            0.4,
+            0.035
+          ],
+          [
+            0.4,
+            0.105
+          ],
+          [
+            0.0,
+            0.105
+          ]
+        ],
+        [
+          [
+            0.72,
+            0.882
+          ],
+          [
+            0.855,
+            0.882
+          ],
+          [
+            0.855,
+            0.938
+          ],
+          [
+            0.72,
+            0.938
+          ]
+        ]
+      ]
+    },
+    {
+      "device_code": "44180209031322001030",
+      "view_id": "fixed-v1",
+      "enabled": false,
+      "calibration_status": "draft",
+      "reference_image": "config/refs/44180209031322001030.jpg",
+      "reference_size": [
+        2560,
+        1440
+      ],
+      "trial_priority": 1,
+      "analysis_fps": 1.0,
+      "frame_max_age_seconds": 2.0,
+      "day": {
+        "minimum_confidence": 0.2,
+        "confirm_seconds": 15
+      },
+      "night": {
+        "minimum_confidence": 0.2,
+        "confirm_seconds": 25
+      },
+      "evidence": {
+        "hit_window": 5,
+        "minimum_hits": 3,
+        "minimum_hit_fraction": 0.6,
+        "actor_clear_seconds": 3
+      },
+      "notes": "近中景连续步道优先；顶部店铺陈列及外挑招牌不属于地面。",
+      "zones": [
+        {
+          "region_id": "main_walkway",
+          "name": "连续人行道建议范围",
+          "merchant_id": null,
+          "merchant_name": null,
+          "physical_area_id": null,
+          "polygon": [
+            [
+              0.532,
+              0.255
+            ],
+            [
+              0.686,
+              0.255
+            ],
+            [
+              0.822,
+              0.975
+            ],
+            [
+              0.413,
+              0.975
+            ]
+          ],
+          "exclude_zones": [],
+          "minimum_short_side_px": 12,
+          "minimum_box_area_px": 160
+        }
+      ],
+      "overlay_exclude_zones": [
+        [
+          [
+            0.0,
+            0.035
+          ],
+          [
+            0.4,
+            0.035
+          ],
+          [
+            0.4,
+            0.105
+          ],
+          [
+            0.0,
+            0.105
+          ]
+        ],
+        [
+          [
+            0.72,
+            0.882
+          ],
+          [
+            0.855,
+            0.882
+          ],
+          [
+            0.855,
+            0.938
+          ],
+          [
+            0.72,
+            0.938
+          ]
+        ]
+      ]
+    }
+  ]
+}

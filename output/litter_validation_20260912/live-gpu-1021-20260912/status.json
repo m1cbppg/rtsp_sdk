@@ -1,0 +1,26 @@
+{
+  "stopped": true,
+  "updated_at": 1789201504.8836153,
+  "cameras": {
+    "44180209031322001021": {
+      "state": "analyzing",
+      "analyzed": 145,
+      "rejected_frames": 1,
+      "skipped_analysis_frames": 1,
+      "created_items": 0,
+      "cleared_items": 0,
+      "effective_analysis_fps": 0.805,
+      "last_frame_at": "2026-09-12T08:25:03.915039+00:00",
+      "mode": "day",
+      "decoder": "opencv",
+      "rejection_reasons": {
+        "analysis_result_stale": 1
+      },
+      "source_time_seconds": 180.56,
+      "result_age_seconds": 0.461,
+      "inference_seconds": 0.448,
+      "candidate_count": 0,
+      "confirmed_visible": 0
+    }
+  }
+}

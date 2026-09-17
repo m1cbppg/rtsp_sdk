@@ -53,6 +53,14 @@ python3 scripts/register_ptz_isolated_stream.py
 
 脚本会打印识别结果流和虚拟摄像机流。分别用 `ffplay -rtsp_transport tcp '脚本打印的地址'` 打开，建议两个窗口并排观察。
 
+验证近景确认后持续跟船时，注册命令改为：
+
+```bash
+python3 scripts/register_ptz_isolated_stream.py --continuous-tracking
+```
+
+该模式默认最多跟踪120秒；目标持续丢失、回放流停止或控制异常时会提前回HOME。
+
 ## 验收结果
 
 ```bash

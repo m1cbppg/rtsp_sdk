@@ -1,9 +1,11 @@
 import json
 import sqlite3
+import threading
 import time
 import unittest
 from email.message import Message
 from pathlib import Path
+from unittest.mock import Mock, patch
 from urllib.request import Request
 
 from rtsp_annotator.event_engine import NormalizedRect
@@ -153,12 +155,85 @@ class FakeCameraClient:
         self.stop_calls += 1
 
 
+class ContinuousTrackingSource(SnapshotSource):
+    def __init__(
+        self,
+        wide_detections: tuple[VesselDetection, ...],
+        tracking_results: list[tuple[VesselDetection, ...]],
+        *,
+        stop_when_exhausted: bool = True,
+    ) -> None:
+        super().__init__(wide_detections)
+        self.tracking_results = tracking_results
+        self.tracking_armed = False
+        self.tracking = False
+        self.stop_when_exhausted = stop_when_exhausted
+
+    def start_tracking(self) -> None:
+        self.tracking_armed = True
+
+    def snapshot(self) -> VesselSnapshot:
+        if self.pending_closeup:
+            self.pending_closeup = False
+            self.version += 1
+            detections = (
+                self.tracking_results.pop(0)
+                if self.tracking and self.tracking_results
+                else (
+                    detection(
+                        900 + self.version,
+                        0.5,
+                        0.5,
+                        width=0.25,
+                        height=0.18,
+                    ),
+                )
+            )
+            self.current = VesselSnapshot(
+                state="running",
+                detections=detections,
+                result_version=self.version,
+                updated_at=time.monotonic(),
+            )
+            return self.current
+        if self.tracking_armed:
+            self.tracking_armed = False
+            self.tracking = True
+            return self.current
+        if self.tracking:
+            self.version += 1
+            if self.tracking_results:
+                self.current = VesselSnapshot(
+                    state="running",
+                    detections=self.tracking_results.pop(0),
+                    result_version=self.version,
+                    updated_at=time.monotonic(),
+                )
+            elif self.stop_when_exhausted:
+                self.current = VesselSnapshot(
+                    state="stopped",
+                    result_version=self.version,
+                    updated_at=time.monotonic(),
+                )
+        return self.current
+
+
+class ContinuousTrackingCamera(FakeCameraClient):
+    def capture(self) -> tuple[bytes, str, float]:
+        result = super().capture()
+        assert isinstance(self.source, ContinuousTrackingSource)
+        self.source.start_tracking()
+        return result
+
+
 class PtzVerificationTests(unittest.TestCase):
     def options(self, **overrides):
         values = {
             "enabled": True,
             "camera_id": "camera-01",
             "zoom_steps": (4, 4),
+            "adaptive_target_width_ratio": 0.25,
+            "adaptive_target_height_ratio": 0.18,
             "settle_seconds": 0,
             "reacquire_timeout_seconds": 1,
             "monitoring_interval_seconds": 0.05,
@@ -172,6 +247,7 @@ class PtzVerificationTests(unittest.TestCase):
 
     def test_adaptive_options_round_trip_to_worker_payload(self) -> None:
         options = self.options(
+            trace_logging_enabled=True,
             zoom_strategy="adaptive",
             adaptive_target_width_ratio=0.3,
             adaptive_target_height_ratio=0.2,
@@ -187,11 +263,731 @@ class PtzVerificationTests(unittest.TestCase):
             reacquire_cluster_radius=0.16,
             proposal_minimum_interval_seconds=45,
             proposal_maximum_verifications_per_hour=6,
+            continuous_tracking=True,
+            tracking_center_deadband=0.08,
+            tracking_command_interval_seconds=0.3,
+            tracking_settle_seconds=0.1,
+            tracking_recovery_enabled=True,
+            tracking_recovery_interval_seconds=1.5,
+            tracking_recovery_zoom_out_step=2,
+            tracking_recovery_max_attempts=4,
+            tracking_lost_timeout_seconds=3,
+            tracking_max_duration_seconds=0,
+            tracking_zoom_hysteresis_ratio=0.15,
+            tracking_zoom_step=2,
+            tracking_initial_extra_zoom_step=1,
+            vessel_number_recognition_enabled=True,
+            vessel_number_fallback="10032",
         )
 
         restored = PtzVerificationOptions.from_payload(options.to_payload())
 
         self.assertEqual(restored, options)
+
+    def test_tracking_recovery_zooms_out_and_reacquires_target(self) -> None:
+        from tempfile import TemporaryDirectory
+
+        with TemporaryDirectory() as directory:
+            reference = detection(
+                1,
+                0.55,
+                0.5,
+                width=0.25,
+                height=0.18,
+            )
+            source = SnapshotSource((reference,))
+            camera = FakeCameraClient(source)
+            coordinator = PtzVerificationCoordinator(
+                stream_id="stream-1",
+                options=self.options(
+                    continuous_tracking=True,
+                    tracking_recovery_enabled=True,
+                    tracking_recovery_interval_seconds=0.5,
+                    tracking_recovery_zoom_out_step=2,
+                    tracking_recovery_max_attempts=1,
+                    tracking_lost_timeout_seconds=2,
+                ),
+                snapshot_provider=source.snapshot,
+                repository=PtzVerificationRepository(Path(directory)),
+                camera_client=camera,  # type: ignore[arg-type]
+            )
+
+            observation = coordinator._wait_for_tracking_detection(
+                after_version=source.version,
+                reference=reference,
+            )
+
+        self.assertIsNotNone(observation.detection)
+        self.assertEqual(camera.locates, [(0.55, 0.5, -2)])
+        self.assertEqual(
+            coordinator.tracking_metrics["tracking_corrections"],
+            1,
+        )
+
+    def test_zero_tracking_max_duration_means_no_time_limit(self) -> None:
+        options = self.options(tracking_max_duration_seconds=0)
+
+        options.validate()
+        self.assertEqual(options.tracking_max_duration_seconds, 0)
+
+    def test_tracking_keeps_same_detector_id_at_edge_of_frame(self) -> None:
+        from tempfile import TemporaryDirectory
+
+        with TemporaryDirectory() as directory:
+            reference = detection(7, 0.5, 0.5)
+            edge = detection(7, 0.98, 0.5)
+            source = SnapshotSource((edge,))
+            coordinator = PtzVerificationCoordinator(
+                stream_id="stream-1",
+                options=self.options(reacquire_center_radius=0.45),
+                snapshot_provider=source.snapshot,
+                repository=PtzVerificationRepository(Path(directory)),
+                camera_client=FakeCameraClient(source),  # type: ignore[arg-type]
+            )
+
+            selected = coordinator._select_tracking_target(
+                (edge,),
+                reference,
+                center_radius=0.45,
+            )
+
+        self.assertIs(selected.detection, edge)
+
+    def test_demo_reacquire_does_not_switch_to_centered_competing_boat(self) -> None:
+        from tempfile import TemporaryDirectory
+
+        with TemporaryDirectory() as directory:
+            reference = detection(1, 0.30, 0.50, width=0.12, height=0.08)
+            competing = detection(2, 0.50, 0.50, width=0.12, height=0.08)
+            coordinator = PtzVerificationCoordinator(
+                stream_id="stream-1",
+                options=self.options(
+                    tracking_profile="demo_continuous",
+                    continuous_tracking=True,
+                    tracking_max_duration_seconds=0,
+                ),
+                snapshot_provider=lambda: VesselSnapshot(),
+                repository=PtzVerificationRepository(Path(directory)),
+                camera_client=FakeCameraClient(SnapshotSource((reference,))),  # type: ignore[arg-type]
+            )
+            selected = coordinator._select_tracking_target(
+                (competing,), reference, center_radius=0.45,
+                allow_center_fallback=False,
+            )
+        self.assertIsNone(selected.detection)
+
+    def test_vessel_number_uses_configured_fallback_when_ocr_is_unavailable(
+        self,
+    ) -> None:
+        from tempfile import TemporaryDirectory
+
+        with TemporaryDirectory() as directory:
+            item = detection(1, 0.5, 0.5, width=0.4, height=0.3)
+            source = SnapshotSource((item,))
+            coordinator = PtzVerificationCoordinator(
+                stream_id="stream-1",
+                options=self.options(
+                    vessel_number_recognition_enabled=True,
+                    vessel_number_fallback="10032",
+                ),
+                snapshot_provider=source.snapshot,
+                repository=PtzVerificationRepository(Path(directory)),
+                camera_client=FakeCameraClient(source),  # type: ignore[arg-type]
+            )
+
+            with patch(
+                "rtsp_annotator.ptz_verification._ocr_vessel_number",
+                return_value=None,
+            ):
+                value = coordinator._recognize_vessel_number(b"jpeg", item)
+
+        self.assertEqual(value, "10032")
+
+    def test_task_trace_logging_is_disabled_by_default(self) -> None:
+        from tempfile import TemporaryDirectory
+
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = SnapshotSource((detection(1, 0.7, 0.5),))
+            coordinator = PtzVerificationCoordinator(
+                stream_id="stream-1",
+                options=self.options(),
+                snapshot_provider=source.snapshot,
+                repository=PtzVerificationRepository(root),
+                camera_client=FakeCameraClient(source),  # type: ignore[arg-type]
+            )
+
+            self.assertIsNotNone(coordinator.run_once())
+            self.assertFalse((root / "task-traces").exists())
+
+    def test_task_trace_records_one_file_per_job_and_camera_action(self) -> None:
+        from tempfile import TemporaryDirectory
+
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = SnapshotSource((detection(1, 0.7, 0.5),))
+            coordinator = PtzVerificationCoordinator(
+                stream_id="stream-1",
+                options=self.options(trace_logging_enabled=True),
+                snapshot_provider=source.snapshot,
+                repository=PtzVerificationRepository(root),
+                camera_client=FakeCameraClient(source),  # type: ignore[arg-type]
+            )
+
+            job_id = coordinator.run_once()
+
+            self.assertIsNotNone(job_id)
+            trace_files = list((root / "task-traces").glob("*.jsonl"))
+            self.assertEqual(trace_files, [root / "task-traces" / f"{job_id}.jsonl"])
+            records = [
+                json.loads(line)
+                for line in trace_files[0].read_text(encoding="utf-8").splitlines()
+            ]
+            self.assertEqual(records[0]["event"], "task.started")
+            self.assertEqual(records[-1]["event"], "task.finished")
+            self.assertEqual(records[-1]["result"], "boat_confirmed")
+            self.assertTrue(all(item["task_id"] == job_id for item in records))
+            completed_actions = [
+                item["action"]
+                for item in records
+                if item["event"] == "camera_control.completed"
+            ]
+            self.assertEqual(
+                completed_actions,
+                ["locate", "autofocus", "capture", "home"],
+            )
+            capture = next(
+                item
+                for item in records
+                if item["event"] == "camera_control.completed"
+                and item["action"] == "capture"
+            )
+            self.assertEqual(capture["result"]["size_bytes"], 12)
+            self.assertNotIn("content", capture["result"])
+
+    def test_task_trace_records_failed_camera_action(self) -> None:
+        from tempfile import TemporaryDirectory
+
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = SnapshotSource((detection(1, 0.7, 0.5),))
+            camera = FakeCameraClient(source)
+            camera.fail_locate = True
+            coordinator = PtzVerificationCoordinator(
+                stream_id="stream-1",
+                options=self.options(trace_logging_enabled=True),
+                snapshot_provider=source.snapshot,
+                repository=PtzVerificationRepository(root),
+                camera_client=camera,  # type: ignore[arg-type]
+            )
+
+            job_id = coordinator.run_once()
+
+            trace_path = root / "task-traces" / f"{job_id}.jsonl"
+            records = [
+                json.loads(line)
+                for line in trace_path.read_text(encoding="utf-8").splitlines()
+            ]
+            failed = [
+                item
+                for item in records
+                if item["event"] == "camera_control.failed"
+            ]
+            self.assertEqual(failed[0]["action"], "locate")
+            self.assertEqual(failed[0]["error_type"], "RuntimeError")
+            self.assertEqual(records[-1]["result"], "target_lost")
+
+    def test_overlay_state_keeps_target_and_last_four_camera_operations(self) -> None:
+        from tempfile import TemporaryDirectory
+
+        with TemporaryDirectory() as directory:
+            item = detection(1, 0.7, 0.5)
+            source = SnapshotSource((item,))
+            camera = FakeCameraClient(source)
+            coordinator = PtzVerificationCoordinator(
+                stream_id="stream-1",
+                options=self.options(),
+                snapshot_provider=source.snapshot,
+                repository=PtzVerificationRepository(Path(directory)),
+                camera_client=camera,  # type: ignore[arg-type]
+            )
+            coordinator._set_overlay_target(item)
+            coordinator._camera_control(
+                "locate",
+                lambda: camera.locate(0.7, 0.5, 2),
+                reason="continuous_tracking",
+                zoom_delta=2,
+            )
+            for _ in range(4):
+                coordinator._camera_control("autofocus", camera.autofocus)
+
+            overlay = coordinator.overlay_state()
+
+        self.assertEqual(overlay.target_rectangle, item.rectangle)
+        self.assertEqual(len(overlay.operation_lines), 4)
+        self.assertTrue(
+            all(line.endswith("自动对焦") for line in overlay.operation_lines)
+        )
+
+    def test_tracking_can_add_one_final_zoom_step_before_capture(self) -> None:
+        from tempfile import TemporaryDirectory
+
+        with TemporaryDirectory() as directory:
+            source = ContinuousTrackingSource(
+                (detection(1, 0.7, 0.5),),
+                [],
+            )
+            camera = ContinuousTrackingCamera(source)
+            coordinator = PtzVerificationCoordinator(
+                stream_id="stream-1",
+                options=self.options(
+                    continuous_tracking=True,
+                    tracking_initial_extra_zoom_step=1,
+                ),
+                snapshot_provider=source.snapshot,
+                repository=PtzVerificationRepository(Path(directory)),
+                camera_client=camera,  # type: ignore[arg-type]
+            )
+
+            coordinator.run_once()
+
+            self.assertEqual(len(camera.locates), 2)
+            self.assertEqual(camera.locates[1], (0.5, 0.5, 1))
+            self.assertEqual(camera.capture_calls, 1)
+            self.assertEqual(camera.home_calls, 1)
+
+    def test_green_primary_detection_can_trigger_ptz_without_sidecar_box(self) -> None:
+        from tempfile import TemporaryDirectory
+
+        with TemporaryDirectory() as directory:
+            source = SnapshotSource(())
+            camera = FakeCameraClient(source)
+            repository = PtzVerificationRepository(Path(directory))
+            coordinator = PtzVerificationCoordinator(
+                stream_id="stream-1",
+                options=self.options(
+                    minimum_target_observations=3,
+                    primary_target_minimum_observations=1,
+                ),
+                snapshot_provider=source.snapshot,
+                repository=repository,
+                camera_client=camera,  # type: ignore[arg-type]
+            )
+            coordinator.publish_primary_detections(
+                (detection(-12, 0.7, 0.5),),
+                updated_at=time.monotonic(),
+            )
+
+            job_id = coordinator.run_once()
+
+            self.assertIsNotNone(job_id)
+            self.assertTrue(camera.locates)
+            self.assertEqual(camera.capture_calls, 1)
+            self.assertEqual(
+                coordinator.tracking_metrics["ptz_trigger_status"],
+                "triggered",
+            )
+            self.assertEqual(
+                coordinator.tracking_metrics[
+                    "ptz_trigger_required_observations"
+                ],
+                1,
+            )
+
+    def test_tracking_loss_uses_short_retry_even_after_confirmed_capture(self) -> None:
+        from tempfile import TemporaryDirectory
+
+        with TemporaryDirectory() as directory:
+            source = ContinuousTrackingSource(
+                (detection(1, 0.7, 0.5),),
+                [],
+                stop_when_exhausted=False,
+            )
+            camera = ContinuousTrackingCamera(source)
+            repository = PtzVerificationRepository(Path(directory))
+            coordinator = PtzVerificationCoordinator(
+                stream_id="stream-1",
+                options=self.options(
+                    continuous_tracking=True,
+                    tracking_lost_timeout_seconds=1,
+                    confirmed_cooldown_seconds=1_200,
+                    lost_retry_seconds=15,
+                ),
+                snapshot_provider=source.snapshot,
+                repository=repository,
+                camera_client=camera,  # type: ignore[arg-type]
+            )
+
+            coordinator.run_once()
+
+            self.assertEqual(
+                coordinator.tracking_metrics["tracking_last_end_reason"],
+                "target_lost",
+            )
+            job = repository.list_jobs()[0]
+            self.assertEqual(job["result"], "boat_confirmed")
+            with sqlite3.connect(repository.database_path) as connection:
+                cooldown_until, updated_at = connection.execute(
+                    "SELECT cooldown_until,updated_at FROM targets"
+                ).fetchone()
+            self.assertAlmostEqual(cooldown_until - updated_at, 15, delta=0.1)
+
+    def test_tracking_zoom_uses_hysteresis_around_target_size(self) -> None:
+        from tempfile import TemporaryDirectory
+
+        with TemporaryDirectory() as directory:
+            source = SnapshotSource((detection(1, 0.5, 0.5),))
+            coordinator = PtzVerificationCoordinator(
+                stream_id="stream-1",
+                options=self.options(
+                    continuous_tracking=True,
+                    tracking_zoom_hysteresis_ratio=0.2,
+                    tracking_zoom_step=2,
+                ),
+                snapshot_provider=source.snapshot,
+                repository=PtzVerificationRepository(Path(directory)),
+                camera_client=FakeCameraClient(source),  # type: ignore[arg-type]
+            )
+
+            self.assertEqual(
+                coordinator._tracking_zoom_delta(
+                    detection(2, 0.5, 0.5, width=0.15, height=0.08)
+                ),
+                2,
+            )
+            self.assertEqual(
+                coordinator._tracking_zoom_delta(
+                    detection(3, 0.5, 0.5, width=0.25, height=0.18)
+                ),
+                0,
+            )
+            self.assertEqual(
+                coordinator._tracking_zoom_delta(
+                    detection(4, 0.5, 0.5, width=0.35, height=0.25)
+                ),
+                -2,
+            )
+
+    def test_tracking_prefers_same_track_over_a_different_centered_boat(self) -> None:
+        from tempfile import TemporaryDirectory
+
+        with TemporaryDirectory() as directory:
+            reference = detection(
+                7,
+                0.62,
+                0.5,
+                width=0.25,
+                height=0.18,
+            )
+            source = SnapshotSource((reference,))
+            coordinator = PtzVerificationCoordinator(
+                stream_id="stream-1",
+                options=self.options(continuous_tracking=True),
+                snapshot_provider=source.snapshot,
+                repository=PtzVerificationRepository(Path(directory)),
+                camera_client=FakeCameraClient(source),  # type: ignore[arg-type]
+            )
+
+            selected = coordinator._select_tracking_target(
+                (
+                    detection(99, 0.5, 0.5, width=0.25, height=0.18),
+                    detection(7, 0.64, 0.5, width=0.25, height=0.18),
+                ),
+                reference,
+                center_radius=0.45,
+            )
+
+            self.assertIsNotNone(selected.detection)
+            self.assertEqual(selected.detection.object_id, 7)
+
+    def test_reacquire_ignores_stale_scale_after_zoom(self) -> None:
+        from tempfile import TemporaryDirectory
+
+        reference = detection(
+            1,
+            0.5,
+            0.5,
+            width=0.10,
+            height=0.05,
+        )
+        snapshots = iter(
+            (
+                VesselSnapshot(
+                    state="running",
+                    detections=(
+                        detection(
+                            2,
+                            0.5,
+                            0.5,
+                            width=0.10,
+                            height=0.05,
+                        ),
+                    ),
+                    result_version=2,
+                    updated_at=time.monotonic(),
+                ),
+                VesselSnapshot(
+                    state="running",
+                    detections=(
+                        detection(
+                            3,
+                            0.5,
+                            0.5,
+                            width=0.20,
+                            height=0.10,
+                        ),
+                    ),
+                    result_version=3,
+                    updated_at=time.monotonic(),
+                ),
+            )
+        )
+        latest = VesselSnapshot()
+
+        def snapshot() -> VesselSnapshot:
+            nonlocal latest
+            try:
+                latest = next(snapshots)
+            except StopIteration:
+                pass
+            return latest
+
+        with TemporaryDirectory() as directory:
+            coordinator = PtzVerificationCoordinator(
+                stream_id="stream-1",
+                options=self.options(),
+                snapshot_provider=snapshot,
+                repository=PtzVerificationRepository(Path(directory)),
+                camera_client=FakeCameraClient(  # type: ignore[arg-type]
+                    SnapshotSource((reference,))
+                ),
+            )
+            selected = coordinator._wait_for_centered_detection(
+                after_version=1,
+                minimum_updated_at=0,
+                allow_proposal=False,
+                reference=reference,
+                minimum_scale_ratio=1.5,
+            )
+
+        self.assertIsNotNone(selected.detection)
+        self.assertEqual(selected.detection.object_id, 3)
+
+    def test_continuous_tracking_recenters_rescales_then_returns_home(self) -> None:
+        from tempfile import TemporaryDirectory
+
+        with TemporaryDirectory() as directory:
+            source = ContinuousTrackingSource(
+                (detection(1, 0.7, 0.5),),
+                [
+                    (detection(10, 0.70, 0.5, width=0.25, height=0.18),),
+                    (detection(11, 0.50, 0.5, width=0.15, height=0.08),),
+                    (detection(12, 0.50, 0.5, width=0.35, height=0.25),),
+                ],
+            )
+            camera = ContinuousTrackingCamera(source)
+            repository = PtzVerificationRepository(Path(directory))
+            coordinator = PtzVerificationCoordinator(
+                stream_id="stream-1",
+                options=self.options(
+                    continuous_tracking=True,
+                    settle_seconds=0.1,
+                    tracking_command_interval_seconds=0.1,
+                ),
+                snapshot_provider=source.snapshot,
+                repository=repository,
+                camera_client=camera,  # type: ignore[arg-type]
+            )
+
+            coordinator.run_once()
+
+            tracking_commands = camera.locates[1:]
+            self.assertEqual(
+                [item[2] for item in tracking_commands],
+                [0, 1, -1],
+            )
+            self.assertEqual(camera.capture_calls, 1)
+            self.assertEqual(camera.home_calls, 1)
+            self.assertEqual(coordinator.state, "stopped")
+            self.assertEqual(
+                coordinator.tracking_metrics["tracking_corrections"],
+                3,
+            )
+            self.assertEqual(
+                coordinator.tracking_metrics["tracking_last_end_reason"],
+                "stream_unavailable",
+            )
+            jobs = repository.list_jobs()
+            self.assertEqual(jobs[0]["result"], "boat_confirmed")
+            self.assertTrue(jobs[0]["home_returned"])
+
+    def test_tracking_locate_timeout_still_forces_home(self) -> None:
+        from tempfile import TemporaryDirectory
+
+        with TemporaryDirectory() as directory:
+            source = ContinuousTrackingSource(
+                (
+                    detection(
+                        1,
+                        0.5,
+                        0.5,
+                        width=0.25,
+                        height=0.18,
+                    ),
+                ),
+                [
+                    (detection(10, 0.70, 0.5, width=0.25, height=0.18),),
+                ],
+            )
+            camera = ContinuousTrackingCamera(source)
+            camera.fail_locate = True
+            repository = PtzVerificationRepository(Path(directory))
+            coordinator = PtzVerificationCoordinator(
+                stream_id="stream-1",
+                options=self.options(continuous_tracking=True),
+                snapshot_provider=source.snapshot,
+                repository=repository,
+                camera_client=camera,  # type: ignore[arg-type]
+            )
+
+            coordinator.run_once()
+
+            self.assertEqual(len(camera.locates), 1)
+            self.assertEqual(camera.home_calls, 1)
+            job = repository.list_jobs()[0]
+            self.assertEqual(job["result"], "target_lost")
+            self.assertTrue(job["home_returned"])
+
+    def test_evidence_rejection_does_not_disable_continuous_tracking(self) -> None:
+        from tempfile import TemporaryDirectory
+
+        with TemporaryDirectory() as directory:
+            source = ContinuousTrackingSource(
+                (
+                    detection(
+                        1,
+                        0.5,
+                        0.5,
+                        width=0.25,
+                        height=0.18,
+                    ),
+                ),
+                [],
+            )
+            camera = ContinuousTrackingCamera(source)
+            repository = PtzVerificationRepository(Path(directory))
+            coordinator = PtzVerificationCoordinator(
+                stream_id="stream-1",
+                options=self.options(
+                    continuous_tracking=True,
+                    evidence_validation_required=True,
+                ),
+                snapshot_provider=source.snapshot,
+                repository=repository,
+                camera_client=camera,  # type: ignore[arg-type]
+                evidence_validator=lambda _content, _timeout: (
+                    EvidenceValidationResult(
+                        state="running",
+                        detections=(),
+                    )
+                ),
+            )
+
+            coordinator.run_once()
+
+            self.assertEqual(
+                coordinator.tracking_metrics["tracking_last_end_reason"],
+                "stream_unavailable",
+            )
+            job = repository.list_jobs()[0]
+            self.assertEqual(job["result"], "evidence_not_confirmed")
+            self.assertIn("未重新识别", job["error"])
+
+    def test_manual_return_home_interrupts_tracking_and_restores_preset(self) -> None:
+        from tempfile import TemporaryDirectory
+
+        with TemporaryDirectory() as directory:
+            source = ContinuousTrackingSource(
+                (detection(1, 0.7, 0.5),),
+                [],
+                stop_when_exhausted=False,
+            )
+            camera = ContinuousTrackingCamera(source)
+            repository = PtzVerificationRepository(Path(directory))
+            coordinator = PtzVerificationCoordinator(
+                stream_id="stream-1",
+                options=self.options(
+                    continuous_tracking=True,
+                    tracking_lost_timeout_seconds=5,
+                ),
+                snapshot_provider=source.snapshot,
+                repository=repository,
+                camera_client=camera,  # type: ignore[arg-type]
+            )
+            worker = threading.Thread(target=coordinator.run_once)
+            worker.start()
+            deadline = time.monotonic() + 2
+            while coordinator.state != "tracking" and time.monotonic() < deadline:
+                time.sleep(0.01)
+
+            coordinator.request_return_home("manual-home-1")
+            worker.join(timeout=2)
+
+            self.assertFalse(worker.is_alive())
+            self.assertEqual(camera.stop_calls, 1)
+            self.assertEqual(camera.home_calls, 1)
+            self.assertEqual(
+                coordinator.tracking_metrics["tracking_last_end_reason"],
+                "manual_return_home",
+            )
+            self.assertEqual(
+                coordinator.tracking_metrics["ptz_last_return_home_request_id"],
+                "manual-home-1",
+            )
+            self.assertTrue(
+                coordinator.tracking_metrics["ptz_manual_hold"]
+            )
+            self.assertEqual(coordinator.state, "manual_hold")
+            self.assertTrue(repository.list_jobs()[0]["home_returned"])
+
+            # Emergency HOME is latched. A fresh detection must not start a
+            # new movement until the stream is explicitly recreated/updated.
+            source.return_home((detection(2, 0.7, 0.5),))
+            self.assertIsNone(coordinator.run_once())
+            self.assertEqual(camera.home_calls, 1)
+
+    def test_continuous_mode_tracks_confirmed_boat_before_target_scale(self) -> None:
+        from tempfile import TemporaryDirectory
+
+        with TemporaryDirectory() as directory:
+            source = ContinuousTrackingSource(
+                (detection(1, 0.7, 0.5),),
+                [],
+            )
+            camera = ContinuousTrackingCamera(source)
+            repository = PtzVerificationRepository(Path(directory))
+            coordinator = PtzVerificationCoordinator(
+                stream_id="stream-1",
+                options=self.options(
+                    zoom_strategy="adaptive",
+                    adaptive_target_width_ratio=0.50,
+                    adaptive_target_height_ratio=0.50,
+                    adaptive_max_rounds=1,
+                    continuous_tracking=True,
+                ),
+                snapshot_provider=source.snapshot,
+                repository=repository,
+                camera_client=camera,  # type: ignore[arg-type]
+            )
+
+            coordinator.run_once()
+
+            self.assertEqual(camera.capture_calls, 1)
+            self.assertEqual(
+                coordinator.tracking_metrics["tracking_last_end_reason"],
+                "stream_unavailable",
+            )
+            self.assertEqual(repository.list_jobs()[0]["result"], "boat_confirmed")
 
     def test_sdk_capture_is_saved_only_after_boat_and_sharpness_validation(
         self,
@@ -1051,13 +1847,67 @@ class PtzVerificationTests(unittest.TestCase):
             coordinator.shutdown(timeout=2)
 
             self.assertEqual(coordinator.state, "stopped")
-            self.assertEqual(camera.stop_calls, 1)
-            self.assertEqual(camera.home_calls, 2)
+            # Interrupt the active operation, then stop once more immediately
+            # before the final shutdown HOME command.
+            self.assertEqual(camera.stop_calls, 2)
+            # Startup HOME, interrupted-job HOME, and final shutdown HOME.
+            self.assertEqual(camera.home_calls, 3)
             jobs = repository.list_jobs()
             self.assertEqual(len(jobs), 1)
             self.assertEqual(jobs[0]["result"], "target_lost")
             self.assertTrue(jobs[0]["home_returned"])
             self.assertIn("shutdown", jobs[0]["error"])
+
+    def test_shutdown_reasserts_home_while_idle(self) -> None:
+        from tempfile import TemporaryDirectory
+
+        with TemporaryDirectory() as directory:
+            source = SnapshotSource(())
+            camera = FakeCameraClient(source)
+            repository = PtzVerificationRepository(Path(directory))
+            coordinator = PtzVerificationCoordinator(
+                stream_id="stream-1",
+                options=self.options(),
+                snapshot_provider=source.snapshot,
+                repository=repository,
+                camera_client=camera,  # type: ignore[arg-type]
+            )
+
+            coordinator.start()
+            deadline = time.monotonic() + 2
+            while camera.home_calls < 1 and time.monotonic() < deadline:
+                time.sleep(0.01)
+
+            coordinator.shutdown(timeout=2)
+
+            self.assertEqual(coordinator.state, "stopped")
+            self.assertEqual(camera.home_calls, 2)
+            self.assertGreaterEqual(camera.stop_calls, 1)
+            self.assertGreaterEqual(camera.lease_acquires, 2)
+            self.assertGreaterEqual(camera.lease_releases, 2)
+
+    def test_shutdown_reserves_time_for_final_home(self) -> None:
+        from tempfile import TemporaryDirectory
+
+        with TemporaryDirectory() as directory:
+            source = SnapshotSource(())
+            camera = FakeCameraClient(source)
+            repository = PtzVerificationRepository(Path(directory))
+            coordinator = PtzVerificationCoordinator(
+                stream_id="stream-1",
+                options=self.options(command_timeout_seconds=20),
+                snapshot_provider=source.snapshot,
+                repository=repository,
+                camera_client=camera,  # type: ignore[arg-type]
+            )
+            thread = Mock()
+            coordinator._thread = thread
+
+            coordinator.shutdown(timeout=70)
+
+            thread.join.assert_called_once_with(timeout=22.0)
+            self.assertEqual(camera.home_calls, 1)
+            self.assertEqual(camera.lease_releases, 1)
 
     def test_failed_home_stops_new_verification_work(self) -> None:
         from tempfile import TemporaryDirectory

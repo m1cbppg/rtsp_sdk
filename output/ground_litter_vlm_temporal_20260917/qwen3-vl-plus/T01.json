@@ -1,0 +1,30 @@
+{
+  "id": "T01",
+  "model_requested": "qwen3-vl-plus",
+  "model_returned": "qwen3-vl-plus",
+  "manifest_sha256": "c293fdbc7eeed917142d004edf41b738acf0e399e4e741625eb3b69f0a06f227",
+  "seconds": 2.813029666984221,
+  "usage": {
+    "prompt_tokens": 1268,
+    "completion_tokens": 56,
+    "total_tokens": 1324,
+    "completion_tokens_details": {
+      "text_tokens": 56
+    },
+    "prompt_tokens_details": {
+      "image_tokens": 1070,
+      "text_tokens": 198,
+      "cached_tokens": 0
+    }
+  },
+  "request_id": "chatcmpl-360ef2d8-37a3-9ad7-af53-f64e2ae04bbc",
+  "finish_reason": "stop",
+  "raw_answer": "{\n  \"decision\": \"uncertain\",\n  \"object_description\": \"极小亮色块状物，边缘模糊\",\n  \"ground_relation\": \"unclear\",\n  \"reason\": \"像素过低，无法确认是否接触地面或物体材质属性\"\n}",
+  "parsed": {
+    "decision": "uncertain",
+    "object_description": "极小亮色块状物，边缘模糊",
+    "ground_relation": "unclear",
+    "reason": "像素过低，无法确认是否接触地面或物体材质属性"
+  },
+  "valid": true
+}

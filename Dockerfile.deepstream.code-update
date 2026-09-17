@@ -13,6 +13,9 @@ RUN python3 -c "from transformers import AutoImageProcessor,AutoModelForSemantic
 WORKDIR /app
 
 COPY rtsp_annotator/api.py /app/rtsp_annotator/api.py
+COPY rtsp_annotator/ptz_verification.py /app/rtsp_annotator/ptz_verification.py
+COPY rtsp_annotator/tracking_edge_guard.py /app/rtsp_annotator/tracking_edge_guard.py
+COPY rtsp_annotator/continuous_tracking.py /app/rtsp_annotator/continuous_tracking.py
 COPY rtsp_annotator/api_settings.py /app/rtsp_annotator/api_settings.py
 COPY rtsp_annotator/gas_cylinder.py /app/rtsp_annotator/gas_cylinder.py
 COPY rtsp_annotator/gas_cylinder_process.py /app/rtsp_annotator/gas_cylinder_process.py
@@ -30,6 +33,9 @@ COPY THIRD_PARTY_MODEL_NOTICES.md /app/THIRD_PARTY_MODEL_NOTICES.md
 
 RUN python3 -m py_compile \
     /app/rtsp_annotator/api.py \
+    /app/rtsp_annotator/ptz_verification.py \
+    /app/rtsp_annotator/continuous_tracking.py \
+    /app/rtsp_annotator/tracking_edge_guard.py \
     /app/rtsp_annotator/api_settings.py \
     /app/rtsp_annotator/gas_cylinder.py \
     /app/rtsp_annotator/gas_cylinder_process.py \

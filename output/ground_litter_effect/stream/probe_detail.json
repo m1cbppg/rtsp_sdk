@@ -1,0 +1,2440 @@
+{
+ "official": [
+  {
+   "frame": "seq-000.png",
+   "box": [
+    451,
+    958,
+    493,
+    990
+   ],
+   "conf": 0.3084152638912201,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 1344,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-000.png",
+   "box": [
+    451,
+    958,
+    558,
+    990
+   ],
+   "conf": 0.6912323832511902,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 3424,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-000.png",
+   "box": [
+    519,
+    847,
+    558,
+    890
+   ],
+   "conf": 0.1735900640487671,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 39,
+   "area": 1677,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-001.png",
+   "box": [
+    452,
+    958,
+    558,
+    990
+   ],
+   "conf": 0.42459070682525635,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 3392,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-001.png",
+   "box": [
+    452,
+    958,
+    558,
+    989
+   ],
+   "conf": 0.27838271856307983,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 31,
+   "area": 3286,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-001.png",
+   "box": [
+    764,
+    374,
+    800,
+    408
+   ],
+   "conf": 0.7327548861503601,
+   "cls": "Metal",
+   "zone": "",
+   "side": 34,
+   "area": 1224,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-002.png",
+   "box": [
+    451,
+    958,
+    558,
+    990
+   ],
+   "conf": 0.4198099970817566,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 3424,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-002.png",
+   "box": [
+    452,
+    958,
+    558,
+    989
+   ],
+   "conf": 0.2564096450805664,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 31,
+   "area": 3286,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-003.png",
+   "box": [
+    451,
+    958,
+    493,
+    990
+   ],
+   "conf": 0.3047622740268707,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 1344,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-003.png",
+   "box": [
+    451,
+    958,
+    558,
+    990
+   ],
+   "conf": 0.5976754426956177,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 3424,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-003.png",
+   "box": [
+    521,
+    793,
+    577,
+    806
+   ],
+   "conf": 0.13823139667510986,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 13,
+   "area": 728,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-003.png",
+   "box": [
+    522,
+    793,
+    577,
+    806
+   ],
+   "conf": 0.18457955121994019,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 13,
+   "area": 715,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-004.png",
+   "box": [
+    452,
+    958,
+    493,
+    990
+   ],
+   "conf": 0.21594975888729095,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 1312,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-004.png",
+   "box": [
+    451,
+    958,
+    558,
+    990
+   ],
+   "conf": 0.44008249044418335,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 32,
+   "area": 3424,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-004.png",
+   "box": [
+    452,
+    958,
+    558,
+    990
+   ],
+   "conf": 0.24225157499313354,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 3392,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-004.png",
+   "box": [
+    519,
+    847,
+    558,
+    891
+   ],
+   "conf": 0.13338859379291534,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 39,
+   "area": 1716,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-005.png",
+   "box": [
+    451,
+    957,
+    558,
+    990
+   ],
+   "conf": 0.28996577858924866,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 33,
+   "area": 3531,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-005.png",
+   "box": [
+    452,
+    958,
+    558,
+    990
+   ],
+   "conf": 0.2229730635881424,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 3392,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-005.png",
+   "box": [
+    519,
+    848,
+    558,
+    890
+   ],
+   "conf": 0.19022059440612793,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 39,
+   "area": 1638,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-005.png",
+   "box": [
+    763,
+    374,
+    800,
+    408
+   ],
+   "conf": 0.24070478975772858,
+   "cls": "Metal",
+   "zone": "",
+   "side": 34,
+   "area": 1258,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-006.png",
+   "box": [
+    452,
+    958,
+    493,
+    990
+   ],
+   "conf": 0.14650924503803253,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 1312,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-006.png",
+   "box": [
+    451,
+    958,
+    558,
+    990
+   ],
+   "conf": 0.496477335691452,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 3424,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-006.png",
+   "box": [
+    451,
+    958,
+    557,
+    990
+   ],
+   "conf": 0.15776044130325317,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 32,
+   "area": 3392,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-006.png",
+   "box": [
+    765,
+    374,
+    800,
+    408
+   ],
+   "conf": 0.45948976278305054,
+   "cls": "Metal",
+   "zone": "",
+   "side": 34,
+   "area": 1190,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-007.png",
+   "box": [
+    452,
+    958,
+    493,
+    990
+   ],
+   "conf": 0.3760264813899994,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 1312,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-007.png",
+   "box": [
+    452,
+    958,
+    493,
+    990
+   ],
+   "conf": 0.21966689825057983,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 32,
+   "area": 1312,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-007.png",
+   "box": [
+    452,
+    958,
+    558,
+    990
+   ],
+   "conf": 0.6398215293884277,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 3392,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-007.png",
+   "box": [
+    451,
+    958,
+    558,
+    990
+   ],
+   "conf": 0.26370224356651306,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 32,
+   "area": 3424,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-008.png",
+   "box": [
+    452,
+    958,
+    493,
+    990
+   ],
+   "conf": 0.3762511610984802,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 1312,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-008.png",
+   "box": [
+    451,
+    958,
+    558,
+    990
+   ],
+   "conf": 0.43032997846603394,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 3424,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-008.png",
+   "box": [
+    452,
+    958,
+    558,
+    989
+   ],
+   "conf": 0.33047688007354736,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 31,
+   "area": 3286,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-008.png",
+   "box": [
+    764,
+    374,
+    800,
+    408
+   ],
+   "conf": 0.31559720635414124,
+   "cls": "Metal",
+   "zone": "",
+   "side": 34,
+   "area": 1224,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-009.png",
+   "box": [
+    451,
+    958,
+    558,
+    990
+   ],
+   "conf": 0.4480820298194885,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 3424,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-009.png",
+   "box": [
+    452,
+    958,
+    558,
+    989
+   ],
+   "conf": 0.16874656081199646,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 31,
+   "area": 3286,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-010.png",
+   "box": [
+    452,
+    958,
+    493,
+    990
+   ],
+   "conf": 0.38417869806289673,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 1312,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-010.png",
+   "box": [
+    452,
+    957,
+    493,
+    990
+   ],
+   "conf": 0.3227294981479645,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 33,
+   "area": 1353,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-010.png",
+   "box": [
+    452,
+    957,
+    558,
+    990
+   ],
+   "conf": 0.34418246150016785,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 33,
+   "area": 3498,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-010.png",
+   "box": [
+    453,
+    957,
+    558,
+    990
+   ],
+   "conf": 0.1745438575744629,
+   "cls": "Paper",
+   "zone": "",
+   "side": 33,
+   "area": 3465,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-011.png",
+   "box": [
+    452,
+    958,
+    493,
+    990
+   ],
+   "conf": 0.27345016598701477,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 1312,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-011.png",
+   "box": [
+    451,
+    958,
+    558,
+    990
+   ],
+   "conf": 0.6127252578735352,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 3424,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-012.png",
+   "box": [
+    452,
+    958,
+    493,
+    990
+   ],
+   "conf": 0.20546700060367584,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 1312,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-012.png",
+   "box": [
+    451,
+    958,
+    558,
+    990
+   ],
+   "conf": 0.6106734275817871,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 3424,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-013.png",
+   "box": [
+    452,
+    958,
+    493,
+    990
+   ],
+   "conf": 0.13798455893993378,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 1312,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-013.png",
+   "box": [
+    452,
+    958,
+    558,
+    990
+   ],
+   "conf": 0.5454568862915039,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 3392,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-014.png",
+   "box": [
+    452,
+    958,
+    493,
+    990
+   ],
+   "conf": 0.24067534506320953,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 1312,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-014.png",
+   "box": [
+    451,
+    958,
+    558,
+    990
+   ],
+   "conf": 0.48426467180252075,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 3424,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-014.png",
+   "box": [
+    451,
+    958,
+    558,
+    989
+   ],
+   "conf": 0.2209920734167099,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 31,
+   "area": 3317,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-014.png",
+   "box": [
+    765,
+    373,
+    800,
+    407
+   ],
+   "conf": 0.17411908507347107,
+   "cls": "Metal",
+   "zone": "",
+   "side": 34,
+   "area": 1190,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-015.png",
+   "box": [
+    452,
+    958,
+    493,
+    990
+   ],
+   "conf": 0.6575345993041992,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 1312,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-015.png",
+   "box": [
+    451,
+    958,
+    558,
+    990
+   ],
+   "conf": 0.5816566348075867,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 3424,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-015.png",
+   "box": [
+    451,
+    958,
+    558,
+    989
+   ],
+   "conf": 0.25438955426216125,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 31,
+   "area": 3317,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-016.png",
+   "box": [
+    452,
+    958,
+    493,
+    990
+   ],
+   "conf": 0.23003844916820526,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 1312,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-016.png",
+   "box": [
+    451,
+    958,
+    558,
+    990
+   ],
+   "conf": 0.3848511874675751,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 3424,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-016.png",
+   "box": [
+    452,
+    958,
+    558,
+    989
+   ],
+   "conf": 0.3212294578552246,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 31,
+   "area": 3286,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-017.png",
+   "box": [
+    452,
+    958,
+    493,
+    990
+   ],
+   "conf": 0.5047677755355835,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 1312,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-017.png",
+   "box": [
+    452,
+    958,
+    493,
+    990
+   ],
+   "conf": 0.2305784970521927,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 32,
+   "area": 1312,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-017.png",
+   "box": [
+    451,
+    958,
+    558,
+    990
+   ],
+   "conf": 0.48675641417503357,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 3424,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-017.png",
+   "box": [
+    452,
+    958,
+    558,
+    989
+   ],
+   "conf": 0.2924504280090332,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 31,
+   "area": 3286,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-018.png",
+   "box": [
+    452,
+    958,
+    558,
+    990
+   ],
+   "conf": 0.2622569799423218,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 3392,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-019.png",
+   "box": [
+    451,
+    958,
+    558,
+    990
+   ],
+   "conf": 0.4920370578765869,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 3424,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-019.png",
+   "box": [
+    451,
+    958,
+    558,
+    990
+   ],
+   "conf": 0.227017343044281,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 32,
+   "area": 3424,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-020.png",
+   "box": [
+    451,
+    958,
+    558,
+    990
+   ],
+   "conf": 0.2895892262458801,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 32,
+   "area": 3424,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-020.png",
+   "box": [
+    519,
+    847,
+    558,
+    890
+   ],
+   "conf": 0.15502619743347168,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 39,
+   "area": 1677,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-020.png",
+   "box": [
+    765,
+    374,
+    800,
+    407
+   ],
+   "conf": 0.3669811189174652,
+   "cls": "Metal",
+   "zone": "",
+   "side": 33,
+   "area": 1155,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-021.png",
+   "box": [
+    451,
+    958,
+    558,
+    990
+   ],
+   "conf": 0.45230862498283386,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 3424,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-021.png",
+   "box": [
+    765,
+    373,
+    800,
+    407
+   ],
+   "conf": 0.15072986483573914,
+   "cls": "Metal",
+   "zone": "",
+   "side": 34,
+   "area": 1190,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-022.png",
+   "box": [
+    452,
+    958,
+    493,
+    990
+   ],
+   "conf": 0.13727785646915436,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 1312,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-022.png",
+   "box": [
+    451,
+    958,
+    558,
+    990
+   ],
+   "conf": 0.539986252784729,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 3424,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-022.png",
+   "box": [
+    451,
+    958,
+    557,
+    990
+   ],
+   "conf": 0.1512673795223236,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 32,
+   "area": 3392,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-023.png",
+   "box": [
+    451,
+    957,
+    558,
+    990
+   ],
+   "conf": 0.3834556043148041,
+   "cls": "Paper",
+   "zone": "",
+   "side": 33,
+   "area": 3531,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-023.png",
+   "box": [
+    451,
+    958,
+    558,
+    989
+   ],
+   "conf": 0.17574167251586914,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 31,
+   "area": 3317,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-023.png",
+   "box": [
+    763,
+    373,
+    800,
+    407
+   ],
+   "conf": 0.47483178973197937,
+   "cls": "Metal",
+   "zone": "",
+   "side": 34,
+   "area": 1258,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-024.png",
+   "box": [
+    452,
+    958,
+    493,
+    990
+   ],
+   "conf": 0.17074713110923767,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 1312,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-024.png",
+   "box": [
+    451,
+    958,
+    558,
+    990
+   ],
+   "conf": 0.4374580383300781,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 3424,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-024.png",
+   "box": [
+    452,
+    958,
+    558,
+    989
+   ],
+   "conf": 0.20723460614681244,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 31,
+   "area": 3286,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-025.png",
+   "box": [
+    452,
+    958,
+    558,
+    990
+   ],
+   "conf": 0.4441182315349579,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 3392,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-025.png",
+   "box": [
+    451,
+    959,
+    557,
+    990
+   ],
+   "conf": 0.14255739748477936,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 31,
+   "area": 3286,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-026.png",
+   "box": [
+    451,
+    958,
+    558,
+    990
+   ],
+   "conf": 0.28930580615997314,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 32,
+   "area": 3424,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-026.png",
+   "box": [
+    520,
+    848,
+    558,
+    890
+   ],
+   "conf": 0.250930517911911,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 38,
+   "area": 1596,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-026.png",
+   "box": [
+    764,
+    374,
+    799,
+    408
+   ],
+   "conf": 0.2533673644065857,
+   "cls": "Metal",
+   "zone": "",
+   "side": 34,
+   "area": 1190,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-027.png",
+   "box": [
+    451,
+    958,
+    558,
+    990
+   ],
+   "conf": 0.5630891919136047,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 3424,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-027.png",
+   "box": [
+    451,
+    958,
+    558,
+    990
+   ],
+   "conf": 0.1932132989168167,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 32,
+   "area": 3424,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-027.png",
+   "box": [
+    521,
+    848,
+    558,
+    890
+   ],
+   "conf": 0.1649588793516159,
+   "cls": "Paper",
+   "zone": "",
+   "side": 37,
+   "area": 1554,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-027.png",
+   "box": [
+    520,
+    847,
+    558,
+    890
+   ],
+   "conf": 0.14246247708797455,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 38,
+   "area": 1634,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-028.png",
+   "box": [
+    452,
+    958,
+    493,
+    990
+   ],
+   "conf": 0.21235115826129913,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 1312,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-028.png",
+   "box": [
+    451,
+    958,
+    558,
+    990
+   ],
+   "conf": 0.44238147139549255,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 3424,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-028.png",
+   "box": [
+    519,
+    848,
+    558,
+    890
+   ],
+   "conf": 0.3120531141757965,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 39,
+   "area": 1638,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-028.png",
+   "box": [
+    452,
+    958,
+    558,
+    989
+   ],
+   "conf": 0.21928958594799042,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 31,
+   "area": 3286,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-028.png",
+   "box": [
+    764,
+    374,
+    800,
+    407
+   ],
+   "conf": 0.3886401057243347,
+   "cls": "Metal",
+   "zone": "",
+   "side": 33,
+   "area": 1188,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-029.png",
+   "box": [
+    451,
+    958,
+    558,
+    990
+   ],
+   "conf": 0.4147268235683441,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 3424,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-029.png",
+   "box": [
+    452,
+    958,
+    558,
+    989
+   ],
+   "conf": 0.19256041944026947,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 31,
+   "area": 3286,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-030.png",
+   "box": [
+    336,
+    911,
+    399,
+    1049
+   ],
+   "conf": 0.15495742857456207,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 63,
+   "area": 8694,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-030.png",
+   "box": [
+    452,
+    957,
+    493,
+    990
+   ],
+   "conf": 0.42254650592803955,
+   "cls": "Paper",
+   "zone": "",
+   "side": 33,
+   "area": 1353,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-030.png",
+   "box": [
+    451,
+    957,
+    558,
+    990
+   ],
+   "conf": 0.7237570285797119,
+   "cls": "Paper",
+   "zone": "",
+   "side": 33,
+   "area": 3531,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-031.png",
+   "box": [
+    452,
+    957,
+    493,
+    990
+   ],
+   "conf": 0.38255730271339417,
+   "cls": "Paper",
+   "zone": "",
+   "side": 33,
+   "area": 1353,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-031.png",
+   "box": [
+    452,
+    957,
+    558,
+    990
+   ],
+   "conf": 0.5884562730789185,
+   "cls": "Paper",
+   "zone": "",
+   "side": 33,
+   "area": 3498,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-031.png",
+   "box": [
+    451,
+    958,
+    558,
+    989
+   ],
+   "conf": 0.311151385307312,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 31,
+   "area": 3317,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-032.png",
+   "box": [
+    452,
+    958,
+    493,
+    990
+   ],
+   "conf": 0.23444968461990356,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 1312,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-032.png",
+   "box": [
+    451,
+    958,
+    558,
+    990
+   ],
+   "conf": 0.6037018895149231,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 3424,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-032.png",
+   "box": [
+    451,
+    958,
+    558,
+    990
+   ],
+   "conf": 0.2433001548051834,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 32,
+   "area": 3424,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-032.png",
+   "box": [
+    537,
+    794,
+    575,
+    806
+   ],
+   "conf": 0.15971562266349792,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 12,
+   "area": 456,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-033.png",
+   "box": [
+    452,
+    958,
+    493,
+    990
+   ],
+   "conf": 0.3682236671447754,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 1312,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-033.png",
+   "box": [
+    452,
+    958,
+    558,
+    990
+   ],
+   "conf": 0.6821266412734985,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 3392,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-034.png",
+   "box": [
+    452,
+    958,
+    493,
+    990
+   ],
+   "conf": 0.15702952444553375,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 32,
+   "area": 1312,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-034.png",
+   "box": [
+    451,
+    957,
+    558,
+    990
+   ],
+   "conf": 0.37345877289772034,
+   "cls": "Paper",
+   "zone": "",
+   "side": 33,
+   "area": 3531,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-034.png",
+   "box": [
+    452,
+    957,
+    558,
+    989
+   ],
+   "conf": 0.1943448930978775,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 32,
+   "area": 3392,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-034.png",
+   "box": [
+    764,
+    374,
+    800,
+    407
+   ],
+   "conf": 0.14099131524562836,
+   "cls": "Metal",
+   "zone": "",
+   "side": 33,
+   "area": 1188,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-035.png",
+   "box": [
+    451,
+    957,
+    558,
+    990
+   ],
+   "conf": 0.47906410694122314,
+   "cls": "Paper",
+   "zone": "",
+   "side": 33,
+   "area": 3531,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-035.png",
+   "box": [
+    519,
+    847,
+    558,
+    890
+   ],
+   "conf": 0.1688208132982254,
+   "cls": "Plastic",
+   "zone": "",
+   "side": 39,
+   "area": 1677,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-036.png",
+   "box": [
+    452,
+    958,
+    493,
+    990
+   ],
+   "conf": 0.3642176687717438,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 1312,
+   "mask_in": false
+  },
+  {
+   "frame": "seq-036.png",
+   "box": [
+    451,
+    958,
+    558,
+    990
+   ],
+   "conf": 0.5203200578689575,
+   "cls": "Paper",
+   "zone": "",
+   "side": 32,
+   "area": 3424,
+   "mask_in": false
+  }
+ ],
+ "inzone": [
+  {
+   "frame": "seq-000.png",
+   "box": [
+    338,
+    849,
+    419,
+    1044
+   ],
+   "conf": 0.07666405290365219,
+   "cls": "Plastic",
+   "zone": "merchant_05",
+   "side": 81,
+   "area": 15795,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-001.png",
+   "box": [
+    235,
+    735,
+    245,
+    753
+   ],
+   "conf": 0.05133190378546715,
+   "cls": "Plastic",
+   "zone": "merchant_04",
+   "side": 10,
+   "area": 180,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-003.png",
+   "box": [
+    335,
+    906,
+    398,
+    1047
+   ],
+   "conf": 0.0651467964053154,
+   "cls": "Plastic",
+   "zone": "merchant_05",
+   "side": 63,
+   "area": 8883,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-004.png",
+   "box": [
+    336,
+    914,
+    391,
+    1047
+   ],
+   "conf": 0.053069695830345154,
+   "cls": "Plastic",
+   "zone": "merchant_05",
+   "side": 55,
+   "area": 7315,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-004.png",
+   "box": [
+    174,
+    681,
+    280,
+    852
+   ],
+   "conf": 0.054486848413944244,
+   "cls": "Glass",
+   "zone": "merchant_04",
+   "side": 106,
+   "area": 18126,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-004.png",
+   "box": [
+    238,
+    728,
+    249,
+    748
+   ],
+   "conf": 0.10779080539941788,
+   "cls": "Plastic",
+   "zone": "merchant_04",
+   "side": 11,
+   "area": 220,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-004.png",
+   "box": [
+    512,
+    697,
+    534,
+    726
+   ],
+   "conf": 0.050791848450899124,
+   "cls": "Plastic",
+   "zone": "merchant_04",
+   "side": 22,
+   "area": 638,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-004.png",
+   "box": [
+    512,
+    697,
+    533,
+    726
+   ],
+   "conf": 0.09617249667644501,
+   "cls": "Plastic",
+   "zone": "merchant_04",
+   "side": 21,
+   "area": 609,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-004.png",
+   "box": [
+    511,
+    697,
+    533,
+    727
+   ],
+   "conf": 0.05443911626935005,
+   "cls": "Plastic",
+   "zone": "merchant_04",
+   "side": 22,
+   "area": 660,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-005.png",
+   "box": [
+    133,
+    762,
+    228,
+    917
+   ],
+   "conf": 0.05059939995408058,
+   "cls": "Metal",
+   "zone": "merchant_04",
+   "side": 95,
+   "area": 14725,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-005.png",
+   "box": [
+    423,
+    824,
+    432,
+    848
+   ],
+   "conf": 0.12688255310058594,
+   "cls": "Plastic",
+   "zone": "merchant_04",
+   "side": 9,
+   "area": 216,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-005.png",
+   "box": [
+    448,
+    785,
+    462,
+    805
+   ],
+   "conf": 0.05272800102829933,
+   "cls": "Plastic",
+   "zone": "merchant_04",
+   "side": 14,
+   "area": 280,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-006.png",
+   "box": [
+    417,
+    824,
+    432,
+    856
+   ],
+   "conf": 0.05338824540376663,
+   "cls": "Plastic",
+   "zone": "merchant_04",
+   "side": 15,
+   "area": 480,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-007.png",
+   "box": [
+    128,
+    761,
+    227,
+    919
+   ],
+   "conf": 0.07135295867919922,
+   "cls": "Metal",
+   "zone": "merchant_04",
+   "side": 99,
+   "area": 15642,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-007.png",
+   "box": [
+    336,
+    887,
+    399,
+    1048
+   ],
+   "conf": 0.05926576256752014,
+   "cls": "Plastic",
+   "zone": "merchant_05",
+   "side": 63,
+   "area": 10143,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-007.png",
+   "box": [
+    120,
+    794,
+    199,
+    977
+   ],
+   "conf": 0.05454794317483902,
+   "cls": "Metal",
+   "zone": "merchant_05",
+   "side": 79,
+   "area": 14457,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-007.png",
+   "box": [
+    424,
+    824,
+    432,
+    845
+   ],
+   "conf": 0.07964716106653214,
+   "cls": "Plastic",
+   "zone": "merchant_04",
+   "side": 8,
+   "area": 168,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-009.png",
+   "box": [
+    334,
+    902,
+    399,
+    1045
+   ],
+   "conf": 0.06408557295799255,
+   "cls": "Plastic",
+   "zone": "merchant_05",
+   "side": 65,
+   "area": 9295,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-009.png",
+   "box": [
+    173,
+    777,
+    220,
+    851
+   ],
+   "conf": 0.07696995139122009,
+   "cls": "Plastic",
+   "zone": "merchant_04",
+   "side": 47,
+   "area": 3478,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-010.png",
+   "box": [
+    336,
+    890,
+    398,
+    1049
+   ],
+   "conf": 0.07537882775068283,
+   "cls": "Plastic",
+   "zone": "merchant_05",
+   "side": 62,
+   "area": 9858,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-010.png",
+   "box": [
+    235,
+    734,
+    248,
+    753
+   ],
+   "conf": 0.058687664568424225,
+   "cls": "Plastic",
+   "zone": "merchant_04",
+   "side": 13,
+   "area": 247,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-010.png",
+   "box": [
+    361,
+    824,
+    424,
+    989
+   ],
+   "conf": 0.07538857311010361,
+   "cls": "Plastic",
+   "zone": "merchant_05",
+   "side": 63,
+   "area": 10395,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-011.png",
+   "box": [
+    130,
+    762,
+    228,
+    925
+   ],
+   "conf": 0.06663870066404343,
+   "cls": "Metal",
+   "zone": "merchant_05",
+   "side": 98,
+   "area": 15974,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-011.png",
+   "box": [
+    336,
+    868,
+    413,
+    1047
+   ],
+   "conf": 0.050860125571489334,
+   "cls": "Plastic",
+   "zone": "merchant_05",
+   "side": 77,
+   "area": 13783,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-011.png",
+   "box": [
+    360,
+    852,
+    417,
+    989
+   ],
+   "conf": 0.055017657577991486,
+   "cls": "Plastic",
+   "zone": "merchant_05",
+   "side": 57,
+   "area": 7809,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-012.png",
+   "box": [
+    335,
+    888,
+    403,
+    1051
+   ],
+   "conf": 0.06880530714988708,
+   "cls": "Plastic",
+   "zone": "merchant_05",
+   "side": 68,
+   "area": 11084,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-012.png",
+   "box": [
+    239,
+    839,
+    358,
+    850
+   ],
+   "conf": 0.053083810955286026,
+   "cls": "Plastic",
+   "zone": "merchant_05",
+   "side": 11,
+   "area": 1309,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-013.png",
+   "box": [
+    336,
+    897,
+    399,
+    1046
+   ],
+   "conf": 0.06996671855449677,
+   "cls": "Plastic",
+   "zone": "merchant_05",
+   "side": 63,
+   "area": 9387,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-014.png",
+   "box": [
+    360,
+    820,
+    430,
+    988
+   ],
+   "conf": 0.06132042780518532,
+   "cls": "Plastic",
+   "zone": "merchant_05",
+   "side": 70,
+   "area": 11760,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-015.png",
+   "box": [
+    131,
+    764,
+    217,
+    933
+   ],
+   "conf": 0.06538032740354538,
+   "cls": "Metal",
+   "zone": "merchant_05",
+   "side": 86,
+   "area": 14534,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-016.png",
+   "box": [
+    235,
+    726,
+    254,
+    753
+   ],
+   "conf": 0.06835825741291046,
+   "cls": "Plastic",
+   "zone": "merchant_04",
+   "side": 19,
+   "area": 513,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-017.png",
+   "box": [
+    174,
+    676,
+    282,
+    850
+   ],
+   "conf": 0.05389513447880745,
+   "cls": "Glass",
+   "zone": "merchant_04",
+   "side": 108,
+   "area": 18792,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-017.png",
+   "box": [
+    236,
+    729,
+    250,
+    749
+   ],
+   "conf": 0.050759632140398026,
+   "cls": "Plastic",
+   "zone": "merchant_04",
+   "side": 14,
+   "area": 280,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-020.png",
+   "box": [
+    336,
+    881,
+    405,
+    1046
+   ],
+   "conf": 0.06039314717054367,
+   "cls": "Plastic",
+   "zone": "merchant_05",
+   "side": 69,
+   "area": 11385,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-020.png",
+   "box": [
+    234,
+    726,
+    254,
+    753
+   ],
+   "conf": 0.09572041779756546,
+   "cls": "Plastic",
+   "zone": "merchant_04",
+   "side": 20,
+   "area": 540,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-024.png",
+   "box": [
+    336,
+    894,
+    399,
+    1048
+   ],
+   "conf": 0.05590856447815895,
+   "cls": "Plastic",
+   "zone": "merchant_05",
+   "side": 63,
+   "area": 9702,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-026.png",
+   "box": [
+    360,
+    820,
+    433,
+    989
+   ],
+   "conf": 0.08347885310649872,
+   "cls": "Plastic",
+   "zone": "merchant_05",
+   "side": 73,
+   "area": 12337,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-027.png",
+   "box": [
+    174,
+    684,
+    281,
+    855
+   ],
+   "conf": 0.061671800911426544,
+   "cls": "Metal",
+   "zone": "merchant_04",
+   "side": 107,
+   "area": 18297,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-027.png",
+   "box": [
+    360,
+    834,
+    426,
+    988
+   ],
+   "conf": 0.05089966207742691,
+   "cls": "Plastic",
+   "zone": "merchant_05",
+   "side": 66,
+   "area": 10164,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-027.png",
+   "box": [
+    512,
+    697,
+    533,
+    727
+   ],
+   "conf": 0.05060454085469246,
+   "cls": "Plastic",
+   "zone": "merchant_04",
+   "side": 21,
+   "area": 630,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-029.png",
+   "box": [
+    173,
+    827,
+    184,
+    857
+   ],
+   "conf": 0.06831912696361542,
+   "cls": "Plastic",
+   "zone": "merchant_04",
+   "side": 11,
+   "area": 330,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-030.png",
+   "box": [
+    338,
+    856,
+    417,
+    1045
+   ],
+   "conf": 0.05220421776175499,
+   "cls": "Plastic",
+   "zone": "merchant_05",
+   "side": 79,
+   "area": 14931,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-030.png",
+   "box": [
+    239,
+    839,
+    361,
+    851
+   ],
+   "conf": 0.08614905923604965,
+   "cls": "Plastic",
+   "zone": "merchant_05",
+   "side": 12,
+   "area": 1464,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-030.png",
+   "box": [
+    362,
+    840,
+    420,
+    987
+   ],
+   "conf": 0.060910288244485855,
+   "cls": "Plastic",
+   "zone": "merchant_05",
+   "side": 58,
+   "area": 8526,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-031.png",
+   "box": [
+    238,
+    839,
+    382,
+    852
+   ],
+   "conf": 0.055935412645339966,
+   "cls": "Plastic",
+   "zone": "merchant_05",
+   "side": 13,
+   "area": 1872,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-031.png",
+   "box": [
+    486,
+    733,
+    499,
+    756
+   ],
+   "conf": 0.05510133504867554,
+   "cls": "Plastic",
+   "zone": "merchant_04",
+   "side": 13,
+   "area": 299,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-032.png",
+   "box": [
+    335,
+    887,
+    401,
+    1048
+   ],
+   "conf": 0.07981175184249878,
+   "cls": "Plastic",
+   "zone": "merchant_05",
+   "side": 66,
+   "area": 10626,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-032.png",
+   "box": [
+    240,
+    838,
+    291,
+    848
+   ],
+   "conf": 0.07527916878461838,
+   "cls": "Plastic",
+   "zone": "merchant_05",
+   "side": 10,
+   "area": 510,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-034.png",
+   "box": [
+    336,
+    911,
+    395,
+    1046
+   ],
+   "conf": 0.08798368275165558,
+   "cls": "Plastic",
+   "zone": "merchant_05",
+   "side": 59,
+   "area": 7965,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-035.png",
+   "box": [
+    337,
+    916,
+    391,
+    1046
+   ],
+   "conf": 0.06146769970655441,
+   "cls": "Plastic",
+   "zone": "merchant_05",
+   "side": 54,
+   "area": 7020,
+   "mask_in": true
+  },
+  {
+   "frame": "seq-035.png",
+   "box": [
+    174,
+    672,
+    294,
+    846
+   ],
+   "conf": 0.05175561457872391,
+   "cls": "Metal",
+   "zone": "merchant_04",
+   "side": 120,
+   "area": 20880,
+   "mask_in": true
+  }
+ ],
+ "verdicts": {
+  "中心不在任何多边形内": 111
+ },
+ "min_thr": 0.13
+}

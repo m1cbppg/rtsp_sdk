@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "camera_id": "44180209031322001021",
+  "mode": "day",
+  "split": "validation",
+  "status": "无法计算",
+  "blockers": [
+    "尚未填写录像时长",
+    "缺少人工复核人或复核时间",
+    "未穷尽标注整个验收时段的地面垃圾",
+    "持续记录尚未全部人工复核",
+    "缺少原始录像 SHA-256",
+    "画面机位尚未经人工核对",
+    "至少需要两处画面时间/现场动作核验锚点",
+    "缺少日志到录像时间轴的人工核验映射",
+    "缺少日志快照指纹",
+    "未提供原始录像或录像指纹不匹配",
+    "日志快照与人工复核绑定的指纹不一致"
+  ],
+  "descriptive": {
+    "observations": 145,
+    "candidate_boxes": 7
+  },
+  "metrics": {
+    "record_precision": null,
+    "visible_episode_recall": null,
+    "false_records_per_camera_hour": null,
+    "duplicate_records": null,
+    "merged_episodes": null,
+    "erroneous_clears": null,
+    "clear_recall": null,
+    "confirmation_delay_p95_seconds": null
+  },
+  "accuracy": null,
+  "false_positive_rate": null,
+  "limitations": [
+    "候选框数量不是识别率；未计算逐框精度/召回率。",
+    "没有定义真负样本，整体准确率及 FP/(FP+TN) 无法计算。",
+    "置信区间仅描述样本不确定性；同场景相关样本不能代表生产总体。"
+  ],
+  "production_go": false,
+  "notifications_go": false,
+  "input_fingerprints": {
+    "logs": [
+      {
+        "sha256": "68219fc9e06c0f7620d6d03798e25ce6c9f01aba2acb5d68dc2cc5effd1c8992",
+        "bytes": 611601
+      }
+    ],
+    "truth_sha256": "2508204c024e85f259bdd41d3d0bbf767567b9d5ea33f27855a464bd5c51ec13"
+  }
+}

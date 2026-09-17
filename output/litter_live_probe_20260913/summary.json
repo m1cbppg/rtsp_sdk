@@ -1,0 +1,211 @@
+{
+  "frame_shape": [
+    1440,
+    2560,
+    3
+  ],
+  "proposals": [
+    {
+      "box": [
+        450,
+        1230,
+        496,
+        1296
+      ],
+      "confidence": 0.5595150589942932,
+      "label": "Plastic",
+      "region_id": "left_walkway",
+      "merchant_id": null,
+      "source": "model"
+    },
+    {
+      "box": [
+        557,
+        634,
+        586,
+        663
+      ],
+      "confidence": 0.4893336594104767,
+      "label": "Plastic",
+      "region_id": "left_walkway",
+      "merchant_id": null,
+      "source": "model"
+    }
+  ],
+  "confirmed": 0,
+  "inventory_created": [],
+  "diagnostics": {
+    "alignment": {
+      "method": "sift",
+      "matches": 28,
+      "inliers": 22,
+      "inlier_fraction": 0.7857,
+      "hull_fraction": 0.5151,
+      "displacement_native_px": 1.686
+    },
+    "raw_after_nms": 6,
+    "roi_size_rejected": 4,
+    "actor_rejected": 0,
+    "rejected_candidates": [
+      {
+        "box": [
+          855,
+          672,
+          928,
+          722
+        ],
+        "confidence": 0.8335341811180115,
+        "label": "Plastic",
+        "reason": "outside_roi"
+      },
+      {
+        "box": [
+          519,
+          572,
+          572,
+          628
+        ],
+        "confidence": 0.42212092876434326,
+        "label": "Paper",
+        "reason": "outside_roi"
+      },
+      {
+        "box": [
+          459,
+          707,
+          485,
+          737
+        ],
+        "confidence": 0.4007633328437805,
+        "label": "Metal",
+        "reason": "outside_roi"
+      },
+      {
+        "box": [
+          874,
+          624,
+          895,
+          644
+        ],
+        "confidence": 0.3994808495044708,
+        "label": "Plastic",
+        "reason": "outside_roi"
+      }
+    ],
+    "actors": [
+      [
+        1004.2962036132812,
+        1.1347579956054688,
+        1069.069091796875,
+        61.80364227294922
+      ],
+      [
+        793.0799560546875,
+        172.61465454101562,
+        847.1834716796875,
+        289.5847473144531
+      ],
+      [
+        1259.34619140625,
+        5.042667388916016,
+        1330.54052734375,
+        67.02218627929688
+      ],
+      [
+        992.4329833984375,
+        75.46700286865234,
+        1082.0989990234375,
+        155.79312133789062
+      ],
+      [
+        1319.506103515625,
+        50.40443420410156,
+        1353.915283203125,
+        107.30268859863281
+      ],
+      [
+        991.0374755859375,
+        74.96773529052734,
+        1092.7991943359375,
+        183.35891723632812
+      ],
+      [
+        808.3819580078125,
+        169.73631286621094,
+        852.8167724609375,
+        287.3984375
+      ],
+      [
+        1222.6107177734375,
+        1.1528244018554688,
+        1271.3057861328125,
+        50.37329864501953
+      ],
+      [
+        1261.512939453125,
+        23.711563110351562,
+        1329.617919921875,
+        67.65345764160156
+      ],
+      [
+        354.79457092285156,
+        800.9730834960938,
+        478.250244140625,
+        1049.5306549072266
+      ],
+      [
+        354.40928649902344,
+        744.0332641601562,
+        478.1630096435547,
+        967.3809204101562
+      ]
+    ],
+    "semantic_candidates": 2,
+    "change_only_candidates": 0,
+    "confirmation": [
+      {
+        "rectangle": [
+          0.17578125,
+          0.8541666666666666,
+          0.01796875,
+          0.04583333333333333
+        ],
+        "span_seconds": 0.0,
+        "required_seconds": 45,
+        "recent_hits": 1,
+        "observations": 1,
+        "hit_fraction": 1.0,
+        "actor_overlap": 0.0,
+        "confirmed": false,
+        "visible": true,
+        "reasons": [
+          "confirm_duration",
+          "actor_clear_duration",
+          "recent_hits"
+        ]
+      },
+      {
+        "rectangle": [
+          0.217578125,
+          0.44027777777777777,
+          0.011328125,
+          0.02013888888888889
+        ],
+        "span_seconds": 0.0,
+        "required_seconds": 45,
+        "recent_hits": 1,
+        "observations": 1,
+        "hit_fraction": 1.0,
+        "actor_overlap": 0.0,
+        "confirmed": false,
+        "visible": true,
+        "reasons": [
+          "confirm_duration",
+          "actor_clear_duration",
+          "recent_hits"
+        ]
+      }
+    ],
+    "confirmation_reset": null
+  }
+}

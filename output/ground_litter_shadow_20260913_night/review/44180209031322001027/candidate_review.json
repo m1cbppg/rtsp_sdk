@@ -1,0 +1,175 @@
+[
+  {
+    "review_id": "audit-0000",
+    "kind": "audit",
+    "source_time_seconds": 4.849,
+    "frame_sequence": 3,
+    "image": "review_frames/audit-0000.jpg",
+    "crop_images": [],
+    "candidates": [],
+    "confirmation": []
+  },
+  {
+    "review_id": "candidate-0000",
+    "kind": "candidate",
+    "source_time_seconds": 16.631,
+    "frame_sequence": 14,
+    "image": "review_frames/candidate-0000.jpg",
+    "crop_images": [
+      "review_frames/candidate-0000-object-00.jpg",
+      "review_frames/candidate-0000-object-01.jpg",
+      "review_frames/candidate-0000-object-02.jpg",
+      "review_frames/candidate-0000-object-03.jpg"
+    ],
+    "candidates": [
+      {
+        "box": [
+          381,
+          571,
+          409,
+          593
+        ],
+        "confidence": 0.7144294381141663,
+        "label": "Metal",
+        "region_id": "left_walkway",
+        "merchant_id": null,
+        "source": "model"
+      },
+      {
+        "box": [
+          468,
+          551,
+          494,
+          612
+        ],
+        "confidence": 0.4722648859024048,
+        "label": "Metal",
+        "region_id": "left_walkway",
+        "merchant_id": null,
+        "source": "model"
+      },
+      {
+        "box": [
+          487,
+          537,
+          500,
+          558
+        ],
+        "confidence": 0.36711248755455017,
+        "label": "Metal",
+        "region_id": "left_walkway",
+        "merchant_id": null,
+        "source": "model"
+      },
+      {
+        "box": [
+          374,
+          615,
+          390,
+          630
+        ],
+        "confidence": 0.30885612964630127,
+        "label": "Metal",
+        "region_id": "left_walkway",
+        "merchant_id": null,
+        "source": "model"
+      }
+    ],
+    "confirmation": [
+      {
+        "rectangle": [
+          0.148828125,
+          0.39652777777777776,
+          0.0109375,
+          0.015277777777777777
+        ],
+        "span_seconds": 0.0,
+        "required_seconds": 30,
+        "recent_hits": 1,
+        "observations": 1,
+        "hit_fraction": 1.0,
+        "actor_overlap": 0.0,
+        "confirmed": false,
+        "visible": true,
+        "reasons": [
+          "confirm_duration",
+          "actor_clear_duration",
+          "recent_hits"
+        ]
+      },
+      {
+        "rectangle": [
+          0.1828125,
+          0.38263888888888886,
+          0.01015625,
+          0.04236111111111111
+        ],
+        "span_seconds": 0.0,
+        "required_seconds": 30,
+        "recent_hits": 1,
+        "observations": 1,
+        "hit_fraction": 1.0,
+        "actor_overlap": 0.0,
+        "confirmed": false,
+        "visible": true,
+        "reasons": [
+          "confirm_duration",
+          "actor_clear_duration",
+          "recent_hits"
+        ]
+      },
+      {
+        "rectangle": [
+          0.190234375,
+          0.3729166666666667,
+          0.005078125,
+          0.014583333333333334
+        ],
+        "span_seconds": 0.0,
+        "required_seconds": 30,
+        "recent_hits": 1,
+        "observations": 1,
+        "hit_fraction": 1.0,
+        "actor_overlap": 0.0,
+        "confirmed": false,
+        "visible": true,
+        "reasons": [
+          "confirm_duration",
+          "actor_clear_duration",
+          "recent_hits"
+        ]
+      },
+      {
+        "rectangle": [
+          0.14609375,
+          0.4270833333333333,
+          0.00625,
+          0.010416666666666666
+        ],
+        "span_seconds": 0.0,
+        "required_seconds": 30,
+        "recent_hits": 1,
+        "observations": 1,
+        "hit_fraction": 1.0,
+        "actor_overlap": 0.0,
+        "confirmed": false,
+        "visible": true,
+        "reasons": [
+          "confirm_duration",
+          "actor_clear_duration",
+          "recent_hits"
+        ]
+      }
+    ]
+  },
+  {
+    "review_id": "audit-0001",
+    "kind": "audit",
+    "source_time_seconds": 71.989,
+    "frame_sequence": 67,
+    "image": "review_frames/audit-0001.jpg",
+    "crop_images": [],
+    "candidates": [],
+    "confirmation": []
+  }
+]

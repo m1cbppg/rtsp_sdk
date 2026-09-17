@@ -1,0 +1,25 @@
+ARG BASE_IMAGE=rtsp-yolo-annotator:deepstream8-amd64-before-tracking-20260903
+FROM ${BASE_IMAGE}
+
+WORKDIR /app
+
+# Small offline hotfix layer: reuse the already deployed DeepStream/TensorRT
+# image and replace only the API contract and PTZ tracking coordinator.
+COPY rtsp_annotator/api.py /app/rtsp_annotator/api.py
+COPY rtsp_annotator/deepstream_manager.py /app/rtsp_annotator/deepstream_manager.py
+COPY rtsp_annotator/deepstream_worker.py /app/rtsp_annotator/deepstream_worker.py
+COPY rtsp_annotator/ptz_verification.py /app/rtsp_annotator/ptz_verification.py
+COPY rtsp_annotator/tracking_edge_guard.py /app/rtsp_annotator/tracking_edge_guard.py
+COPY rtsp_annotator/continuous_tracking.py /app/rtsp_annotator/continuous_tracking.py
+COPY rtsp_annotator/vessel_detection.py /app/rtsp_annotator/vessel_detection.py
+COPY rtsp_annotator/vessel_detection_process.py /app/rtsp_annotator/vessel_detection_process.py
+
+RUN python3 -m py_compile \
+    /app/rtsp_annotator/api.py \
+    /app/rtsp_annotator/deepstream_manager.py \
+    /app/rtsp_annotator/deepstream_worker.py \
+    /app/rtsp_annotator/ptz_verification.py \
+    /app/rtsp_annotator/continuous_tracking.py \
+    /app/rtsp_annotator/tracking_edge_guard.py \
+    /app/rtsp_annotator/vessel_detection.py \
+    /app/rtsp_annotator/vessel_detection_process.py

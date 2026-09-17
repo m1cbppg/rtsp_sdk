@@ -1,0 +1,46 @@
+{
+  "stream_frame": "output/litter_4h_review_20260913/samples/sample-20260912T213723.527839Z-44180209031322001021.jpg",
+  "annotated": "output/ground_litter_1021_zones_20260915/sample-2137z-known-objects.jpg",
+  "known_objects_vs_demo_zones": {
+    "white_4h_0430x1230": {
+      "center_px": [
+        473,
+        1263
+      ],
+      "zones_at_center": [
+        "merchant_05"
+      ],
+      "short_side_px": 46,
+      "area_px": 3036,
+      "passes_size_gate": true,
+      "reject_reason": null
+    },
+    "small_8px_live": {
+      "center_px": [
+        810,
+        569
+      ],
+      "zones_at_center": [
+        "merchant_02"
+      ],
+      "short_side_px": 8,
+      "area_px": 120,
+      "passes_size_gate": true,
+      "reject_reason": null
+    },
+    "confirmed_litter_557x633": {
+      "center_px": [
+        571,
+        648
+      ],
+      "zones_at_center": [
+        "merchant_02",
+        "merchant_03"
+      ],
+      "short_side_px": 29,
+      "area_px": 870,
+      "passes_size_gate": true,
+      "reject_reason": null
+    }
+  }
+}

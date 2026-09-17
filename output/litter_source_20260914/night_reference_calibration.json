@@ -1,0 +1,26 @@
+{
+  "camera_id": "44180209031322001021",
+  "view_id": "fixed-v1",
+  "reference_image": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-000.jpg",
+  "reference_sha256": "eb609ec927dcce303e9c572b83b1a5f6fd87e6129dabbd6178a1c3339436c05f",
+  "purpose": "view_alignment_only_not_clean_ground",
+  "review": "assistant_visual_provisional_same_static_building_curb_canopy_geometry",
+  "source_record": {
+    "sequence": 1.0,
+    "probe_elapsed": 3.3679259170021396,
+    "arrival_elapsed": 3.3367719579982804,
+    "local_age": 0.031155167001998052,
+    "generation": 1.0,
+    "source_elapsed": 0.0,
+    "decoded_at_utc": "2026-09-13T16:47:04.284227+00:00",
+    "image": "snapshots/frame-000.jpg",
+    "sha256": "eb609ec927dcce303e9c572b83b1a5f6fd87e6129dabbd6178a1c3339436c05f",
+    "size": [
+      2560,
+      1440
+    ],
+    "osd_time_verified": false
+  },
+  "apply_only_after_reference_capture": true,
+  "production_applied": false
+}

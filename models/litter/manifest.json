@@ -1,0 +1,105 @@
+{
+  "updated": "2026-09-09",
+  "scope": "Local screening only. Licenses are publisher declarations, not a complete license audit.",
+  "weights": [
+    {
+      "local_file": "turhancan_yolov8m_seg_trash.pt",
+      "source": "https://huggingface.co/turhancan97/yolov8-segment-trash-detection",
+      "source_revision_observed": "89f1b197852760ee110213e655400a7187da03d2",
+      "remote_file": "yolov8m-seg.pt",
+      "publisher_license": "mit",
+      "bytes": 54786410,
+      "sha256": "a2f8de0c7f714e2ab8b70c62490e2a41fd4a6681ca4a8dd442797c809a140278",
+      "retained_on_disk": true
+    },
+    {
+      "local_file": "catsat_litter_yolo11s_seg.pt",
+      "source": "https://huggingface.co/CatSat/yolov11-litter-materials",
+      "source_revision_observed": "25a03cf200441cfd9e8e62ded5529e49562bd96b",
+      "remote_file": "best.pt",
+      "publisher_license": "mit",
+      "bytes": 20525732,
+      "sha256": "e48518a798b05ef6a8a123526aedc6ee9afe508796dd0b1bc37c0c2eb333a164",
+      "retained_on_disk": false,
+      "removed_on": "2026-09-09"
+    },
+    {
+      "local_file": "esapzoi_litter_yolov8.pt",
+      "source": "https://huggingface.co/esapzoi/litter-detection-yolov8",
+      "source_revision_observed": "058c1477d4fba003d4d6d95a2a5f32a2d074a818",
+      "remote_file": "best.pt",
+      "publisher_license": "mit",
+      "bytes": 6243498,
+      "sha256": "1b78b25c684e82f584e806205c15cefdd5e3f26a79473e2e6e17d9cc6561eaa2",
+      "retained_on_disk": false,
+      "removed_on": "2026-09-09"
+    },
+    {
+      "local_file": "littercam_yolov9c.pt",
+      "source": "https://huggingface.co/aryanshh/littercam-yolov9c",
+      "source_revision_observed": "d386139ceb5c1d90c446757e6799513d2e845360",
+      "remote_file": "best.pt",
+      "publisher_license": "apache-2.0",
+      "bytes": 409859297,
+      "sha256": "27dcb73c02fa9fb57828a75e178f4604d8a378d4c736bdb1e2807444a226c3e3",
+      "retained_on_disk": false,
+      "removed_on": "2026-09-09"
+    },
+    {
+      "local_file": "alope_trash_yolo11n.pt",
+      "source": "https://huggingface.co/Alope/trash-detection-yolo11n",
+      "source_revision_observed": "56c9ddb4208db64ba54bc27359cc2f19986eb803",
+      "remote_file": "best.pt",
+      "publisher_license": "agpl-3.0",
+      "bytes": 5425562,
+      "sha256": "13554af414247d33db7d56551e1afb2cb7d0ac5462de5d66df96a81a02fe648d",
+      "retained_on_disk": false,
+      "removed_on": "2026-09-09"
+    },
+    {
+      "local_file": "oguri_trash_yolo11l.pt",
+      "source": "https://huggingface.co/Oguri02/trash-detection-yolo11l",
+      "source_revision_observed": "c99168dc6db155ff2ec2192605b7232d6175da93",
+      "remote_file": "best.pt",
+      "publisher_license": "agpl-3.0",
+      "bytes": 51160786,
+      "sha256": "e04139f187594bb2a9dd1de1fd1a1cda14686b04bf7196cc25e2a2f168ea7eb7",
+      "retained_on_disk": false,
+      "removed_on": "2026-09-09"
+    },
+    {
+      "local_file": "bower_yolov8m_object_material.pt",
+      "source": "https://huggingface.co/BowerApp/bowie-yolov8-multihead-trash-detection",
+      "source_revision_observed": "0a671f60878aec90d181ca455bc8080303d55ef3",
+      "remote_file": "yolov8m_object_material_best.pt",
+      "publisher_license": "mit",
+      "bytes": 58071599,
+      "sha256": "991a827c81d30627cd5504e40fb967499cb844c8f24fb686fd5dada9af506dac",
+      "retained_on_disk": false,
+      "removed_on": "2026-09-09"
+    },
+    {
+      "local_file": "jhandry_trash.pt",
+      "source": "https://huggingface.co/Jhandry/TrashDetection",
+      "source_revision_observed": "d42223a207f9b1212fe9950e7c0c09c56b7d8d01",
+      "remote_file": "model_final.pt",
+      "publisher_license": "openrail-variant-unverified",
+      "bytes": 146432913,
+      "sha256": "68b1207a87de072a787e60ca18ad5b5e76386438fce9276a47d3c82a91954b67",
+      "retained_on_disk": false,
+      "removed_on": "2026-09-09"
+    },
+    {
+      "local_file": "trash_detection_best.pt",
+      "source": "https://github.com/BaraaLazkani/trash-detection-yolov8",
+      "source_revision_observed": null,
+      "remote_file": null,
+      "publisher_license": "custom-academic-noncommercial",
+      "bytes": 52040594,
+      "sha256": "4c3fa8b637da847d9b5627516c8b09935103921600f9a05211269eb8e4dac2d8",
+      "retained_on_disk": false,
+      "removed_on": "2026-09-09"
+    }
+  ],
+  "cleanup_note": "User authorized removal of redundant evaluation artifacts. Only Turhancan weight retained; other entries are historical provenance."
+}

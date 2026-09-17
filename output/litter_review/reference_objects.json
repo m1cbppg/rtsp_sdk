@@ -1,0 +1,253 @@
+{
+  "status": "analyst visual references, not user-validated ground truth; selected after screening",
+  "iou": 0.3,
+  "references": [
+    {
+      "id": "day_white",
+      "image": "day_002.jpg",
+      "box": [
+        795,
+        612,
+        812,
+        630
+      ]
+    },
+    {
+      "id": "day_white",
+      "image": "day_007.jpg",
+      "box": [
+        795,
+        612,
+        812,
+        630
+      ]
+    },
+    {
+      "id": "day_small",
+      "image": "day_002.jpg",
+      "box": [
+        624,
+        895,
+        651,
+        914
+      ]
+    },
+    {
+      "id": "day_small",
+      "image": "day_007.jpg",
+      "box": [
+        624,
+        895,
+        651,
+        914
+      ]
+    },
+    {
+      "id": "day_small",
+      "image": "day_012.jpg",
+      "box": [
+        624,
+        895,
+        651,
+        914
+      ]
+    },
+    {
+      "id": "day_small",
+      "image": "day_017.jpg",
+      "box": [
+        624,
+        895,
+        651,
+        914
+      ]
+    },
+    {
+      "id": "day_small",
+      "image": "day_022.jpg",
+      "box": [
+        624,
+        895,
+        651,
+        914
+      ]
+    },
+    {
+      "id": "day_small",
+      "image": "day_027.jpg",
+      "box": [
+        624,
+        895,
+        651,
+        914
+      ]
+    },
+    {
+      "id": "night_white",
+      "image": "night_002.jpg",
+      "box": [
+        871,
+        590,
+        932,
+        638
+      ]
+    },
+    {
+      "id": "night_white",
+      "image": "night_007.jpg",
+      "box": [
+        871,
+        590,
+        932,
+        638
+      ]
+    },
+    {
+      "id": "night_white",
+      "image": "night_012.jpg",
+      "box": [
+        871,
+        590,
+        932,
+        638
+      ]
+    },
+    {
+      "id": "night_white",
+      "image": "night_017.jpg",
+      "box": [
+        871,
+        590,
+        932,
+        638
+      ]
+    },
+    {
+      "id": "night_white",
+      "image": "night_022.jpg",
+      "box": [
+        871,
+        590,
+        932,
+        638
+      ]
+    },
+    {
+      "id": "night_white",
+      "image": "night_027.jpg",
+      "box": [
+        871,
+        590,
+        932,
+        638
+      ]
+    },
+    {
+      "id": "night_red",
+      "image": "night_002.jpg",
+      "box": [
+        1005,
+        1181,
+        1103,
+        1260
+      ]
+    },
+    {
+      "id": "night_red",
+      "image": "night_007.jpg",
+      "box": [
+        1005,
+        1181,
+        1103,
+        1260
+      ]
+    },
+    {
+      "id": "night_red",
+      "image": "night_012.jpg",
+      "box": [
+        1005,
+        1181,
+        1103,
+        1260
+      ]
+    },
+    {
+      "id": "night_red",
+      "image": "night_022.jpg",
+      "box": [
+        1005,
+        1181,
+        1103,
+        1260
+      ]
+    },
+    {
+      "id": "night_red",
+      "image": "night_027.jpg",
+      "box": [
+        1005,
+        1181,
+        1103,
+        1260
+      ]
+    },
+    {
+      "id": "night_clear",
+      "image": "night_002.jpg",
+      "box": [
+        980,
+        1290,
+        1106,
+        1333
+      ]
+    },
+    {
+      "id": "night_clear",
+      "image": "night_007.jpg",
+      "box": [
+        980,
+        1290,
+        1106,
+        1333
+      ]
+    },
+    {
+      "id": "night_clear",
+      "image": "night_012.jpg",
+      "box": [
+        980,
+        1290,
+        1106,
+        1333
+      ]
+    },
+    {
+      "id": "night_clear",
+      "image": "night_022.jpg",
+      "box": [
+        980,
+        1290,
+        1106,
+        1333
+      ]
+    },
+    {
+      "id": "night_clear",
+      "image": "night_027.jpg",
+      "box": [
+        980,
+        1290,
+        1106,
+        1333
+      ]
+    }
+  ],
+  "limitations": [
+    "5 visually selected ground objects, 24 appearances; not exhaustive labels",
+    "Chosen after model screening; same objects repeated; no independent holdout",
+    "Class-agnostic localization only, not precision/recall or material correctness",
+    "Reviewer is the assistant; no user/human verification of labels",
+    "Occluded red bag and clear object in night_017 excluded; white day object absent after early frames"
+  ]
+}

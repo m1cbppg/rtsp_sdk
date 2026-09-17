@@ -1,0 +1,294 @@
+[
+  {
+    "review_id": "frame-00000050",
+    "source_time_seconds": 2.0,
+    "image": "candidate_frames/frame-00000050-000002.000.jpg",
+    "candidates": [
+      {
+        "box": [
+          564,
+          629,
+          586,
+          649
+        ],
+        "confidence": 0.2415604293346405,
+        "label": "Plastic",
+        "region_id": "left_walkway",
+        "merchant_id": null,
+        "source": "model"
+      }
+    ]
+  },
+  {
+    "review_id": "frame-00000200",
+    "source_time_seconds": 8.0,
+    "image": "candidate_frames/frame-00000200-000008.000.jpg",
+    "candidates": [
+      {
+        "box": [
+          422,
+          985,
+          442,
+          1016
+        ],
+        "confidence": 0.31582894921302795,
+        "label": "Plastic",
+        "region_id": "left_walkway",
+        "merchant_id": null,
+        "source": "model"
+      }
+    ]
+  },
+  {
+    "review_id": "frame-00000300",
+    "source_time_seconds": 12.0,
+    "image": "candidate_frames/frame-00000300-000012.000.jpg",
+    "candidates": [
+      {
+        "box": [
+          866,
+          594,
+          899,
+          627
+        ],
+        "confidence": 0.3290046453475952,
+        "label": "Paper",
+        "region_id": "left_walkway",
+        "merchant_id": null,
+        "source": "model"
+      }
+    ]
+  },
+  {
+    "review_id": "frame-00000400",
+    "source_time_seconds": 16.0,
+    "image": "candidate_frames/frame-00000400-000016.000.jpg",
+    "candidates": [
+      {
+        "box": [
+          587,
+          532,
+          657,
+          638
+        ],
+        "confidence": 0.27782535552978516,
+        "label": "Plastic",
+        "region_id": "left_walkway",
+        "merchant_id": null,
+        "source": "model"
+      }
+    ]
+  },
+  {
+    "review_id": "frame-00000450",
+    "source_time_seconds": 18.0,
+    "image": "candidate_frames/frame-00000450-000018.000.jpg",
+    "candidates": [
+      {
+        "box": [
+          599,
+          533,
+          657,
+          632
+        ],
+        "confidence": 0.29538971185684204,
+        "label": "Plastic",
+        "region_id": "left_walkway",
+        "merchant_id": null,
+        "source": "model"
+      },
+      {
+        "box": [
+          565,
+          630,
+          586,
+          649
+        ],
+        "confidence": 0.21736019849777222,
+        "label": "Plastic",
+        "region_id": "left_walkway",
+        "merchant_id": null,
+        "source": "model"
+      }
+    ]
+  },
+  {
+    "review_id": "frame-00000500",
+    "source_time_seconds": 20.0,
+    "image": "candidate_frames/frame-00000500-000020.000.jpg",
+    "candidates": [
+      {
+        "box": [
+          609,
+          534,
+          659,
+          634
+        ],
+        "confidence": 0.6247109770774841,
+        "label": "Plastic",
+        "region_id": "left_walkway",
+        "merchant_id": null,
+        "source": "model"
+      }
+    ]
+  },
+  {
+    "review_id": "frame-00000550",
+    "source_time_seconds": 22.0,
+    "image": "candidate_frames/frame-00000550-000022.000.jpg",
+    "candidates": [
+      {
+        "box": [
+          610,
+          535,
+          660,
+          634
+        ],
+        "confidence": 0.7191036939620972,
+        "label": "Plastic",
+        "region_id": "left_walkway",
+        "merchant_id": null,
+        "source": "model"
+      }
+    ]
+  },
+  {
+    "review_id": "frame-00000600",
+    "source_time_seconds": 24.0,
+    "image": "candidate_frames/frame-00000600-000024.000.jpg",
+    "candidates": [
+      {
+        "box": [
+          348,
+          827,
+          459,
+          1041
+        ],
+        "confidence": 0.3419611155986786,
+        "label": "Plastic",
+        "region_id": "left_walkway",
+        "merchant_id": null,
+        "source": "model"
+      }
+    ]
+  },
+  {
+    "review_id": "frame-00000650",
+    "source_time_seconds": 26.0,
+    "image": "candidate_frames/frame-00000650-000026.000.jpg",
+    "candidates": [
+      {
+        "box": [
+          609,
+          534,
+          657,
+          630
+        ],
+        "confidence": 0.7684973478317261,
+        "label": "Plastic",
+        "region_id": "left_walkway",
+        "merchant_id": null,
+        "source": "model"
+      },
+      {
+        "box": [
+          865,
+          594,
+          905,
+          639
+        ],
+        "confidence": 0.22610023617744446,
+        "label": "Plastic",
+        "region_id": "left_walkway",
+        "merchant_id": null,
+        "source": "model"
+      }
+    ]
+  },
+  {
+    "review_id": "frame-00000700",
+    "source_time_seconds": 28.0,
+    "image": "candidate_frames/frame-00000700-000028.000.jpg",
+    "candidates": [
+      {
+        "box": [
+          382,
+          1141,
+          434,
+          1285
+        ],
+        "confidence": 0.7476258873939514,
+        "label": "Plastic",
+        "region_id": "left_walkway",
+        "merchant_id": null,
+        "source": "model"
+      },
+      {
+        "box": [
+          564,
+          629,
+          586,
+          649
+        ],
+        "confidence": 0.24840803444385529,
+        "label": "Plastic",
+        "region_id": "left_walkway",
+        "merchant_id": null,
+        "source": "model"
+      }
+    ]
+  },
+  {
+    "review_id": "frame-00000750",
+    "source_time_seconds": 30.0,
+    "image": "candidate_frames/frame-00000750-000030.000.jpg",
+    "candidates": [
+      {
+        "box": [
+          350,
+          848,
+          456,
+          1051
+        ],
+        "confidence": 0.28178805112838745,
+        "label": "Plastic",
+        "region_id": "left_walkway",
+        "merchant_id": null,
+        "source": "model"
+      },
+      {
+        "box": [
+          564,
+          629,
+          586,
+          649
+        ],
+        "confidence": 0.25840097665786743,
+        "label": "Plastic",
+        "region_id": "left_walkway",
+        "merchant_id": null,
+        "source": "model"
+      }
+    ]
+  },
+  {
+    "review_id": "frame-00000850",
+    "source_time_seconds": 34.0,
+    "image": "candidate_frames/frame-00000850-000034.000.jpg",
+    "candidates": [
+      {
+        "box": [
+          611,
+          531,
+          642,
+          603
+        ],
+        "confidence": 0.2026141881942749,
+        "label": "Plastic",
+        "region_id": "left_walkway",
+        "merchant_id": null,
+        "source": "model"
+      }
+    ]
+  }
+]

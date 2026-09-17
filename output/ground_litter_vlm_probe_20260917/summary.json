@@ -1,0 +1,39 @@
+{
+  "model": "qwen3-vl-plus",
+  "requests": 13,
+  "matrix": {
+    "litter": {
+      "litter": 1,
+      "non_litter": 0,
+      "uncertain": 4,
+      "invalid": 0
+    },
+    "non_litter": {
+      "litter": 0,
+      "non_litter": 5,
+      "uncertain": 1,
+      "invalid": 0
+    },
+    "uncertain": {
+      "litter": 0,
+      "non_litter": 0,
+      "uncertain": 2,
+      "invalid": 0
+    }
+  },
+  "usage": {
+    "prompt_tokens": 5978,
+    "completion_tokens": 748,
+    "total_tokens": 6726
+  },
+  "latency_seconds": {
+    "min": 1.9435752500139643,
+    "median": 2.381257667002501,
+    "p95": 2.873468883387977,
+    "max": 3.047180583991576
+  },
+  "scope": "Selected candidate-review sanity check; not end-to-end accuracy or recall.",
+  "label_warning": "Only S07 has historical user confirmation; other labels are provisional assistant visual judgments. S01/S02 share one vehicle.",
+  "end_to_end_accuracy": null,
+  "production_integrated": false
+}

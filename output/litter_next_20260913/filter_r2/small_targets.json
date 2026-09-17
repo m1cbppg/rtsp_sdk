@@ -1,0 +1,74 @@
+[
+  {
+    "sample_id": "s009",
+    "source": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T203236.072859Z-44180209031322001021.jpg",
+    "sha256": "fabea3f1188230bb1dbd3a986120c7f92193288274007831fa98a9eb523d4350",
+    "id": "s009-small-0",
+    "label": "suspected_white_ground_scrap",
+    "label_source": "assistant_visual_provisional",
+    "box": [
+      723,
+      437,
+      740,
+      441
+    ],
+    "short_side_px": 4,
+    "inside_roi": true,
+    "eligible_under_current_size_limits": false,
+    "independent_object_count": "unknown; repeated appearances and movement not resolved"
+  },
+  {
+    "sample_id": "s009",
+    "source": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T203236.072859Z-44180209031322001021.jpg",
+    "sha256": "fabea3f1188230bb1dbd3a986120c7f92193288274007831fa98a9eb523d4350",
+    "id": "s009-small-1",
+    "label": "suspected_white_ground_scrap",
+    "label_source": "assistant_visual_provisional",
+    "box": [
+      721,
+      473,
+      739,
+      480
+    ],
+    "short_side_px": 7,
+    "inside_roi": true,
+    "eligible_under_current_size_limits": false,
+    "independent_object_count": "unknown; repeated appearances and movement not resolved"
+  },
+  {
+    "sample_id": "s032",
+    "source": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T221354.581889Z-44180209031322001021.jpg",
+    "sha256": "ad2f79c86e06ee11a4a5da150f3894752d75b95bcedb3893541c6b7f2a7ff21e",
+    "id": "s032-small-0",
+    "label": "suspected_white_ground_scrap",
+    "label_source": "assistant_visual_provisional",
+    "box": [
+      720,
+      465,
+      736,
+      471
+    ],
+    "short_side_px": 6,
+    "inside_roi": true,
+    "eligible_under_current_size_limits": false,
+    "independent_object_count": "unknown; repeated appearances and movement not resolved"
+  },
+  {
+    "sample_id": "s032",
+    "source": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_4h_review_20260913/samples/sample-20260912T221354.581889Z-44180209031322001021.jpg",
+    "sha256": "ad2f79c86e06ee11a4a5da150f3894752d75b95bcedb3893541c6b7f2a7ff21e",
+    "id": "s032-small-1",
+    "label": "suspected_white_ground_scrap",
+    "label_source": "assistant_visual_provisional",
+    "box": [
+      735,
+      482,
+      752,
+      490
+    ],
+    "short_side_px": 8,
+    "inside_roi": true,
+    "eligible_under_current_size_limits": false,
+    "independent_object_count": "unknown; repeated appearances and movement not resolved"
+  }
+]

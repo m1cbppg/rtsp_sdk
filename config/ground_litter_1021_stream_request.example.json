@@ -1,0 +1,304 @@
+{
+  "input_url": "rtsp://user:password@CAMERA_HOST:554/Streaming/channels/101",
+  "model": "yolo26s.pt",
+  "classes": [
+    0
+  ],
+  "conf": 0.35,
+  "bitrate": "2000k",
+  "ground_litter": {
+    "enabled": true,
+    "analysis_fps": 1.0,
+    "confidence": 0.2,
+    "night_confidence": 0.2,
+    "tile_size_px": 640,
+    "inference_imgsz": null,
+    "local_actor_max_crops": 0,
+    "box_smoothing_alpha": 1.0,
+    "tile_overlap": 0.2,
+    "nms_iou": 0.5,
+    "maximum_tiles": 64,
+    "minimum_hits": 2,
+    "hit_window": 3,
+    "hold_seconds": 3.0,
+    "maximum_boxes": 8,
+    "label": "疑似垃圾",
+    "display_zones": true,
+    "display_class": false,
+    "zones": [
+      {
+        "region_id": "merchant_01",
+        "name": "门店01门前人行道（远端）",
+        "polygon": [
+          [
+            0.32,
+            0.15
+          ],
+          [
+            0.367,
+            0.15
+          ],
+          [
+            0.35,
+            0.3
+          ],
+          [
+            0.27,
+            0.3
+          ]
+        ],
+        "exclude_zones": [
+          [
+            [
+              0.26,
+              0.17
+            ],
+            [
+              0.38,
+              0.17
+            ],
+            [
+              0.38,
+              0.32
+            ],
+            [
+              0.25,
+              0.32
+            ]
+          ]
+        ],
+        "minimum_short_side_px": 8,
+        "minimum_box_area_px": 64,
+        "confidence": 0.11,
+        "night_confidence": 0.1
+      },
+      {
+        "region_id": "merchant_02",
+        "name": "门店02门前人行道",
+        "polygon": [
+          [
+            0.27,
+            0.3
+          ],
+          [
+            0.35,
+            0.3
+          ],
+          [
+            0.33,
+            0.45
+          ],
+          [
+            0.2,
+            0.45
+          ]
+        ],
+        "exclude_zones": [
+          [
+            [
+              0.27,
+              0.38
+            ],
+            [
+              0.44,
+              0.38
+            ],
+            [
+              0.44,
+              0.55
+            ],
+            [
+              0.26,
+              0.55
+            ]
+          ],
+          [
+            [
+              0.26,
+              0.17
+            ],
+            [
+              0.38,
+              0.17
+            ],
+            [
+              0.38,
+              0.32
+            ],
+            [
+              0.25,
+              0.32
+            ]
+          ]
+        ],
+        "minimum_short_side_px": 8,
+        "minimum_box_area_px": 64,
+        "confidence": 0.2,
+        "night_confidence": 0.16
+      },
+      {
+        "region_id": "merchant_03",
+        "name": "门店03门前人行道",
+        "polygon": [
+          [
+            0.2,
+            0.45
+          ],
+          [
+            0.33,
+            0.45
+          ],
+          [
+            0.29,
+            0.62
+          ],
+          [
+            0.15,
+            0.62
+          ]
+        ],
+        "exclude_zones": [
+          [
+            [
+              0.27,
+              0.38
+            ],
+            [
+              0.44,
+              0.38
+            ],
+            [
+              0.44,
+              0.55
+            ],
+            [
+              0.26,
+              0.55
+            ]
+          ]
+        ],
+        "minimum_short_side_px": 8,
+        "minimum_box_area_px": 64,
+        "confidence": 0.2,
+        "night_confidence": 0.16
+      },
+      {
+        "region_id": "merchant_04",
+        "name": "门店04门前人行道",
+        "polygon": [
+          [
+            0.15,
+            0.62
+          ],
+          [
+            0.29,
+            0.62
+          ],
+          [
+            0.22,
+            0.78
+          ],
+          [
+            0.09,
+            0.78
+          ]
+        ],
+        "exclude_zones": [],
+        "minimum_short_side_px": 8,
+        "minimum_box_area_px": 64,
+        "confidence": 0.28,
+        "night_confidence": 0.24
+      },
+      {
+        "region_id": "merchant_05",
+        "name": "门店05门前人行道（近端）",
+        "polygon": [
+          [
+            0.09,
+            0.78
+          ],
+          [
+            0.22,
+            0.78
+          ],
+          [
+            0.175,
+            0.97
+          ],
+          [
+            0.055,
+            0.97
+          ]
+        ],
+        "exclude_zones": [],
+        "minimum_short_side_px": 8,
+        "minimum_box_area_px": 64,
+        "confidence": 0.28,
+        "night_confidence": 0.24
+      }
+    ],
+    "overlay_exclude_zones": [
+      [
+        [
+          0.0,
+          0.035
+        ],
+        [
+          0.4,
+          0.035
+        ],
+        [
+          0.4,
+          0.105
+        ],
+        [
+          0.0,
+          0.105
+        ]
+      ],
+      [
+        [
+          0.72,
+          0.882
+        ],
+        [
+          0.855,
+          0.882
+        ],
+        [
+          0.855,
+          0.938
+        ],
+        [
+          0.72,
+          0.938
+        ]
+      ],
+      [
+        [
+          0.238,
+          0.645
+        ],
+        [
+          0.349,
+          0.635
+        ],
+        [
+          0.36,
+          1.0
+        ],
+        [
+          0.16,
+          1.0
+        ]
+      ]
+    ],
+    "context_class_ids": [
+      13,
+      25,
+      56,
+      58,
+      60
+    ]
+  }
+}

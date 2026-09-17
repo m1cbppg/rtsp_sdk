@@ -1,0 +1,4207 @@
+{
+  "model": "models/litter/catsat_litter_yolo11s_seg.pt",
+  "sha256": "e48518a798b05ef6a8a123526aedc6ee9afe508796dd0b1bc37c0c2eb333a164",
+  "classes": {
+    "0": "Plastic",
+    "1": "Metal",
+    "2": "Glass",
+    "3": "Paper",
+    "4": "Other"
+  },
+  "roi": [
+    [
+      0.02,
+      0.08
+    ],
+    [
+      0.37,
+      0.08
+    ],
+    [
+      0.46,
+      0.96
+    ],
+    [
+      0.02,
+      0.96
+    ]
+  ],
+  "exclusion_zones": [],
+  "mode": "full",
+  "imgsz": 1280,
+  "confidence": 0.15,
+  "device": "cpu",
+  "nms_iou": 0.5,
+  "sampling": "FFmpeg decoded frame indices 250,500,...; 001 excluded; nominal 10s interval",
+  "frames": [
+    {
+      "image": "day_002.jpg",
+      "nominal_time_s": 10,
+      "inference_seconds": 2.08,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.6565051078796387,
+          "box": [
+            355,
+            836,
+            441,
+            1052
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.32182806730270386,
+          "box": [
+            358,
+            746,
+            376,
+            774
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2121780514717102,
+          "box": [
+            778,
+            312,
+            799,
+            324
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.18853498995304108,
+          "box": [
+            489,
+            743,
+            529,
+            827
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.18580713868141174,
+          "box": [
+            800,
+            721,
+            834,
+            777
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.17073047161102295,
+          "box": [
+            427,
+            834,
+            477,
+            942
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_003.jpg",
+      "nominal_time_s": 20,
+      "inference_seconds": 0.436,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.6964673399925232,
+          "box": [
+            353,
+            836,
+            454,
+            1058
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.35494768619537354,
+          "box": [
+            355,
+            837,
+            433,
+            858
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3532886207103729,
+          "box": [
+            357,
+            746,
+            376,
+            775
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2682209014892578,
+          "box": [
+            828,
+            256,
+            877,
+            398
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.20502853393554688,
+          "box": [
+            800,
+            725,
+            835,
+            776
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_004.jpg",
+      "nominal_time_s": 30,
+      "inference_seconds": 0.259,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.7043178081512451,
+          "box": [
+            356,
+            836,
+            453,
+            1047
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.5087524056434631,
+          "box": [
+            357,
+            746,
+            376,
+            774
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3318963646888733,
+          "box": [
+            355,
+            837,
+            432,
+            856
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2618497610092163,
+          "box": [
+            800,
+            721,
+            834,
+            777
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_005.jpg",
+      "nominal_time_s": 40,
+      "inference_seconds": 0.281,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.7425780296325684,
+          "box": [
+            359,
+            836,
+            452,
+            1053
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.5423223972320557,
+          "box": [
+            357,
+            746,
+            376,
+            775
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.461262583732605,
+          "box": [
+            801,
+            722,
+            836,
+            777
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.343954473733902,
+          "box": [
+            354,
+            837,
+            432,
+            857
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.19118529558181763,
+          "box": [
+            435,
+            429,
+            499,
+            502
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.1733996719121933,
+          "box": [
+            464,
+            448,
+            505,
+            495
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_006.jpg",
+      "nominal_time_s": 50,
+      "inference_seconds": 0.273,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.6607621312141418,
+          "box": [
+            358,
+            836,
+            452,
+            1061
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.5755200982093811,
+          "box": [
+            358,
+            746,
+            375,
+            775
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3434556722640991,
+          "box": [
+            433,
+            828,
+            482,
+            972
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2531338632106781,
+          "box": [
+            777,
+            310,
+            799,
+            324
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.25126999616622925,
+          "box": [
+            354,
+            837,
+            433,
+            859
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.18903201818466187,
+          "box": [
+            800,
+            721,
+            834,
+            775
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_007.jpg",
+      "nominal_time_s": 60,
+      "inference_seconds": 0.342,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.6358953714370728,
+          "box": [
+            356,
+            836,
+            453,
+            1051
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.38144898414611816,
+          "box": [
+            357,
+            746,
+            376,
+            774
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.37606289982795715,
+          "box": [
+            801,
+            723,
+            834,
+            776
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3313046097755432,
+          "box": [
+            355,
+            837,
+            432,
+            857
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3093337118625641,
+          "box": [
+            433,
+            827,
+            482,
+            974
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.1899002492427826,
+          "box": [
+            439,
+            836,
+            469,
+            852
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.18847379088401794,
+          "box": [
+            808,
+            178,
+            828,
+            201
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.1846342235803604,
+          "box": [
+            779,
+            311,
+            799,
+            323
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.1548081338405609,
+          "box": [
+            420,
+            976,
+            443,
+            1024
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_008.jpg",
+      "nominal_time_s": 70,
+      "inference_seconds": 0.268,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.6945192813873291,
+          "box": [
+            358,
+            836,
+            453,
+            1056
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.46270400285720825,
+          "box": [
+            357,
+            746,
+            376,
+            774
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.34245583415031433,
+          "box": [
+            801,
+            720,
+            835,
+            777
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3404461443424225,
+          "box": [
+            355,
+            837,
+            432,
+            858
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_009.jpg",
+      "nominal_time_s": 80,
+      "inference_seconds": 0.262,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.6389304995536804,
+          "box": [
+            356,
+            836,
+            453,
+            1062
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.35382217168807983,
+          "box": [
+            801,
+            723,
+            834,
+            776
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3457711935043335,
+          "box": [
+            357,
+            746,
+            376,
+            774
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2378678023815155,
+          "box": [
+            432,
+            815,
+            482,
+            966
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.22652989625930786,
+          "box": [
+            355,
+            837,
+            433,
+            858
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_010.jpg",
+      "nominal_time_s": 90,
+      "inference_seconds": 0.288,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.7223901152610779,
+          "box": [
+            359,
+            836,
+            452,
+            1060
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.4356115758419037,
+          "box": [
+            800,
+            722,
+            837,
+            782
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3618217408657074,
+          "box": [
+            355,
+            837,
+            433,
+            857
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2959965765476227,
+          "box": [
+            357,
+            747,
+            376,
+            774
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.24186813831329346,
+          "box": [
+            721,
+            465,
+            753,
+            496
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.17577095329761505,
+          "box": [
+            441,
+            836,
+            470,
+            853
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_011.jpg",
+      "nominal_time_s": 100,
+      "inference_seconds": 0.256,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.7885048985481262,
+          "box": [
+            474,
+            900,
+            563,
+            997
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.7673841118812561,
+          "box": [
+            356,
+            836,
+            453,
+            1043
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.4564496576786041,
+          "box": [
+            354,
+            837,
+            432,
+            856
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.40823790431022644,
+          "box": [
+            800,
+            720,
+            835,
+            776
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3995704650878906,
+          "box": [
+            569,
+            777,
+            614,
+            867
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.2785434126853943,
+          "box": [
+            486,
+            719,
+            496,
+            743
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.21767783164978027,
+          "box": [
+            358,
+            746,
+            376,
+            774
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.15481257438659668,
+          "box": [
+            421,
+            973,
+            443,
+            1025
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_012.jpg",
+      "nominal_time_s": 110,
+      "inference_seconds": 0.28,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.6599659323692322,
+          "box": [
+            358,
+            837,
+            454,
+            1049
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.4391973614692688,
+          "box": [
+            357,
+            746,
+            375,
+            774
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.35379499197006226,
+          "box": [
+            801,
+            721,
+            835,
+            776
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3261615037918091,
+          "box": [
+            354,
+            836,
+            434,
+            861
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.19937577843666077,
+          "box": [
+            433,
+            826,
+            483,
+            955
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.19293664395809174,
+          "box": [
+            486,
+            720,
+            496,
+            742
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_013.jpg",
+      "nominal_time_s": 120,
+      "inference_seconds": 0.271,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.45280444622039795,
+          "box": [
+            356,
+            837,
+            453,
+            1057
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.41392117738723755,
+          "box": [
+            801,
+            720,
+            833,
+            775
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.41001835465431213,
+          "box": [
+            418,
+            1064,
+            476,
+            1186
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.4041501581668854,
+          "box": [
+            433,
+            819,
+            482,
+            959
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3850978910923004,
+          "box": [
+            355,
+            837,
+            430,
+            855
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3795902729034424,
+          "box": [
+            357,
+            747,
+            375,
+            774
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.19740115106105804,
+          "box": [
+            486,
+            719,
+            496,
+            742
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.15816736221313477,
+          "box": [
+            777,
+            309,
+            799,
+            324
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.15420250594615936,
+          "box": [
+            433,
+            835,
+            481,
+            868
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_014.jpg",
+      "nominal_time_s": 130,
+      "inference_seconds": 0.282,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.5444266200065613,
+          "box": [
+            357,
+            836,
+            452,
+            1046
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.5013036727905273,
+          "box": [
+            801,
+            724,
+            833,
+            776
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.46979236602783203,
+          "box": [
+            357,
+            746,
+            375,
+            774
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.25433996319770813,
+          "box": [
+            354,
+            837,
+            432,
+            860
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2467796802520752,
+          "box": [
+            432,
+            797,
+            481,
+            965
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.1921336054801941,
+          "box": [
+            776,
+            311,
+            800,
+            324
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.17412658035755157,
+          "box": [
+            421,
+            971,
+            443,
+            1026
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.16639754176139832,
+          "box": [
+            438,
+            835,
+            470,
+            853
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_015.jpg",
+      "nominal_time_s": 140,
+      "inference_seconds": 0.293,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.5580803155899048,
+          "box": [
+            357,
+            746,
+            375,
+            774
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.5497893691062927,
+          "box": [
+            356,
+            836,
+            451,
+            1050
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.45218130946159363,
+          "box": [
+            801,
+            722,
+            833,
+            776
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3253960609436035,
+          "box": [
+            355,
+            837,
+            432,
+            855
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.23662254214286804,
+          "box": [
+            778,
+            311,
+            799,
+            324
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.22899837791919708,
+          "box": [
+            628,
+            897,
+            642,
+            906
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.19976584613323212,
+          "box": [
+            441,
+            836,
+            469,
+            854
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.19706390798091888,
+          "box": [
+            486,
+            720,
+            496,
+            743
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.1545828878879547,
+          "box": [
+            431,
+            812,
+            481,
+            966
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_016.jpg",
+      "nominal_time_s": 150,
+      "inference_seconds": 0.292,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.6870518326759338,
+          "box": [
+            359,
+            836,
+            453,
+            1055
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.5561473965644836,
+          "box": [
+            801,
+            722,
+            834,
+            776
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.41360464692115784,
+          "box": [
+            357,
+            746,
+            376,
+            774
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2944221496582031,
+          "box": [
+            354,
+            837,
+            432,
+            860
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.21367548406124115,
+          "box": [
+            585,
+            502,
+            660,
+            636
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.17015482485294342,
+          "box": [
+            778,
+            311,
+            799,
+            324
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.16969360411167145,
+          "box": [
+            486,
+            720,
+            496,
+            742
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.15698884427547455,
+          "box": [
+            432,
+            810,
+            482,
+            960
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_017.jpg",
+      "nominal_time_s": 160,
+      "inference_seconds": 0.285,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.5876932740211487,
+          "box": [
+            357,
+            836,
+            453,
+            1050
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3347812294960022,
+          "box": [
+            357,
+            746,
+            375,
+            774
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.30174481868743896,
+          "box": [
+            801,
+            721,
+            834,
+            776
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.18973030149936676,
+          "box": [
+            355,
+            837,
+            432,
+            856
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.18085037171840668,
+          "box": [
+            626,
+            896,
+            640,
+            906
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.16150523722171783,
+          "box": [
+            420,
+            979,
+            444,
+            1027
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_018.jpg",
+      "nominal_time_s": 170,
+      "inference_seconds": 0.329,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.49240294098854065,
+          "box": [
+            354,
+            837,
+            455,
+            1050
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.4906044602394104,
+          "box": [
+            355,
+            836,
+            433,
+            860
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.38371458649635315,
+          "box": [
+            357,
+            747,
+            376,
+            775
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.20006242394447327,
+          "box": [
+            433,
+            822,
+            482,
+            975
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_019.jpg",
+      "nominal_time_s": 180,
+      "inference_seconds": 0.283,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.6893945336341858,
+          "box": [
+            358,
+            836,
+            453,
+            1049
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.4063866138458252,
+          "box": [
+            357,
+            746,
+            375,
+            774
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3681204915046692,
+          "box": [
+            801,
+            723,
+            834,
+            775
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.3271380066871643,
+          "box": [
+            487,
+            719,
+            496,
+            743
+          ]
+        },
+        {
+          "label": "Glass",
+          "confidence": 0.32378774881362915,
+          "box": [
+            833,
+            126,
+            862,
+            227
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.28697726130485535,
+          "box": [
+            355,
+            837,
+            431,
+            856
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.15493112802505493,
+          "box": [
+            432,
+            802,
+            483,
+            966
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.15074843168258667,
+          "box": [
+            445,
+            836,
+            469,
+            852
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_020.jpg",
+      "nominal_time_s": 190,
+      "inference_seconds": 0.274,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.7796761989593506,
+          "box": [
+            358,
+            836,
+            453,
+            1051
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.410500705242157,
+          "box": [
+            357,
+            747,
+            376,
+            774
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3085781931877136,
+          "box": [
+            801,
+            719,
+            835,
+            775
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.24917085468769073,
+          "box": [
+            354,
+            837,
+            433,
+            858
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.15782485902309418,
+          "box": [
+            432,
+            835,
+            476,
+            863
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_021.jpg",
+      "nominal_time_s": 200,
+      "inference_seconds": 0.277,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.6964656114578247,
+          "box": [
+            357,
+            836,
+            454,
+            1058
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3466811776161194,
+          "box": [
+            801,
+            722,
+            832,
+            776
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3399546146392822,
+          "box": [
+            354,
+            836,
+            432,
+            859
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2300652265548706,
+          "box": [
+            357,
+            747,
+            376,
+            775
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.1950729936361313,
+          "box": [
+            486,
+            719,
+            496,
+            743
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.16905933618545532,
+          "box": [
+            587,
+            502,
+            657,
+            638
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_022.jpg",
+      "nominal_time_s": 210,
+      "inference_seconds": 0.263,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.6408997774124146,
+          "box": [
+            358,
+            836,
+            453,
+            1057
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.389791876077652,
+          "box": [
+            356,
+            746,
+            376,
+            774
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3456971049308777,
+          "box": [
+            800,
+            721,
+            832,
+            775
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2560375928878784,
+          "box": [
+            355,
+            837,
+            431,
+            858
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.18113653361797333,
+          "box": [
+            442,
+            444,
+            505,
+            497
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.15721464157104492,
+          "box": [
+            433,
+            811,
+            482,
+            962
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_023.jpg",
+      "nominal_time_s": 220,
+      "inference_seconds": 0.268,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.69545978307724,
+          "box": [
+            357,
+            836,
+            453,
+            1045
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.4553690254688263,
+          "box": [
+            801,
+            719,
+            832,
+            775
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.39469802379608154,
+          "box": [
+            357,
+            746,
+            376,
+            775
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2584717273712158,
+          "box": [
+            354,
+            837,
+            432,
+            858
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2308250218629837,
+          "box": [
+            433,
+            825,
+            481,
+            957
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.1956651210784912,
+          "box": [
+            432,
+            835,
+            479,
+            868
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_024.jpg",
+      "nominal_time_s": 230,
+      "inference_seconds": 0.276,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.5661806464195251,
+          "box": [
+            356,
+            836,
+            454,
+            1050
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3151112496852875,
+          "box": [
+            800,
+            717,
+            835,
+            776
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3024001717567444,
+          "box": [
+            357,
+            746,
+            376,
+            774
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.21239924430847168,
+          "box": [
+            433,
+            818,
+            482,
+            968
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.1835697889328003,
+          "box": [
+            486,
+            720,
+            496,
+            743
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.17735692858695984,
+          "box": [
+            355,
+            837,
+            432,
+            857
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.15374153852462769,
+          "box": [
+            778,
+            312,
+            800,
+            324
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_025.jpg",
+      "nominal_time_s": 240,
+      "inference_seconds": 0.271,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.7911600470542908,
+          "box": [
+            356,
+            836,
+            453,
+            1064
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.45913875102996826,
+          "box": [
+            801,
+            719,
+            835,
+            775
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.43705034255981445,
+          "box": [
+            358,
+            746,
+            376,
+            774
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3835673928260803,
+          "box": [
+            355,
+            836,
+            433,
+            860
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_026.jpg",
+      "nominal_time_s": 250,
+      "inference_seconds": 0.266,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.7305986285209656,
+          "box": [
+            357,
+            836,
+            453,
+            1056
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.40901273488998413,
+          "box": [
+            801,
+            724,
+            833,
+            775
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.40798917412757874,
+          "box": [
+            357,
+            747,
+            376,
+            774
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.36349040269851685,
+          "box": [
+            354,
+            836,
+            433,
+            859
+          ]
+        },
+        {
+          "label": "Glass",
+          "confidence": 0.17775876820087433,
+          "box": [
+            872,
+            168,
+            903,
+            272
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.1685347855091095,
+          "box": [
+            432,
+            822,
+            482,
+            961
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_027.jpg",
+      "nominal_time_s": 260,
+      "inference_seconds": 0.284,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.714104950428009,
+          "box": [
+            355,
+            836,
+            453,
+            1063
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.505463182926178,
+          "box": [
+            357,
+            747,
+            376,
+            774
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.44689667224884033,
+          "box": [
+            800,
+            720,
+            831,
+            775
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3164837062358856,
+          "box": [
+            355,
+            837,
+            433,
+            859
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_028.jpg",
+      "nominal_time_s": 270,
+      "inference_seconds": 0.294,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.6591269969940186,
+          "box": [
+            355,
+            836,
+            451,
+            1048
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.4766637980937958,
+          "box": [
+            800,
+            720,
+            834,
+            775
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.4312179982662201,
+          "box": [
+            357,
+            746,
+            376,
+            774
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3178771138191223,
+          "box": [
+            354,
+            837,
+            433,
+            860
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.22800734639167786,
+          "box": [
+            487,
+            720,
+            496,
+            742
+          ]
+        }
+      ]
+    },
+    {
+      "image": "day_029.jpg",
+      "nominal_time_s": 280,
+      "inference_seconds": 0.29,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.6899316310882568,
+          "box": [
+            358,
+            836,
+            453,
+            1050
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.388534814119339,
+          "box": [
+            357,
+            746,
+            376,
+            774
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2990282475948334,
+          "box": [
+            355,
+            837,
+            432,
+            856
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.16553667187690735,
+          "box": [
+            433,
+            816,
+            482,
+            966
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_002.jpg",
+      "nominal_time_s": 10,
+      "inference_seconds": 0.288,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.7213130593299866,
+          "box": [
+            1004,
+            1181,
+            1104,
+            1275
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.26084768772125244,
+          "box": [
+            948,
+            1220,
+            979,
+            1234
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.21913093328475952,
+          "box": [
+            350,
+            776,
+            479,
+            1049
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_003.jpg",
+      "nominal_time_s": 20,
+      "inference_seconds": 0.275,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.7676408886909485,
+          "box": [
+            352,
+            833,
+            455,
+            1043
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.6571362614631653,
+          "box": [
+            1005,
+            1178,
+            1103,
+            1275
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.4190070629119873,
+          "box": [
+            949,
+            1218,
+            976,
+            1239
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.40264981985092163,
+          "box": [
+            1088,
+            1290,
+            1106,
+            1315
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.27337753772735596,
+          "box": [
+            1013,
+            1062,
+            1045,
+            1076
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.1551763415336609,
+          "box": [
+            989,
+            1292,
+            1031,
+            1315
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_004.jpg",
+      "nominal_time_s": 30,
+      "inference_seconds": 0.317,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.8643646836280823,
+          "box": [
+            1005,
+            1177,
+            1101,
+            1274
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.46030279994010925,
+          "box": [
+            989,
+            1289,
+            1035,
+            1317
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.406573086977005,
+          "box": [
+            950,
+            1218,
+            977,
+            1247
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.35797470808029175,
+          "box": [
+            1012,
+            1059,
+            1045,
+            1076
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.3373962938785553,
+          "box": [
+            861,
+            804,
+            885,
+            817
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.30798161029815674,
+          "box": [
+            1037,
+            1356,
+            1052,
+            1368
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.26762908697128296,
+          "box": [
+            1106,
+            1331,
+            1124,
+            1344
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.1943909227848053,
+          "box": [
+            352,
+            837,
+            453,
+            1051
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.17700819671154022,
+          "box": [
+            952,
+            1371,
+            961,
+            1391
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.16723261773586273,
+          "box": [
+            915,
+            1256,
+            952,
+            1275
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_005.jpg",
+      "nominal_time_s": 40,
+      "inference_seconds": 0.285,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.8597939610481262,
+          "box": [
+            1005,
+            1179,
+            1101,
+            1272
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.5759015679359436,
+          "box": [
+            351,
+            834,
+            456,
+            1045
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.5416883230209351,
+          "box": [
+            989,
+            1290,
+            1033,
+            1317
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.43065357208251953,
+          "box": [
+            950,
+            1218,
+            976,
+            1247
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.3643200695514679,
+          "box": [
+            1110,
+            1331,
+            1125,
+            1342
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.31983354687690735,
+          "box": [
+            1037,
+            1356,
+            1052,
+            1368
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.29689741134643555,
+          "box": [
+            1012,
+            1059,
+            1045,
+            1076
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2272714227437973,
+          "box": [
+            5,
+            841,
+            102,
+            1039
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.1532876193523407,
+          "box": [
+            838,
+            818,
+            854,
+            833
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_006.jpg",
+      "nominal_time_s": 50,
+      "inference_seconds": 0.275,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.871537983417511,
+          "box": [
+            1005,
+            1176,
+            1102,
+            1275
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.6778895258903503,
+          "box": [
+            351,
+            837,
+            458,
+            1045
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.3877245783805847,
+          "box": [
+            950,
+            1219,
+            977,
+            1246
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.38753485679626465,
+          "box": [
+            989,
+            1290,
+            1033,
+            1317
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.31052255630493164,
+          "box": [
+            1012,
+            1058,
+            1047,
+            1076
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.24034304916858673,
+          "box": [
+            1038,
+            1356,
+            1052,
+            1368
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.19943742454051971,
+          "box": [
+            1109,
+            1332,
+            1124,
+            1343
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.1950162649154663,
+          "box": [
+            861,
+            804,
+            885,
+            817
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.15810741484165192,
+          "box": [
+            915,
+            1258,
+            952,
+            1276
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_007.jpg",
+      "nominal_time_s": 60,
+      "inference_seconds": 0.324,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.5588639974594116,
+          "box": [
+            1001,
+            1179,
+            1104,
+            1259
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.26357677578926086,
+          "box": [
+            949,
+            1218,
+            981,
+            1235
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.19938446581363678,
+          "box": [
+            405,
+            787,
+            483,
+            990
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.19227805733680725,
+          "box": [
+            888,
+            640,
+            940,
+            704
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.18322306871414185,
+          "box": [
+            1052,
+            1291,
+            1108,
+            1326
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.1577453911304474,
+          "box": [
+            988,
+            1290,
+            1035,
+            1316
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_008.jpg",
+      "nominal_time_s": 70,
+      "inference_seconds": 0.277,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.8618534207344055,
+          "box": [
+            1005,
+            1179,
+            1101,
+            1274
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.7737441658973694,
+          "box": [
+            354,
+            840,
+            459,
+            1048
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.5182586908340454,
+          "box": [
+            1038,
+            1356,
+            1052,
+            1368
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.4620159864425659,
+          "box": [
+            1109,
+            1332,
+            1124,
+            1343
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.4590970277786255,
+          "box": [
+            989,
+            1290,
+            1035,
+            1315
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.3715076148509979,
+          "box": [
+            949,
+            1218,
+            976,
+            1247
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.3587450087070465,
+          "box": [
+            1011,
+            1057,
+            1047,
+            1076
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.19139981269836426,
+          "box": [
+            861,
+            804,
+            886,
+            816
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.1859385371208191,
+          "box": [
+            4,
+            839,
+            101,
+            1039
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.175561785697937,
+          "box": [
+            915,
+            1257,
+            952,
+            1276
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.1700213998556137,
+          "box": [
+            1038,
+            1310,
+            1081,
+            1328
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_009.jpg",
+      "nominal_time_s": 80,
+      "inference_seconds": 0.294,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.777485191822052,
+          "box": [
+            1006,
+            1178,
+            1102,
+            1271
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.48776715993881226,
+          "box": [
+            352,
+            825,
+            458,
+            1046
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3618471324443817,
+          "box": [
+            1011,
+            1058,
+            1045,
+            1077
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.24641241133213043,
+          "box": [
+            952,
+            1220,
+            977,
+            1246
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_010.jpg",
+      "nominal_time_s": 90,
+      "inference_seconds": 0.275,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.8634419441223145,
+          "box": [
+            1005,
+            1179,
+            1101,
+            1273
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.7487275004386902,
+          "box": [
+            354,
+            839,
+            457,
+            1045
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.39143335819244385,
+          "box": [
+            949,
+            1218,
+            977,
+            1247
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.3476788401603699,
+          "box": [
+            1012,
+            1059,
+            1043,
+            1077
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.32610154151916504,
+          "box": [
+            989,
+            1290,
+            1034,
+            1317
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.22555716335773468,
+          "box": [
+            1037,
+            1356,
+            1053,
+            1368
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.2247348129749298,
+          "box": [
+            341,
+            1170,
+            389,
+            1212
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.20753450691699982,
+          "box": [
+            343,
+            1134,
+            358,
+            1152
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.16370362043380737,
+          "box": [
+            935,
+            615,
+            946,
+            630
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.15421812236309052,
+          "box": [
+            862,
+            804,
+            886,
+            817
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_011.jpg",
+      "nominal_time_s": 100,
+      "inference_seconds": 0.269,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.8659691214561462,
+          "box": [
+            1005,
+            1179,
+            1101,
+            1273
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.7394236922264099,
+          "box": [
+            355,
+            837,
+            457,
+            1043
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3676868975162506,
+          "box": [
+            952,
+            1219,
+            977,
+            1244
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.3371104598045349,
+          "box": [
+            989,
+            1290,
+            1033,
+            1317
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2973443567752838,
+          "box": [
+            1012,
+            1060,
+            1044,
+            1076
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.21673962473869324,
+          "box": [
+            864,
+            806,
+            886,
+            817
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_012.jpg",
+      "nominal_time_s": 110,
+      "inference_seconds": 0.279,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.8269190788269043,
+          "box": [
+            1005,
+            1178,
+            1101,
+            1278
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.6249009370803833,
+          "box": [
+            352,
+            837,
+            457,
+            1043
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.3985307216644287,
+          "box": [
+            988,
+            1290,
+            1033,
+            1316
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.35170847177505493,
+          "box": [
+            1012,
+            1058,
+            1047,
+            1077
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3244786858558655,
+          "box": [
+            950,
+            1218,
+            976,
+            1247
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.2634570300579071,
+          "box": [
+            1038,
+            1357,
+            1052,
+            1368
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.20244427025318146,
+          "box": [
+            5,
+            839,
+            102,
+            1040
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.15538957715034485,
+          "box": [
+            861,
+            804,
+            885,
+            816
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_013.jpg",
+      "nominal_time_s": 120,
+      "inference_seconds": 0.351,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.8304826617240906,
+          "box": [
+            353,
+            836,
+            457,
+            1044
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.7845965623855591,
+          "box": [
+            1002,
+            1181,
+            1102,
+            1280
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.4851110279560089,
+          "box": [
+            5,
+            846,
+            103,
+            1039
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.4428386688232422,
+          "box": [
+            990,
+            1290,
+            1033,
+            1316
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.4352841377258301,
+          "box": [
+            875,
+            642,
+            937,
+            702
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.22594033181667328,
+          "box": [
+            949,
+            1218,
+            978,
+            1234
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.20209048688411713,
+          "box": [
+            484,
+            718,
+            503,
+            745
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.18288058042526245,
+          "box": [
+            330,
+            443,
+            384,
+            538
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.17846541106700897,
+          "box": [
+            566,
+            626,
+            586,
+            650
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.1730770766735077,
+          "box": [
+            976,
+            630,
+            996,
+            639
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.16968588531017303,
+          "box": [
+            490,
+            654,
+            515,
+            673
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.15734952688217163,
+          "box": [
+            478,
+            670,
+            489,
+            703
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_014.jpg",
+      "nominal_time_s": 130,
+      "inference_seconds": 0.686,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.8591083288192749,
+          "box": [
+            1005,
+            1179,
+            1101,
+            1276
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.7065468430519104,
+          "box": [
+            351,
+            840,
+            459,
+            1045
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.522966206073761,
+          "box": [
+            989,
+            1290,
+            1034,
+            1317
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.4056674838066101,
+          "box": [
+            950,
+            1218,
+            976,
+            1246
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.3282933831214905,
+          "box": [
+            1012,
+            1060,
+            1045,
+            1076
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.3103411793708801,
+          "box": [
+            861,
+            803,
+            886,
+            816
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.2629660964012146,
+          "box": [
+            1038,
+            1357,
+            1052,
+            1368
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.23979520797729492,
+          "box": [
+            915,
+            1258,
+            952,
+            1276
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.23785965144634247,
+          "box": [
+            5,
+            844,
+            101,
+            1040
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.21306276321411133,
+          "box": [
+            1111,
+            1332,
+            1126,
+            1342
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.1584915965795517,
+          "box": [
+            879,
+            612,
+            929,
+            639
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_015.jpg",
+      "nominal_time_s": 140,
+      "inference_seconds": 0.494,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.7896856069564819,
+          "box": [
+            1005,
+            1179,
+            1102,
+            1269
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.7457698583602905,
+          "box": [
+            352,
+            830,
+            457,
+            1045
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.19531789422035217,
+          "box": [
+            948,
+            1218,
+            976,
+            1245
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_016.jpg",
+      "nominal_time_s": 150,
+      "inference_seconds": 0.343,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.9026026129722595,
+          "box": [
+            1009,
+            1237,
+            1233,
+            1440
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.7710040211677551,
+          "box": [
+            352,
+            836,
+            456,
+            1043
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.4400944709777832,
+          "box": [
+            1040,
+            1193,
+            1101,
+            1264
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.32211676239967346,
+          "box": [
+            6,
+            843,
+            102,
+            1038
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.2527531385421753,
+          "box": [
+            862,
+            804,
+            885,
+            815
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.19708724319934845,
+          "box": [
+            1011,
+            1061,
+            1044,
+            1076
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_017.jpg",
+      "nominal_time_s": 160,
+      "inference_seconds": 0.275,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.8961015343666077,
+          "box": [
+            1009,
+            1237,
+            1234,
+            1440
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.6839842200279236,
+          "box": [
+            350,
+            839,
+            457,
+            1045
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.5232920050621033,
+          "box": [
+            1004,
+            1161,
+            1104,
+            1273
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.36700305342674255,
+          "box": [
+            3,
+            843,
+            101,
+            1040
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.350315660238266,
+          "box": [
+            1013,
+            1060,
+            1046,
+            1076
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_018.jpg",
+      "nominal_time_s": 170,
+      "inference_seconds": 0.458,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.8969477415084839,
+          "box": [
+            1010,
+            1238,
+            1233,
+            1440
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.47776371240615845,
+          "box": [
+            352,
+            837,
+            456,
+            1042
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.20609372854232788,
+          "box": [
+            1011,
+            1056,
+            1032,
+            1076
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_019.jpg",
+      "nominal_time_s": 180,
+      "inference_seconds": 0.381,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.7776057720184326,
+          "box": [
+            1002,
+            1179,
+            1100,
+            1273
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.38576728105545044,
+          "box": [
+            988,
+            1289,
+            1033,
+            1319
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3789044916629791,
+          "box": [
+            1012,
+            1061,
+            1046,
+            1076
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.3606220781803131,
+          "box": [
+            951,
+            1219,
+            977,
+            1249
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2823428511619568,
+          "box": [
+            359,
+            844,
+            456,
+            1044
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.2465042918920517,
+          "box": [
+            1032,
+            1287,
+            1107,
+            1324
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.20835891366004944,
+          "box": [
+            935,
+            615,
+            945,
+            630
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_020.jpg",
+      "nominal_time_s": 190,
+      "inference_seconds": 0.326,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.8532196283340454,
+          "box": [
+            1004,
+            1179,
+            1101,
+            1276
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.8450374603271484,
+          "box": [
+            353,
+            840,
+            457,
+            1045
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.5225399136543274,
+          "box": [
+            1108,
+            1329,
+            1125,
+            1340
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.45706912875175476,
+          "box": [
+            859,
+            805,
+            885,
+            816
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.4339978098869324,
+          "box": [
+            988,
+            1290,
+            1033,
+            1318
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.40711262822151184,
+          "box": [
+            950,
+            1218,
+            977,
+            1247
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.3818023204803467,
+          "box": [
+            1038,
+            1356,
+            1052,
+            1368
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.323806494474411,
+          "box": [
+            1012,
+            1059,
+            1044,
+            1076
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.17469684779644012,
+          "box": [
+            1047,
+            1311,
+            1080,
+            1325
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_021.jpg",
+      "nominal_time_s": 200,
+      "inference_seconds": 0.307,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.8415842652320862,
+          "box": [
+            1006,
+            1178,
+            1101,
+            1271
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.7419090270996094,
+          "box": [
+            359,
+            840,
+            457,
+            1052
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.480155348777771,
+          "box": [
+            989,
+            1290,
+            1033,
+            1319
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.47059404850006104,
+          "box": [
+            1109,
+            1329,
+            1128,
+            1341
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.4545118510723114,
+          "box": [
+            1038,
+            1357,
+            1052,
+            1368
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.36292389035224915,
+          "box": [
+            950,
+            1220,
+            976,
+            1244
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.3243769407272339,
+          "box": [
+            1011,
+            1059,
+            1047,
+            1077
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.22898241877555847,
+          "box": [
+            1048,
+            1288,
+            1109,
+            1325
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.21974635124206543,
+          "box": [
+            952,
+            1367,
+            962,
+            1390
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.19338130950927734,
+          "box": [
+            863,
+            804,
+            886,
+            818
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_022.jpg",
+      "nominal_time_s": 210,
+      "inference_seconds": 0.262,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.7172155380249023,
+          "box": [
+            1053,
+            1061,
+            1167,
+            1134
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.23650214076042175,
+          "box": [
+            995,
+            1178,
+            1103,
+            1298
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.19471368193626404,
+          "box": [
+            352,
+            825,
+            459,
+            1049
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.1761978268623352,
+          "box": [
+            1010,
+            1057,
+            1045,
+            1078
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_023.jpg",
+      "nominal_time_s": 220,
+      "inference_seconds": 0.27,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.5971171855926514,
+          "box": [
+            1005,
+            1181,
+            1102,
+            1254
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.3017214238643646,
+          "box": [
+            989,
+            1290,
+            1034,
+            1319
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.24727725982666016,
+          "box": [
+            1012,
+            1060,
+            1046,
+            1075
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.16943836212158203,
+          "box": [
+            984,
+            632,
+            994,
+            641
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.16915804147720337,
+          "box": [
+            950,
+            1219,
+            978,
+            1236
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_024.jpg",
+      "nominal_time_s": 230,
+      "inference_seconds": 0.265,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.6210009455680847,
+          "box": [
+            998,
+            1179,
+            1101,
+            1261
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.1875523179769516,
+          "box": [
+            948,
+            1218,
+            975,
+            1248
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_025.jpg",
+      "nominal_time_s": 240,
+      "inference_seconds": 0.263,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.1924164742231369,
+          "box": [
+            357,
+            828,
+            470,
+            1042
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.16072969138622284,
+          "box": [
+            1065,
+            1288,
+            1108,
+            1318
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_026.jpg",
+      "nominal_time_s": 250,
+      "inference_seconds": 0.257,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.6673374772071838,
+          "box": [
+            353,
+            836,
+            457,
+            1043
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.5376794934272766,
+          "box": [
+            1005,
+            1179,
+            1102,
+            1262
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.40832439064979553,
+          "box": [
+            950,
+            1218,
+            978,
+            1243
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.35855215787887573,
+          "box": [
+            854,
+            1103,
+            892,
+            1209
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.2750770151615143,
+          "box": [
+            1014,
+            1062,
+            1046,
+            1076
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_027.jpg",
+      "nominal_time_s": 260,
+      "inference_seconds": 0.267,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.35874125361442566,
+          "box": [
+            347,
+            831,
+            452,
+            1049
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.35363975167274475,
+          "box": [
+            1003,
+            1181,
+            1102,
+            1267
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.1699247509241104,
+          "box": [
+            950,
+            1218,
+            982,
+            1235
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_028.jpg",
+      "nominal_time_s": 270,
+      "inference_seconds": 0.251,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.7560592889785767,
+          "box": [
+            1005,
+            1177,
+            1103,
+            1256
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.216104656457901,
+          "box": [
+            1009,
+            1043,
+            1042,
+            1076
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.21476233005523682,
+          "box": [
+            1089,
+            1287,
+            1107,
+            1312
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2078229784965515,
+          "box": [
+            952,
+            1217,
+            977,
+            1243
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_029.jpg",
+      "nominal_time_s": 280,
+      "inference_seconds": 0.28,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.8639037013053894,
+          "box": [
+            353,
+            838,
+            456,
+            1044
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.8304159045219421,
+          "box": [
+            1003,
+            1176,
+            1101,
+            1274
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.48719069361686707,
+          "box": [
+            895,
+            634,
+            937,
+            696
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.3933332860469818,
+          "box": [
+            1107,
+            1329,
+            1129,
+            1342
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3596416711807251,
+          "box": [
+            1012,
+            1059,
+            1046,
+            1076
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.3430812656879425,
+          "box": [
+            989,
+            1291,
+            1033,
+            1316
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.3374858796596527,
+          "box": [
+            950,
+            1219,
+            975,
+            1248
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.21637973189353943,
+          "box": [
+            1038,
+            1357,
+            1052,
+            1368
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.17475485801696777,
+          "box": [
+            864,
+            805,
+            885,
+            817
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.1698777675628662,
+          "box": [
+            929,
+            614,
+            972,
+            638
+          ]
+        },
+        {
+          "label": "Metal",
+          "confidence": 0.15987896919250488,
+          "box": [
+            1064,
+            1285,
+            1106,
+            1318
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_030.jpg",
+      "nominal_time_s": 290,
+      "inference_seconds": 0.277,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.8470640778541565,
+          "box": [
+            1005,
+            1178,
+            1101,
+            1273
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.8124167919158936,
+          "box": [
+            353,
+            839,
+            457,
+            1044
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.45265570282936096,
+          "box": [
+            989,
+            1291,
+            1032,
+            1317
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.3748578727245331,
+          "box": [
+            1107,
+            1329,
+            1126,
+            1342
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.37188854813575745,
+          "box": [
+            950,
+            1218,
+            977,
+            1246
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.3360265791416168,
+          "box": [
+            1012,
+            1059,
+            1045,
+            1076
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.33246755599975586,
+          "box": [
+            861,
+            804,
+            885,
+            817
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.3204056918621063,
+          "box": [
+            1037,
+            1356,
+            1052,
+            1368
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.1939263790845871,
+          "box": [
+            915,
+            1256,
+            952,
+            1276
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.1687726080417633,
+          "box": [
+            6,
+            841,
+            101,
+            1040
+          ]
+        }
+      ]
+    },
+    {
+      "image": "night_031.jpg",
+      "nominal_time_s": 300,
+      "inference_seconds": 0.288,
+      "detections": [
+        {
+          "label": "Plastic",
+          "confidence": 0.7208566665649414,
+          "box": [
+            361,
+            839,
+            453,
+            1052
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.7038546204566956,
+          "box": [
+            1004,
+            1179,
+            1102,
+            1266
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.6046010255813599,
+          "box": [
+            1108,
+            1330,
+            1130,
+            1342
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.5923746824264526,
+          "box": [
+            989,
+            1288,
+            1033,
+            1316
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.5440738797187805,
+          "box": [
+            1038,
+            1358,
+            1053,
+            1368
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.351999431848526,
+          "box": [
+            1012,
+            1055,
+            1047,
+            1078
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.3220299482345581,
+          "box": [
+            949,
+            1220,
+            975,
+            1245
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.2723049223423004,
+          "box": [
+            1117,
+            1368,
+            1132,
+            1378
+          ]
+        },
+        {
+          "label": "Plastic",
+          "confidence": 0.2262696772813797,
+          "box": [
+            1006,
+            1289,
+            1108,
+            1327
+          ]
+        },
+        {
+          "label": "Other",
+          "confidence": 0.1583622843027115,
+          "box": [
+            1017,
+            1286,
+            1033,
+            1309
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "day": {
+      "sampled_frames": 28,
+      "frames_with_detections": 28,
+      "counts_by_label": {
+        "Plastic": 153,
+        "Metal": 6,
+        "Other": 9,
+        "Glass": 2
+      },
+      "detection_count": 170
+    },
+    "night": {
+      "sampled_frames": 30,
+      "frames_with_detections": 30,
+      "counts_by_label": {
+        "Plastic": 105,
+        "Metal": 5,
+        "Other": 94
+      },
+      "detection_count": 204
+    }
+  }
+}

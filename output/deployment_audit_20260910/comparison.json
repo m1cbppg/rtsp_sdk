@@ -1,0 +1,494 @@
+{
+  "rtsp": {
+    "rtsp_annotator": [
+      {
+        "file": "rtsp_annotator/__init__.py",
+        "state": "same",
+        "local_sha256": "5d96c10942af58a990ac6376ad2d3872f1eb562c8f9f424c01315859701049c5",
+        "online_sha256": "5d96c10942af58a990ac6376ad2d3872f1eb562c8f9f424c01315859701049c5"
+      },
+      {
+        "file": "rtsp_annotator/__main__.py",
+        "state": "same",
+        "local_sha256": "3d2438ae92f4746e9ffaa1f837b1fe803f6281091d1f31f8c95643716f257d9a",
+        "online_sha256": "3d2438ae92f4746e9ffaa1f837b1fe803f6281091d1f31f8c95643716f257d9a"
+      },
+      {
+        "file": "rtsp_annotator/api.py",
+        "state": "different",
+        "local_sha256": "582e2d93fa8d71fca5ba7c18d4e87a0639fe7b61384bda5d10c967ab04799c4f",
+        "online_sha256": "173332daaddfa0e497f1a3db28319691928549a3da06c37eb1669402a15a724d",
+        "added": 17,
+        "removed": 0
+      },
+      {
+        "file": "rtsp_annotator/api_settings.py",
+        "state": "same",
+        "local_sha256": "9e0c25b93afb309276c39822ada93b90fd16b492281cf24efd4024345914e66a",
+        "online_sha256": "9e0c25b93afb309276c39822ada93b90fd16b492281cf24efd4024345914e66a"
+      },
+      {
+        "file": "rtsp_annotator/background_change.py",
+        "state": "same",
+        "local_sha256": "5debc466093b48b7717dc234ad466aa18bd06ca0a4be25a550b36cfec6a80a00",
+        "online_sha256": "5debc466093b48b7717dc234ad466aa18bd06ca0a4be25a550b36cfec6a80a00"
+      },
+      {
+        "file": "rtsp_annotator/cli.py",
+        "state": "same",
+        "local_sha256": "fe5c9c43c17a584c42d4db1275d2969832fe4e428f76eee0850968e7eded5817",
+        "online_sha256": "fe5c9c43c17a584c42d4db1275d2969832fe4e428f76eee0850968e7eded5817"
+      },
+      {
+        "file": "rtsp_annotator/config.py",
+        "state": "same",
+        "local_sha256": "1bc7eec51ab8cd6b43058bca2bc2b4bfa7e375393b887738e06f078ad3c64486",
+        "online_sha256": "1bc7eec51ab8cd6b43058bca2bc2b4bfa7e375393b887738e06f078ad3c64486"
+      },
+      {
+        "file": "rtsp_annotator/continuous_tracking.py",
+        "state": "missing_online",
+        "local_sha256": "f99baa73e73b6a5909e4c38fc4f49b6ccfc847317471da7bcb3b4651b2382fd7",
+        "online_sha256": null,
+        "added": 395,
+        "removed": 0
+      },
+      {
+        "file": "rtsp_annotator/deepstream_engine_builder.py",
+        "state": "same",
+        "local_sha256": "b6b9dcbd443f8f8f1931aba6c37be3ee7efff4bbe634e58b3992c97035ff95fe",
+        "online_sha256": "b6b9dcbd443f8f8f1931aba6c37be3ee7efff4bbe634e58b3992c97035ff95fe"
+      },
+      {
+        "file": "rtsp_annotator/deepstream_manager.py",
+        "state": "different",
+        "local_sha256": "9e4070a1f07b31d4c81cb8794d2d428d73972197a96daa83b4e4d44d58f5618c",
+        "online_sha256": "3af0123edf723fade90a0ace7b663fa06c1976534e1860d9ca6955ec28983d16",
+        "added": 23,
+        "removed": 0
+      },
+      {
+        "file": "rtsp_annotator/deepstream_worker.py",
+        "state": "different",
+        "local_sha256": "c1fccc95968ec2ebe3cbe88cf2c22a7999838ad2a116f6ea9a833c79b1e39c29",
+        "online_sha256": "5cfb71fa65cf1ad9c8df57df2c4693173e9cd08a726e38e3faa3d53690084564",
+        "added": 18,
+        "removed": 1
+      },
+      {
+        "file": "rtsp_annotator/event_delivery.py",
+        "state": "same",
+        "local_sha256": "b3ac7b87ef5a46ccc83ad559efc42e64ccc6764fb36eb30ea413e745c0845f55",
+        "online_sha256": "b3ac7b87ef5a46ccc83ad559efc42e64ccc6764fb36eb30ea413e745c0845f55"
+      },
+      {
+        "file": "rtsp_annotator/event_engine.py",
+        "state": "same",
+        "local_sha256": "4d09ca3484306ee0b2321d1d26313981d07219768940827c69e91126b61214f5",
+        "online_sha256": "4d09ca3484306ee0b2321d1d26313981d07219768940827c69e91126b61214f5"
+      },
+      {
+        "file": "rtsp_annotator/event_evidence.py",
+        "state": "same",
+        "local_sha256": "08a159febc229e51c1413e81f0e2458366114a054ff873ec29bb107ae7fba4bf",
+        "online_sha256": "08a159febc229e51c1413e81f0e2458366114a054ff873ec29bb107ae7fba4bf"
+      },
+      {
+        "file": "rtsp_annotator/events.py",
+        "state": "same",
+        "local_sha256": "dd6731cdb1be8145bf1ebcd5f06d21ba02022d78aa9c50329a7e9686e694235f",
+        "online_sha256": "dd6731cdb1be8145bf1ebcd5f06d21ba02022d78aa9c50329a7e9686e694235f"
+      },
+      {
+        "file": "rtsp_annotator/fishing_risk.py",
+        "state": "same",
+        "local_sha256": "7e5c26554c2da6c754f1f9fc5ebb666d7316a5c72a77f8390064f9c8b617229c",
+        "online_sha256": "7e5c26554c2da6c754f1f9fc5ebb666d7316a5c72a77f8390064f9c8b617229c"
+      },
+      {
+        "file": "rtsp_annotator/gas_cylinder.py",
+        "state": "same",
+        "local_sha256": "71ee9b8e5ff44a7cd8ad378ec5c322b7dff4e5831d73200a6b5c393436e9eeb0",
+        "online_sha256": "71ee9b8e5ff44a7cd8ad378ec5c322b7dff4e5831d73200a6b5c393436e9eeb0"
+      },
+      {
+        "file": "rtsp_annotator/gas_cylinder_process.py",
+        "state": "same",
+        "local_sha256": "a0c723da7140a0c58b218fabfe211c9078f430939cbc5fa64456ef72a89a6d28",
+        "online_sha256": "a0c723da7140a0c58b218fabfe211c9078f430939cbc5fa64456ef72a89a6d28"
+      },
+      {
+        "file": "rtsp_annotator/labels.py",
+        "state": "same",
+        "local_sha256": "80836b6f1045eda9a6142ff208a827abcacc0c3b5436ed8952c66df84c00383e",
+        "online_sha256": "80836b6f1045eda9a6142ff208a827abcacc0c3b5436ed8952c66df84c00383e"
+      },
+      {
+        "file": "rtsp_annotator/license_plate.py",
+        "state": "same",
+        "local_sha256": "b6e56eaa48d790e6c065231c8b89e4a8c7445beea806560a7b7e254213368c6d",
+        "online_sha256": "b6e56eaa48d790e6c065231c8b89e4a8c7445beea806560a7b7e254213368c6d"
+      },
+      {
+        "file": "rtsp_annotator/pipeline.py",
+        "state": "different",
+        "local_sha256": "66faecf2d1eb70eb39e9b878e089f358a6446638b167df1afba9a100621c4762",
+        "online_sha256": "5fa1920729d3f33d818a491917d8154f3020a1515e37098effac66f9c19b9132",
+        "added": 32,
+        "removed": 1
+      },
+      {
+        "file": "rtsp_annotator/ptz_test_service.py",
+        "state": "missing_online",
+        "local_sha256": "72101e4dbb3a94d451a4334c202eb4e803cf40024b75f12bb1778350640ea165",
+        "online_sha256": null,
+        "added": 1082,
+        "removed": 0
+      },
+      {
+        "file": "rtsp_annotator/ptz_verification.py",
+        "state": "different",
+        "local_sha256": "2e0bdc59f0d27edfaed03ba7363c9dd54451cd66b08a95bde443e9849013c8f7",
+        "online_sha256": "9b81b9efa3dd43a055126d9e480fb07037a5109bb72372cf3c738584a6706cb3",
+        "added": 534,
+        "removed": 8
+      },
+      {
+        "file": "rtsp_annotator/roi_selector.py",
+        "state": "same",
+        "local_sha256": "a009f995adbdbdfb87db6eb514e3fff9d1f42a3e2c7ef105c4ff46937f1f3354",
+        "online_sha256": "a009f995adbdbdfb87db6eb514e3fff9d1f42a3e2c7ef105c4ff46937f1f3354"
+      },
+      {
+        "file": "rtsp_annotator/runtime_check.py",
+        "state": "same",
+        "local_sha256": "d5b21e1c2fdcb9ce46ca7baa543f53f1a41c1c6d4682eedc935a8757b1f6480e",
+        "online_sha256": "d5b21e1c2fdcb9ce46ca7baa543f53f1a41c1c6d4682eedc935a8757b1f6480e"
+      },
+      {
+        "file": "rtsp_annotator/shared_inference.py",
+        "state": "same",
+        "local_sha256": "9e5e35f3e811be064f23e9d9a2f451aeeac68e4058191750f7ce92f53ebf73ab",
+        "online_sha256": "9e5e35f3e811be064f23e9d9a2f451aeeac68e4058191750f7ce92f53ebf73ab"
+      },
+      {
+        "file": "rtsp_annotator/shared_stream_manager.py",
+        "state": "same",
+        "local_sha256": "0d66050715e1c8e3dd7cd352b214df090e14f8b79d71568811354892be27fb4b",
+        "online_sha256": "0d66050715e1c8e3dd7cd352b214df090e14f8b79d71568811354892be27fb4b"
+      },
+      {
+        "file": "rtsp_annotator/stream_manager.py",
+        "state": "same",
+        "local_sha256": "1c0be2c0907c71331e6b89dbb9fc0d5b9b5ef6be70b3b5ff55b22c80fed05eb4",
+        "online_sha256": "1c0be2c0907c71331e6b89dbb9fc0d5b9b5ef6be70b3b5ff55b22c80fed05eb4"
+      },
+      {
+        "file": "rtsp_annotator/stream_observability.py",
+        "state": "same",
+        "local_sha256": "0c0583e9703a7aabc6c6f175c2ec23451cdc4e28697f8a6ccd726052c1fab89a",
+        "online_sha256": "0c0583e9703a7aabc6c6f175c2ec23451cdc4e28697f8a6ccd726052c1fab89a"
+      },
+      {
+        "file": "rtsp_annotator/tracking_edge_guard.py",
+        "state": "missing_online",
+        "local_sha256": "b35405b56a450e79b80b4aa06318f525370fc3e2de8be184e304c9580b560e34",
+        "online_sha256": null,
+        "added": 176,
+        "removed": 0
+      },
+      {
+        "file": "rtsp_annotator/vessel_calibration.py",
+        "state": "same",
+        "local_sha256": "f03af69b39ba430b194fab05d474500734bba4d696ed0985d4d4d3cf428cdfc3",
+        "online_sha256": "f03af69b39ba430b194fab05d474500734bba4d696ed0985d4d4d3cf428cdfc3"
+      },
+      {
+        "file": "rtsp_annotator/vessel_detection.py",
+        "state": "different",
+        "local_sha256": "748e8cc05ef2b3aeea4fcc0aca87942f2f4a28f4934ebaeda6cd4204174fa67f",
+        "online_sha256": "b7723951f9ddf5bc575f19b74d65fe5068ce8795beca5877e22142eab63de748",
+        "added": 24,
+        "removed": 0
+      },
+      {
+        "file": "rtsp_annotator/vessel_detection_process.py",
+        "state": "different",
+        "local_sha256": "0712074b3aea836303212a598220588abb4bc4f4d1793ea2dbe2b5915a9043ca",
+        "online_sha256": "a64f90f347d2071441396204d3436c30ebff93afb98f45a0d9f95e8d42b23280",
+        "added": 7,
+        "removed": 4
+      }
+    ],
+    "scripts": [
+      {
+        "file": "scripts/build_demo_report.py",
+        "state": "missing_online",
+        "local_sha256": "f53b74e445c9b8cbe29577f03d5598c9a40c7e0ea39ab401d1219306076c41ca",
+        "online_sha256": null,
+        "added": 43,
+        "removed": 0
+      },
+      {
+        "file": "scripts/check_demo_environment.py",
+        "state": "missing_online",
+        "local_sha256": "5965832325f5235e608b8865badd0b8ac9c18ada25db82915131c76b24f759d7",
+        "online_sha256": null,
+        "added": 44,
+        "removed": 0
+      },
+      {
+        "file": "scripts/collect_demo_session.py",
+        "state": "missing_online",
+        "local_sha256": "4601d23bcf78482395e981e724105aea89a243c358acd975e59ccb38459bb8ef",
+        "online_sha256": null,
+        "added": 36,
+        "removed": 0
+      },
+      {
+        "file": "scripts/evaluate_demo_continuous.py",
+        "state": "missing_online",
+        "local_sha256": "b249f1b32d948dc9a088514cc35328126db6e4b5de9578c57ab11b0b810f90d8",
+        "online_sha256": null,
+        "added": 66,
+        "removed": 0
+      },
+      {
+        "file": "scripts/evaluate_litter_frames.py",
+        "state": "missing_online",
+        "local_sha256": "a39ed4734f7d953aae0c01e776ce416760e05bba0feb8cdcd947438258250c16",
+        "online_sha256": null,
+        "added": 152,
+        "removed": 0
+      },
+      {
+        "file": "scripts/evaluate_litter_models.py",
+        "state": "missing_online",
+        "local_sha256": "e4a7a753fa0977c38324448b5b4d8143f4e0fb1be2a6ae12a626aa74273b335a",
+        "online_sha256": null,
+        "added": 211,
+        "removed": 0
+      },
+      {
+        "file": "scripts/evaluate_litter_pt.py",
+        "state": "missing_online",
+        "local_sha256": "b1465ce001d4cb212e7a3f0a1b46d42d223ab9694dcf9c693f178f90ac37d7c8",
+        "online_sha256": null,
+        "added": 59,
+        "removed": 0
+      },
+      {
+        "file": "scripts/evaluate_tracking_edge_guard.py",
+        "state": "missing_online",
+        "local_sha256": "3073d681e9f1f676f46e33d74bd2d3be10ef06315dc0ae414302b52912102c37",
+        "online_sha256": null,
+        "added": 133,
+        "removed": 0
+      },
+      {
+        "file": "scripts/export_demo_bundle.py",
+        "state": "missing_online",
+        "local_sha256": "a2b4fec4cbd21fe94eb44f2ab86733836699cfd83628a410647b8f62853cc644",
+        "online_sha256": null,
+        "added": 80,
+        "removed": 0
+      },
+      {
+        "file": "scripts/export_street_garbage_deepstream.py",
+        "state": "missing_online",
+        "local_sha256": "a6dc417a3cf7bb34aa500df8783ff687a4e819be1ac7990464b7ec350e544a84",
+        "online_sha256": null,
+        "added": 152,
+        "removed": 0
+      },
+      {
+        "file": "scripts/export_yolo26_deepstream.py",
+        "state": "missing_online",
+        "local_sha256": "52819d44fe22aea2ef877c4fe8be3e47a4a3b29ecf81de6b856b14be348fd0b0",
+        "online_sha256": null,
+        "added": 169,
+        "removed": 0
+      },
+      {
+        "file": "scripts/export_yolo_world_garbage.py",
+        "state": "missing_online",
+        "local_sha256": "f22305ce08e54ff4b19ec605ca23885810c03412788c06cad545db51b57f7b4f",
+        "online_sha256": null,
+        "added": 181,
+        "removed": 0
+      },
+      {
+        "file": "scripts/gas_candidate_smoke.py",
+        "state": "missing_online",
+        "local_sha256": "e29f1e10cb8cc7b12edce8093ceb9112f301af652fb90f299696fd3c2346cc6c",
+        "online_sha256": null,
+        "added": 65,
+        "removed": 0
+      },
+      {
+        "file": "scripts/gas_video_smoke.py",
+        "state": "missing_online",
+        "local_sha256": "67c9f123e630996d3fd9ecd519792e77f495c1cc9faaab6ed469fd09bc736530",
+        "online_sha256": null,
+        "added": 96,
+        "removed": 0
+      },
+      {
+        "file": "scripts/inspect_ptz_isolated_test.py",
+        "state": "missing_online",
+        "local_sha256": "a1580e9dda08c91d9030c9f89a51d1d3f876e9009401cdb409f9777104a50bd4",
+        "online_sha256": null,
+        "added": 47,
+        "removed": 0
+      },
+      {
+        "file": "scripts/package_deepstream_bundle.py",
+        "state": "missing_online",
+        "local_sha256": "f9c83848fe833196ebbecfbbf86e7b967cfd6f011d43a85726cfe866a4402f0d",
+        "online_sha256": null,
+        "added": 96,
+        "removed": 0
+      },
+      {
+        "file": "scripts/prepare_ptz_test_runtime.py",
+        "state": "missing_online",
+        "local_sha256": "6f0f64daef6acafcab6dccc1e5f2cbfe1df6096244ff82289eb175f377cbbbdd",
+        "online_sha256": null,
+        "added": 113,
+        "removed": 0
+      },
+      {
+        "file": "scripts/register_ptz_isolated_stream.py",
+        "state": "missing_online",
+        "local_sha256": "295d9ab296898b189fd574e9d5fb37e1aa9339a5e31e82e7f5ceb56a36cf6543",
+        "online_sha256": null,
+        "added": 222,
+        "removed": 0
+      },
+      {
+        "file": "scripts/replay_ptz_candidates.py",
+        "state": "same",
+        "local_sha256": "db32ad991147a432b4bdcd8d71eb0249f9e1e09cc498188b4b21fa5c662c4d8d",
+        "online_sha256": "db32ad991147a432b4bdcd8d71eb0249f9e1e09cc498188b4b21fa5c662c4d8d"
+      },
+      {
+        "file": "scripts/review_litter_candidates.py",
+        "state": "missing_online",
+        "local_sha256": "e51b741e7e18292b31043ec285cca55150d39fe53aa4fb5b9827b908cce59281",
+        "online_sha256": null,
+        "added": 53,
+        "removed": 0
+      },
+      {
+        "file": "scripts/validate_deepstream_runtime_contract.py",
+        "state": "missing_online",
+        "local_sha256": "adb010aa2a0e08a185639db4336662e99594bdfc276431998372dce4128fd120",
+        "online_sha256": null,
+        "added": 173,
+        "removed": 0
+      }
+    ]
+  },
+  "camera_control": {
+    "camera_control": [
+      {
+        "file": "camera_control/__init__.py",
+        "state": "same",
+        "local_sha256": "91447944015cec709e8aa7655f7e9d64e1e4508e7023a57fe3746911c0fc6fed",
+        "online_sha256": "91447944015cec709e8aa7655f7e9d64e1e4508e7023a57fe3746911c0fc6fed"
+      },
+      {
+        "file": "camera_control/api.py",
+        "state": "different",
+        "local_sha256": "91823d28406a7fea0e153497d5446955afc9d213d8109abe967a97223eb857eb",
+        "online_sha256": "9d25611b2c692e82e8f246b668de00a5c9310659dc7d99e28e572561b3105426",
+        "added": 15,
+        "removed": 8
+      },
+      {
+        "file": "camera_control/artifacts.py",
+        "state": "same",
+        "local_sha256": "c516783c2d7576bbd661f643d699526b1b840eb7b10eb5cc0483ddce9730107e",
+        "online_sha256": "c516783c2d7576bbd661f643d699526b1b840eb7b10eb5cc0483ddce9730107e"
+      },
+      {
+        "file": "camera_control/commands.py",
+        "state": "different",
+        "local_sha256": "2c12b90c405be83406f80b3d3e895913843daab8594605eac36d7ccbb36e67ba",
+        "online_sha256": "c1f6a1e9a493cd3357072d2997ba4297239ee14c4740bec6a15b83c94465e493",
+        "added": 45,
+        "removed": 2
+      },
+      {
+        "file": "camera_control/config.py",
+        "state": "same",
+        "local_sha256": "82be2a3a5826bc1befa47bf07a100042806fc12a8053e536ddcd5c5030a793f8",
+        "online_sha256": "82be2a3a5826bc1befa47bf07a100042806fc12a8053e536ddcd5c5030a793f8"
+      },
+      {
+        "file": "camera_control/controllers/base.py",
+        "state": "same",
+        "local_sha256": "752bdf2f7cf5d45e8d7e1fd7a3b271f389c59e4857df7367cdcd472ff1b3874b",
+        "online_sha256": "752bdf2f7cf5d45e8d7e1fd7a3b271f389c59e4857df7367cdcd472ff1b3874b"
+      },
+      {
+        "file": "camera_control/controllers/dahua.py",
+        "state": "same",
+        "local_sha256": "7d259b684ebc8e980283db5e87426b3fe3a7c33bc8d72959181cafafbeeeefea",
+        "online_sha256": "7d259b684ebc8e980283db5e87426b3fe3a7c33bc8d72959181cafafbeeeefea"
+      },
+      {
+        "file": "camera_control/controllers/mock.py",
+        "state": "different",
+        "local_sha256": "7936e4219e0bb157825b90a2de6c50b5ab44532c042fdcb41e181d2221757b16",
+        "online_sha256": "eb68c8a4df7ae5306d79800222114127b89bf090d616d22b57072e7cb8afa173",
+        "added": 18,
+        "removed": 0
+      },
+      {
+        "file": "camera_control/leases.py",
+        "state": "same",
+        "local_sha256": "455cd49ae3f4d4d63d76cd40d2e4784f7bff157f2160b9164fcbbc6b883a4481",
+        "online_sha256": "455cd49ae3f4d4d63d76cd40d2e4784f7bff157f2160b9164fcbbc6b883a4481"
+      },
+      {
+        "file": "camera_control/models.py",
+        "state": "same",
+        "local_sha256": "28184ee2c404a1f8fb9e338ac5bae71391f84226469a8ca0562f88d970c8fcdd",
+        "online_sha256": "28184ee2c404a1f8fb9e338ac5bae71391f84226469a8ca0562f88d970c8fcdd"
+      },
+      {
+        "file": "camera_control/providers/dahua_mapper.py",
+        "state": "same",
+        "local_sha256": "08e2da469c72088802f5e4105b11b6c15dc64a054e0cd14108918652fc80949d",
+        "online_sha256": "08e2da469c72088802f5e4105b11b6c15dc64a054e0cd14108918652fc80949d"
+      },
+      {
+        "file": "camera_control/providers/dahua_runtime.py",
+        "state": "same",
+        "local_sha256": "f8bc25647971b5a9b923bdc1b79932c819dfddb3fa218688b2afc444cbb5af55",
+        "online_sha256": "f8bc25647971b5a9b923bdc1b79932c819dfddb3fa218688b2afc444cbb5af55"
+      },
+      {
+        "file": "camera_control/registry.py",
+        "state": "same",
+        "local_sha256": "babd0a7beba402cc006880064517908ff0701703ec5c1c9c5d209760ce1c1126",
+        "online_sha256": "babd0a7beba402cc006880064517908ff0701703ec5c1c9c5d209760ce1c1126"
+      }
+    ],
+    "scripts": [
+      {
+        "file": "scripts/camera_doctor.py",
+        "state": "same",
+        "local_sha256": "8152eb0870025710b5e13afe9d3f31ad741feffb6d07a07deaf82d30e0014709",
+        "online_sha256": "8152eb0870025710b5e13afe9d3f31ad741feffb6d07a07deaf82d30e0014709"
+      },
+      {
+        "file": "scripts/verify_vendor_contract.py",
+        "state": "same",
+        "local_sha256": "151d590d9f4adf4789b14f5a762b6e18f52eb526d518dc834d849c7adc8a7062",
+        "online_sha256": "151d590d9f4adf4789b14f5a762b6e18f52eb526d518dc834d849c7adc8a7062"
+      }
+    ]
+  }
+}

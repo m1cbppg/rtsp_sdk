@@ -1,0 +1,204 @@
+{
+  "finished_utc": "2026-09-13T11:28:32.752450+00:00",
+  "source_kind": "local_video",
+  "elapsed_seconds": 20.02097094198689,
+  "decoder": "pyav",
+  "status": "completed",
+  "started_utc": "2026-09-13T11:28:12.731488+00:00",
+  "observation_seconds": 20.000523590948433,
+  "stopped_by_signal": [],
+  "decoder_capability": {
+    "pyav_importable": true,
+    "pyav_version": "16.1.0"
+  },
+  "source_counters": {
+    "decoded_frames": 485.0,
+    "corrupt_frames": 0.0,
+    "missing_pts_frames": 0.0,
+    "nonmonotonic_pts_frames": 0.0,
+    "connections": 1.0,
+    "published_frames": 19.0,
+    "mailbox_lock_skips": 0.0,
+    "decode_read_seconds": 6.338907349505462,
+    "convert_seconds": 0.05661386298015714,
+    "pts_observed_frames": 485.0,
+    "trace_lock_skips": 0.0
+  },
+  "samples": [
+    {
+      "sequence": 1.0,
+      "probe_elapsed": 0.9664826369844377,
+      "arrival_elapsed": 0.8932492779567838,
+      "local_age": 0.07323431805707514,
+      "generation": 1.0,
+      "source_elapsed": 0.0
+    },
+    {
+      "sequence": 2.0,
+      "probe_elapsed": 1.9717589910142124,
+      "arrival_elapsed": 1.9339649069588631,
+      "local_age": 0.037794466014020145,
+      "generation": 1.0,
+      "source_elapsed": 1.0389999999988504
+    },
+    {
+      "sequence": 3.0,
+      "probe_elapsed": 2.9771269619232044,
+      "arrival_elapsed": 2.9339810860110447,
+      "local_age": 0.043146267998963594,
+      "generation": 1.0,
+      "source_elapsed": 2.0389999999988504
+    },
+    {
+      "sequence": 4.0,
+      "probe_elapsed": 3.9818724979413673,
+      "arrival_elapsed": 3.9726366410031915,
+      "local_age": 0.00923612795304507,
+      "generation": 1.0,
+      "source_elapsed": 3.07799999999952
+    },
+    {
+      "sequence": 5.0,
+      "probe_elapsed": 4.986475324025378,
+      "arrival_elapsed": 4.9727147199446335,
+      "local_age": 0.013760840985924006,
+      "generation": 1.0,
+      "source_elapsed": 4.07799999999952
+    },
+    {
+      "sequence": 6.0,
+      "probe_elapsed": 6.042159506934695,
+      "arrival_elapsed": 6.008263299940154,
+      "local_age": 0.03389647009316832,
+      "generation": 1.0,
+      "source_elapsed": 5.117000000000189
+    },
+    {
+      "sequence": 7.0,
+      "probe_elapsed": 7.046155320014805,
+      "arrival_elapsed": 7.008291873964481,
+      "local_age": 0.037863726960495114,
+      "generation": 1.0,
+      "source_elapsed": 6.117000000000189
+    },
+    {
+      "sequence": 8.0,
+      "probe_elapsed": 8.050124146975577,
+      "arrival_elapsed": 8.047615185030736,
+      "local_age": 0.0025092659052461386,
+      "generation": 1.0,
+      "source_elapsed": 7.15599999999904
+    },
+    {
+      "sequence": 9.0,
+      "probe_elapsed": 9.054257520940155,
+      "arrival_elapsed": 9.04727391002234,
+      "local_age": 0.006983844912610948,
+      "generation": 1.0,
+      "source_elapsed": 8.15599999999904
+    },
+    {
+      "sequence": 10.0,
+      "probe_elapsed": 10.108635231968947,
+      "arrival_elapsed": 10.086288032936864,
+      "local_age": 0.022347424062900245,
+      "generation": 1.0,
+      "source_elapsed": 9.194999999999709
+    },
+    {
+      "sequence": 11.0,
+      "probe_elapsed": 11.113505171961151,
+      "arrival_elapsed": 11.086256820941344,
+      "local_age": 0.02724856708664447,
+      "generation": 1.0,
+      "source_elapsed": 10.194999999999709
+    },
+    {
+      "sequence": 12.0,
+      "probe_elapsed": 12.117794825928286,
+      "arrival_elapsed": 12.086285306024365,
+      "local_age": 0.03150977392215282,
+      "generation": 1.0,
+      "source_elapsed": 11.194999999999709
+    },
+    {
+      "sequence": 13.0,
+      "probe_elapsed": 13.17204281699378,
+      "arrival_elapsed": 13.125196130014956,
+      "local_age": 0.046846878016367555,
+      "generation": 1.0,
+      "source_elapsed": 12.234000000000378
+    },
+    {
+      "sequence": 14.0,
+      "probe_elapsed": 14.176197684952058,
+      "arrival_elapsed": 14.125259259948507,
+      "local_age": 0.05093857797328383,
+      "generation": 1.0,
+      "source_elapsed": 13.234000000000378
+    },
+    {
+      "sequence": 15.0,
+      "probe_elapsed": 15.180407722946256,
+      "arrival_elapsed": 15.164251610985957,
+      "local_age": 0.016156308935023844,
+      "generation": 1.0,
+      "source_elapsed": 14.272999999999229
+    },
+    {
+      "sequence": 16.0,
+      "probe_elapsed": 16.185148598975502,
+      "arrival_elapsed": 16.164244974963367,
+      "local_age": 0.020903822034597397,
+      "generation": 1.0,
+      "source_elapsed": 15.272999999999229
+    },
+    {
+      "sequence": 17.0,
+      "probe_elapsed": 17.23948283493519,
+      "arrival_elapsed": 17.203279215027578,
+      "local_age": 0.03620377299375832,
+      "generation": 1.0,
+      "source_elapsed": 16.311999999999898
+    },
+    {
+      "sequence": 18.0,
+      "probe_elapsed": 18.24374247295782,
+      "arrival_elapsed": 18.2033157289261,
+      "local_age": 0.04042693006340414,
+      "generation": 1.0,
+      "source_elapsed": 17.311999999999898
+    },
+    {
+      "sequence": 19.0,
+      "probe_elapsed": 19.247915470972657,
+      "arrival_elapsed": 19.242226060014218,
+      "local_age": 0.005689648911356926,
+      "generation": 1.0,
+      "source_elapsed": 18.35099999999875
+    }
+  ],
+  "reader_alive": false,
+  "exitcode": 0,
+  "end_to_end_freshness_verified": false,
+  "notifications": 0,
+  "inference_executed": false,
+  "visual_quality_verified": false,
+  "corrupt_flag_available": true,
+  "source_pts_available": true,
+  "trace_rows": 485,
+  "trace_overwritten_rows": 0,
+  "trace_limit_reached": false,
+  "publish_timing": {
+    "count": 19,
+    "observed_mailbox_fps": 0.9499751300810326,
+    "wall_span_seconds": 18.348976782057434,
+    "first_frame_seconds": 0.8932492779567838,
+    "interval_p50_seconds": 1.0178133294684812,
+    "interval_p95_seconds": 1.0395321587566286,
+    "interval_max_seconds": 1.0407156290020794,
+    "local_age_p95_seconds": 0.053168151981662914,
+    "local_age_max_seconds": 0.07323431805707514,
+    "inference_executed": false
+  }
+}

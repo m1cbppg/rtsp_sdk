@@ -1,0 +1,51 @@
+{
+  "profile_sha256": "5b7006e923cbfa951bf599af37972748e41db07e62a1decbe9a4d0783f77e60e",
+  "same_roi_masks_for_both_methods": true,
+  "cameras": [
+    {
+      "device_code": "44180209031322001021",
+      "grid_tiles": 9,
+      "roi_tiles": 6,
+      "uncovered_ground_pixels": [
+        0,
+        0
+      ]
+    },
+    {
+      "device_code": "44180209031322001022",
+      "grid_tiles": 8,
+      "roi_tiles": 4,
+      "uncovered_ground_pixels": [
+        0,
+        0
+      ]
+    },
+    {
+      "device_code": "44180209031322001027",
+      "grid_tiles": 5,
+      "roi_tiles": 4,
+      "uncovered_ground_pixels": [
+        0,
+        0
+      ]
+    },
+    {
+      "device_code": "44180209031322001028",
+      "grid_tiles": 10,
+      "roi_tiles": 3,
+      "uncovered_ground_pixels": [
+        0,
+        0
+      ]
+    },
+    {
+      "device_code": "44180209031322001030",
+      "grid_tiles": 10,
+      "roi_tiles": 4,
+      "uncovered_ground_pixels": [
+        0,
+        0
+      ]
+    }
+  ]
+}

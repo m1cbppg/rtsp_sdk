@@ -26,10 +26,15 @@ from .ptz_verification import PtzVerificationOptions
 from .stream_manager import (
     ManagerSettings,
     ModelNotFoundError,
+    PtzControlUnavailableError,
     StreamCapacityError,
     StreamNotFoundError,
     StreamSpec,
     authenticated_rtsp_url,
+)
+from .ground_litter_detection import (
+    DEFAULT_MODEL_SUBDIR as DEFAULT_GROUND_LITTER_SUBDIR,
+    GroundLitterDetectionOptions as GroundLitterOptionsForApi,
 )
 from .vessel_detection import VesselDetectionOptions
 
@@ -194,6 +199,16 @@ class DeepStreamGroup:
         0,
         0,
     )
+    ground_litter_signature: tuple[bool, str, int, int, int, int, float, str] = (
+        False,
+        "",
+        0,
+        0,
+        0,
+        0,
+        1.0,
+        "",
+    )
     night_vision_signature: tuple[bool, float, float] = (
         False,
         1.0,
@@ -237,6 +252,7 @@ class DeepStreamStreamManager:
         spec.event_detection.validate()
         spec.gas_cylinder.validate()
         spec.vessel_detection.validate()
+        spec.ground_litter.validate()
         spec.fishing_risk.validate()
         spec.ptz_verification.validate()
         if spec.fishing_risk.enabled and not spec.vessel_detection.enabled:
@@ -255,6 +271,8 @@ class DeepStreamStreamManager:
                 conflicts.append("event_detection")
             if spec.gas_cylinder.enabled:
                 conflicts.append("gas_cylinder")
+            if spec.ground_litter.enabled:
+                conflicts.append("ground_litter")
             if conflicts:
                 raise ModelNotFoundError(
                     "ptz_verification不能与固定视角功能同时启用: "
@@ -315,10 +333,13 @@ class DeepStreamStreamManager:
                     primary_model=model_path.name,
                     primary_labels_path=labels_path,
                 )
+            if spec.ground_litter.enabled:
+                self._validate_ground_litter_assets(spec.ground_litter)
             vessel_signature = self._vessel_signature(
                 spec,
                 primary_model=model_path.name,
             )
+            ground_litter_signature = self._ground_litter_signature(spec)
             group = self._find_group(
                 model_path.name,
                 spec.imgsz,
@@ -331,6 +352,7 @@ class DeepStreamStreamManager:
                 spec.gas_cylinder.enabled,
                 spec.gas_cylinder.profile_id,
                 vessel_signature,
+                ground_litter_signature,
             )
             if group is None:
                 group = DeepStreamGroup(
@@ -350,6 +372,7 @@ class DeepStreamStreamManager:
                         else None
                     ),
                     vessel_signature=vessel_signature,
+                    ground_litter_signature=ground_litter_signature,
                     night_vision_signature=(
                         spec.night_vision.group_signature(
                             include_plate_detector=(
@@ -436,12 +459,106 @@ class DeepStreamStreamManager:
                 raise
             return self._serialize(record)
 
+    def return_ptz_home(self, stream_id: str) -> dict[str, Any]:
+        """Atomically enqueue an emergency HOME command for one worker stream."""
+        with self._lock:
+            record = self._records.get(stream_id)
+            if record is None:
+                raise StreamNotFoundError(stream_id)
+            if not record.spec.ptz_verification.enabled:
+                raise PtzControlUnavailableError(
+                    "该流未启用ptz_verification"
+                )
+            group = self._groups[record.group_id]
+            if group.process is None or group.process.poll() is not None:
+                raise PtzControlUnavailableError("DeepStream worker未运行")
+            request_id = self._enqueue_ptz_home(group, stream_id)
+            return {
+                "stream_id": stream_id,
+                "request_id": request_id,
+                "action": "return_home",
+                "status": "accepted",
+            }
+
+    def _enqueue_ptz_home(
+        self,
+        group: DeepStreamGroup,
+        stream_id: str,
+    ) -> str:
+        request_id = uuid.uuid4().hex
+        control_dir = self._settings.runtime_root / group.group_id / "control"
+        control_dir.mkdir(parents=True, exist_ok=True)
+        command_path = control_dir / (
+            f"ptz-home-{stream_id}-{request_id}.json"
+        )
+        temporary = control_dir / f".{request_id}.tmp"
+        temporary.write_text(
+            json.dumps(
+                {
+                    "request_id": request_id,
+                    "stream_id": stream_id,
+                    "action": "return_home",
+                    "created_at_unix": time.time(),
+                },
+                ensure_ascii=False,
+            ),
+            encoding="utf-8",
+        )
+        os.chmod(temporary, 0o600)
+        temporary.replace(command_path)
+        return request_id
+
+    def _return_ptz_home_before_stop(
+        self,
+        record: DeepStreamRecord,
+        group: DeepStreamGroup,
+    ) -> bool:
+        """Ask the lease-owning worker to HOME and wait for its acknowledgement."""
+        process = group.process
+        if process is None or process.poll() is not None:
+            return False
+        # A missing metrics file means the worker has not completed startup;
+        # the regular SIGTERM shutdown path remains the fallback in that case.
+        if self._read_metrics(group, record.stream_id) is None:
+            return False
+        request_id = self._enqueue_ptz_home(group, record.stream_id)
+        options = record.spec.ptz_verification
+        deadline = time.monotonic() + (
+            options.command_timeout_seconds * 2.0
+            + options.home_frame_delay_seconds
+            + self._settings.stats_interval_seconds * 2.0
+            + 2.0
+        )
+        while time.monotonic() < deadline:
+            if process.poll() is not None:
+                return False
+            metrics = self._read_metrics(group, record.stream_id)
+            if (
+                metrics is not None
+                and metrics.get("ptz_last_return_home_request_id")
+                == request_id
+                and bool(metrics.get("ptz_manual_hold"))
+                and metrics.get("ptz_verification_state") == "manual_hold"
+            ):
+                return True
+            time.sleep(0.1)
+        LOGGER.error(
+            "删除流前等待PTZ回HOME超时: stream=%s camera=%s request=%s",
+            record.stream_id,
+            options.camera_id,
+            request_id,
+        )
+        return False
+
     def stop(self, stream_id: str) -> dict[str, Any]:
         with self._lock:
-            record = self._records.pop(stream_id, None)
+            record = self._records.get(stream_id)
             if record is None:
                 raise StreamNotFoundError(stream_id)
             group = self._groups[record.group_id]
+            if record.spec.ptz_verification.enabled:
+                self._return_ptz_home_before_stop(record, group)
+            self._records.pop(stream_id, None)
             group.stream_ids.remove(stream_id)
             stopped_ptz_options = (
                 (record.spec.ptz_verification,)
@@ -485,6 +602,7 @@ class DeepStreamStreamManager:
         gas_cylinder_enabled: bool,
         gas_cylinder_profile_id: str,
         vessel_signature: tuple[bool, str, int, int, int],
+        ground_litter_signature: tuple[bool, str, int, int, int, int, float, str],
     ) -> DeepStreamGroup | None:
         candidates = (
             group
@@ -503,6 +621,7 @@ class DeepStreamStreamManager:
                 else None
             )
             and group.vessel_signature == vessel_signature
+            and group.ground_litter_signature == ground_litter_signature
             and len(group.stream_ids) < self._settings.streams_per_group
         )
         return min(candidates, key=lambda item: item.group_id, default=None)
@@ -648,6 +767,56 @@ class DeepStreamStreamManager:
         )
 
     @staticmethod
+    def _ground_litter_signature(
+        spec: StreamSpec,
+    ) -> tuple[bool, str, int, int, int, int, float, str]:
+        options = spec.ground_litter
+        if not options.enabled:
+            return (False, "", 0, 0, 0, 0, 1.0, "")
+        return (
+            True,
+            str(options.model),
+            int(options.tile_size_px),
+            int(options.inference_imgsz or 0),
+            int(options.local_actor_max_crops),
+            float(options.box_smoothing_alpha),
+            int(options.actor_imgsz),
+            str(options.actor_model or ""),
+        )
+
+    def _resolve_ground_litter_model(self, model: str) -> Path:
+        """Resolve a litter ``.pt`` including the optional ``litter/`` prefix."""
+        root = self._settings.manager.model_root.resolve()
+        requested = Path(str(model))
+        if requested.is_absolute() or ".." in requested.parts:
+            raise ModelNotFoundError("零散垃圾模型路径越界")
+        candidates = (
+            [root / requested]
+            if requested.parent != Path(".")
+            else [
+                root / DEFAULT_GROUND_LITTER_SUBDIR / requested,
+                root / requested,
+            ]
+        )
+        for candidate in candidates:
+            resolved = candidate.resolve()
+            try:
+                resolved.relative_to(root)
+            except ValueError:
+                continue
+            if resolved.is_file():
+                return resolved
+        raise ModelNotFoundError(f"零散垃圾模型不存在: {model}")
+
+    def _validate_ground_litter_assets(
+        self,
+        options: GroundLitterOptionsForApi,
+    ) -> None:
+        self._resolve_ground_litter_model(options.model)
+        if options.actor_model is not None:
+            self._resolve_ground_litter_model(options.actor_model)
+
+    @staticmethod
     def _validate_event_classes(spec: StreamSpec, labels_path: Path) -> None:
         label_count = sum(
             1
@@ -705,6 +874,8 @@ class DeepStreamStreamManager:
         group_dir.mkdir(parents=True, exist_ok=True)
         group.config_path = group_dir / "worker.json"
         group.metrics_path = group_dir / "metrics.json"
+        control_dir = group_dir / "control"
+        control_dir.mkdir(parents=True, exist_ok=True)
         try:
             payload = self._worker_payload(group)
         except BaseException:
@@ -719,6 +890,9 @@ class DeepStreamStreamManager:
         )
         group.process = None
         group.metrics_path.unlink(missing_ok=True)
+        for command_path in control_dir.iterdir():
+            if command_path.is_file():
+                command_path.unlink(missing_ok=True)
         temporary = group_dir / "worker.json.tmp"
         temporary.write_text(
             json.dumps(payload, ensure_ascii=False, indent=2),
@@ -800,6 +974,9 @@ class DeepStreamStreamManager:
             ),
             "imgsz": group.imgsz,
             "metrics_path": str(group.metrics_path),
+            "control_dir": str(
+                self._settings.runtime_root / group.group_id / "control"
+            ),
             "label_map": label_map,
             "night_vision": {
                 "enabled": night_vision.enabled,
@@ -842,6 +1019,9 @@ class DeepStreamStreamManager:
                         if record.spec.roi is not None
                         else None
                     ),
+                    "display_detections": bool(
+                        record.spec.display_detections
+                    ),
                     "bitrate_bps": _parse_bitrate(record.spec.bitrate),
                     "license_plate": {
                         "enabled": record.spec.license_plate.enabled,
@@ -868,6 +1048,7 @@ class DeepStreamStreamManager:
                     "vessel_detection": (
                         record.spec.vessel_detection.to_payload()
                     ),
+                    "ground_litter": record.spec.ground_litter.to_payload(),
                     "fishing_risk": record.spec.fishing_risk.to_payload(),
                     "ptz_verification": (
                         record.spec.ptz_verification.to_payload()
@@ -996,6 +1177,35 @@ class DeepStreamStreamManager:
                     if record.spec.vessel_detection.enabled
                 ),
             }
+        if group.ground_litter_signature[0]:
+            litter_actor_model = group.ground_litter_signature[7] or None
+            payload["ground_litter"] = {
+                "enabled": True,
+                "model_path": str(
+                    self._resolve_ground_litter_model(
+                        group.ground_litter_signature[1]
+                    )
+                ),
+                "actor_model_path": (
+                    str(
+                        self._resolve_ground_litter_model(
+                            litter_actor_model
+                        )
+                    )
+                    if litter_actor_model
+                    else None
+                ),
+                "tile_size_px": group.ground_litter_signature[2],
+                "inference_imgsz": group.ground_litter_signature[3] or None,
+                "local_actor_max_crops": group.ground_litter_signature[4],
+                "box_smoothing_alpha": group.ground_litter_signature[5],
+                "actor_imgsz": group.ground_litter_signature[6],
+                "analysis_fps": max(
+                    record.spec.ground_litter.analysis_fps
+                    for record in records
+                    if record.spec.ground_litter.enabled
+                ),
+            }
         return payload
 
     def _stop_group(
@@ -1059,6 +1269,15 @@ class DeepStreamStreamManager:
             "garbage_nvinfer.tmp",
         ):
             (group_dir / name).unlink(missing_ok=True)
+        control_dir = group_dir / "control"
+        if control_dir.is_dir():
+            for path in control_dir.iterdir():
+                if path.is_file():
+                    path.unlink(missing_ok=True)
+            try:
+                control_dir.rmdir()
+            except OSError:
+                pass
         try:
             group_dir.rmdir()
         except OSError:
@@ -1255,6 +1474,62 @@ class DeepStreamStreamManager:
                     else 0.0
                 ),
             },
+            "ground_litter": {
+                "enabled": record.spec.ground_litter.enabled,
+                "model": record.spec.ground_litter.model,
+                "options": record.spec.ground_litter.to_payload(),
+                "effective_imgsz": record.spec.ground_litter.effective_imgsz,
+                "region_count": len(record.spec.ground_litter.zones),
+                "state": (
+                    "disabled"
+                    if not record.spec.ground_litter.enabled
+                    else (
+                        str(
+                            metrics.get(
+                                "ground_litter_state",
+                                "starting",
+                            )
+                        )
+                        if metrics is not None
+                        else "starting"
+                    )
+                ),
+                "count": (
+                    int(metrics.get("ground_litter_count", 0))
+                    if metrics is not None
+                    else 0
+                ),
+                "message": (
+                    str(metrics.get("ground_litter_message", ""))
+                    if metrics is not None
+                    else ""
+                ),
+                "result_version": (
+                    int(metrics.get("ground_litter_result_version", 0))
+                    if metrics is not None
+                    else 0
+                ),
+                "analyzed_frames": (
+                    int(metrics.get("ground_litter_analyzed_frames", 0))
+                    if metrics is not None
+                    else 0
+                ),
+                "tile_count": (
+                    int(metrics.get("ground_litter_tile_count", 0))
+                    if metrics is not None
+                    else 0
+                ),
+                "last_inference_ms": (
+                    float(
+                        metrics.get(
+                            "ground_litter_last_inference_ms",
+                            0.0,
+                        )
+                    )
+                    if metrics is not None
+                    else 0.0
+                ),
+            },
             "fishing_risk": {
                 "enabled": record.spec.fishing_risk.enabled,
                 "state": (
@@ -1291,6 +1566,32 @@ class DeepStreamStreamManager:
                     else "detection_only"
                 ),
                 "zoom_strategy": record.spec.ptz_verification.zoom_strategy,
+                "continuous_tracking": (
+                    record.spec.ptz_verification.continuous_tracking
+                ),
+                "tracking_profile": record.spec.ptz_verification.tracking_profile,
+                "effective_policy": record.spec.ptz_verification.effective_policy(),
+                "edge_guard": {
+                    "enabled": record.spec.ptz_verification.tracking_edge_guard_enabled,
+                    "response_seconds": record.spec.ptz_verification.tracking_edge_response_seconds,
+                    "motion_seconds": record.spec.ptz_verification.tracking_edge_motion_seconds,
+                    "uncertainty_seconds": record.spec.ptz_verification.tracking_edge_uncertainty_seconds,
+                    "cooldown_seconds": record.spec.ptz_verification.tracking_edge_cooldown_seconds,
+                    "stable_seconds": record.spec.ptz_verification.tracking_edge_stable_seconds,
+                    "maximum_age_seconds": record.spec.ptz_verification.tracking_edge_maximum_age_seconds,
+                    "latency_source": "configured_assumption",
+                    "effective_policy": (
+                        "position_first_risk_only_shrink"
+                        if record.spec.ptz_verification.tracking_edge_guard_enabled
+                        else "legacy_scale_tracking"
+                    ),
+                    "ignored_parameters": (
+                        ["tracking_recovery_enabled", "tracking_recovery_zoom_out_step",
+                         "tracking_recovery_interval_seconds", "tracking_recovery_max_attempts",
+                         "tracking_zoom_step", "tracking_zoom_hysteresis_ratio"]
+                        if record.spec.ptz_verification.tracking_edge_guard_enabled else []
+                    ),
+                },
                 "camera_id": record.spec.ptz_verification.camera_id,
                 "state": (
                     "disabled"

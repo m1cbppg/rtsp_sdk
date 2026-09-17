@@ -77,6 +77,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--model", default="yolo26s.pt")
     parser.add_argument("--small-target-proposals", action="store_true")
     parser.add_argument("--show-proposals", action="store_true")
+    parser.add_argument(
+        "--continuous-tracking",
+        action="store_true",
+        help="近景确认和首张截图后持续跟踪同一艘船",
+    )
     parser.add_argument("--wait-seconds", type=float, default=15.0)
     return parser.parse_args()
 
@@ -136,21 +141,47 @@ def main() -> None:
             "camera_control_url": "http://ptz-test-camera-control:8080",
             "camera_control_key_env": "CAMERA_CONTROL_API_KEY",
             "zoom_strategy": "adaptive",
-            "adaptive_target_width_ratio": 0.25,
-            "adaptive_target_height_ratio": 0.18,
+            "adaptive_target_width_ratio": 0.33,
+            "adaptive_target_height_ratio": 0.33,
             "adaptive_min_step": 1,
-            "adaptive_max_step": 6,
-            "adaptive_max_rounds": 5,
-            "adaptive_max_total_zoom_delta": 24,
+            # Keep the demo conservative: several small optical moves are
+            # easier to associate across buffered RTSP frames than one large
+            # jump that can crop out a moving vessel.
+            "adaptive_max_step": 2,
+            "adaptive_max_rounds": 6,
+            "adaptive_max_total_zoom_delta": 12,
+            "confirmed_target_fallback_zoom_rounds": 0,
             "adaptive_min_scale_growth_ratio": 1.08,
+            "continuous_tracking": args.continuous_tracking,
+            "tracking_center_deadband": 0.05,
+            "tracking_command_interval_seconds": 0.2,
+            "tracking_settle_seconds": 0.1,
+            "tracking_recovery_enabled": True,
+            "tracking_recovery_interval_seconds": 2.0,
+            "tracking_recovery_zoom_out_step": 1,
+            "tracking_recovery_max_attempts": 3,
+            "tracking_lost_timeout_seconds": 30,
+            "tracking_max_duration_seconds": 0,
+            "tracking_zoom_hysteresis_ratio": 0.20,
+            "tracking_zoom_step": 1,
+            "tracking_initial_extra_zoom_step": (
+                1 if args.continuous_tracking else 0
+            ),
+            "vessel_number_recognition_enabled": args.continuous_tracking,
+            "vessel_number_fallback": (
+                "10032" if args.continuous_tracking else ""
+            ),
             "command_timeout_seconds": 12,
             "reacquire_timeout_seconds": 8,
-            "settle_seconds": 0.3,
+            # Small zoom steps limit overshoot while a short wait keeps pace
+            # with the moving vessel in this prerecorded demonstration.
+            "settle_seconds": 0.5,
             "maximum_off_home_seconds": 45,
             "minimum_target_observations": 2,
             "home_frame_delay_seconds": 0.5,
             "proposal_minimum_interval_seconds": 5,
             "proposal_maximum_verifications_per_hour": 60,
+            "lost_retry_seconds": 15,
         },
     }
     created = request_json(

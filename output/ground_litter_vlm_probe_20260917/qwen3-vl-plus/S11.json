@@ -1,0 +1,30 @@
+{
+  "id": "S11",
+  "model_requested": "qwen3-vl-plus",
+  "model_returned": "qwen3-vl-plus",
+  "manifest_sha256": "175685c3bd0b3d26a590843690b4fe69a881f2249b62f25eb02421251566eaeb",
+  "seconds": 2.381257667002501,
+  "usage": {
+    "prompt_tokens": 456,
+    "completion_tokens": 51,
+    "total_tokens": 507,
+    "completion_tokens_details": {
+      "text_tokens": 51
+    },
+    "prompt_tokens_details": {
+      "image_tokens": 212,
+      "text_tokens": 244,
+      "cached_tokens": 0
+    }
+  },
+  "request_id": "chatcmpl-facf5d24-681d-90b1-8f77-51cf2349719f",
+  "finish_reason": "stop",
+  "raw_answer": "{\n  \"decision\": \"uncertain\",\n  \"object_description\": \"白色不规则小物体\",\n  \"ground_relation\": \"unclear\",\n  \"reason\": \"图像模糊，无法确认是否接触地面或为附着物\"\n}",
+  "parsed": {
+    "decision": "uncertain",
+    "object_description": "白色不规则小物体",
+    "ground_relation": "unclear",
+    "reason": "图像模糊，无法确认是否接触地面或为附着物"
+  },
+  "valid": true
+}

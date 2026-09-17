@@ -1,0 +1,1959 @@
+{
+  "checked_at_utc": "2026-09-13T02:32:42.521974+00:00",
+  "containers": [
+    {
+      "name": "ground-litter-live-shadow-1021-20260913-4h",
+      "id": "42a267a5e5027c7f4b56fb58b23d2e28c5635edaf911ae7e53df563aa5a06abd",
+      "image": "sha256:8f4bf64b95f47ea551b66b3e6ec5f734c5769c71029386e0d8decc163693db88",
+      "status": "exited",
+      "started": "2026-09-12T18:15:28.54250618Z",
+      "finished": "2026-09-12T22:15:30.723776386Z",
+      "exit_code": 124,
+      "oom": false,
+      "restarts": 0
+    },
+    {
+      "name": "rtsp-yolo-api",
+      "id": "3680d0a49ab6812ed06ee1862fa5c5b8cfc540b5ec058afc37f6971ea5d90038",
+      "image": "sha256:8f4bf64b95f47ea551b66b3e6ec5f734c5769c71029386e0d8decc163693db88",
+      "status": "running",
+      "started": "2026-09-10T02:28:19.166272338Z",
+      "finished": "0001-01-01T00:00:00Z",
+      "exit_code": 0,
+      "oom": false,
+      "restarts": 0
+    },
+    {
+      "name": "camera-control",
+      "id": "a474734106074cffb67ce2d7508ea47b9d76b46042534ca817a56a57c30d01b1",
+      "image": "sha256:c891e8d5379fa569586ca30a55a1b9f8251bf5f903c8ccdafc44c5cde45ab0f3",
+      "status": "running",
+      "started": "2026-09-10T02:27:50.293273703Z",
+      "finished": "0001-01-01T00:00:00Z",
+      "exit_code": 0,
+      "oom": false,
+      "restarts": 0
+    },
+    {
+      "name": "rtsp-web-gateway",
+      "id": "f2814850aaecc4adca38f516c81ba74989b2dabe9ed6f3a132d3df1ed3c3eef2",
+      "image": "sha256:d6d273e263b9066e138361c2ec9b1c964be75e5b357d5e6ec0111da2cd598c51",
+      "status": "running",
+      "started": "2026-09-06T06:38:27.229011227Z",
+      "finished": "2026-09-04T09:40:52.873083627Z",
+      "exit_code": 0,
+      "oom": false,
+      "restarts": 0
+    },
+    {
+      "name": "rtsp-mediamtx",
+      "id": "60176df1961c489b8abfe373574871624b8de980c2925fad34bba19c2be4f4a6",
+      "image": "sha256:482fe138c9a16df19222e5449ab27af73d866fd1965217fe493358402000b257",
+      "status": "running",
+      "started": "2026-09-06T06:38:27.129734608Z",
+      "finished": "2026-09-04T09:40:42.871176401Z",
+      "exit_code": 0,
+      "oom": false,
+      "restarts": 0
+    }
+  ],
+  "profile_sha256": "3db383536b5bd2f744c88ca24dcd471a00ebca4913add45d52611ff9456b513e",
+  "camera_profile": {
+    "device_code": "44180209031322001021",
+    "view_id": "fixed-v1",
+    "enabled": false,
+    "calibration_status": "draft",
+    "reference_image": "config/refs/44180209031322001021.jpg",
+    "reference_size": [
+      2560,
+      1440
+    ],
+    "trial_priority": 3,
+    "analysis_fps": 1.0,
+    "frame_max_age_seconds": 2.0,
+    "day": {
+      "minimum_confidence": 0.2,
+      "confirm_seconds": 30
+    },
+    "night": {
+      "minimum_confidence": 0.2,
+      "confirm_seconds": 45
+    },
+    "evidence": {
+      "hit_window": 5,
+      "minimum_hits": 3,
+      "minimum_hit_fraction": 0.6,
+      "actor_clear_seconds": 3
+    },
+    "notes": "仅识别左侧人行道；路边停车区域不纳入识别。近景棚顶是遮挡物，不是地面。右侧流动摊位暂不用于自动归属。",
+    "zones": [
+      {
+        "region_id": "left_walkway",
+        "name": "左侧人行道建议范围",
+        "merchant_id": null,
+        "merchant_name": null,
+        "physical_area_id": null,
+        "polygon": [
+          [
+            0.32,
+            0.15
+          ],
+          [
+            0.367,
+            0.15
+          ],
+          [
+            0.348,
+            0.42
+          ],
+          [
+            0.316,
+            0.63
+          ],
+          [
+            0.175,
+            0.97
+          ],
+          [
+            0.055,
+            0.97
+          ],
+          [
+            0.15,
+            0.64
+          ],
+          [
+            0.26,
+            0.35
+          ]
+        ],
+        "exclude_zones": [
+          [
+            [
+              0.238,
+              0.645
+            ],
+            [
+              0.349,
+              0.635
+            ],
+            [
+              0.36,
+              1
+            ],
+            [
+              0.16,
+              1
+            ]
+          ]
+        ],
+        "minimum_short_side_px": 12,
+        "minimum_box_area_px": 160
+      }
+    ],
+    "overlay_exclude_zones": [
+      [
+        [
+          0.0,
+          0.035
+        ],
+        [
+          0.4,
+          0.035
+        ],
+        [
+          0.4,
+          0.105
+        ],
+        [
+          0.0,
+          0.105
+        ]
+      ],
+      [
+        [
+          0.72,
+          0.882
+        ],
+        [
+          0.855,
+          0.882
+        ],
+        [
+          0.855,
+          0.938
+        ],
+        [
+          0.72,
+          0.938
+        ]
+      ]
+    ]
+  },
+  "actor_inference_code": [
+    "def __init__(self, model_path, *, device='cpu'):",
+    "actor_result=self.actor.predict(frame,imgsz=1280,conf=.2,classes=[0,1,2,3,5,7],**kwargs)[0]"
+  ],
+  "runtime_sha256": "d70e35095c62a07d1363a1aff45c49baa1cdbd836f7936b9a52ae52312550526",
+  "files": [
+    {
+      "path": "44180209031322001021-raw.jpg",
+      "bytes": 1405171
+    },
+    {
+      "path": "44180209031322001021.jpg",
+      "bytes": 1472243
+    },
+    {
+      "path": "index.html",
+      "bytes": 1734
+    },
+    {
+      "path": "items.json",
+      "bytes": 2
+    },
+    {
+      "path": "items.sqlite3",
+      "bytes": 16384
+    },
+    {
+      "path": "observations.jsonl",
+      "bytes": 4906465
+    },
+    {
+      "path": "observations.jsonl.1",
+      "bytes": 10483633
+    },
+    {
+      "path": "observations.jsonl.2",
+      "bytes": 10485279
+    },
+    {
+      "path": "review/44180209031322001021/candidate_review.json",
+      "bytes": 116980
+    },
+    {
+      "path": "review/44180209031322001021/review.html",
+      "bytes": 78515
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0000.jpg",
+      "bytes": 939150
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0001.jpg",
+      "bytes": 868238
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0002.jpg",
+      "bytes": 1088788
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0003.jpg",
+      "bytes": 1040233
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0004.jpg",
+      "bytes": 849903
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0005.jpg",
+      "bytes": 957312
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0006.jpg",
+      "bytes": 872459
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0007.jpg",
+      "bytes": 408989
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0008.jpg",
+      "bytes": 835906
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0009.jpg",
+      "bytes": 1222303
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0010.jpg",
+      "bytes": 1096473
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0011.jpg",
+      "bytes": 1033347
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0012.jpg",
+      "bytes": 817422
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0013.jpg",
+      "bytes": 970486
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0014.jpg",
+      "bytes": 1159968
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0015.jpg",
+      "bytes": 1396198
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0016.jpg",
+      "bytes": 943909
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0017.jpg",
+      "bytes": 901033
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0018.jpg",
+      "bytes": 570695
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0019.jpg",
+      "bytes": 1291920
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0020.jpg",
+      "bytes": 1074199
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0021.jpg",
+      "bytes": 844034
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0022.jpg",
+      "bytes": 1080688
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0023.jpg",
+      "bytes": 1266322
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0024.jpg",
+      "bytes": 926303
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0025.jpg",
+      "bytes": 830655
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0026.jpg",
+      "bytes": 822373
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0027.jpg",
+      "bytes": 821320
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0028.jpg",
+      "bytes": 458421
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0029.jpg",
+      "bytes": 987721
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0030.jpg",
+      "bytes": 1028628
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0031.jpg",
+      "bytes": 1035581
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0032.jpg",
+      "bytes": 1021095
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0033.jpg",
+      "bytes": 322766
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0034.jpg",
+      "bytes": 425395
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0035.jpg",
+      "bytes": 871321
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0036.jpg",
+      "bytes": 949799
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0037.jpg",
+      "bytes": 1067836
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0038.jpg",
+      "bytes": 832024
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0039.jpg",
+      "bytes": 956883
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0040.jpg",
+      "bytes": 887004
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0041.jpg",
+      "bytes": 1160466
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0042.jpg",
+      "bytes": 868444
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0043.jpg",
+      "bytes": 1003100
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0044.jpg",
+      "bytes": 1016589
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0045.jpg",
+      "bytes": 993211
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0046.jpg",
+      "bytes": 823302
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/audit-0047.jpg",
+      "bytes": 1094152
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0000-object-00.jpg",
+      "bytes": 3485
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0000.jpg",
+      "bytes": 1056433
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0001-object-00.jpg",
+      "bytes": 3406
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0001-object-01.jpg",
+      "bytes": 2285
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0001.jpg",
+      "bytes": 1025032
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0002-object-00.jpg",
+      "bytes": 3408
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0002-object-01.jpg",
+      "bytes": 2835
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0002.jpg",
+      "bytes": 1031962
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0003-object-00.jpg",
+      "bytes": 3599
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0003-object-01.jpg",
+      "bytes": 2843
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0003.jpg",
+      "bytes": 1050166
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0004-object-00.jpg",
+      "bytes": 2633
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0004-object-01.jpg",
+      "bytes": 2050
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0004.jpg",
+      "bytes": 877448
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0005-object-00.jpg",
+      "bytes": 3341
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0005-object-01.jpg",
+      "bytes": 2373
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0005.jpg",
+      "bytes": 998545
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0006-object-00.jpg",
+      "bytes": 2741
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0006.jpg",
+      "bytes": 861463
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0007-object-00.jpg",
+      "bytes": 3076
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0007-object-01.jpg",
+      "bytes": 2305
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0007.jpg",
+      "bytes": 955706
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0008-object-00.jpg",
+      "bytes": 3260
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0008-object-01.jpg",
+      "bytes": 3035
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0008-object-02.jpg",
+      "bytes": 2439
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0008.jpg",
+      "bytes": 1014099
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0009-object-00.jpg",
+      "bytes": 4300
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0009.jpg",
+      "bytes": 1312965
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0010-object-00.jpg",
+      "bytes": 2039
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0010-object-01.jpg",
+      "bytes": 2590
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0010.jpg",
+      "bytes": 873616
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0011-object-00.jpg",
+      "bytes": 3549
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0011-object-01.jpg",
+      "bytes": 3127
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0011.jpg",
+      "bytes": 1065346
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0012-object-00.jpg",
+      "bytes": 3300
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0012-object-01.jpg",
+      "bytes": 2287
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0012.jpg",
+      "bytes": 958030
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0013-object-00.jpg",
+      "bytes": 3465
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0013-object-01.jpg",
+      "bytes": 2388
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0013.jpg",
+      "bytes": 1006806
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0014-object-00.jpg",
+      "bytes": 2716
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0014.jpg",
+      "bytes": 863511
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0015-object-00.jpg",
+      "bytes": 7219
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0015-object-01.jpg",
+      "bytes": 2704
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0015.jpg",
+      "bytes": 887167
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0016-object-00.jpg",
+      "bytes": 2599
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0016-object-01.jpg",
+      "bytes": 2097
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0016.jpg",
+      "bytes": 857743
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0017-object-00.jpg",
+      "bytes": 2752
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0017.jpg",
+      "bytes": 881463
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0018-object-00.jpg",
+      "bytes": 2692
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0018.jpg",
+      "bytes": 882003
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0019-object-00.jpg",
+      "bytes": 2573
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0019-object-01.jpg",
+      "bytes": 1751
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0019.jpg",
+      "bytes": 905773
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0020-object-00.jpg",
+      "bytes": 2567
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0020.jpg",
+      "bytes": 844716
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0021-object-00.jpg",
+      "bytes": 3009
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0021.jpg",
+      "bytes": 1055065
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0022-object-00.jpg",
+      "bytes": 3286
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0022-object-01.jpg",
+      "bytes": 2294
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0022.jpg",
+      "bytes": 997241
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0023-object-00.jpg",
+      "bytes": 2009
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0023.jpg",
+      "bytes": 879007
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0024-object-00.jpg",
+      "bytes": 3281
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0024-object-01.jpg",
+      "bytes": 2320
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0024-object-02.jpg",
+      "bytes": 2287
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0024-object-03.jpg",
+      "bytes": 2630
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0024.jpg",
+      "bytes": 958063
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0025-object-00.jpg",
+      "bytes": 7627
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0025-object-01.jpg",
+      "bytes": 2588
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0025.jpg",
+      "bytes": 898277
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0026-object-00.jpg",
+      "bytes": 2708
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0026.jpg",
+      "bytes": 884988
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0027-object-00.jpg",
+      "bytes": 3487
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0027-object-01.jpg",
+      "bytes": 3048
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0027.jpg",
+      "bytes": 1039948
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0028-object-00.jpg",
+      "bytes": 2526
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0028.jpg",
+      "bytes": 847886
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0029-object-00.jpg",
+      "bytes": 3323
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0029-object-01.jpg",
+      "bytes": 2314
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0029.jpg",
+      "bytes": 995276
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0030-object-00.jpg",
+      "bytes": 3353
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0030-object-01.jpg",
+      "bytes": 2287
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0030.jpg",
+      "bytes": 973103
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0031-object-00.jpg",
+      "bytes": 2516
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0031-object-01.jpg",
+      "bytes": 2134
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0031.jpg",
+      "bytes": 851580
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0032-object-00.jpg",
+      "bytes": 2624
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0032.jpg",
+      "bytes": 857494
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0033-object-00.jpg",
+      "bytes": 3591
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0033-object-01.jpg",
+      "bytes": 2674
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0033.jpg",
+      "bytes": 1061255
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0034-object-00.jpg",
+      "bytes": 3388
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0034-object-01.jpg",
+      "bytes": 2310
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0034.jpg",
+      "bytes": 960369
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0035-object-00.jpg",
+      "bytes": 2125
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0035.jpg",
+      "bytes": 907105
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0036-object-00.jpg",
+      "bytes": 3361
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0036-object-01.jpg",
+      "bytes": 2270
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0036.jpg",
+      "bytes": 976991
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0037-object-00.jpg",
+      "bytes": 2575
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0037.jpg",
+      "bytes": 871669
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0038-object-00.jpg",
+      "bytes": 3368
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0038-object-01.jpg",
+      "bytes": 2580
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0038-object-02.jpg",
+      "bytes": 2266
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0038.jpg",
+      "bytes": 1176081
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0039-object-00.jpg",
+      "bytes": 2498
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0039-object-01.jpg",
+      "bytes": 15352
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0039.jpg",
+      "bytes": 850450
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0040-object-00.jpg",
+      "bytes": 3318
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0040-object-01.jpg",
+      "bytes": 2284
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0040.jpg",
+      "bytes": 1000488
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0041-object-00.jpg",
+      "bytes": 3519
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0041-object-01.jpg",
+      "bytes": 1945
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0041-object-02.jpg",
+      "bytes": 2318
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0041-object-03.jpg",
+      "bytes": 2046
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0041.jpg",
+      "bytes": 1012702
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0042-object-00.jpg",
+      "bytes": 3270
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0042-object-01.jpg",
+      "bytes": 2213
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0042.jpg",
+      "bytes": 929119
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0043-object-00.jpg",
+      "bytes": 3334
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0043-object-01.jpg",
+      "bytes": 2653
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0043.jpg",
+      "bytes": 1010382
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0044-object-00.jpg",
+      "bytes": 3243
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0044-object-01.jpg",
+      "bytes": 2321
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0044-object-02.jpg",
+      "bytes": 2595
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0044.jpg",
+      "bytes": 961986
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0045-object-00.jpg",
+      "bytes": 2646
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0045.jpg",
+      "bytes": 862793
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0046-object-00.jpg",
+      "bytes": 3352
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0046-object-01.jpg",
+      "bytes": 3048
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0046.jpg",
+      "bytes": 1021758
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0047-object-00.jpg",
+      "bytes": 2517
+    },
+    {
+      "path": "review/44180209031322001021/review_frames/candidate-0047.jpg",
+      "bytes": 938164
+    },
+    {
+      "path": "run.json",
+      "bytes": 421
+    },
+    {
+      "path": "samples/sample-20260912T181538.942230Z-44180209031322001021.jpg",
+      "bytes": 939150
+    },
+    {
+      "path": "samples/sample-20260912T181639.472305Z-44180209031322001021.jpg",
+      "bytes": 982495
+    },
+    {
+      "path": "samples/sample-20260912T181740.878877Z-44180209031322001021.jpg",
+      "bytes": 1015161
+    },
+    {
+      "path": "samples/sample-20260912T181842.206191Z-44180209031322001021.jpg",
+      "bytes": 981806
+    },
+    {
+      "path": "samples/sample-20260912T181943.014541Z-44180209031322001021.jpg",
+      "bytes": 761450
+    },
+    {
+      "path": "samples/sample-20260912T182043.483975Z-44180209031322001021.jpg",
+      "bytes": 973943
+    },
+    {
+      "path": "samples/sample-20260912T182143.697921Z-44180209031322001021.jpg",
+      "bytes": 972936
+    },
+    {
+      "path": "samples/sample-20260912T182244.005058Z-44180209031322001021.jpg",
+      "bytes": 408989
+    },
+    {
+      "path": "samples/sample-20260912T182344.729912Z-44180209031322001021.jpg",
+      "bytes": 1086366
+    },
+    {
+      "path": "samples/sample-20260912T182444.958751Z-44180209031322001021.jpg",
+      "bytes": 989011
+    },
+    {
+      "path": "samples/sample-20260912T182545.069611Z-44180209031322001021.jpg",
+      "bytes": 439549
+    },
+    {
+      "path": "samples/sample-20260912T182646.361139Z-44180209031322001021.jpg",
+      "bytes": 938446
+    },
+    {
+      "path": "samples/sample-20260912T182747.127658Z-44180209031322001021.jpg",
+      "bytes": 954390
+    },
+    {
+      "path": "samples/sample-20260912T182847.719929Z-44180209031322001021.jpg",
+      "bytes": 960177
+    },
+    {
+      "path": "samples/sample-20260912T182948.316470Z-44180209031322001021.jpg",
+      "bytes": 806181
+    },
+    {
+      "path": "samples/sample-20260912T183049.724467Z-44180209031322001021.jpg",
+      "bytes": 972316
+    },
+    {
+      "path": "samples/sample-20260912T183149.850529Z-44180209031322001021.jpg",
+      "bytes": 974476
+    },
+    {
+      "path": "samples/sample-20260912T183250.543359Z-44180209031322001021.jpg",
+      "bytes": 974974
+    },
+    {
+      "path": "samples/sample-20260912T183350.776600Z-44180209031322001021.jpg",
+      "bytes": 1003413
+    },
+    {
+      "path": "samples/sample-20260912T183451.933834Z-44180209031322001021.jpg",
+      "bytes": 978935
+    },
+    {
+      "path": "samples/sample-20260912T183553.410658Z-44180209031322001021.jpg",
+      "bytes": 958760
+    },
+    {
+      "path": "samples/sample-20260912T183654.984981Z-44180209031322001021.jpg",
+      "bytes": 956371
+    },
+    {
+      "path": "samples/sample-20260912T183755.344723Z-44180209031322001021.jpg",
+      "bytes": 1041346
+    },
+    {
+      "path": "samples/sample-20260912T183855.990526Z-44180209031322001021.jpg",
+      "bytes": 336935
+    },
+    {
+      "path": "samples/sample-20260912T183956.565228Z-44180209031322001021.jpg",
+      "bytes": 946761
+    },
+    {
+      "path": "samples/sample-20260912T184057.943924Z-44180209031322001021.jpg",
+      "bytes": 954081
+    },
+    {
+      "path": "samples/sample-20260912T184159.086491Z-44180209031322001021.jpg",
+      "bytes": 982171
+    },
+    {
+      "path": "samples/sample-20260912T184259.246338Z-44180209031322001021.jpg",
+      "bytes": 1052977
+    },
+    {
+      "path": "samples/sample-20260912T184400.583896Z-44180209031322001021.jpg",
+      "bytes": 929622
+    },
+    {
+      "path": "samples/sample-20260912T184501.732285Z-44180209031322001021.jpg",
+      "bytes": 955134
+    },
+    {
+      "path": "samples/sample-20260912T184602.130787Z-44180209031322001021.jpg",
+      "bytes": 956341
+    },
+    {
+      "path": "samples/sample-20260912T184702.886939Z-44180209031322001021.jpg",
+      "bytes": 951656
+    },
+    {
+      "path": "samples/sample-20260912T184803.900038Z-44180209031322001021.jpg",
+      "bytes": 933844
+    },
+    {
+      "path": "samples/sample-20260912T184904.909147Z-44180209031322001021.jpg",
+      "bytes": 975954
+    },
+    {
+      "path": "samples/sample-20260912T185006.043602Z-44180209031322001021.jpg",
+      "bytes": 279238
+    },
+    {
+      "path": "samples/sample-20260912T185106.920142Z-44180209031322001021.jpg",
+      "bytes": 947772
+    },
+    {
+      "path": "samples/sample-20260912T185207.751187Z-44180209031322001021.jpg",
+      "bytes": 1095259
+    },
+    {
+      "path": "samples/sample-20260912T185308.748156Z-44180209031322001021.jpg",
+      "bytes": 933838
+    },
+    {
+      "path": "samples/sample-20260912T185409.788527Z-44180209031322001021.jpg",
+      "bytes": 927380
+    },
+    {
+      "path": "samples/sample-20260912T185510.858456Z-44180209031322001021.jpg",
+      "bytes": 988512
+    },
+    {
+      "path": "samples/sample-20260912T185612.616333Z-44180209031322001021.jpg",
+      "bytes": 979525
+    },
+    {
+      "path": "samples/sample-20260912T185713.885718Z-44180209031322001021.jpg",
+      "bytes": 962859
+    },
+    {
+      "path": "samples/sample-20260912T185815.413020Z-44180209031322001021.jpg",
+      "bytes": 952055
+    },
+    {
+      "path": "samples/sample-20260912T185915.900977Z-44180209031322001021.jpg",
+      "bytes": 945329
+    },
+    {
+      "path": "samples/sample-20260912T190017.267672Z-44180209031322001021.jpg",
+      "bytes": 961948
+    },
+    {
+      "path": "samples/sample-20260912T190118.194278Z-44180209031322001021.jpg",
+      "bytes": 1098641
+    },
+    {
+      "path": "samples/sample-20260912T190218.972884Z-44180209031322001021.jpg",
+      "bytes": 950495
+    },
+    {
+      "path": "samples/sample-20260912T190319.593286Z-44180209031322001021.jpg",
+      "bytes": 831109
+    },
+    {
+      "path": "samples/sample-20260912T190419.805167Z-44180209031322001021.jpg",
+      "bytes": 831267
+    },
+    {
+      "path": "samples/sample-20260912T190520.436960Z-44180209031322001021.jpg",
+      "bytes": 1013117
+    },
+    {
+      "path": "samples/sample-20260912T190621.906311Z-44180209031322001021.jpg",
+      "bytes": 830319
+    },
+    {
+      "path": "samples/sample-20260912T190722.807622Z-44180209031322001021.jpg",
+      "bytes": 813619
+    },
+    {
+      "path": "samples/sample-20260912T190822.945968Z-44180209031322001021.jpg",
+      "bytes": 839259
+    },
+    {
+      "path": "samples/sample-20260912T190923.312308Z-44180209031322001021.jpg",
+      "bytes": 806054
+    },
+    {
+      "path": "samples/sample-20260912T191024.921073Z-44180209031322001021.jpg",
+      "bytes": 819833
+    },
+    {
+      "path": "samples/sample-20260912T191125.910472Z-44180209031322001021.jpg",
+      "bytes": 929792
+    },
+    {
+      "path": "samples/sample-20260912T191226.773854Z-44180209031322001021.jpg",
+      "bytes": 844056
+    },
+    {
+      "path": "samples/sample-20260912T191327.911717Z-44180209031322001021.jpg",
+      "bytes": 818002
+    },
+    {
+      "path": "samples/sample-20260912T191428.860420Z-44180209031322001021.jpg",
+      "bytes": 859928
+    },
+    {
+      "path": "samples/sample-20260912T191529.429134Z-44180209031322001021.jpg",
+      "bytes": 855605
+    },
+    {
+      "path": "samples/sample-20260912T191629.999639Z-44180209031322001021.jpg",
+      "bytes": 546729
+    },
+    {
+      "path": "samples/sample-20260912T191730.955912Z-44180209031322001021.jpg",
+      "bytes": 830729
+    },
+    {
+      "path": "samples/sample-20260912T191831.487184Z-44180209031322001021.jpg",
+      "bytes": 856174
+    },
+    {
+      "path": "samples/sample-20260912T191932.411536Z-44180209031322001021.jpg",
+      "bytes": 284833
+    },
+    {
+      "path": "samples/sample-20260912T192032.776323Z-44180209031322001021.jpg",
+      "bytes": 954686
+    },
+    {
+      "path": "samples/sample-20260912T192133.713125Z-44180209031322001021.jpg",
+      "bytes": 875933
+    },
+    {
+      "path": "samples/sample-20260912T192234.468140Z-44180209031322001021.jpg",
+      "bytes": 856993
+    },
+    {
+      "path": "samples/sample-20260912T192335.948215Z-44180209031322001021.jpg",
+      "bytes": 238092
+    },
+    {
+      "path": "samples/sample-20260912T192436.961000Z-44180209031322001021.jpg",
+      "bytes": 354706
+    },
+    {
+      "path": "samples/sample-20260912T192537.261625Z-44180209031322001021.jpg",
+      "bytes": 801347
+    },
+    {
+      "path": "samples/sample-20260912T192637.927672Z-44180209031322001021.jpg",
+      "bytes": 819397
+    },
+    {
+      "path": "samples/sample-20260912T192738.819952Z-44180209031322001021.jpg",
+      "bytes": 829971
+    },
+    {
+      "path": "samples/sample-20260912T192839.538957Z-44180209031322001021.jpg",
+      "bytes": 830582
+    },
+    {
+      "path": "samples/sample-20260912T192940.646907Z-44180209031322001021.jpg",
+      "bytes": 824493
+    },
+    {
+      "path": "samples/sample-20260912T193040.840520Z-44180209031322001021.jpg",
+      "bytes": 833000
+    },
+    {
+      "path": "samples/sample-20260912T193141.828193Z-44180209031322001021.jpg",
+      "bytes": 831276
+    },
+    {
+      "path": "samples/sample-20260912T193242.454968Z-44180209031322001021.jpg",
+      "bytes": 845345
+    },
+    {
+      "path": "samples/sample-20260912T193343.577090Z-44180209031322001021.jpg",
+      "bytes": 841866
+    },
+    {
+      "path": "samples/sample-20260912T193444.417288Z-44180209031322001021.jpg",
+      "bytes": 837131
+    },
+    {
+      "path": "samples/sample-20260912T193544.683140Z-44180209031322001021.jpg",
+      "bytes": 853587
+    },
+    {
+      "path": "samples/sample-20260912T193645.305498Z-44180209031322001021.jpg",
+      "bytes": 839832
+    },
+    {
+      "path": "samples/sample-20260912T193746.466358Z-44180209031322001021.jpg",
+      "bytes": 848280
+    },
+    {
+      "path": "samples/sample-20260912T193847.302395Z-44180209031322001021.jpg",
+      "bytes": 286470
+    },
+    {
+      "path": "samples/sample-20260912T193948.232378Z-44180209031322001021.jpg",
+      "bytes": 875892
+    },
+    {
+      "path": "samples/sample-20260912T194048.370253Z-44180209031322001021.jpg",
+      "bytes": 852113
+    },
+    {
+      "path": "samples/sample-20260912T194149.240710Z-44180209031322001021.jpg",
+      "bytes": 856865
+    },
+    {
+      "path": "samples/sample-20260912T194250.508606Z-44180209031322001021.jpg",
+      "bytes": 842326
+    },
+    {
+      "path": "samples/sample-20260912T194351.296041Z-44180209031322001021.jpg",
+      "bytes": 856657
+    },
+    {
+      "path": "samples/sample-20260912T194451.614931Z-44180209031322001021.jpg",
+      "bytes": 863391
+    },
+    {
+      "path": "samples/sample-20260912T194551.828938Z-44180209031322001021.jpg",
+      "bytes": 842850
+    },
+    {
+      "path": "samples/sample-20260912T194652.899669Z-44180209031322001021.jpg",
+      "bytes": 834460
+    },
+    {
+      "path": "samples/sample-20260912T194754.267628Z-44180209031322001021.jpg",
+      "bytes": 833972
+    },
+    {
+      "path": "samples/sample-20260912T194855.184996Z-44180209031322001021.jpg",
+      "bytes": 262120
+    },
+    {
+      "path": "samples/sample-20260912T194956.183607Z-44180209031322001021.jpg",
+      "bytes": 185662
+    },
+    {
+      "path": "samples/sample-20260912T195056.507849Z-44180209031322001021.jpg",
+      "bytes": 831504
+    },
+    {
+      "path": "samples/sample-20260912T195157.579430Z-44180209031322001021.jpg",
+      "bytes": 853495
+    },
+    {
+      "path": "samples/sample-20260912T195259.327955Z-44180209031322001021.jpg",
+      "bytes": 863303
+    },
+    {
+      "path": "samples/sample-20260912T195400.475448Z-44180209031322001021.jpg",
+      "bytes": 832009
+    },
+    {
+      "path": "samples/sample-20260912T195501.043406Z-44180209031322001021.jpg",
+      "bytes": 172808
+    },
+    {
+      "path": "samples/sample-20260912T195602.398276Z-44180209031322001021.jpg",
+      "bytes": 915106
+    },
+    {
+      "path": "samples/sample-20260912T195703.987589Z-44180209031322001021.jpg",
+      "bytes": 865367
+    },
+    {
+      "path": "samples/sample-20260912T195804.385995Z-44180209031322001021.jpg",
+      "bytes": 886420
+    },
+    {
+      "path": "samples/sample-20260912T195905.510244Z-44180209031322001021.jpg",
+      "bytes": 900174
+    },
+    {
+      "path": "samples/sample-20260912T200006.315646Z-44180209031322001021.jpg",
+      "bytes": 850335
+    },
+    {
+      "path": "samples/sample-20260912T200107.334072Z-44180209031322001021.jpg",
+      "bytes": 875288
+    },
+    {
+      "path": "samples/sample-20260912T200208.970687Z-44180209031322001021.jpg",
+      "bytes": 914492
+    },
+    {
+      "path": "samples/sample-20260912T200309.935514Z-44180209031322001021.jpg",
+      "bytes": 869608
+    },
+    {
+      "path": "samples/sample-20260912T200410.776570Z-44180209031322001021.jpg",
+      "bytes": 855422
+    },
+    {
+      "path": "samples/sample-20260912T200512.312752Z-44180209031322001021.jpg",
+      "bytes": 828134
+    },
+    {
+      "path": "samples/sample-20260912T200613.464300Z-44180209031322001021.jpg",
+      "bytes": 883496
+    },
+    {
+      "path": "samples/sample-20260912T200713.577259Z-44180209031322001021.jpg",
+      "bytes": 963295
+    },
+    {
+      "path": "samples/sample-20260912T200813.696843Z-44180209031322001021.jpg",
+      "bytes": 875528
+    },
+    {
+      "path": "samples/sample-20260912T200915.027243Z-44180209031322001021.jpg",
+      "bytes": 986114
+    },
+    {
+      "path": "samples/sample-20260912T201015.293621Z-44180209031322001021.jpg",
+      "bytes": 945808
+    },
+    {
+      "path": "samples/sample-20260912T201115.876140Z-44180209031322001021.jpg",
+      "bytes": 986232
+    },
+    {
+      "path": "samples/sample-20260912T201217.207862Z-44180209031322001021.jpg",
+      "bytes": 992255
+    },
+    {
+      "path": "samples/sample-20260912T201317.897652Z-44180209031322001021.jpg",
+      "bytes": 997814
+    },
+    {
+      "path": "samples/sample-20260912T201419.082403Z-44180209031322001021.jpg",
+      "bytes": 1003229
+    },
+    {
+      "path": "samples/sample-20260912T201519.681156Z-44180209031322001021.jpg",
+      "bytes": 952193
+    },
+    {
+      "path": "samples/sample-20260912T201620.676170Z-44180209031322001021.jpg",
+      "bytes": 975537
+    },
+    {
+      "path": "samples/sample-20260912T201720.867854Z-44180209031322001021.jpg",
+      "bytes": 1057213
+    },
+    {
+      "path": "samples/sample-20260912T201821.536005Z-44180209031322001021.jpg",
+      "bytes": 1073851
+    },
+    {
+      "path": "samples/sample-20260912T201922.450553Z-44180209031322001021.jpg",
+      "bytes": 969991
+    },
+    {
+      "path": "samples/sample-20260912T202023.724224Z-44180209031322001021.jpg",
+      "bytes": 966387
+    },
+    {
+      "path": "samples/sample-20260912T202124.953600Z-44180209031322001021.jpg",
+      "bytes": 1003303
+    },
+    {
+      "path": "samples/sample-20260912T202226.310003Z-44180209031322001021.jpg",
+      "bytes": 952681
+    },
+    {
+      "path": "samples/sample-20260912T202327.580083Z-44180209031322001021.jpg",
+      "bytes": 964566
+    },
+    {
+      "path": "samples/sample-20260912T202428.968417Z-44180209031322001021.jpg",
+      "bytes": 979176
+    },
+    {
+      "path": "samples/sample-20260912T202530.161929Z-44180209031322001021.jpg",
+      "bytes": 963794
+    },
+    {
+      "path": "samples/sample-20260912T202631.348177Z-44180209031322001021.jpg",
+      "bytes": 1063320
+    },
+    {
+      "path": "samples/sample-20260912T202731.908311Z-44180209031322001021.jpg",
+      "bytes": 1025103
+    },
+    {
+      "path": "samples/sample-20260912T202833.300035Z-44180209031322001021.jpg",
+      "bytes": 985734
+    },
+    {
+      "path": "samples/sample-20260912T202933.478980Z-44180209031322001021.jpg",
+      "bytes": 995175
+    },
+    {
+      "path": "samples/sample-20260912T203034.564636Z-44180209031322001021.jpg",
+      "bytes": 1012284
+    },
+    {
+      "path": "samples/sample-20260912T203135.317240Z-44180209031322001021.jpg",
+      "bytes": 810703
+    },
+    {
+      "path": "samples/sample-20260912T203236.072859Z-44180209031322001021.jpg",
+      "bytes": 1029238
+    },
+    {
+      "path": "samples/sample-20260912T203337.252380Z-44180209031322001021.jpg",
+      "bytes": 1055288
+    },
+    {
+      "path": "samples/sample-20260912T203437.468902Z-44180209031322001021.jpg",
+      "bytes": 997793
+    },
+    {
+      "path": "samples/sample-20260912T203538.530026Z-44180209031322001021.jpg",
+      "bytes": 1050732
+    },
+    {
+      "path": "samples/sample-20260912T203639.945618Z-44180209031322001021.jpg",
+      "bytes": 1044027
+    },
+    {
+      "path": "samples/sample-20260912T203740.555754Z-44180209031322001021.jpg",
+      "bytes": 1087286
+    },
+    {
+      "path": "samples/sample-20260912T203842.046831Z-44180209031322001021.jpg",
+      "bytes": 1023160
+    },
+    {
+      "path": "samples/sample-20260912T203942.432208Z-44180209031322001021.jpg",
+      "bytes": 1036174
+    },
+    {
+      "path": "samples/sample-20260912T204042.845119Z-44180209031322001021.jpg",
+      "bytes": 988845
+    },
+    {
+      "path": "samples/sample-20260912T204143.045961Z-44180209031322001021.jpg",
+      "bytes": 984456
+    },
+    {
+      "path": "samples/sample-20260912T204243.559687Z-44180209031322001021.jpg",
+      "bytes": 996620
+    },
+    {
+      "path": "samples/sample-20260912T204344.631724Z-44180209031322001021.jpg",
+      "bytes": 1036330
+    },
+    {
+      "path": "samples/sample-20260912T204445.729092Z-44180209031322001021.jpg",
+      "bytes": 1050773
+    },
+    {
+      "path": "samples/sample-20260912T204546.933620Z-44180209031322001021.jpg",
+      "bytes": 988631
+    },
+    {
+      "path": "samples/sample-20260912T204647.558647Z-44180209031322001021.jpg",
+      "bytes": 1048255
+    },
+    {
+      "path": "samples/sample-20260912T204748.702419Z-44180209031322001021.jpg",
+      "bytes": 1037245
+    },
+    {
+      "path": "samples/sample-20260912T204848.879750Z-44180209031322001021.jpg",
+      "bytes": 991197
+    },
+    {
+      "path": "samples/sample-20260912T204950.202729Z-44180209031322001021.jpg",
+      "bytes": 994190
+    },
+    {
+      "path": "samples/sample-20260912T205051.152733Z-44180209031322001021.jpg",
+      "bytes": 1049693
+    },
+    {
+      "path": "samples/sample-20260912T205151.855897Z-44180209031322001021.jpg",
+      "bytes": 1016020
+    },
+    {
+      "path": "samples/sample-20260912T205252.368037Z-44180209031322001021.jpg",
+      "bytes": 978212
+    },
+    {
+      "path": "samples/sample-20260912T205353.020812Z-44180209031322001021.jpg",
+      "bytes": 997589
+    },
+    {
+      "path": "samples/sample-20260912T205453.425154Z-44180209031322001021.jpg",
+      "bytes": 1031104
+    },
+    {
+      "path": "samples/sample-20260912T205553.563365Z-44180209031322001021.jpg",
+      "bytes": 1010242
+    },
+    {
+      "path": "samples/sample-20260912T205654.699795Z-44180209031322001021.jpg",
+      "bytes": 1037242
+    },
+    {
+      "path": "samples/sample-20260912T205755.011421Z-44180209031322001021.jpg",
+      "bytes": 981659
+    },
+    {
+      "path": "samples/sample-20260912T205855.911944Z-44180209031322001021.jpg",
+      "bytes": 214312
+    },
+    {
+      "path": "samples/sample-20260912T205956.975562Z-44180209031322001021.jpg",
+      "bytes": 1042987
+    },
+    {
+      "path": "samples/sample-20260912T210057.353031Z-44180209031322001021.jpg",
+      "bytes": 1036273
+    },
+    {
+      "path": "samples/sample-20260912T210157.897586Z-44180209031322001021.jpg",
+      "bytes": 1027460
+    },
+    {
+      "path": "samples/sample-20260912T210259.241842Z-44180209031322001021.jpg",
+      "bytes": 1011068
+    },
+    {
+      "path": "samples/sample-20260912T210400.596536Z-44180209031322001021.jpg",
+      "bytes": 561592
+    },
+    {
+      "path": "samples/sample-20260912T210500.750929Z-44180209031322001021.jpg",
+      "bytes": 993950
+    },
+    {
+      "path": "samples/sample-20260912T210601.443346Z-44180209031322001021.jpg",
+      "bytes": 1045622
+    },
+    {
+      "path": "samples/sample-20260912T210702.418418Z-44180209031322001021.jpg",
+      "bytes": 1044653
+    },
+    {
+      "path": "samples/sample-20260912T210803.382388Z-44180209031322001021.jpg",
+      "bytes": 1055711
+    },
+    {
+      "path": "samples/sample-20260912T210903.832391Z-44180209031322001021.jpg",
+      "bytes": 976706
+    },
+    {
+      "path": "samples/sample-20260912T211004.854529Z-44180209031322001021.jpg",
+      "bytes": 1043493
+    },
+    {
+      "path": "samples/sample-20260912T211105.054402Z-44180209031322001021.jpg",
+      "bytes": 673890
+    },
+    {
+      "path": "samples/sample-20260912T211205.675837Z-44180209031322001021.jpg",
+      "bytes": 1115563
+    },
+    {
+      "path": "samples/sample-20260912T211306.760853Z-44180209031322001021.jpg",
+      "bytes": 1105474
+    },
+    {
+      "path": "samples/sample-20260912T211408.114782Z-44180209031322001021.jpg",
+      "bytes": 1144133
+    },
+    {
+      "path": "samples/sample-20260912T211508.441704Z-44180209031322001021.jpg",
+      "bytes": 1110502
+    },
+    {
+      "path": "samples/sample-20260912T211608.767379Z-44180209031322001021.jpg",
+      "bytes": 1027337
+    },
+    {
+      "path": "samples/sample-20260912T211710.002041Z-44180209031322001021.jpg",
+      "bytes": 1078050
+    },
+    {
+      "path": "samples/sample-20260912T211811.415281Z-44180209031322001021.jpg",
+      "bytes": 1100176
+    },
+    {
+      "path": "samples/sample-20260912T211911.705422Z-44180209031322001021.jpg",
+      "bytes": 1160157
+    },
+    {
+      "path": "samples/sample-20260912T212011.933934Z-44180209031322001021.jpg",
+      "bytes": 972777
+    },
+    {
+      "path": "samples/sample-20260912T212112.790151Z-44180209031322001021.jpg",
+      "bytes": 1027185
+    },
+    {
+      "path": "samples/sample-20260912T212213.983770Z-44180209031322001021.jpg",
+      "bytes": 987034
+    },
+    {
+      "path": "samples/sample-20260912T212314.716285Z-44180209031322001021.jpg",
+      "bytes": 1151572
+    },
+    {
+      "path": "samples/sample-20260912T212415.649538Z-44180209031322001021.jpg",
+      "bytes": 1051003
+    },
+    {
+      "path": "samples/sample-20260912T212515.733764Z-44180209031322001021.jpg",
+      "bytes": 1323328
+    },
+    {
+      "path": "samples/sample-20260912T212616.243097Z-44180209031322001021.jpg",
+      "bytes": 460720
+    },
+    {
+      "path": "samples/sample-20260912T212717.329810Z-44180209031322001021.jpg",
+      "bytes": 1078545
+    },
+    {
+      "path": "samples/sample-20260912T212817.703733Z-44180209031322001021.jpg",
+      "bytes": 1183445
+    },
+    {
+      "path": "samples/sample-20260912T212918.860409Z-44180209031322001021.jpg",
+      "bytes": 1207002
+    },
+    {
+      "path": "samples/sample-20260912T213019.336620Z-44180209031322001021.jpg",
+      "bytes": 993367
+    },
+    {
+      "path": "samples/sample-20260912T213120.113392Z-44180209031322001021.jpg",
+      "bytes": 1061811
+    },
+    {
+      "path": "samples/sample-20260912T213220.516813Z-44180209031322001021.jpg",
+      "bytes": 998698
+    },
+    {
+      "path": "samples/sample-20260912T213321.182185Z-44180209031322001021.jpg",
+      "bytes": 1017197
+    },
+    {
+      "path": "samples/sample-20260912T213421.558650Z-44180209031322001021.jpg",
+      "bytes": 1033157
+    },
+    {
+      "path": "samples/sample-20260912T213522.508087Z-44180209031322001021.jpg",
+      "bytes": 1030534
+    },
+    {
+      "path": "samples/sample-20260912T213623.021305Z-44180209031322001021.jpg",
+      "bytes": 239434
+    },
+    {
+      "path": "samples/sample-20260912T213723.527839Z-44180209031322001021.jpg",
+      "bytes": 388410
+    },
+    {
+      "path": "samples/sample-20260912T213823.721267Z-44180209031322001021.jpg",
+      "bytes": 1047178
+    },
+    {
+      "path": "samples/sample-20260912T213924.611448Z-44180209031322001021.jpg",
+      "bytes": 1020759
+    },
+    {
+      "path": "samples/sample-20260912T214025.404690Z-44180209031322001021.jpg",
+      "bytes": 1078785
+    },
+    {
+      "path": "samples/sample-20260912T214126.594974Z-44180209031322001021.jpg",
+      "bytes": 196491
+    },
+    {
+      "path": "samples/sample-20260912T214227.107654Z-44180209031322001021.jpg",
+      "bytes": 1059220
+    },
+    {
+      "path": "samples/sample-20260912T214327.997885Z-44180209031322001021.jpg",
+      "bytes": 1026029
+    },
+    {
+      "path": "samples/sample-20260912T214428.470002Z-44180209031322001021.jpg",
+      "bytes": 1010853
+    },
+    {
+      "path": "samples/sample-20260912T214528.989371Z-44180209031322001021.jpg",
+      "bytes": 1044570
+    },
+    {
+      "path": "samples/sample-20260912T214630.185786Z-44180209031322001021.jpg",
+      "bytes": 1048945
+    },
+    {
+      "path": "samples/sample-20260912T214731.641672Z-44180209031322001021.jpg",
+      "bytes": 976416
+    },
+    {
+      "path": "samples/sample-20260912T214833.116071Z-44180209031322001021.jpg",
+      "bytes": 553108
+    },
+    {
+      "path": "samples/sample-20260912T214933.592307Z-44180209031322001021.jpg",
+      "bytes": 990902
+    },
+    {
+      "path": "samples/sample-20260912T215034.870829Z-44180209031322001021.jpg",
+      "bytes": 1156626
+    },
+    {
+      "path": "samples/sample-20260912T215135.394673Z-44180209031322001021.jpg",
+      "bytes": 1070891
+    },
+    {
+      "path": "samples/sample-20260912T215236.785337Z-44180209031322001021.jpg",
+      "bytes": 1105821
+    },
+    {
+      "path": "samples/sample-20260912T215337.942044Z-44180209031322001021.jpg",
+      "bytes": 1085892
+    },
+    {
+      "path": "samples/sample-20260912T215438.231268Z-44180209031322001021.jpg",
+      "bytes": 1179941
+    },
+    {
+      "path": "samples/sample-20260912T215538.819415Z-44180209031322001021.jpg",
+      "bytes": 1138516
+    },
+    {
+      "path": "samples/sample-20260912T215639.952249Z-44180209031322001021.jpg",
+      "bytes": 1061748
+    },
+    {
+      "path": "samples/sample-20260912T215740.584471Z-44180209031322001021.jpg",
+      "bytes": 1061860
+    },
+    {
+      "path": "samples/sample-20260912T215841.029000Z-44180209031322001021.jpg",
+      "bytes": 988768
+    },
+    {
+      "path": "samples/sample-20260912T215941.518216Z-44180209031322001021.jpg",
+      "bytes": 1116246
+    },
+    {
+      "path": "samples/sample-20260912T220043.139015Z-44180209031322001021.jpg",
+      "bytes": 1111894
+    },
+    {
+      "path": "samples/sample-20260912T220144.007142Z-44180209031322001021.jpg",
+      "bytes": 1258045
+    },
+    {
+      "path": "samples/sample-20260912T220244.932863Z-44180209031322001021.jpg",
+      "bytes": 1262690
+    },
+    {
+      "path": "samples/sample-20260912T220346.225100Z-44180209031322001021.jpg",
+      "bytes": 1229711
+    },
+    {
+      "path": "samples/sample-20260912T220446.978747Z-44180209031322001021.jpg",
+      "bytes": 1181563
+    },
+    {
+      "path": "samples/sample-20260912T220547.735497Z-44180209031322001021.jpg",
+      "bytes": 1267496
+    },
+    {
+      "path": "samples/sample-20260912T220648.389958Z-44180209031322001021.jpg",
+      "bytes": 1301113
+    },
+    {
+      "path": "samples/sample-20260912T220748.617438Z-44180209031322001021.jpg",
+      "bytes": 1220381
+    },
+    {
+      "path": "samples/sample-20260912T220848.923272Z-44180209031322001021.jpg",
+      "bytes": 1176283
+    },
+    {
+      "path": "samples/sample-20260912T220949.616017Z-44180209031322001021.jpg",
+      "bytes": 1277008
+    },
+    {
+      "path": "samples/sample-20260912T221050.906135Z-44180209031322001021.jpg",
+      "bytes": 1306853
+    },
+    {
+      "path": "samples/sample-20260912T221152.348735Z-44180209031322001021.jpg",
+      "bytes": 1328181
+    },
+    {
+      "path": "samples/sample-20260912T221253.645312Z-44180209031322001021.jpg",
+      "bytes": 1346146
+    },
+    {
+      "path": "samples/sample-20260912T221354.581889Z-44180209031322001021.jpg",
+      "bytes": 1434593
+    },
+    {
+      "path": "samples/sample-20260912T221455.080053Z-44180209031322001021.jpg",
+      "bytes": 1405171
+    },
+    {
+      "path": "status.json",
+      "bytes": 802
+    },
+    {
+      "path": "summary.json",
+      "bytes": 867
+    }
+  ],
+  "fingerprints": [
+    {
+      "path": "observations.jsonl",
+      "sha256": "d09f521570f980065740d60203bc14253ca63f99f7788770bca6dd185f2b92d5"
+    },
+    {
+      "path": "observations.jsonl.1",
+      "sha256": "842e3aa8d437669d4adb5100ead80df22b996500b3bac7f7855d11bd79396373"
+    },
+    {
+      "path": "observations.jsonl.2",
+      "sha256": "a52bcc8be40ff0bb768ecb36e4d041fde0035e69476f42670ea56c61207e3671"
+    }
+  ],
+  "sqlite_items": [],
+  "container_log_counts": {
+    "Traceback": 0,
+    "401 Unauthorized": 0,
+    "Could not find ref": 520,
+    "CABAC": 35,
+    "PPS id": 0,
+    "timed out": 0,
+    "Duplicate POC": 4
+  },
+  "api_health": {
+    "status": "ok"
+  }
+}

@@ -10,7 +10,11 @@ COPY rtsp_annotator/deepstream_manager.py /app/rtsp_annotator/deepstream_manager
 COPY rtsp_annotator/deepstream_worker.py /app/rtsp_annotator/deepstream_worker.py
 COPY rtsp_annotator/fishing_risk.py /app/rtsp_annotator/fishing_risk.py
 COPY rtsp_annotator/ptz_verification.py /app/rtsp_annotator/ptz_verification.py
+COPY rtsp_annotator/tracking_edge_guard.py /app/rtsp_annotator/tracking_edge_guard.py
+COPY rtsp_annotator/continuous_tracking.py /app/rtsp_annotator/continuous_tracking.py
+COPY rtsp_annotator/shared_stream_manager.py /app/rtsp_annotator/shared_stream_manager.py
 COPY rtsp_annotator/stream_manager.py /app/rtsp_annotator/stream_manager.py
+COPY rtsp_annotator/stream_observability.py /app/rtsp_annotator/stream_observability.py
 COPY rtsp_annotator/vessel_detection.py /app/rtsp_annotator/vessel_detection.py
 COPY rtsp_annotator/vessel_detection_process.py /app/rtsp_annotator/vessel_detection_process.py
 COPY scripts/replay_ptz_candidates.py /app/scripts/replay_ptz_candidates.py
@@ -21,7 +25,11 @@ RUN python3 -m py_compile \
     /app/rtsp_annotator/deepstream_worker.py \
     /app/rtsp_annotator/fishing_risk.py \
     /app/rtsp_annotator/ptz_verification.py \
+    /app/rtsp_annotator/continuous_tracking.py \
+    /app/rtsp_annotator/tracking_edge_guard.py \
+    /app/rtsp_annotator/shared_stream_manager.py \
     /app/rtsp_annotator/stream_manager.py \
+    /app/rtsp_annotator/stream_observability.py \
     /app/rtsp_annotator/vessel_detection.py \
     /app/rtsp_annotator/vessel_detection_process.py \
     /app/scripts/replay_ptz_candidates.py

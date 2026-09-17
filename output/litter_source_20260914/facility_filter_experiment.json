@@ -1,0 +1,479 @@
+{
+  "summary": {
+    "samples": 20,
+    "before": 22,
+    "after": 22,
+    "suppressed": 0,
+    "suppressed_by_id": {}
+  },
+  "rows": [
+    {
+      "sample_id": "live000",
+      "before": 1,
+      "after": 1,
+      "decisions": [],
+      "kept": [
+        {
+          "box": [
+            837,
+            597,
+            925,
+            668
+          ],
+          "confidence": 0.4695703685283661,
+          "label": "Plastic",
+          "tile_index": 3,
+          "region_id": "left_walkway",
+          "merchant_id": null,
+          "source": "model"
+        }
+      ]
+    },
+    {
+      "sample_id": "live001",
+      "before": 1,
+      "after": 1,
+      "decisions": [],
+      "kept": [
+        {
+          "box": [
+            837,
+            597,
+            922,
+            662
+          ],
+          "confidence": 0.2645139992237091,
+          "label": "Plastic",
+          "tile_index": 3,
+          "region_id": "left_walkway",
+          "merchant_id": null,
+          "source": "model"
+        }
+      ]
+    },
+    {
+      "sample_id": "live002",
+      "before": 1,
+      "after": 1,
+      "decisions": [],
+      "kept": [
+        {
+          "box": [
+            836,
+            597,
+            920,
+            645
+          ],
+          "confidence": 0.33790484070777893,
+          "label": "Plastic",
+          "tile_index": 3,
+          "region_id": "left_walkway",
+          "merchant_id": null,
+          "source": "model"
+        }
+      ]
+    },
+    {
+      "sample_id": "live003",
+      "before": 1,
+      "after": 1,
+      "decisions": [],
+      "kept": [
+        {
+          "box": [
+            836,
+            597,
+            921,
+            645
+          ],
+          "confidence": 0.28963640332221985,
+          "label": "Plastic",
+          "tile_index": 3,
+          "region_id": "left_walkway",
+          "merchant_id": null,
+          "source": "model"
+        }
+      ]
+    },
+    {
+      "sample_id": "live004",
+      "before": 1,
+      "after": 1,
+      "decisions": [],
+      "kept": [
+        {
+          "box": [
+            836,
+            597,
+            922,
+            651
+          ],
+          "confidence": 0.31153252720832825,
+          "label": "Plastic",
+          "tile_index": 3,
+          "region_id": "left_walkway",
+          "merchant_id": null,
+          "source": "model"
+        }
+      ]
+    },
+    {
+      "sample_id": "live005",
+      "before": 1,
+      "after": 1,
+      "decisions": [],
+      "kept": [
+        {
+          "box": [
+            836,
+            597,
+            921,
+            643
+          ],
+          "confidence": 0.4164885878562927,
+          "label": "Plastic",
+          "tile_index": 3,
+          "region_id": "left_walkway",
+          "merchant_id": null,
+          "source": "model"
+        }
+      ]
+    },
+    {
+      "sample_id": "live006",
+      "before": 1,
+      "after": 1,
+      "decisions": [],
+      "kept": [
+        {
+          "box": [
+            836,
+            596,
+            923,
+            655
+          ],
+          "confidence": 0.4024003744125366,
+          "label": "Plastic",
+          "tile_index": 3,
+          "region_id": "left_walkway",
+          "merchant_id": null,
+          "source": "model"
+        }
+      ]
+    },
+    {
+      "sample_id": "live007",
+      "before": 1,
+      "after": 1,
+      "decisions": [],
+      "kept": [
+        {
+          "box": [
+            836,
+            597,
+            924,
+            667
+          ],
+          "confidence": 0.4979865849018097,
+          "label": "Plastic",
+          "tile_index": 3,
+          "region_id": "left_walkway",
+          "merchant_id": null,
+          "source": "model"
+        }
+      ]
+    },
+    {
+      "sample_id": "live008",
+      "before": 1,
+      "after": 1,
+      "decisions": [],
+      "kept": [
+        {
+          "box": [
+            836,
+            597,
+            921,
+            653
+          ],
+          "confidence": 0.4731519818305969,
+          "label": "Plastic",
+          "tile_index": 3,
+          "region_id": "left_walkway",
+          "merchant_id": null,
+          "source": "model"
+        }
+      ]
+    },
+    {
+      "sample_id": "live009",
+      "before": 1,
+      "after": 1,
+      "decisions": [],
+      "kept": [
+        {
+          "box": [
+            836,
+            597,
+            926,
+            671
+          ],
+          "confidence": 0.3783887028694153,
+          "label": "Plastic",
+          "tile_index": 3,
+          "region_id": "left_walkway",
+          "merchant_id": null,
+          "source": "model"
+        }
+      ]
+    },
+    {
+      "sample_id": "live010",
+      "before": 1,
+      "after": 1,
+      "decisions": [],
+      "kept": [
+        {
+          "box": [
+            836,
+            598,
+            922,
+            644
+          ],
+          "confidence": 0.5090490579605103,
+          "label": "Plastic",
+          "tile_index": 3,
+          "region_id": "left_walkway",
+          "merchant_id": null,
+          "source": "model"
+        }
+      ]
+    },
+    {
+      "sample_id": "live011",
+      "before": 1,
+      "after": 1,
+      "decisions": [],
+      "kept": [
+        {
+          "box": [
+            836,
+            597,
+            922,
+            648
+          ],
+          "confidence": 0.3056460916996002,
+          "label": "Plastic",
+          "tile_index": 3,
+          "region_id": "left_walkway",
+          "merchant_id": null,
+          "source": "model"
+        }
+      ]
+    },
+    {
+      "sample_id": "live012",
+      "before": 1,
+      "after": 1,
+      "decisions": [],
+      "kept": [
+        {
+          "box": [
+            836,
+            597,
+            920,
+            646
+          ],
+          "confidence": 0.43549829721450806,
+          "label": "Plastic",
+          "tile_index": 3,
+          "region_id": "left_walkway",
+          "merchant_id": null,
+          "source": "model"
+        }
+      ]
+    },
+    {
+      "sample_id": "live013",
+      "before": 1,
+      "after": 1,
+      "decisions": [],
+      "kept": [
+        {
+          "box": [
+            837,
+            598,
+            926,
+            665
+          ],
+          "confidence": 0.8397601842880249,
+          "label": "Plastic",
+          "tile_index": 3,
+          "region_id": "left_walkway",
+          "merchant_id": null,
+          "source": "model"
+        }
+      ]
+    },
+    {
+      "sample_id": "live014",
+      "before": 1,
+      "after": 1,
+      "decisions": [],
+      "kept": [
+        {
+          "box": [
+            836,
+            597,
+            921,
+            653
+          ],
+          "confidence": 0.23933255672454834,
+          "label": "Plastic",
+          "tile_index": 3,
+          "region_id": "left_walkway",
+          "merchant_id": null,
+          "source": "model"
+        }
+      ]
+    },
+    {
+      "sample_id": "live015",
+      "before": 2,
+      "after": 2,
+      "decisions": [],
+      "kept": [
+        {
+          "box": [
+            836,
+            597,
+            921,
+            644
+          ],
+          "confidence": 0.4710521697998047,
+          "label": "Plastic",
+          "tile_index": 3,
+          "region_id": "left_walkway",
+          "merchant_id": null,
+          "source": "model"
+        },
+        {
+          "box": [
+            565,
+            627,
+            599,
+            651
+          ],
+          "confidence": 0.25476518273353577,
+          "label": "Plastic",
+          "tile_index": 0,
+          "region_id": "left_walkway",
+          "merchant_id": null,
+          "source": "model"
+        }
+      ]
+    },
+    {
+      "sample_id": "live016",
+      "before": 1,
+      "after": 1,
+      "decisions": [],
+      "kept": [
+        {
+          "box": [
+            565,
+            627,
+            597,
+            650
+          ],
+          "confidence": 0.5006940364837646,
+          "label": "Plastic",
+          "tile_index": 0,
+          "region_id": "left_walkway",
+          "merchant_id": null,
+          "source": "model"
+        }
+      ]
+    },
+    {
+      "sample_id": "live017",
+      "before": 1,
+      "after": 1,
+      "decisions": [],
+      "kept": [
+        {
+          "box": [
+            565,
+            627,
+            597,
+            651
+          ],
+          "confidence": 0.2868154048919678,
+          "label": "Plastic",
+          "tile_index": 0,
+          "region_id": "left_walkway",
+          "merchant_id": null,
+          "source": "model"
+        }
+      ]
+    },
+    {
+      "sample_id": "live018",
+      "before": 1,
+      "after": 1,
+      "decisions": [],
+      "kept": [
+        {
+          "box": [
+            566,
+            627,
+            598,
+            651
+          ],
+          "confidence": 0.28336843848228455,
+          "label": "Plastic",
+          "tile_index": 0,
+          "region_id": "left_walkway",
+          "merchant_id": null,
+          "source": "model"
+        }
+      ]
+    },
+    {
+      "sample_id": "live019",
+      "before": 2,
+      "after": 2,
+      "decisions": [],
+      "kept": [
+        {
+          "box": [
+            567,
+            628,
+            598,
+            650
+          ],
+          "confidence": 0.47067517042160034,
+          "label": "Plastic",
+          "tile_index": 0,
+          "region_id": "left_walkway",
+          "merchant_id": null,
+          "source": "model"
+        },
+        {
+          "box": [
+            838,
+            598,
+            921,
+            667
+          ],
+          "confidence": 0.37896132469177246,
+          "label": "Plastic",
+          "tile_index": 3,
+          "region_id": "left_walkway",
+          "merchant_id": null,
+          "source": "model"
+        }
+      ]
+    }
+  ]
+}

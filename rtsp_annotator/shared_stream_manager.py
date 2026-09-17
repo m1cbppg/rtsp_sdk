@@ -14,6 +14,7 @@ from .shared_inference import SharedModelRegistry
 from .stream_manager import (
     ManagerSettings,
     ModelNotFoundError,
+    PtzControlUnavailableError,
     StreamCapacityError,
     StreamNotFoundError,
     StreamSpec,
@@ -243,6 +244,10 @@ class SharedStreamManager:
     ) -> dict[str, Any]:
         del stream_id, options
         raise ModelNotFoundError("疑似非法捕捞分析仅支持DeepStream后端")
+
+    def return_ptz_home(self, stream_id: str) -> dict[str, object]:
+        del stream_id
+        raise PtzControlUnavailableError("PTZ控制仅支持DeepStream后端")
 
     def stop(self, stream_id: str) -> dict[str, Any]:
         with self._lock:

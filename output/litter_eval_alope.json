@@ -1,0 +1,320 @@
+{
+  "model": "models/litter/alope_trash_yolo11n.pt",
+  "roi": [
+    [
+      0.02,
+      0.08
+    ],
+    [
+      0.37,
+      0.08
+    ],
+    [
+      0.46,
+      0.96
+    ],
+    [
+      0.02,
+      0.96
+    ]
+  ],
+  "exclusion_zones": [
+    [
+      [
+        0.22,
+        0.2
+      ],
+      [
+        0.39,
+        0.2
+      ],
+      [
+        0.43,
+        0.46
+      ],
+      [
+        0.21,
+        0.46
+      ]
+    ],
+    [
+      [
+        0.0,
+        0.52
+      ],
+      [
+        0.17,
+        0.52
+      ],
+      [
+        0.2,
+        0.96
+      ],
+      [
+        0.0,
+        0.96
+      ]
+    ]
+  ],
+  "confidence": 0.15,
+  "videos": {
+    "20260908000011-20260908000515.ps": {
+      "duration_s": 303.92,
+      "sampled_frames": 31,
+      "frames_with_detections": 0,
+      "detection_count": 0,
+      "counts_by_label": {},
+      "frames": [
+        {
+          "time_s": 0.0,
+          "detections": []
+        },
+        {
+          "time_s": 10.0,
+          "detections": []
+        },
+        {
+          "time_s": 20.0,
+          "detections": []
+        },
+        {
+          "time_s": 30.0,
+          "detections": []
+        },
+        {
+          "time_s": 40.0,
+          "detections": []
+        },
+        {
+          "time_s": 50.0,
+          "detections": []
+        },
+        {
+          "time_s": 60.0,
+          "detections": []
+        },
+        {
+          "time_s": 70.0,
+          "detections": []
+        },
+        {
+          "time_s": 80.0,
+          "detections": []
+        },
+        {
+          "time_s": 90.0,
+          "detections": []
+        },
+        {
+          "time_s": 100.0,
+          "detections": []
+        },
+        {
+          "time_s": 110.0,
+          "detections": []
+        },
+        {
+          "time_s": 120.0,
+          "detections": []
+        },
+        {
+          "time_s": 130.0,
+          "detections": []
+        },
+        {
+          "time_s": 140.0,
+          "detections": []
+        },
+        {
+          "time_s": 150.0,
+          "detections": []
+        },
+        {
+          "time_s": 160.0,
+          "detections": []
+        },
+        {
+          "time_s": 170.0,
+          "detections": []
+        },
+        {
+          "time_s": 180.0,
+          "detections": []
+        },
+        {
+          "time_s": 190.0,
+          "detections": []
+        },
+        {
+          "time_s": 200.0,
+          "detections": []
+        },
+        {
+          "time_s": 210.0,
+          "detections": []
+        },
+        {
+          "time_s": 220.0,
+          "detections": []
+        },
+        {
+          "time_s": 230.0,
+          "detections": []
+        },
+        {
+          "time_s": 240.0,
+          "detections": []
+        },
+        {
+          "time_s": 250.0,
+          "detections": []
+        },
+        {
+          "time_s": 260.0,
+          "detections": []
+        },
+        {
+          "time_s": 270.0,
+          "detections": []
+        },
+        {
+          "time_s": 280.0,
+          "detections": []
+        },
+        {
+          "time_s": 290.0,
+          "detections": []
+        },
+        {
+          "time_s": 300.0,
+          "detections": []
+        }
+      ]
+    },
+    "20260908115917-20260908120421.ps": {
+      "duration_s": 283.92,
+      "sampled_frames": 29,
+      "frames_with_detections": 0,
+      "detection_count": 0,
+      "counts_by_label": {},
+      "frames": [
+        {
+          "time_s": 0.0,
+          "detections": []
+        },
+        {
+          "time_s": 10.0,
+          "detections": []
+        },
+        {
+          "time_s": 20.0,
+          "detections": []
+        },
+        {
+          "time_s": 30.0,
+          "detections": []
+        },
+        {
+          "time_s": 40.0,
+          "detections": []
+        },
+        {
+          "time_s": 50.0,
+          "detections": []
+        },
+        {
+          "time_s": 60.0,
+          "detections": []
+        },
+        {
+          "time_s": 70.0,
+          "detections": []
+        },
+        {
+          "time_s": 80.0,
+          "detections": []
+        },
+        {
+          "time_s": 90.0,
+          "detections": []
+        },
+        {
+          "time_s": 100.0,
+          "detections": []
+        },
+        {
+          "time_s": 110.0,
+          "detections": []
+        },
+        {
+          "time_s": 120.0,
+          "detections": []
+        },
+        {
+          "time_s": 130.0,
+          "detections": []
+        },
+        {
+          "time_s": 140.0,
+          "detections": []
+        },
+        {
+          "time_s": 150.0,
+          "detections": []
+        },
+        {
+          "time_s": 160.0,
+          "detections": []
+        },
+        {
+          "time_s": 170.0,
+          "detections": []
+        },
+        {
+          "time_s": 180.0,
+          "detections": []
+        },
+        {
+          "time_s": 190.0,
+          "detections": []
+        },
+        {
+          "time_s": 200.0,
+          "detections": []
+        },
+        {
+          "time_s": 210.0,
+          "detections": []
+        },
+        {
+          "time_s": 220.0,
+          "detections": []
+        },
+        {
+          "time_s": 230.0,
+          "detections": []
+        },
+        {
+          "time_s": 240.0,
+          "detections": []
+        },
+        {
+          "time_s": 250.0,
+          "detections": []
+        },
+        {
+          "time_s": 260.0,
+          "detections": []
+        },
+        {
+          "time_s": 270.0,
+          "detections": []
+        },
+        {
+          "time_s": 280.0,
+          "detections": []
+        }
+      ]
+    }
+  }
+}

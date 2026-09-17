@@ -1,0 +1,121 @@
+{
+  "status": "pilot_log_summary_not_accuracy",
+  "run_directory": "output/litter_4h_review_20260913",
+  "summary": {
+    "elapsed_seconds": 14394.651249594055,
+    "cameras": {
+      "44180209031322001021": {
+        "state": "analyzing",
+        "analyzed": 6129,
+        "rejected_frames": 4364,
+        "skipped_analysis_frames": 3129,
+        "created_items": 0,
+        "cleared_items": 0,
+        "effective_analysis_fps": 0.426,
+        "last_frame_at": "2026-09-12T22:15:27.805344+00:00",
+        "mode": "night",
+        "decoder": "opencv",
+        "rejection_reasons": {
+          "analysis_result_stale": 2749,
+          "view_alignment_unknown": 1360,
+          "view_changed_recalibration_required": 254,
+          "image_quality_unknown": 1
+        },
+        "source_time_seconds": 1514.08,
+        "result_age_seconds": 1.98,
+        "inference_seconds": 1.199,
+        "candidate_count": 1,
+        "confirmed_visible": 0
+      }
+    },
+    "active_items": 0,
+    "reader_processes_alive": 0,
+    "notifications_sent": 0
+  },
+  "event_counts": {
+    "run_started": 1,
+    "storage": 238,
+    "source_state": 11,
+    "sample": 237,
+    "rejected": 4364,
+    "observation": 6129,
+    "run_stopped": 1
+  },
+  "rejection_counts": {
+    "analysis_result_stale": 2749,
+    "view_alignment_unknown": 1360,
+    "view_changed_recalibration_required": 254,
+    "image_quality_unknown": 1
+  },
+  "source_state_counts": {
+    "live": 6,
+    "source_unavailable": 5
+  },
+  "storage_bytes_max": 342163719,
+  "cameras": {
+    "44180209031322001021": {
+      "observations": 6129,
+      "candidates": 7971,
+      "candidate_frames": 4362,
+      "confirmation_blocked_track_observations": {
+        "confirm_duration": 8440,
+        "actor_clear_duration": 6984,
+        "recent_hits": 6650,
+        "model_miss": 275,
+        "hit_fraction": 477,
+        "actor_occluded": 304
+      },
+      "model_candidate_filter_reasons": {
+        "outside_roi": 24481,
+        "actor_overlap": 6539,
+        "local_actor_overlap": 783,
+        "too_small": 172
+      },
+      "max_candidate_span_seconds": 23.928,
+      "alignment_displacement_px_p95": 3.085,
+      "candidate_labels": {
+        "Paper": 2585,
+        "Plastic": 5372,
+        "Metal": 5,
+        "Waste": 9
+      },
+      "rejection_counts": {
+        "analysis_result_stale": 2749,
+        "view_alignment_unknown": 1360,
+        "view_changed_recalibration_required": 254,
+        "image_quality_unknown": 1
+      },
+      "source_state_counts": {
+        "live": 6,
+        "source_unavailable": 5
+      },
+      "created_item_ids": [],
+      "cleared_item_ids": [],
+      "duplicate_created_ids": [],
+      "capture_generations": {
+        "1.0": 1750,
+        "2.0": 76,
+        "3.0": 367,
+        "4.0": 503,
+        "5.0": 2665,
+        "6.0": 768
+      },
+      "inference_seconds_p50": 1.239,
+      "inference_seconds_p95": 1.559,
+      "result_age_seconds_p95": 1.96,
+      "review": {}
+    }
+  },
+  "created_id_count": 0,
+  "unique_created_id_count": 0,
+  "duplicate_created_ids": [],
+  "duplicate_id_scope": "repeated ID writes only; distinct IDs for the same physical object require image review",
+  "review_counts": {},
+  "unreviewed_created_ids": [],
+  "optimization_queue": [
+    "review every created item before enabling notifications",
+    "inspect rejected/stale/view-change counters from summary.json",
+    "compare candidate labels and ROI boundaries before changing confidence",
+    "run a fixed day/night replay after each profile or threshold change"
+  ]
+}

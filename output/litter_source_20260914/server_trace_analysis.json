@@ -1,0 +1,37 @@
+{
+  "rows": 1525,
+  "wall_intervals_seconds": {
+    "count": 1524,
+    "p50": 0.017725462501402944,
+    "p95": 0.07993647546973078,
+    "max": 0.9933310969499871,
+    "min": 0.004750638036057353
+  },
+  "pts_intervals_seconds": {
+    "count": 1523,
+    "p50": 0.03999999999999915,
+    "p95": 0.04000000000000625,
+    "max": 0.04000000000000625,
+    "min": 0.03899999999999437
+  },
+  "missing_pts": 1,
+  "nonmonotonic_pts": 0,
+  "pts_gaps_over_0_1_seconds": 0,
+  "arrival_gaps_over_0_5_seconds": 14,
+  "keyframe_pts_intervals_seconds": {
+    "count": 14,
+    "p50": 3.9979999999999993,
+    "p95": 3.9990000000000023,
+    "max": 3.9990000000000023,
+    "min": 3.9979999999999976
+  },
+  "relative_wall_minus_pts_seconds": {
+    "count": 1524,
+    "p50": -5.125240569024815,
+    "p95": -2.446012137584624,
+    "max": 0.0,
+    "min": -5.215197874069215
+  },
+  "relative_end_seconds": -5.178221613012255,
+  "absolute_latency_verified": false
+}

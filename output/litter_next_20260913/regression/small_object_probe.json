@@ -1,0 +1,86 @@
+{
+  "target_assisted_diagnostic_only": true,
+  "rows": [
+    {
+      "sample_id": "s009",
+      "crop_size": 640,
+      "input_size": 640,
+      "confidence": 0.05,
+      "detections_near_white_scraps": []
+    },
+    {
+      "sample_id": "s009",
+      "crop_size": 320,
+      "input_size": 640,
+      "confidence": 0.05,
+      "detections_near_white_scraps": [
+        {
+          "box": [
+            723,
+            437,
+            740,
+            441
+          ],
+          "confidence": 0.05298047885298729,
+          "label": "Waste"
+        }
+      ]
+    },
+    {
+      "sample_id": "s032",
+      "crop_size": 640,
+      "input_size": 640,
+      "confidence": 0.05,
+      "detections_near_white_scraps": [
+        {
+          "box": [
+            720,
+            465,
+            736,
+            471
+          ],
+          "confidence": 0.12256452441215515,
+          "label": "Waste"
+        },
+        {
+          "box": [
+            735,
+            482,
+            752,
+            490
+          ],
+          "confidence": 0.09386002272367477,
+          "label": "Plastic"
+        }
+      ]
+    },
+    {
+      "sample_id": "s032",
+      "crop_size": 320,
+      "input_size": 640,
+      "confidence": 0.05,
+      "detections_near_white_scraps": [
+        {
+          "box": [
+            735,
+            482,
+            751,
+            489
+          ],
+          "confidence": 0.10063987225294113,
+          "label": "Waste"
+        },
+        {
+          "box": [
+            735,
+            482,
+            751,
+            490
+          ],
+          "confidence": 0.08200498670339584,
+          "label": "Metal"
+        }
+      ]
+    }
+  ]
+}

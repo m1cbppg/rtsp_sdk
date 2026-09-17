@@ -1,0 +1,172 @@
+{
+  "resolution": [
+    2560,
+    1440
+  ],
+  "tile_count": 5,
+  "tiles": [
+    [
+      141,
+      800,
+      781,
+      1440
+    ],
+    [
+      230,
+      800,
+      870,
+      1440
+    ],
+    [
+      384,
+      648,
+      1024,
+      1288
+    ],
+    [
+      512,
+      432,
+      1152,
+      1072
+    ],
+    [
+      691,
+      216,
+      1331,
+      856
+    ]
+  ],
+  "ground_pixels": 325564,
+  "ground_fraction_of_frame": 0.0883,
+  "zone_overlaps_px": {
+    "merchant_01|merchant_02": 206,
+    "merchant_02|merchant_03": 334,
+    "merchant_03|merchant_04": 359,
+    "merchant_04|merchant_05": 303
+  },
+  "zone_erosion_by_global_exclusions": {
+    "merchant_01": {
+      "before": 35586,
+      "after": 35586,
+      "removed_fraction": 0.0
+    },
+    "merchant_02": {
+      "before": 58589,
+      "after": 58589,
+      "removed_fraction": 0.0
+    },
+    "merchant_03": {
+      "before": 85239,
+      "after": 85239,
+      "removed_fraction": 0.0
+    },
+    "merchant_04": {
+      "before": 80041,
+      "after": 66406,
+      "removed_fraction": 0.1704
+    },
+    "merchant_05": {
+      "before": 88275,
+      "after": 80946,
+      "removed_fraction": 0.083
+    }
+  },
+  "adjacent_zone_gap_px": {
+    "merchant_01->merchant_02": 57553,
+    "merchant_02->merchant_03": 83567,
+    "merchant_03->merchant_04": 64612,
+    "merchant_04->merchant_05": 79430
+  },
+  "day_to_night_alignment": {
+    "status": "ok",
+    "method": "sift",
+    "matches": 16,
+    "inliers": 15,
+    "inlier_fraction": 0.9375,
+    "hull_fraction": 0.3831,
+    "displacement_native_px": 1.093
+  },
+  "threshold_meaning": {
+    "minimum_short_side_px": 8,
+    "short_side_as_fraction_of_width": 0.00313,
+    "note": "8px 是 2560 宽画面的 0.31%；4 小时样本里那件被过滤的白色垃圾实测约 8x8px"
+  },
+  "adjacent_zone_contiguity": {
+    "merchant_01->merchant_02": {
+      "shared_boundary_band_px": 413,
+      "touch_distance_px": 0
+    },
+    "merchant_02->merchant_03": {
+      "shared_boundary_band_px": 669,
+      "touch_distance_px": 0
+    },
+    "merchant_03->merchant_04": {
+      "shared_boundary_band_px": 718,
+      "touch_distance_px": 0
+    },
+    "merchant_04->merchant_05": {
+      "shared_boundary_band_px": 606,
+      "touch_distance_px": 0
+    }
+  },
+  "removed_region_shape": {
+    "merchant_01": {
+      "removed_px": 0
+    },
+    "merchant_02": {
+      "removed_px": 0
+    },
+    "merchant_03": {
+      "removed_px": 0
+    },
+    "merchant_04": {
+      "removed_px": 13635,
+      "removed_fraction": 0.1704,
+      "removed_bbox_native_px": [
+        533,
+        923,
+        719,
+        1123
+      ],
+      "removed_bbox_normalized": [
+        0.208,
+        0.641,
+        0.281,
+        0.78
+      ]
+    },
+    "merchant_05": {
+      "removed_px": 7329,
+      "removed_fraction": 0.083,
+      "removed_bbox_native_px": [
+        426,
+        1123,
+        563,
+        1397
+      ],
+      "removed_bbox_normalized": [
+        0.166,
+        0.78,
+        0.22,
+        0.97
+      ]
+    }
+  },
+  "summary": {
+    "zones_contiguous": true,
+    "boundary_sliver_overlap_px_per_pair": {
+      "merchant_01|merchant_02": 206,
+      "merchant_02|merchant_03": 334,
+      "merchant_03|merchant_04": 359,
+      "merchant_04|merchant_05": 303
+    },
+    "view_stable_day_night": true,
+    "near_field_exclusion_eats_zone": {
+      "merchant_01": 0,
+      "merchant_02": 0,
+      "merchant_03": 0,
+      "merchant_04": 0.1704,
+      "merchant_05": 0.083
+    }
+  }
+}

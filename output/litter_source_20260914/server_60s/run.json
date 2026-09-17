@@ -1,0 +1,24 @@
+{
+  "started_utc": "2026-09-13T16:39:42.573417+00:00",
+  "requested_seconds": 60.0,
+  "python": "3.12.3 (main, Aug 14 2025, 17:47:21) [GCC 13.3.0]",
+  "decoder_capability": {
+    "pyav_importable": true,
+    "pyav_version": "16.1.0"
+  },
+  "require_pyav": true,
+  "analysis_fps": 1,
+  "frame_size": [
+    2560,
+    1440
+  ],
+  "source_kind": "authorized_live_device",
+  "code_sha256": {
+    "probe_ground_litter_source.py": "56ff261a077cc56c5e7d2d50dc110e1f7435423dc42848e42257a5e2fbd30b40",
+    "ground_litter_source.py": "0ff6c8c4207aee3110a3cfb324c7149fd9e5ea3b52bd3a42ff691ae602b1eb0a"
+  },
+  "local_video_sha256": null,
+  "trace_capacity": 2048,
+  "trace_limit_rows": 120000,
+  "notifications": 0
+}

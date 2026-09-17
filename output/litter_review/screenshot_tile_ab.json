@@ -1,0 +1,16 @@
+{
+  "source": "codex-clipboard-vDAZk0.png",
+  "weight": "models/litter/turhancan_yolov8m_seg_trash.pt",
+  "image_size": [3186, 1792],
+  "device": "cpu",
+  "results": [
+    {"crop_edge": 640, "confidence": 0.2, "target_candidate": false},
+    {"crop_edge": 480, "confidence": 0.2, "target_candidate": false},
+    {"crop_edge": 320, "confidence": 0.2, "target_candidate": true,
+     "label": "Plastic", "confidence_value": 0.275,
+     "box_local": [105, 116, 204, 204],
+     "crop_origin": [880, 300],
+     "box_global": [985, 416, 1084, 504]}
+  ],
+  "interpretation": "The manually boxed object is recoverable with a 320px native crop and is missed by larger tested crops; this supports a tiling/scale failure hypothesis."
+}

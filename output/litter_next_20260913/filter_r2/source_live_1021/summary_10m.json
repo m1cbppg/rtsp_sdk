@@ -1,0 +1,3458 @@
+{
+  "finished_utc": "2026-09-13T08:32:22.419163+00:00",
+  "source_kind": "authorized_live_device",
+  "elapsed_seconds": 600.3256717820186,
+  "decoder": "opencv",
+  "decoder_capability": {
+    "pyav_importable": false,
+    "pyav_error_type": "ModuleNotFoundError"
+  },
+  "source_counters": {
+    "decoded_frames": 14980.0,
+    "corrupt_frames": 0.0,
+    "missing_pts_frames": 14980.0,
+    "nonmonotonic_pts_frames": 0.0,
+    "connections": 1.0,
+    "published_frames": 489.0,
+    "mailbox_lock_skips": 0.0,
+    "decode_read_seconds": 593.7673577014357,
+    "convert_seconds": 0.0,
+    "pts_observed_frames": 0.0
+  },
+  "samples": [
+    {
+      "sequence": 1.0,
+      "probe_elapsed": 5.821130453958176,
+      "local_age": 0.00791732792276889,
+      "generation": 1.0,
+      "source_elapsed": 0.0
+    },
+    {
+      "sequence": 2.0,
+      "probe_elapsed": 6.825743795954622,
+      "local_age": 0.006483376957476139,
+      "generation": 1.0,
+      "source_elapsed": 4.72
+    },
+    {
+      "sequence": 3.0,
+      "probe_elapsed": 7.833791273995303,
+      "local_age": 0.01024606404826045,
+      "generation": 1.0,
+      "source_elapsed": 7.32
+    },
+    {
+      "sequence": 4.0,
+      "probe_elapsed": 8.890642193029635,
+      "local_age": 0.045313494047150016,
+      "generation": 1.0,
+      "source_elapsed": 8.28
+    },
+    {
+      "sequence": 5.0,
+      "probe_elapsed": 9.894170932937413,
+      "local_age": 0.04534945893101394,
+      "generation": 1.0,
+      "source_elapsed": 8.76
+    },
+    {
+      "sequence": 6.0,
+      "probe_elapsed": 10.899524369975552,
+      "local_age": 0.022088294965215027,
+      "generation": 1.0,
+      "source_elapsed": 9.12
+    },
+    {
+      "sequence": 7.0,
+      "probe_elapsed": 11.903222734923474,
+      "local_age": 0.021171959000639617,
+      "generation": 1.0,
+      "source_elapsed": 10.92
+    },
+    {
+      "sequence": 8.0,
+      "probe_elapsed": 12.907430431921966,
+      "local_age": 0.02206046797800809,
+      "generation": 1.0,
+      "source_elapsed": 12.36
+    },
+    {
+      "sequence": 9.0,
+      "probe_elapsed": 15.065692557021976,
+      "local_age": 0.031991696916520596,
+      "generation": 1.0,
+      "source_elapsed": 13.12
+    },
+    {
+      "sequence": 10.0,
+      "probe_elapsed": 16.068935912917368,
+      "local_age": 0.03512205299921334,
+      "generation": 1.0,
+      "source_elapsed": 15.2
+    },
+    {
+      "sequence": 11.0,
+      "probe_elapsed": 17.12240978598129,
+      "local_age": 0.04729501297697425,
+      "generation": 1.0,
+      "source_elapsed": 16.56
+    },
+    {
+      "sequence": 12.0,
+      "probe_elapsed": 18.478088935022242,
+      "local_age": 0.018123516929335892,
+      "generation": 1.0,
+      "source_elapsed": 17.12
+    },
+    {
+      "sequence": 13.0,
+      "probe_elapsed": 19.481521802023053,
+      "local_age": 0.021538675064221025,
+      "generation": 1.0,
+      "source_elapsed": 18.96
+    },
+    {
+      "sequence": 14.0,
+      "probe_elapsed": 20.485603788984008,
+      "local_age": 0.013263343018479645,
+      "generation": 1.0,
+      "source_elapsed": 19.96
+    },
+    {
+      "sequence": 15.0,
+      "probe_elapsed": 21.74042498099152,
+      "local_age": 0.027080897009000182,
+      "generation": 1.0,
+      "source_elapsed": 20.84
+    },
+    {
+      "sequence": 16.0,
+      "probe_elapsed": 22.745647729956545,
+      "local_age": 0.01952839398290962,
+      "generation": 1.0,
+      "source_elapsed": 21.12
+    },
+    {
+      "sequence": 17.0,
+      "probe_elapsed": 23.749159467988648,
+      "local_age": 0.008283102069981396,
+      "generation": 1.0,
+      "source_elapsed": 23.24
+    },
+    {
+      "sequence": 18.0,
+      "probe_elapsed": 24.80365451402031,
+      "local_age": 0.05190970399416983,
+      "generation": 1.0,
+      "source_elapsed": 24.24
+    },
+    {
+      "sequence": 19.0,
+      "probe_elapsed": 26.961538709001616,
+      "local_age": 0.05213647207710892,
+      "generation": 1.0,
+      "source_elapsed": 25.12
+    },
+    {
+      "sequence": 20.0,
+      "probe_elapsed": 27.914799653925,
+      "local_age": 0.0035901889204978943,
+      "generation": 1.0,
+      "source_elapsed": 26.96
+    },
+    {
+      "sequence": 21.0,
+      "probe_elapsed": 28.969534310977906,
+      "local_age": 0.03007788909599185,
+      "generation": 1.0,
+      "source_elapsed": 28.4
+    },
+    {
+      "sequence": 22.0,
+      "probe_elapsed": 30.323976233950816,
+      "local_age": 0.041611947934143245,
+      "generation": 1.0,
+      "source_elapsed": 29.12
+    },
+    {
+      "sequence": 23.0,
+      "probe_elapsed": 31.32771788397804,
+      "local_age": 0.03880028903950006,
+      "generation": 1.0,
+      "source_elapsed": 30.76
+    },
+    {
+      "sequence": 24.0,
+      "probe_elapsed": 32.33117079397198,
+      "local_age": 0.010891567915678024,
+      "generation": 1.0,
+      "source_elapsed": 31.84
+    },
+    {
+      "sequence": 25.0,
+      "probe_elapsed": 33.38493630895391,
+      "local_age": 0.04286162799689919,
+      "generation": 1.0,
+      "source_elapsed": 32.64
+    },
+    {
+      "sequence": 26.0,
+      "probe_elapsed": 34.49013468902558,
+      "local_age": 0.010828475002199411,
+      "generation": 1.0,
+      "source_elapsed": 33.12
+    },
+    {
+      "sequence": 27.0,
+      "probe_elapsed": 35.54371360701043,
+      "local_age": 0.04558753105811775,
+      "generation": 1.0,
+      "source_elapsed": 35.0
+    },
+    {
+      "sequence": 28.0,
+      "probe_elapsed": 36.5486084689619,
+      "local_age": 0.035678545013070107,
+      "generation": 1.0,
+      "source_elapsed": 36.0
+    },
+    {
+      "sequence": 29.0,
+      "probe_elapsed": 37.602455770014785,
+      "local_age": 0.016565470024943352,
+      "generation": 1.0,
+      "source_elapsed": 37.08
+    },
+    {
+      "sequence": 30.0,
+      "probe_elapsed": 38.70781699300278,
+      "local_age": 0.0525102480314672,
+      "generation": 1.0,
+      "source_elapsed": 37.12
+    },
+    {
+      "sequence": 31.0,
+      "probe_elapsed": 39.7617400320014,
+      "local_age": 0.02179695595987141,
+      "generation": 1.0,
+      "source_elapsed": 39.2
+    },
+    {
+      "sequence": 32.0,
+      "probe_elapsed": 40.81552945799194,
+      "local_age": 0.003175620920956135,
+      "generation": 1.0,
+      "source_elapsed": 40.16
+    },
+    {
+      "sequence": 33.0,
+      "probe_elapsed": 43.07389428396709,
+      "local_age": 0.04321318992879242,
+      "generation": 1.0,
+      "source_elapsed": 41.12
+    },
+    {
+      "sequence": 34.0,
+      "probe_elapsed": 44.07726025697775,
+      "local_age": 0.03239785798359662,
+      "generation": 1.0,
+      "source_elapsed": 43.56
+    },
+    {
+      "sequence": 35.0,
+      "probe_elapsed": 45.18163607199676,
+      "local_age": 0.043577366042882204,
+      "generation": 1.0,
+      "source_elapsed": 44.48
+    },
+    {
+      "sequence": 36.0,
+      "probe_elapsed": 46.988728910917416,
+      "local_age": 0.014923039940185845,
+      "generation": 1.0,
+      "source_elapsed": 45.12
+    },
+    {
+      "sequence": 37.0,
+      "probe_elapsed": 47.9925812180154,
+      "local_age": 0.016833024099469185,
+      "generation": 1.0,
+      "source_elapsed": 47.16
+    },
+    {
+      "sequence": 38.0,
+      "probe_elapsed": 48.99675675597973,
+      "local_age": 0.014625899959355593,
+      "generation": 1.0,
+      "source_elapsed": 48.48
+    },
+    {
+      "sequence": 39.0,
+      "probe_elapsed": 50.70228629000485,
+      "local_age": 0.025016295025125146,
+      "generation": 1.0,
+      "source_elapsed": 49.12
+    },
+    {
+      "sequence": 40.0,
+      "probe_elapsed": 51.70577478292398,
+      "local_age": 0.014200583100318909,
+      "generation": 1.0,
+      "source_elapsed": 51.2
+    },
+    {
+      "sequence": 41.0,
+      "probe_elapsed": 52.80978086893447,
+      "local_age": 0.04641036398243159,
+      "generation": 1.0,
+      "source_elapsed": 51.68
+    },
+    {
+      "sequence": 42.0,
+      "probe_elapsed": 54.81738500192296,
+      "local_age": 0.04794839001260698,
+      "generation": 1.0,
+      "source_elapsed": 53.12
+    },
+    {
+      "sequence": 43.0,
+      "probe_elapsed": 55.82067265501246,
+      "local_age": 0.046207499923184514,
+      "generation": 1.0,
+      "source_elapsed": 55.32
+    },
+    {
+      "sequence": 44.0,
+      "probe_elapsed": 56.82420779892709,
+      "local_age": 0.02032915293239057,
+      "generation": 1.0,
+      "source_elapsed": 56.36
+    },
+    {
+      "sequence": 45.0,
+      "probe_elapsed": 59.182764846947975,
+      "local_age": 0.023012076038867235,
+      "generation": 1.0,
+      "source_elapsed": 57.12
+    },
+    {
+      "sequence": 46.0,
+      "probe_elapsed": 60.18602290493436,
+      "local_age": 0.013985106023028493,
+      "generation": 1.0,
+      "source_elapsed": 59.72
+    },
+    {
+      "sequence": 47.0,
+      "probe_elapsed": 61.189734695944935,
+      "local_age": 0.011431014048866928,
+      "generation": 1.0,
+      "source_elapsed": 60.72
+    },
+    {
+      "sequence": 48.0,
+      "probe_elapsed": 62.644441760960035,
+      "local_age": 0.02412016107700765,
+      "generation": 1.0,
+      "source_elapsed": 61.12
+    },
+    {
+      "sequence": 49.0,
+      "probe_elapsed": 63.647893422981724,
+      "local_age": 0.019960095058195293,
+      "generation": 1.0,
+      "source_elapsed": 63.16
+    },
+    {
+      "sequence": 50.0,
+      "probe_elapsed": 65.05381201393902,
+      "local_age": 0.009454029961489141,
+      "generation": 1.0,
+      "source_elapsed": 64.12
+    },
+    {
+      "sequence": 51.0,
+      "probe_elapsed": 66.90942745294888,
+      "local_age": 0.0417341060237959,
+      "generation": 1.0,
+      "source_elapsed": 65.12
+    },
+    {
+      "sequence": 52.0,
+      "probe_elapsed": 67.91273199592251,
+      "local_age": 0.04156904702540487,
+      "generation": 1.0,
+      "source_elapsed": 67.32
+    },
+    {
+      "sequence": 53.0,
+      "probe_elapsed": 68.96658235194627,
+      "local_age": 0.04128874000161886,
+      "generation": 1.0,
+      "source_elapsed": 68.4
+    },
+    {
+      "sequence": 54.0,
+      "probe_elapsed": 70.52307131898124,
+      "local_age": 0.03927989106159657,
+      "generation": 1.0,
+      "source_elapsed": 69.12
+    },
+    {
+      "sequence": 55.0,
+      "probe_elapsed": 71.57729724096134,
+      "local_age": 0.023981838021427393,
+      "generation": 1.0,
+      "source_elapsed": 70.96
+    },
+    {
+      "sequence": 56.0,
+      "probe_elapsed": 72.58173358498607,
+      "local_age": 0.012113032978959382,
+      "generation": 1.0,
+      "source_elapsed": 72.08
+    },
+    {
+      "sequence": 57.0,
+      "probe_elapsed": 73.63591110298876,
+      "local_age": 0.023978421930223703,
+      "generation": 1.0,
+      "source_elapsed": 73.08
+    },
+    {
+      "sequence": 58.0,
+      "probe_elapsed": 74.84035964496434,
+      "local_age": 0.03115092299412936,
+      "generation": 1.0,
+      "source_elapsed": 73.16
+    },
+    {
+      "sequence": 59.0,
+      "probe_elapsed": 75.89382072491571,
+      "local_age": 0.04212557396385819,
+      "generation": 1.0,
+      "source_elapsed": 75.36
+    },
+    {
+      "sequence": 60.0,
+      "probe_elapsed": 77.6498675319599,
+      "local_age": 0.020816381089389324,
+      "generation": 1.0,
+      "source_elapsed": 76.44
+    },
+    {
+      "sequence": 61.0,
+      "probe_elapsed": 78.80375762900803,
+      "local_age": 0.036949367029592395,
+      "generation": 1.0,
+      "source_elapsed": 77.12
+    },
+    {
+      "sequence": 62.0,
+      "probe_elapsed": 79.80727361293975,
+      "local_age": 0.027380587998777628,
+      "generation": 1.0,
+      "source_elapsed": 79.32
+    },
+    {
+      "sequence": 63.0,
+      "probe_elapsed": 80.81089472200256,
+      "local_age": 0.015021838946267962,
+      "generation": 1.0,
+      "source_elapsed": 80.28
+    },
+    {
+      "sequence": 64.0,
+      "probe_elapsed": 82.61804973497055,
+      "local_age": 0.05091198696754873,
+      "generation": 1.0,
+      "source_elapsed": 81.12
+    },
+    {
+      "sequence": 65.0,
+      "probe_elapsed": 83.77189812192228,
+      "local_age": 0.022119959932751954,
+      "generation": 1.0,
+      "source_elapsed": 82.44
+    },
+    {
+      "sequence": 66.0,
+      "probe_elapsed": 84.82682486600243,
+      "local_age": 0.05079074599780142,
+      "generation": 1.0,
+      "source_elapsed": 84.32
+    },
+    {
+      "sequence": 67.0,
+      "probe_elapsed": 86.53261784196366,
+      "local_age": 0.04154311399906874,
+      "generation": 1.0,
+      "source_elapsed": 85.12
+    },
+    {
+      "sequence": 68.0,
+      "probe_elapsed": 87.53592955495697,
+      "local_age": 0.03678666695486754,
+      "generation": 1.0,
+      "source_elapsed": 87.04
+    },
+    {
+      "sequence": 69.0,
+      "probe_elapsed": 88.59021591895726,
+      "local_age": 0.03829232801217586,
+      "generation": 1.0,
+      "source_elapsed": 88.04
+    },
+    {
+      "sequence": 70.0,
+      "probe_elapsed": 89.64497447398026,
+      "local_age": 0.009873457020148635,
+      "generation": 1.0,
+      "source_elapsed": 88.68
+    },
+    {
+      "sequence": 71.0,
+      "probe_elapsed": 90.80026174592786,
+      "local_age": 0.022863830090500414,
+      "generation": 1.0,
+      "source_elapsed": 89.12
+    },
+    {
+      "sequence": 72.0,
+      "probe_elapsed": 91.80403304100037,
+      "local_age": 0.015412218985147774,
+      "generation": 1.0,
+      "source_elapsed": 91.32
+    },
+    {
+      "sequence": 73.0,
+      "probe_elapsed": 92.85770692594815,
+      "local_age": 0.01495206798426807,
+      "generation": 1.0,
+      "source_elapsed": 92.32
+    },
+    {
+      "sequence": 74.0,
+      "probe_elapsed": 94.46427582902834,
+      "local_age": 0.030526643968187273,
+      "generation": 1.0,
+      "source_elapsed": 93.12
+    },
+    {
+      "sequence": 75.0,
+      "probe_elapsed": 95.71838042396121,
+      "local_age": 0.03861314803361893,
+      "generation": 1.0,
+      "source_elapsed": 94.72
+    },
+    {
+      "sequence": 76.0,
+      "probe_elapsed": 96.72197601397056,
+      "local_age": 0.02918846090324223,
+      "generation": 1.0,
+      "source_elapsed": 96.2
+    },
+    {
+      "sequence": 77.0,
+      "probe_elapsed": 98.3769814579282,
+      "local_age": 0.029081588028930128,
+      "generation": 1.0,
+      "source_elapsed": 97.12
+    },
+    {
+      "sequence": 78.0,
+      "probe_elapsed": 99.4316963480087,
+      "local_age": 0.03015766805037856,
+      "generation": 1.0,
+      "source_elapsed": 98.92
+    },
+    {
+      "sequence": 79.0,
+      "probe_elapsed": 100.4864056649385,
+      "local_age": 0.05131190607789904,
+      "generation": 1.0,
+      "source_elapsed": 99.96
+    },
+    {
+      "sequence": 80.0,
+      "probe_elapsed": 101.59088477492332,
+      "local_age": 0.030451943981461227,
+      "generation": 1.0,
+      "source_elapsed": 100.72
+    },
+    {
+      "sequence": 81.0,
+      "probe_elapsed": 103.0470288930228,
+      "local_age": 0.04972003400325775,
+      "generation": 1.0,
+      "source_elapsed": 101.12
+    },
+    {
+      "sequence": 82.0,
+      "probe_elapsed": 104.05020390101708,
+      "local_age": 0.04946776607539505,
+      "generation": 1.0,
+      "source_elapsed": 103.48
+    },
+    {
+      "sequence": 83.0,
+      "probe_elapsed": 105.05398235993925,
+      "local_age": 0.022448098985478282,
+      "generation": 1.0,
+      "source_elapsed": 104.52
+    },
+    {
+      "sequence": 84.0,
+      "probe_elapsed": 106.76092410495039,
+      "local_age": 0.03831142699345946,
+      "generation": 1.0,
+      "source_elapsed": 105.12
+    },
+    {
+      "sequence": 85.0,
+      "probe_elapsed": 108.01505323196761,
+      "local_age": 0.05141627602279186,
+      "generation": 1.0,
+      "source_elapsed": 106.8
+    },
+    {
+      "sequence": 86.0,
+      "probe_elapsed": 109.07043090392835,
+      "local_age": 0.04609405808150768,
+      "generation": 1.0,
+      "source_elapsed": 108.52
+    },
+    {
+      "sequence": 87.0,
+      "probe_elapsed": 110.57679726695642,
+      "local_age": 0.04692622309084982,
+      "generation": 1.0,
+      "source_elapsed": 109.12
+    },
+    {
+      "sequence": 88.0,
+      "probe_elapsed": 111.5806927389931,
+      "local_age": 0.044570320984348655,
+      "generation": 1.0,
+      "source_elapsed": 111.08
+    },
+    {
+      "sequence": 89.0,
+      "probe_elapsed": 112.58486472000368,
+      "local_age": 0.0186007940210402,
+      "generation": 1.0,
+      "source_elapsed": 112.08
+    },
+    {
+      "sequence": 90.0,
+      "probe_elapsed": 114.29038892802782,
+      "local_age": 0.026435798034071922,
+      "generation": 1.0,
+      "source_elapsed": 113.08
+    },
+    {
+      "sequence": 91.0,
+      "probe_elapsed": 115.29385456093587,
+      "local_age": 0.02663695509545505,
+      "generation": 1.0,
+      "source_elapsed": 114.16
+    },
+    {
+      "sequence": 92.0,
+      "probe_elapsed": 116.34745870495681,
+      "local_age": 0.04800180403981358,
+      "generation": 1.0,
+      "source_elapsed": 115.84
+    },
+    {
+      "sequence": 93.0,
+      "probe_elapsed": 117.35083977598697,
+      "local_age": 0.03381126595195383,
+      "generation": 1.0,
+      "source_elapsed": 116.84
+    },
+    {
+      "sequence": 94.0,
+      "probe_elapsed": 118.6066061379388,
+      "local_age": 0.010136171011254191,
+      "generation": 1.0,
+      "source_elapsed": 117.12
+    },
+    {
+      "sequence": 95.0,
+      "probe_elapsed": 119.60995576996356,
+      "local_age": 0.003309031017124653,
+      "generation": 1.0,
+      "source_elapsed": 119.16
+    },
+    {
+      "sequence": 96.0,
+      "probe_elapsed": 120.61355136102065,
+      "local_age": 0.0068472870625555515,
+      "generation": 1.0,
+      "source_elapsed": 119.88
+    },
+    {
+      "sequence": 97.0,
+      "probe_elapsed": 121.76815075101331,
+      "local_age": 0.04980602103751153,
+      "generation": 1.0,
+      "source_elapsed": 121.08
+    },
+    {
+      "sequence": 98.0,
+      "probe_elapsed": 122.82188411499374,
+      "local_age": 0.022731342003680766,
+      "generation": 1.0,
+      "source_elapsed": 121.16
+    },
+    {
+      "sequence": 99.0,
+      "probe_elapsed": 123.82577421993483,
+      "local_age": 0.015627944958396256,
+      "generation": 1.0,
+      "source_elapsed": 123.36
+    },
+    {
+      "sequence": 100.0,
+      "probe_elapsed": 124.87967583001591,
+      "local_age": 0.015472129918634892,
+      "generation": 1.0,
+      "source_elapsed": 124.36
+    },
+    {
+      "sequence": 101.0,
+      "probe_elapsed": 126.68665638193488,
+      "local_age": 0.019677913980558515,
+      "generation": 1.0,
+      "source_elapsed": 125.12
+    },
+    {
+      "sequence": 102.0,
+      "probe_elapsed": 127.68973259394988,
+      "local_age": 0.009052349952980876,
+      "generation": 1.0,
+      "source_elapsed": 127.24
+    },
+    {
+      "sequence": 103.0,
+      "probe_elapsed": 128.69360429700464,
+      "local_age": 0.0061473180539906025,
+      "generation": 1.0,
+      "source_elapsed": 128.24
+    },
+    {
+      "sequence": 104.0,
+      "probe_elapsed": 129.84890966000967,
+      "local_age": 0.02635974099393934,
+      "generation": 1.0,
+      "source_elapsed": 129.08
+    },
+    {
+      "sequence": 105.0,
+      "probe_elapsed": 131.15511082392186,
+      "local_age": 0.017675447976216674,
+      "generation": 1.0,
+      "source_elapsed": 129.12
+    },
+    {
+      "sequence": 106.0,
+      "probe_elapsed": 132.15855026093777,
+      "local_age": 0.01562849001493305,
+      "generation": 1.0,
+      "source_elapsed": 130.64
+    },
+    {
+      "sequence": 107.0,
+      "probe_elapsed": 133.2135495309485,
+      "local_age": 0.036995683098211884,
+      "generation": 1.0,
+      "source_elapsed": 132.72
+    },
+    {
+      "sequence": 108.0,
+      "probe_elapsed": 134.56985360500403,
+      "local_age": 0.007636603899300098,
+      "generation": 1.0,
+      "source_elapsed": 133.12
+    },
+    {
+      "sequence": 109.0,
+      "probe_elapsed": 135.6237715689931,
+      "local_age": 0.0028412180254235864,
+      "generation": 1.0,
+      "source_elapsed": 135.12
+    },
+    {
+      "sequence": 110.0,
+      "probe_elapsed": 136.67799000197556,
+      "local_age": 0.04658006702084094,
+      "generation": 1.0,
+      "source_elapsed": 136.12
+    },
+    {
+      "sequence": 111.0,
+      "probe_elapsed": 137.73218658892438,
+      "local_age": 0.0335953269386664,
+      "generation": 1.0,
+      "source_elapsed": 137.08
+    },
+    {
+      "sequence": 112.0,
+      "probe_elapsed": 139.08813630102668,
+      "local_age": 0.013310563052073121,
+      "generation": 1.0,
+      "source_elapsed": 137.12
+    },
+    {
+      "sequence": 113.0,
+      "probe_elapsed": 140.0918080189731,
+      "local_age": 0.016804527025669813,
+      "generation": 1.0,
+      "source_elapsed": 139.48
+    },
+    {
+      "sequence": 114.0,
+      "probe_elapsed": 141.0960997469956,
+      "local_age": 0.011536430916748941,
+      "generation": 1.0,
+      "source_elapsed": 140.64
+    },
+    {
+      "sequence": 115.0,
+      "probe_elapsed": 143.50494000001345,
+      "local_age": 0.0462598439771682,
+      "generation": 1.0,
+      "source_elapsed": 141.12
+    },
+    {
+      "sequence": 116.0,
+      "probe_elapsed": 144.5081142069539,
+      "local_age": 0.04873621393926442,
+      "generation": 1.0,
+      "source_elapsed": 143.52
+    },
+    {
+      "sequence": 117.0,
+      "probe_elapsed": 145.56332840095274,
+      "local_age": 0.05159647297114134,
+      "generation": 1.0,
+      "source_elapsed": 145.04
+    },
+    {
+      "sequence": 118.0,
+      "probe_elapsed": 147.4707632829668,
+      "local_age": 0.03082165599334985,
+      "generation": 1.0,
+      "source_elapsed": 145.12
+    },
+    {
+      "sequence": 119.0,
+      "probe_elapsed": 148.4740972269792,
+      "local_age": 0.031933951075188816,
+      "generation": 1.0,
+      "source_elapsed": 147.08
+    },
+    {
+      "sequence": 120.0,
+      "probe_elapsed": 149.4788669089321,
+      "local_age": 0.03112111601512879,
+      "generation": 1.0,
+      "source_elapsed": 149.04
+    },
+    {
+      "sequence": 121.0,
+      "probe_elapsed": 150.58378288999666,
+      "local_age": 0.008092821924947202,
+      "generation": 1.0,
+      "source_elapsed": 149.12
+    },
+    {
+      "sequence": 122.0,
+      "probe_elapsed": 151.587224431918,
+      "local_age": 0.01093683100771159,
+      "generation": 1.0,
+      "source_elapsed": 151.04
+    },
+    {
+      "sequence": 123.0,
+      "probe_elapsed": 152.64085139892995,
+      "local_age": 0.04882151202764362,
+      "generation": 1.0,
+      "source_elapsed": 152.2
+    },
+    {
+      "sequence": 124.0,
+      "probe_elapsed": 153.69577038800344,
+      "local_age": 0.04918416100554168,
+      "generation": 1.0,
+      "source_elapsed": 153.08
+    },
+    {
+      "sequence": 125.0,
+      "probe_elapsed": 154.80115746194497,
+      "local_age": 0.036251834011636674,
+      "generation": 1.0,
+      "source_elapsed": 153.12
+    },
+    {
+      "sequence": 126.0,
+      "probe_elapsed": 155.80456205597147,
+      "local_age": 0.026929130079224706,
+      "generation": 1.0,
+      "source_elapsed": 155.36
+    },
+    {
+      "sequence": 127.0,
+      "probe_elapsed": 157.05933283898048,
+      "local_age": 0.022271146066486835,
+      "generation": 1.0,
+      "source_elapsed": 156.24
+    },
+    {
+      "sequence": 128.0,
+      "probe_elapsed": 158.26415570499375,
+      "local_age": 0.012870004051364958,
+      "generation": 1.0,
+      "source_elapsed": 157.16
+    },
+    {
+      "sequence": 129.0,
+      "probe_elapsed": 159.3181939329952,
+      "local_age": 0.024942861986346543,
+      "generation": 1.0,
+      "source_elapsed": 158.8
+    },
+    {
+      "sequence": 130.0,
+      "probe_elapsed": 160.3220665740082,
+      "local_age": 0.019577697035856545,
+      "generation": 1.0,
+      "source_elapsed": 159.84
+    },
+    {
+      "sequence": 131.0,
+      "probe_elapsed": 161.37635382800363,
+      "local_age": 0.025745023041963577,
+      "generation": 1.0,
+      "source_elapsed": 160.92
+    },
+    {
+      "sequence": 132.0,
+      "probe_elapsed": 163.18349665601272,
+      "local_age": 0.03361793200019747,
+      "generation": 1.0,
+      "source_elapsed": 161.12
+    },
+    {
+      "sequence": 133.0,
+      "probe_elapsed": 164.18675389699638,
+      "local_age": 0.002377219032496214,
+      "generation": 1.0,
+      "source_elapsed": 163.72
+    },
+    {
+      "sequence": 134.0,
+      "probe_elapsed": 165.24054512102157,
+      "local_age": 0.02897382201626897,
+      "generation": 1.0,
+      "source_elapsed": 164.76
+    },
+    {
+      "sequence": 135.0,
+      "probe_elapsed": 167.19795321591664,
+      "local_age": 0.010431593051180243,
+      "generation": 1.0,
+      "source_elapsed": 165.12
+    },
+    {
+      "sequence": 136.0,
+      "probe_elapsed": 168.25136441295035,
+      "local_age": 0.022667097044177353,
+      "generation": 1.0,
+      "source_elapsed": 167.8
+    },
+    {
+      "sequence": 137.0,
+      "probe_elapsed": 169.30508782702964,
+      "local_age": 0.04594558896496892,
+      "generation": 1.0,
+      "source_elapsed": 168.28
+    },
+    {
+      "sequence": 138.0,
+      "probe_elapsed": 170.56073348002974,
+      "local_age": 0.010488576022908092,
+      "generation": 1.0,
+      "source_elapsed": 169.12
+    },
+    {
+      "sequence": 139.0,
+      "probe_elapsed": 171.6647196499398,
+      "local_age": 0.0461512659676373,
+      "generation": 1.0,
+      "source_elapsed": 171.2
+    },
+    {
+      "sequence": 140.0,
+      "probe_elapsed": 172.66855012602173,
+      "local_age": 0.027951851952821016,
+      "generation": 1.0,
+      "source_elapsed": 172.2
+    },
+    {
+      "sequence": 141.0,
+      "probe_elapsed": 174.42553696292453,
+      "local_age": 0.02806506399065256,
+      "generation": 1.0,
+      "source_elapsed": 173.12
+    },
+    {
+      "sequence": 142.0,
+      "probe_elapsed": 175.5293589310022,
+      "local_age": 0.019622334046289325,
+      "generation": 1.0,
+      "source_elapsed": 174.92
+    },
+    {
+      "sequence": 143.0,
+      "probe_elapsed": 176.5340392650105,
+      "local_age": 0.019609511946327984,
+      "generation": 1.0,
+      "source_elapsed": 176.04
+    },
+    {
+      "sequence": 144.0,
+      "probe_elapsed": 178.1907466680277,
+      "local_age": 0.026522126980125904,
+      "generation": 1.0,
+      "source_elapsed": 177.08
+    },
+    {
+      "sequence": 145.0,
+      "probe_elapsed": 179.19418671296444,
+      "local_age": 0.029096497921273112,
+      "generation": 1.0,
+      "source_elapsed": 177.2
+    },
+    {
+      "sequence": 146.0,
+      "probe_elapsed": 180.19774558593053,
+      "local_age": 0.022960325004532933,
+      "generation": 1.0,
+      "source_elapsed": 179.76
+    },
+    {
+      "sequence": 147.0,
+      "probe_elapsed": 181.35243100195657,
+      "local_age": 0.010270662023685873,
+      "generation": 1.0,
+      "source_elapsed": 180.24
+    },
+    {
+      "sequence": 148.0,
+      "probe_elapsed": 182.5564219430089,
+      "local_age": 0.011908740969374776,
+      "generation": 1.0,
+      "source_elapsed": 181.12
+    },
+    {
+      "sequence": 149.0,
+      "probe_elapsed": 183.56034744495992,
+      "local_age": 0.0074373079696670175,
+      "generation": 1.0,
+      "source_elapsed": 183.16
+    },
+    {
+      "sequence": 150.0,
+      "probe_elapsed": 184.61429723491892,
+      "local_age": 0.008880877052433789,
+      "generation": 1.0,
+      "source_elapsed": 184.16
+    },
+    {
+      "sequence": 151.0,
+      "probe_elapsed": 185.668075700989,
+      "local_age": 0.010339251952245831,
+      "generation": 1.0,
+      "source_elapsed": 185.08
+    },
+    {
+      "sequence": 152.0,
+      "probe_elapsed": 187.57568046299275,
+      "local_age": 0.0447165600489825,
+      "generation": 1.0,
+      "source_elapsed": 185.12
+    },
+    {
+      "sequence": 153.0,
+      "probe_elapsed": 188.57938246196136,
+      "local_age": 0.045500492909923196,
+      "generation": 1.0,
+      "source_elapsed": 187.64
+    },
+    {
+      "sequence": 154.0,
+      "probe_elapsed": 189.63355625001714,
+      "local_age": 0.04170356108807027,
+      "generation": 1.0,
+      "source_elapsed": 189.08
+    },
+    {
+      "sequence": 155.0,
+      "probe_elapsed": 190.73917478101794,
+      "local_age": 0.016202538972720504,
+      "generation": 1.0,
+      "source_elapsed": 189.12
+    },
+    {
+      "sequence": 156.0,
+      "probe_elapsed": 191.79251104500145,
+      "local_age": 0.04908571997657418,
+      "generation": 1.0,
+      "source_elapsed": 191.32
+    },
+    {
+      "sequence": 157.0,
+      "probe_elapsed": 192.7966565110255,
+      "local_age": 0.030607430962845683,
+      "generation": 1.0,
+      "source_elapsed": 192.32
+    },
+    {
+      "sequence": 158.0,
+      "probe_elapsed": 194.9051282319706,
+      "local_age": 0.038498454028740525,
+      "generation": 1.0,
+      "source_elapsed": 193.12
+    },
+    {
+      "sequence": 159.0,
+      "probe_elapsed": 195.90913657902274,
+      "local_age": 0.012891354970633984,
+      "generation": 1.0,
+      "source_elapsed": 195.48
+    },
+    {
+      "sequence": 160.0,
+      "probe_elapsed": 196.96318144898396,
+      "local_age": 0.049703516997396946,
+      "generation": 1.0,
+      "source_elapsed": 196.48
+    },
+    {
+      "sequence": 161.0,
+      "probe_elapsed": 198.76902810297906,
+      "local_age": 0.012189576984383166,
+      "generation": 1.0,
+      "source_elapsed": 197.12
+    },
+    {
+      "sequence": 162.0,
+      "probe_elapsed": 199.77236584492493,
+      "local_age": 0.012703194050118327,
+      "generation": 1.0,
+      "source_elapsed": 198.6
+    },
+    {
+      "sequence": 163.0,
+      "probe_elapsed": 200.77606968092732,
+      "local_age": 0.011064327089115977,
+      "generation": 1.0,
+      "source_elapsed": 200.32
+    },
+    {
+      "sequence": 164.0,
+      "probe_elapsed": 202.63323958194815,
+      "local_age": 0.006102572078816593,
+      "generation": 1.0,
+      "source_elapsed": 201.12
+    },
+    {
+      "sequence": 165.0,
+      "probe_elapsed": 203.68663210899103,
+      "local_age": 0.040690416004508734,
+      "generation": 1.0,
+      "source_elapsed": 203.24
+    },
+    {
+      "sequence": 166.0,
+      "probe_elapsed": 204.69054845301434,
+      "local_age": 0.02847200201358646,
+      "generation": 1.0,
+      "source_elapsed": 204.24
+    },
+    {
+      "sequence": 167.0,
+      "probe_elapsed": 207.0488741939189,
+      "local_age": 0.004856914980337024,
+      "generation": 1.0,
+      "source_elapsed": 205.12
+    },
+    {
+      "sequence": 168.0,
+      "probe_elapsed": 208.05213741096668,
+      "local_age": 0.006206230027601123,
+      "generation": 1.0,
+      "source_elapsed": 207.08
+    },
+    {
+      "sequence": 169.0,
+      "probe_elapsed": 209.10612407000735,
+      "local_age": 0.015224960981868207,
+      "generation": 1.0,
+      "source_elapsed": 208.6
+    },
+    {
+      "sequence": 170.0,
+      "probe_elapsed": 210.26157600502484,
+      "local_age": 0.02649519592523575,
+      "generation": 1.0,
+      "source_elapsed": 209.12
+    },
+    {
+      "sequence": 171.0,
+      "probe_elapsed": 211.41575043497141,
+      "local_age": 0.015980790019966662,
+      "generation": 1.0,
+      "source_elapsed": 210.28
+    },
+    {
+      "sequence": 172.0,
+      "probe_elapsed": 212.41920662601478,
+      "local_age": 0.013222798937931657,
+      "generation": 1.0,
+      "source_elapsed": 212.0
+    },
+    {
+      "sequence": 173.0,
+      "probe_elapsed": 213.42287731100805,
+      "local_age": 0.01615291996859014,
+      "generation": 1.0,
+      "source_elapsed": 212.96
+    },
+    {
+      "sequence": 174.0,
+      "probe_elapsed": 215.23010253102984,
+      "local_age": 0.05354537605307996,
+      "generation": 1.0,
+      "source_elapsed": 213.12
+    },
+    {
+      "sequence": 175.0,
+      "probe_elapsed": 216.23405504098628,
+      "local_age": 0.05127028201241046,
+      "generation": 1.0,
+      "source_elapsed": 215.04
+    },
+    {
+      "sequence": 176.0,
+      "probe_elapsed": 217.53980761300772,
+      "local_age": 0.005613285931758583,
+      "generation": 1.0,
+      "source_elapsed": 216.4
+    },
+    {
+      "sequence": 177.0,
+      "probe_elapsed": 219.1462979390053,
+      "local_age": 0.005571288987994194,
+      "generation": 1.0,
+      "source_elapsed": 217.12
+    },
+    {
+      "sequence": 178.0,
+      "probe_elapsed": 220.14959377993364,
+      "local_age": 0.0037578720366582274,
+      "generation": 1.0,
+      "source_elapsed": 219.68
+    },
+    {
+      "sequence": 179.0,
+      "probe_elapsed": 221.2031957389554,
+      "local_age": 0.023451101034879684,
+      "generation": 1.0,
+      "source_elapsed": 220.76
+    },
+    {
+      "sequence": 180.0,
+      "probe_elapsed": 222.55893406900577,
+      "local_age": 0.027645883965305984,
+      "generation": 1.0,
+      "source_elapsed": 221.12
+    },
+    {
+      "sequence": 181.0,
+      "probe_elapsed": 223.81265432701912,
+      "local_age": 0.03670509404037148,
+      "generation": 1.0,
+      "source_elapsed": 222.68
+    },
+    {
+      "sequence": 182.0,
+      "probe_elapsed": 224.81736050196923,
+      "local_age": 0.03752321004867554,
+      "generation": 1.0,
+      "source_elapsed": 224.36
+    },
+    {
+      "sequence": 183.0,
+      "probe_elapsed": 226.8749445559224,
+      "local_age": 0.008023612899705768,
+      "generation": 1.0,
+      "source_elapsed": 225.12
+    },
+    {
+      "sequence": 184.0,
+      "probe_elapsed": 227.87812433193903,
+      "local_age": 0.009938371018506587,
+      "generation": 1.0,
+      "source_elapsed": 227.44
+    },
+    {
+      "sequence": 185.0,
+      "probe_elapsed": 228.93223138793837,
+      "local_age": 0.03946436999831349,
+      "generation": 1.0,
+      "source_elapsed": 228.52
+    },
+    {
+      "sequence": 186.0,
+      "probe_elapsed": 229.9358048979193,
+      "local_age": 0.03452835092321038,
+      "generation": 1.0,
+      "source_elapsed": 228.96
+    },
+    {
+      "sequence": 187.0,
+      "probe_elapsed": 231.2402305540163,
+      "local_age": 0.05186478502582759,
+      "generation": 1.0,
+      "source_elapsed": 229.16
+    },
+    {
+      "sequence": 188.0,
+      "probe_elapsed": 232.24428465694655,
+      "local_age": 0.04514364805072546,
+      "generation": 1.0,
+      "source_elapsed": 231.8
+    },
+    {
+      "sequence": 189.0,
+      "probe_elapsed": 233.24879448499996,
+      "local_age": 0.041831123060546815,
+      "generation": 1.0,
+      "source_elapsed": 232.84
+    },
+    {
+      "sequence": 190.0,
+      "probe_elapsed": 235.15639519202523,
+      "local_age": 0.046504787052981555,
+      "generation": 1.0,
+      "source_elapsed": 233.12
+    },
+    {
+      "sequence": 191.0,
+      "probe_elapsed": 236.1598114949884,
+      "local_age": 0.04930740292184055,
+      "generation": 1.0,
+      "source_elapsed": 234.52
+    },
+    {
+      "sequence": 192.0,
+      "probe_elapsed": 237.16351667500567,
+      "local_age": 0.032573026954196393,
+      "generation": 1.0,
+      "source_elapsed": 236.76
+    },
+    {
+      "sequence": 193.0,
+      "probe_elapsed": 238.4191533609992,
+      "local_age": 0.04051644599530846,
+      "generation": 1.0,
+      "source_elapsed": 237.12
+    },
+    {
+      "sequence": 194.0,
+      "probe_elapsed": 239.4726632150123,
+      "local_age": 0.03969311900436878,
+      "generation": 1.0,
+      "source_elapsed": 239.04
+    },
+    {
+      "sequence": 195.0,
+      "probe_elapsed": 240.47626890498213,
+      "local_age": 0.04120487498585135,
+      "generation": 1.0,
+      "source_elapsed": 240.04
+    },
+    {
+      "sequence": 196.0,
+      "probe_elapsed": 241.53103236702736,
+      "local_age": 0.010524280951358378,
+      "generation": 1.0,
+      "source_elapsed": 240.76
+    },
+    {
+      "sequence": 197.0,
+      "probe_elapsed": 242.78685100900475,
+      "local_age": 0.04688875807914883,
+      "generation": 1.0,
+      "source_elapsed": 241.12
+    },
+    {
+      "sequence": 198.0,
+      "probe_elapsed": 243.79011648101732,
+      "local_age": 0.046388364979065955,
+      "generation": 1.0,
+      "source_elapsed": 243.24
+    },
+    {
+      "sequence": 199.0,
+      "probe_elapsed": 244.79380114993546,
+      "local_age": 0.013666577055118978,
+      "generation": 1.0,
+      "source_elapsed": 244.4
+    },
+    {
+      "sequence": 200.0,
+      "probe_elapsed": 246.55060785799287,
+      "local_age": 0.011813380988314748,
+      "generation": 1.0,
+      "source_elapsed": 245.12
+    },
+    {
+      "sequence": 201.0,
+      "probe_elapsed": 247.60464151296765,
+      "local_age": 0.022861458943225443,
+      "generation": 1.0,
+      "source_elapsed": 245.96
+    },
+    {
+      "sequence": 202.0,
+      "probe_elapsed": 248.6082929240074,
+      "local_age": 0.025951043935492635,
+      "generation": 1.0,
+      "source_elapsed": 248.16
+    },
+    {
+      "sequence": 203.0,
+      "probe_elapsed": 250.41559325403068,
+      "local_age": 0.031372588011436164,
+      "generation": 1.0,
+      "source_elapsed": 249.12
+    },
+    {
+      "sequence": 204.0,
+      "probe_elapsed": 251.4188640769571,
+      "local_age": 0.03197483893018216,
+      "generation": 1.0,
+      "source_elapsed": 251.0
+    },
+    {
+      "sequence": 205.0,
+      "probe_elapsed": 252.42283389193472,
+      "local_age": 0.024220739025622606,
+      "generation": 1.0,
+      "source_elapsed": 252.0
+    },
+    {
+      "sequence": 206.0,
+      "probe_elapsed": 253.77882184600458,
+      "local_age": 0.00794589298311621,
+      "generation": 1.0,
+      "source_elapsed": 252.64
+    },
+    {
+      "sequence": 207.0,
+      "probe_elapsed": 254.88287462992594,
+      "local_age": 0.005670928047038615,
+      "generation": 1.0,
+      "source_elapsed": 253.16
+    },
+    {
+      "sequence": 208.0,
+      "probe_elapsed": 255.9374217799632,
+      "local_age": 0.05095267295837402,
+      "generation": 1.0,
+      "source_elapsed": 255.52
+    },
+    {
+      "sequence": 209.0,
+      "probe_elapsed": 256.9416006669635,
+      "local_age": 0.03745044895913452,
+      "generation": 1.0,
+      "source_elapsed": 256.52
+    },
+    {
+      "sequence": 210.0,
+      "probe_elapsed": 258.29788608895615,
+      "local_age": 0.010036355000920594,
+      "generation": 1.0,
+      "source_elapsed": 257.12
+    },
+    {
+      "sequence": 211.0,
+      "probe_elapsed": 259.8031285100151,
+      "local_age": 0.029375219019129872,
+      "generation": 1.0,
+      "source_elapsed": 258.92
+    },
+    {
+      "sequence": 212.0,
+      "probe_elapsed": 260.85757833498064,
+      "local_age": 0.03458356799092144,
+      "generation": 1.0,
+      "source_elapsed": 260.44
+    },
+    {
+      "sequence": 213.0,
+      "probe_elapsed": 262.81526034802664,
+      "local_age": 0.05061145103536546,
+      "generation": 1.0,
+      "source_elapsed": 261.12
+    },
+    {
+      "sequence": 214.0,
+      "probe_elapsed": 263.8187152700266,
+      "local_age": 0.04760396608617157,
+      "generation": 1.0,
+      "source_elapsed": 263.08
+    },
+    {
+      "sequence": 215.0,
+      "probe_elapsed": 264.82287927297875,
+      "local_age": 0.043121840921230614,
+      "generation": 1.0,
+      "source_elapsed": 264.4
+    },
+    {
+      "sequence": 216.0,
+      "probe_elapsed": 265.97800359502435,
+      "local_age": 0.009396512061357498,
+      "generation": 1.0,
+      "source_elapsed": 264.92
+    },
+    {
+      "sequence": 217.0,
+      "probe_elapsed": 266.98184870299883,
+      "local_age": 0.009785540984012187,
+      "generation": 1.0,
+      "source_elapsed": 265.52
+    },
+    {
+      "sequence": 218.0,
+      "probe_elapsed": 268.03684410999995,
+      "local_age": 0.035944889998063445,
+      "generation": 1.0,
+      "source_elapsed": 267.64
+    },
+    {
+      "sequence": 219.0,
+      "probe_elapsed": 269.1414306049701,
+      "local_age": 0.020369005971588194,
+      "generation": 1.0,
+      "source_elapsed": 268.68
+    },
+    {
+      "sequence": 220.0,
+      "probe_elapsed": 270.44717204896733,
+      "local_age": 0.050351030891761184,
+      "generation": 1.0,
+      "source_elapsed": 269.12
+    },
+    {
+      "sequence": 221.0,
+      "probe_elapsed": 272.00293543492444,
+      "local_age": 0.022533725015819073,
+      "generation": 1.0,
+      "source_elapsed": 271.0
+    },
+    {
+      "sequence": 222.0,
+      "probe_elapsed": 273.0569502710132,
+      "local_age": 0.03230902901850641,
+      "generation": 1.0,
+      "source_elapsed": 272.6
+    },
+    {
+      "sequence": 223.0,
+      "probe_elapsed": 274.3112731539877,
+      "local_age": 0.013964614947326481,
+      "generation": 1.0,
+      "source_elapsed": 273.12
+    },
+    {
+      "sequence": 224.0,
+      "probe_elapsed": 275.3146856109379,
+      "local_age": 0.00892113905865699,
+      "generation": 1.0,
+      "source_elapsed": 274.92
+    },
+    {
+      "sequence": 225.0,
+      "probe_elapsed": 276.36897469393443,
+      "local_age": 0.04767452005762607,
+      "generation": 1.0,
+      "source_elapsed": 275.92
+    },
+    {
+      "sequence": 226.0,
+      "probe_elapsed": 277.3726946830284,
+      "local_age": 0.018392805010080338,
+      "generation": 1.0,
+      "source_elapsed": 276.96
+    },
+    {
+      "sequence": 227.0,
+      "probe_elapsed": 278.929340837989,
+      "local_age": 0.03854132804553956,
+      "generation": 1.0,
+      "source_elapsed": 277.12
+    },
+    {
+      "sequence": 228.0,
+      "probe_elapsed": 279.93276942393277,
+      "local_age": 0.019440589006990194,
+      "generation": 1.0,
+      "source_elapsed": 279.56
+    },
+    {
+      "sequence": 229.0,
+      "probe_elapsed": 280.986712428974,
+      "local_age": 0.04715693194884807,
+      "generation": 1.0,
+      "source_elapsed": 280.56
+    },
+    {
+      "sequence": 230.0,
+      "probe_elapsed": 282.7438008369645,
+      "local_age": 0.021219064015895128,
+      "generation": 1.0,
+      "source_elapsed": 281.12
+    },
+    {
+      "sequence": 231.0,
+      "probe_elapsed": 283.84754187997896,
+      "local_age": 0.04149102605879307,
+      "generation": 1.0,
+      "source_elapsed": 283.12
+    },
+    {
+      "sequence": 232.0,
+      "probe_elapsed": 284.9013709699502,
+      "local_age": 0.026980014983564615,
+      "generation": 1.0,
+      "source_elapsed": 284.44
+    },
+    {
+      "sequence": 233.0,
+      "probe_elapsed": 286.85903823398985,
+      "local_age": 0.04383198800496757,
+      "generation": 1.0,
+      "source_elapsed": 285.12
+    },
+    {
+      "sequence": 234.0,
+      "probe_elapsed": 287.9126612429973,
+      "local_age": 0.029702077037654817,
+      "generation": 1.0,
+      "source_elapsed": 287.48
+    },
+    {
+      "sequence": 235.0,
+      "probe_elapsed": 288.9177388580283,
+      "local_age": 0.015581287094391882,
+      "generation": 1.0,
+      "source_elapsed": 288.52
+    },
+    {
+      "sequence": 236.0,
+      "probe_elapsed": 290.2236625109799,
+      "local_age": 0.02321814198512584,
+      "generation": 1.0,
+      "source_elapsed": 289.08
+    },
+    {
+      "sequence": 237.0,
+      "probe_elapsed": 291.2275970589835,
+      "local_age": 0.020017580944113433,
+      "generation": 1.0,
+      "source_elapsed": 289.32
+    },
+    {
+      "sequence": 238.0,
+      "probe_elapsed": 292.28134036494885,
+      "local_age": 0.0360546869924292,
+      "generation": 1.0,
+      "source_elapsed": 291.84
+    },
+    {
+      "sequence": 239.0,
+      "probe_elapsed": 293.2850998790236,
+      "local_age": 0.023449942003935575,
+      "generation": 1.0,
+      "source_elapsed": 292.88
+    },
+    {
+      "sequence": 240.0,
+      "probe_elapsed": 294.4907689950196,
+      "local_age": 0.053752396954223514,
+      "generation": 1.0,
+      "source_elapsed": 293.12
+    },
+    {
+      "sequence": 241.0,
+      "probe_elapsed": 295.54429085191805,
+      "local_age": 0.04696321999654174,
+      "generation": 1.0,
+      "source_elapsed": 295.12
+    },
+    {
+      "sequence": 242.0,
+      "probe_elapsed": 296.5481995770242,
+      "local_age": 0.05023109097965062,
+      "generation": 1.0,
+      "source_elapsed": 295.8
+    },
+    {
+      "sequence": 243.0,
+      "probe_elapsed": 297.5529216369614,
+      "local_age": 0.033164617023430765,
+      "generation": 1.0,
+      "source_elapsed": 297.08
+    },
+    {
+      "sequence": 244.0,
+      "probe_elapsed": 298.6568657689495,
+      "local_age": 0.0248029149370268,
+      "generation": 1.0,
+      "source_elapsed": 297.16
+    },
+    {
+      "sequence": 245.0,
+      "probe_elapsed": 299.7106976649957,
+      "local_age": 0.05215760902501643,
+      "generation": 1.0,
+      "source_elapsed": 299.28
+    },
+    {
+      "sequence": 246.0,
+      "probe_elapsed": 300.7145455030259,
+      "local_age": 0.018480283906683326,
+      "generation": 1.0,
+      "source_elapsed": 300.32
+    },
+    {
+      "sequence": 247.0,
+      "probe_elapsed": 303.22244679392315,
+      "local_age": 0.0479778740555048,
+      "generation": 1.0,
+      "source_elapsed": 301.12
+    },
+    {
+      "sequence": 248.0,
+      "probe_elapsed": 304.22604561096523,
+      "local_age": 0.048634005011990666,
+      "generation": 1.0,
+      "source_elapsed": 302.68
+    },
+    {
+      "sequence": 249.0,
+      "probe_elapsed": 305.2300687870011,
+      "local_age": 0.03666699503082782,
+      "generation": 1.0,
+      "source_elapsed": 304.84
+    },
+    {
+      "sequence": 250.0,
+      "probe_elapsed": 306.5849952509161,
+      "local_age": 0.021976921008899808,
+      "generation": 1.0,
+      "source_elapsed": 305.12
+    },
+    {
+      "sequence": 251.0,
+      "probe_elapsed": 307.68873914098367,
+      "local_age": 0.04657542100176215,
+      "generation": 1.0,
+      "source_elapsed": 307.24
+    },
+    {
+      "sequence": 252.0,
+      "probe_elapsed": 308.84333226201124,
+      "local_age": 0.02560924889985472,
+      "generation": 1.0,
+      "source_elapsed": 307.96
+    },
+    {
+      "sequence": 253.0,
+      "probe_elapsed": 310.6502035210142,
+      "local_age": 0.04864142695441842,
+      "generation": 1.0,
+      "source_elapsed": 309.12
+    },
+    {
+      "sequence": 254.0,
+      "probe_elapsed": 311.65352345001884,
+      "local_age": 0.041875756927765906,
+      "generation": 1.0,
+      "source_elapsed": 311.24
+    },
+    {
+      "sequence": 255.0,
+      "probe_elapsed": 312.65719074895605,
+      "local_age": 0.0404514679685235,
+      "generation": 1.0,
+      "source_elapsed": 312.24
+    },
+    {
+      "sequence": 256.0,
+      "probe_elapsed": 315.16660789202433,
+      "local_age": 0.01864896691404283,
+      "generation": 1.0,
+      "source_elapsed": 313.12
+    },
+    {
+      "sequence": 257.0,
+      "probe_elapsed": 316.1702056659851,
+      "local_age": 0.01633765094447881,
+      "generation": 1.0,
+      "source_elapsed": 314.72
+    },
+    {
+      "sequence": 258.0,
+      "probe_elapsed": 317.22444369399454,
+      "local_age": 0.024993453989736736,
+      "generation": 1.0,
+      "source_elapsed": 316.8
+    },
+    {
+      "sequence": 259.0,
+      "probe_elapsed": 319.0808444399154,
+      "local_age": 0.025607684976421297,
+      "generation": 1.0,
+      "source_elapsed": 317.12
+    },
+    {
+      "sequence": 260.0,
+      "probe_elapsed": 320.08414318296127,
+      "local_age": 0.024309619097039104,
+      "generation": 1.0,
+      "source_elapsed": 319.6
+    },
+    {
+      "sequence": 261.0,
+      "probe_elapsed": 321.28871554194484,
+      "local_age": 0.04241429106332362,
+      "generation": 1.0,
+      "source_elapsed": 320.04
+    },
+    {
+      "sequence": 262.0,
+      "probe_elapsed": 322.3940052589169,
+      "local_age": 0.019338393001817167,
+      "generation": 1.0,
+      "source_elapsed": 321.12
+    },
+    {
+      "sequence": 263.0,
+      "probe_elapsed": 323.44825752591714,
+      "local_age": 0.04378944600466639,
+      "generation": 1.0,
+      "source_elapsed": 323.08
+    },
+    {
+      "sequence": 264.0,
+      "probe_elapsed": 324.45210598094855,
+      "local_age": 0.04630089504644275,
+      "generation": 1.0,
+      "source_elapsed": 324.08
+    },
+    {
+      "sequence": 265.0,
+      "probe_elapsed": 325.5562773939455,
+      "local_age": 0.0516292949905619,
+      "generation": 1.0,
+      "source_elapsed": 325.08
+    },
+    {
+      "sequence": 266.0,
+      "probe_elapsed": 327.36338042793795,
+      "local_age": 0.02401047700550407,
+      "generation": 1.0,
+      "source_elapsed": 325.12
+    },
+    {
+      "sequence": 267.0,
+      "probe_elapsed": 328.5673404689878,
+      "local_age": 0.03814506100025028,
+      "generation": 1.0,
+      "source_elapsed": 327.44
+    },
+    {
+      "sequence": 268.0,
+      "probe_elapsed": 330.0735663359519,
+      "local_age": 0.03134789795149118,
+      "generation": 1.0,
+      "source_elapsed": 329.12
+    },
+    {
+      "sequence": 269.0,
+      "probe_elapsed": 331.07821043091826,
+      "local_age": 0.024376248009502888,
+      "generation": 1.0,
+      "source_elapsed": 330.72
+    },
+    {
+      "sequence": 270.0,
+      "probe_elapsed": 332.13209534902126,
+      "local_age": 0.01877021894324571,
+      "generation": 1.0,
+      "source_elapsed": 331.76
+    },
+    {
+      "sequence": 271.0,
+      "probe_elapsed": 333.488084763987,
+      "local_age": 0.049783469061367214,
+      "generation": 1.0,
+      "source_elapsed": 332.56
+    },
+    {
+      "sequence": 272.0,
+      "probe_elapsed": 334.4931415639585,
+      "local_age": 0.0389446479966864,
+      "generation": 1.0,
+      "source_elapsed": 333.12
+    },
+    {
+      "sequence": 273.0,
+      "probe_elapsed": 335.5466818700079,
+      "local_age": 0.0207897579530254,
+      "generation": 1.0,
+      "source_elapsed": 335.16
+    },
+    {
+      "sequence": 274.0,
+      "probe_elapsed": 336.6002713870257,
+      "local_age": 0.04396310599986464,
+      "generation": 1.0,
+      "source_elapsed": 336.2
+    },
+    {
+      "sequence": 275.0,
+      "probe_elapsed": 338.4075456809951,
+      "local_age": 0.015567121095955372,
+      "generation": 1.0,
+      "source_elapsed": 337.12
+    },
+    {
+      "sequence": 276.0,
+      "probe_elapsed": 339.4612512210151,
+      "local_age": 0.046179031021893024,
+      "generation": 1.0,
+      "source_elapsed": 337.28
+    },
+    {
+      "sequence": 277.0,
+      "probe_elapsed": 340.46492119296454,
+      "local_age": 0.04565158300101757,
+      "generation": 1.0,
+      "source_elapsed": 340.0
+    },
+    {
+      "sequence": 278.0,
+      "probe_elapsed": 341.7192131290212,
+      "local_age": 0.02413696306757629,
+      "generation": 1.0,
+      "source_elapsed": 341.08
+    },
+    {
+      "sequence": 279.0,
+      "probe_elapsed": 343.073800359969,
+      "local_age": 0.0310816130368039,
+      "generation": 1.0,
+      "source_elapsed": 341.16
+    },
+    {
+      "sequence": 280.0,
+      "probe_elapsed": 344.0772105799988,
+      "local_age": 0.025926788919605315,
+      "generation": 1.0,
+      "source_elapsed": 343.72
+    },
+    {
+      "sequence": 281.0,
+      "probe_elapsed": 345.08065418095794,
+      "local_age": 0.004159966018050909,
+      "generation": 1.0,
+      "source_elapsed": 344.76
+    },
+    {
+      "sequence": 282.0,
+      "probe_elapsed": 346.7876870849868,
+      "local_age": 0.027646146016195416,
+      "generation": 1.0,
+      "source_elapsed": 345.12
+    },
+    {
+      "sequence": 283.0,
+      "probe_elapsed": 347.7908944960218,
+      "local_age": 0.006409422028809786,
+      "generation": 1.0,
+      "source_elapsed": 347.44
+    },
+    {
+      "sequence": 284.0,
+      "probe_elapsed": 348.7947066279594,
+      "local_age": 0.010158433928154409,
+      "generation": 1.0,
+      "source_elapsed": 348.44
+    },
+    {
+      "sequence": 285.0,
+      "probe_elapsed": 350.3507674179273,
+      "local_age": 0.05378031299915165,
+      "generation": 1.0,
+      "source_elapsed": 349.12
+    },
+    {
+      "sequence": 286.0,
+      "probe_elapsed": 351.35442529595457,
+      "local_age": 0.04738323902711272,
+      "generation": 1.0,
+      "source_elapsed": 351.0
+    },
+    {
+      "sequence": 287.0,
+      "probe_elapsed": 352.75896363100037,
+      "local_age": 0.041693379054777324,
+      "generation": 1.0,
+      "source_elapsed": 351.56
+    },
+    {
+      "sequence": 288.0,
+      "probe_elapsed": 354.4654279940296,
+      "local_age": 0.019681298988871276,
+      "generation": 1.0,
+      "source_elapsed": 353.12
+    },
+    {
+      "sequence": 289.0,
+      "probe_elapsed": 355.46867820294574,
+      "local_age": 0.01856924907770008,
+      "generation": 1.0,
+      "source_elapsed": 355.12
+    },
+    {
+      "sequence": 290.0,
+      "probe_elapsed": 356.57290523394477,
+      "local_age": 0.031224126927554607,
+      "generation": 1.0,
+      "source_elapsed": 356.12
+    },
+    {
+      "sequence": 291.0,
+      "probe_elapsed": 357.9284451579442,
+      "local_age": 0.05115337308961898,
+      "generation": 1.0,
+      "source_elapsed": 357.08
+    },
+    {
+      "sequence": 292.0,
+      "probe_elapsed": 359.233925118926,
+      "local_age": 0.00498368008993566,
+      "generation": 1.0,
+      "source_elapsed": 357.12
+    },
+    {
+      "sequence": 293.0,
+      "probe_elapsed": 360.2375600449741,
+      "local_age": 0.008230381063185632,
+      "generation": 1.0,
+      "source_elapsed": 359.04
+    },
+    {
+      "sequence": 294.0,
+      "probe_elapsed": 361.2917627010029,
+      "local_age": 0.05028994788881391,
+      "generation": 1.0,
+      "source_elapsed": 360.92
+    },
+    {
+      "sequence": 295.0,
+      "probe_elapsed": 362.39714871603064,
+      "local_age": 0.023134476970881224,
+      "generation": 1.0,
+      "source_elapsed": 361.12
+    },
+    {
+      "sequence": 296.0,
+      "probe_elapsed": 363.4004968039226,
+      "local_age": 0.00216413801535964,
+      "generation": 1.0,
+      "source_elapsed": 363.08
+    },
+    {
+      "sequence": 297.0,
+      "probe_elapsed": 364.5042446369771,
+      "local_age": 0.04751052206847817,
+      "generation": 1.0,
+      "source_elapsed": 364.12
+    },
+    {
+      "sequence": 298.0,
+      "probe_elapsed": 365.5078997039236,
+      "local_age": 0.04070091794710606,
+      "generation": 1.0,
+      "source_elapsed": 364.88
+    },
+    {
+      "sequence": 299.0,
+      "probe_elapsed": 366.5121405769605,
+      "local_age": 0.030307642999105155,
+      "generation": 1.0,
+      "source_elapsed": 365.12
+    },
+    {
+      "sequence": 300.0,
+      "probe_elapsed": 367.5154033289291,
+      "local_age": 0.013512922916561365,
+      "generation": 1.0,
+      "source_elapsed": 367.2
+    },
+    {
+      "sequence": 301.0,
+      "probe_elapsed": 368.5193855309626,
+      "local_age": 0.008846431970596313,
+      "generation": 1.0,
+      "source_elapsed": 368.2
+    },
+    {
+      "sequence": 302.0,
+      "probe_elapsed": 369.62477716698777,
+      "local_age": 0.030401702038943768,
+      "generation": 1.0,
+      "source_elapsed": 369.08
+    },
+    {
+      "sequence": 303.0,
+      "probe_elapsed": 370.97931571293157,
+      "local_age": 0.0023273651022464037,
+      "generation": 1.0,
+      "source_elapsed": 369.16
+    },
+    {
+      "sequence": 304.0,
+      "probe_elapsed": 372.1328963559354,
+      "local_age": 0.04038125602528453,
+      "generation": 1.0,
+      "source_elapsed": 371.52
+    },
+    {
+      "sequence": 305.0,
+      "probe_elapsed": 373.13643940899055,
+      "local_age": 0.025349696050398052,
+      "generation": 1.0,
+      "source_elapsed": 372.76
+    },
+    {
+      "sequence": 306.0,
+      "probe_elapsed": 374.89404638600536,
+      "local_age": 0.009955152054317296,
+      "generation": 1.0,
+      "source_elapsed": 373.12
+    },
+    {
+      "sequence": 307.0,
+      "probe_elapsed": 375.89754704292864,
+      "local_age": 0.005795475910417736,
+      "generation": 1.0,
+      "source_elapsed": 375.0
+    },
+    {
+      "sequence": 308.0,
+      "probe_elapsed": 376.95153045398183,
+      "local_age": 0.013998772017657757,
+      "generation": 1.0,
+      "source_elapsed": 376.56
+    },
+    {
+      "sequence": 309.0,
+      "probe_elapsed": 378.75707670801785,
+      "local_age": 0.03595586202573031,
+      "generation": 1.0,
+      "source_elapsed": 377.12
+    },
+    {
+      "sequence": 310.0,
+      "probe_elapsed": 379.81058412301354,
+      "local_age": 0.03878765704575926,
+      "generation": 1.0,
+      "source_elapsed": 379.4
+    },
+    {
+      "sequence": 311.0,
+      "probe_elapsed": 380.8153457789449,
+      "local_age": 0.04092451895121485,
+      "generation": 1.0,
+      "source_elapsed": 380.44
+    },
+    {
+      "sequence": 312.0,
+      "probe_elapsed": 383.274359447998,
+      "local_age": 0.04280157294124365,
+      "generation": 1.0,
+      "source_elapsed": 381.12
+    },
+    {
+      "sequence": 313.0,
+      "probe_elapsed": 384.2781612200197,
+      "local_age": 0.04227570700459182,
+      "generation": 1.0,
+      "source_elapsed": 382.08
+    },
+    {
+      "sequence": 314.0,
+      "probe_elapsed": 385.282038868987,
+      "local_age": 0.041427538031712174,
+      "generation": 1.0,
+      "source_elapsed": 384.88
+    },
+    {
+      "sequence": 315.0,
+      "probe_elapsed": 386.33713210897986,
+      "local_age": 0.03863776905927807,
+      "generation": 1.0,
+      "source_elapsed": 385.12
+    },
+    {
+      "sequence": 316.0,
+      "probe_elapsed": 387.34072837792337,
+      "local_age": 0.016671260935254395,
+      "generation": 1.0,
+      "source_elapsed": 387.0
+    },
+    {
+      "sequence": 317.0,
+      "probe_elapsed": 388.344732313999,
+      "local_age": 0.014674374018795788,
+      "generation": 1.0,
+      "source_elapsed": 388.0
+    },
+    {
+      "sequence": 318.0,
+      "probe_elapsed": 389.39963924791664,
+      "local_age": 0.04992844199296087,
+      "generation": 1.0,
+      "source_elapsed": 389.04
+    },
+    {
+      "sequence": 319.0,
+      "probe_elapsed": 390.6051308029564,
+      "local_age": 0.02221935603301972,
+      "generation": 1.0,
+      "source_elapsed": 389.12
+    },
+    {
+      "sequence": 320.0,
+      "probe_elapsed": 391.60849307698663,
+      "local_age": 0.0030983699252828956,
+      "generation": 1.0,
+      "source_elapsed": 391.28
+    },
+    {
+      "sequence": 321.0,
+      "probe_elapsed": 392.6620778630022,
+      "local_age": 0.02451747702434659,
+      "generation": 1.0,
+      "source_elapsed": 392.32
+    },
+    {
+      "sequence": 322.0,
+      "probe_elapsed": 394.31878094095737,
+      "local_age": 0.02098042704164982,
+      "generation": 1.0,
+      "source_elapsed": 393.12
+    },
+    {
+      "sequence": 323.0,
+      "probe_elapsed": 395.3722368719755,
+      "local_age": 0.049839932937175035,
+      "generation": 1.0,
+      "source_elapsed": 395.0
+    },
+    {
+      "sequence": 324.0,
+      "probe_elapsed": 396.62744946195744,
+      "local_age": 0.0165617389138788,
+      "generation": 1.0,
+      "source_elapsed": 395.84
+    },
+    {
+      "sequence": 325.0,
+      "probe_elapsed": 397.63089851499535,
+      "local_age": 0.010003029950894415,
+      "generation": 1.0,
+      "source_elapsed": 397.08
+    },
+    {
+      "sequence": 326.0,
+      "probe_elapsed": 398.6864286599448,
+      "local_age": 0.017816581996157765,
+      "generation": 1.0,
+      "source_elapsed": 397.12
+    },
+    {
+      "sequence": 327.0,
+      "probe_elapsed": 400.14139191491995,
+      "local_age": 0.04019005910959095,
+      "generation": 1.0,
+      "source_elapsed": 399.12
+    },
+    {
+      "sequence": 328.0,
+      "probe_elapsed": 401.1449868979398,
+      "local_age": 0.006482544937171042,
+      "generation": 1.0,
+      "source_elapsed": 400.72
+    },
+    {
+      "sequence": 329.0,
+      "probe_elapsed": 402.90206598793156,
+      "local_age": 0.04481925105210394,
+      "generation": 1.0,
+      "source_elapsed": 401.12
+    },
+    {
+      "sequence": 330.0,
+      "probe_elapsed": 404.0056781709427,
+      "local_age": 0.04435255203861743,
+      "generation": 1.0,
+      "source_elapsed": 403.32
+    },
+    {
+      "sequence": 331.0,
+      "probe_elapsed": 405.0096983249532,
+      "local_age": 0.013749412959441543,
+      "generation": 1.0,
+      "source_elapsed": 404.48
+    },
+    {
+      "sequence": 332.0,
+      "probe_elapsed": 406.66661703097634,
+      "local_age": 0.029194483999162912,
+      "generation": 1.0,
+      "source_elapsed": 405.12
+    },
+    {
+      "sequence": 333.0,
+      "probe_elapsed": 407.66993483994156,
+      "local_age": 0.031813662964850664,
+      "generation": 1.0,
+      "source_elapsed": 407.0
+    },
+    {
+      "sequence": 334.0,
+      "probe_elapsed": 408.7237119890051,
+      "local_age": 0.03124318807385862,
+      "generation": 1.0,
+      "source_elapsed": 408.36
+    },
+    {
+      "sequence": 335.0,
+      "probe_elapsed": 410.4307007699972,
+      "local_age": 0.026930029969662428,
+      "generation": 1.0,
+      "source_elapsed": 409.12
+    },
+    {
+      "sequence": 336.0,
+      "probe_elapsed": 411.43404254294,
+      "local_age": 0.025268444092944264,
+      "generation": 1.0,
+      "source_elapsed": 411.12
+    },
+    {
+      "sequence": 337.0,
+      "probe_elapsed": 412.4383649500087,
+      "local_age": 0.021820024005137384,
+      "generation": 1.0,
+      "source_elapsed": 412.12
+    },
+    {
+      "sequence": 338.0,
+      "probe_elapsed": 413.4432127280161,
+      "local_age": 0.01889022800605744,
+      "generation": 1.0,
+      "source_elapsed": 413.08
+    },
+    {
+      "sequence": 339.0,
+      "probe_elapsed": 414.5487614379963,
+      "local_age": 0.033000167924910784,
+      "generation": 1.0,
+      "source_elapsed": 413.12
+    },
+    {
+      "sequence": 340.0,
+      "probe_elapsed": 415.55269978998695,
+      "local_age": 0.0134477149695158,
+      "generation": 1.0,
+      "source_elapsed": 415.24
+    },
+    {
+      "sequence": 341.0,
+      "probe_elapsed": 416.55738249095157,
+      "local_age": 0.015433238004334271,
+      "generation": 1.0,
+      "source_elapsed": 415.68
+    },
+    {
+      "sequence": 342.0,
+      "probe_elapsed": 418.6153285430046,
+      "local_age": 0.03863400290720165,
+      "generation": 1.0,
+      "source_elapsed": 417.12
+    },
+    {
+      "sequence": 343.0,
+      "probe_elapsed": 419.66872595099267,
+      "local_age": 0.04954440495930612,
+      "generation": 1.0,
+      "source_elapsed": 419.32
+    },
+    {
+      "sequence": 344.0,
+      "probe_elapsed": 420.67258205392864,
+      "local_age": 0.04968629591166973,
+      "generation": 1.0,
+      "source_elapsed": 420.32
+    },
+    {
+      "sequence": 345.0,
+      "probe_elapsed": 423.1316020579543,
+      "local_age": 0.042305562063120306,
+      "generation": 1.0,
+      "source_elapsed": 421.12
+    },
+    {
+      "sequence": 346.0,
+      "probe_elapsed": 424.1354561279295,
+      "local_age": 0.02718983800150454,
+      "generation": 1.0,
+      "source_elapsed": 423.76
+    },
+    {
+      "sequence": 347.0,
+      "probe_elapsed": 425.18946753500495,
+      "local_age": 0.04761523299384862,
+      "generation": 1.0,
+      "source_elapsed": 424.8
+    },
+    {
+      "sequence": 348.0,
+      "probe_elapsed": 426.59455996297766,
+      "local_age": 0.039969761040993035,
+      "generation": 1.0,
+      "source_elapsed": 425.16
+    },
+    {
+      "sequence": 349.0,
+      "probe_elapsed": 427.59796212101355,
+      "local_age": 0.03265826893039048,
+      "generation": 1.0,
+      "source_elapsed": 427.28
+    },
+    {
+      "sequence": 350.0,
+      "probe_elapsed": 429.15401014196686,
+      "local_age": 0.015764003968797624,
+      "generation": 1.0,
+      "source_elapsed": 428.28
+    },
+    {
+      "sequence": 351.0,
+      "probe_elapsed": 430.35985972895287,
+      "local_age": 0.022648402024060488,
+      "generation": 1.0,
+      "source_elapsed": 429.12
+    },
+    {
+      "sequence": 352.0,
+      "probe_elapsed": 431.41345505195204,
+      "local_age": 0.006035480066202581,
+      "generation": 1.0,
+      "source_elapsed": 431.08
+    },
+    {
+      "sequence": 353.0,
+      "probe_elapsed": 432.4685428859666,
+      "local_age": 0.04286563606001437,
+      "generation": 1.0,
+      "source_elapsed": 432.16
+    },
+    {
+      "sequence": 354.0,
+      "probe_elapsed": 434.6270194159588,
+      "local_age": 0.018826204002834857,
+      "generation": 1.0,
+      "source_elapsed": 433.12
+    },
+    {
+      "sequence": 355.0,
+      "probe_elapsed": 435.8810336400056,
+      "local_age": 0.04513534891884774,
+      "generation": 1.0,
+      "source_elapsed": 435.16
+    },
+    {
+      "sequence": 356.0,
+      "probe_elapsed": 436.8845254299231,
+      "local_age": 0.04250273504294455,
+      "generation": 1.0,
+      "source_elapsed": 436.56
+    },
+    {
+      "sequence": 357.0,
+      "probe_elapsed": 438.6418180989567,
+      "local_age": 0.04174315894488245,
+      "generation": 1.0,
+      "source_elapsed": 437.12
+    },
+    {
+      "sequence": 358.0,
+      "probe_elapsed": 439.64523329702206,
+      "local_age": 0.025102752028033137,
+      "generation": 1.0,
+      "source_elapsed": 439.36
+    },
+    {
+      "sequence": 359.0,
+      "probe_elapsed": 440.6487756149145,
+      "local_age": 0.00955006608273834,
+      "generation": 1.0,
+      "source_elapsed": 440.36
+    },
+    {
+      "sequence": 360.0,
+      "probe_elapsed": 441.702533512027,
+      "local_age": 0.041888333042152226,
+      "generation": 1.0,
+      "source_elapsed": 440.84
+    },
+    {
+      "sequence": 361.0,
+      "probe_elapsed": 443.1088130499702,
+      "local_age": 0.011087440070696175,
+      "generation": 1.0,
+      "source_elapsed": 441.12
+    },
+    {
+      "sequence": 362.0,
+      "probe_elapsed": 444.1624652319588,
+      "local_age": 0.04362932697404176,
+      "generation": 1.0,
+      "source_elapsed": 443.8
+    },
+    {
+      "sequence": 363.0,
+      "probe_elapsed": 445.1661056689918,
+      "local_age": 0.03715074306819588,
+      "generation": 1.0,
+      "source_elapsed": 444.84
+    },
+    {
+      "sequence": 364.0,
+      "probe_elapsed": 446.3716757139191,
+      "local_age": 0.017117027076892555,
+      "generation": 1.0,
+      "source_elapsed": 445.12
+    },
+    {
+      "sequence": 365.0,
+      "probe_elapsed": 447.42515832197387,
+      "local_age": 0.004260562942363322,
+      "generation": 1.0,
+      "source_elapsed": 447.12
+    },
+    {
+      "sequence": 366.0,
+      "probe_elapsed": 448.478860053001,
+      "local_age": 0.01987054501660168,
+      "generation": 1.0,
+      "source_elapsed": 448.08
+    },
+    {
+      "sequence": 367.0,
+      "probe_elapsed": 450.43631511891726,
+      "local_age": 0.026606739033013582,
+      "generation": 1.0,
+      "source_elapsed": 449.12
+    },
+    {
+      "sequence": 368.0,
+      "probe_elapsed": 451.49023972195573,
+      "local_age": 0.034718955983407795,
+      "generation": 1.0,
+      "source_elapsed": 451.16
+    },
+    {
+      "sequence": 369.0,
+      "probe_elapsed": 452.49365581094753,
+      "local_age": 0.018127686926163733,
+      "generation": 1.0,
+      "source_elapsed": 452.2
+    },
+    {
+      "sequence": 370.0,
+      "probe_elapsed": 454.4500082610175,
+      "local_age": 0.04566500103101134,
+      "generation": 1.0,
+      "source_elapsed": 453.08
+    },
+    {
+      "sequence": 371.0,
+      "probe_elapsed": 455.4534321789397,
+      "local_age": 0.04260006092954427,
+      "generation": 1.0,
+      "source_elapsed": 453.4
+    },
+    {
+      "sequence": 372.0,
+      "probe_elapsed": 456.4572493209271,
+      "local_age": 0.04087916505523026,
+      "generation": 1.0,
+      "source_elapsed": 456.08
+    },
+    {
+      "sequence": 373.0,
+      "probe_elapsed": 457.4607303489465,
+      "local_age": 0.015123502933420241,
+      "generation": 1.0,
+      "source_elapsed": 457.08
+    },
+    {
+      "sequence": 374.0,
+      "probe_elapsed": 458.5650440210011,
+      "local_age": 0.024114709929563105,
+      "generation": 1.0,
+      "source_elapsed": 457.12
+    },
+    {
+      "sequence": 375.0,
+      "probe_elapsed": 459.61857774097007,
+      "local_age": 0.034188252058811486,
+      "generation": 1.0,
+      "source_elapsed": 459.28
+    },
+    {
+      "sequence": 376.0,
+      "probe_elapsed": 460.62203016795684,
+      "local_age": 0.03225463000126183,
+      "generation": 1.0,
+      "source_elapsed": 459.72
+    },
+    {
+      "sequence": 377.0,
+      "probe_elapsed": 462.2277199369855,
+      "local_age": 0.008524875971488655,
+      "generation": 1.0,
+      "source_elapsed": 461.12
+    },
+    {
+      "sequence": 378.0,
+      "probe_elapsed": 463.28126227192115,
+      "local_age": 0.04726513894274831,
+      "generation": 1.0,
+      "source_elapsed": 462.92
+    },
+    {
+      "sequence": 379.0,
+      "probe_elapsed": 464.28500074893236,
+      "local_age": 0.024735169019550085,
+      "generation": 1.0,
+      "source_elapsed": 463.92
+    },
+    {
+      "sequence": 380.0,
+      "probe_elapsed": 465.2887649729382,
+      "local_age": 0.020290712011046708,
+      "generation": 1.0,
+      "source_elapsed": 464.96
+    },
+    {
+      "sequence": 381.0,
+      "probe_elapsed": 466.74491328396834,
+      "local_age": 0.05032527807634324,
+      "generation": 1.0,
+      "source_elapsed": 465.12
+    },
+    {
+      "sequence": 382.0,
+      "probe_elapsed": 467.74815442296676,
+      "local_age": 0.013894219999201596,
+      "generation": 1.0,
+      "source_elapsed": 467.44
+    },
+    {
+      "sequence": 383.0,
+      "probe_elapsed": 468.80218217195943,
+      "local_age": 0.0283895640168339,
+      "generation": 1.0,
+      "source_elapsed": 468.48
+    },
+    {
+      "sequence": 384.0,
+      "probe_elapsed": 470.50896320596803,
+      "local_age": 0.007877565920352936,
+      "generation": 1.0,
+      "source_elapsed": 469.12
+    },
+    {
+      "sequence": 385.0,
+      "probe_elapsed": 471.5623263659654,
+      "local_age": 0.04333755490370095,
+      "generation": 1.0,
+      "source_elapsed": 471.2
+    },
+    {
+      "sequence": 386.0,
+      "probe_elapsed": 472.5664711749414,
+      "local_age": 0.018610985949635506,
+      "generation": 1.0,
+      "source_elapsed": 471.84
+    },
+    {
+      "sequence": 387.0,
+      "probe_elapsed": 474.3734932260122,
+      "local_age": 0.017964676953852177,
+      "generation": 1.0,
+      "source_elapsed": 473.12
+    },
+    {
+      "sequence": 388.0,
+      "probe_elapsed": 475.427117521991,
+      "local_age": 0.04134431097190827,
+      "generation": 1.0,
+      "source_elapsed": 475.08
+    },
+    {
+      "sequence": 389.0,
+      "probe_elapsed": 476.43071600899566,
+      "local_age": 0.02875695808324963,
+      "generation": 1.0,
+      "source_elapsed": 476.04
+    },
+    {
+      "sequence": 390.0,
+      "probe_elapsed": 477.48534532194026,
+      "local_age": 0.008172458969056606,
+      "generation": 1.0,
+      "source_elapsed": 477.08
+    },
+    {
+      "sequence": 391.0,
+      "probe_elapsed": 478.94150980596896,
+      "local_age": 0.02987174899317324,
+      "generation": 1.0,
+      "source_elapsed": 477.12
+    },
+    {
+      "sequence": 392.0,
+      "probe_elapsed": 479.9954170510173,
+      "local_age": 0.03595586703158915,
+      "generation": 1.0,
+      "source_elapsed": 479.64
+    },
+    {
+      "sequence": 393.0,
+      "probe_elapsed": 480.9987870779587,
+      "local_age": 0.029239487019367516,
+      "generation": 1.0,
+      "source_elapsed": 480.68
+    },
+    {
+      "sequence": 394.0,
+      "probe_elapsed": 482.5551431219792,
+      "local_age": 0.03205735399387777,
+      "generation": 1.0,
+      "source_elapsed": 481.12
+    },
+    {
+      "sequence": 395.0,
+      "probe_elapsed": 483.55889965593815,
+      "local_age": 0.030149454018101096,
+      "generation": 1.0,
+      "source_elapsed": 483.0
+    },
+    {
+      "sequence": 396.0,
+      "probe_elapsed": 484.5638181179529,
+      "local_age": 0.018325180979445577,
+      "generation": 1.0,
+      "source_elapsed": 484.16
+    },
+    {
+      "sequence": 397.0,
+      "probe_elapsed": 485.66852383792866,
+      "local_age": 0.010465373983606696,
+      "generation": 1.0,
+      "source_elapsed": 484.52
+    },
+    {
+      "sequence": 398.0,
+      "probe_elapsed": 486.87308589194436,
+      "local_age": 0.009710359969176352,
+      "generation": 1.0,
+      "source_elapsed": 485.16
+    },
+    {
+      "sequence": 399.0,
+      "probe_elapsed": 487.92695795500185,
+      "local_age": 0.03129084606189281,
+      "generation": 1.0,
+      "source_elapsed": 487.6
+    },
+    {
+      "sequence": 400.0,
+      "probe_elapsed": 488.9319909500191,
+      "local_age": 0.009425022988580167,
+      "generation": 1.0,
+      "source_elapsed": 488.64
+    },
+    {
+      "sequence": 401.0,
+      "probe_elapsed": 490.3385995239951,
+      "local_age": 0.018898028996773064,
+      "generation": 1.0,
+      "source_elapsed": 489.12
+    },
+    {
+      "sequence": 402.0,
+      "probe_elapsed": 491.79435817699414,
+      "local_age": 0.011885332991369069,
+      "generation": 1.0,
+      "source_elapsed": 490.68
+    },
+    {
+      "sequence": 403.0,
+      "probe_elapsed": 492.8489089909708,
+      "local_age": 0.04506124905310571,
+      "generation": 1.0,
+      "source_elapsed": 492.52
+    },
+    {
+      "sequence": 404.0,
+      "probe_elapsed": 494.85547729197424,
+      "local_age": 0.03082798107061535,
+      "generation": 1.0,
+      "source_elapsed": 493.12
+    },
+    {
+      "sequence": 405.0,
+      "probe_elapsed": 495.90924766799435,
+      "local_age": 0.038234422099776566,
+      "generation": 1.0,
+      "source_elapsed": 495.6
+    },
+    {
+      "sequence": 406.0,
+      "probe_elapsed": 496.9140767749632,
+      "local_age": 0.011152431019581854,
+      "generation": 1.0,
+      "source_elapsed": 496.6
+    },
+    {
+      "sequence": 407.0,
+      "probe_elapsed": 498.41900703893043,
+      "local_age": 0.003961504902690649,
+      "generation": 1.0,
+      "source_elapsed": 497.12
+    },
+    {
+      "sequence": 408.0,
+      "probe_elapsed": 499.5224702520063,
+      "local_age": 0.04266793001443148,
+      "generation": 1.0,
+      "source_elapsed": 499.2
+    },
+    {
+      "sequence": 409.0,
+      "probe_elapsed": 500.5269073030213,
+      "local_age": 0.031087239971384406,
+      "generation": 1.0,
+      "source_elapsed": 500.28
+    },
+    {
+      "sequence": 410.0,
+      "probe_elapsed": 501.58207528002094,
+      "local_age": 0.040121108992025256,
+      "generation": 1.0,
+      "source_elapsed": 501.08
+    },
+    {
+      "sequence": 411.0,
+      "probe_elapsed": 502.6374613699736,
+      "local_age": 0.04528609802946448,
+      "generation": 1.0,
+      "source_elapsed": 501.12
+    },
+    {
+      "sequence": 412.0,
+      "probe_elapsed": 503.992128046928,
+      "local_age": 0.010792474029585719,
+      "generation": 1.0,
+      "source_elapsed": 503.2
+    },
+    {
+      "sequence": 413.0,
+      "probe_elapsed": 505.0457822009921,
+      "local_age": 0.04610202205367386,
+      "generation": 1.0,
+      "source_elapsed": 504.72
+    },
+    {
+      "sequence": 414.0,
+      "probe_elapsed": 506.65256021393,
+      "local_age": 0.0365016310242936,
+      "generation": 1.0,
+      "source_elapsed": 505.12
+    },
+    {
+      "sequence": 415.0,
+      "probe_elapsed": 507.65605547092855,
+      "local_age": 0.0020383320515975356,
+      "generation": 1.0,
+      "source_elapsed": 507.4
+    },
+    {
+      "sequence": 416.0,
+      "probe_elapsed": 508.76000690402,
+      "local_age": 0.034496112959459424,
+      "generation": 1.0,
+      "source_elapsed": 508.4
+    },
+    {
+      "sequence": 417.0,
+      "probe_elapsed": 510.7676556499209,
+      "local_age": 0.04484279209282249,
+      "generation": 1.0,
+      "source_elapsed": 509.12
+    },
+    {
+      "sequence": 418.0,
+      "probe_elapsed": 511.7709429699462,
+      "local_age": 0.008047869079746306,
+      "generation": 1.0,
+      "source_elapsed": 511.48
+    },
+    {
+      "sequence": 419.0,
+      "probe_elapsed": 512.7748163259821,
+      "local_age": 0.003950017970055342,
+      "generation": 1.0,
+      "source_elapsed": 512.52
+    },
+    {
+      "sequence": 420.0,
+      "probe_elapsed": 514.480520308949,
+      "local_age": 0.02659869904164225,
+      "generation": 1.0,
+      "source_elapsed": 513.12
+    },
+    {
+      "sequence": 421.0,
+      "probe_elapsed": 515.4839510609163,
+      "local_age": 0.025170124950818717,
+      "generation": 1.0,
+      "source_elapsed": 514.84
+    },
+    {
+      "sequence": 422.0,
+      "probe_elapsed": 516.4890844649635,
+      "local_age": 0.00948959100060165,
+      "generation": 1.0,
+      "source_elapsed": 515.8
+    },
+    {
+      "sequence": 423.0,
+      "probe_elapsed": 517.5427620119881,
+      "local_age": 0.009734686929732561,
+      "generation": 1.0,
+      "source_elapsed": 517.08
+    },
+    {
+      "sequence": 424.0,
+      "probe_elapsed": 518.6972247279482,
+      "local_age": 0.048108254093676805,
+      "generation": 1.0,
+      "source_elapsed": 517.16
+    },
+    {
+      "sequence": 425.0,
+      "probe_elapsed": 519.7006029139739,
+      "local_age": 0.04199777101166546,
+      "generation": 1.0,
+      "source_elapsed": 519.4
+    },
+    {
+      "sequence": 426.0,
+      "probe_elapsed": 520.7050880779279,
+      "local_age": 0.014943499001674354,
+      "generation": 1.0,
+      "source_elapsed": 520.44
+    },
+    {
+      "sequence": 427.0,
+      "probe_elapsed": 522.5623664619634,
+      "local_age": 0.04153647006023675,
+      "generation": 1.0,
+      "source_elapsed": 521.12
+    },
+    {
+      "sequence": 428.0,
+      "probe_elapsed": 523.565863378928,
+      "local_age": 0.03362285392358899,
+      "generation": 1.0,
+      "source_elapsed": 521.84
+    },
+    {
+      "sequence": 429.0,
+      "probe_elapsed": 524.569588933955,
+      "local_age": 0.027466511935926974,
+      "generation": 1.0,
+      "source_elapsed": 524.28
+    },
+    {
+      "sequence": 430.0,
+      "probe_elapsed": 526.4266425459646,
+      "local_age": 0.04189842997584492,
+      "generation": 1.0,
+      "source_elapsed": 525.12
+    },
+    {
+      "sequence": 431.0,
+      "probe_elapsed": 527.4804416119587,
+      "local_age": 0.050348340068012476,
+      "generation": 1.0,
+      "source_elapsed": 527.16
+    },
+    {
+      "sequence": 432.0,
+      "probe_elapsed": 528.4841682559345,
+      "local_age": 0.0384121120441705,
+      "generation": 1.0,
+      "source_elapsed": 528.2
+    },
+    {
+      "sequence": 433.0,
+      "probe_elapsed": 529.9400430199457,
+      "local_age": 0.014473787974566221,
+      "generation": 1.0,
+      "source_elapsed": 528.84
+    },
+    {
+      "sequence": 434.0,
+      "probe_elapsed": 531.1441055609612,
+      "local_age": 0.03496293805073947,
+      "generation": 1.0,
+      "source_elapsed": 529.16
+    },
+    {
+      "sequence": 435.0,
+      "probe_elapsed": 532.1987869669683,
+      "local_age": 0.05153948406223208,
+      "generation": 1.0,
+      "source_elapsed": 531.88
+    },
+    {
+      "sequence": 436.0,
+      "probe_elapsed": 533.2025286069838,
+      "local_age": 0.03593795502092689,
+      "generation": 1.0,
+      "source_elapsed": 532.92
+    },
+    {
+      "sequence": 437.0,
+      "probe_elapsed": 534.2579040769488,
+      "local_age": 0.010501045966520905,
+      "generation": 1.0,
+      "source_elapsed": 533.12
+    },
+    {
+      "sequence": 438.0,
+      "probe_elapsed": 535.664078127942,
+      "local_age": 0.04210263898130506,
+      "generation": 1.0,
+      "source_elapsed": 535.04
+    },
+    {
+      "sequence": 439.0,
+      "probe_elapsed": 536.717726303963,
+      "local_age": 0.04334702203050256,
+      "generation": 1.0,
+      "source_elapsed": 536.36
+    },
+    {
+      "sequence": 440.0,
+      "probe_elapsed": 539.0262734449934,
+      "local_age": 0.016102190944366157,
+      "generation": 1.0,
+      "source_elapsed": 537.12
+    },
+    {
+      "sequence": 441.0,
+      "probe_elapsed": 540.0294491429813,
+      "local_age": 0.011399068986065686,
+      "generation": 1.0,
+      "source_elapsed": 539.52
+    },
+    {
+      "sequence": 442.0,
+      "probe_elapsed": 541.0330860440154,
+      "local_age": 0.002898039063438773,
+      "generation": 1.0,
+      "source_elapsed": 540.76
+    },
+    {
+      "sequence": 443.0,
+      "probe_elapsed": 542.3389746779576,
+      "local_age": 0.015546152018941939,
+      "generation": 1.0,
+      "source_elapsed": 541.08
+    },
+    {
+      "sequence": 444.0,
+      "probe_elapsed": 543.5933398170164,
+      "local_age": 0.026762351975776255,
+      "generation": 1.0,
+      "source_elapsed": 541.16
+    },
+    {
+      "sequence": 445.0,
+      "probe_elapsed": 544.596816277015,
+      "local_age": 0.014243958052247763,
+      "generation": 1.0,
+      "source_elapsed": 544.28
+    },
+    {
+      "sequence": 446.0,
+      "probe_elapsed": 546.5544238709845,
+      "local_age": 0.03597688197623938,
+      "generation": 1.0,
+      "source_elapsed": 545.12
+    },
+    {
+      "sequence": 447.0,
+      "probe_elapsed": 547.5578988029156,
+      "local_age": 0.02821850497275591,
+      "generation": 1.0,
+      "source_elapsed": 547.28
+    },
+    {
+      "sequence": 448.0,
+      "probe_elapsed": 549.1640405929647,
+      "local_age": 0.031004803022369742,
+      "generation": 1.0,
+      "source_elapsed": 547.44
+    },
+    {
+      "sequence": 449.0,
+      "probe_elapsed": 551.1719483579509,
+      "local_age": 0.03276649792678654,
+      "generation": 1.0,
+      "source_elapsed": 549.12
+    },
+    {
+      "sequence": 450.0,
+      "probe_elapsed": 552.1752294889884,
+      "local_age": 0.030515523976646364,
+      "generation": 1.0,
+      "source_elapsed": 551.6
+    },
+    {
+      "sequence": 451.0,
+      "probe_elapsed": 553.1797972929198,
+      "local_age": 0.011221726075746119,
+      "generation": 1.0,
+      "source_elapsed": 552.92
+    },
+    {
+      "sequence": 452.0,
+      "probe_elapsed": 554.3856459439266,
+      "local_age": 0.02903654403053224,
+      "generation": 1.0,
+      "source_elapsed": 553.12
+    },
+    {
+      "sequence": 453.0,
+      "probe_elapsed": 555.3891105669318,
+      "local_age": 0.002587485942058265,
+      "generation": 1.0,
+      "source_elapsed": 554.64
+    },
+    {
+      "sequence": 454.0,
+      "probe_elapsed": 556.442856181995,
+      "local_age": 0.0174652140121907,
+      "generation": 1.0,
+      "source_elapsed": 556.16
+    },
+    {
+      "sequence": 455.0,
+      "probe_elapsed": 557.7487506599864,
+      "local_age": 0.014782344922423363,
+      "generation": 1.0,
+      "source_elapsed": 557.08
+    },
+    {
+      "sequence": 456.0,
+      "probe_elapsed": 558.7525079569314,
+      "local_age": 0.014310181024484336,
+      "generation": 1.0,
+      "source_elapsed": 557.16
+    },
+    {
+      "sequence": 457.0,
+      "probe_elapsed": 559.805964070023,
+      "local_age": 0.04741967108566314,
+      "generation": 1.0,
+      "source_elapsed": 559.52
+    },
+    {
+      "sequence": 458.0,
+      "probe_elapsed": 560.8597005669726,
+      "local_age": 0.03273397299926728,
+      "generation": 1.0,
+      "source_elapsed": 560.56
+    },
+    {
+      "sequence": 459.0,
+      "probe_elapsed": 562.2155560009414,
+      "local_age": 0.019645268912427127,
+      "generation": 1.0,
+      "source_elapsed": 561.08
+    },
+    {
+      "sequence": 460.0,
+      "probe_elapsed": 563.2189568770118,
+      "local_age": 0.007316665956750512,
+      "generation": 1.0,
+      "source_elapsed": 562.92
+    },
+    {
+      "sequence": 461.0,
+      "probe_elapsed": 564.3228840979282,
+      "local_age": 0.052197281969711185,
+      "generation": 1.0,
+      "source_elapsed": 563.96
+    },
+    {
+      "sequence": 462.0,
+      "probe_elapsed": 565.3268305410165,
+      "local_age": 0.0220957970013842,
+      "generation": 1.0,
+      "source_elapsed": 565.0
+    },
+    {
+      "sequence": 463.0,
+      "probe_elapsed": 566.3810808520066,
+      "local_age": 0.005672366009093821,
+      "generation": 1.0,
+      "source_elapsed": 565.12
+    },
+    {
+      "sequence": 464.0,
+      "probe_elapsed": 567.4348313979572,
+      "local_age": 0.04640255600679666,
+      "generation": 1.0,
+      "source_elapsed": 567.16
+    },
+    {
+      "sequence": 465.0,
+      "probe_elapsed": 568.5394132150104,
+      "local_age": 0.024719682056456804,
+      "generation": 1.0,
+      "source_elapsed": 567.32
+    },
+    {
+      "sequence": 466.0,
+      "probe_elapsed": 570.3967766399728,
+      "local_age": 0.02198726893402636,
+      "generation": 1.0,
+      "source_elapsed": 569.12
+    },
+    {
+      "sequence": 467.0,
+      "probe_elapsed": 571.400839993963,
+      "local_age": 0.014254127978347242,
+      "generation": 1.0,
+      "source_elapsed": 571.12
+    },
+    {
+      "sequence": 468.0,
+      "probe_elapsed": 572.4548036489869,
+      "local_age": 0.04346240998711437,
+      "generation": 1.0,
+      "source_elapsed": 572.12
+    },
+    {
+      "sequence": 469.0,
+      "probe_elapsed": 574.9636107860133,
+      "local_age": 0.007681741961278021,
+      "generation": 1.0,
+      "source_elapsed": 573.12
+    },
+    {
+      "sequence": 470.0,
+      "probe_elapsed": 575.9668860139791,
+      "local_age": 0.0063374199671670794,
+      "generation": 1.0,
+      "source_elapsed": 575.24
+    },
+    {
+      "sequence": 471.0,
+      "probe_elapsed": 576.9705626539653,
+      "local_age": 0.007700852933339775,
+      "generation": 1.0,
+      "source_elapsed": 576.72
+    },
+    {
+      "sequence": 472.0,
+      "probe_elapsed": 578.2763036430115,
+      "local_age": 0.04365400807000697,
+      "generation": 1.0,
+      "source_elapsed": 577.12
+    },
+    {
+      "sequence": 473.0,
+      "probe_elapsed": 579.3297935469309,
+      "local_age": 0.03793178393971175,
+      "generation": 1.0,
+      "source_elapsed": 578.96
+    },
+    {
+      "sequence": 474.0,
+      "probe_elapsed": 580.333721840987,
+      "local_age": 0.005719696986488998,
+      "generation": 1.0,
+      "source_elapsed": 580.04
+    },
+    {
+      "sequence": 475.0,
+      "probe_elapsed": 581.4375367889879,
+      "local_age": 0.013370251981541514,
+      "generation": 1.0,
+      "source_elapsed": 580.96
+    },
+    {
+      "sequence": 476.0,
+      "probe_elapsed": 582.8923006979749,
+      "local_age": 0.03648733999580145,
+      "generation": 1.0,
+      "source_elapsed": 581.16
+    },
+    {
+      "sequence": 477.0,
+      "probe_elapsed": 583.895938009955,
+      "local_age": 0.028211990953423083,
+      "generation": 1.0,
+      "source_elapsed": 583.6
+    },
+    {
+      "sequence": 478.0,
+      "probe_elapsed": 584.8998813159997,
+      "local_age": 0.022599617019295692,
+      "generation": 1.0,
+      "source_elapsed": 584.6
+    },
+    {
+      "sequence": 479.0,
+      "probe_elapsed": 586.606721584918,
+      "local_age": 0.0393397209700197,
+      "generation": 1.0,
+      "source_elapsed": 585.12
+    },
+    {
+      "sequence": 480.0,
+      "probe_elapsed": 587.6603123799432,
+      "local_age": 0.05073578201700002,
+      "generation": 1.0,
+      "source_elapsed": 587.0
+    },
+    {
+      "sequence": 481.0,
+      "probe_elapsed": 588.6638691449771,
+      "local_age": 0.0475591360591352,
+      "generation": 1.0,
+      "source_elapsed": 588.2
+    },
+    {
+      "sequence": 482.0,
+      "probe_elapsed": 590.9205452109454,
+      "local_age": 0.013150276965461671,
+      "generation": 1.0,
+      "source_elapsed": 589.12
+    },
+    {
+      "sequence": 483.0,
+      "probe_elapsed": 591.9237215779722,
+      "local_age": 0.015606914996169508,
+      "generation": 1.0,
+      "source_elapsed": 591.56
+    },
+    {
+      "sequence": 484.0,
+      "probe_elapsed": 593.8303364259191,
+      "local_age": 0.025865611038170755,
+      "generation": 1.0,
+      "source_elapsed": 592.68
+    },
+    {
+      "sequence": 485.0,
+      "probe_elapsed": 594.9858262699563,
+      "local_age": 0.04621546994894743,
+      "generation": 1.0,
+      "source_elapsed": 593.12
+    },
+    {
+      "sequence": 486.0,
+      "probe_elapsed": 595.989744804916,
+      "local_age": 0.048605458927340806,
+      "generation": 1.0,
+      "source_elapsed": 595.0
+    },
+    {
+      "sequence": 487.0,
+      "probe_elapsed": 597.0439609909663,
+      "local_age": 0.028461668989621103,
+      "generation": 1.0,
+      "source_elapsed": 596.76
+    },
+    {
+      "sequence": 488.0,
+      "probe_elapsed": 598.3482679940062,
+      "local_age": 0.0440184100298211,
+      "generation": 1.0,
+      "source_elapsed": 597.12
+    },
+    {
+      "sequence": 489.0,
+      "probe_elapsed": 599.3514998579631,
+      "local_age": 0.015028554014861584,
+      "generation": 1.0,
+      "source_elapsed": 599.0
+    }
+  ],
+  "reader_alive": false,
+  "exitcode": 0,
+  "end_to_end_freshness_verified": false,
+  "notifications": 0,
+  "publish_timing": {
+    "count": 489,
+    "wall_span_seconds": 593.5303694040049,
+    "interval_p50_seconds": 1.0539205014938489,
+    "interval_p95_seconds": 1.9574386260588654,
+    "interval_max_seconds": 2.5094171430682763
+  }
+}

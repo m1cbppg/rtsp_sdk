@@ -1,0 +1,30 @@
+{
+  "id": "S05",
+  "model_requested": "qwen3-vl-plus",
+  "model_returned": "qwen3-vl-plus",
+  "manifest_sha256": "175685c3bd0b3d26a590843690b4fe69a881f2249b62f25eb02421251566eaeb",
+  "seconds": 2.6701562920061406,
+  "usage": {
+    "prompt_tokens": 456,
+    "completion_tokens": 56,
+    "total_tokens": 512,
+    "completion_tokens_details": {
+      "text_tokens": 56
+    },
+    "prompt_tokens_details": {
+      "image_tokens": 212,
+      "text_tokens": 244,
+      "cached_tokens": 0
+    }
+  },
+  "request_id": "chatcmpl-0c0c1b8f-848e-9a66-9f2b-ce9d9253887a",
+  "finish_reason": "stop",
+  "raw_answer": "{\n  \"decision\": \"non_litter\",\n  \"object_description\": \"圆形井盖\",\n  \"ground_relation\": \"on_ground\",\n  \"reason\": \"目标为嵌入路面的金属井盖，属固定设施，非零散垃圾。\"\n}",
+  "parsed": {
+    "decision": "non_litter",
+    "object_description": "圆形井盖",
+    "ground_relation": "on_ground",
+    "reason": "目标为嵌入路面的金属井盖，属固定设施，非零散垃圾。"
+  },
+  "valid": true
+}

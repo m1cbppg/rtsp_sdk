@@ -1,0 +1,30 @@
+{
+  "id": "S02",
+  "model_requested": "qwen3-vl-plus",
+  "model_returned": "qwen3-vl-plus",
+  "manifest_sha256": "175685c3bd0b3d26a590843690b4fe69a881f2249b62f25eb02421251566eaeb",
+  "seconds": 2.125622999999905,
+  "usage": {
+    "prompt_tokens": 456,
+    "completion_tokens": 64,
+    "total_tokens": 520,
+    "completion_tokens_details": {
+      "text_tokens": 64
+    },
+    "prompt_tokens_details": {
+      "image_tokens": 212,
+      "text_tokens": 244,
+      "cached_tokens": 0
+    }
+  },
+  "request_id": "chatcmpl-5b239d85-991c-98d4-8bf7-425e132bca62",
+  "finish_reason": "stop",
+  "raw_answer": "{\n  \"decision\": \"non_litter\",\n  \"object_description\": \"白色塑料筐，置于电动车车篮中\",\n  \"ground_relation\": \"not_ground\",\n  \"reason\": \"目标为车篮内固定放置的塑料筐，属车上物品，非地面零散垃圾。\"\n}",
+  "parsed": {
+    "decision": "non_litter",
+    "object_description": "白色塑料筐，置于电动车车篮中",
+    "ground_relation": "not_ground",
+    "reason": "目标为车篮内固定放置的塑料筐，属车上物品，非地面零散垃圾。"
+  },
+  "valid": true
+}

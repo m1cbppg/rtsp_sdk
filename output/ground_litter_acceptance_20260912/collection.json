@@ -1,0 +1,178 @@
+{
+  "schema_version": 1,
+  "timezone": "Asia/Shanghai",
+  "tasks": [
+    {
+      "camera_id": "44180209031322001030",
+      "view_id": "fixed-v1",
+      "mode": "day",
+      "priority": 1,
+      "regions": [
+        "main_walkway"
+      ],
+      "route": "pending_playback_or_controlled_placement",
+      "media_path": null,
+      "start_time": null,
+      "end_time": null,
+      "camera_verified": false,
+      "time_verified": false,
+      "operator": null,
+      "truth_file": "truth/44180209031322001030-day.json"
+    },
+    {
+      "camera_id": "44180209031322001030",
+      "view_id": "fixed-v1",
+      "mode": "night",
+      "priority": 1,
+      "regions": [
+        "main_walkway"
+      ],
+      "route": "pending_playback_or_controlled_placement",
+      "media_path": null,
+      "start_time": null,
+      "end_time": null,
+      "camera_verified": false,
+      "time_verified": false,
+      "operator": null,
+      "truth_file": "truth/44180209031322001030-night.json"
+    },
+    {
+      "camera_id": "44180209031322001027",
+      "view_id": "fixed-v1",
+      "mode": "day",
+      "priority": 2,
+      "regions": [
+        "left_walkway"
+      ],
+      "route": "pending_playback_or_controlled_placement",
+      "media_path": null,
+      "start_time": null,
+      "end_time": null,
+      "camera_verified": false,
+      "time_verified": false,
+      "operator": null,
+      "truth_file": "truth/44180209031322001027-day.json"
+    },
+    {
+      "camera_id": "44180209031322001027",
+      "view_id": "fixed-v1",
+      "mode": "night",
+      "priority": 2,
+      "regions": [
+        "left_walkway"
+      ],
+      "route": "pending_playback_or_controlled_placement",
+      "media_path": null,
+      "start_time": null,
+      "end_time": null,
+      "camera_verified": false,
+      "time_verified": false,
+      "operator": null,
+      "truth_file": "truth/44180209031322001027-night.json"
+    },
+    {
+      "camera_id": "44180209031322001021",
+      "view_id": "fixed-v1",
+      "mode": "day",
+      "priority": 3,
+      "regions": [
+        "left_walkway"
+      ],
+      "route": "pending_playback_or_controlled_placement",
+      "media_path": null,
+      "start_time": null,
+      "end_time": null,
+      "camera_verified": false,
+      "time_verified": false,
+      "operator": null,
+      "truth_file": "truth/44180209031322001021-day.json"
+    },
+    {
+      "camera_id": "44180209031322001021",
+      "view_id": "fixed-v1",
+      "mode": "night",
+      "priority": 3,
+      "regions": [
+        "left_walkway"
+      ],
+      "route": "pending_playback_or_controlled_placement",
+      "media_path": null,
+      "start_time": null,
+      "end_time": null,
+      "camera_verified": false,
+      "time_verified": false,
+      "operator": null,
+      "truth_file": "truth/44180209031322001021-night.json"
+    },
+    {
+      "camera_id": "44180209031322001022",
+      "view_id": "fixed-v1",
+      "mode": "day",
+      "priority": 4,
+      "regions": [
+        "right_walkway"
+      ],
+      "route": "pending_playback_or_controlled_placement",
+      "media_path": null,
+      "start_time": null,
+      "end_time": null,
+      "camera_verified": false,
+      "time_verified": false,
+      "operator": null,
+      "truth_file": "truth/44180209031322001022-day.json"
+    },
+    {
+      "camera_id": "44180209031322001022",
+      "view_id": "fixed-v1",
+      "mode": "night",
+      "priority": 4,
+      "regions": [
+        "right_walkway"
+      ],
+      "route": "pending_playback_or_controlled_placement",
+      "media_path": null,
+      "start_time": null,
+      "end_time": null,
+      "camera_verified": false,
+      "time_verified": false,
+      "operator": null,
+      "truth_file": "truth/44180209031322001022-night.json"
+    },
+    {
+      "camera_id": "44180209031322001028",
+      "view_id": "fixed-v1",
+      "mode": "day",
+      "priority": 5,
+      "regions": [
+        "left_walkway",
+        "right_walkway"
+      ],
+      "route": "pending_playback_or_controlled_placement",
+      "media_path": null,
+      "start_time": null,
+      "end_time": null,
+      "camera_verified": false,
+      "time_verified": false,
+      "operator": null,
+      "truth_file": "truth/44180209031322001028-day.json"
+    },
+    {
+      "camera_id": "44180209031322001028",
+      "view_id": "fixed-v1",
+      "mode": "night",
+      "priority": 5,
+      "regions": [
+        "left_walkway",
+        "right_walkway"
+      ],
+      "route": "pending_playback_or_controlled_placement",
+      "media_path": null,
+      "start_time": null,
+      "end_time": null,
+      "camera_verified": false,
+      "time_verified": false,
+      "operator": null,
+      "truth_file": "truth/44180209031322001028-night.json"
+    }
+  ]
+}
