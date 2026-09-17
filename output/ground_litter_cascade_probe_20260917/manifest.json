@@ -1,0 +1,289 @@
+{
+  "route": {
+    "confidence": 0.12,
+    "minimum_short_side_px": 6,
+    "minimum_box_area_px": 36,
+    "tile_size_px": 640,
+    "tile_overlap": 0.2,
+    "minimum_hits": 2,
+    "hit_window": 3,
+    "actor_overlap": "metadata_only_not_hard_reject",
+    "proposal_limit": 16
+  },
+  "cases": [
+    {
+      "id": "N",
+      "name": "night",
+      "source_size": [
+        2047,
+        1161
+      ],
+      "old_route_visible_count": 8,
+      "tile_count": 6,
+      "stats": {
+        "raw_candidates": 31,
+        "rejected_roi": 7,
+        "rejected_actor": 0,
+        "rejected_confidence": 0,
+        "local_actor_crops": 0
+      },
+      "proposal_count": 11,
+      "visible_after_two_hits": 11,
+      "inference_seconds": 2.591,
+      "candidates": [
+        {
+          "id": "N01",
+          "class_name": "Plastic",
+          "confidence": 0.557,
+          "box": [
+            1468,
+            649,
+            1523,
+            673
+          ],
+          "short_side": 24,
+          "area": 1320,
+          "actor_overlap": 0.0
+        },
+        {
+          "id": "N02",
+          "class_name": "Plastic",
+          "confidence": 0.4591,
+          "box": [
+            1254,
+            635,
+            1328,
+            656
+          ],
+          "short_side": 21,
+          "area": 1554,
+          "actor_overlap": 0.0
+        },
+        {
+          "id": "N03",
+          "class_name": "Plastic",
+          "confidence": 0.4289,
+          "box": [
+            1449,
+            588,
+            1500,
+            608
+          ],
+          "short_side": 20,
+          "area": 1020,
+          "actor_overlap": 0.0
+        },
+        {
+          "id": "N04",
+          "class_name": "Paper",
+          "confidence": 0.4288,
+          "box": [
+            1063,
+            376,
+            1111,
+            397
+          ],
+          "short_side": 21,
+          "area": 1008,
+          "actor_overlap": 0.0
+        },
+        {
+          "id": "N05",
+          "class_name": "Plastic",
+          "confidence": 0.3991,
+          "box": [
+            1463,
+            457,
+            1491,
+            484
+          ],
+          "short_side": 27,
+          "area": 756,
+          "actor_overlap": 0.0
+        },
+        {
+          "id": "N06",
+          "class_name": "Paper",
+          "confidence": 0.3494,
+          "box": [
+            904,
+            679,
+            931,
+            698
+          ],
+          "short_side": 19,
+          "area": 513,
+          "actor_overlap": 0.0
+        },
+        {
+          "id": "N07",
+          "class_name": "Plastic",
+          "confidence": 0.2873,
+          "box": [
+            1552,
+            708,
+            1566,
+            721
+          ],
+          "short_side": 13,
+          "area": 182,
+          "actor_overlap": 0.0
+        },
+        {
+          "id": "N08",
+          "class_name": "Plastic",
+          "confidence": 0.2718,
+          "box": [
+            1526,
+            1126,
+            1588,
+            1139
+          ],
+          "short_side": 13,
+          "area": 806,
+          "actor_overlap": 0.0
+        },
+        {
+          "id": "N09",
+          "class_name": "Waste",
+          "confidence": 0.2145,
+          "box": [
+            1409,
+            1116,
+            1420,
+            1125
+          ],
+          "short_side": 9,
+          "area": 99,
+          "actor_overlap": 0.0
+        },
+        {
+          "id": "N10",
+          "class_name": "Plastic",
+          "confidence": 0.1343,
+          "box": [
+            1291,
+            649,
+            1328,
+            656
+          ],
+          "short_side": 7,
+          "area": 259,
+          "actor_overlap": 0.0
+        },
+        {
+          "id": "N11",
+          "class_name": "Plastic",
+          "confidence": 0.124,
+          "box": [
+            1041,
+            70,
+            1079,
+            117
+          ],
+          "short_side": 38,
+          "area": 1786,
+          "actor_overlap": 0.5419
+        }
+      ],
+      "context_image": "night-context.jpg",
+      "crop_sheet": "night-crops.jpg",
+      "proposal_image": "night-proposals.jpg"
+    },
+    {
+      "id": "D",
+      "name": "day",
+      "source_size": [
+        1610,
+        906
+      ],
+      "old_route_visible_count": 1,
+      "tile_count": 4,
+      "stats": {
+        "raw_candidates": 15,
+        "rejected_roi": 7,
+        "rejected_actor": 0,
+        "rejected_confidence": 0,
+        "local_actor_crops": 0
+      },
+      "proposal_count": 5,
+      "visible_after_two_hits": 5,
+      "inference_seconds": 1.04,
+      "candidates": [
+        {
+          "id": "D01",
+          "class_name": "Plastic",
+          "confidence": 0.2666,
+          "box": [
+            940,
+            649,
+            954,
+            656
+          ],
+          "short_side": 7,
+          "area": 98,
+          "actor_overlap": 0.0
+        },
+        {
+          "id": "D02",
+          "class_name": "Plastic",
+          "confidence": 0.2536,
+          "box": [
+            707,
+            544,
+            718,
+            551
+          ],
+          "short_side": 7,
+          "area": 77,
+          "actor_overlap": 0.0
+        },
+        {
+          "id": "D03",
+          "class_name": "Paper",
+          "confidence": 0.2417,
+          "box": [
+            1078,
+            170,
+            1114,
+            219
+          ],
+          "short_side": 36,
+          "area": 1764,
+          "actor_overlap": 0.0
+        },
+        {
+          "id": "D04",
+          "class_name": "Metal",
+          "confidence": 0.1744,
+          "box": [
+            681,
+            458,
+            702,
+            474
+          ],
+          "short_side": 16,
+          "area": 336,
+          "actor_overlap": 1.0
+        },
+        {
+          "id": "D05",
+          "class_name": "Paper",
+          "confidence": 0.1607,
+          "box": [
+            695,
+            452,
+            715,
+            461
+          ],
+          "short_side": 9,
+          "area": 180,
+          "actor_overlap": 1.0
+        }
+      ],
+      "context_image": "day-context.jpg",
+      "crop_sheet": "day-crops.jpg",
+      "proposal_image": "day-proposals.jpg"
+    }
+  ]
+}

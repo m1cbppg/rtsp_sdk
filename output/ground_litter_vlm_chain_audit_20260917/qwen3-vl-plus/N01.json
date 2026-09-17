@@ -1,0 +1,32 @@
+{
+  "id": "N01",
+  "model_requested": "qwen3-vl-plus",
+  "model_returned": "qwen3-vl-plus",
+  "manifest_sha256": "881f8b516535689cbc9e633a5be6efa05d53437686d705aca90079ed0e02a2b7",
+  "seconds": 3.7822614169563167,
+  "usage": {
+    "prompt_tokens": 807,
+    "completion_tokens": 79,
+    "total_tokens": 886,
+    "completion_tokens_details": {
+      "text_tokens": 79
+    },
+    "prompt_tokens_details": {
+      "image_tokens": 456,
+      "text_tokens": 351,
+      "cached_tokens": 0
+    }
+  },
+  "request_id": "chatcmpl-da67688a-9eb7-989a-9439-08ef908b8f48",
+  "finish_reason": "stop",
+  "raw_answer": "{\n  \"target_visible\": \"clear\",\n  \"object_description\": \"黄色圆凳，金属细腿，带圆形底座\",\n  \"ground_relation\": \"on_ground\",\n  \"facility_relation\": \"attached_or_part\",\n  \"decision\": \"non_litter\",\n  \"reason\": \"为固定摆放的圆凳，属公共设施，非遗落物\"\n}",
+  "parsed": {
+    "target_visible": "clear",
+    "object_description": "黄色圆凳，金属细腿，带圆形底座",
+    "ground_relation": "on_ground",
+    "facility_relation": "attached_or_part",
+    "decision": "non_litter",
+    "reason": "为固定摆放的圆凳，属公共设施，非遗落物"
+  },
+  "valid": true
+}

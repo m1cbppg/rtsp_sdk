@@ -1,0 +1,31 @@
+{
+  "id": "N11",
+  "model_requested": "qwen3.5-plus",
+  "model_returned": "qwen3.5-plus",
+  "manifest_sha256": "a93e8aa26c52b3f801e8809b31c5b651760fa217861bc48e869553729d8ce312",
+  "seconds": 3.054662292008288,
+  "usage": {
+    "prompt_tokens": 738,
+    "completion_tokens": 102,
+    "total_tokens": 840,
+    "completion_tokens_details": {
+      "text_tokens": 102
+    },
+    "prompt_tokens_details": {
+      "image_tokens": 404,
+      "text_tokens": 334
+    }
+  },
+  "request_id": "chatcmpl-04a62d0b-e4ec-91c7-9df9-0e05035f17b5",
+  "finish_reason": "stop",
+  "raw_answer": "{\n  \"target_visible\": \"unclear\",\n  \"object_description\": \"红框内为模糊的粉白色块状物，疑似车辆上的反光或附着物\",\n  \"ground_relation\": \"not_on_ground\",\n  \"facility_relation\": \"attached_or_part\",\n  \"decision\": \"non_litter\",\n  \"reason\": \"目标位于车辆尾部上方，未落地，且形态模糊疑似车身部件或反光，非地面垃圾。\"\n}",
+  "parsed": {
+    "target_visible": "unclear",
+    "object_description": "红框内为模糊的粉白色块状物，疑似车辆上的反光或附着物",
+    "ground_relation": "not_on_ground",
+    "facility_relation": "attached_or_part",
+    "decision": "non_litter",
+    "reason": "目标位于车辆尾部上方，未落地，且形态模糊疑似车身部件或反光，非地面垃圾。"
+  },
+  "valid": true
+}

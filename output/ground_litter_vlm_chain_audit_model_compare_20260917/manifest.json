@@ -1,0 +1,61 @@
+{
+  "created_at": "2026-09-17T10:43:19+0800",
+  "scope": "Same frozen evidence/prompt, only model changed; D01 and N11 were unresolved by qwen3-vl-plus.",
+  "label_warning": "D01 is user-confirmed. N01/N03 are clear stools by visual inspection. N11 is a context-conflict diagnostic and less certain.",
+  "prompt": "你审核固定监控中的一个地面零散垃圾候选。图1是候选中心的原始像素局部，仅做最近邻放大，目标位于正中心且没有定位框；图2是更大范围原始上下文，红框仅定位同一目标。放大不会产生新细节。\n\n先逐项观察，再给结论：\n1. 框内是否确实有可分辨的独立物体；\n2. 它是否落在地面并与车辆、桌椅、墙体、招牌、商品或其他设施分离；\n3. 它是否像需要清理的纸片、包装、塑料袋、瓶罐等遗落物。\n\n圆凳、桌椅、车辆及零件、车上或挂在车上的物品、商品、工具、固定设施、井盖、地面纹理、污渍、阴影和反光均不是地面零散垃圾。材质像纸或塑料不等于垃圾。不要因为它被提交为候选就假定为垃圾。细节不足、红框没有精确框住独立物体、或无法确认落地/附着关系时必须返回uncertain，不得猜测。\n\n只输出一个JSON对象，不要汇总计数。字段必须为：target_visible(clear/unclear/no)、object_description(简短)、ground_relation(on_ground/attached_or_fixed/not_on_ground/unclear)、facility_relation(separate/attached_or_part/unclear)、decision(litter/non_litter/uncertain)、reason(不超过60个汉字)。decision规则：只有清楚看到独立、落地、需清理物才是litter；清楚属于设施/车辆/桌椅等为non_litter；其余为uncertain。",
+  "prompt_sha256": "acaaaf928702c51aaa92c01d489bdd9b9043a981e1d2fff3ed9d04d767ec95f5",
+  "cases": [
+    {
+      "id": "D01",
+      "expected": "litter",
+      "note": "用户已在原图红框确认的小纸片",
+      "label_source": "user_confirmed_litter",
+      "historical_prediction": "batch qwen3-vl-plus: uncertain",
+      "object_group": "D01",
+      "box": [
+        940,
+        649,
+        954,
+        656
+      ],
+      "original_target_size": [
+        14,
+        7
+      ],
+      "detail_crop_side": 64,
+      "context_crop_side": 384,
+      "images": [
+        "crops/D01-detail.jpg",
+        "crops/D01-context.jpg"
+      ],
+      "detail_sha256": "d4b9bbf4452fa084d1fefda4a1294d96234b834cfc52a763cdfb399bd3958e91",
+      "context_sha256": "76c539e3454a4cb149d17fb452434a6c55eaa95b0b4dc459caae60066ff4ebf3"
+    },
+    {
+      "id": "N11",
+      "expected": "non_litter",
+      "note": "与车辆/人员区域高度重叠的物体",
+      "label_source": "visual_context_conflict",
+      "historical_prediction": "batch qwen3-vl-plus: litter",
+      "object_group": "N11",
+      "box": [
+        1041,
+        70,
+        1079,
+        117
+      ],
+      "original_target_size": [
+        38,
+        47
+      ],
+      "detail_crop_side": 103,
+      "context_crop_side": 384,
+      "images": [
+        "crops/N11-detail.jpg",
+        "crops/N11-context.jpg"
+      ],
+      "detail_sha256": "27c0f0717fea1d142463824c96fb7b61bda7bd783ffb3b39b52302b1af2fb77b",
+      "context_sha256": "8d0cd5993ec6dfea6995902cf659a167369b0b87f51bfda00393770c536dd730"
+    }
+  ]
+}

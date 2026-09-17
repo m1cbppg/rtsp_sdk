@@ -1,0 +1,122 @@
+{
+  "status": "attached_image_single_frame_simulation",
+  "source_size": [
+    1610,
+    906
+  ],
+  "roi_polygon_norm": [
+    [
+      0.46,
+      0.01
+    ],
+    [
+      0.66,
+      0.01
+    ],
+    [
+      0.91,
+      0.99
+    ],
+    [
+      0.36,
+      0.99
+    ]
+  ],
+  "tile_count": 4,
+  "tiles": [
+    [
+      580,
+      9,
+      1220,
+      649
+    ],
+    [
+      580,
+      258,
+      1220,
+      898
+    ],
+    [
+      826,
+      9,
+      1466,
+      649
+    ],
+    [
+      826,
+      258,
+      1466,
+      898
+    ]
+  ],
+  "actor_box_count": 12,
+  "stats": {
+    "raw_candidates": 6,
+    "rejected_roi": 5,
+    "rejected_actor": 0,
+    "rejected_confidence": 0,
+    "local_actor_crops": 0
+  },
+  "candidate_count_after_actor_filter": 1,
+  "candidates": [
+    {
+      "rectangle": [
+        0.6695652173913044,
+        0.18763796909492272,
+        0.02236024844720497,
+        0.05408388520971302
+      ],
+      "confidence": 0.2417,
+      "class_name": "Paper",
+      "region_id": "sidewalk",
+      "tile_index": 0
+    }
+  ],
+  "tracker_visible_after_repeated_same_frame": [
+    [],
+    [
+      {
+        "object_id": 1,
+        "rectangle": [
+          0.6695652173913044,
+          0.18763796909492272,
+          0.02236024844720497,
+          0.05408388520971302
+        ],
+        "confidence": 0.2417,
+        "class_name": "Paper",
+        "region_id": "sidewalk",
+        "hits": 2,
+        "source": "model"
+      }
+    ],
+    [
+      {
+        "object_id": 1,
+        "rectangle": [
+          0.6695652173913044,
+          0.18763796909492272,
+          0.02236024844720497,
+          0.05408388520971302
+        ],
+        "confidence": 0.2417,
+        "class_name": "Paper",
+        "region_id": "sidewalk",
+        "hits": 3,
+        "source": "model"
+      }
+    ]
+  ],
+  "inference_seconds": 2.36,
+  "logic": {
+    "confidence": 0.2,
+    "minimum_short_side_px": 12,
+    "minimum_box_area_px": 160,
+    "tile_size_px": 640,
+    "tile_overlap": 0.2,
+    "minimum_hits": 2,
+    "hit_window": 3,
+    "maximum_boxes": 8,
+    "night": false
+  }
+}

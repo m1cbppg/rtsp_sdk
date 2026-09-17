@@ -1,0 +1,32 @@
+{
+  "id": "N11",
+  "model_requested": "qwen3.8-max",
+  "model_returned": "qwen3.8-max",
+  "manifest_sha256": "a93e8aa26c52b3f801e8809b31c5b651760fa217861bc48e869553729d8ce312",
+  "seconds": 2.827495000034105,
+  "usage": {
+    "completion_tokens": 94,
+    "completion_tokens_details": {
+      "text_tokens": 94
+    },
+    "prompt_tokens": 751,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 404,
+      "text_tokens": 347
+    },
+    "total_tokens": 845
+  },
+  "request_id": "chatcmpl-51a5f2af-ec08-915d-9caa-c08cb927ff97",
+  "finish_reason": "stop",
+  "raw_answer": "{\n  \"target_visible\": \"unclear\",\n  \"object_description\": \"模糊的粉白色团状物，细节无法分辨\",\n  \"ground_relation\": \"unclear\",\n  \"facility_relation\": \"unclear\",\n  \"decision\": \"uncertain\",\n  \"reason\": \"局部放大后细节严重缺失，无法确认是否为独立物体，且红框位置靠近车辆，无法判断落地关系。\"\n}",
+  "parsed": {
+    "target_visible": "unclear",
+    "object_description": "模糊的粉白色团状物，细节无法分辨",
+    "ground_relation": "unclear",
+    "facility_relation": "unclear",
+    "decision": "uncertain",
+    "reason": "局部放大后细节严重缺失，无法确认是否为独立物体，且红框位置靠近车辆，无法判断落地关系。"
+  },
+  "valid": true
+}

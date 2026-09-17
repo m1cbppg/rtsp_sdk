@@ -1,0 +1,31 @@
+{
+  "id": "D01",
+  "model_requested": "qwen3.5-plus",
+  "model_returned": "qwen3.5-plus",
+  "manifest_sha256": "a93e8aa26c52b3f801e8809b31c5b651760fa217861bc48e869553729d8ce312",
+  "seconds": 2.8811545000062324,
+  "usage": {
+    "prompt_tokens": 738,
+    "completion_tokens": 90,
+    "total_tokens": 828,
+    "completion_tokens_details": {
+      "text_tokens": 90
+    },
+    "prompt_tokens_details": {
+      "image_tokens": 404,
+      "text_tokens": 334
+    }
+  },
+  "request_id": "chatcmpl-2d2d1c71-855a-9c14-9772-16627625ba03",
+  "finish_reason": "stop",
+  "raw_answer": "{\n  \"target_visible\": \"unclear\",\n  \"object_description\": \"地面上一处模糊的灰白色斑块，形状不规则。\",\n  \"ground_relation\": \"on_ground\",\n  \"facility_relation\": \"separate\",\n  \"decision\": \"uncertain\",\n  \"reason\": \"图像分辨率过低，无法确认该物体是独立垃圾还是地面污渍、反光或纹理细节。\"\n}",
+  "parsed": {
+    "target_visible": "unclear",
+    "object_description": "地面上一处模糊的灰白色斑块，形状不规则。",
+    "ground_relation": "on_ground",
+    "facility_relation": "separate",
+    "decision": "uncertain",
+    "reason": "图像分辨率过低，无法确认该物体是独立垃圾还是地面污渍、反光或纹理细节。"
+  },
+  "valid": true
+}

@@ -1,0 +1,68 @@
+{
+  "policy": {
+    "litter": "confirmed",
+    "non_litter": "suppressed",
+    "uncertain": "pending"
+  },
+  "api_reported_counts": {
+    "litter": 5,
+    "non_litter": 6,
+    "uncertain": 5
+  },
+  "computed_counts": {
+    "litter": 5,
+    "uncertain": 4,
+    "non_litter": 7
+  },
+  "count_mismatch": true,
+  "cases": [
+    {
+      "name": "night",
+      "old_route_visible_count": 8,
+      "high_recall_proposals": 11,
+      "computed_decisions": {
+        "litter": 5,
+        "uncertain": 3,
+        "non_litter": 3
+      },
+      "confirmed_ids": [
+        "N01",
+        "N03",
+        "N06",
+        "N10",
+        "N11"
+      ],
+      "pending_ids": [
+        "N02",
+        "N05",
+        "N08"
+      ],
+      "suppressed_ids": [
+        "N04",
+        "N07",
+        "N09"
+      ],
+      "decision_image": "night-vlm-decisions.jpg"
+    },
+    {
+      "name": "day",
+      "old_route_visible_count": 1,
+      "high_recall_proposals": 5,
+      "computed_decisions": {
+        "uncertain": 1,
+        "non_litter": 4
+      },
+      "confirmed_ids": [],
+      "pending_ids": [
+        "D01"
+      ],
+      "suppressed_ids": [
+        "D02",
+        "D03",
+        "D04",
+        "D05"
+      ],
+      "decision_image": "day-vlm-decisions.jpg"
+    }
+  ]
+}

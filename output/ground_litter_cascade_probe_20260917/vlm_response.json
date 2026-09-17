@@ -1,0 +1,143 @@
+{
+  "model_requested": "qwen3-vl-plus",
+  "model_returned": "qwen3-vl-plus",
+  "seconds": 35.011,
+  "usage": {
+    "prompt_tokens": 4415,
+    "completion_tokens": 1146,
+    "total_tokens": 5561,
+    "completion_tokens_details": {
+      "text_tokens": 1146
+    },
+    "prompt_tokens_details": {
+      "image_tokens": 4088,
+      "text_tokens": 327,
+      "cached_tokens": 0
+    }
+  },
+  "request_id": "chatcmpl-a7ad00fa-bf04-9ad3-8719-41bc7fbaa9dc",
+  "valid": true,
+  "parsed": {
+    "results": [
+      {
+        "id": "N01",
+        "decision": "litter",
+        "object_description": "白色长条状物，疑似纸片或塑料片",
+        "ground_relation": "on_ground",
+        "reason": "位于人行道地砖上，独立无附着，形态符合零散垃圾"
+      },
+      {
+        "id": "N02",
+        "decision": "uncertain",
+        "object_description": "细长红白条纹物，位置靠近桌腿",
+        "ground_relation": "unclear",
+        "reason": "无法确认是否落地或为桌腿装饰/反光，图像模糊"
+      },
+      {
+        "id": "N03",
+        "decision": "litter",
+        "object_description": "黄色小块物，疑似食品包装纸",
+        "ground_relation": "on_ground",
+        "reason": "落在地砖缝隙中，独立存在，非固定物"
+      },
+      {
+        "id": "N04",
+        "decision": "non_litter",
+        "object_description": "黑色长条物，紧贴踏板车后轮",
+        "ground_relation": "attached",
+        "reason": "疑似车辆零件或绑带，与车体接触紧密"
+      },
+      {
+        "id": "N05",
+        "decision": "uncertain",
+        "object_description": "蓝色方块物，靠墙地面",
+        "ground_relation": "unclear",
+        "reason": "图像分辨率低，无法判断是垃圾还是墙面反光/贴纸"
+      },
+      {
+        "id": "N06",
+        "decision": "litter",
+        "object_description": "绿白相间小包装袋",
+        "ground_relation": "on_ground",
+        "reason": "落在路边排水沟旁地砖上，独立分离"
+      },
+      {
+        "id": "N07",
+        "decision": "non_litter",
+        "object_description": "红色小方块，位于圆凳下方",
+        "ground_relation": "attached",
+        "reason": "疑似凳子底座部件或支撑脚，非独立垃圾"
+      },
+      {
+        "id": "N08",
+        "decision": "uncertain",
+        "object_description": "白色长条物，位于地砖接缝处",
+        "ground_relation": "unclear",
+        "reason": "过小且模糊，无法区分是垃圾、污渍或地砖瑕疵"
+      },
+      {
+        "id": "N09",
+        "decision": "non_litter",
+        "object_description": "红色小方块，嵌入地砖格栅",
+        "ground_relation": "not_ground",
+        "reason": "实为地砖纹理或嵌入式标识，非落地物体"
+      },
+      {
+        "id": "N10",
+        "decision": "litter",
+        "object_description": "灰白褶皱物，疑似废弃纸张",
+        "ground_relation": "on_ground",
+        "reason": "平铺于人行道地砖，无附着，形态松散"
+      },
+      {
+        "id": "N11",
+        "decision": "litter",
+        "object_description": "白色塑料袋状物，挂于踏板车后",
+        "ground_relation": "on_ground",
+        "reason": "虽靠近车，但已垂落触地，独立未固定"
+      },
+      {
+        "id": "D01",
+        "decision": "uncertain",
+        "object_description": "浅色小块物，位于地砖上",
+        "ground_relation": "unclear",
+        "reason": "图像过小模糊，无法确认是否为垃圾或地砖反光"
+      },
+      {
+        "id": "D02",
+        "decision": "non_litter",
+        "object_description": "红色小点，位于路沿石边缘",
+        "ground_relation": "not_ground",
+        "reason": "实为路沿石缝隙或涂料痕迹，非独立物体"
+      },
+      {
+        "id": "D03",
+        "decision": "non_litter",
+        "object_description": "橙色箱体堆叠物",
+        "ground_relation": "attached",
+        "reason": "属摊位货物托盘，人为摆放，非零散垃圾"
+      },
+      {
+        "id": "D04",
+        "decision": "non_litter",
+        "object_description": "金属反光片，位于车底",
+        "ground_relation": "attached",
+        "reason": "疑似车辆底盘反光或部件，非落地垃圾"
+      },
+      {
+        "id": "D05",
+        "decision": "non_litter",
+        "object_description": "银色长条物，位于三轮车侧边",
+        "ground_relation": "attached",
+        "reason": "实为三轮车金属框架结构，非独立垃圾"
+      }
+    ],
+    "counts": {
+      "litter": 5,
+      "non_litter": 6,
+      "uncertain": 5
+    },
+    "summary": "16个候选中5个为零散垃圾，6个属非垃圾，5个因模糊或信息不足无法确定。"
+  },
+  "raw_answer": "{\n  \"results\": [\n    {\n      \"id\": \"N01\",\n      \"decision\": \"litter\",\n      \"object_description\": \"白色长条状物，疑似纸片或塑料片\",\n      \"ground_relation\": \"on_ground\",\n      \"reason\": \"位于人行道地砖上，独立无附着，形态符合零散垃圾\"\n    },\n    {\n      \"id\": \"N02\",\n      \"decision\": \"uncertain\",\n      \"object_description\": \"细长红白条纹物，位置靠近桌腿\",\n      \"ground_relation\": \"unclear\",\n      \"reason\": \"无法确认是否落地或为桌腿装饰/反光，图像模糊\"\n    },\n    {\n      \"id\": \"N03\",\n      \"decision\": \"litter\",\n      \"object_description\": \"黄色小块物，疑似食品包装纸\",\n      \"ground_relation\": \"on_ground\",\n      \"reason\": \"落在地砖缝隙中，独立存在，非固定物\"\n    },\n    {\n      \"id\": \"N04\",\n      \"decision\": \"non_litter\",\n      \"object_description\": \"黑色长条物，紧贴踏板车后轮\",\n      \"ground_relation\": \"attached\",\n      \"reason\": \"疑似车辆零件或绑带，与车体接触紧密\"\n    },\n    {\n      \"id\": \"N05\",\n      \"decision\": \"uncertain\",\n      \"object_description\": \"蓝色方块物，靠墙地面\",\n      \"ground_relation\": \"unclear\",\n      \"reason\": \"图像分辨率低，无法判断是垃圾还是墙面反光/贴纸\"\n    },\n    {\n      \"id\": \"N06\",\n      \"decision\": \"litter\",\n      \"object_description\": \"绿白相间小包装袋\",\n      \"ground_relation\": \"on_ground\",\n      \"reason\": \"落在路边排水沟旁地砖上，独立分离\"\n    },\n    {\n      \"id\": \"N07\",\n      \"decision\": \"non_litter\",\n      \"object_description\": \"红色小方块，位于圆凳下方\",\n      \"ground_relation\": \"attached\",\n      \"reason\": \"疑似凳子底座部件或支撑脚，非独立垃圾\"\n    },\n    {\n      \"id\": \"N08\",\n      \"decision\": \"uncertain\",\n      \"object_description\": \"白色长条物，位于地砖接缝处\",\n      \"ground_relation\": \"unclear\",\n      \"reason\": \"过小且模糊，无法区分是垃圾、污渍或地砖瑕疵\"\n    },\n    {\n      \"id\": \"N09\",\n      \"decision\": \"non_litter\",\n      \"object_description\": \"红色小方块，嵌入地砖格栅\",\n      \"ground_relation\": \"not_ground\",\n      \"reason\": \"实为地砖纹理或嵌入式标识，非落地物体\"\n    },\n    {\n      \"id\": \"N10\",\n      \"decision\": \"litter\",\n      \"object_description\": \"灰白褶皱物，疑似废弃纸张\",\n      \"ground_relation\": \"on_ground\",\n      \"reason\": \"平铺于人行道地砖，无附着，形态松散\"\n    },\n    {\n      \"id\": \"N11\",\n      \"decision\": \"litter\",\n      \"object_description\": \"白色塑料袋状物，挂于踏板车后\",\n      \"ground_relation\": \"on_ground\",\n      \"reason\": \"虽靠近车，但已垂落触地，独立未固定\"\n    },\n    {\n      \"id\": \"D01\",\n      \"decision\": \"uncertain\",\n      \"object_description\": \"浅色小块物，位于地砖上\",\n      \"ground_relation\": \"unclear\",\n      \"reason\": \"图像过小模糊，无法确认是否为垃圾或地砖反光\"\n    },\n    {\n      \"id\": \"D02\",\n      \"decision\": \"non_litter\",\n      \"object_description\": \"红色小点，位于路沿石边缘\",\n      \"ground_relation\": \"not_ground\",\n      \"reason\": \"实为路沿石缝隙或涂料痕迹，非独立物体\"\n    },\n    {\n      \"id\": \"D03\",\n      \"decision\": \"non_litter\",\n      \"object_description\": \"橙色箱体堆叠物\",\n      \"ground_relation\": \"attached\",\n      \"reason\": \"属摊位货物托盘，人为摆放，非零散垃圾\"\n    },\n    {\n      \"id\": \"D04\",\n      \"decision\": \"non_litter\",\n      \"object_description\": \"金属反光片，位于车底\",\n      \"ground_relation\": \"attached\",\n      \"reason\": \"疑似车辆底盘反光或部件，非落地垃圾\"\n    },\n    {\n      \"id\": \"D05\",\n      \"decision\": \"non_litter\",\n      \"object_description\": \"银色长条物，位于三轮车侧边\",\n      \"ground_relation\": \"attached\",\n      \"reason\": \"实为三轮车金属框架结构，非独立垃圾\"\n    }\n  ],\n  \"counts\": {\n    \"litter\": 5,\n    \"non_litter\": 6,\n    \"uncertain\": 5\n  },\n  \"summary\": \"16个候选中5个为零散垃圾，6个属非垃圾，5个因模糊或信息不足无法确定。\"\n}"
+}

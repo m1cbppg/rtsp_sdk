@@ -1,0 +1,418 @@
+{
+  "status": "attached_image_single_frame_simulation",
+  "source_size": [
+    2047,
+    1201
+  ],
+  "video_frame_size": [
+    2047,
+    1161
+  ],
+  "roi_polygon_norm": [
+    [
+      0.52,
+      0.02
+    ],
+    [
+      0.9,
+      0.02
+    ],
+    [
+      0.995,
+      0.98
+    ],
+    [
+      0.38,
+      0.98
+    ]
+  ],
+  "tile_count": 6,
+  "tiles": [
+    [
+      778,
+      23,
+      1418,
+      663
+    ],
+    [
+      778,
+      499,
+      1418,
+      1139
+    ],
+    [
+      1290,
+      23,
+      1930,
+      663
+    ],
+    [
+      1290,
+      499,
+      1930,
+      1139
+    ],
+    [
+      1398,
+      23,
+      2038,
+      663
+    ],
+    [
+      1398,
+      499,
+      2038,
+      1139
+    ]
+  ],
+  "actor_box_count": 17,
+  "stats": {
+    "raw_candidates": 22,
+    "rejected_roi": 5,
+    "rejected_actor": 0,
+    "rejected_confidence": 0,
+    "local_actor_crops": 0
+  },
+  "candidate_count_after_actor_filter": 8,
+  "candidates": [
+    {
+      "rectangle": [
+        0.7171470444553004,
+        0.5590008613264428,
+        0.0268685881778212,
+        0.020671834625323
+      ],
+      "confidence": 0.557,
+      "class_name": "Plastic",
+      "region_id": "sidewalk",
+      "tile_index": 5
+    },
+    {
+      "rectangle": [
+        0.6126038104543234,
+        0.5469422911283376,
+        0.0361504640937958,
+        0.01808785529715762
+      ],
+      "confidence": 0.4591,
+      "class_name": "Plastic",
+      "region_id": "sidewalk",
+      "tile_index": 1
+    },
+    {
+      "rectangle": [
+        0.7078651685393258,
+        0.5064599483204134,
+        0.024914509037616023,
+        0.017226528854435832
+      ],
+      "confidence": 0.4289,
+      "class_name": "Plastic",
+      "region_id": "sidewalk",
+      "tile_index": 3
+    },
+    {
+      "rectangle": [
+        0.5192965315095261,
+        0.32385874246339363,
+        0.02344894968246214,
+        0.01808785529715762
+      ],
+      "confidence": 0.4288,
+      "class_name": "Paper",
+      "region_id": "sidewalk",
+      "tile_index": 0
+    },
+    {
+      "rectangle": [
+        0.714704445530044,
+        0.39362618432385876,
+        0.013678553981436248,
+        0.023255813953488372
+      ],
+      "confidence": 0.3991,
+      "class_name": "Plastic",
+      "region_id": "sidewalk",
+      "tile_index": 4
+    },
+    {
+      "rectangle": [
+        0.4416218856863703,
+        0.5848406546080964,
+        0.013190034196384953,
+        0.01636520241171404
+      ],
+      "confidence": 0.3494,
+      "class_name": "Paper",
+      "region_id": "sidewalk",
+      "tile_index": 1
+    },
+    {
+      "rectangle": [
+        0.7581827063996092,
+        0.6098191214470284,
+        0.006839276990718124,
+        0.01119724375538329
+      ],
+      "confidence": 0.2873,
+      "class_name": "Plastic",
+      "region_id": "sidewalk",
+      "tile_index": 3
+    },
+    {
+      "rectangle": [
+        0.7454811919882756,
+        0.9698535745047373,
+        0.030288226673180263,
+        0.01119724375538329
+      ],
+      "confidence": 0.2718,
+      "class_name": "Plastic",
+      "region_id": "sidewalk",
+      "tile_index": 5
+    }
+  ],
+  "tracker_visible_after_repeated_same_frame": [
+    [],
+    [
+      {
+        "object_id": 1,
+        "rectangle": [
+          0.7171470444553004,
+          0.5590008613264428,
+          0.0268685881778212,
+          0.020671834625323
+        ],
+        "confidence": 0.557,
+        "class_name": "Plastic",
+        "region_id": "sidewalk",
+        "hits": 2,
+        "source": "model"
+      },
+      {
+        "object_id": 2,
+        "rectangle": [
+          0.6126038104543234,
+          0.5469422911283376,
+          0.0361504640937958,
+          0.01808785529715762
+        ],
+        "confidence": 0.4591,
+        "class_name": "Plastic",
+        "region_id": "sidewalk",
+        "hits": 2,
+        "source": "model"
+      },
+      {
+        "object_id": 3,
+        "rectangle": [
+          0.7078651685393258,
+          0.5064599483204134,
+          0.024914509037616023,
+          0.017226528854435832
+        ],
+        "confidence": 0.4289,
+        "class_name": "Plastic",
+        "region_id": "sidewalk",
+        "hits": 2,
+        "source": "model"
+      },
+      {
+        "object_id": 4,
+        "rectangle": [
+          0.5192965315095261,
+          0.32385874246339363,
+          0.02344894968246214,
+          0.01808785529715762
+        ],
+        "confidence": 0.4288,
+        "class_name": "Paper",
+        "region_id": "sidewalk",
+        "hits": 2,
+        "source": "model"
+      },
+      {
+        "object_id": 5,
+        "rectangle": [
+          0.714704445530044,
+          0.39362618432385876,
+          0.013678553981436248,
+          0.023255813953488372
+        ],
+        "confidence": 0.3991,
+        "class_name": "Plastic",
+        "region_id": "sidewalk",
+        "hits": 2,
+        "source": "model"
+      },
+      {
+        "object_id": 6,
+        "rectangle": [
+          0.4416218856863703,
+          0.5848406546080964,
+          0.013190034196384953,
+          0.01636520241171404
+        ],
+        "confidence": 0.3494,
+        "class_name": "Paper",
+        "region_id": "sidewalk",
+        "hits": 2,
+        "source": "model"
+      },
+      {
+        "object_id": 7,
+        "rectangle": [
+          0.7581827063996092,
+          0.6098191214470284,
+          0.006839276990718124,
+          0.01119724375538329
+        ],
+        "confidence": 0.2873,
+        "class_name": "Plastic",
+        "region_id": "sidewalk",
+        "hits": 2,
+        "source": "model"
+      },
+      {
+        "object_id": 8,
+        "rectangle": [
+          0.7454811919882756,
+          0.9698535745047373,
+          0.030288226673180263,
+          0.01119724375538329
+        ],
+        "confidence": 0.2718,
+        "class_name": "Plastic",
+        "region_id": "sidewalk",
+        "hits": 2,
+        "source": "model"
+      }
+    ],
+    [
+      {
+        "object_id": 1,
+        "rectangle": [
+          0.7171470444553004,
+          0.5590008613264428,
+          0.0268685881778212,
+          0.020671834625323
+        ],
+        "confidence": 0.557,
+        "class_name": "Plastic",
+        "region_id": "sidewalk",
+        "hits": 3,
+        "source": "model"
+      },
+      {
+        "object_id": 2,
+        "rectangle": [
+          0.6126038104543234,
+          0.5469422911283376,
+          0.0361504640937958,
+          0.01808785529715762
+        ],
+        "confidence": 0.4591,
+        "class_name": "Plastic",
+        "region_id": "sidewalk",
+        "hits": 3,
+        "source": "model"
+      },
+      {
+        "object_id": 3,
+        "rectangle": [
+          0.7078651685393258,
+          0.5064599483204134,
+          0.024914509037616023,
+          0.017226528854435832
+        ],
+        "confidence": 0.4289,
+        "class_name": "Plastic",
+        "region_id": "sidewalk",
+        "hits": 3,
+        "source": "model"
+      },
+      {
+        "object_id": 4,
+        "rectangle": [
+          0.5192965315095261,
+          0.32385874246339363,
+          0.02344894968246214,
+          0.01808785529715762
+        ],
+        "confidence": 0.4288,
+        "class_name": "Paper",
+        "region_id": "sidewalk",
+        "hits": 3,
+        "source": "model"
+      },
+      {
+        "object_id": 5,
+        "rectangle": [
+          0.714704445530044,
+          0.39362618432385876,
+          0.013678553981436248,
+          0.023255813953488372
+        ],
+        "confidence": 0.3991,
+        "class_name": "Plastic",
+        "region_id": "sidewalk",
+        "hits": 3,
+        "source": "model"
+      },
+      {
+        "object_id": 6,
+        "rectangle": [
+          0.4416218856863703,
+          0.5848406546080964,
+          0.013190034196384953,
+          0.01636520241171404
+        ],
+        "confidence": 0.3494,
+        "class_name": "Paper",
+        "region_id": "sidewalk",
+        "hits": 3,
+        "source": "model"
+      },
+      {
+        "object_id": 7,
+        "rectangle": [
+          0.7581827063996092,
+          0.6098191214470284,
+          0.006839276990718124,
+          0.01119724375538329
+        ],
+        "confidence": 0.2873,
+        "class_name": "Plastic",
+        "region_id": "sidewalk",
+        "hits": 3,
+        "source": "model"
+      },
+      {
+        "object_id": 8,
+        "rectangle": [
+          0.7454811919882756,
+          0.9698535745047373,
+          0.030288226673180263,
+          0.01119724375538329
+        ],
+        "confidence": 0.2718,
+        "class_name": "Plastic",
+        "region_id": "sidewalk",
+        "hits": 3,
+        "source": "model"
+      }
+    ]
+  ],
+  "inference_seconds": 3.103,
+  "logic": {
+    "confidence": 0.2,
+    "minimum_short_side_px": 12,
+    "minimum_box_area_px": 160,
+    "tile_size_px": 640,
+    "tile_overlap": 0.2,
+    "minimum_hits": 2,
+    "hit_window": 3,
+    "maximum_boxes": 8,
+    "night": true
+  }
+}

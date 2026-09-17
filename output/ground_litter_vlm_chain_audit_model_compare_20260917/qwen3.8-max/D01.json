@@ -1,0 +1,32 @@
+{
+  "id": "D01",
+  "model_requested": "qwen3.8-max",
+  "model_returned": "qwen3.8-max",
+  "manifest_sha256": "a93e8aa26c52b3f801e8809b31c5b651760fa217861bc48e869553729d8ce312",
+  "seconds": 2.9020914580323733,
+  "usage": {
+    "completion_tokens": 87,
+    "completion_tokens_details": {
+      "text_tokens": 87
+    },
+    "prompt_tokens": 751,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 404,
+      "text_tokens": 347
+    },
+    "total_tokens": 838
+  },
+  "request_id": "chatcmpl-70a430d3-2cc1-9863-b5dd-12af398a5297",
+  "finish_reason": "stop",
+  "raw_answer": "{\n  \"target_visible\": \"clear\",\n  \"object_description\": \"地面上的白色小块状物\",\n  \"ground_relation\": \"on_ground\",\n  \"facility_relation\": \"separate\",\n  \"decision\": \"litter\",\n  \"reason\": \"红框内可见独立白色小块落于地砖上，与周围设施分离，形态似纸片或包装垃圾。\"\n}",
+  "parsed": {
+    "target_visible": "clear",
+    "object_description": "地面上的白色小块状物",
+    "ground_relation": "on_ground",
+    "facility_relation": "separate",
+    "decision": "litter",
+    "reason": "红框内可见独立白色小块落于地砖上，与周围设施分离，形态似纸片或包装垃圾。"
+  },
+  "valid": true
+}

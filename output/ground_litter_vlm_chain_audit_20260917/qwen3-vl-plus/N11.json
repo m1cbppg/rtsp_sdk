@@ -1,0 +1,32 @@
+{
+  "id": "N11",
+  "model_requested": "qwen3-vl-plus",
+  "model_returned": "qwen3-vl-plus",
+  "manifest_sha256": "881f8b516535689cbc9e633a5be6efa05d53437686d705aca90079ed0e02a2b7",
+  "seconds": 2.8023430830216967,
+  "usage": {
+    "prompt_tokens": 755,
+    "completion_tokens": 76,
+    "total_tokens": 831,
+    "completion_tokens_details": {
+      "text_tokens": 76
+    },
+    "prompt_tokens_details": {
+      "image_tokens": 404,
+      "text_tokens": 351,
+      "cached_tokens": 0
+    }
+  },
+  "request_id": "chatcmpl-b34534b4-3cfe-9d69-9346-0c3e2c6420af",
+  "finish_reason": "stop",
+  "raw_answer": "{\n  \"target_visible\": \"unclear\",\n  \"object_description\": \"模糊亮色块状物，边缘不清\",\n  \"ground_relation\": \"unclear\",\n  \"facility_relation\": \"unclear\",\n  \"decision\": \"uncertain\",\n  \"reason\": \"图像严重模糊，无法确认是否独立物体、是否落地或附着车辆\"\n}",
+  "parsed": {
+    "target_visible": "unclear",
+    "object_description": "模糊亮色块状物，边缘不清",
+    "ground_relation": "unclear",
+    "facility_relation": "unclear",
+    "decision": "uncertain",
+    "reason": "图像严重模糊，无法确认是否独立物体、是否落地或附着车辆"
+  },
+  "valid": true
+}

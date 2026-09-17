@@ -1,0 +1,32 @@
+{
+  "id": "D01",
+  "model_requested": "qwen3-vl-plus",
+  "model_returned": "qwen3-vl-plus",
+  "manifest_sha256": "881f8b516535689cbc9e633a5be6efa05d53437686d705aca90079ed0e02a2b7",
+  "seconds": 3.19501541700447,
+  "usage": {
+    "prompt_tokens": 755,
+    "completion_tokens": 75,
+    "total_tokens": 830,
+    "completion_tokens_details": {
+      "text_tokens": 75
+    },
+    "prompt_tokens_details": {
+      "image_tokens": 404,
+      "text_tokens": 351,
+      "cached_tokens": 0
+    }
+  },
+  "request_id": "chatcmpl-df3e74ef-8406-99a9-8f02-eb5698c6590e",
+  "finish_reason": "stop",
+  "raw_answer": "{\n  \"target_visible\": \"unclear\",\n  \"object_description\": \"模糊浅色小块，细节不可辨\",\n  \"ground_relation\": \"unclear\",\n  \"facility_relation\": \"unclear\",\n  \"decision\": \"uncertain\",\n  \"reason\": \"像素过低，无法确认是否独立物体、是否落地或附着\"\n}",
+  "parsed": {
+    "target_visible": "unclear",
+    "object_description": "模糊浅色小块，细节不可辨",
+    "ground_relation": "unclear",
+    "facility_relation": "unclear",
+    "decision": "uncertain",
+    "reason": "像素过低，无法确认是否独立物体、是否落地或附着"
+  },
+  "valid": true
+}
