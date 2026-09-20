@@ -101,16 +101,19 @@ v3 版本号重建资产，不覆盖 v1/v2。
 
 1. `_ensure_remote_entries(..., needed_file_ids=...)`：只对**该阶段声明需要**的文件
    做重拉；调用方传入构建块 + 校准块对应的 `file_id` 集合。盲测日文件不再进入高清阶段。
-2. 阶段化 `StageMaterialBudget`：记录每阶段的 `requested / downloaded / reused_local /
-   failed / bytes / peak_work_dir_bytes / peak_raw_cache_bytes / released`，
-   并在 `_collect_replay_frames`、`fit_frozen_envelopes` 结束后**显式释放**不再需要的
-   高清条目（`release_file(require_committed=True)`），而不是等到最后统一 `evict_to_budget`。
-3. 失败口径：网络失败、预算拒绝、URL 刷新失败分别记录
-   `NETWORK_FAILURE` / `BUDGET_REJECTED` / `URL_REFRESH_FAILED`，**不计入**素材质量失败；
-   同时写入 `report["material_failures"]`，报告中"素材不足"与"网络/预算受限"必须分开。
-4. 预算对象扩展：`raw_cache_budget`（原始 PS）、新增 `frame_budget_bytes`
-   （抽帧/回放帧内存口径，按 `frames × H × W × 3` 估算并写进报告）、`work_budget`
-   （合成中间产物）。超预算时**缩小该阶段的抽帧数并记录**，不得静默截断校准/回放范围。
+2. `materialize_entry`：单一素材准备单元（复用缓存/复用本地/下载/失败分类）。
+   `begin_download` 要求条目已登记，统一在这里 `register`；这同时修复了
+   "新版本重建复用清单缓存时画布预取以 `CacheError` 中止整段作业"。
+3. `_collect_replay_frames(..., args=, local_paths=, report=)`：回放是独立消费阶段，
+   自己按需（有界、顺序）重取缺失素材。历史缺陷是合成阶段释放构建 PS 后，
+   `--resume` 又会回收残留，回放静默收集 0 帧、动态定稿失去时间轴。
+4. 阶段化记账：`commit_stage_bytes` / `release_stage_bytes` / `log_stage_event` /
+   `stage_report`，并在合成、包络拟合、回放收集结束后显式 `_release_materialized`。
+5. 失败口径：`NO_SOURCE_TO_REPULL` / `BUDGET_REJECTED` / `URL_REFRESH_FAILED` /
+   `NETWORK_FAILURE` / `MATERIAL_INVALID` 分别记录，**不计入**素材质量失败。
+6. `report["resource_envelope"]`：原始 PS / 工作目录峰值、阶段字节、抽帧与回放帧
+   内存口径（`frames × H × W × 3`）、预算收缩、素材失败清单、计划文件终态。
+   超预算时缩小该阶段的抽帧数并记录，不得静默截断校准/回放范围。
 
 ### 3.3 测试
 

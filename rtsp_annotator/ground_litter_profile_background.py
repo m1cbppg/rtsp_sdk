@@ -629,6 +629,13 @@ def select_calibration_observations(
     scale = clustering.scale or global_descriptor_scale(
         [descriptor_arrays(payloads[_item_key(item)]) for item in calibration_samples]
     )
+    # 标尺下限：候选组自身的离散度只能描述"同一段素材内部"的波动；校准日与
+    # 构建日之间的真实光照/色调差通常大于它（实测 group_diameter 只有十几，
+    # 跨日校准距离二十几，结果 13/13 组都匹配不上）。因此允许放宽到校准观测
+    # **整体**的公共离散尺度（`clustering.statistics["requested_radius"]`），
+    # 但绝不放开到"任意观测都算独立校准"：匹配距离、限值与近失都逐组留证。
+    global_radius = float(clustering.statistics.get("requested_radius") or 0.0)
+    fallback_scale = max(global_radius, 1.0)
     # 每个组的"自身离散度"标尺：组内成员两两距离最大值（至少取一个下限，
     # 避免只有一个成员时退化成 0 导致任何观测都被拒）。
     members_map = dict(group_members or {})
@@ -650,7 +657,11 @@ def select_calibration_observations(
                 diameter = max(diameter, descriptor_coarse_distance(
                     arrays[left], arrays[right], scale=scale,
                 ))
-        group_limits[gid] = max(diameter * (1.0 + tolerance), 1e-6)
+        group_limits[gid] = max(
+            diameter * (1.0 + tolerance),
+            fallback_scale * max(tolerance, 0.5),
+            1e-6,
+        )
     absolute = float(max_distance) if max_distance is not None else None
     per_group: dict[str, dict[str, Any]] = {
         str(group.get("group_id")): {

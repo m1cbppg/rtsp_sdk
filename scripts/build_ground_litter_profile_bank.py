@@ -396,6 +396,11 @@ def stream_materialize_and_sample(
     roi = roi_mask_from_geometry(geometry, size[0], size[1])
     overlay = geometry.get("overlay_exclude_zones") or []
     canvas_path = config.work_dir / "canvas_reference.png"
+    # C2 稳定性：`begin_download` 要求条目已登记。远端场景过去依赖清单阶段
+    # 先 register，一旦工作目录换了（例如新版本重建时复用清单缓存），
+    # 画布预取就会以 CacheError 失败并中止整段作业。
+    if files:
+        cache.register(config.device_code, files)
 
     samples: list[dict[str, Any]] = []
     details: list[dict[str, Any]] = []
@@ -2161,6 +2166,7 @@ def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, An
         replay_frames = _collect_replay_frames(
             cache, config, build_files, geometry,
             frame_budget=int(getattr(args, "max_replay_frames", 180) or 180),
+            args=args, local_paths=local_paths, report=report,
         )
         print(f"[replay] collected {len(replay_frames)} frames "
               f"in {round(time.monotonic() - _rt0, 1)}s", flush=True)
@@ -2414,6 +2420,72 @@ def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, An
         cache.close()
 
 
+def materialize_entry(
+    config: FactoryConfig, cache: ManagedRecordingCache, item: RecordingFile,
+    *, source: str | None, auth_headers: Mapping[str, str],
+    local_path: Path | None = None, downloader: Any = None,
+    client: Any = None, policy: UrlRefreshPolicy | None = None,
+) -> tuple[bool, str, str]:
+    """把单个条目准备成可解码的本地文件（C2 的最小复用单元）。
+
+    返回 ``(ok, kind, reason)``；``kind`` 只用于失败分类：
+
+    * ``reused_cache`` / ``reused_local`` / ``downloaded``：成功路径；
+    * ``NO_SOURCE_TO_REPULL`` / ``BUDGET_REJECTED`` / ``URL_REFRESH_FAILED`` /
+      ``NETWORK_FAILURE`` / ``MATERIAL_INVALID``：失败路径。
+
+    过去这段逻辑分散在采样流水线和高清重拉里，且 ``begin_download`` 要求
+    条目先登记；一旦工作目录换了（新版本重建复用清单缓存）就会以
+    ``CacheError`` 失败并中止整段作业。统一到这里后，所有消费方都能安全地
+    按需取素材。
+    """
+    entry = cache.entry(config.device_code, item.file_id)
+    if entry is not None and entry.path is not None and entry.path.is_file():
+        return True, "reused_cache", ""
+    if local_path is not None and Path(local_path).is_file():
+        cache.register(config.device_code, [item])
+        with cache._lock, cache._connection:  # noqa: SLF001 - 工厂内部记账
+            cache._connection.execute(  # noqa: SLF001
+                "UPDATE recordings SET managed=0, materialization='READY',"
+                " path=?, bytes=?, updated=datetime('now') WHERE identity_key=?",
+                (str(local_path), Path(local_path).stat().st_size,
+                 RecordingFile.identity_key(config.device_code, item.file_id)),
+            )
+        return True, "reused_local", ""
+    if source is None or client is None or downloader is None:
+        return False, "NO_SOURCE_TO_REPULL", "no --source configured"
+    cache.register(config.device_code, [item])
+    allowed, reason = cache.can_reserve(item.file_size)
+    if not allowed:
+        return False, "BUDGET_REJECTED", reason
+    window = ListQuery(config.device_code, item.record_start, item.record_end)
+    refresh = policy or UrlRefreshPolicy()
+    try:
+        fresh = downloader.fetch_url_for_file(
+            client, window, item.file_id, policy=refresh,
+        )
+    except Exception as exc:
+        return False, "URL_REFRESH_FAILED", f"{type(exc).__name__}: {exc}"
+    try:
+        target = cache.begin_download(config.device_code, item)
+        result = downloader.download(
+            fresh.url, target, expected_size=item.file_size, allow_resume=False,
+        )
+    except Exception as exc:
+        cache.fail_download(config.device_code, item.file_id, str(exc)[:120])
+        return False, "NETWORK_FAILURE", f"{type(exc).__name__}: {exc}"
+    if not file_looks_like_media(target):
+        cache.fail_download(config.device_code, item.file_id, "content_probe_failed")
+        return False, "MATERIAL_INVALID", "content_probe_failed"
+    cache.complete_download(
+        config.device_code, item.file_id, path=target, size=result.size,
+        sha256=result.sha256, range_supported=result.range_supported,
+        elapsed_seconds=result.elapsed_seconds,
+    )
+    cache.commit_stage_bytes("hd_materialize", result.size)
+    return True, "downloaded", ""
+
+
 def _ensure_remote_entries(
     config: FactoryConfig, args: argparse.Namespace,
     cache: ManagedRecordingCache, files: Sequence[RecordingFile],
@@ -2464,9 +2536,7 @@ def _ensure_remote_entries(
     for item in targets:
         entry = cache.entry(config.device_code, item.file_id)
         if entry is not None and entry.path is not None and entry.path.is_file():
-            existing_bytes = int(
-                getattr(entry, "bytes", 0) or item.file_size or 0
-            )
+            existing_bytes = int(getattr(entry, "bytes", 0) or item.file_size or 0)
             if existing_bytes:
                 cache.commit_stage_bytes("hd_materialize", existing_bytes)
             cache.log_stage_event(
@@ -2475,67 +2545,28 @@ def _ensure_remote_entries(
             )
             continue
         local = local_paths.get(item.file_id)
-        if local is not None and local.is_file():
-            cache.register(config.device_code, [item])
-            with cache._lock, cache._connection:  # noqa: SLF001 - 工厂内部记账
-                cache._connection.execute(  # noqa: SLF001
-                    "UPDATE recordings SET managed=0, materialization='READY',"
-                    " path=?, bytes=?, updated=datetime('now') WHERE identity_key=?",
-                    (str(local), local.stat().st_size,
-                     RecordingFile.identity_key(config.device_code, item.file_id)),
-                )
-            summary["reused_local"] += 1
-            cache.log_stage_event(
-                "hd_materialize", file_id=item.file_id, kind="reused_local",
-                bytes=int(local.stat().st_size),
-            )
-            continue
-        if args.source is None:
-            note_failure(item.file_id, "NO_SOURCE_TO_REPULL", "no --source configured")
-            continue
-        if client is None:
+        if args.source is not None and client is None:
             client = RecordingListClient(headers=_auth_headers(args))
             downloader = RecordingDownloader()
-        allowed, reason = cache.can_reserve(item.file_size)
-        if not allowed:
-            note_failure(item.file_id, "BUDGET_REJECTED", reason)
-            continue
-        window = ListQuery(config.device_code, item.record_start, item.record_end)
-        try:
-            fresh = downloader.fetch_url_for_file(
-                client, window, item.file_id, policy=policy,
-            )
-        except Exception as exc:
-            note_failure(item.file_id, "URL_REFRESH_FAILED",
-                         f"{type(exc).__name__}: {exc}")
-            continue
-        try:
-            target = cache.begin_download(config.device_code, item)
-            result = downloader.download(
-                fresh.url, target, expected_size=item.file_size, allow_resume=False,
-            )
-        except Exception as exc:
-            cache.fail_download(config.device_code, item.file_id, str(exc)[:120])
-            note_failure(item.file_id, "NETWORK_FAILURE",
-                         f"{type(exc).__name__}: {exc}")
-            continue
-        if not file_looks_like_media(target):
-            cache.fail_download(config.device_code, item.file_id,
-                                "content_probe_failed")
-            note_failure(item.file_id, "MATERIAL_INVALID", "content_probe_failed")
-            continue
-        cache.complete_download(
-            config.device_code, item.file_id, path=target, size=result.size,
-            sha256=result.sha256, range_supported=result.range_supported,
-            elapsed_seconds=result.elapsed_seconds,
+        started = time.monotonic()
+        ok, kind, reason = materialize_entry(
+            config, cache, item, source=args.source,
+            auth_headers=_auth_headers(args), local_path=local,
+            downloader=downloader, client=client, policy=policy,
         )
-        summary["repulled"] += 1
-        summary["bytes"] += result.size
-        summary["seconds"] += result.elapsed_seconds
-        cache.commit_stage_bytes("hd_materialize", result.size)
+        if not ok:
+            note_failure(item.file_id, kind, reason)
+            continue
+        if kind == "reused_local":
+            summary["reused_local"] += 1
+        elif kind == "downloaded":
+            entry = cache.entry(config.device_code, item.file_id)
+            size = int(getattr(entry, "bytes", 0) or item.file_size or 0)
+            summary["repulled"] += 1
+            summary["bytes"] += size
+            summary["seconds"] += time.monotonic() - started
         cache.log_stage_event(
-            "hd_materialize", file_id=item.file_id, kind="downloaded",
-            bytes=int(result.size),
+            "hd_materialize", file_id=item.file_id, kind=kind,
         )
     summary["refreshes"] = policy.refresh_count
     summary["seconds"] = round(summary["seconds"], 3)
@@ -2588,32 +2619,72 @@ def _release_materialized(
 def _collect_replay_frames(
     cache: ManagedRecordingCache, config: FactoryConfig,
     files: Sequence[RecordingFile], geometry: Mapping[str, Any],
-    *, frame_budget: int = 180,
+    *, frame_budget: int = 180, args: argparse.Namespace | None = None,
+    local_paths: Mapping[str, Path] | None = None,
+    report: dict[str, Any] | None = None,
 ) -> list[dict[str, Any]]:
     """按时间顺序收集连续回放帧，并保留**真实源时间**与帧指纹（R2）。
 
     每帧记录 ``source_time``（录像起始时刻 + 文件内偏移）与帧内容 SHA-256，
     使“同一 tick 的所有候选用同一帧”与“时间线真实”都可被复核。
+
+    C2：回放是独立消费阶段，必须自己保证素材在盘上。历史缺陷是合成阶段
+    释放了构建 PS，而 ``--resume`` 又会回收残留，于是回放静默收集到 0 帧、
+    动态定稿失去时间轴。这里按需（有界、顺序）重新取得缺失文件。
     """
     import gc as _gc
 
     size = (int(geometry["canvas_size"][0]), int(geometry["canvas_size"][1]))
     ordered = sorted(files, key=lambda item: (item.record_start, item.file_id))
     per_file = max(1, frame_budget // max(1, len(ordered)))
+    materialize: dict[str, Any] = {"attempted": 0, "ok": 0, "failed": []}
+    client: Any = None
+    downloader: Any = None
+    policy = UrlRefreshPolicy()
+
+    def ensure(item: RecordingFile) -> Path | None:
+        nonlocal client, downloader
+        entry = cache.entry(config.device_code, item.file_id)
+        if entry is not None and entry.path is not None and entry.path.is_file():
+            return entry.path
+        if args is None:
+            return None
+        local = (local_paths or {}).get(item.file_id)
+        source = getattr(args, "source", None)
+        if source is not None and client is None:
+            client = RecordingListClient(headers=_auth_headers(args))
+            downloader = RecordingDownloader()
+        materialize["attempted"] += 1
+        ok, kind, reason = materialize_entry(
+            config, cache, item, source=source,
+            auth_headers=_auth_headers(args), local_path=local,
+            downloader=downloader, client=client, policy=policy,
+        )
+        if not ok:
+            materialize["failed"].append({
+                "file_id": item.file_id, "kind": kind, "reason": reason[:160],
+            })
+            return None
+        materialize["ok"] += 1
+        entry = cache.entry(config.device_code, item.file_id)
+        if entry is None or entry.path is None:
+            return None
+        return entry.path
+
     # 每个文件的抽帧要覆盖整段录像，而不是只解开头几帧：否则回放时间轴会
     # 退化成「同一秒内 105 个 tick」，覆盖率与暂停统计都失去意义。
     per_file_rows: list[list[dict[str, Any]]] = []
     for item in ordered:
         if sum(len(rows) for rows in per_file_rows) >= frame_budget:
             break
-        entry = cache.entry(config.device_code, item.file_id)
-        if entry is None or entry.path is None:
+        path = ensure(item)
+        if path is None:
             continue
         try:
             base = parse_seconds(item.record_start)
         except Exception:
             base = 0.0
-        probe = probe_recording(entry.path)
+        probe = probe_recording(path)
         duration = float(probe.duration_seconds or 0.0)
         if duration <= 0:
             try:
@@ -2628,7 +2699,7 @@ def _collect_replay_frames(
             round(duration * (index + 0.5) / per_file, 3)
             for index in range(per_file)
         ]
-        reader = SequentialFrameReader(entry.path)
+        reader = SequentialFrameReader(path)
         captured_rows: list[dict[str, Any]] = []
         try:
             if config.use_seek:
@@ -2661,6 +2732,18 @@ def _collect_replay_frames(
         captured_rows.sort(key=lambda row: row["replay_time"])
         per_file_rows.append(captured_rows)
     rows = [row for group in per_file_rows for row in group]
+    if report is not None:
+        report["replay_materialize"] = {
+            **materialize,
+            "policy_refreshes": policy.refresh_count,
+            "note": "回放按需重取缺失素材；失败分类见 failed",
+        }
+    # C2：只为回放重取的素材在收集完成后立即归还。
+    if materialize["ok"]:
+        _release_materialized(
+            cache, config, ordered, report if report is not None else {},
+            stage="after_replay_collect",
+        )
     # 计划节拍 = 实际相邻回放点的间隔中位数（真实时间轴，不是文件内偏移）。
     if len(rows) > 1:
         deltas = sorted(
