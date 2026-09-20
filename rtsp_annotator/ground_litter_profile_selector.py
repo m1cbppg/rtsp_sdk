@@ -52,6 +52,10 @@ DEFAULT_SELECTION_CONFIG: dict[str, Any] = {
     # 源录像之间的空隙（换文件/停机）不是「Selector 暂停」；超过该值的间隔
     # 会被当作时间线断开：清空连续证据，并且不计入覆盖率分母。
     "join_gap_seconds": 300.0,
+    # 计划采样周期：一次观测最多只能证明到下一个计划观察点之前（R3）。
+    "tick_interval_seconds": 2.0,
+    # 结果有效期：旧证据不得延长有效覆盖。
+    "result_validity_seconds": 4.0,
 }
 
 
@@ -324,6 +328,9 @@ class ProfileSelector:
         budget_exhausted: bool = False,
         alignment_generation: int | None = None,
         diagnostics: Mapping[str, Any] | None = None,
+        observable: bool = True,
+        non_observable_reason: str = "",
+        tick_interval_seconds: float | None = None,
     ) -> SelectionDecision:
         """消费一个分析 tick 的匹配结果，返回使用/切换意图。
 
@@ -346,6 +353,14 @@ class ProfileSelector:
             self._recovery = None
         self._last_timestamp = float(timestamp)
         self._tick_index += 1
+        # 本次观测最多能证明到 min(计划采样周期, 结果有效期) 之后（R3）。
+        interval = (
+            self._number("tick_interval_seconds")
+            if tick_interval_seconds is None else float(tick_interval_seconds)
+        )
+        self._observation_span = max(
+            0.0, min(interval, self._number("result_validity_seconds")),
+        )
         if alignment_generation is not None:
             self.alignment_generation = int(alignment_generation)
         self._last_budget_exhausted = bool(budget_exhausted)
@@ -490,7 +505,15 @@ class ProfileSelector:
                 **dict(diagnostics or {}),
             },
         )
-        self._timeline.append({"kind": "decision", **decision.as_dict()})
+        record = decision.as_dict()
+        record.update({
+            "observable": bool(observable),
+            "non_observable_reason": str(non_observable_reason or ""),
+            "observation_span_seconds": round(float(self._observation_span), 4),
+            "prior_allowed": bool(current_hold) and bool(observable),
+        })
+        self._timeline.append({"kind": "decision", **record})
+        # prior_allowed 是按“可判断且当前参考仍合格”记录的，决策对象本身同步。
         return decision
 
     # -- 提交与失败 -------------------------------------------------------- #
@@ -571,6 +594,24 @@ class ProfileSelector:
     def timeline(self) -> list[dict[str, Any]]:
         return list(self._timeline)
 
+    def mark_non_observable(
+        self, *, seconds: float, reason: str = "UNOBSERVED",
+        timestamp: float | None = None,
+    ) -> None:
+        """登记一段**无法判断**的真实时间（录像空缺、解码失败、坏帧等）。
+
+        这段既不计入有效覆盖，也不计入“Selector 暂停”：暂停是算法问题，
+        不可观测是素材问题，混在一起会同时高估覆盖率与误判算法行为（R3）。
+        """
+        if seconds <= 0:
+            return
+        self._timeline.append({
+            "kind": "gap",
+            "reason": str(reason),
+            "seconds": round(float(seconds), 4),
+            "at": None if timestamp is None else float(timestamp),
+        })
+
     def mark_alignment_change(self, generation: int) -> None:
         """几何代际变化：旧 warp 不能复用，重新验证（方案二 §5.2）。"""
         self.alignment_generation = int(generation)
@@ -583,39 +624,81 @@ class ProfileSelector:
 
     # -- 统计（方案一 §7.2 统一口径）-------------------------------------- #
 
-    def summarise(self) -> dict[str, Any]:
-        """从决策时间线计算动态覆盖、暂停与切换指标。
+    def summarise(self, *, join_gap_seconds: float | None = None) -> dict[str, Any]:
+        """按真实观测区间积分动态覆盖（R3）。
 
-        时间覆盖不做未封顶前向填充：某 tick 有效只覆盖到下一决策点。
-        缺帧/预算跳过/验证失败都作为缺口计入。跨录像文件的空隙（停机/换文件）
-        按 ``join_gap_seconds`` 截断，既不计入有效覆盖也不计为 Selector 暂停。
+        每个决策记录只覆盖 ``observation_span_seconds``（= min(计划采样周期,
+        结果有效期)），不再把有效状态延续到下一次观测。两种缺口分开记账：
+
+        * ``off_air_seconds``：与上一次观测的间隔超过 ``join_gap_seconds``，
+          超出部分视为**录像空缺**（停机/换文件），不计入分母也不计为暂停；
+        * ``non_observable_seconds``：显式登记的解码失败/坏帧/零可用/无共用视野
+          等**不可判断**区间。
+
+        有效覆盖只统计“可判断且当前参考仍合格”的区间。
         """
         decisions = [
             row for row in self._timeline if row.get("kind") == "decision"
         ]
+        gaps = [row for row in self._timeline if row.get("kind") == "gap"]
+        non_observable = sum(float(row.get("seconds", 0.0)) for row in gaps)
+        gap_reasons: dict[str, float] = {}
+        for row in gaps:
+            key = str(row.get("reason", "UNOBSERVED"))
+            gap_reasons[key] = round(
+                gap_reasons.get(key, 0.0) + float(row.get("seconds", 0.0)), 4,
+            )
         if not decisions:
             return {
                 "decisions": 0, "effective_fraction": 0.0,
                 "pause_p95": 0.0, "pause_max": 0.0, "switch_count": 0,
                 "gaps": [], "unknown_reasons": {}, "off_air_seconds": 0.0,
+                "observed_seconds": 0.0, "effective_seconds": 0.0,
+                "non_observable_seconds": round(non_observable, 4),
+                "non_observable_reasons": gap_reasons,
+                "unobservable_ticks": 0, "wall_span_seconds": 0.0,
             }
-        join_gap = max(1e-6, self._number("join_gap_seconds"))
+        join_gap = (
+            self._number("join_gap_seconds")
+            if join_gap_seconds is None else float(join_gap_seconds)
+        )
+        join_gap = max(0.0, join_gap)
+        # 一次观测最多证明到计划观察点；显式登记的空缺同样不能反向膨胀
+        # “可观测”时间（否则 100s 无观测会被算成 100s 可判断时间）。
+        nominal = self._number("tick_interval_seconds")
         effective = 0.0
         total = 0.0
         pauses: list[float] = []
         current_pause = 0.0
         off_air = 0.0
         unknown_reasons: dict[str, int] = {}
+        unobservable_ticks = 0
         for index, row in enumerate(decisions):
             timestamp = float(row["input_timestamp"])
+            span = float(row.get("observation_span_seconds", 0.0))
+            gap_to_next = 0.0
             if index + 1 < len(decisions):
-                span = float(decisions[index + 1]["input_timestamp"]) - timestamp
-            else:
-                span = float(self.config.get("assumed_tick_seconds", 2.0))
+                gap_to_next = (
+                    float(decisions[index + 1]["input_timestamp"]) - timestamp
+                )
+            if gap_to_next > join_gap:
+                # 真正的录像空缺（停机/换文件）：超出 join_gap 的部分单独记账，
+                # 本 tick 最多只能证明到 join_gap。
+                off_air += gap_to_next - join_gap
+                span = min(span, join_gap)
+            if row.get("observable", True) and nominal > 0:
+                # 区间 = min(结果有效期, 到下一个真实观测的时间)；
+                # 无观测的那一段既不进分母也不算暂停。
+                span = min(span, max(0.0, gap_to_next))
             span = max(0.0, span)
-            if span > join_gap:
-                off_air += span - join_gap
-                span = join_gap
+            if not row.get("observable", True):
+                unobservable_ticks += 1
+                reason = str(row.get("non_observable_reason", "UNOBSERVED"))
+                unknown_reasons[reason] = unknown_reasons.get(reason, 0) + 1
+                if current_pause > 0:
+                    pauses.append(current_pause)
+                    current_pause = 0.0
+                continue
             total += span
             if row.get("prior_allowed"):
                 effective += span
@@ -628,12 +711,19 @@ class ProfileSelector:
                 unknown_reasons[reason] = unknown_reasons.get(reason, 0) + 1
         if current_pause > 0:
             pauses.append(current_pause)
+        # “可观测”只包含真实观测能覆盖的时间；显式登记的空缺单独列出，
+        # 不并入 observed_seconds，避免同一段时间被两边重复计入。
+        observed = total + off_air
         return {
             "decisions": len(decisions),
             "observed_seconds": round(total, 3),
             "off_air_seconds": round(off_air, 3),
+            "non_observable_seconds": round(non_observable, 4),
+            "non_observable_reasons": gap_reasons,
+            "unobservable_ticks": unobservable_ticks,
             "effective_seconds": round(effective, 3),
             "effective_fraction": 0.0 if total <= 0 else round(effective / total, 5),
+            "wall_span_seconds": round(observed, 3),
             "pause_p95": 0.0 if not pauses else round(
                 float(np_percentile(pauses, 95)), 3
             ),
@@ -646,6 +736,22 @@ class ProfileSelector:
                 1 for row in decisions if row.get("budget_exhausted")
             ),
         }
+
+    def last_current_hold_eligible(self, profile_id: str | None) -> bool:
+        """上一 tick 中，给定 Profile 是否真的仍然可保持（R4）。
+
+        调用方不能把“存在当前参考”当成“当前仍可保持”：那会让 Selector 走
+        快速路径，扩展游标不推进，第 K+1 个可用参考永远查不到。
+        """
+        if not profile_id:
+            return False
+        for row in reversed(self._timeline):
+            if row.get("kind") != "decision":
+                continue
+            if row.get("selected_profile_id") != profile_id:
+                return False
+            return bool(row.get("prior_allowed"))
+        return False
 
     def _mark_matched(self, timestamp: float) -> None:
         self._last_matched_at = float(timestamp)

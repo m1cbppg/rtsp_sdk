@@ -46,6 +46,11 @@ def grid_bounds(width: int, height: int, cols: int, rows: int
     return bounds
 
 
+def _scaled_odd(value: int, scale: float, *, minimum: int = 3) -> int:
+    result = max(minimum, int(round(value * scale)))
+    return result if result % 2 else result + 1
+
+
 def _structure_map(gray: np.ndarray) -> np.ndarray:
     gx = cv2.Sobel(gray, cv2.CV_32F, 1, 0, ksize=3)
     gy = cv2.Sobel(gray, cv2.CV_32F, 0, 1, ksize=3)
@@ -315,6 +320,10 @@ class ProfileScore:
     distinct_regions: int
     compensation: dict[str, Any] | None
     diagnostics: dict[str, Any] = field(default_factory=dict)
+    # 同一 tick 的补偿结果必须被评分与前景提取共用：否则匹配通过而 prior 残差
+    # 仍是未补偿的原始差异（R10）。这两个字段不参与 as_dict 以保持报告兼容。
+    compensated_reference: Any = field(default=None, repr=False, compare=False)
+    fit_mask: Any = field(default=None, repr=False, compare=False)
 
     def as_dict(self) -> dict[str, Any]:
         return {
@@ -495,6 +504,8 @@ def score_profile(
     diagnostics["raw_gain_delta"] = round(compensation.max_gain_delta, 5)
     diagnostics["raw_bias"] = round(compensation.max_abs_bias, 5)
     return ProfileScore(
+        compensated_reference=normalized,
+        fit_mask=fit_mask,
         profile_id=profile_id,
         score=float(score),
         cell_q50=q50,
@@ -544,15 +555,34 @@ class MatchOutcome:
         }
 
 
+def coerce_envelope(value: Any) -> MatchEnvelope:
+    """把冻结在 Bank 里的包络（dict 或 MatchEnvelope）统一成对象。
+
+    冻结资产以 JSON 存储，运行时/评估读回来是 dict；两者必须走同一判定逻辑。
+    """
+    if isinstance(value, MatchEnvelope):
+        return value
+    if isinstance(value, Mapping):
+        return MatchEnvelope(
+            enter=float(value.get("enter", value.get("fallback_enter", 1.6))),
+            hold=float(value.get("hold", value.get("fallback_hold", 2.2))),
+            calibrated=bool(value.get("calibrated", False)),
+            samples=int(value.get("samples", 0) or 0),
+            source=str(value.get("source", "frozen")),
+        )
+    raise BankError("包络必须是 MatchEnvelope 或包含 enter/hold 的映射")
+
+
 def evaluate_match(
     score: ProfileScore | None,
-    envelope: MatchEnvelope,
+    envelope: MatchEnvelope | Mapping[str, Any],
     config: Mapping[str, Any],
     *,
     geometry_diagnostics: Mapping[str, Any] | None = None,
     missing: bool = False,
 ) -> MatchOutcome:
     """把评分转成进入/保持资格，并把每个失败原因显式命名。"""
+    envelope = coerce_envelope(envelope)
     geometry_config = dict(config.get("geometry", {}))
     compensation_config = dict(config.get("compensation", {}))
     if score is None:
@@ -609,6 +639,71 @@ def evaluate_match(
     )
 
 
+@dataclass(frozen=True, slots=True)
+class ResidualSupport:
+    """共享的「补偿后残差 → 前景支持」结果。
+
+    评分（score_profile）与 prior 前景提取都调用这里，保证两者使用**同一份**
+    受限补偿与同一套噪声阈值，不会出现「匹配通过但 prior 用未补偿差异」。
+    """
+
+    compensated_reference: np.ndarray
+    signature: np.ndarray
+    luminance: np.ndarray
+    seed: np.ndarray
+    support: np.ndarray
+    diagnostics: dict[str, Any]
+
+    def as_dict(self) -> dict[str, Any]:
+        return dict(self.diagnostics)
+
+
+def analyze_residual_support(
+    frame: np.ndarray, reference: np.ndarray, valid: np.ndarray,
+    fit_mask: np.ndarray, thresholds: Mapping[str, np.ndarray], *,
+    pixel_scale: float = 1.0, min_availability: np.ndarray | None = None,
+) -> ResidualSupport:
+    """用已冻结阈值从**补偿后**参考生成 seed/support 前景掩膜。
+
+    ``thresholds`` 必须包含 seed/support 的 signature 与 luminance 阈值图，
+    与 ``BankPriorContext.threshold()`` 的键一致。
+    """
+    height, width = frame.shape[:2]
+    signature, luminance = residual_maps(reference, frame)
+    usable = (valid > 0)
+    if min_availability is not None:
+        usable &= (min_availability > 0)
+    seed = (
+        (signature >= thresholds["seed_signature_threshold"])
+        & (luminance >= thresholds["seed_luminance_threshold"])
+        & usable
+    ).astype(np.uint8)
+    support = (
+        (signature >= thresholds["support_signature_threshold"])
+        & (luminance >= thresholds["support_luminance_threshold"])
+        & usable
+    ).astype(np.uint8)
+    marker = cv2.dilate(
+        seed, np.ones((_scaled_odd(9, pixel_scale), _scaled_odd(9, pixel_scale)), np.uint8)
+    )
+    grown = cv2.bitwise_and(support, marker)
+    grown = cv2.morphologyEx(
+        grown, cv2.MORPH_CLOSE,
+        np.ones((_scaled_odd(5, pixel_scale), _scaled_odd(5, pixel_scale)), np.uint8),
+    )
+    grown[fit_mask == 0] = 0
+    return ResidualSupport(
+        compensated_reference=reference, signature=signature, luminance=luminance,
+        seed=seed, support=grown,
+        diagnostics={
+            "seed_pixels": int(np.count_nonzero(seed)),
+            "support_pixels": int(np.count_nonzero(grown)),
+            "pixel_scale": round(float(pixel_scale), 5),
+            "compensated": True,
+        },
+    )
+
+
 def rank_by_coarse_distance(
     descriptor: Mapping[str, np.ndarray],
     bank: ProfileBank,
@@ -639,7 +734,7 @@ def rank_by_coarse_distance(
 
 __all__ = [
     "ColorCompensation", "DESCRIPTOR_KEYS", "MatchEnvelope", "MatchOutcome",
-    "ProfileScore", "apply_compensation", "descriptor_arrays",
+    "ProfileScore", "apply_compensation", "coerce_envelope", "descriptor_arrays",
     "descriptor_coarse_distance", "envelope_from_samples", "evaluate_match",
     "extract_grid_descriptor", "global_descriptor_scale", "grid_bounds",
     "rank_by_coarse_distance", "residual_maps", "robust_color_compensation",

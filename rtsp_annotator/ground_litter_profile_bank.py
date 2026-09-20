@@ -469,11 +469,56 @@ def verify_checksum(path: Path, expected: Any, field: str) -> None:
         raise BankError(f"资产校验失败: {field}")
 
 
+MISSING_ENVELOPE = "MISSING_ENVELOPE"
+
+
+def bank_envelope(
+    matcher: Mapping[str, Any], profile_id: str,
+) -> dict[str, Any] | None:
+    """读取冻结包络；返回 None 表示该 Profile 没有校准包络。"""
+    profiles = matcher.get("profiles")
+    if not isinstance(profiles, Mapping):
+        return None
+    entry = profiles.get(profile_id)
+    if not isinstance(entry, Mapping):
+        return None
+    envelope = entry.get("envelope")
+    return dict(envelope) if isinstance(envelope, Mapping) else None
+
+
+def validate_calibration(
+    matcher: Mapping[str, Any], profile_ids: Sequence[str],
+) -> list[str]:
+    """返回缺失/未校准包络的 Profile 列表。
+
+    评估与运行时必须拒绝「未校准」的 Bank：否则等于用默认阈值冒充校准结果，
+    并且在待评数据上重新拟合会让盲测不再独立（R1）。
+    """
+    problems: list[str] = []
+    calibration = matcher.get("calibration")
+    if not isinstance(calibration, Mapping) or (
+        str(calibration.get("source", "")) in ("", "uncalibrated_defaults")
+    ):
+        problems.append("BANK_UNCALIBRATED")
+    for profile_id in profile_ids:
+        envelope = bank_envelope(matcher, profile_id)
+        if envelope is None:
+            problems.append(f"{MISSING_ENVELOPE}:{profile_id}")
+            continue
+        if not bool(envelope.get("calibrated")):
+            problems.append(f"UNCALIBRATED_ENVELOPE:{profile_id}")
+    return problems
+
+
 def load_bank(
     root: str | Path, bank_id: str, version: str | None = None,
-    *, verify: bool = True,
+    *, verify: bool = True, require_calibration: bool = True,
 ) -> ProfileBank:
-    """加载并校验一个 Bank 版本。``version=None`` 时取最新版本。"""
+    """加载并校验一个 Bank 版本。``version=None`` 时取最新版本。
+
+    ``require_calibration=True``（默认）时，缺少冻结包络的 Bank 直接拒绝加载；
+    读取历史实验产物（例如未校准的 v1）需显式传 False，并在报告中标注。
+    """
     if version is None:
         version = latest_version(root, bank_id)
         if version is None:
@@ -553,6 +598,14 @@ def load_bank(
 
     if verify:
         _verify_asset_semantics(records)
+    if require_calibration:
+        problems = validate_calibration(matcher, [r.profile_id for r in records])
+        if problems:
+            raise BankError(
+                "Bank 缺少冻结校准包络，拒绝加载："
+                + ", ".join(problems[:6])
+                + ("…" if len(problems) > 6 else "")
+            )
     return ProfileBank(
         root=Path(root).expanduser().resolve(),
         bank_id=bank_id,
@@ -786,6 +839,9 @@ def default_matcher_config(**overrides: Any) -> dict[str, Any]:
             "score_floor": 0.25,
         },
         "calibration": {"source": "uncalibrated_defaults", "calibrated_utc": None},
+        # 每个 Profile 的进入/保持包络在**校准集**上拟合后冻结在这里；
+        # 运行时与评估都只读它，不得在待评数据上重新拟合（方案二 §3.4）。
+        "profiles": {},
     }
     for key, value in overrides.items():
         if isinstance(value, Mapping) and isinstance(config.get(key), Mapping):

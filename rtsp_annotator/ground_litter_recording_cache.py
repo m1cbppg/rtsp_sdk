@@ -24,6 +24,7 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
 import json
+import math
 import os
 import sqlite3
 import threading
@@ -413,6 +414,34 @@ class ManagedRecordingCache:
         return True, ""
 
     unknown_size_reserve = 80 * 1024 * 1024
+
+    def wait_for_capacity(
+        self, size: int | None, *, timeout: float = 900.0,
+        poll_seconds: float = 2.0,
+    ) -> tuple[bool, str]:
+        """等到预算可容纳 ``size`` 为止（R5）。
+
+        满额时正确行为是**等待消费**，而不是丢弃后续计划：如果直接 break，
+        分区会被静默缩小，报告的覆盖就不再对应原计划。等待期间会先尝试释放
+        可重拉的 EVICTABLE 条目。
+
+        返回 ``(ok, reason)``；超时返回 False 且 reason 说明原因。
+        """
+        if not math.isfinite(timeout) or timeout < 0:
+            raise CacheError("timeout 必须是非负有限值")
+        waited = 0.0
+        while True:
+            ok, reason = self.can_reserve(size)
+            if ok:
+                return True, ""
+            self.evict_to_budget(allow_ready=True)
+            ok, reason = self.can_reserve(size)
+            if ok:
+                return True, ""
+            if waited >= timeout:
+                return False, reason
+            time.sleep(min(poll_seconds, max(0.0, timeout - waited)))
+            waited += poll_seconds
 
     # -- 下载生命周期 ------------------------------------------------------ #
 

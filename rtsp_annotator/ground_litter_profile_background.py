@@ -263,6 +263,82 @@ def _initial_radius(
 # --------------------------------------------------------------------------- #
 
 
+def observation_mask_from_frames(
+    frames: Sequence[np.ndarray], roi: np.ndarray, *,
+    block_ids: Sequence[str] | None = None,
+    deviant_fraction: float = 0.35, motion_threshold: float = 12.0,
+    min_area: int = 64, dilate: int = 5,
+) -> tuple[np.ndarray, dict[str, Any], list[np.ndarray]]:
+    """由真实观测导出「可用于合成」的逐帧掩膜（R7）。
+
+    两类像素被排除：
+
+    * **移动物体**：该帧与其它帧（同组）差异很大，说明这一帧在该处看到的是
+      人/车/短时运动，而不是稳定背景；
+    * **持续运动区域**：帧间最大差异高的像素（例如一直有人经过的地带）。
+
+    这是纯观测统计，不需要模型：对一小组帧逐像素比较即可。排除只影响合成，
+    **不**影响发布的 ROI；用户允许长期静止物体进入背景。
+    """
+    if not frames:
+        raise BankError("observation_mask_from_frames 需要至少一帧")
+    height, width = frames[0].shape[:2]
+    if roi.shape != (height, width):
+        raise BankError("ROI 与帧尺寸不一致")
+    stack = np.stack(
+        [cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY).astype(np.float32) for frame in frames],
+        axis=0,
+    )
+    count = stack.shape[0]
+    masks: list[np.ndarray] = []
+    deviant_counts = np.zeros((height, width), np.float32)
+    for index in range(count):
+        others = np.delete(stack, index, axis=0)
+        if others.shape[0] == 0:
+            deviation = np.zeros((height, width), np.float32)
+        else:
+            median = np.median(others, axis=0)
+            deviation = np.abs(stack[index] - median)
+        moving = (deviation > motion_threshold) & (roi > 0)
+        moving = cv2.morphologyEx(
+            moving.astype(np.uint8), cv2.MORPH_OPEN,
+            np.ones((3, 3), np.uint8),
+        )
+        moving = cv2.dilate(moving, np.ones((dilate, dilate), np.uint8))
+        mask = np.zeros((height, width), np.uint8)
+        mask[(roi > 0) & (moving == 0)] = 255
+        masks.append(mask)
+        deviant_counts += (deviation > motion_threshold).astype(np.float32)
+    # 持续被判定为运动的像素（跨多数帧）视为长期遮挡地带，标为局部不可用。
+    persistent = (deviant_counts >= max(1.0, count * deviant_fraction))
+    persistent = cv2.morphologyEx(
+        persistent.astype(np.uint8), cv2.MORPH_OPEN, np.ones((5, 5), np.uint8),
+    )
+    persistent = cv2.dilate(persistent, np.ones((dilate, dilate), np.uint8))
+    availability = np.zeros((height, width), np.uint8)
+    availability[(roi > 0) & (persistent == 0)] = 255
+    if min_area > 0 and persistent.any():
+        count_cc, labels, stats, _ = cv2.connectedComponentsWithStats(
+            persistent.astype(np.uint8), 8,
+        )
+        for cc in range(1, count_cc):
+            if int(stats[cc, cv2.CC_STAT_AREA]) < min_area:
+                area_mask = (labels == cc)
+                availability[area_mask & (roi > 0)] = 255
+    available_fraction = float(np.count_nonzero(availability)) / max(
+        int(np.count_nonzero(roi)), 1
+    )
+    return availability, {
+        "frames": count,
+        "roi_pixels": int(np.count_nonzero(roi)),
+        "available_pixels": int(np.count_nonzero(availability)),
+        "available_fraction_of_roi": round(available_fraction, 5),
+        "persistent_deviant_pixels": int(np.count_nonzero(persistent)),
+        "method": "per-frame deviation vs median-of-others",
+        "blocks": list(block_ids or []),
+    }, masks
+
+
 def select_time_balanced_frames(
     samples: Sequence[Mapping[str, Any]], *, frames_per_profile: int = 90,
     per_file_limit: int = 8, min_files: int = 6, min_days: int = 2,
@@ -545,37 +621,37 @@ def estimate_noise(
     small_w = max(1, math.ceil(width / stride))
     cv_size = (small_w, small_h)          # cv2.resize 需要 (宽, 高)
     small = (small_h, small_w)            # numpy 数组是 (行, 列)
-    # 只在 ROI 内、且至少被一个时间块观测到的像素上做统计：本机位 ROI 约占
-    # 画面 20%，全图逐像素分位/中位数既慢又无意义。
+    # R8：每个观测只在自己**实际有效**的像素上计权。之前用全组并集当权重，
+    # 会把某块被遮挡的像素也算成有支持，支持计数和分位都被污染。
     blocks = sorted(set(str(block) for block in block_ids))
+    block_index = {block: index for index, block in enumerate(blocks)}
+    resized: list[tuple[np.ndarray, np.ndarray, np.ndarray, str]] = []
     support = np.zeros(small, bool)
-    resized: list[tuple[np.ndarray, np.ndarray, str]] = []
     for frame, mask, block in zip(frames, masks, block_ids):
         sig, lum = residual_maps(reference, frame)
         keep = cv2.resize(mask, cv_size, interpolation=cv2.INTER_NEAREST) > 0
         sig_s = cv2.resize(sig, cv_size, interpolation=cv2.INTER_AREA)
         lum_s = cv2.resize(lum, cv_size, interpolation=cv2.INTER_AREA)
         support |= keep
-        resized.append((sig_s, lum_s, str(block)))
+        resized.append((sig_s, lum_s, keep, str(block)))
     rows, cols = np.nonzero(support)
     n = int(rows.size)
     zeros = np.zeros(small, np.float32)
     if n == 0:
         raise BankError("噪声估计没有可用的有效像素")
 
-    # 权重：每个时间块在该像素出现一次记 1，块内重复帧不额外加权。
-    block_index = {block: index for index, block in enumerate(blocks)}
-    pixel_index = np.full(small, -1, np.int64)
-    pixel_index[rows, cols] = np.arange(n)
-    flat_index = pixel_index[rows, cols]
+    # 每个 (时间块, 像素) 的权重：该块在该像素有效则记 1；同一块出现多次
+    # （重复观测）只聚合一次，不额外加权。
     sig_values = np.zeros((len(blocks), n), np.float32)
     lum_values = np.zeros((len(blocks), n), np.float32)
     weights = np.zeros((len(blocks), n), np.float32)
-    for sig_s, lum_s, block in resized:
+    for sig_s, lum_s, keep, block in resized:
         index = block_index[block]
-        sig_values[index, flat_index] = sig_s[rows, cols]
-        lum_values[index, flat_index] = lum_s[rows, cols]
-        weights[index, flat_index] = 1.0
+        sig_values[index, :] = np.maximum(sig_values[index, :], sig_s[rows, cols])
+        lum_values[index, :] = np.maximum(lum_values[index, :], lum_s[rows, cols])
+        weights[index, :] = np.maximum(
+            weights[index, :], keep[rows, cols].astype(np.float32),
+        )
 
     totals = weights.sum(axis=0)
     support_blocks = (weights > 0).sum(axis=0).astype(np.float32)
@@ -602,6 +678,11 @@ def estimate_noise(
     lum_mad = scatter(lum_mad_sel)
     lum_q95 = scatter(lum_q95_sel)
     support_out = scatter(support_blocks)
+    # 逐块有效像素数（供报告核对：某块只覆盖半幅时不应计满）
+    per_block_valid_pixels = {
+        block: int(np.count_nonzero(weights[block_index[block]]))
+        for block in blocks
+    }
     del sig_values, lum_values, weights
 
     def build(
@@ -675,6 +756,9 @@ def estimate_noise(
     }
     diagnostics = {
         "time_blocks": len(blocks),
+        "per_block_valid_pixels": per_block_valid_pixels,
+        "calibration_blocks": int(settings.get("_calibration_block_count", 0) or 0),
+        "independent_of_reference": bool(settings.get("_independent_calibration", False)),
         "k": k,
         "stride": stride,
         "bias_flag_pixels": int(np.count_nonzero(bias_flag)),

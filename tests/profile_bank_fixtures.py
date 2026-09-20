@@ -117,11 +117,21 @@ def build_synthetic_bank(
     bias: bool = False,
 ) -> Path:
     entries = []
+    envelopes: dict[str, Any] = {}
     for index in range(profiles):
         reference = synthetic_reference(width, height, value=110 + 5 * index)
         valid = synthetic_valid(width, height)
+        profile_id = f"p{index + 1:04d}"
+        envelopes[profile_id] = {
+            "envelope": {
+                "enter": 1.5 + 0.1 * index, "hold": 1.8 + 0.1 * index,
+                "calibrated": True, "samples": 24,
+                "source": "synthetic_calibration_set",
+            },
+            "calibration": {"source": "synthetic_calibration_set"},
+        }
         entries.append({
-            "profile_id": f"p{index + 1:04d}",
+            "profile_id": profile_id,
             "reference": reference,
             "valid": valid,
             "noise": synthetic_noise(width, height, bias=bias),
@@ -131,11 +141,19 @@ def build_synthetic_bank(
                 "source": {"kind": "synthetic_test"},
             },
         })
+    matcher = default_matcher_config()
+    matcher["calibration"] = {
+        "source": "synthetic_calibration_set",
+        "calibrated_utc": "2026-09-20T00:00:00Z",
+        "method": "envelope_from_samples",
+        "inputs": {"files": ["synthetic"], "sha256": "synthetic"},
+    }
+    matcher["profiles"] = envelopes
     return publish_version(
         root, bank_id, version,
         manifest={"notes": "synthetic test bank"},
         camera_geometry=default_camera_geometry(width, height, camera_id=bank_id),
-        matcher=default_matcher_config(),
+        matcher=matcher,
         profiles=entries,
         supersede_existing=supersede_existing,
     )

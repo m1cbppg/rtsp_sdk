@@ -25,7 +25,7 @@ import cv2
 import numpy as np
 
 from .ground_litter_profile_bank import (
-    BankError, atomic_write_json, sha256_bytes, sha256_file,
+    BankError, atomic_write_bytes, atomic_write_json, sha256_bytes, sha256_file,
 )
 from .ground_litter_profile_match import (
     descriptor_arrays, extract_grid_descriptor,
@@ -715,12 +715,23 @@ class BoundedPreviewSampler:
         self, cache: ManagedRecordingCache, *, analysis_size: tuple[int, int],
         roi_mask: np.ndarray, seed: int = DEFAULT_SEED, preview_width: int = PREVIEW_WIDTH,
         use_seek: bool = False, algorithm_version: str = "sampler_r3",
+        canvas_reference: np.ndarray | None = None,
+        overlay_exclude_zones: Sequence[Sequence[Sequence[float]]] = (),
     ) -> None:
         self.cache = cache
         self.analysis_size = (int(analysis_size[0]), int(analysis_size[1]))
         if roi_mask.shape != (self.analysis_size[1], self.analysis_size[0]):
             raise BankError("ROI 掩膜与分析尺寸不一致")
         self.roi_mask = roi_mask
+        # R11：所有文件必须配准到**同一**冻结画布，不能每个文件自己选基准。
+        if canvas_reference is None:
+            raise BankError(
+                "缺少冻结共同画布 canvas_reference；禁止按文件各自取基准"
+            )
+        if canvas_reference.shape[:2] != (self.analysis_size[1], self.analysis_size[0]):
+            raise BankError("冻结画布尺寸与分析尺寸不一致")
+        self.canvas_reference = canvas_reference
+        self.overlay_exclude_zones = tuple(overlay_exclude_zones or ())
         self.seed = int(seed)
         self.preview_width = int(preview_width)
         self.use_seek = bool(use_seek)
@@ -728,6 +739,7 @@ class BoundedPreviewSampler:
         self.decode_seconds = 0.0
         self.seek_seconds = 0.0
         self.frames_read = 0
+        self.registration_diagnostics: list[dict[str, Any]] = []
 
     def sample_file(
         self, device_code: str, lease: Lease, *,
@@ -765,7 +777,11 @@ class BoundedPreviewSampler:
 
         samples: list[AppearanceSample] = []
         rejected: list[dict[str, Any]] = []
-        registrar = CanvasRegistrar(np.zeros((1, 1, 3), np.uint8))
+        # R11：整段作业只用一个冻结画布做基准（外层训练集确定）。
+        registrar = CanvasRegistrar(
+            self.canvas_reference,
+            overlay_exclude_zones=self.overlay_exclude_zones,
+        )
         for offset in offsets:
             captured = picked.get(offset)
             if captured is None:
@@ -786,11 +802,6 @@ class BoundedPreviewSampler:
                     "reasons": list(quality.reasons),
                 })
                 continue
-            # 配准以该文件第一帧可用画面为基准；同文件内抖动才是我们要消除的。
-            if registrar.reference.shape[1] == 1:
-                registrar = CanvasRegistrar(
-                    captured.frame, overlay_exclude_zones=(),
-                )
             try:
                 aligned, diagnostics = registrar.register(captured.frame)
             except BankError as exc:
@@ -798,7 +809,15 @@ class BoundedPreviewSampler:
                     "offset_seconds": offset, "reason": "REGISTRATION",
                     "detail": str(exc)[:120],
                 })
+                self.registration_diagnostics.append({
+                    "offset_seconds": offset, "applied_to_canvas": False,
+                    "error": str(exc)[:120],
+                })
                 continue
+            self.registration_diagnostics.append({
+                "offset_seconds": offset, "applied_to_canvas": True,
+                **{key: value for key, value in diagnostics.items()},
+            })
             if aligned.shape[1] != self.analysis_size[0] or aligned.shape[0] != self.analysis_size[1]:
                 aligned = cv2.resize(
                     aligned, self.analysis_size, interpolation=cv2.INTER_AREA
@@ -839,6 +858,10 @@ class BoundedPreviewSampler:
             "resolution": [probe.width, probe.height],
             "downloaded_bytes": lease.entry.bytes,
             "seek_diagnostics": seek_diagnostics,
+            "registration": self.registration_diagnostics[-len(samples) or None:],
+            "canvas_reference_sha256": sha256_bytes(
+                cv2.imencode(".png", self.canvas_reference)[1].tobytes()
+            ),
         }
         # 阶段产物 = 采样摘要；提交后 preview 阶段才算完成。
         summary_path = self.cache.work_dir / "stages" / "preview" / f"{lease.identity_key.replace(':','_')}.json"
@@ -864,6 +887,24 @@ class BoundedPreviewSampler:
         return self.cache.release_file(
             device_code, lease.entry.file.file_id, require_committed=("preview",),
         )
+
+
+def write_canvas_reference(
+    path: str | Path, reference: np.ndarray,
+) -> str:
+    """把训练集确定的共同画布写盘并返回 SHA-256（R11）。"""
+    target = Path(path)
+    ok, encoded = cv2.imencode(".png", reference)
+    if not ok:
+        raise BankError("冻结画布编码失败")
+    return atomic_write_bytes(target, encoded.tobytes())
+
+
+def load_canvas_reference(path: str | Path) -> np.ndarray:
+    image = cv2.imread(str(path), cv2.IMREAD_COLOR)
+    if image is None:
+        raise BankError(f"无法读取冻结画布: {path}")
+    return image
 
 
 def build_hd_plan(
@@ -925,6 +966,7 @@ __all__ = [
     "QUALITY_REASONS", "QualityReport", "RecordedFrame", "RecordingFrameStamp",
     "SequentialFrameReader", "TimePartition", "build_hd_plan",
     "coarse_sample_offsets", "cross_day_files", "densify_offsets", "detect_frozen",
-    "frame_quality", "parse_day", "parse_seconds", "partition_recordings",
-    "preview_image", "probe_recording", "summarise_sampling_quality", "time_block_key",
+    "frame_quality", "load_canvas_reference", "parse_day", "parse_seconds",
+    "partition_recordings", "preview_image", "probe_recording",
+    "summarise_sampling_quality", "time_block_key", "write_canvas_reference",
 ]

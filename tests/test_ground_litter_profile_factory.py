@@ -1265,8 +1265,15 @@ class SelectorGapTests(unittest.TestCase):
         )
 
     def test_off_air_gap_is_not_counted_as_pause(self):
-        """换文件/停机空隙不能冒充 Selector 暂停或有效覆盖。"""
-        selector = self._selector(assumed_tick_seconds=2.0, join_gap_seconds=300.0)
+        """换文件/停机空隙不能冒充 Selector 暂停或有效覆盖（R3）。
+
+        一次观测只能证明到下一个计划观察点之前：5 次相邻观测（2s 节拍）最多
+        覆盖约 10s 有效时间；停了一天之后的第 6 次观测不得把这一天算成有效。
+        """
+        selector = self._selector(
+            assumed_tick_seconds=2.0, join_gap_seconds=300.0,
+            tick_interval_seconds=2.0, result_validity_seconds=4.0,
+        )
         from rtsp_annotator.ground_litter_profile_selector import CandidateMatch
         good = CandidateMatch("p1", 0.2, True, True, verified=True)
         for step in range(5):
@@ -1279,10 +1286,14 @@ class SelectorGapTests(unittest.TestCase):
         selector.observe(timestamp=108.0 + 86400.0, current=good, candidates=[good])
         summary = selector.summarise()
         self.assertGreater(summary["off_air_seconds"], 80000.0)
-        # 空隙被截断到 join_gap_seconds；未覆盖的那一段才是真正的暂停。
         self.assertLessEqual(summary["pause_max"], 310.0)
-        self.assertLessEqual(summary["observed_seconds"], 310.0)
-        self.assertGreater(summary["observed_seconds"], 100.0)
+        # 有效覆盖受计划节拍约束：4 个区间 × 2s，不因停了一天而膨胀。
+        # 每个观测只覆盖到下一个真实观测：5 个 tick 贡献 4 个区间 × 2s。
+        self.assertLessEqual(summary["observed_seconds"], 12.0)
+        self.assertGreaterEqual(summary["observed_seconds"], 8.0)
+        # 有效时间必须远小于“停机一天的墙钟时间”，这正是要防的前向填充。
+        self.assertLessEqual(summary["effective_seconds"], 12.0)
+        self.assertLess(summary["effective_seconds"], summary["wall_span_seconds"])
 
     def test_off_air_gap_breaks_continuous_evidence(self):
         from rtsp_annotator.ground_litter_profile_selector import CandidateMatch

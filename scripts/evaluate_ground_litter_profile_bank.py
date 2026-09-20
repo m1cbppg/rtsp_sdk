@@ -33,11 +33,12 @@ from rtsp_annotator.ground_litter_profile_analysis import (  # noqa: E402
     build_prior_context, evaluate_bank_frame, roi_mask_from_geometry,
 )
 from rtsp_annotator.ground_litter_profile_bank import (  # noqa: E402
-    BankError, atomic_write_json, load_bank, sha256_file,
+    BankError, atomic_write_json, bank_envelope, load_bank, sha256_file,
+    validate_calibration,
 )
 from rtsp_annotator.ground_litter_profile_match import (  # noqa: E402
-    MatchEnvelope, descriptor_coarse_distance, envelope_from_samples,
-    extract_grid_descriptor, global_descriptor_scale,
+    MatchEnvelope, coerce_envelope, descriptor_coarse_distance,
+    envelope_from_samples, extract_grid_descriptor, global_descriptor_scale,
 )
 from rtsp_annotator.ground_litter_profile_sampling import (  # noqa: E402
     CanvasRegistrar, SequentialFrameReader, frame_quality, parse_seconds,
@@ -72,6 +73,16 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
                         help="评估画布（归一化几何天然可缩放），默认 960x540")
     parser.add_argument("--max-files", type=int, default=0,
                         help="最多评估多少个录像文件（0=全部）")
+    parser.add_argument("--allow-uncalibrated-bank", action="store_true",
+                        help="允许加载缺少冻结包络的历史 Bank（仅用于回归对照）")
+    parser.add_argument("--refit-envelope-on-input", action="store_true",
+                        help="用待评数据重新拟合包络（会破坏盲测独立性，仅回归对照）")
+    parser.add_argument("--small-target-trials", type=int, default=12,
+                        help="注入并逐目标验证的小目标数量（0=关闭）")
+    parser.add_argument("--small-target-size-native-px", type=int, default=8,
+                        help="按原图画布计的小目标边长（像素）")
+    parser.add_argument("--event-memory", action="store_true",
+                        help="接入 V33 事件 memory 做离线生命周期验证")
     return parser.parse_args(argv)
 
 
@@ -113,8 +124,12 @@ def collect_media(root: Path) -> list[RecordingFile]:
 def main(argv: Sequence[str] | None = None) -> int:
     args = parse_args(argv)
     started = time.monotonic()
-    bank = load_bank(args.bank_root, args.bank_id, args.version)
+    bank = load_bank(
+        args.bank_root, args.bank_id, args.version,
+        require_calibration=not args.allow_uncalibrated_bank,
+    )
     bank_size = bank.reference_size
+    calibration_problems = validate_calibration(bank.matcher, list(bank.ids()))
     try:
         width_text, height_text = str(args.replay_size).lower().split("x")
         size = (int(width_text), int(height_text))
@@ -138,16 +153,42 @@ def main(argv: Sequence[str] | None = None) -> int:
         contexts[pid] = context
     descriptors = {pid: bank.load_descriptor(pid) for pid in bank.ids()}
     scale = global_descriptor_scale(list(descriptors.values()))
-    probe_scores = _calibration_scores(
-        bank, args.input, size, roi, overlay, matcher,
-        max_files=3, max_frames=12,
-    )
     report["replay_size"] = list(size)
     report["bank_reference_size"] = list(bank_size)
-    envelopes = {
-        pid: envelope_from_samples(probe_scores.get(pid, []), matcher)
-        for pid in bank.ids()
+    # R1：默认只读 Bank 里冻结的包络。只有显式 --refit-envelope-on-input
+    # 才在待评数据上重新拟合，并在报告里标红。
+    frozen_envelopes = {
+        pid: bank_envelope(bank.matcher, pid) for pid in bank.ids()
     }
+    if args.refit_envelope_on_input:
+        probe_scores = _calibration_scores(
+            bank, args.input, size, roi, overlay, matcher,
+            max_files=3, max_frames=12,
+        )
+        envelopes = {
+            pid: envelope_from_samples(probe_scores.get(pid, []), matcher)
+            for pid in bank.ids()
+        }
+        envelope_source = "refit_on_evaluation_input"
+        refit_warning = (
+            "本次评估在待评数据上重新拟合了包络：该目录不再是独立盲测，"
+            "结果只能作为回归对照。"
+        )
+    else:
+        if any(value is None for value in frozen_envelopes.values()):
+            raise SystemExit(
+                "Bank 缺少冻结包络；请用 --allow-uncalibrated-bank 读取历史产物，"
+                "或重建 Bank。禁止在待评数据上悄悄补拟合。"
+            )
+        envelopes = {
+            pid: coerce_envelope(value) for pid, value in frozen_envelopes.items()
+        }
+        envelope_source = "frozen_in_bank"
+        refit_warning = ""
+    report["envelope_source"] = envelope_source
+    report["envelope_refit_warning"] = refit_warning
+    report["bank_calibration"] = dict(bank.matcher.get("calibration") or {})
+    report["bank_calibration_problems"] = calibration_problems
 
     replay_config = dict(matcher.get("selection", {}))
     # 观测间隔上限必须与实际分析节拍一致：0.05 FPS 时两 tick 相隔 20s，
@@ -183,26 +224,40 @@ def main(argv: Sequence[str] | None = None) -> int:
     })
 
     ticks: list[dict[str, Any]] = []
-    static_covered = 0
     gaps: list[dict[str, Any]] = []
     false_positive_samples: list[dict[str, Any]] = []
-    small_target_trials: list[dict[str, Any]] = []
+    per_target: list[dict[str, Any]] = []
     source_seconds = 0.0
     decode_seconds = 0.0
     io_wait_seconds = 0.0
     frame_index = 0
     rng = np.random.default_rng(args.seed)
-    reference_canvas: np.ndarray | None = None
     previous_source_time: float | None = None
+    file_states: list[dict[str, Any]] = []
 
     if args.input is None:
         raise SystemExit("--input 为必填：评估必须消费真实/回放的连续录像")
     media = collect_media(Path(args.input))
+    planned_files = len(media)
     if args.max_files:
         media = media[: args.max_files]
     if not media:
         raise SystemExit(f"目录里没有可评估的录像: {args.input}")
+    report["files_planned"] = planned_files
+    report["files_attempted"] = len(media)
     report["files_evaluated"] = len(media)
+
+    # R6：按**原图画布**尺寸换算小目标边长，并只在 ROI 内注入。
+    native_w, native_h = bank_size
+    canvas_scale = size[0] / max(native_w, 1)
+    inject_side = max(
+        2, int(round(args.small_target_size_native_px * canvas_scale)),
+    )
+    roi_native = roi_mask_from_geometry(geometry, native_w, native_h)
+    event_memory = _build_event_memory(matcher) if args.event_memory else None
+    trials_per_file = max(
+        0, int(round(args.small_target_trials / max(1, len(media)))),
+    )
 
     selector.reset_search(reason="evaluation_start")
     for item in media:
@@ -211,25 +266,26 @@ def main(argv: Sequence[str] | None = None) -> int:
         io_wait_seconds += time.monotonic() - io_started
         if not probe.ok:
             gaps.append({"file": item.file_id, "reason": "DECODE_FAILED"})
+            file_states.append({"file": item.file_id, "state": "decode_failed"})
+            selector.mark_non_observable(
+                seconds=_expected_file_seconds(item, args, probe),
+                reason="DECODE_FAILED",
+            )
             continue
         reader = SequentialFrameReader(item.file_name)
-        # 按源帧率与分析节拍取帧，不复制帧凑数。
         source_fps = (
             (probe.frame_count / probe.duration_seconds)
             if probe.duration_seconds > 0 and probe.frame_count else 25.0
         )
         stride = max(1, int(round(source_fps / max(args.analysis_fps, 1e-3))))
-        file_started = time.monotonic()
+        ticks_this_file = 0
+        planned_ticks = 0
         try:
             for captured in reader.iter_frames():
                 if frame_index % stride:
                     frame_index += 1
                     continue
                 frame_index += 1
-                if reference_canvas is None:
-                    reference_canvas = cv2.resize(
-                        captured.frame, size, interpolation=cv2.INTER_AREA,
-                    )
                 frame = cv2.resize(captured.frame, size, interpolation=cv2.INTER_AREA)
                 quality = frame_quality(frame)
                 if not quality.usable:
@@ -237,17 +293,11 @@ def main(argv: Sequence[str] | None = None) -> int:
                         "file": item.file_id, "t": captured.time_seconds,
                         "reason": "QUALITY", "reasons": list(quality.reasons),
                     })
-                    continue
-                if len(ticks) % max(1, int(round(1.0 / max(
-                    args.small_target_frame_fraction, 1e-3,
-                )))) == 0:
-                    frame, injected = _inject_small_target(
-                        frame, size, args.small_target_size_px, rng,
+                    selector.mark_non_observable(
+                        seconds=1.0 / max(args.analysis_fps, 1e-3),
+                        reason="QUALITY",
                     )
-                    small_target_trials.append({
-                        "tick": len(ticks), "injected": True,
-                        "box": injected["box"] if injected else None,
-                    })
+                    continue
                 source_time = _source_seconds(item, captured.time_seconds)
                 if previous_source_time is not None and source_time <= previous_source_time:
                     gaps.append({
@@ -255,16 +305,45 @@ def main(argv: Sequence[str] | None = None) -> int:
                         "reason": "SOURCE_TIME_REWIND",
                     })
                     selector.mark_alignment_change(selector.alignment_generation + 1)
+                gap_seconds = (
+                    0.0 if previous_source_time is None
+                    else max(0.0, source_time - previous_source_time)
+                )
                 previous_source_time = source_time
                 source_seconds = max(source_seconds, source_time)
+                planned_ticks += 1
+                # 无目标基线：第一个 tick；带目标：后续按配额注入（成对检查）。
+                trial_index = planned_ticks - 1
+                inject = (
+                    trials_per_file > 0
+                    and trial_index % 2 == 1
+                    and len([row for row in per_target
+                             if row["file"] == item.file_id]) < trials_per_file
+                )
+                if inject:
+                    frame, truth = _inject_small_target_in_roi(
+                        frame, roi_native, size, inject_side, rng,
+                    )
+                    baseline_tick = ticks[-1] if ticks else None
+                else:
+                    truth = None
+                    baseline_tick = None
                 tick = _run_tick(
                     selector, contexts, descriptors, scale, envelopes, matcher,
                     frame, roi, size, geometry, source_time=source_time,
-                    tick_index=len(ticks),
+                    tick_index=len(ticks), tick_interval=gap_seconds or None,
+                    event_memory=event_memory,
                 )
+                tick["file"] = item.file_id
+                tick["gap_seconds"] = round(gap_seconds, 3)
                 ticks.append(tick)
-                if tick["static_eligible_ids"]:
-                    static_covered += 1
+                ticks_this_file += 1
+                if truth is not None:
+                    per_target.append(_match_target(
+                        truth, tick, baseline_tick=baseline_tick,
+                        tick_index=len(ticks) - 1, file_id=item.file_id,
+                        source_time=source_time,
+                    ))
                 if tick["candidate_count"] and not tick["prior_allowed"]:
                     false_positive_samples.append({
                         "tick": len(ticks), "file": item.file_id,
@@ -279,6 +358,15 @@ def main(argv: Sequence[str] | None = None) -> int:
                     break
         except Exception as exc:
             gaps.append({"file": item.file_id, "reason": f"READ_ERROR:{type(exc).__name__}"})
+            file_states.append({
+                "file": item.file_id, "state": "read_error",
+                "error": type(exc).__name__,
+            })
+            selector.mark_non_observable(
+                seconds=_expected_file_seconds(item, args, probe),
+                reason="READ_ERROR",
+            )
+            continue
         decode_seconds += reader.decode_seconds
         report.setdefault("files", []).append({
             "file": item.file_id,
@@ -286,23 +374,61 @@ def main(argv: Sequence[str] | None = None) -> int:
             "decoded_frames": reader.frames_decoded,
             "decode_seconds": round(reader.decode_seconds, 3),
             "source_seconds": round(_source_seconds(item, 0.0), 3),
+            "ticks": ticks_this_file,
         })
-        del file_started
+        file_states.append({
+            "file": item.file_id, "state": "ok", "ticks": ticks_this_file,
+        })
 
-    summary = selector.summarise()
-    static_fraction = 0.0 if not ticks else static_covered / len(ticks)
-    confirmations = _confirmation_report(ticks, small_target_trials)
+    summary = selector.summarise(
+        join_gap_seconds=replay_config.get("join_gap_seconds"),
+    )
+    planned_files = report["files_planned"]
+    attempted_files = report["files_attempted"]
+    succeeded = [row for row in file_states if row.get("state") == "ok"]
+    failed = [row for row in file_states if row.get("state") != "ok"]
+    static_ticks = sum(1 for tick in ticks if tick["static_eligible_ids"])
+    static_fraction = 0.0 if not ticks else static_ticks / len(ticks)
+    small_target = _small_target_summary(per_target)
     report.update({
         "ticks": len(ticks),
+        "files": {
+            "planned": planned_files,
+            "attempted": attempted_files,
+            "succeeded": len(succeeded),
+            "failed": failed,
+            "per_file": file_states,
+        },
         "static_potential_coverage": {
             "fraction": round(static_fraction, 5),
-            "covered_ticks": static_covered,
+            "covered_ticks": static_ticks,
+            "ticks": len(ticks),
             "note": "潜在覆盖只表示库能力，不能冒充动态可用覆盖",
         },
         "dynamic_coverage": summary,
+        "observation_accounting": {
+            "observed_seconds": summary["observed_seconds"],
+            "effective_seconds": summary["effective_seconds"],
+            "off_air_seconds": summary["off_air_seconds"],
+            "non_observable_seconds": summary["non_observable_seconds"],
+            "non_observable_reasons": summary["non_observable_reasons"],
+            "unobservable_ticks": summary["unobservable_ticks"],
+            "wall_span_seconds": summary["wall_span_seconds"],
+            "note": ("有效 = 可判断且当前参考仍合格的区间；录像空缺与不可判断"
+                     "分别记账，不做前向填充"),
+        },
         "gaps": gaps,
         "gap_count": len(gaps),
-        "small_target": confirmations,
+        "small_target": small_target,
+        "availability_checks": {
+            "ticks_with_zero_availability": sum(
+                1 for tick in ticks if tick["availability_max"] == 0.0
+            ),
+            "blocked_reasons": sorted({
+                reason for tick in ticks
+                for reason in (tick.get("blocked_availability") or {}).values()
+            }),
+        },
         "false_positive_examples": false_positive_samples[:40],
         "selector_config_used": {
             key: replay_config.get(key) for key in (
@@ -310,6 +436,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 "switch_min_samples", "switch_min_span_seconds",
                 "recovery_min_samples", "recovery_min_span_seconds",
                 "min_dwell_seconds", "top_k", "max_small_matches_per_tick",
+                "tick_interval_seconds", "result_validity_seconds",
             )
         },
         "performance": {
@@ -328,10 +455,21 @@ def main(argv: Sequence[str] | None = None) -> int:
         "static_potential": report["static_potential_coverage"],
         "dynamic_effective": {
             "fraction": summary["effective_fraction"],
+            "effective_seconds": summary["effective_seconds"],
+            "observed_seconds": summary["observed_seconds"],
+            "non_observable_seconds": summary["non_observable_seconds"],
+            "off_air_seconds": summary["off_air_seconds"],
             "pause_p95": summary["pause_p95"],
             "pause_max": summary["pause_max"],
             "switch_count": summary["switch_count"],
             "unknown_reasons": summary["unknown_reasons"],
+        },
+        "envelope_source": report.get("envelope_source"),
+        "files": report["files"],
+        "small_target": {
+            "trials": small_target["trials"],
+            "detected": small_target["detected"],
+            "detection_fraction": small_target["detection_fraction"],
         },
         "retained_profile_reasons": {
             "kept": list(bank.ids()),
@@ -343,17 +481,216 @@ def main(argv: Sequence[str] | None = None) -> int:
         atomic_write_json(args.report, report)
     print(json.dumps({
         "ticks": len(ticks),
+        "files": {
+            "planned": planned_files, "attempted": attempted_files,
+            "succeeded": len(succeeded),
+        },
         "static_fraction": report["static_potential_coverage"]["fraction"],
         "dynamic": {
             "effective_fraction": summary["effective_fraction"],
+            "effective_seconds": summary["effective_seconds"],
+            "observed_seconds": summary["observed_seconds"],
+            "off_air_seconds": summary["off_air_seconds"],
+            "non_observable_seconds": summary["non_observable_seconds"],
             "pause_p95": summary["pause_p95"],
             "pause_max": summary["pause_max"],
             "switch_count": summary["switch_count"],
         },
+        "small_target": {
+            "trials": small_target["trials"],
+            "detected": small_target["detected"],
+        },
+        "envelope_source": report.get("envelope_source"),
         "gaps": len(gaps),
         "output": str(output),
     }, ensure_ascii=False, indent=2))
     return 0
+
+
+def _run_tick(
+    selector: ProfileSelector, contexts: Mapping[str, Any],
+    descriptors: Mapping[str, Mapping[str, np.ndarray]],
+    scale: Mapping[str, float], envelopes: Mapping[str, MatchEnvelope],
+    matcher: Mapping[str, Any], frame: np.ndarray, roi: np.ndarray,
+    size: tuple[int, int], geometry: Mapping[str, Any],
+    *, source_time: float, tick_index: int,
+    tick_interval: float | None = None,
+    event_memory: Any = None,
+) -> dict[str, Any]:
+    """一个分析 tick：粗检索 → 有界精排 → Selector 决策。
+
+    R4：预算必须让「扩展检索预留」优先占位，粗排 Top-K 次之，当前参考保底；
+    否则 Selector 推进了游标而预留候选仍被粗排挤掉，第 K+1 个可用参考永远
+    查不到。当前是否可保持用**真实评分**判断，不能只看“有当前参考”。
+    """
+    selection = matcher.get("selection", {})
+    top_k = int(selection.get("top_k", 3))
+    budget = int(selection.get("max_small_matches_per_tick", 4))
+    preview = preview_image(frame, width=960)
+    descriptor = extract_grid_descriptor(
+        preview,
+        roi_mask_from_geometry(geometry, preview.shape[1], preview.shape[0]),
+    )
+    ordered = sorted(
+        (
+            (pid, descriptor_coarse_distance(descriptor, payload, scale=scale))
+            for pid, payload in descriptors.items()
+        ),
+        key=lambda item: (item[1], item[0]),
+    )
+    current_id = selector.selected_profile_id
+    current_hold_known = selector.last_current_hold_eligible(current_id)
+    plan = selector.plan_tick(
+        timestamp=source_time, current_hold_eligible=current_hold_known,
+    )
+    reserved = [pid for pid in plan.get("reserved", []) if pid in contexts]
+    top = [pid for pid, _distance in ordered[:top_k] if pid in contexts]
+    to_check: list[str] = []
+    for pid in reserved + top + ([current_id] if current_id else []):
+        if pid and pid in contexts and pid not in to_check:
+            to_check.append(pid)
+        if len(to_check) >= budget:
+            break
+    results: list[CandidateMatch] = []
+    static_eligible: list[str] = []
+    candidate_boxes = 0
+    current_match: CandidateMatch | None = None
+    availability: dict[str, float] = {}
+    blocked: dict[str, str] = {}
+    candidate_box_rows: list[dict[str, Any]] = []
+    for pid in to_check:
+        context = contexts[pid]
+        try:
+            evaluation = evaluate_bank_frame(
+                context, frame, envelope=envelopes[pid], config=matcher,
+                roi_mask=roi,
+            )
+        except BankError:
+            continue
+        outcome = evaluation.outcome
+        availability[pid] = round(evaluation.availability_fraction, 5)
+        if str(outcome.get("reason", "")).startswith("BLOCKED_"):
+            blocked[pid] = str(outcome["reason"])
+        verified = bool(outcome["enter_eligible"] or outcome["hold_eligible"])
+        candidate = CandidateMatch(
+            pid, float(outcome["score"] or 0.0),
+            bool(outcome["enter_eligible"]), bool(outcome["hold_eligible"]),
+            verified=verified,
+        )
+        results.append(candidate)
+        if outcome["enter_eligible"]:
+            static_eligible.append(pid)
+        candidate_boxes += len(evaluation.candidates)
+        candidate_box_rows.extend(
+            {"box": list(row["box"]), "profile_id": pid}
+            for row in evaluation.candidates
+        )
+        if pid == current_id:
+            current_match = candidate
+    decision = selector.observe(
+        timestamp=source_time, current=current_match, candidates=results,
+        tested_profile_ids=to_check, observable=True,
+        tick_interval_seconds=tick_interval,
+    )
+    if decision.commit_requested:
+        profile_id = decision.commit_profile_id or ""
+        if not selector.discard_stale(
+            profile_id=profile_id, observed_at=source_time, now=source_time,
+        ):
+            record = selector.commit(
+                profile_id=profile_id, timestamp=source_time,
+            )
+            if record["previous"] != record["profile_id"]:
+                _notify_switch(event_memory, record)
+    return {
+        "tick": tick_index,
+        "source_time": round(source_time, 3),
+        "profile_id": decision.selected_profile_id,
+        "candidate_profile_id": decision.candidate_profile_id,
+        "status": decision.status,
+        "phase": decision.phase,
+        "prior_allowed": decision.prior_allowed,
+        "reason": decision.reason,
+        "tested": list(to_check),
+        "tested_budget": len(to_check),
+        "budget": budget,
+        "static_eligible_ids": sorted(static_eligible),
+        "candidate_boxes": int(candidate_boxes),
+        "candidate_count": int(candidate_boxes),
+        "candidate_boxes_detail": candidate_box_rows,
+        "availability_fraction": availability,
+        "blocked_availability": blocked,
+        "availability_max": (
+            round(max(availability.values()), 5) if availability else 0.0
+        ),
+        "score_current": decision.score_current,
+        "score_best": decision.score_best,
+        "budget_exhausted": decision.budget_exhausted,
+        "search_cursor": decision.search_cursor,
+        "alignment_generation": decision.alignment_generation,
+        "observation_span_seconds": decision.as_dict().get(
+            "observation_span_seconds"
+        ),
+    }
+
+
+def _notify_switch(event_memory: Any, record: Mapping[str, Any]) -> None:
+    """提交边界通知事件 memory：保留身份、清空跨参考证据窗口（R6）。"""
+    if event_memory is None:
+        return
+    try:
+        event_memory.notify_reference_switch(
+            previous_profile_id=str(record.get("previous") or ""),
+            profile_id=str(record.get("profile_id") or ""),
+            generation=int(record.get("generation", 0)),
+            same_profile_id=bool(record.get("same_profile_id", False)),
+        )
+    except Exception:  # pragma: no cover - memory 异常不得影响评估主链
+        return
+
+
+def _build_event_memory(matcher: Mapping[str, Any]) -> Any:
+    """构造离线 V33 事件 memory，用于切换期间证据冻结/恢复的生命周期验证。"""
+    from types import SimpleNamespace
+    from rtsp_annotator.ground_litter_v33 import V33EventMemory
+
+    options = SimpleNamespace(
+        analysis_fps=0.5,
+        semantic_scan_interval_seconds=4.0,
+        semantic_confirm_span_seconds=6.0,
+        prior_confirm_span_seconds=6.0,
+        semantic_hit_window=6,
+        prior_hit_window=6,
+        fused_hit_window=6,
+        semantic_hit_count=4,
+        prior_hit_count=4,
+        fused_hit_count=4,
+        semantic_clear_min_misses=3,
+        semantic_clear_seconds=8.0,
+        clear_confirm_seconds=5.0,
+        pending_expire_seconds=15.0,
+        prior_suspend_expire_seconds=120.0,
+        min_clean_valid_fraction=0.8,
+        actor_overlap_threshold=0.2,
+        maximum_closed_events=200,
+    )
+    del matcher
+    return V33EventMemory(options, pixel_scale=1.0)
+
+
+def _expected_file_seconds(item: RecordingFile, args: Any, probe: Any) -> float:
+    """一个文件的预期可观测秒数，用于把“没读到”的时间记为不可判断。"""
+    del args
+    try:
+        duration = float(probe.duration_seconds)
+        if duration > 0:
+            return duration
+    except Exception:
+        pass
+    try:
+        return max(0.0, parse_seconds(item.record_end) - parse_seconds(item.record_start))
+    except Exception:
+        return 0.0
 
 
 def _scale_context(context: Any, size: tuple[int, int]) -> Any:
@@ -379,6 +716,7 @@ def _scale_context(context: Any, size: tuple[int, int]) -> Any:
         noise=noise,
         metadata=context.metadata,
         geometry_diagnostics=context.geometry_diagnostics,
+        reference_canvas_width=int(context.reference.shape[1]),
     )
 
 
@@ -389,153 +727,130 @@ def _source_seconds(item: RecordingFile, offset: float) -> float:
         return float(offset)
 
 
-def _inject_small_target(
-    frame: np.ndarray, size: tuple[int, int], side: int,
-    rng: np.random.Generator,
+def _inject_small_target_in_roi(
+    frame: np.ndarray, roi_native: np.ndarray, size: tuple[int, int],
+    side: int, rng: np.random.Generator,
 ) -> tuple[np.ndarray, dict[str, Any] | None]:
-    """在画面中注入一个已知尺寸的小目标，用于「小目标不被吞掉」的对照。"""
+    """在 ROI 内按**原图尺度**注入小目标，并返回真值框（R6）。
+
+    选点先**在原图画布**上完成（只在 ROI 像素里抽样），再映射到评估画布，
+    因此注入位置一定落在有效区域内；``side`` 已经是按画布缩放后的边长。
+    """
     if side < 2:
         return frame, None
-    height, width = frame.shape[:2]
-    top = int(rng.integers(side + 2, max(side + 3, height // 2)))
-    left = int(rng.integers(side + 2, max(side + 3, width // 2)))
-    target = frame.copy()
-    target[top:top + side, left:left + side] = 250
-    return target, {
-        "box": [left, top, left + side, top + side], "side": side,
-    }
-
-
-def _run_tick(
-    selector: ProfileSelector, contexts: Mapping[str, Any],
-    descriptors: Mapping[str, Mapping[str, np.ndarray]],
-    scale: Mapping[str, float], envelopes: Mapping[str, MatchEnvelope],
-    matcher: Mapping[str, Any], frame: np.ndarray, roi: np.ndarray,
-    size: tuple[int, int], geometry: Mapping[str, Any],
-    *, source_time: float, tick_index: int,
-) -> dict[str, Any]:
-    """一个分析 tick：粗检索 → 有界精排 → Selector 决策（不做第二次重分析）。"""
-    selection = matcher.get("selection", {})
-    top_k = int(selection.get("top_k", 3))
-    budget = int(selection.get("max_small_matches_per_tick", 4))
-    preview = preview_image(frame, width=960)
-    descriptor = extract_grid_descriptor(
-        preview,
-        roi_mask_from_geometry(geometry, preview.shape[1], preview.shape[0]),
-    )
-    ordered = sorted(
-        (
-            (pid, descriptor_coarse_distance(descriptor, payload, scale=scale))
-            for pid, payload in descriptors.items()
-        ),
-        key=lambda item: (item[1], item[0]),
-    )
-    current_id = selector.selected_profile_id
-    plan = selector.plan_tick(
-        timestamp=source_time,
-        current_hold_eligible=current_id is not None,
-    )
-    to_check = list(dict.fromkeys(
-        ([current_id] if current_id else [])
-        + [pid for pid, _distance in ordered[:top_k]]
-        + list(plan.get("reserved", []))
-    ))[:budget]
-    results: list[CandidateMatch] = []
-    static_eligible: list[str] = []
-    candidate_boxes = 0
-    current_match: CandidateMatch | None = None
-    for pid in to_check:
-        if pid not in contexts:
-            continue
-        context = contexts[pid]
-        try:
-            evaluation = evaluate_bank_frame(
-                context, frame, envelope=envelopes[pid], config=matcher,
-                roi_mask=roi,
-            )
-        except BankError:
-            continue
-        outcome = evaluation.outcome
-        candidate = CandidateMatch(
-            pid, float(outcome["score"] or 0.0),
-            bool(outcome["enter_eligible"]), bool(outcome["hold_eligible"]),
-            verified=True,
+    native_h, native_w = roi_native.shape[:2]
+    rows, cols = np.nonzero(roi_native > 0)
+    if rows.size == 0:
+        return frame, None
+    half = side // 2
+    for _ in range(32):
+        pick = int(rng.integers(0, rows.size))
+        native_y, native_x = int(rows[pick]), int(cols[pick])
+        scale_x = size[0] / max(native_w, 1)
+        scale_y = size[1] / max(native_h, 1)
+        left = int(round(native_x * scale_x)) - half
+        top = int(round(native_y * scale_y)) - half
+        left = max(0, min(left, size[0] - side))
+        top = max(0, min(top, size[1] - side))
+        box = [left, top, left + side, top + side]
+        canvas_roi = roi_mask_from_geometry(
+            {"roi": [[0, 0], [1, 0], [1, 1], [0, 1]]}, size[0], size[1],
         )
-        results.append(candidate)
-        if outcome["enter_eligible"]:
-            static_eligible.append(pid)
-        candidate_boxes += len(evaluation.candidates)
-        if pid == current_id:
-            current_match = candidate
-    decision = selector.observe(
-        timestamp=source_time, current=current_match, candidates=results,
-        tested_profile_ids=to_check,
+        if int(np.count_nonzero(canvas_roi[top:top + side, left:left + side])) > 0:
+            target = frame.copy()
+            target[top:top + side, left:left + side] = 250
+            return target, {
+                "box": box, "side": side,
+                "native_side": int(round(side / max(scale_x, 1e-6))),
+                "native_center": [native_x, native_y],
+                "injected": True,
+            }
+    return frame, None
+
+
+def _box_iou(left: Sequence[float], right: Sequence[float]) -> float:
+    lx1, ly1, lx2, ly2 = (float(v) for v in left)
+    rx1, ry1, rx2, ry2 = (float(v) for v in right)
+    inter_w = max(0.0, min(lx2, rx2) - max(lx1, rx1))
+    inter_h = max(0.0, min(ly2, ry2) - max(ly1, ry1))
+    inter = inter_w * inter_h
+    union = (
+        max(0.0, lx2 - lx1) * max(0.0, ly2 - ly1)
+        + max(0.0, rx2 - rx1) * max(0.0, ry2 - ry1)
+        - inter
     )
-    if decision.commit_requested:
-        profile_id = decision.commit_profile_id or ""
-        # 验证在本 tick 内完成，年龄为 0；真正的过期结果由加载/分析时延决定，
-        # 这里保留显式检查点，便于接入真实加载器后复用。
-        if not selector.discard_stale(
-            profile_id=profile_id, observed_at=source_time, now=source_time,
-        ):
-            record = selector.commit(
-                profile_id=profile_id, timestamp=source_time,
-            )
-            if record["previous"] != record["profile_id"]:
-                _notify_switch(contexts, decision, record)
+    return 0.0 if union <= 0 else inter / union
+
+
+def _match_target(
+    truth: Mapping[str, Any], tick: Mapping[str, Any],
+    *, baseline_tick: Mapping[str, Any] | None, tick_index: int,
+    file_id: str, source_time: float,
+) -> dict[str, Any]:
+    """把注入目标与该 tick 的候选做**空间匹配**（R6）。
+
+    区分三层：任意候选、目标命中（IoU≥0.1 或中心落入真值框）、事件确认。
+    同时给出无目标基线的候选数，便于判断“命中”是不是噪声造成的。
+    """
+    boxes = [row["box"] for row in tick.get("candidate_boxes_detail", [])] or []
+    truth_box = list(truth["box"])
+    hits = [box for box in boxes if _box_iou(box, truth_box) >= 0.1]
+    center_x = (truth_box[0] + truth_box[2]) / 2.0
+    center_y = (truth_box[1] + truth_box[3]) / 2.0
+    centers = [
+        box for box in boxes
+        if box[0] <= center_x <= box[2] and box[1] <= center_y <= box[3]
+    ]
     return {
         "tick": tick_index,
-        "source_time": round(source_time, 3),
-        "profile_id": decision.selected_profile_id,
-        "candidate_profile_id": decision.candidate_profile_id,
-        "status": decision.status,
-        "phase": decision.phase,
-        "prior_allowed": decision.prior_allowed,
-        "reason": decision.reason,
-        "tested": list(to_check),
-        "static_eligible_ids": sorted(static_eligible),
-        "candidate_count": candidate_boxes,
-        "score_current": decision.score_current,
-        "score_best": decision.score_best,
-        "budget_exhausted": decision.budget_exhausted,
-        "search_cursor": decision.search_cursor,
-        "alignment_generation": decision.alignment_generation,
+        "file": file_id,
+        "source_time": round(float(source_time), 3),
+        "truth_box": truth_box,
+        "native_side": truth.get("native_side"),
+        "available": bool(tick.get("prior_allowed")),
+        "availability_max": tick.get("availability_max"),
+        "any_candidate": bool(tick.get("candidate_boxes")),
+        "candidate_boxes": tick.get("candidate_boxes"),
+        "iou_hits": len(hits),
+        "center_hits": len(centers),
+        "target_detected": bool(hits or centers),
+        "baseline_candidate_boxes": (
+            None if baseline_tick is None else baseline_tick.get("candidate_boxes")
+        ),
+        "blocked_reason": next(iter(
+            (tick.get("blocked_availability") or {}).values()
+        ), None),
     }
 
 
-def _notify_switch(
-    contexts: Mapping[str, Any], decision: Any, record: Mapping[str, Any],
-) -> None:
-    """提交边界通知事件 memory（本次评估未接入 V33 memory 时只记录）。"""
-    del contexts, decision, record
-
-
-def _confirmation_report(
-    ticks: Sequence[Mapping[str, Any]],
-    small_target_trials: Sequence[Mapping[str, Any]],
-) -> dict[str, Any]:
-    """首次可判断到提交的时延，以及小目标对照的逐例结果。"""
-    first_available: float | None = None
-    first_commit: float | None = None
-    for tick in ticks:
-        if tick["prior_allowed"] and first_available is None:
-            first_available = float(tick["source_time"])
-        if tick["profile_id"] and first_commit is None:
-            # 首次提交 = 出现选中参考的那一 tick。
-            first_commit = float(tick["source_time"])
-    detected = sum(1 for tick in ticks if tick["candidate_count"] > 0)
+def _small_target_summary(per_target: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
+    by_target = list(per_target)
+    detected = [row for row in by_target if row["target_detected"]]
+    paired = [row for row in by_target if row["baseline_candidate_boxes"] is not None]
+    paired_noise = [
+        row for row in paired
+        if not row["target_detected"] and (row["baseline_candidate_boxes"] or 0) > 0
+    ]
     return {
-        "trials": len(small_target_trials),
-        "ticks_with_prior_candidates": detected,
-        "first_prior_available_seconds": first_available,
-        "first_commit_seconds": first_commit,
-        "discovery_to_commit_seconds": (
-            None if first_available is None or first_commit is None
-            else round(first_commit - first_available, 3)
+        "trials": len(by_target),
+        "detected": len(detected),
+        "detection_fraction": (
+            0.0 if not by_target else round(len(detected) / len(by_target), 5)
         ),
+        "ticks_with_any_candidate": sum(
+            1 for row in by_target if row["any_candidate"]
+        ),
+        "trials_with_target_but_no_candidate": sum(
+            1 for row in by_target
+            if not row["any_candidate"]
+        ),
+        "paired_baselines": len(paired),
+        "paired_baseline_with_candidates": len(paired_noise),
+        "per_target": by_target,
+        "discovery_to_commit_seconds": None,
         "note": (
-            "小目标为合成叠加，只用于「不被噪声/局部无效吞掉」的机制对照，"
-            "不代表现场准确率"
+            "小目标为原图尺度合成叠加，逐目标空间匹配（IoU≥0.1 或中心命中）；"
+            "这是机制验证，不代表现场识别准确率"
         ),
     }
 

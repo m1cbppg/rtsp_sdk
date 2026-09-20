@@ -13,7 +13,7 @@
 """
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 import math
 from typing import Any, Iterable, Mapping, Sequence
 
@@ -23,8 +23,9 @@ import numpy as np
 from . import ground_litter_v32 as v32
 from .ground_litter_profile_bank import BankError, ProfileRecord
 from .ground_litter_profile_match import (
-    ColorCompensation, apply_compensation, evaluate_match, residual_maps,
-    robust_color_compensation, score_profile,
+    ColorCompensation, ResidualSupport, analyze_residual_support,
+    apply_compensation, evaluate_match, residual_maps, robust_color_compensation,
+    score_profile,
 )
 
 AVAILABILITY_REASONS = (
@@ -55,6 +56,9 @@ class BankPriorContext:
     noise: dict[str, np.ndarray]
     metadata: dict[str, Any]
     geometry_diagnostics: dict[str, Any] = field(default_factory=dict)
+    # 候选几何门槛的基准宽度（Bank 原生画布宽，通常 2560）。缩放后的上下文
+    # 用它把 V3.2 的像素门槛换算到当前回放画布，保证不同画布上语义一致。
+    reference_canvas_width: int = 0
 
     @property
     def reference_size(self) -> tuple[int, int]:
@@ -70,32 +74,42 @@ class BankPriorContext:
             return np.full(shape, base, np.float32)
         return np.asarray(array, np.float32)
 
-    def foreground_support(self, current: np.ndarray) -> np.ndarray:
+    def thresholds(self, shape: tuple[int, int]) -> dict[str, np.ndarray]:
+        return {
+            "seed_signature_threshold": self.threshold("seed_signature_threshold", shape),
+            "seed_luminance_threshold": self.threshold("seed_luminance_threshold", shape),
+            "support_signature_threshold": self.threshold("support_signature_threshold", shape),
+            "support_luminance_threshold": self.threshold("support_luminance_threshold", shape),
+        }
+
+    def foreground_support(
+        self, current: np.ndarray, *,
+        compensated_reference: np.ndarray | None = None,
+        detection_mask: np.ndarray | None = None,
+        availability: np.ndarray | None = None,
+    ) -> np.ndarray:
         """按冻结的离线阈值产生前景证据掩膜（0/1 uint8）。
 
-        直接用 candidate 的 signature/luminance 残差与 noise 阈值图比较；
-        **不**在直播中抬高阈值，也不因残差大而删除该像素。
+        R10：必须传入与评分**同一份**受限补偿结果（``compensated_reference``），
+        否则匹配通过而 prior 用的是未补偿的原始差异。
+
+        注意 ``detection_mask`` 是**检测可用区域**（资产 valid ∩ ROI ∩ 共同保护），
+        **不是**评分用的拟合排除掩膜：拟合时为了稳健会挖掉高残差区域，
+        把那个掩膜套到检测上会把要寻找的小目标一起挖掉（F2 禁止的做法）。
+        缺省时才退化为用原始参考（仅用于低层单元测试）。
         """
-        signature, luminance = residual_maps(self.reference, current)
-        shape = signature.shape
-        seed_sig = self.threshold("seed_signature_threshold", shape)
-        seed_lum = self.threshold("seed_luminance_threshold", shape)
-        support_sig = self.threshold("support_signature_threshold", shape)
-        support_lum = self.threshold("support_luminance_threshold", shape)
-        valid = self.valid > 0
-        seed = (
-            (signature >= seed_sig) & (luminance >= seed_lum) & valid
-        ).astype(np.uint8)
-        support = (
-            (signature >= support_sig) & (luminance >= support_lum) & valid
-        ).astype(np.uint8)
-        marker = cv2.dilate(
-            seed, np.ones((_scaled_odd(9, 1.0), _scaled_odd(9, 1.0)), np.uint8)
+        reference = (
+            self.reference if compensated_reference is None else compensated_reference
         )
-        grown = cv2.bitwise_and(support, marker)
-        return cv2.morphologyEx(
-            grown, cv2.MORPH_CLOSE, np.ones((5, 5), np.uint8)
+        valid = np.zeros_like(self.valid, np.uint8)
+        valid[self.valid > 0] = 255
+        if detection_mask is not None:
+            valid[detection_mask == 0] = 0
+        analysis = analyze_residual_support(
+            current, reference, valid, valid,
+            self.thresholds(valid.shape), min_availability=availability,
         )
+        return analysis.support
 
 
 _FALLBACK_BASE = {
@@ -171,6 +185,8 @@ def compute_mask_set(
     common_protection: np.ndarray | None = None,
     corruption: str | None = None, geometry_valid: bool = True,
     config: Mapping[str, Any] | None = None,
+    compensated_reference: np.ndarray | None = None,
+    fit_mask: np.ndarray | None = None,
 ) -> MaskSet:
     """生成三类掩膜，并把每个像素的不可用原因编码进 ``availability_reason``。
 
@@ -186,9 +202,14 @@ def compute_mask_set(
     masks = v32.compute_compensation_masks(
         context.reference, current, context.valid, pixel_scale=1.0,
     )
-    fit_mask = masks["fit_mask"].copy()
+    fitted = masks["fit_mask"].copy()
+    if fit_mask is not None:
+        # 评分阶段已经把受保护像素与饱和像素剔除了；这里沿用同一掩膜，
+        # 保证「拟合用的像素」与「前景提取用的像素」完全一致。
+        fitted = np.minimum(fitted, np.asarray(fit_mask, np.uint8))
     if common_protection is not None:
-        fit_mask[common_protection == 0] = 0
+        fitted[common_protection == 0] = 0
+    fit_mask = fitted
 
     available = np.zeros((height, width), bool)
     reasons[~((context.valid > 0) & (roi_mask > 0))] = (
@@ -263,7 +284,13 @@ def compute_mask_set(
 
     availability_mask = available.astype(np.uint8) * 255
     fit_mask[~available] = 0
-    support = context.foreground_support(current)
+    detection_mask = availability_mask.copy()
+    if common_protection is not None:
+        detection_mask[common_protection == 0] = 0
+    support = context.foreground_support(
+        current, compensated_reference=compensated_reference,
+        detection_mask=detection_mask,
+    )
     support[~available] = 0
 
     valid_total = max(int(np.count_nonzero(roi_mask > 0)), 1)
@@ -348,43 +375,118 @@ def evaluate_bank_frame(
         context, frame, roi_mask=roi_mask, actors=actors,
         common_protection=common_protection, corruption=corruption,
         geometry_valid=geometry_valid, config=config,
+        compensated_reference=getattr(score, "compensated_reference", None),
+        fit_mask=getattr(score, "fit_mask", None),
+    )
+    availability_fraction = float(
+        masks.diagnostics.get("available_fraction", 0.0)
     )
     outcome = evaluate_match(
         score, envelope, config, geometry_diagnostics=merged_diagnostics,
     )
-    rows = _support_candidates(masks.foreground_support, masks.availability_mask)
+    # R9：零可用性 / 坏帧 / 几何失效不得通过准入。adapter 已经算出这些状态，
+    # 必须进入最终 outcome，而不是被调用方用默认 verified=True 覆盖。
+    blocked_reason = _admission_block_reason(
+        masks, availability_fraction, corruption, geometry_valid, config,
+    )
+    if blocked_reason:
+        outcome = replace(outcome, enter_eligible=False, hold_eligible=False,
+                          reason=f"BLOCKED_{blocked_reason}")
+    rows, rejected = _support_candidates(
+        masks.foreground_support, masks.availability_mask,
+        pixel_scale=_pixel_scale_for(frame.shape, context),
+    )
+    mask_diagnostics = dict(masks.diagnostics)
+    mask_diagnostics["candidate_rejections"] = rejected
+    mask_diagnostics["admission_blocked"] = blocked_reason
     return BankSelectionEvaluation(
         profile_id=context.profile_id,
         score=score.as_dict(),
         outcome=outcome.as_dict(),
-        mask_diagnostics=masks.diagnostics,
+        mask_diagnostics=mask_diagnostics,
         candidates=tuple(rows),
         support_pixels=int(np.count_nonzero(masks.foreground_support)),
-        availability_fraction=float(masks.diagnostics.get("available_fraction", 0.0)),
+        availability_fraction=availability_fraction,
     )
 
 
+_FATAL_AVAILABILITY_REASONS = (
+    "GEOMETRY_INVALID", "FRAME_CORRUPT", "NO_COMMON_VISIBILITY",
+)
+
+
+def _pixel_scale_for(shape: tuple[int, int], context: BankPriorContext) -> float:
+    """把候选几何门槛从 Bank 原生画布宽换算到当前画布。"""
+    width = int(shape[1]) if len(shape) >= 2 else int(shape[0])
+    base = int(getattr(context, "reference_canvas_width", 0) or 0)
+    if base <= 0:
+        base = int(context.reference.shape[1])
+    return max(width, 1) / max(base, 1)
+
+
+def _admission_block_reason(
+    masks: MaskSet, availability_fraction: float, corruption: str | None,
+    geometry_valid: bool, config: Mapping[str, Any],
+) -> str | None:
+    """返回阻断准入的原因；None 表示可继续判断。"""
+    if corruption:
+        return "FRAME_CORRUPT"
+    if not geometry_valid:
+        return "GEOMETRY_INVALID"
+    histogram = masks.reason_histogram()
+    for reason in _FATAL_AVAILABILITY_REASONS:
+        if histogram.get(reason):
+            return reason
+    minimum = float(
+        (config.get("geometry") or {}).get("min_availability_fraction", 0.15)
+    )
+    if availability_fraction < minimum:
+        return "AVAILABILITY_BELOW_MINIMUM"
+    return None
+
+
 def _support_candidates(
-    support: np.ndarray, availability: np.ndarray,
-) -> list[dict[str, Any]]:
-    """把前景支持连通域转成候选框，但**不**按可用性/噪声门槛删除小目标。"""
+    support: np.ndarray, availability: np.ndarray, *,
+    pixel_scale: float = 1.0,
+) -> tuple[list[dict[str, Any]], dict[str, int]]:
+    """把前景支持连通域转成候选框，并恢复 V3.2 的候选几何过滤（R10）。
+
+    过滤条件（按 ``pixel_scale`` 换算到当前画布）：
+    seed 像素数、面积、短边、长边上限、面积上限。**保留小目标**：
+    只要达到最小面积/短边就保留，不能用整体阈值把小目标一起抹掉。
+    噪声连通域（1 像素）与大块（超过最大面积）不计为候选，但分别计数，
+    便于报告区分“被过滤的噪点”和“被过滤的大块变化”。
+    """
+    height, width = support.shape[:2]
+    min_seed = max(1, round(v32.MINIMUM_SEED_PIXELS * pixel_scale ** 2))
+    min_area = max(1, round(v32.MINIMUM_SUPPORT_AREA * pixel_scale ** 2))
+    min_side = max(1, round(v32.MINIMUM_SUPPORT_SHORT_SIDE * pixel_scale))
+    max_side = round(v32.MAXIMUM_SUPPORT_SIDE * pixel_scale)
+    max_area = round(v32.MAXIMUM_SUPPORT_BOX_AREA * pixel_scale ** 2)
     count, labels, stats, _ = cv2.connectedComponentsWithStats(support.astype(np.uint8), 8)
     rows: list[dict[str, Any]] = []
+    rejected = {"outside_availability": 0, "too_small": 0, "too_large": 0}
     for index in range(1, count):
-        x, y, width, height, area = (int(value) for value in stats[index])
+        x, y, box_w, box_h, area = (int(value) for value in stats[index])
         component = labels == index
         if int(np.count_nonzero(availability[component])) == 0:
-            # 完全落在不可判断区域的连通域不产生证据，但保留原因供报告。
+            rejected["outside_availability"] += 1
+            continue
+        if area < min_area or min(box_w, box_h) < min_side:
+            rejected["too_small"] += 1
+            continue
+        if max(box_w, box_h) > max_side or box_w * box_h > max_area:
+            rejected["too_large"] += 1
             continue
         rows.append({
-            "box": [x, y, x + width, y + height],
+            "box": [x, y, x + box_w, y + box_h],
             "support_pixels": int(area),
             "anomaly_score": round(
-                float(min(1.0, area / max(1.0, float(v32.MINIMUM_SUPPORT_AREA)) / 4.0)), 4
+                float(min(1.0, area / max(1.0, float(min_area)) / 4.0)), 4
             ),
         })
     rows.sort(key=lambda row: -row["support_pixels"])
-    return rows
+    return rows, rejected
 
 
 # --------------------------------------------------------------------------- #

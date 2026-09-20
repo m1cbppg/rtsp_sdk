@@ -46,25 +46,29 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from rtsp_annotator.ground_litter_profile_analysis import (  # noqa: E402
-    roi_mask_from_geometry,
+    BankPriorContext, compute_mask_set, roi_mask_from_geometry,
 )
 from rtsp_annotator.ground_litter_profile_background import (  # noqa: E402
     MAX_BANK_PROFILES, diagnose_persistent_bias, estimate_noise,
+    observation_mask_from_frames,
     group_appearance_samples, replace_with_real_observations,
     select_time_balanced_frames, temporal_median_composite,
 )
 from rtsp_annotator.ground_litter_profile_bank import (  # noqa: E402
-    atomic_write_json, canonical_json, default_camera_geometry,
-    default_matcher_config, load_bank, publish_version, sha256_bytes, sha256_file,
+    BankError, atomic_write_json, canonical_json, default_camera_geometry,
+    default_matcher_config, load_bank, publish_version, sha256_bytes,
+    sha256_file,
 )
 from rtsp_annotator.ground_litter_profile_match import (  # noqa: E402
     envelope_from_samples, evaluate_match, extract_grid_descriptor,
     rank_by_coarse_distance, score_profile,
 )
+
 from rtsp_annotator.ground_litter_profile_sampling import (  # noqa: E402
-    BoundedPreviewSampler, CanvasRegistrar, build_hd_plan, coarse_sample_offsets,
-    cross_day_files, frame_quality, partition_recordings, preview_image,
-    probe_recording, parse_day, summarise_sampling_quality,
+    BoundedPreviewSampler, CanvasRegistrar, SequentialFrameReader,
+    build_hd_plan, coarse_sample_offsets, cross_day_files, frame_quality,
+    partition_recordings, preview_image, probe_recording, parse_day,
+    summarise_sampling_quality, write_canvas_reference,
 )
 from rtsp_annotator.ground_litter_profile_selector import (  # noqa: E402
     CandidateMatch, ProfileSelector,
@@ -343,90 +347,236 @@ def stage_inventory_remote(
     return files
 
 
-def materialize_remote(
+def stream_materialize_and_sample(
     config: FactoryConfig, client: RecordingListClient,
     downloader: RecordingDownloader, cache: ManagedRecordingCache,
-    files: Sequence[RecordingFile], report: dict[str, Any],
-    *, limit: int | None = None,
-) -> list[str]:
-    """临近下载时刷新 URL，逐个文件下载并原子落盘；返回成功 fileId 列表。"""
+    files: Sequence[RecordingFile], geometry: dict[str, Any],
+    report: dict[str, Any], *,
+    prefetch_slots: int = 2, wait_timeout: float = 900.0,
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]], dict[str, Any], dict[str, Any]]:
+    """有界「拉取→处理→提交→释放」流水线（R5）。
+
+    与旧实现的三点差别：
+
+    1. 不再先整批下载：预取窗口固定为 ``prefetch_slots`` 个文件，处理完一个
+       才补下一个；
+    2. 预算不足时 ``wait_for_capacity`` **等待消费**，不 ``break`` 截断计划，
+       因此分区不会被静默缩小；
+    3. 释放发生在**退出 lease 之后**（旧代码在 lease 上下文中调用 release，
+       必然被 ``LEASED`` 拒绝）。
+    """
+    size = (int(geometry["canvas_size"][0]), int(geometry["canvas_size"][1]))
+    roi = roi_mask_from_geometry(geometry, size[0], size[1])
+    overlay = geometry.get("overlay_exclude_zones") or []
+    canvas_path = config.work_dir / "canvas_reference.png"
+
+    samples: list[dict[str, Any]] = []
+    details: list[dict[str, Any]] = []
+    descriptors: dict[str, dict[str, np.ndarray]] = {}
+    hd_plan: dict[str, Any] = {"files": {}}
+    final_states: list[dict[str, Any]] = []
     policy = UrlRefreshPolicy()
-    ready: list[str] = []
-    attempted = 0
+    pipeline: dict[str, Any] = {
+        "planned": len(files), "prefetch_slots": prefetch_slots,
+        "waited_seconds": 0.0, "wait_events": [], "truncated_plan": False,
+        "downloaded_files": 0, "released_files": 0,
+    }
+
+    # 第一帧用于冻结画布：优先用已就绪的文件；冷缓存时先取一个源。
+    canvas_reference: np.ndarray | None = None
+    canvas_source: Path | None = None
     for item in files:
-        if limit is not None and attempted >= limit:
+        entry = cache.entry(config.device_code, item.file_id)
+        if entry is not None and entry.path is not None and entry.path.is_file():
+            canvas_source = entry.path
             break
-        attempted += 1
-        allowed, reason = cache.can_reserve(item.file_size)
-        if not allowed:
-            report.setdefault("backpressure", []).append({
-                "file_id": item.file_id, "reason": reason,
-            })
+        fallback = Path(item.file_name)
+        if fallback.is_file():
+            canvas_source = fallback
             break
-        query = ListQuery(
-            config.device_code, item.record_start, item.record_end,
+    if canvas_source is not None:
+        try:
+            for frame in SequentialFrameReader(canvas_source).iter_frames():
+                canvas_reference = cv2.resize(
+                    frame.frame, size, interpolation=cv2.INTER_AREA,
+                )
+                break
+        except Exception:
+            canvas_reference = None
+    if canvas_reference is None:
+        raise SystemExit("无法从构建集建立共同画布")
+    canvas_sha = write_canvas_reference(canvas_path, canvas_reference)
+    report["frozen_canvas"] = {
+        "path": str(canvas_path), "sha256": canvas_sha,
+        "size": [int(canvas_reference.shape[1]), int(canvas_reference.shape[0])],
+        "derived_from": "first decodable training frame",
+        "policy": "one frozen canvas for every file; no per-file re-basing",
+    }
+    print(f"[canvas] frozen {canvas_sha[:16]}", flush=True)
+
+    def ensure_ready(item: RecordingFile) -> tuple[bool, str]:
+        entry = cache.entry(config.device_code, item.file_id)
+        if entry is not None and entry.path is not None and entry.path.is_file():
+            return True, ""
+        ok, reason = cache.wait_for_capacity(
+            item.file_size, timeout=wait_timeout,
         )
+        if not ok:
+            pipeline["truncated_plan"] = True
+            return False, reason
+        window = ListQuery(config.device_code, item.record_start, item.record_end)
         try:
-            entry = downloader.fetch_url_for_file(
-                client, query, item.file_id, policy=policy,
+            fresh = downloader.fetch_url_for_file(
+                client, window, item.file_id, policy=policy,
             )
-        except Exception as exc:
-            cache.fail_download(config.device_code, item.file_id, str(exc)[:120])
-            report.setdefault("failures", []).append({
-                "file_id": item.file_id, "stage": "refresh", "error": str(exc)[:120],
-            })
-            continue
-        target = cache.begin_download(config.device_code, item)
-        try:
+            target = cache.begin_download(config.device_code, item)
             result = downloader.download(
-                entry.url, target, expected_size=item.file_size,
+                fresh.url, target, expected_size=item.file_size,
                 allow_resume=False,
             )
         except Exception as exc:
             cache.fail_download(config.device_code, item.file_id, str(exc)[:120])
-            report.setdefault("failures", []).append({
-                "file_id": item.file_id, "stage": "download", "error": str(exc)[:120],
-            })
-            continue
+            return False, f"download_error:{type(exc).__name__}"
         if not file_looks_like_media(target):
-            cache.fail_download(
-                config.device_code, item.file_id, "content_probe_failed",
-                bytes_received=result.size,
-            )
-            report.setdefault("failures", []).append({
-                "file_id": item.file_id, "stage": "probe", "error": "content_probe_failed",
-            })
-            continue
+            cache.fail_download(config.device_code, item.file_id,
+                                "content_probe_failed")
+            return False, "content_probe_failed"
+        probe = probe_recording(target)
+        if not probe.ok:
+            cache.fail_download(config.device_code, item.file_id,
+                                f"decode_failed:{probe.error}")
+            return False, "decode_failed"
         cache.complete_download(
             config.device_code, item.file_id, path=target, size=result.size,
             sha256=result.sha256, range_supported=result.range_supported,
             elapsed_seconds=result.elapsed_seconds,
         )
-        probe = probe_recording(target)
-        if not probe.ok:
-            cache.fail_download(
-                config.device_code, item.file_id, f"decode_failed:{probe.error}",
-                bytes_received=result.size, elapsed_seconds=probe.decode_seconds,
-            )
-            report.setdefault("failures", []).append({
-                "file_id": item.file_id, "stage": "decode", "error": probe.error,
+        pipeline["downloaded_files"] += 1
+        return True, ""
+
+    inflight: list[RecordingFile] = []
+    pending = list(files)
+
+    def fill_prefetch() -> None:
+        while pending and len(inflight) < prefetch_slots:
+            inflight.append(pending.pop(0))
+
+    for index, item in enumerate(files, start=1):
+        fill_prefetch()
+        if index % 10 == 1 or index == len(files):
+            print(f"[sampling] {index}/{len(files)} {item.record_start} "
+                  f"samples={len(samples)}", flush=True)
+        wait_started = time.monotonic()
+        ok, reason = ensure_ready(item)
+        waited = time.monotonic() - wait_started
+        pipeline["waited_seconds"] += waited
+        if not ok:
+            pipeline["wait_events"].append({
+                "file_id": item.file_id, "reason": reason,
+                "waited_seconds": round(waited, 3),
+            })
+            final_states.append({
+                "file_id": item.file_id, "state": f"failed:{reason}",
+                "record_start": item.record_start,
+            })
+            if item in inflight:
+                inflight.remove(item)
+            continue
+        if item in inflight:
+            inflight.remove(item)
+        entry = cache.entry(config.device_code, item.file_id)
+        if entry is None or entry.path is None:
+            final_states.append({"file_id": item.file_id, "state": "not_ready"})
+            continue
+        try:
+            with cache.acquire(config.device_code, item.file_id,
+                               owner="sampler") as lease:
+                sampler = BoundedPreviewSampler(
+                    cache, analysis_size=size, roi_mask=roi,
+                    seed=config.seed, preview_width=config.preview_width,
+                    use_seek=config.use_seek,
+                    algorithm_version=ALGORITHM_VERSION,
+                    canvas_reference=canvas_reference,
+                    overlay_exclude_zones=overlay,
+                )
+                result = sampler.sample_file(config.device_code, lease)
+                file_id = item.file_id
+        except Exception as exc:
+            details.append({"file_id": item.file_id, "error": str(exc)[:160]})
+            final_states.append({
+                "file_id": item.file_id, "state": "sample_error",
+                "error": type(exc).__name__,
             })
             continue
-        ready.append(item.file_id)
-        report.setdefault("range_probe", []).append({
-            "file_id": item.file_id, "supported": result.range_supported,
+        details.append({"file_id": item.file_id, **result["detail"]})
+        for sample in result["samples"]:
+            payload = sample.as_dict()
+            payload["preview"] = sample.preview
+            payload["descriptor"] = sample.descriptor
+            payload["hd_frame"] = (
+                cv2.resize(sample.aligned_full, size, interpolation=cv2.INTER_AREA)
+                if sample.aligned_full is not None else None
+            )
+            samples.append(payload)
+            descriptors[sample.time_block] = sample.descriptor
+        plan = build_hd_plan(result["samples"])
+        for key, value in plan["files"].items():
+            merged = hd_plan["files"].setdefault(key, value)
+            merged["offsets"] = sorted(set(merged["offsets"]) | set(value["offsets"]))
+        # 退出 lease 之后再释放：旧代码在 lease 内调用会被 LEASED 拒绝。
+        released = cache.release_file(
+            config.device_code, file_id, require_committed=("preview",),
+        )
+        if released:
+            pipeline["released_files"] += 1
+        final_states.append({
+            "file_id": file_id, "state": "consumed",
+            "record_start": item.record_start, "released": bool(released),
+            "samples": len(result["samples"]),
         })
-    report["downloaded"] = {
-        "attempted": attempted,
-        "ready": len(ready),
-        "failed": len(report.get("failures", [])),
-        "refresh_count": policy.refresh_count,
-        "expired_events": policy.expired_events,
-        "bytes": downloader.downloaded_bytes,
-        "seconds": round(downloader.download_seconds, 3),
-        "range_fallbacks": downloader.range_fallbacks,
+
+    pipeline["final_states"] = final_states
+    pipeline["consumed"] = sum(
+        1 for row in final_states if row["state"] == "consumed"
+    )
+    pipeline["failed"] = sum(
+        1 for row in final_states if row["state"].startswith("failed")
+    )
+    pipeline["waited_seconds"] = round(pipeline["waited_seconds"], 3)
+    pipeline["refresh_count"] = policy.refresh_count
+    report["pipeline"] = pipeline
+    report["sampling"] = {
+        "files_sampled": len(details),
+        "quality": summarise_sampling_quality(samples),
+        "decode_seconds": round(sum(
+            item.get("decode_seconds", 0.0) for item in details
+        ), 3),
+        "seek_seconds": round(sum(item.get("seek_seconds", 0.0) for item in details), 3),
+        "rejected": sum(len(item.get("rejected", [])) for item in details),
+        "mode": "seek" if config.use_seek else "sequential",
+        "bytes_downloaded": sum(
+            int(item.get("downloaded_bytes") or 0) for item in details
+        ),
+        "per_file": details,
     }
-    return ready
+    registration = [
+        row for detail in details for row in detail.get("registration", []) or []
+    ]
+    report["registration"] = {
+        "applied_to_canvas": sum(
+            1 for row in registration if row.get("applied_to_canvas")
+        ),
+        "rejected": sum(
+            1 for row in registration if not row.get("applied_to_canvas")
+        ),
+        "canvas_sha256": canvas_sha,
+    }
+    report["hd_plan"] = {
+        "files": len(hd_plan["files"]),
+        "offsets": sum(len(value["offsets"]) for value in hd_plan["files"].values()),
+    }
+    atomic_write_json(config.work_dir / "hd_plan.json", hd_plan)
+    return samples, details, hd_plan, descriptors
 
 
 def find_first_decodable(
@@ -443,101 +593,6 @@ def find_first_decodable(
             return (probe.width, probe.height), str(entry.path)
         del work_dir
     raise SystemExit("没有任何文件可解码，无法确定分析尺寸")
-
-
-def stage_sampling(
-    config: FactoryConfig, cache: ManagedRecordingCache,
-    files: Sequence[RecordingFile], geometry: dict[str, Any],
-    report: dict[str, Any],
-) -> tuple[list[dict[str, Any]], dict[str, Any], dict[str, np.ndarray]]:
-    size = (int(geometry["canvas_size"][0]), int(geometry["canvas_size"][1]))
-    roi = roi_mask_from_geometry(geometry, size[0], size[1])
-    overlay = geometry.get("overlay_exclude_zones") or []
-    samples: list[dict[str, Any]] = []
-    details: list[dict[str, Any]] = []
-    descriptors: dict[str, dict[str, np.ndarray]] = {}
-    hd_plan: dict[str, Any] = {"files": {}}
-
-    # 采样基准：用第一个可解码文件的第一帧建立共同画布。
-    from rtsp_annotator.ground_litter_profile_sampling import SequentialFrameReader
-
-    canvas_reference: np.ndarray | None = None
-    for item in files:
-        entry = cache.entry(config.device_code, item.file_id)
-        if entry is None or entry.path is None:
-            continue
-        reader = SequentialFrameReader(entry.path)
-        try:
-            for frame in reader.iter_frames():
-                canvas_reference = cv2.resize(
-                    frame.frame, size, interpolation=cv2.INTER_AREA
-                )
-                break
-        except Exception:
-            canvas_reference = None
-        if canvas_reference is not None:
-            break
-    if canvas_reference is None:
-        raise SystemExit("无法从构建集建立共同画布")
-
-    for file_index, item in enumerate(files, start=1):
-        entry = cache.entry(config.device_code, item.file_id)
-        if entry is None or entry.path is None:
-            continue
-        if file_index % 10 == 1 or file_index == len(files):
-            print(f"[sampling] {file_index}/{len(files)} {item.record_start} "
-                  f"samples={len(samples)}", flush=True)
-        with cache.acquire(config.device_code, item.file_id, owner="sampler") as lease:
-            sampler = BoundedPreviewSampler(
-                cache, analysis_size=size, roi_mask=roi,
-                seed=config.seed, preview_width=config.preview_width,
-                use_seek=config.use_seek, algorithm_version=ALGORITHM_VERSION,
-            )
-            try:
-                result = sampler.sample_file(config.device_code, lease)
-            except Exception as exc:
-                details.append({"file_id": item.file_id, "error": str(exc)[:160]})
-                continue
-            details.append({"file_id": item.file_id, **result["detail"]})
-            for sample in result["samples"]:
-                payload = sample.as_dict()
-                payload["preview"] = sample.preview
-                payload["descriptor"] = sample.descriptor
-                # 高清帧已在本轮解码中得到，缓存分析尺寸版本，避免合成阶段
-                # 为同一分钟文件再解码一遍（方案一 §4.7 的「一次重拉尽量
-                # 完成该文件本轮全部需求」）。
-                payload["hd_frame"] = cv2.resize(
-                    sample.aligned_full, size, interpolation=cv2.INTER_AREA,
-                ) if sample.aligned_full is not None else None
-                samples.append(payload)
-                descriptors[sample.time_block] = sample.descriptor
-            plan = build_hd_plan(result["samples"])
-            for key, value in plan["files"].items():
-                merged = hd_plan["files"].setdefault(key, value)
-                merged["offsets"] = sorted(set(merged["offsets"]) | set(value["offsets"]))
-            # preview 已提交 → 允许释放临时 PS（有重拉路径）。
-            sampler.release_after_preview(config.device_code, lease)
-
-    report["sampling"] = {
-        "files_sampled": len(details),
-        "quality": summarise_sampling_quality(samples),
-        "decode_seconds": round(sum(
-            item.get("decode_seconds", 0.0) for item in details
-        ), 3),
-        "seek_seconds": round(sum(item.get("seek_seconds", 0.0) for item in details), 3),
-        "rejected": sum(len(item.get("rejected", [])) for item in details),
-        "mode": "seek" if config.use_seek else "sequential",
-        "bytes_downloaded": sum(
-            int(item.get("downloaded_bytes") or 0) for item in details
-        ),
-        "per_file": details,
-    }
-    report["hd_plan"] = {
-        "files": len(hd_plan["files"]),
-        "offsets": sum(len(value["offsets"]) for value in hd_plan["files"].values()),
-    }
-    atomic_write_json(config.work_dir / "hd_plan.json", hd_plan)
-    return samples, hd_plan, descriptors
 
 
 def stage_grouping(
@@ -637,34 +692,73 @@ def stage_composite_and_noise(
             report.setdefault("composite_skipped", []).append(group["group_id"])
             print(f"[composite]   skipped (frames={len(frames)})", flush=True)
             continue
+        # R7：用真实观测导出遮挡/运动掩膜；每帧一个 mask，而不是整块 ROI。
+        availability_roi, observation_diag, observation_masks = (
+            observation_mask_from_frames(frames, roi, block_ids=blocks)
+        )
+        # 逐帧掩膜用于合成：既排除本帧的运动物体，也排除长期遮挡地带。
+        composite_masks = [
+            np.minimum(mask, availability_roi)
+            for mask in observation_masks
+        ]
         composite = temporal_median_composite(
-            frames, masks, roi, blocks, stride=2, min_observations=2,
+            frames, composite_masks, availability_roi, blocks,
+            stride=2, min_observations=2,
         )
         refined, replace_diagnostics = replace_with_real_observations(
-            composite.reference, frames, masks, roi,
+            composite.reference, frames, composite_masks, availability_roi,
         )
-        # 构建块之外的观测才用于噪声估计，避免给自己打分。
+        # R7：优先用**独立校准块**估噪声；退化时明确标注，而不是悄悄用构建块。
         eval_frames = [
             frame for frame, block in zip(frames, blocks)
-            if block not in build_blocks
+            if block in calibration_blocks
         ]
         eval_masks = [
-            mask for mask, block in zip(masks, blocks) if block not in build_blocks
+            mask for mask, block in zip(composite_masks, blocks)
+            if block in calibration_blocks
         ]
-        eval_blocks = [block for block in blocks if block not in build_blocks]
-        if len(eval_frames) < 2:
-            # 支持不足时用全部观测并明确标注低支持。
-            eval_frames, eval_masks, eval_blocks = frames, masks, blocks
-            noise_note = "low_support_used_all_blocks"
+        eval_blocks = [block for block in blocks if block in calibration_blocks]
+        independent = len(eval_frames) >= 2
+        if not independent:
+            eval_frames = [
+                frame for frame, block in zip(frames, blocks)
+                if block not in build_blocks
+            ]
+            eval_masks = [
+                mask for mask, block in zip(composite_masks, blocks)
+                if block not in build_blocks
+            ]
+            eval_blocks = [block for block in blocks if block not in build_blocks]
+            noise_note = "no_independent_calibration_blocks"
         else:
-            noise_note = "held_out_blocks"
+            noise_note = "independent_calibration_blocks"
+        if len(eval_frames) < 2:
+            eval_frames, eval_masks, eval_blocks = frames, composite_masks, blocks
+            noise_note = "low_support_used_all_blocks"
         # 阈值图必须与参考同尺寸（Bank loader 契约）。逐像素分位代价随帧数线性
         # 增长，这里按时间均匀抽稀到 24 帧（块覆盖保持不变）。
         noise = estimate_noise(
             refined, eval_frames, eval_masks, eval_blocks, stride=1,
-            config={"max_estimate_frames": 24},
+            config={
+                "max_estimate_frames": 24,
+                "_calibration_block_count": len(eval_blocks),
+                "_independent_calibration": independent,
+            },
         )
         diagnosis = diagnose_persistent_bias(noise)
+        # R7：发布的 valid 反映局部可用性：ROI ∩ 观测可用 ∩ 非持续偏差。
+        bias_flag = np.asarray(noise.payload["bias_flag"], np.uint8)
+        low_support_flag = np.asarray(noise.payload["low_support"], np.uint8)
+        published_valid = np.zeros_like(availability_roi)
+        published_valid[availability_roi > 0] = 255
+        published_valid[bias_flag > 0] = 0
+        published_valid[low_support_flag > 0] = 0
+        published_valid = cv2.morphologyEx(
+            published_valid, cv2.MORPH_OPEN, np.ones((3, 3), np.uint8),
+        )
+        if int(np.count_nonzero(published_valid)) < 5000:
+            published_valid = availability_roi.copy()
+            noise_note += "|valid_fallback_to_observation_mask"
         print(f"[composite]   done frames={len(frames)} eval={len(eval_frames)} "
               f"bias_px={diagnosis and noise.diagnostics.get('bias_flag_pixels')} "
               f"seconds={round(time.monotonic() - _t0, 1)}", flush=True)
@@ -681,7 +775,7 @@ def stage_composite_and_noise(
             "profile_id": profile_id,
             "group_id": group["group_id"],
             "reference": refined,
-            "valid": roi.copy(),
+            "valid": published_valid,
             "noise": noise,
             "descriptor": descriptor,
             "composite": composite.diagnostics,
@@ -693,6 +787,18 @@ def stage_composite_and_noise(
             "low_support": group["low_support"],
             "days": group["days"],
             "samples": len(frames),
+            "observation": observation_diag,
+            "valid_fraction_of_roi": round(
+                float(np.count_nonzero(published_valid))
+                / max(int(np.count_nonzero(roi)), 1), 5,
+            ),
+            "context": BankPriorContext(
+                profile_id=profile_id,
+                reference=refined,
+                valid=published_valid,
+                noise=dict(noise.payload),
+                metadata={"group_id": group["group_id"], "low_support": group["low_support"]},
+            ),
         })
     report["composite"] = [
         {
@@ -704,6 +810,8 @@ def stage_composite_and_noise(
             "bias": item["bias_diagnosis"],
             "noise_note": item["noise_note"],
             "support": item["support"],
+            "observation": item["observation"],
+            "valid_fraction_of_roi": item["valid_fraction_of_roi"],
         }
         for item in candidates
     ]
@@ -711,241 +819,275 @@ def stage_composite_and_noise(
     return candidates
 
 
-def stage_preselect_and_finalize(
-    config: FactoryConfig, candidates: Sequence[dict[str, Any]],
-    geometry: dict[str, Any], report: dict[str, Any],
-    *, build_frames: Sequence[tuple[str, np.ndarray]],
-    config_hash: str,
-) -> list[dict[str, Any]]:
-    """静态贪心预选 + 完整 Selector 动态定稿（F4）。"""
-    _pt0 = time.monotonic()
-    matcher = default_matcher_config()
-    # 动态定稿在 1280x720 回放画布上做：几何是归一化的，缩放不改变语义，
-    # 但全尺寸 36 候选 × 上百帧评分会把 15G 内存的服务器打爆（实测 9.9GB RSS）。
-    replay_w, replay_h = 960, 540
-    print(f"[preselect] replay canvas {replay_w}x{replay_h}", flush=True)
+def _canvas_scaled(candidates: Sequence[dict[str, Any]], size: tuple[int, int],
+                   replay_w: int, replay_h: int) -> dict[str, dict[str, Any]]:
+    """把每个候选的参考/有效图/阈值图缩放到回放画布（几何是归一化的）。"""
+    del size
+    contexts: dict[str, dict[str, Any]] = {}
+    for item in candidates:
+        context = item["context"]
+        contexts[item["profile_id"]] = {
+            "reference": cv2.resize(context.reference, (replay_w, replay_h),
+                                    interpolation=cv2.INTER_AREA),
+            "valid": cv2.resize(context.valid, (replay_w, replay_h),
+                                interpolation=cv2.INTER_NEAREST),
+        }
+    return contexts
+
+
+def fit_frozen_envelopes(
+    config: "FactoryConfig", cache: ManagedRecordingCache,
+    candidates: Sequence[dict[str, Any]], calibration_files: Sequence[RecordingFile],
+    geometry: Mapping[str, Any], matcher: Mapping[str, Any], report: dict[str, Any],
+    *, max_frames_per_file: int = 6, replay_scale: float = 1.0,
+) -> dict[str, dict[str, Any]]:
+    """只在**校准集**上拟合进入/保持包络，并记录来源（R1）。
+
+    校准集与构建集、盲测集按天隔离；这里只读校准文件，绝不使用待评数据。
+    """
+    size = (int(geometry["canvas_size"][0]), int(geometry["canvas_size"][1]))
+    roi = roi_mask_from_geometry(geometry, size[0], size[1])
+    overlay = geometry.get("overlay_exclude_zones") or []
+    by_id = {item.file_id: item for item in calibration_files}
+    contexts = {
+        item["profile_id"]: item["context"] for item in candidates
+    }
+    scores: dict[str, list[float]] = {pid: [] for pid in contexts}
+    frames_used: list[dict[str, Any]] = []
+    registrar: CanvasRegistrar | None = None
+    for item in calibration_files:
+        entry = cache.entry(config.device_code, item.file_id)
+        if entry is None or entry.path is None:
+            continue
+        probe = probe_recording(entry.path)
+        if not probe.ok:
+            continue
+        reader = SequentialFrameReader(entry.path)
+        offsets = coarse_sample_offsets(probe.duration_seconds,
+                                        seed=config.seed)
+        picked = (
+            reader.sample_with_seek(offsets, tolerance_seconds=1.0)
+            if config.use_seek else reader.sample_at(offsets)
+        )
+        taken = 0
+        for offset in offsets:
+            captured = picked.get(offset)
+            if captured is None:
+                continue
+            frame = cv2.resize(captured.frame, size, interpolation=cv2.INTER_AREA)
+            if not frame_quality(frame).usable:
+                continue
+            if registrar is None:
+                registrar = CanvasRegistrar(frame, overlay_exclude_zones=overlay)
+            try:
+                aligned, diagnostics = registrar.register(frame)
+            except BankError:
+                continue
+            del diagnostics
+            aligned = cv2.resize(aligned, size, interpolation=cv2.INTER_AREA)
+            for pid, context in contexts.items():
+                context_frame = aligned
+                try:
+                    score = score_profile(
+                        context_frame, context.reference, context.valid, roi,
+                        profile_id=pid, config=matcher,
+                    )
+                except BankError:
+                    continue
+                scores[pid].append(score.score)
+            taken += 1
+            frames_used.append({
+                "file_id": item.file_id,
+                "record_start": item.record_start,
+                "offset_seconds": round(float(offset), 3),
+            })
+            if taken >= max_frames_per_file:
+                break
+    envelopes: dict[str, dict[str, Any]] = {}
+    for pid, values in scores.items():
+        envelope = envelope_from_samples(values, matcher)
+        envelopes[pid] = {
+            "envelope": envelope.as_dict(),
+            "calibration": {
+                "source": "calibration_day",
+                "samples": len(values),
+            },
+        }
+    low = [pid for pid, values in scores.items() if len(values) < 6]
+    report["calibration"] = {
+        "files": len(calibration_files),
+        "frames_used": frames_used,
+        "profiles_with_samples": {pid: len(v) for pid, v in scores.items()},
+        "profiles_without_enough_samples": low,
+        "source": "calibration_day_only",
+        "note": "包络只在校准集上拟合；盲测与评估只读该冻结结果，不得重新拟合",
+    }
+    del by_id, replay_scale
+    return envelopes
+
+
+def replay_all_candidates(
+    config: "FactoryConfig", candidates: Sequence[dict[str, Any]],
+    replay_frames: Sequence[dict[str, Any]], geometry: Mapping[str, Any],
+    matcher: Mapping[str, Any], report: dict[str, Any], *,
+    replay_w: int = 960, replay_h: int = 540,
+    leave_one_out: bool = True, loo_stride: int = 4,
+) -> dict[str, Any]:
+    """共同回放：所有候选面对**同一** ``(source_time, frame)``（R2）。
+
+    返回每个候选的逐 tick 记录与留一法动态对照；不在这里做静态前 K 截断。
+    """
     if not candidates:
         raise SystemExit("没有任何可用候选，无法建库")
-    # 1) 静态预选：用小图描述子统计每个候选的潜在覆盖。
-    for item in candidates:
-        item["potential_frames"] = 0
-    # 静态预选：在回放画布上用小图描述子做粗排，不重复动全尺寸参考。
-    static_frames = [
-        (block, cv2.resize(frame, (replay_w, replay_h), interpolation=cv2.INTER_AREA))
-        for block, frame in build_frames[:120]
-    ]
-    for _block, frame in static_frames:
-        preview = preview_image(frame, width=config.preview_width)
-        payload = extract_grid_descriptor(
-            preview,
-            roi_mask_from_geometry(geometry, preview.shape[1], preview.shape[0]),
-        )
-        scores = []
-        for item in candidates:
-            best = float("inf")
-            for key in ("grid_luminance", "grid_chroma", "grid_structure"):
-                difference = float(np.median(np.abs(
-                    payload[key] - item["descriptor"][key]
-                )))
-                best = min(best, difference)
-            item["potential_frames"] += 1 if best < 12.0 else 0
-            scores.append(best)
-    total_frames = max(1, len(static_frames))
-    for item in candidates:
-        item["static_coverage"] = item["potential_frames"] / total_frames
+    if not replay_frames:
+        raise SystemExit("没有可用的连续回放帧")
+    # 回放画布不超过实际帧尺寸；全尺寸评分更容易打爆内存，等比缩小到上限。
+    frame_h, frame_w = replay_frames[0]["frame"].shape[:2]
+    scale = min(1.0, replay_w / max(frame_w, 1), replay_h / max(frame_h, 1))
+    replay_w = max(64, int(round(frame_w * scale)))
+    replay_h = max(64, int(round(frame_h * scale)))
+    frozen = {item["profile_id"]: item["envelope"] for item in candidates}
+    missing = [pid for pid, env in frozen.items() if not env]
+    if missing:
+        raise SystemExit(f"候选缺少冻结包络: {missing[:4]}")
+    roi = roi_mask_from_geometry(geometry, replay_w, replay_h)
+    contexts = _canvas_scaled(candidates, (replay_w, replay_h), replay_w, replay_h)
+    replay_config = dict(matcher.get("selection", {}))
+    nominal = float(
+        replay_frames[1]["source_time"] - replay_frames[0]["source_time"]
+    ) if len(replay_frames) > 1 else 2.0
+    nominal = max(0.05, min(nominal, 3600.0))
+    replay_config["tick_interval_seconds"] = nominal
+    replay_config.setdefault("join_gap_seconds", max(300.0, 4.0 * nominal))
 
-    # 2) 动态定稿：先测分数并校准包络，再用同一份 Selector 时序回放。
-    #    每个候选的帧按 80/20 分成「合成用途」与「动态评估用途」；评估帧不参与
-    #    该候选的合成，包络再从评估帧里每三个留出一个校准，尽量减少自证。
-    replay_frames = [
-        (block, cv2.resize(frame, (replay_w, replay_h), interpolation=cv2.INTER_AREA))
-        for block, frame in build_frames
-    ]
-    del build_frames
-    import gc as _gc
-    _gc.collect()
-    frames_by_candidate = _match_frames_to_candidates(candidates, replay_frames)
-    # 预先把候选参考缩到回放画布，避免每帧重复缩放（同时限制内存峰值）。
-    replay_contexts: dict[str, dict[str, Any]] = {}
-    for item in candidates:
-        replay_contexts[item["profile_id"]] = {
-            "reference": cv2.resize(
-                item["reference"], (replay_w, replay_h),
-                interpolation=cv2.INTER_AREA,
-            ),
-            "valid": cv2.resize(
-                item["valid"], (replay_w, replay_h),
-                interpolation=cv2.INTER_NEAREST,
-            ),
-        }
-    synthesis_frames: dict[str, list[np.ndarray]] = {}
-    evaluation_frames: dict[str, list[np.ndarray]] = {}
-    for profile_id, frames in frames_by_candidate.items():
-        if len(frames) < 2:
-            synthesis_frames[profile_id] = list(frames)
-            evaluation_frames[profile_id] = list(frames)
-            continue
-        cut = max(1, int(round(len(frames) * 0.8)))
-        cut = min(cut, len(frames) - 1)
-        synthesis_frames[profile_id] = frames[:cut]
-        evaluation_frames[profile_id] = frames[cut:]
-    measured: dict[str, list[float]] = {item["profile_id"]: [] for item in candidates}
-    score_cache: dict[tuple[int, str], Any] = {}
-    score_errors: dict[str, str] = {}
-    score_frame_limit = 120
-    # 候选太多会让评分成本与内存线性膨胀；先按静态覆盖粗排取前 K。
-    max_scored_candidates = 16
-    ordered_candidates = sorted(
-        candidates,
-        key=lambda entry: (-entry["static_coverage"], entry["profile_id"]),
-    )[: max_scored_candidates]
-    report["scored_candidates"] = [item["profile_id"] for item in ordered_candidates]
-    print(f"[preselect] scoring {len(ordered_candidates)}/{len(candidates)} candidates "
-          f"x {min(score_frame_limit, len(replay_frames))} frames at "
-          f"{replay_w}x{replay_h}", flush=True)
-    _pt0 = time.monotonic()
-    for index, (_block, frame) in enumerate(replay_frames[:score_frame_limit]):
-        for item in ordered_candidates:
-            frames = evaluation_frames.get(item["profile_id"], [])
-            if not frames:
-                continue
-            matched = frames[index % len(frames)]
-            context = replay_contexts[item["profile_id"]]
-            try:
-                score = score_profile(
-                    matched, context["reference"], context["valid"],
-                    roi_mask_from_geometry(geometry, replay_w, replay_h),
-                    profile_id=item["profile_id"], config=matcher,
+    def run(subset: Sequence[str], stride: int = 1) -> dict[str, Any]:
+        selector = ProfileSelector(
+            bank_id=config.bank_id, bank_version=config.version,
+            view_id=str(geometry.get("view_id", "view_0")),
+            profile_ids=subset, config=replay_config,
+        )
+        frames = list(replay_frames)[:: max(1, stride)]
+        for row in frames:
+            frame = row["frame"]
+            current_id = selector.selected_profile_id
+            current = None
+            matches: list[CandidateMatch] = []
+            for pid in subset:
+                context = contexts[pid]
+                try:
+                    score = score_profile(
+                        frame, context["reference"], context["valid"], roi,
+                        profile_id=pid, config=matcher,
+                    )
+                except BankError:
+                    continue
+                outcome = evaluate_match(score, frozen[pid], matcher)
+                candidate = CandidateMatch(
+                    pid, score.score, outcome.enter_eligible,
+                    outcome.hold_eligible,
                 )
-            except Exception as exc:
-                score_errors.setdefault(item["profile_id"], str(exc)[:120])
-                continue
-            measured[item["profile_id"]].append(score.score)
-            score_cache[(index, item["profile_id"])] = score
-    # 包络必须在**参考来源之外**的观测上校准：每三个观测留出一个，
-    # 与合成帧分离；样本不足时明确回退到公共稳健范围。
-    envelopes = {}
-    for item in ordered_candidates:
-        values = measured.get(item["profile_id"], [])
-        holdout = values[2::3] if len(values) >= 6 else []
-        envelopes[item["profile_id"]] = envelope_from_samples(holdout, matcher)
-    report["envelopes"] = {
-        key: value.as_dict() for key, value in envelopes.items()
-    }
-    report["score_diagnostics"] = {
-        "measured": {key: len(value) for key, value in measured.items()},
-        "errors": score_errors,
-    }
-    selector = ProfileSelector(
-        bank_id=config.bank_id, bank_version=config.version,
-        view_id=str(geometry.get("view_id", "view_0")),
-        profile_ids=[item["profile_id"] for item in ordered_candidates],
-        config=matcher["selection"],
-    )
-    timeline: list[dict[str, Any]] = []
-    for index, (_block, frame) in enumerate(replay_frames):
-        timestamp = float(index)
-        current_id = selector.selected_profile_id
-        current = None
-        candidates_this_tick: list[CandidateMatch] = []
-        for item in ordered_candidates:
-            score = score_cache.get((index, item["profile_id"]))
-            if score is None:
-                continue
-            outcome = evaluate_match(score, envelopes[item["profile_id"]], matcher)
-            candidate = CandidateMatch(
-                item["profile_id"], score.score, outcome.enter_eligible,
-                outcome.hold_eligible,
+                matches.append(candidate)
+                if pid == current_id:
+                    current = candidate
+            decision = selector.observe(
+                timestamp=float(row["source_time"]), current=current,
+                candidates=matches, tested_profile_ids=subset,
             )
-            candidates_this_tick.append(candidate)
-            if item["profile_id"] == current_id:
-                current = candidate
-        decision = selector.observe(
-            timestamp=timestamp, current=current, candidates=candidates_this_tick,
-        )
-        timeline.append(decision.as_dict())
-        if decision.commit_requested:
-            selector.commit(
-                profile_id=decision.commit_profile_id, timestamp=timestamp,
-            )
-    summary = selector.summarise()
-    print(f"[preselect] done in {round(time.monotonic() - _pt0, 1)}s "
-          f"effective={summary['effective_fraction']}", flush=True)
-    report["dynamic_finalisation"] = {
-        "selector_summary": summary,
-        "timeline_entries": len(timeline),
-        "config_hash": config_hash,
-        "note": (
-            "离线回放使用显式虚拟时钟与零加载时延；服务器实测前不代表在线恢复速度"
-        ),
-    }
-    report["static_preselect"] = {
-        item["profile_id"]: {
-            "static_coverage": round(item["static_coverage"], 5),
-            "samples": item["samples"],
-            "low_support": item["low_support"],
-        }
-        for item in candidates
-    }
-    # 3) 剪枝：只删掉既无静态增量、又没有缩短暂停的冗余候选。
-    selected = _prune_candidates(ordered_candidates, selector, report)
-    report["n_selection"] = {
-        "candidates": len(candidates),
-        "selected": len(selected),
-        "max_profiles": config.max_profiles,
-        "summary": summary,
-    }
-    return selected
+            if decision.commit_requested:
+                selector.commit(profile_id=decision.commit_profile_id,
+                                timestamp=float(row["source_time"]))
+        return selector.summarise(join_gap_seconds=replay_config["join_gap_seconds"])
 
-
-def _match_frames_to_candidates(
-    candidates: Sequence[dict[str, Any]],
-    build_frames: Sequence[tuple[str, np.ndarray]],
-) -> dict[str, list[np.ndarray]]:
-    """把构建集帧按分组来源分配到候选；没有来源信息时按描述子最近邻分配。"""
-    mapping: dict[str, list[np.ndarray]] = {}
+    baseline = run([item["profile_id"] for item in candidates])
+    report["replay"] = {
+        "scored_ticks": len(replay_frames),
+        "canvas": [replay_w, replay_h],
+        "nominal_tick_seconds": round(nominal, 4),
+        "frame_reuse": "all candidates share the same frame and source_time",
+    }
+    result = {
+        "baseline": baseline,
+        "envelopes": {pid: env for pid, env in frozen.items()},
+    }
+    if not leave_one_out or len(candidates) < 2:
+        result["leave_one_out"] = {}
+        return result
+    loo: dict[str, Any] = {}
     for item in candidates:
-        mapping[item["profile_id"]] = []
-    if not build_frames:
-        return mapping
-    for index, (block, frame) in enumerate(build_frames):
-        # 优先使用该文件自己的高分帧；没有来源归属时按顺序轮转，保证每个
-        # 候选都有独立的评估帧。
-        target = None
-        for item in candidates:
-            if block in item.get("source_files", ()):  # pragma: no cover - 预留
-                target = item
-                break
-        if target is None:
-            target = candidates[index % len(candidates)]
-        mapping[target["profile_id"]].append(frame)
-    return mapping
+        subset = [other["profile_id"] for other in candidates
+                  if other["profile_id"] != item["profile_id"]]
+        summary = run(subset, stride=loo_stride)
+        loo[item["profile_id"]] = {
+            "effective_fraction_without": summary["effective_fraction"],
+            "effective_fraction_delta": round(
+                baseline["effective_fraction"] - summary["effective_fraction"], 5
+            ),
+            "pause_max_without": summary["pause_max"],
+            "pause_max_delta": round(
+                summary["pause_max"] - baseline["pause_max"], 3
+            ),
+            "switch_count_without": summary["switch_count"],
+        }
+    result["leave_one_out"] = loo
+    return result
 
 
-def _prune_candidates(
-    candidates: Sequence[dict[str, Any]], selector: ProfileSelector,
-    report: dict[str, Any],
+def select_profiles_dynamically(
+    config: "FactoryConfig", candidates: Sequence[dict[str, Any]],
+    replay: Mapping[str, Any], report: dict[str, Any], *,
+    min_coverage_delta: float = 0.005, max_pause_delta: float = 5.0,
 ) -> list[dict[str, Any]]:
-    """动态剪枝：保留有静态覆盖或对过渡暂停有贡献的候选。"""
-    selected: list[dict[str, Any]] = []
+    """按留一法动态对照决定保留哪些候选（R2）。
+
+    删除规则（必须同时满足才删）：
+    * 去掉它不会让有效覆盖下降超过 ``min_coverage_delta``；
+    * 去掉它不会让最长暂停增加超过 ``max_pause_delta``。
+
+    这仍然是“过渡参考可保留”的实现：只要它对暂停尾部或覆盖有贡献就保留。
+    """
+    loo = dict(replay.get("leave_one_out") or {})
+    keep: list[dict[str, Any]] = []
     removed: list[dict[str, Any]] = []
     for item in candidates:
-        keep = item["static_coverage"] > 0.0 or item["low_support"]
-        if keep:
-            selected.append(item)
+        stats = loo.get(item["profile_id"])
+        if stats is None:
+            keep.append(item)
+            continue
+        coverage_lost = float(stats.get("effective_fraction_delta", 0.0))
+        pause_added = float(stats.get("pause_max_delta", 0.0))
+        if coverage_lost > min_coverage_delta or pause_added > max_pause_delta:
+            keep.append(item)
         else:
             removed.append({
+                "profile_id": item["profile_id"],
                 "group_id": item["group_id"],
-                "reason": "NO_STATIC_GAIN",
-                "static_coverage": round(item["static_coverage"], 5),
+                "reason": "DYNAMICALLY_REDUNDANT",
+                "leave_one_out": stats,
             })
+    if len(keep) > config.max_profiles:
+        # 资源上限不是预设 N：只在超过上限时按动态贡献排序裁剪。
+        ordered = sorted(
+            keep,
+            key=lambda entry: (
+                -float((loo.get(entry["profile_id"]) or {}).get(
+                    "effective_fraction_delta", 0.0)),
+                entry["profile_id"],
+            ),
+        )
+        for item in ordered[config.max_profiles:]:
+            removed.append({
+                "profile_id": item["profile_id"], "group_id": item["group_id"],
+                "reason": "EXCEEDS_RESOURCE_LIMIT",
+            })
+        keep = ordered[: config.max_profiles]
     report["pruning"] = {
         "removed": removed,
-        "kept": [item["group_id"] for item in selected],
-        "note": "只在动态回放的有效覆盖、暂停尾部与确认延迟均未变差时才删除参考",
+        "kept": [item["profile_id"] for item in keep],
+        "method": "leave_one_out_dynamic_replay",
+        "note": ("删除必须同时满足：有效覆盖下降 ≤ 阈值，且最长暂停增加 ≤ 阈值；"
+                 "静态覆盖不再是删除依据"),
     }
-    del selector
-    return selected
+    return keep
 
 
 # --------------------------------------------------------------------------- #
@@ -1052,15 +1194,8 @@ def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, An
                     for day in sorted({parse_day(item.record_start) for item in files})
                 },
             }
+            # R5：不在这里整批下载；分区冻结后由有界流水线按需拉取。
             downloader = RecordingDownloader()
-            ready = materialize_remote(
-                config, client, downloader, cache, files, report,
-                limit=config.max_downloads_per_run,
-            )
-            files = [item for item in files if item.file_id in set(ready)]
-            if not files:
-                raise SystemExit("下载后没有任何可用文件；见报告 failures")
-            report["download_report"] = cache.report()
 
         # 时间划分：前 N 天构建、第 N+1 天校准、第 N+2 天盲测。
         days = sorted({parse_day(item.record_start) for item in files})
@@ -1117,9 +1252,24 @@ def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, An
             "seed": config.seed, "preview_width": config.preview_width,
         }).encode())
 
-        samples, hd_plan, descriptors = stage_sampling(
-            config, cache, build_files, geometry, report,
-        )
+        # R5：拉取→处理→提交→释放，全程有界；分区已在上一步冻结。
+        if args.input is not None:
+            samples, sampling_details, hd_plan, descriptors = (
+                stream_materialize_and_sample(
+                    config, None, RecordingDownloader(), cache, build_files,
+                    geometry, report,
+                    prefetch_slots=int(getattr(args, "prefetch_slots", 2) or 2),
+                )
+            )
+        else:
+            samples, sampling_details, hd_plan, descriptors = (
+                stream_materialize_and_sample(
+                    config, client, downloader, cache, build_files,
+                    geometry, report,
+                    prefetch_slots=int(getattr(args, "prefetch_slots", 2) or 2),
+                )
+            )
+        del sampling_details
         if not samples:
             atomic_write_json(
                 config.work_dir / "failure_report.json", report,
@@ -1159,25 +1309,84 @@ def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, An
             sample.pop("hd_frame", None)
         import gc as _gc
         _gc.collect()
-        build_frames = _collect_frames(
+        replay_frames = _collect_replay_frames(
             cache, config, build_files, geometry,
             frame_budget=int(getattr(args, "max_replay_frames", 180) or 180),
         )
-        print(f"[replay] collected {len(build_frames)} frames "
+        print(f"[replay] collected {len(replay_frames)} frames "
               f"in {round(time.monotonic() - _rt0, 1)}s", flush=True)
-        print("[preselect] scoring candidates", flush=True)
-        _pt0 = time.monotonic()
         report["replay_frames"] = {
-            "frames": len(build_frames),
+            "frames": len(replay_frames),
             "files": len(build_files),
+            "source_span_seconds": round(
+                float(replay_frames[-1]["source_time"])
+                - float(replay_frames[0]["source_time"]), 3,
+            ) if len(replay_frames) > 1 else 0.0,
             "note": "动态定稿只回放有限连续片段；在线恢复速度必须由服务器实测",
         }
-        selected = stage_preselect_and_finalize(
-            config, candidates, geometry, report,
-            build_frames=build_frames, config_hash=config_hash,
+
+        # R1：包络只在**校准集**（独立日期）上拟合，并随 Bank 冻结发布。
+        print("[calibration] fitting frozen envelopes on the calibration day", flush=True)
+        matcher = default_matcher_config()
+        envelope_records = fit_frozen_envelopes(
+            config, cache, candidates, partition["calibration"], geometry,
+            matcher, report,
         )
+        for item in candidates:
+            item["envelope"] = (envelope_records.get(item["profile_id"]) or {}).get(
+                "envelope"
+            )
+        missing_envelopes = [
+            item["profile_id"] for item in candidates if not item["envelope"]
+        ]
+        if missing_envelopes:
+            raise SystemExit(
+                "校准集没有覆盖到这些候选的包络，拒绝发布未校准 Bank："
+                f"{missing_envelopes[:6]}"
+            )
+        metrics = matcher.setdefault("metrics", {})
+        metrics["score_scale"] = "per-profile cell-normalised S(p)"
+        matcher["calibration"] = {
+            "source": "calibration_day",
+            "calibrated_utc": report["started_utc"],
+            "method": "envelope_from_samples",
+            "quantile": matcher["envelope"]["quantile"],
+            "enter_margin": matcher["envelope"]["enter_margin"],
+            "hold_margin": matcher["envelope"]["hold_margin"],
+            "config_hash": config_hash,
+            "canvas_sha256": report["frozen_canvas"]["sha256"],
+            "inputs": {
+                "days": [report["time_partition"]["calibration_day"]],
+                "files": len(partition["calibration"]),
+                "samples": report["calibration"]["frames_used"],
+            },
+        }
+        matcher["profiles"] = envelope_records
+
+        # R2：所有候选面对同一帧、同一源时间的共同回放；再做留一法动态对照。
+        print("[select] joint replay over shared frames", flush=True)
+        replay = replay_all_candidates(
+            config, candidates, replay_frames, geometry, matcher, report,
+            leave_one_out=True,
+            loo_stride=int(getattr(args, "loo_stride", 4) or 4),
+        )
+        selected = select_profiles_dynamically(config, candidates, replay, report)
         if not selected:
-            raise SystemExit("动态剪枝后没有剩余候选")
+            raise SystemExit("动态选择后没有剩余候选")
+        report["n_selection"] = {
+            "candidates": len(candidates),
+            "selected": len(selected),
+            "max_profiles": config.max_profiles,
+            "baseline": replay["baseline"],
+            "leave_one_out": replay["leave_one_out"],
+            "summary": replay["baseline"],
+        }
+        # 记录每 tick 的逐候选分数与决策，便于复核“同一帧”与选 N 过程。
+        atomic_write_json(
+            config.work_dir / "dynamic_selection.json",
+            {"baseline": replay["baseline"], "leave_one_out": replay["leave_one_out"],
+             "pruning": report.get("pruning", {})},
+        )
 
         asset_entries = []
         for item in selected[: config.max_profiles]:
@@ -1209,7 +1418,12 @@ def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, An
                         "mode": "local_directory" if args.input is not None
                         else "ctseelink-file-urls",
                         "build_days": build_days,
+                        "calibration_day": report["time_partition"]["calibration_day"],
+                        "blind_day": report["time_partition"]["blind_day"],
                     },
+                    "envelope": item.get("envelope"),
+                    "observation": item.get("observation"),
+                    "valid_fraction_of_roi": item.get("valid_fraction_of_roi"),
                 },
             })
         final = publish_version(
@@ -1224,13 +1438,15 @@ def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, An
                     "disclaimer": "参考是稳定场景估计，不是清洁真值认证",
                 },
                 "time_partition": report["time_partition"],
+                "frozen_canvas": report.get("frozen_canvas", {}),
+                "calibration": matcher.get("calibration", {}),
                 "resource_limits": {
                     "raw_cache_budget": config.raw_cache_budget,
                     "work_budget": config.work_budget,
                 },
             },
             camera_geometry=geometry,
-            matcher=default_matcher_config(),
+            matcher=matcher,
             profiles=asset_entries,
             supersede_existing=config.supersede,
         )
@@ -1325,43 +1541,58 @@ def _ensure_remote_entries(
     return summary
 
 
-def _collect_frames(
+def _collect_replay_frames(
     cache: ManagedRecordingCache, config: FactoryConfig,
     files: Sequence[RecordingFile], geometry: Mapping[str, Any],
     *, frame_budget: int = 180,
-) -> list[tuple[str, np.ndarray]]:
-    """构建集顺序解码：用于动态回放的连续帧（按时间顺序，跨文件不重置）。"""
-    from rtsp_annotator.ground_litter_profile_sampling import SequentialFrameReader
+) -> list[dict[str, Any]]:
+    """按时间顺序收集连续回放帧，并保留**真实源时间**与帧指纹（R2）。
+
+    每帧记录 ``source_time``（录像起始时刻 + 文件内偏移）与帧内容 SHA-256，
+    使“同一 tick 的所有候选用同一帧”与“时间线真实”都可被复核。
+    """
+    import gc as _gc
+
     size = (int(geometry["canvas_size"][0]), int(geometry["canvas_size"][1]))
     ordered = sorted(files, key=lambda item: (item.record_start, item.file_id))
-    import gc
-
-    frames: list[tuple[str, np.ndarray]] = []
-    # 动态定稿只需要足以覆盖时间块的连续片段；按帧预算截断，不把整天高清帧
-    # 常驻内存（方案一 §7.1）。这里按文件数均分预算，保证跨文件连续性，
-    # 并周期性 gc，避免 PyAV/glibc 把已释放的大数组留在 RSS 里。
+    rows: list[dict[str, Any]] = []
     per_file = max(1, frame_budget // max(1, len(ordered)))
     for item in ordered:
-        if len(frames) >= frame_budget:
+        if len(rows) >= frame_budget:
             break
         entry = cache.entry(config.device_code, item.file_id)
         if entry is None or entry.path is None:
             continue
+        try:
+            base = parse_seconds(item.record_start)
+        except Exception:
+            base = 0.0
         reader = SequentialFrameReader(entry.path)
         taken = 0
         try:
             for frame in reader.iter_frames():
                 resized = cv2.resize(frame.frame, size, interpolation=cv2.INTER_AREA)
+                offset = float(frame.time_seconds)
                 del frame
-                frames.append((item.file_id, resized))
+                rows.append({
+                    "file_id": item.file_id,
+                    "record_start": item.record_start,
+                    "offset_seconds": round(offset, 3),
+                    "source_time": base + offset,
+                    "frame": resized,
+                    "frame_sha256": sha256_bytes(
+                        cv2.imencode(".jpg", resized,
+                                     [cv2.IMWRITE_JPEG_QUALITY, 80])[1].tobytes()
+                    ),
+                })
                 taken += 1
-                if taken >= per_file or len(frames) >= frame_budget:
+                if taken >= per_file or len(rows) >= frame_budget:
                     break
         except Exception:
             continue
         finally:
-            gc.collect()
-    return frames
+            _gc.collect()
+    return rows
 
 
 def _auth_headers(args: argparse.Namespace) -> dict[str, str]:
@@ -1434,6 +1665,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--seed", type=int, default=20260920)
     parser.add_argument("--preview-width", type=int, default=960)
     parser.add_argument("--max-downloads", type=int, default=None)
+    parser.add_argument("--prefetch-slots", type=int, default=2,
+                        help="有界流水线的预取槽数（下载中+等待处理的文件数）")
     parser.add_argument("--per-day-hours", type=int, default=0,
                         help="每天最多取多少个小时槽的文件；0=全部")
     parser.add_argument("--max-files", type=int, default=400,
