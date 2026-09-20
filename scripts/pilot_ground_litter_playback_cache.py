@@ -56,6 +56,8 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--skip-refresh-wait", action="store_true")
     parser.add_argument("--test-resume", action="store_true",
                         help="实测断点续传；不支持时验证整文件重拉")
+    parser.add_argument("--use-seek", action="store_true",
+                        help="用 seek 取帧而不是顺序解码（本机实测对真实 PS 无效）")
     return parser.parse_args(argv)
 
 
@@ -212,13 +214,17 @@ def main(argv: Sequence[str] | None = None) -> int:
             if decode.ok:
                 reader = SequentialFrameReader(target)
                 offsets = coarse_sample_offsets(decode.duration_seconds)
-                picked = reader.sample_at(offsets)
+                picked = (
+                    reader.sample_with_seek(offsets) if args.use_seek
+                    else reader.sample_at(offsets)
+                )
                 qualities = [
                     frame_quality(frame.frame).as_dict()
                     for frame in picked.values()
                 ]
                 sample_detail = {
                     "offsets": offsets,
+                    "mode": "seek" if args.use_seek else "sequential",
                     "frames_picked": len(picked),
                     "quality": qualities,
                     "decode_seconds_full": round(reader.decode_seconds, 3),

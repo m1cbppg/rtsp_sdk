@@ -294,6 +294,10 @@ camera-control 实际镜像 ID 前缀 `966377e24325`。API `/health`、控制服
 - 百炼 VLM 离线小样本实测：`output/ground_litter_vlm_probe_20260917/REPORT.md`（2026-09-17；用户授权13次Qwen调用，4个历史模型误报均拒绝，但5个垃圾参考正例仅1个通过、4个不确定；不支持直接强制VLM放行，未接入生产）；复现入口 `scripts/probe_ground_litter_vlm.py`。
 - 1021 原始流只读实测：2026-09-17 确认为 HEVC 2560×1440、25 FPS；当前垃圾旁路仍在 1920×1080 mux 后。后续优先改为 mux 前原图旁路，并让 1021/1022 各负责近端半段、交界重叠区固定唯一主摄像头；完整证据边界和像素换算见 `GROUND_LITTER_VLM_PLAN.md`，不得保存或回显现场 RTSP 凭据。
 - 百炼极小目标多帧补测：`output/ground_litter_vlm_temporal_20260917/REPORT.md`（同一件用户确认的8像素垃圾用三个时刻复核，仍为uncertain；两轮共14次/8050 tokens后停止调用）。两摄像头各负责近端半段方向合理，但必须让另一台真正获得更多目标像素；只缩ROI/放大无效，同物体跨机同步对照尚未完成。
+- 零散垃圾 V3.2 生产硬化（当前生产模式）：验收指南 `GROUND_LITTER_V32_PRODUCTION.md`；部署单 `GROUND_LITTER_V32_DEPLOY_20260918.md`；**实测结果、节拍纠正与未完成项以 `GROUND_LITTER_V32_HARDENING_RESULT_20260918.md` 为准**；交接文档 `HANDOFF_GROUND_LITTER_V32_HARDENING_20260918.md` 第1节与8.A–8.C已过期（顶部有横幅）。
+- 自动 Profile Bank 两份有效方案（2026-09-20，r3）：`docs/plans/2026-09-20-profile-factory-v1.md`（回放接口/本地 PS 自动生成 N 个参考：算法、资产、有界下载清理与实施步骤）、`docs/plans/2026-09-20-profile-runtime-selector-v1.md`（自动检索、切换时机、后台准备/最新帧验证/原子提交、事件衔接、实时影响与实施步骤）。用户允许七天始终存在的垃圾被归入背景、允许少量误差，不要求逐像素清洁证明或零误报；延续 semantic/prior 独立召回。两份目前仅为设计，尚未实现或验证七天素材/在线性能；旧综合草案已标为历史。
+- 设计复核 `docs/plans/2026-09-20-profile-bank-design-review.md` 保留 r1 四个问题及本地反例，文末记录 r2 修订：全库有界扩展检索、拟合/前景/可用性掩膜分离、残差中心与持续偏差诊断、完整 Selector 动态定稿/剪枝。问题已落实到设计和必测项，不再是“正文未修正”，但不得声称代码已修复。B1 纯 Selector 先于工厂动态定稿完成；真实覆盖、冷/暖切换时延及 active prior 下的算力仍须实测。
+- r3 回放来源：用户提供 `/monitor/play/ctseelink/playback/file-urls` POST 接口，deviceCode/startTime/endTime；单小时清单实测返回 12 项，含稳定 fileId、真实起止时间、字符串 fileSize 和 urlExpireSeconds=120。临近下载再刷新 URL；仅元数据已测，未下载 PS。设计采用两个下载/预取槽+一个处理槽、PS 临时缓存 1GiB 起步，阶段产物事务提交且无租约后删除本任务临时 PS；高清按需重拉，用户本地源不删。不能混淆链接有效期与远端录像保留期，也不能将低磁盘占用宣传成省去七天原片下载流量。详见方案一 §4.4～§4.8；线上 Selector 不调用回放接口。
 - 车牌：`LICENSE_PLATE.md`；夜间：`NIGHT_VISION.md`；
 - 燃气瓶：`GAS_CYLINDER.md`；船舶：`VESSEL_DETECTION.md`；
 - 小目标PTZ近景复核：`PTZ_VESSEL_VERIFICATION.md`；
@@ -454,53 +458,22 @@ API Key、RTSP 发布密码和读取密码都不是 example 占位值。把它�
 
 ## 15. 如何维护这份“工作区记忆”
 
-2026-09-09 荷兴广场零散垃圾为独立新场景，用户明确要求拿来即用、无需训练的公开模型。
-本地两个 PS 录像完成 YOLO-World、街景垃圾堆及通用 YOLO26s 共 3 款权重抽样对照，
-目前无已验证可用的推荐模型；原“YOLO-World 最佳”的表述已撤回。详见
-`LITTER_MODEL_EVALUATION.md`。分块仅测试 2×2、每块宽高62.5%，不能推广为所有分块均无效。
-没有严格真值召回率，不能将有框帧数当识别率；不接垃圾堆/事件链路，不连接生产服务器。
-同日新增下载 `BaraaLazkani/trash-detection-yolov8` 的五类 YOLOv8m 权重，收窄到左侧
-商户人行道并排除垃圾桶/店铺固定区后，夜间31帧、白天29帧均无有效零散垃圾框；整幅
-裁剪出现大面积 Metal/Plastic 错框。该权重为 Custom Academic License，禁止商业使用，
-不能作为生产推荐。详见 `output/litter_eval_trash_yolov8m.json` 和评估报告。
+2026-09-09 荷兴广场零散垃圾模型选型与清理（**细节全文见 `LITTER_MODEL_EVALUATION.md`、
+`output/litter_eval_trash_yolov8m.json`、`models/litter/manifest.json`、`output/litter_review/`**）：
+本地对11款公开权重做昼夜抽样对照，**无已验证可用的推荐成品**，原“YOLO-World 最佳”“CatSat 最佳”
+表述均已撤回；当前仅优先实验候选 Turhancan YOLOv8m-seg+分块，但它仍误报人脸/电动车/固定物。
+分块只测过 2×2、每块宽高62.5%，不能推广为所有分块无效；没有严格真值，**有框帧数不等于识别率**。
+`BaraaLazkani/trash-detection-yolov8` 为 Custom Academic License，禁止商用，不得用于生产。
+HF 的 MIT/Apache 只是发布者声明，不能替代底层代码/数据许可审计。评测脚本未接入 API/事件/生产旁路，
+未训练、未上传录像、未连服务器。用户授权清理后仅保留 Turhancan 权重，复跑需重新解压抽帧或重新下载。
 
-2026-09-09 同日继续本地筛查：累计11款不同权重完成推理，其中10款有昼夜抽样、Bower
-仅白天代表帧初筛；包括COCO对照和原垃圾堆模型。另下载Jhandry/TrashDetection但因
-RetinaNet依赖未完成加载，不计为已测或0检出。本轮Turhancan、CatSat、Esapzoi和原生
-LitterCam YOLOv9-C均完成同一组58帧、4块640原生像素裁剪复测，取消旧固定排除区；
-旧排除区覆盖部分地面真目标，旧PT脚本实际是整图1280后过滤，不能称ROI裁剪推理。
-助手目视选取5个地面物24次出现，阈值0.15、位置IoU≥0.3点检分别命中20/9/1/0次；
-这是筛查后选出的重复目标局部点检，未经人类确认，不是整体准确率/召回率。
-当前优先实验候选为Turhancan YOLOv8m-seg+分块；原CatSat最佳表述撤回。它仍误报人脸、
-电动车/固定物，无已验证稳定拿来即用的推荐成品。HF的MIT/Apache为发布者声明，不能
-替代底层代码/数据许可审计。来源校验见`models/litter/manifest.json`，点检和误报图见
-`output/litter_review/`，完整方法/边界见`LITTER_MODEL_EVALUATION.md`。新建的离线评测
-脚本没有接入API、事件或生产旁路；没有训练、上传录像、连接服务器或部署。当前用户
-Python3.12环境下284项单测通过；项目.venv全量尝试因共享推理线程等待/超时中断，未修复
-该环境问题。脚本真实推理、点检和编译检查通过。
-
-2026-09-09 用户授权清理本次模型评测产物，仅保留当前优先的Turhancan权重。已清理8款
-淘汰权重、批量截图、抽帧缓存、临时YOLOv9代码/依赖和解压视频副本；用户原始ZIP已验证
-完整性并保留，原有项目模型、其它任务产物和共享Python环境未作清理。评测JSON、少量
-关键对照图、4个评测/点检脚本和来源manifest保留。历史模型表不代表当前全部权重在盘；
-复跑需重新解压/抽帧，淘汰模型需重新下载。空间统计见`output/litter_review/cleanup_summary.json`。
-
-2026-09-07 后续用户允许突然加速/出画风险时小幅保护性拉远，正常航行不应频繁触发。
-已新增默认关闭的 `tracking_edge_guard_enabled`，仅替换现有持续跟踪阶段的变焦策略，
-不等于完整 demo profile。详见 `TRACKING_EDGE_GUARD.md`：正常航行固定模拟 24/24
-无出画无缩小，但突发加速与压力仍有失败；真实设备、完整 L1/L2 均未通过验收。
-
-2026-09-07 本地连续跟踪方案基础修复见 `DEMO_IMPLEMENTATION_PROGRESS.md`：
-旁路逐目标实测/保留属性、独立新鲜度、异步视角代际拒收、近景大框过滤保留已实现；
-经单独本地写权限批准，关联 camera_control 加入 STOP 队列取消和短 SDK 动作代际检查。
-尚未实现 demo profile、完整连续会话和延迟闭环，L1 未完成、L2 未验证；不得将本次
-基础修复视作演示版已交付。没有连接服务器或真实摄像头，也没有构建或部署镜像。
-
-2026-09-07 本地继续实施已补充 demo 控制故障锁存、动作完成后的边缘保护确认、旧视角
-代际拒收、同船连续性重捕获、失锁持位会话、忙时跳过证据旁路、PTZ 增量 Dockerfile
-模块复制和结构化脱敏。完整 RTSP 单测 280 项通过，延迟闭环与边缘保护模拟仍分别有
-压力失败（详见 `DEMO_IMPLEMENTATION_PROGRESS.md`）；这仍不是 L1/L2 完成或真机效果
-验收。
+2026-09-07 本地 PTZ 连续跟踪三批基础修复（详见 `DEMO_IMPLEMENTATION_PROGRESS.md`、
+`TRACKING_EDGE_GUARD.md`）：旁路逐目标实测/保留属性、独立新鲜度、异步视角代际拒收、
+近景大框过滤、camera_control STOP 队列取消与短 SDK 动作代际检查、故障锁存、失锁持位、
+忙时跳过证据旁路、PTZ 增量 Dockerfile 与结构化脱敏均已实现；另加默认关闭的
+`tracking_edge_guard_enabled`（仅替换持续跟踪阶段变焦策略）。正常航行固定模拟 24/24
+无出画无缩小，但延迟闭环、边缘保护与突发加速压力模拟仍有失败。**L1 未完成、L2 未验证，
+不得视为演示版已交付**；未连服务器/真机，未构建部署镜像。
 
 每次完成会改变项目事实的工作，都应同时更新本文件中相关摘要或明确链接：
 
@@ -540,32 +513,28 @@ GROUND_LITTER_IMPLEMENTATION.md。
 未重启容器、未发送通知。OpenAPI另有`/p-api/v1/monitor/play/replay`但缺少每路
 `ip/channel`映射，`ctseelink`返回流尚未证明历史时间一致，不能当回放验收。
 
-2026-09-12 用户继续授权完成 1021 路独立 GPU 对照：RTX 3060 Ti 临时容器内以同一昼夜
-录像分别运行 ORB/SIFT。白天两者均 142 抽样/140 有效观测、138 候选帧、226 候选总数、
-1 条持续记录；夜间 ORB 为 152/150、102/142、0 条记录，SIFT 为 152/152、102/142、
-0 条记录。SIFT 夜间视角拒绝 0 次（ORB 2 次），但推理 P50/P95 约 0.977/1.311 秒，
-ORB 约 0.229/0.307 或 0.271/0.403 秒；SIFT 只改善校验，不改善垃圾误报。白天持续记录
-确认是固定红色清洁桶/设施，夜间候选主要是电动车/固定设施/反光物，录像没有垃圾摆放
-真值，不能计算准确率或召回率。1021 直播 180 秒完整日志为 145 有效观测、7 候选帧/7
-候选框、0 条记录；主要过滤原因是人车重叠176、超出ROI399、局部遮挡35，0条记录不等于
-没有垃圾。固定红色设施实验排除区使白天候选帧138→67、记录1→0，夜间候选不变；仅为
-消融证据，未写入正式 profile。服务器四个生产容器 ID/启动时间/重启次数前后不变，试验
-容器已退出。证据摘要与复核图见 `GROUND_LITTER_IMPLEMENTATION_EXECUTION_20260911.md`
-和 `output/litter_validation_20260912/`；完整单测342项通过、compileall通过。当前仍未
-完成历史回放时间一致性、五路并行吞吐和现场摆放/清理真值验收。
+2026-09-12 用户继续授权完成 1021 路独立 GPU 对照（RTX 3060 Ti 临时容器，同一昼夜录像
+分别跑 ORB/SIFT）：白天两者均 142 抽样/140 有效观测、138 候选帧、226 候选总数、1 条持续
+记录；夜间 ORB 152/150、102/142、0 条记录，SIFT 152/152、102/142、0 条记录。SIFT 夜间
+视角拒绝 0 次（ORB 2 次），但推理 P50/P95 约 0.977/1.311 秒，ORB 约 0.229/0.307 秒——
+**SIFT 只改善校验，不改善垃圾误报**。白天那条持续记录确认是固定红色清洁桶/设施，夜间
+候选主要是电动车/固定设施/反光物；录像无垃圾摆放真值，**不能计算准确率或召回率**。
+1021 直播 180 秒为 145 有效观测、7 候选帧、0 条记录（主要过滤：人车重叠176、超ROI399、
+局部遮挡35），**0 条记录不等于没有垃圾**。红色固定设施排除区实验使白天候选帧 138→67、
+记录 1→0、夜间不变，仅为消融证据未写入 profile。服务器四容器 ID/启动时间/重启数前后
+不变，试验容器已退出；证据见 `GROUND_LITTER_IMPLEMENTATION_EXECUTION_20260911.md`、
+`output/litter_validation_20260912/`；342 项单测通过。仍未完成历史回放时间一致性、五路并行
+吞吐与现场摆放/清理真值验收。
 
-2026-09-12 本地实施阶段 A-C 准备已完成：新增 `ground_litter_acceptance.py`、
-`scripts/prepare_ground_litter_acceptance.py`、`scripts/evaluate_ground_litter_acceptance.py`，
-生成 `output/ground_litter_acceptance_20260912/`。准备包冻结 49 个代码/配置/模型/参考图
-指纹，包含五路昼夜采集清单、现场摆放记录模板和 10 份空白人工真值模板；验收器绑定录像
-SHA-256、机位核验、时间锚点、日志快照和 item_id 复核，缺任一条件即输出“无法计算”，
-不会从候选框推断真值。当前 Python3.12 完整 unittest 为 358 项通过，compileall 通过；
-没有新增服务器连接、上传、生产配置修改或通知。下一步需历史回放可验证接口或现场摆放
-资源，再按 `GROUND_LITTER_IMPLEMENTATION_NEXT_STEPS_20260912.md` 执行。
-
-同日回放采样器修正：`sample_stream` 现在会按回放接口返回的 `offsetSeconds` 丢弃流起始
-前置帧，并在 `manifest.json`/`recording.json` 中记录偏移和 `content_time_verified=false`。
-这只减少起点偏移风险，不能证明 OSD/画面时间与请求时刻一致；仍需人工时间锚点验收。
+2026-09-12 本地阶段 A-C 验收准备完成：新增 `ground_litter_acceptance.py` 与
+`scripts/{prepare,evaluate}_ground_litter_acceptance.py`，产物
+`output/ground_litter_acceptance_20260912/`。准备包冻结 49 个代码/配置/模型/参考图指纹，
+含五路昼夜采集清单、现场摆放记录模板和 10 份空白人工真值模板；验收器绑定录像 SHA-256、
+机位核验、时间锚点、日志快照和 item_id 复核，**缺任一条件即输出“无法计算”，绝不从候选框
+推断真值**。358 项单测通过，未新增服务器连接/上传/配置修改/通知。同日修正回放采样器：
+`sample_stream` 按回放接口 `offsetSeconds` 丢弃起始前置帧，并在 `manifest.json`/
+`recording.json` 记录偏移与 `content_time_verified=false`——只降低起点偏移风险，
+**不能证明 OSD 画面时间与请求时刻一致**，仍需人工时间锚点验收。
 
 2026-09-13 用户要求查看四小时 1021 直播影子结果，已只读核查和下载完整轮转日志：
 北京时间 02:15—06:15 运行结束，退出码124来自 timeout，run_stopped/summary完整；
@@ -579,42 +548,32 @@ SHA-256、机位核验、时间锚点、日志快照和 item_id 复核，缺任�
 当前试点已停，未新启任务。详见 `output/litter_4h_review_20260913/REPORT.md` 与同目录
 `server_audit.json`、`log_analysis.json`、`before_cleaning_after.jpg`。本次未修改运行代码。
 
-2026-09-13 根据四小时实测制定下一轮计划，当前执行入口为
-`GROUND_LITTER_EXECUTION_PLAN_20260913.md`：先冻结运行版本/已有真实清扫样本，定位输入
-时延及白色物漏检/扫把误报，修复身份和局部清理证据，再做1021有界连续验证，达标后扩五路。
-无需用户训练、逐帧标注或盯保洁；助手目视标签须标初步复核，稀疏图片不能当连续时序验收，
-清扫后参考不能倒灌过去以声称在线成功。已有服务器隔离试验授权继续适用，生产容器不得受影响。
-本次仅新增计划及文档路由，未修改识别代码、连接服务器或启动新监控；计划目标不是实测成绩。
+2026-09-13 据四小时实测制定下一轮计划 `GROUND_LITTER_EXECUTION_PLAN_20260913.md`（仅计划，
+未改代码/未连服务器）。原则：无需用户训练或盯保洁；助手目视标签须标初步复核，稀疏图片不能当
+连续时序验收；清扫后参考不得倒灌过去以声称在线清理成功。该计划已被后续实施与 V3.2/V3.3 取代。
 
-2026-09-13 用户授权开始实施后完成首批：`output/litter_next_20260913/INDEX.md`是当前日志入口，
-`REPORT.md`为结果。34张同图做CPU/GPU各1280/640对照，共136次静态分析；四小时实际runtime/profile
-散列已复现。重要勘误：棚边白色物在18张非明显损坏可见样本均有原始候选，后9张被outside_roi
-过滤（框中心进入棚顶排除区）；地面/棚顶归属不确定，不能继续称明确区内模型漏检或垃圾召回率。
-消失区间OSD修正为05:42:05仍有、05:44:44已无。扫把误报仍在；GPU640另增4个候选，含桶/电动车
-误报，保留1280默认。更小地面碎屑的定点放大/低阈值探测仍不可靠，P2未通过，未启动长期直播/五路。
-已增加有界逐层诊断、分段耗时、拒绝样本计时、运行文件/模型指纹；本地另修短暂未知暂停但不累计
-证据时间、显式跨run库存路径、重启置不可判断及源状态不推进帧时钟。最终380项单测、compileall和`git diff --check`通过；新增固定物过滤及取流诊断结果见`output/litter_next_20260913/filter_r2/`。1021直播PyAV基线60秒仅发布47帧且端到端新鲜度未验证；补充OpenCV回退探针60秒发布50帧、10分钟发布489帧，发布间隔P50/P95/最大约1.05/1.96/2.51秒，但镜像缺少PyAV、无PTS，仍不能启动长期监控。
-两轮GPU仅部署诊断快照，随后本地状态修复未部署/未完成真实清理验收；版本分别见gpu_release_manifest
-与local_final_manifest。授权隔离目录releases/diagnostics-20260913-r1及active/diagnostics-20260913-r1；
-两次限速离线容器均正常退出自动删除。已有一路生产流68次采样唯一帧率24.202–25.849、duplicate0、
-健康true；四生产容器ID/启动/重启数前后一致。只证明约3.5分钟离线共存，不是五路实时通过。
+2026-09-13 用户授权开始实施后完成首批（入口 `output/litter_next_20260913/INDEX.md`）：
+34张同图做CPU/GPU各1280/640对照共136次静态分析；四小时实际 runtime/profile 散列已复现。
+重要勘误：棚边白色物在18张非明显损坏样本均有原始候选，后9张被 `outside_roi` 过滤（框中心进入
+棚顶排除区），地面/棚顶归属不确定，**不能继续称明确区内模型漏检**；消失区间OSD为 05:42:05
+仍有、05:44:44 已无。扫把误报仍在；GPU640 另增4个候选（桶/电动车），**保留1280默认**。
+定点放大+低阈值找更小碎屑仍不可靠，**P2未通过**，未启动长期直播/五路。本地另修短暂未知暂停
+但不累计证据时间、显式跨run库存路径、重启置不可判断。**380项单测**+compileall+`git diff --check`
+通过。1021 直播基线 PyAV 60秒仅发布47帧且新鲜度未验证；OpenCV 回退 60秒50帧/10分钟489帧，
+间隔 P50/P95/最大约1.05/1.96/2.51秒，但镜像缺 PyAV、无PTS，**仍不能启动长期监控**。
+两轮 GPU 仅部署诊断快照，随后本地状态修复未部署；隔离目录 `releases/diagnostics-20260913-r1`。
+一路生产流 68 次采样唯一帧率 24.202–25.849、duplicate 0、健康 true，只证明约3.5分钟离线共存。
 
-2026-09-13 继续取流诊断：最新入口仍为`output/litter_next_20260913/INDEX.md`，本轮详见
-`source_r3/REPORT.md`。10分钟OpenCV源探针解码14980帧、邮箱发布489帧，约0.815 FPS；
-这不是有效模型分析频率。OpenCV不提供PTS/坏帧标记，旧计数0不代表零坏帧；早期PyAV抽样帧
-PTS相隔5.7秒不能推断逐帧时间戳跳变。后续30分钟源探针已主动停止，无完整摘要，未通过验收。
-生产流`bd1b5e85ab6442eb82631e1680092c0f`返回的0.0466 FPS及健康false实际最后更新于北京时间
-12:16:57（UTC04:16:57），早于该次试验；不能作为当前帧率，也不能据此归因于试验。
-生产容器ID/启动时间/重启数未变，未重建生产流。健康无法验证时暂停直播试验。
-新增有界原始解码时间线、5秒进度落盘、PyAV强制检查、代码指纹与SIGTERM安全退出；修复信号
-函数操作multiprocessing.Event锁导致退出卡住，本地PS复测约0.185秒退出并保留摘要。新增
-`scripts/guard_ground_litter_source_probe.py`对生产指标过期/异常实施启动前和运行中保护，
-只停止自己的唯一命名容器；服务器实际预检已返回`production_metrics_stale_or_unknown`，
-在建容器前拒绝运行。全量387项单测、compileall及diff检查通过。本地PS使用PyAV18.1.0，
-不能替代项目约定的16.1.0服务器兼容性验收。隔离PyAV16.1.0源码/wheel包已上传校验至
-`releases/source-r3-20260913`，依赖不装入生产容器；候选镜像构建/加载结果以本轮
-`offline_build.json`和报告为准，不能把guard预检的`image_id=null`当成镜像通过。
-P1完整输入/模型链、P2小碎屑/语义误报及P3真实清理仍未通过，通知及长期监控继续关闭。
+2026-09-13 继续取流诊断（`source_r3/REPORT.md`）：10分钟 OpenCV 源探针解码 14980 帧、邮箱
+发布 489 帧 ≈0.815 FPS——**这不是有效模型分析频率**；OpenCV 无 PTS/坏帧标记，旧计数 0 不代表
+零坏帧。30分钟探针主动停止，无完整摘要，未通过验收。生产流 `bd1b5e85…` 的 0.0466 FPS 与
+健康 false 实际最后更新于 12:16:57，早于该次试验，不能归因于试验。新增有界解码时间线、
+5秒进度落盘、PyAV 强制检查、代码指纹与 SIGTERM 安全退出（修信号函数操作 Event 锁导致退出
+卡住）；新增 `scripts/guard_ground_litter_source_probe.py` 对生产指标过期/异常实施启动前与
+运行中保护，服务器实际预检返回 `production_metrics_stale_or_unknown` 并在建容器前拒绝运行。
+**387项单测**+compileall+diff 通过。本地 PS 用 PyAV 18.1.0，不能替代服务器 16.1.0 兼容性验收；
+PyAV16.1.0 源码/wheel 上传至 `releases/source-r3-20260913`（不装入生产容器）。**P1完整输入/
+模型链、P2小碎屑/语义误报、P3真实清理仍未通过**，通知与长期监控继续关闭。
 2026-09-14核查确认生产worker持续收到RTSP EOF并重置源，指标文件陈旧，API的running不能证明画面健康。输入设备不在用户五路设备内；“旧演示流”用途未经证实。撤回先前“地址已过期约25小时、根因确定”的结论：TimeStamp可能为签发/签名时间，没有接口到期语义不能判过期；EOF原因仍未确定。`inspect_rtsp_url_expiry`已修正为仅报告时间提示，不拒绝URL。未重启生产容器、未改配置；历史诊断见`output/litter_next_20260913/source_r3/REPORT.md`。
 
 2026-09-14用户复核确认1021夜间样本中的白色小物体为独立零散垃圾。结合此前用户确认的两个候选物体，本轮已知独立垃圾至少3件：2件进入候选，1件因约8像素尺寸规则被过滤；有限样本最终记录召回2/3（66.7%），不能外推全天或其他机位。第二个约8×6像素亮点仍未确认。证据见`output/litter_source_20260914/deduplicated_labels.json`、`REPORT.md`。
@@ -700,40 +659,151 @@ PTZ 船框收集）；新增/更新测试后全量 473 项通过，镜像已重�
 （紧贴版：误报消失、地面 −11.2%、三件已确认垃圾均不受影响），渲染图在
 `output/ground_litter_1021_fp_fix/`；用户尚未选定该方案。
 
-2026-09-15 零散垃圾新增分区级"最大尺寸上限"（`maximum_short_side_px`/`maximum_box_area_px`，0=不限制）
-并已部署。起因：用户实测流 `dc431458…`（320分块）稳定显示 3–4 个框，经用户目视确认**全是误报**
-——左下三个是**停放电动车**、另一个是**蔬菜摊的菜**。逐条排查结论：
-(1) **人车遮挡过滤对此无解**：整图人车模型(1280)在左下区域 0 个框，降到 conf 0.05 或提到
-imgsz 1920 也只有 0.06/0.10 的 truck 噪声；离线试点里的"局部640补检"同样检不出（局部只检出
-画面中部 y234–533 的 motorcycle，与 y>769 的候选零重叠）。所以这是 COCO 模型对俯视停放电动车的
-盲区，不是阈值问题。
-(2) **真垃圾与这类误报在尺寸上可分**（1080p）：误报面积 3040/7205/14036/28482px²，三件已确认
-真垃圾 66/462/1666px²。因此把 `maximum_box_area_px` 设为 **2500** 可在**不挖任何地面区域**的前提下
-清掉全部 4 个误报（实测该帧 4→0，拒绝原因记为 `too_large`）；6 张实拍输出画面的每帧候选从
-1.83 降到 0.17。代价：**大于 ~50×50px 的垃圾（大袋/成堆）不再上报**，需要报大件时应调到 3000，
-但 3000 距蔬菜误报 3040 太近，风险高。
-(3) **同时把 `confidence` 从 0.20 降到 0.12** 才让已确认的小垃圾真正显示：9/14 夜间样本在 320 分块下，
-`conf 0.20` → 5 帧 0 候选；`0.14` → 只过 1/5 帧、显示层 2/3 投票后仍不显示；`0.12` → 每帧 1 个，
-显示层 **4/5 帧显示**那件 8×8 已确认垃圾。0.14 这个"看起来合理"的值实际是失败点。
-实现落在 `ground_litter_detection.py`（Zone 两个字段+校验+资格过滤+`too_large` 原因）与
-`api.py`（请求模型两字段）；新增 7 项测试后全量 **480 项通过**，镜像已重建并重建 API 容器
-（MediaMTX/camera-control/web-gateway 未动）。注意：本轮部署再次重启 API，用户的活动流
-`dc431458…` 已随进程消失，需用新鲜有效的摄像头地址重建（旧 token 又会过期）。
-另修正两个我自己的测量错误以免后人重犯：渲染脚本 `_zone_from_profile` 起初**没有透传**新增的
-最大尺寸字段，导致第一次"上限生效"的测量无效；以及把归一化中心当作像素坐标比较，导致
-"已确认垃圾是否被显示"的第一次统计全为 0。
+2026-09-15 零散垃圾"最大尺寸上限"（`maximum_short_side_px`/`maximum_box_area_px`）**当日新增又当日回滚**，
+最终只保留 `ground_litter` 与 `display_detections`，全量回到 473 项通过。durable 结论：
+- 用户目视确认 `dc431458…` 稳定显示的 3–4 个框**全是误报**（左下 3 个停放电动车 + 1 个蔬菜摊的菜）。
+  **人车遮挡过滤无解**：整图 1280 人车在该区域 0 框，conf 0.05 / imgsz 1920 也只有 0.06/0.10 的 truck
+  噪声，局部 640 补检同样检不出。属 COCO 对俯视电动车的盲区，不是阈值问题。
+- 真垃圾与误报在 1080p **尺寸可分**：误报面积 3040/7205/14036/28482px²，三件已确认真垃圾 66/462/1666px²。
+  上限 2500 可在不挖地面区域的前提下清掉全部 4 个误报，但会漏报 >~50×50px 大件；3000 距 3040 太近。
+- **`confidence` 须降到 0.12** 已确认的 8×8 小垃圾才会显示（0.20→5帧0候选；0.14 仅过1/5帧、显示层
+  投票后仍不显示；0.12→每帧1个、4/5帧显示）。**0.14 是失败点**。
+- 回滚后**现场后果**：电动车×3 + 蔬菜 4 个大框误报会重新出现（Plastic/Paper 0.20–0.73）；剩余手段只有
+  `exclude_zones`（左下条带 `[[0.070,0.700],[0.160,0.700],[0.160,0.850],[0.070,0.850]]`，地面 −11.2%）
+  或区域左边界收到 x≥0.16（地面 −26%，三件已确认真垃圾仍在内）。含上限版本另存为回滚点标签
+  `…-ground-litter-with-maxsize-20260915`；旧字段现返回 `extra_forbidden`(422)。**测量教训**：渲染脚本
+  `_zone_from_profile` 起初未透传新字段导致第一次测量无效；把归一化中心当像素坐标比较导致第一次统计全 0。
 
-2026-09-15 按用户要求**回滚了"最大尺寸上限"这一步**（同日撤销）：`GroundLitterZone` 的
-`maximum_short_side_px`/`maximum_box_area_px`、`api.py` 请求模型对应字段、资格过滤里的上限判断与
-`too_large` 原因、以及随它引入的有界 `rejected_candidates` 诊断列表全部移除；渲染脚本
-`_zone_from_profile` 的透传也一并撤回（否则会向已删除字段传参）。测试从 480 回到 **473 项通过**，
-compileall 通过。**保留** `ground_litter` 与 `display_detections` 两项。示例与交付 JSON 里的
-`maximum_box_area_px` 已清除；线上用真实请求验证旧字段现在返回 `extra_forbidden`(422)。
-镜像重新构建并重建 API 容器（当前 `…-ground-litter-20260915` 镜像ID前缀 `efd099d`→新构建），
-MediaMTX/camera-control/web-gateway 启动时间与重启次数未变；含尺寸上限的上一版已另存标签
-`rtsp-yolo-annotator:deepstream8-ground-litter-with-maxsize-20260915` 作为**回滚点**，需要时可以
-用同一个 override 文件切回去。**回滚带来的现场后果**：电动车×3 + 蔬菜这 4 个大框误报（Plastic/Paper
-0.20–0.73）会重新出现，尤其在 `confidence: 0.12` 下；如果用户不想看到它们，剩下的手段只有
-`exclude_zones`（左下条带 `[[0.070,0.700],[0.160,0.700],[0.160,0.850],[0.070,0.850]]`，地面 −11.2%）
-或把区域左边界收到 x≥0.16（地面 −26%，三件已确认真垃圾仍在内）。API 重启后活动流为 0，
-用户表示会自行用旧版接口重建。
+2026-09-18 零散垃圾 V3.2 生产硬化已完成切换并现场复验（本节以实测为准；交接文档
+`HANDOFF_GROUND_LITTER_V32_HARDENING_20260918.md` 第1节与8.A–8.C 已过期）。**注意交接文档
+写于 14:58，而切换实际在 15:13 CST 完成**，比文档晚 15 分钟，所以“尚未切换”的说法当时就已经
+不成立。当前生产 API 标签
+`rtsp-yolo-annotator:deepstream8-ground-litter-v32-hardening-20260918`，镜像ID前缀`7aa71d92`，
+容器启动于 2026-09-18 15:13:36 CST、`RestartCount=0`；六文件 Compose 链的最后一个是
+`docker-compose.ground-litter-v32-hardening.override.yml`。滚动回退标签：
+`deepstream8-before-ground-litter-v32-hardening-20260918`→`841ca526317f`（上一版 V3.2）、
+`deepstream8-before-ground-litter-v32-20260918`→`7563a79fb12b`（V3.2 之前）。回退只需去掉
+硬化 override 重跑 `up -d --no-deps api`，不必重建镜像。MediaMTX/camera-control/web-gateway
+启动时间与重启数全程未变。容器内 7 个模块（`ground_litter_v32/process/detection.py`、
+`api.py`、`stream_manager.py`、`deepstream_manager.py`、`deepstream_worker.py`）与本地
+`dist/ground-litter-v32-hardening-20260918/MANIFEST.json` **逐字节一致**，包 SHA-256
+`bf92a33e…` 与四个下午 profile 哈希均已复核。本地全量 **534 项通过、37 subtests**。
+硬化行为已现场复验两次：`starting`→`warming_up remaining=15.0→11.9→5.9→2.8s`→
+`abstaining stability=2/3`→`running`，整个抑制窗口 `raw_candidates` 与事件数**全为 0**，
+直接对应“启动闪框”投诉。`count`（真正上屏的框）在约15分钟34次采样与约3.7分钟70次采样中
+**始终为0**。主链 24.97–25.06 FPS、`duplicate_publish_fps=0`、`pipeline_healthy=true`；
+输出流容器内 NVDEC 实测 **1588帧/63.45秒=25.03 FPS** 与 **600帧/23.95秒=25.05 FPS**，
+1920×1080 NV12、零错误。
+
+**重要纠正（后人勿重犯）**：旧文档称无重复 actor 模型时 `last_inference_ms` 应低于 500ms，
+这是错的。实测该值是**环境相关**的：`NORMAL` 稳定场景约 750–1080ms（`/proc` 侧进程 CPU
+计时真值 **1076.7 CPU-ms/帧**），`GLOBAL_LIGHT_CHANGE` 光照过渡时约 1800–3150ms，因为
+`protected_normalize()` 的掩膜/膨胀/连通域是数据相关的。因此 0.5 FPS（2000ms 预算）在
+稳定场景有约2倍余量，光照过渡帧会超预算——但那正是返回 `abstaining` 的帧，旁路始终取最新帧，
+陈旧度仍被一次更新界定，运行影响很小。**不要在 API 容器内跑 OpenCV 基准来估算该耗时**：
+宿主 CPU 被 `idle_inject` 节流，两个16线程 OpenCV 进程互相争用会把结果放大 2–3 倍
+（基准 2056–2900ms vs 真实 1077ms）；应测活进程的 `/proc/<pid>/stat` utime+stime。
+本次一度据**过期的旧流测量**（2.6–3.5s）把 `analysis_fps` 降到 0.33，随后已回退到 **0.5**：
+0.5 是评审值；稳定场景 1077ms 完全够用；且证据按 `sample_period` 累加，0.33 时
+`confirm_visible_seconds=5.0` 只需 **2** 次观测而非 3 次，会削弱瞬态误报的拒绝能力
+（0.33 那次确曾短暂画出 2 个框）。若将来确需更低节拍，必须同时把 `confirm_visible_seconds`
+与 `clear_confirm_seconds` 提到 7.0 以保住 3 次观测。
+
+**另一条操作教训**：签名摄像头输入地址**不会**在被删除的那条流之外存活。删流后复用旧
+`worker.json` 里的 `input_url` 会得到 401、管线永远停在 `starting`。必须在建流前用
+`ctseelink`（服务器可达、约0.75s、返回 `data.url` 与 `expireTime:null`）重新取一条，且
+绝不回显或落盘该地址。本次中途产生的僵尸流已删除，线上最终只有一条活动流。
+
+**未完成（不得当作通过）**：观测时（17:00 CST）画面持续处于 `GLOBAL_LIGHT_CHANGE`，
+处理器全程 `abstaining`，**从未进入 `running`**。已用真实 H.265 帧实测定因（详见结果文档§6）：
+先验**并没有不匹配**——SIFT 799 内点/重投影 p95 0.81px/凸包 0.78，平均亮度只差 3.7%，
+gains 1.022–1.039（阈值0.10）、biases −4.05..−5.40（阈值18）、saturated 0.0074（阈值0.35）
+全部通过；**唯一超标项是 `local_extent=17.15` vs 阈值 16，只超 1.15**。该门槛是硬悬崖
+（15.99 正常识别、16.01 完全失明），且 `daylight_tolerance.png` 对它无效（`local_extent`
+取自 `field[valid>0]`，protected 像素用 `default_field` 填充后同样计入）。因 `update()` 在
+`propose_v32`/`memory.update` **之前**就返回 `abstaining`，后果是**完全不产生候选与事件**，
+不是"降低置信度继续识别"。该门槛也无法区分"太阳移动"与"地面新增大物体"；阴影/物体的空间
+判别**未完成**，不要臆断为阴影。最干净的做法是按目标时段重建 profile
+（`scripts/build_ground_litter_v32_afternoon_profile.py` 为模板），无需改代码；放宽
+`local_extent` 属检测语义变更，需多小时回归证据。此外仍未验收：匹配光线下的真实准确率、
+夜间/傍晚行为、大华真机 PTZ，以及五路铺开。完整证据、流历史、DoD 逐条判定见
+`GROUND_LITTER_V32_HARDENING_RESULT_20260918.md`。
+
+2026-09-18 V3.3 Hybrid 方案已审阅（修正5处：生产基线过期、正样本数、§11预算比实测低3.6倍、
+§13不可满足条、queue严重度），并**已跑 Phase 0：未通过**。产物
+`output/ground_litter_v33_phase0_20260918/VERDICT.md` + `scripts/run_ground_litter_v33_phase0.py`。
+(1) 放大裁剪假设**成立**：18×19px真垃圾全扫描11/20帧、conf0.21-0.34 → 按方案规则裁剪后
+16/20帧、conf0.50；(2) **硬负例失败**：61×63px非垃圾桶在imgsz640下命中0.90-1.00、
+conf0.46-0.61（**高于真垃圾**），唯一压住桶的配置把正例也压到0.75 → **无配置同时过两关**；
+(3) 语料先决阻塞：无歧义正例仅1件，dedup的2个`true_litter`分别⊂`curb_bags`(ROI未确认)与
+⊂`broom`(扫把)。延迟闸门未测(需RTX 3060Ti)。**补采≥8-10件同机位独立正例+等量硬负例并重跑前，
+不得开始融合主链**。另修正我此前说法：`ground_litter_process.py`的`submit()`队列满时**丢新留旧**
+（与注释相反），但`maxsize=2`(单路)，积压有界≈2周期，非无界卡死。
+
+2026-09-18 补充（决定性证据）：用户指出《小垃圾正样本.mp4》小垃圾在 01:12 出现，据此用整段真实
+录像做分段硬负例对照（全帧1280、conf0.10、人行道ROI内）：正样本干净段 4.58检出/帧、conf≥0.25
+为0.86/帧、最高0.638；正样本有垃圾段 6.84、1.42、0.741；**而《正常负样本》全程无垃圾 = 5.45、
+1.55、最高0.873** —— 无垃圾录像的高置信密度与最高置信度**都超过**有垃圾段，分布完全重叠，
+**无任何阈值可分**；sec=70（垃圾出现前）就已有22个ROI内检出。故 Phase 0 **无需再补正样本**
+即可判定失败，**延迟闸门也不必上服务器测**。数据见
+`output/ground_litter_v33_phase0_20260918/{video_scan,segment_split}.json` 与 VERDICT.md §3.4。
+路线改为三选一：专用小目标异物二分类器 / 微调 turhancan / prior-only 人审。
+
+2026-09-18 V3.3 双通道召回已按新契约
+`docs/plans/2026-09-18-ground-litter-v33-dual-recall-architecture.md` 实现（旧 Hybrid 方案与 Phase 0
+「prior 必须有 semantic」决策**已废止**）。新增 `mode=hybrid_v33`：semantic 与 prior 各自独立确认，
+事件级融合去重。新增 `rtsp_annotator/ground_litter_v33.py`（纯逻辑：证据结构、单帧关联、
+`V33EventMemory` 三套独立窗口、来源升级、跨源合并、遮挡、清走/缺失按真实时间累计）；
+`ground_litter_v32.py` 抽出 `analyze_prior_frame()`/`propose_prior_candidates()`（V3.2 行为不变）；
+detection 层加 17 个字段与 tiles/crops 批量推理；process 层加 hybrid 调度与 **latest-wins 修复**
+（原 `submit()` 队列满时丢新留旧，已改为每 pad 归一化一帧且不驱逐其他 pad）；API/manager/worker
+经 `ground_litter.hybrid` 暴露逐来源遥测。**测试全绿**：`pytest tests -q` 604 passed + 37 subtests，
+`unittest discover -s tests` 563 项（两者收集口径不同）；compileall 与 `git diff --check` 通过。
+真实权重 smoke 通过：
+`output/ground_litter_v33_smoke_20260918/smoke.json`（全扫描 1 次批量调用/6 tiles、crop 1 次批量
+调用/2 crops、无下载）。三场景 trace 通过：`output/ground_litter_v33_scenarios_20260918/`。
+清洁回放分来源误报：`output/ground_litter_v33_replay_20260918/REPORT.md` —— **示例配置
+semantic-only 误报约 215 事件/小时，收紧阈值后约 25 事件/小时**，远高于 §15.2 门槛；**prior 源
+无法测量**（profile 采自 09-18 14:40，回放素材为 09-17，环境 143/143 tick 非 NORMAL，属 §2.2 排除项）。
+性能报告 `output/ground_litter_v33_perf_20260918/REPORT.md` 为本机 CPU，**不能判定 GPU 预算**。
+实现过程中由测试与回放抓出并修复 4 个真实缺陷：`_analyse_hybrid` 误读 `analysis.support`
+（会让 prior 通道每 tick 失效）、遮挡状态被清理逻辑覆盖、非扫描 tick 把清理/缺失累计**清零而非
+暂停**（会使清走永不达成，与 V3.2 `cleared_events` 长期为 0 同源）、多事件合并路径不可达。
+**尚未完成**：候选镜像本体（`dist/ground-litter-v33-dual-recall-20260918/` 已是可直接
+`docker build` 的就绪包：26 个文件逐文件 SHA-256 + 可复现 tar.gz
+`a0574e18108c087a31b10b91c7bba195ee8880dcfdc2f15fc478b907dacf2053`（重复打包字节一致，
+已用测试锁定）+ 回滚单 `GROUND_LITTER_V33_DEPLOY_20260918.md`；基础镜像默认指向线上
+V3.2 硬化标签所以服务器无需 pull。**但镜像只能在服务器构建，尚未取得授权**）、
+主链 FPS/帧年龄/显存实测、现场 canary。本轮未部署生产、未修改生产镜像标签。
+打包/回归入口：`scripts/package_ground_litter_v33_bundle.py`、
+`tests/test_ground_litter_v33_bundle.py`（Dockerfile COPY 源与包清单一致性、候选标签绝不等于
+生产标签、tar 可复现）、`tests/test_ground_litter_v33_api.py` 的示例请求校验（17 个双通道字段
+全在且能穿过请求→Options 转换）。
+
+2026-09-20 方案一（七天 PS 自动生成 N 个 Profile）A0～A6 与共享核心 B1/B2 已实现（**本地代码 + 确定性测试**，
+不含生产接入）。新增 `rtsp_annotator/ground_litter_profile_bank.py`（A0 资产 schema/loader/原子版本发布/
+有界上下文缓存）、`ground_litter_profile_match.py`（A0/B2 16×9 描述子、公共尺度、受限补偿、S(p) 评分、
+进入/保持包络）、`ground_litter_recording_source.py`（A1 file-urls 清单/即时刷新/去重/截断检测/有界 `.part`
+下载 + Range 续传）、`ground_litter_recording_cache.py`（A1 材料化状态机、raw/work 双预算、租约、阶段事务、
+提交后删除、崩溃恢复、源散列变化失效）、`ground_litter_profile_sampling.py`（A2 有界采样/质量/配准/时间划分）、
+`ground_litter_profile_background.py`（A3 分组/时间中位数合成/残差中心+MAD+Q95+超 cap 噪声）、
+`ground_litter_profile_analysis.py`（A4/B2 fit/foreground/availability 三掩膜 + Bank prior adapter）、
+`ground_litter_profile_selector.py`（B1 纯有状态 Selector：Top-K→有界全库扩展游标、冷却、驻留、恢复、预算原因）；
+脚本 `scripts/{build,evaluate,inventory,pilot}_ground_litter_profile*.py`。`ground_litter_v32.py` 抽出
+`compute_compensation_masks`/`local_luminance_field`/`_classify_environment` 三个纯函数（行为逐字节不变，
+有回归测试）；`ground_litter_v33.py` 新增公开方法 `reset_cross_reference_evidence`/`invalidate_previous_support`/
+`event_availability`/`per_event_support`/`notify_reference_switch` 与 `reference_generation`（不改既有 tick 逻辑）。
+确定性测试入口 `tests/test_ground_litter_profile_factory.py`（78 项）；本轮全量 710 passed + 40 subtests，
+仅 4 项 `test_shared_inference.py` 因本地验证环境缺 torch 失败。
+**真实 PS 实测（已做，设备 …01030，2026-09-15 00:00–01:00）**：清单 12 项/749,501,533B、记录长度 303–304s、
+跨出查询区间；等待 380s 后 fileId/大小/起止时间不变而 **12 个 URL 全部刷新**、有效期仍 120s；
+单文件下载 62,224,552B ≈17–22MB/s、SHA-256 一致；`Range: bytes=0-0` 返回 **206**，半文件续传后 SHA-256 与整文件一致；
+解码 HEVC 2560×1440/303.958s；**PS 的 PTS 基值不是 0（首帧约 10394s）**，采样必须重定基，
+`SequentialFrameReader` 已修；峰值工作目录 62.3MB，preview 提交后释放，磁盘回落。
+**未验证/未做**：真实七天建库与第七天盲测、远端录像重拉期限、`sample_with_seek`（本机对真实 PS 返回空）、
+生产 API/manager/worker 接入与在线切换（方案二 B3/B4/B6）、服务器性能。试点设备 `…01030` **没有**可信
+ROI 与七天范围，仓库唯一可用 ROI 属 `…01021`，未套用；无 `--geometry` 时 CLI 用整幅画面并写 `geometry_warning`，
+因此本次任何覆盖数字都不是现场验收。本地做真实下载试点时把数据卷占到 98%，截断了 `.venv` 的
+`numpy/version.py`（已修）并使 `.venv` 的 `cv2` 损坏；**真实素材测试今后一律放服务器**（空闲空间更大），
+服务器流程见 `HANDOFF_PROFILE_FACTORY_20260920.md` §10。详见同文件 §2～§9 与
+`docs/plans/2026-09-20-profile-factory-implementation-plan.md`。

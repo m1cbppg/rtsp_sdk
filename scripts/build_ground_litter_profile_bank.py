@@ -107,6 +107,8 @@ class FactoryConfig:
     supersede: bool = False
     use_seek: bool = False
     max_downloads_per_run: int | None = None
+    start_time: str = ""
+    end_time: str = ""
 
 
 def load_geometry(path: Path | None, size: tuple[int, int], *,
@@ -424,6 +426,12 @@ def stage_sampling(
                 payload = sample.as_dict()
                 payload["preview"] = sample.preview
                 payload["descriptor"] = sample.descriptor
+                # 高清帧已在本轮解码中得到，缓存分析尺寸版本，避免合成阶段
+                # 为同一分钟文件再解码一遍（方案一 §4.7 的「一次重拉尽量
+                # 完成该文件本轮全部需求」）。
+                payload["hd_frame"] = cv2.resize(
+                    sample.aligned_full, size, interpolation=cv2.INTER_AREA,
+                ) if sample.aligned_full is not None else None
                 samples.append(payload)
                 descriptors[sample.time_block] = sample.descriptor
             plan = build_hd_plan(result["samples"])
@@ -482,13 +490,13 @@ def stage_grouping(
 def stage_composite_and_noise(
     config: FactoryConfig, cache: ManagedRecordingCache,
     files: Sequence[RecordingFile], geometry: dict[str, Any],
-    groups: Sequence[dict[str, Any]], report: dict[str, Any],
+    groups: Sequence[dict[str, Any]], samples: Sequence[dict[str, Any]],
+    report: dict[str, Any],
     *, build_blocks: set[str], calibration_blocks: set[str],
 ) -> list[dict[str, Any]]:
     """用高清帧合成参考、估计噪声；构建块与校准块严格分离。"""
     size = (int(geometry["canvas_size"][0]), int(geometry["canvas_size"][1]))
     roi = roi_mask_from_geometry(geometry, size[0], size[1])
-    overlay = geometry.get("overlay_exclude_zones") or []
     from rtsp_annotator.ground_litter_profile_sampling import SequentialFrameReader
 
     by_id = {item.file_id: item for item in files}
@@ -501,8 +509,18 @@ def stage_composite_and_noise(
         frames: list[np.ndarray] = []
         masks: list[np.ndarray] = []
         blocks: list[str] = []
-        reference_canvas: np.ndarray | None = None
+        cached_frames = {
+            str(item["time_block"]): item.get("hd_frame")
+            for item in samples if item.get("hd_frame") is not None
+        }
         for block in needed:
+            cached = cached_frames.get(block)
+            if cached is not None:
+                frames.append(cached)
+                masks.append(roi.copy())
+                blocks.append(block)
+                continue
+            # 缓存未命中（例如本条目的采样被质量过滤）：按需重解码一次。
             identity, _, offset_text = block.partition("@")
             file_id = identity.split(":")[-1]
             item = by_id.get(file_id)
@@ -515,29 +533,16 @@ def stage_composite_and_noise(
                 offset = float(offset_text)
             except ValueError:
                 continue
-            if reference_canvas is None:
-                reader = SequentialFrameReader(entry.path)
-                for frame in reader.iter_frames():
-                    reference_canvas = cv2.resize(
-                        frame.frame, size, interpolation=cv2.INTER_AREA
-                    )
-                    break
             reader = SequentialFrameReader(entry.path)
             picked = reader.sample_at([offset], tolerance_seconds=1.5)
             captured = picked.get(offset)
             if captured is None:
                 continue
-            quality = frame_quality(captured.frame)
-            if not quality.usable:
+            if not frame_quality(captured.frame).usable:
                 continue
-            registrar = CanvasRegistrar(
-                reference_canvas if reference_canvas is not None else captured.frame,
-                overlay_exclude_zones=overlay,
-            )
-            aligned, diagnostics = registrar.register(captured.frame)
-            del diagnostics
-            aligned = cv2.resize(aligned, size, interpolation=cv2.INTER_AREA)
-            frames.append(aligned)
+            frames.append(cv2.resize(
+                captured.frame, size, interpolation=cv2.INTER_AREA,
+            ))
             masks.append(roi.copy())
             blocks.append(block)
         if len(frames) < 2:
@@ -832,6 +837,7 @@ def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, An
     )
     try:
         cache.recover()
+        local_paths: dict[str, Path] = {}
         if args.input is not None:
             root = Path(args.input).expanduser().resolve()
             files = scan_local_directory(root)
@@ -841,6 +847,7 @@ def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, An
                 cache, config.device_code, root, files,
                 work_budget=config.work_budget,
             )
+            local_paths = {item.file_id: Path(item.file_name) for item in files}
             report["inventory"] = {
                 "mode": "local_directory",
                 "root": str(root),
@@ -938,8 +945,15 @@ def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, An
             str(item["time_block"]) for item in samples
             if any(item["file_id"] == entry.file_id for entry in calibration_files)
         }
+        # 高清阶段按稳定身份重拉：preview 释放过的临时 PS 必须重新取得，
+        # 不能用小图放大冒充高清素材。
+        repull = _ensure_remote_entries(
+            config, args, cache, files, report,
+            local_paths=local_paths if args.input is not None else {},
+        )
+        report["hd_repull"] = repull
         candidates = stage_composite_and_noise(
-            config, cache, build_files, geometry, groups, report,
+            config, cache, build_files, geometry, groups, samples, report,
             build_blocks=build_blocks, calibration_blocks=calibration_blocks,
         )
         if not candidates:
@@ -1027,6 +1041,75 @@ def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, An
         return report
     finally:
         cache.close()
+
+
+def _ensure_remote_entries(
+    config: FactoryConfig, args: argparse.Namespace,
+    cache: ManagedRecordingCache, files: Sequence[RecordingFile],
+    report: dict[str, Any], *, local_paths: Mapping[str, Path],
+) -> dict[str, Any]:
+    """确保高清阶段所需文件在盘上；本地源直接复用，远程源即时刷新重拉。"""
+    summary: dict[str, Any] = {
+        "checked": len(files), "reused_local": 0, "repulled": 0,
+        "failed": [], "bytes": 0, "seconds": 0.0, "refreshes": 0,
+    }
+    client: RecordingListClient | None = None
+    downloader: RecordingDownloader | None = None
+    policy = UrlRefreshPolicy()
+    for item in files:
+        entry = cache.entry(config.device_code, item.file_id)
+        if entry is not None and entry.path is not None and entry.path.is_file():
+            continue
+        local = local_paths.get(item.file_id)
+        if local is not None and local.is_file():
+            cache.register(config.device_code, [item])
+            with cache._lock, cache._connection:  # noqa: SLF001 - 工厂内部记账
+                cache._connection.execute(  # noqa: SLF001
+                    "UPDATE recordings SET managed=0, materialization='READY',"
+                    " path=?, bytes=?, updated=datetime('now') WHERE identity_key=?",
+                    (str(local), local.stat().st_size,
+                     RecordingFile.identity_key(config.device_code, item.file_id)),
+                )
+            summary["reused_local"] += 1
+            continue
+        if args.source is None:
+            summary["failed"].append({
+                "file_id": item.file_id, "reason": "NO_SOURCE_TO_REPULL",
+            })
+            continue
+        if client is None:
+            client = RecordingListClient(headers=_auth_headers(args))
+            downloader = RecordingDownloader()
+        allowed, reason = cache.can_reserve(item.file_size)
+        if not allowed:
+            summary["failed"].append({"file_id": item.file_id, "reason": reason})
+            continue
+        window = ListQuery(config.device_code, item.record_start, item.record_end)
+        try:
+            fresh = downloader.fetch_url_for_file(
+                client, window, item.file_id, policy=policy,
+            )
+            target = cache.begin_download(config.device_code, item)
+            result = downloader.download(
+                fresh.url, target, expected_size=item.file_size, allow_resume=False,
+            )
+        except Exception as exc:
+            cache.fail_download(config.device_code, item.file_id, str(exc)[:120])
+            summary["failed"].append({
+                "file_id": item.file_id, "reason": str(exc)[:120],
+            })
+            continue
+        cache.complete_download(
+            config.device_code, item.file_id, path=target, size=result.size,
+            sha256=result.sha256, range_supported=result.range_supported,
+            elapsed_seconds=result.elapsed_seconds,
+        )
+        summary["repulled"] += 1
+        summary["bytes"] += result.size
+        summary["seconds"] += result.elapsed_seconds
+    summary["refreshes"] = policy.refresh_count
+    summary["seconds"] = round(summary["seconds"], 3)
+    return summary
 
 
 def _collect_frames(
@@ -1174,8 +1257,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         max_downloads_per_run=args.max_downloads,
     )
     if args.source is not None:
-        config.start_time = args.start  # type: ignore[attr-defined]
-        config.end_time = args.end  # type: ignore[attr-defined]
+        config.start_time = args.start
+        config.end_time = args.end
     report = run_factory(config, args)
     if args.report is not None:
         atomic_write_json(args.report, report)

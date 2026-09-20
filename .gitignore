@@ -47,3 +47,6 @@ releases/
 *.db
 *.ses
 *.whl
+
+# 本地 Profile 工厂验证用最小虚拟环境（不含 torch/ultralytics）
+.venv-profile/

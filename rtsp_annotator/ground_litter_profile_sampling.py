@@ -236,12 +236,19 @@ class SequentialFrameReader:
         self.frames_decoded = 0
 
     def iter_frames(self) -> Iterator[RecordedFrame]:
+        """按顺序解码，并把时间戳**重定基**到文件内的相对秒数。
+
+        PS 容器的 PTS 基值可能是任意大数（实测 10394s 起），文件内 PTS 也可能
+        重置；文档明确要求不能把它当绝对时间。这里统一减去首帧时间，
+        得到可跨文件比较的「文件内偏移」，绝对时间由来源清单提供。
+        """
         try:
             import av
         except ImportError as exc:  # pragma: no cover
             raise BankError("缺少 PyAV") from exc
         started = time.monotonic()
         index = 0
+        base: float | None = None
         with av.open(str(self.path), timeout=(10.0, self.timeout)) as container:
             stream = next(
                 (item for item in container.streams if item.type == "video"), None
@@ -252,9 +259,13 @@ class SequentialFrameReader:
                 timestamp = decoded.time
                 if timestamp is None and decoded.pts is not None and stream.time_base:
                     timestamp = float(decoded.pts * stream.time_base)
+                value = float(timestamp) if timestamp is not None else None
+                if value is not None and base is None:
+                    base = value
+                relative = 0.0 if value is None or base is None else value - base
                 yield RecordedFrame(
                     frame=decoded.to_ndarray(format="bgr24"),
-                    time_seconds=float(timestamp or 0.0),
+                    time_seconds=relative,
                     index=index,
                     pts=None if decoded.pts is None else float(decoded.pts),
                     source=str(self.path),
@@ -316,14 +327,22 @@ class SequentialFrameReader:
             )
             if stream is None:
                 raise BankError("录像没有视频流")
-            base = datetime(1970, 1, 1)
+            # 先取首帧确定容器时间基，再按「基值 + 偏移」定位；PS 的 PTS 基值
+            # 可能是任意大数，直接用 0 附近的时间去 seek 会永远找不到。
+            base: float | None = None
+            for decoded in container.decode(video=0):
+                timestamp = decoded.time
+                if timestamp is None and decoded.pts is not None and stream.time_base:
+                    timestamp = float(decoded.pts * stream.time_base)
+                base = float(timestamp or 0.0)
+                break
+            if base is None:
+                return result
             for target in sorted({float(value) for value in offsets_seconds}):
+                seek_target = base + max(0.0, target - tolerance_seconds)
                 seek_started = time.monotonic()
                 try:
-                    container.seek(
-                        int(max(0.0, target - tolerance_seconds) * 1_000_000),
-                        backward=True,
-                    )
+                    container.seek(int(seek_target * 1_000_000), backward=True)
                 except Exception:
                     self.seek_seconds += time.monotonic() - seek_started
                     continue
@@ -331,13 +350,16 @@ class SequentialFrameReader:
                 best: RecordedFrame | None = None
                 for decoded in container.decode(video=0):
                     timestamp = decoded.time
+                    if timestamp is None and decoded.pts is not None and stream.time_base:
+                        timestamp = float(decoded.pts * stream.time_base)
                     if timestamp is None:
                         continue
-                    if timestamp > target + tolerance_seconds:
+                    relative = float(timestamp) - base
+                    if relative > target + tolerance_seconds:
                         break
                     candidate = RecordedFrame(
                         frame=decoded.to_ndarray(format="bgr24"),
-                        time_seconds=float(timestamp), index=0,
+                        time_seconds=relative, index=0,
                         pts=None if decoded.pts is None else float(decoded.pts),
                         source=str(self.path),
                     )
@@ -347,7 +369,6 @@ class SequentialFrameReader:
                         best = candidate
                 if best is not None:
                     result[target] = best
-        del base
         return result
 
 
@@ -570,6 +591,8 @@ class AppearanceSample:
     descriptor: dict[str, np.ndarray]
     quality: dict[str, Any]
     registration: dict[str, Any]
+    # 已配准到共同画布的分析尺寸高清帧。合成阶段必须用它，不能用小图放大。
+    aligned_full: np.ndarray | None = None
 
     def as_dict(self, *, include_timestamp: bool = True) -> dict[str, Any]:
         payload = {
@@ -721,6 +744,7 @@ class BoundedPreviewSampler:
                 descriptor=descriptor,
                 quality=quality.as_dict(),
                 registration=diagnostics,
+                aligned_full=aligned,
             ))
         elapsed = time.monotonic() - started
         detail = {
