@@ -13,6 +13,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 from datetime import datetime, timezone
 import json
 import math
@@ -86,6 +87,11 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
                         help="注入并逐目标验证的小目标数量（0=关闭）")
     parser.add_argument("--small-target-size-native-px", type=int, default=8,
                         help="按原图画布计的小目标边长（像素）")
+    parser.add_argument(
+        "--small-target-canvas-injection", action="store_true",
+        help=("退化到 v2 口径：先在评估画布上画亮块（会把目标相对放大，"
+              "留作对照，不作为默认口径）"),
+    )
     parser.add_argument("--event-memory", action="store_true",
                         help="接入 V33 事件 memory 做离线生命周期验证")
     return parser.parse_args(argv)
@@ -273,6 +279,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     )
     roi_native = roi_mask_from_geometry(geometry, native_w, native_h)
     event_memory = _build_event_memory(matcher) if args.event_memory else None
+    native_injection = not bool(getattr(args, "small_target_canvas_injection", False))
     trials_per_file = max(
         0, int(round(args.small_target_trials / max(1, len(media)))),
     )
@@ -331,6 +338,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 source_seconds = max(source_seconds, source_time)
                 planned_ticks += 1
                 # 无目标基线：第一个 tick；带目标：后续按配额注入（成对检查）。
+                active_before = selector.selected_profile_id
                 trial_index = planned_ticks - 1
                 inject = (
                     trials_per_file > 0
@@ -339,10 +347,35 @@ def main(argv: Sequence[str] | None = None) -> int:
                              if row["file"] == item.file_id]) < trials_per_file
                 )
                 if inject:
-                    frame, truth = _inject_small_target_in_roi(
-                        frame, roi_native, size, inject_side, rng,
-                    )
-                    baseline_tick = ticks[-1] if ticks else None
+                    # C4：原生尺度注入——先在原图分辨率上放目标，再整体缩放。
+                    if native_injection:
+                        frame, _native_injected, truth = (
+                            inject_small_target_native_scale(
+                                captured.frame, size, roi_native,
+                                args.small_target_size_native_px, rng,
+                            )
+                        )
+                        if truth is not None and not frame_quality(frame).usable:
+                            truth = None
+                    else:
+                        frame, truth = _inject_small_target_in_roi(
+                            frame, roi_native, size, inject_side, rng,
+                        )
+                    # 成对基线必须是**同一源帧、同一参考、同一 selector 状态**
+                    # 的未注入版本：这里用 selector 副本跑一次未注入帧，绝不拿
+                    # 上一帧冒充（v2 就是用 ticks[-1] 当基线）。
+                    baseline_tick = None
+                    if truth is not None:
+                        baseline_tick = _run_tick(
+                            copy.deepcopy(selector), contexts, descriptors,
+                            scale, envelopes, matcher,
+                            cv2.resize(captured.frame, size,
+                                       interpolation=cv2.INTER_AREA),
+                            roi, size, geometry, source_time=source_time,
+                            tick_index=len(ticks),
+                            tick_interval=gap_seconds or None,
+                            event_memory=None,
+                        )
                 else:
                     truth = None
                     baseline_tick = None
@@ -361,6 +394,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                         truth, tick, baseline_tick=baseline_tick,
                         tick_index=len(ticks) - 1, file_id=item.file_id,
                         source_time=source_time,
+                        active_profile_id=active_before,
                     ))
                 if tick["candidate_count"] and not tick["prior_allowed"]:
                     false_positive_samples.append({
@@ -438,6 +472,21 @@ def main(argv: Sequence[str] | None = None) -> int:
         "gaps": gaps,
         "gap_count": len(gaps),
         "small_target": small_target,
+        "small_target_method": {
+            "injection": (
+                "native_resolution_then_resize" if native_injection
+                else "canvas_block_legacy"
+            ),
+            "native_size_px": int(args.small_target_size_native_px),
+            "canvas_inject_side_px": inject_side,
+            "paired_baseline": "same_frame_same_selector_state_not_injected",
+            "hit_reporting": "potential_vs_effective_and_prior_allowed",
+            "event_memory_lifecycle": (
+                "instantiate_and_notify_only; full lifecycle validation is "
+                "handed to 方案二"
+                if event_memory is not None else "not_enabled"
+            ),
+        },
         "availability_checks": {
             "ticks_with_zero_availability": sum(
                 1 for tick in ticks if tick["availability_max"] == 0.0
@@ -486,8 +535,19 @@ def main(argv: Sequence[str] | None = None) -> int:
         "files": report["files"],
         "small_target": {
             "trials": small_target["trials"],
+            "rows_total": small_target["rows_total"],
+            "rows_dropped": small_target["rows_dropped"],
             "detected": small_target["detected"],
             "detection_fraction": small_target["detection_fraction"],
+            "potential_hits": small_target["potential_hits"],
+            "potential_fraction": small_target["potential_fraction"],
+            "effective_hits": small_target["effective_hits"],
+            "effective_fraction": small_target["effective_fraction"],
+            "hits_when_prior_not_allowed":
+                small_target["hits_when_prior_not_allowed"],
+            "paired_baseline_with_candidates":
+                small_target["paired_baseline_with_candidates"],
+            "native_scale_injections": small_target["native_scale_injections"],
         },
         "retained_profile_reasons": {
             "kept": list(bank.ids()),
@@ -517,6 +577,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         "small_target": {
             "trials": small_target["trials"],
             "detected": small_target["detected"],
+            "potential_hits": small_target["potential_hits"],
+            "effective_hits": small_target["effective_hits"],
+            "rows_dropped": small_target["rows_dropped"],
         },
         "envelope_source": report.get("envelope_source"),
         "gaps": len(gaps),
@@ -745,6 +808,67 @@ def _source_seconds(item: RecordingFile, offset: float) -> float:
         return float(offset)
 
 
+def inject_small_target_native_scale(
+    captured: np.ndarray, target_size: tuple[int, int], roi_native: np.ndarray,
+    native_side: int, rng: np.random.Generator,
+) -> tuple[np.ndarray, np.ndarray, dict[str, Any] | None]:
+    """在**原生分辨率**图上注入小目标，再整体缩放到评估画布（C4）。
+
+    v2 的做法是"先缩放到画布、再画一个亮块"：2560→960 时注入边长会被
+    按像素直接画在画布上，等于把目标放大 2.67 倍，统计出的命中率不能代表
+    原生尺度的小目标。这里先在原图画布上注入 ``native_side`` 像素的目标，
+    然后把**已注入的整幅图**缩放到评估画布；缩放还会真实地稀释目标对比度，
+    因此更接近现场"靠近分辨率极限"的情形。
+    """
+    if native_side < 2:
+        return (
+            cv2.resize(captured, target_size, interpolation=cv2.INTER_AREA),
+            captured, None,
+        )
+    native_h, native_w = roi_native.shape[:2]
+    rows, cols = np.nonzero(roi_native > 0)
+    if rows.size == 0:
+        return (
+            cv2.resize(captured, target_size, interpolation=cv2.INTER_AREA),
+            captured, None,
+        )
+    half = native_side // 2
+    for _ in range(32):
+        pick = int(rng.integers(0, rows.size))
+        native_y, native_x = int(rows[pick]), int(cols[pick])
+        left = max(0, min(native_x - half, native_w - native_side))
+        top = max(0, min(native_y - half, native_h - native_side))
+        target = captured.copy()
+        native_box = [left, top, left + native_side, top + native_side]
+        # 在原生图上取该方块的实际平均亮度作为填充值，避免"纯白块"这种
+        # 现场不可能出现的注入方式。
+        patch = target[top:top + native_side, left:left + native_side]
+        fill = int(np.clip(float(patch.mean()) + 90.0, 0, 255))
+        target[top:top + native_side, left:left + native_side] = fill
+        scale_x = target_size[0] / max(native_w, 1)
+        scale_y = target_size[1] / max(native_h, 1)
+        box = [
+            left * scale_x, top * scale_y,
+            (left + native_side) * scale_x, (top + native_side) * scale_y,
+        ]
+        resized = cv2.resize(target, target_size, interpolation=cv2.INTER_AREA)
+        return resized, target, {
+            "box": [round(float(value), 3) for value in box],
+            "side": int(round(native_side * scale_x)),
+            "native_side": int(native_side),
+            "native_box": native_box,
+            "native_center": [int(round((left + native_side / 2.0))),
+                              int(round((top + native_side / 2.0)))],
+            "injected": True,
+            "injection_scale": "native_then_resize",
+            "fill_value": fill,
+        }
+    return (
+        cv2.resize(captured, target_size, interpolation=cv2.INTER_AREA),
+        captured, None,
+    )
+
+
 def _inject_small_target_in_roi(
     frame: np.ndarray, roi_native: np.ndarray, size: tuple[int, int],
     side: int, rng: np.random.Generator,
@@ -804,37 +928,94 @@ def _match_target(
     truth: Mapping[str, Any], tick: Mapping[str, Any],
     *, baseline_tick: Mapping[str, Any] | None, tick_index: int,
     file_id: str, source_time: float,
+    active_profile_id: str | None = None, outputtable_ids: Sequence[str] = (),
 ) -> dict[str, Any]:
-    """把注入目标与该 tick 的候选做**空间匹配**（R6）。
+    """把注入目标与该 tick 的候选做**空间匹配**（R6 + C4）。
 
-    区分三层：任意候选、目标命中（IoU≥0.1 或中心落入真值框）、事件确认。
-    同时给出无目标基线的候选数，便于判断“命中”是不是噪声造成的。
+    三层口径必须分开，不能合并成"命中率"：
+
+    * ``potential_hit``：**任意**参考在该位置有候选（历史口径，只说明潜力）；
+    * ``effective_hit``：候选来自**当时真正生效**的参考（``profile_id``），
+      且该 tick ``prior_allowed=true``，否则不构成可用输出；
+    * 成对基线：同一源帧、同一参考、同一 selector 状态下的**未注入**版本。
+
+    v2 把前两层合并、并且不强制 ``prior_allowed``，于是"先验不允许时命中"
+    也被算进命中（09-19 有 4 例、09-20 有 2 例）。
     """
-    boxes = [row["box"] for row in tick.get("candidate_boxes_detail", [])] or []
-    truth_box = list(truth["box"])
-    hits = [box for box in boxes if _box_iou(box, truth_box) >= 0.1]
+    rows = list(tick.get("candidate_boxes_detail") or [])
+    truth_box = [float(value) for value in truth["box"]]
     center_x = (truth_box[0] + truth_box[2]) / 2.0
     center_y = (truth_box[1] + truth_box[3]) / 2.0
-    centers = [
-        box for box in boxes
-        if box[0] <= center_x <= box[2] and box[1] <= center_y <= box[3]
+
+    def hits(candidate_rows: Sequence[Mapping[str, Any]]) -> list[Mapping[str, Any]]:
+        matched = []
+        for row in candidate_rows:
+            box = row.get("box") or []
+            if len(box) < 4:
+                continue
+            if _box_iou(box, truth_box) >= 0.1 or (
+                float(box[0]) <= center_x <= float(box[2])
+                and float(box[1]) <= center_y <= float(box[3])
+            ):
+                matched.append(row)
+        return matched
+
+    active = str(active_profile_id or tick.get("profile_id") or "")
+    prior_allowed = bool(tick.get("prior_allowed"))
+    # 可用输出只能来自"当时真正生效的参考"：Selector 的输出契约是先验允许时
+    # 才用当前生效参考。未生效的候选（正在挑战/恢复中）只能算潜力命中。
+    outputtable = (
+        {str(pid) for pid in outputtable_ids}
+        if outputtable_ids else ({active} if active else set())
+    )
+    if not prior_allowed:
+        outputtable = set()
+    effective_rows = [
+        row for row in rows if str(row.get("profile_id")) in outputtable
     ]
+    potential_hits = hits(rows)
+    effective_matched = hits(effective_rows) if outputtable else []
+    baseline_rows = list(
+        (baseline_tick or {}).get("candidate_boxes_detail") or []
+    )
     return {
         "tick": tick_index,
         "file": file_id,
         "source_time": round(float(source_time), 3),
-        "truth_box": truth_box,
+        "truth_box": [round(value, 3) for value in truth_box],
         "native_side": truth.get("native_side"),
-        "available": bool(tick.get("prior_allowed")),
+        "injection_scale": truth.get("injection_scale", "canvas"),
+        "native_box": truth.get("native_box"),
+        "available": prior_allowed,
+        "prior_allowed": prior_allowed,
         "availability_max": tick.get("availability_max"),
+        "active_profile_id": active or None,
         "any_candidate": bool(tick.get("candidate_boxes")),
         "candidate_boxes": tick.get("candidate_boxes"),
-        "iou_hits": len(hits),
-        "center_hits": len(centers),
-        "target_detected": bool(hits or centers),
+        "candidate_profiles": sorted({str(row.get("profile_id"))
+                                      for row in rows}),
+        # 潜力口径：任意参考命中
+        "potential_hit": bool(potential_hits),
+        "potential_hit_profiles": sorted({
+            str(row.get("profile_id")) for row in potential_hits
+        }),
+        # 可用口径：生效参考命中且先验允许
+        "effective_hit": bool(effective_matched),
+        "effective_hit_profiles": sorted({
+            str(row.get("profile_id")) for row in effective_matched
+        }),
+        "effective_candidate_boxes": len(effective_rows),
+        # 兼容旧字段：target_detected 现在是潜力口径，必须同时看 effective_hit
+        "iou_hits": len(hits(rows)),
+        "center_hits": len(potential_hits),
+        "target_detected": bool(potential_hits),
         "baseline_candidate_boxes": (
             None if baseline_tick is None else baseline_tick.get("candidate_boxes")
         ),
+        "baseline_candidate_profiles": sorted({
+            str(row.get("profile_id")) for row in baseline_rows
+        }),
+        "paired_baseline_available": baseline_tick is not None,
         "blocked_reason": next(iter(
             (tick.get("blocked_availability") or {}).values()
         ), None),
@@ -842,33 +1023,74 @@ def _match_target(
 
 
 def _small_target_summary(per_target: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
+    """双口径小目标汇总（C4）。
+
+    ``potential`` 只说明"任意参考在该位置出现过候选"；``effective`` 才是
+    "可以输出的命中"。两者都不设通过线，结果原样报告。
+    """
     by_target = list(per_target)
-    detected = [row for row in by_target if row["target_detected"]]
-    paired = [row for row in by_target if row["baseline_candidate_boxes"] is not None]
+    potential = [row for row in by_target if row.get("potential_hit")]
+    effective = [row for row in by_target if row.get("effective_hit")]
+    dropped = [
+        row for row in by_target
+        if row.get("baseline_candidate_boxes") is None
+    ]
+    paired = [row for row in by_target if row.get("baseline_candidate_boxes") is not None]
     paired_noise = [
-        row for row in paired
-        if not row["target_detected"] and (row["baseline_candidate_boxes"] or 0) > 0
+        row for row in paired if (row.get("baseline_candidate_boxes") or 0) > 0
+    ]
+    effective_from_active = [
+        row for row in effective
+        if row.get("active_profile_id")
+        and row.get("active_profile_id") in set(row.get("effective_hit_profiles") or [])
     ]
     return {
         "trials": len(by_target),
-        "detected": len(detected),
+        "rows_total": len(by_target),
+        "rows_scored": len(by_target),
+        "rows_dropped": len(dropped),
+        "rows_dropped_reasons": {
+            "no_paired_baseline": len(dropped),
+        },
+        "detected": len(potential),
         "detection_fraction": (
-            0.0 if not by_target else round(len(detected) / len(by_target), 5)
+            0.0 if not by_target else round(len(potential) / len(by_target), 5)
+        ),
+        "potential_hits": len(potential),
+        "potential_fraction": (
+            0.0 if not by_target else round(len(potential) / len(by_target), 5)
+        ),
+        "effective_hits": len(effective),
+        "effective_fraction": (
+            0.0 if not by_target else round(len(effective) / len(by_target), 5)
+        ),
+        "effective_from_active_profile": len(effective_from_active),
+        "potential_but_not_effective": len(potential) - len(effective),
+        "hits_when_prior_not_allowed": sum(
+            1 for row in by_target
+            if row.get("potential_hit") and not row.get("prior_allowed")
         ),
         "ticks_with_any_candidate": sum(
-            1 for row in by_target if row["any_candidate"]
+            1 for row in by_target if row.get("any_candidate")
         ),
         "trials_with_target_but_no_candidate": sum(
-            1 for row in by_target
-            if not row["any_candidate"]
+            1 for row in by_target if not row.get("any_candidate")
         ),
         "paired_baselines": len(paired),
         "paired_baseline_with_candidates": len(paired_noise),
+        "paired_baseline_injected_rows": sum(
+            1 for row in by_target if row.get("paired_baseline_available")
+        ),
+        "native_scale_injections": sum(
+            1 for row in by_target
+            if str(row.get("injection_scale")) == "native_then_resize"
+        ),
         "per_target": by_target,
         "discovery_to_commit_seconds": None,
         "note": (
-            "小目标为原图尺度合成叠加，逐目标空间匹配（IoU≥0.1 或中心命中）；"
-            "这是机制验证，不代表现场识别准确率"
+            "双口径：potential=任意参考在该位置有候选；effective=候选来自当时"
+            "生效参考且 prior_allowed=true。成对基线是同帧同状态的未注入版本。"
+            "这是机制验证，不代表现场识别准确率；本报告不设通过线。"
         ),
     }
 

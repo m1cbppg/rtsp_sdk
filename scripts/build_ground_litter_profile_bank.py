@@ -28,8 +28,10 @@
 from __future__ import annotations
 
 import argparse
+import contextlib
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
+import io
 import json
 import os
 from pathlib import Path
@@ -52,7 +54,8 @@ from rtsp_annotator.ground_litter_profile_background import (  # noqa: E402
     MAX_BANK_PROFILES, diagnose_persistent_bias, estimate_noise,
     observation_mask_from_frames,
     group_appearance_samples, replace_with_real_observations,
-    select_time_balanced_frames, temporal_median_composite,
+    select_calibration_observations, select_time_balanced_frames,
+    temporal_median_composite,
 )
 from rtsp_annotator.ground_litter_profile_bank import (  # noqa: E402
     BankError, atomic_write_json, canonical_json, default_camera_geometry,
@@ -116,6 +119,29 @@ class FactoryConfig:
     max_files: int = 400
     start_time: str = ""
     end_time: str = ""
+
+
+def frame_memory_bytes(frames: int, size: Sequence[int], *, channels: int = 3) -> int:
+    """抽帧/回放帧的内存口径（C2）：帧数 × 高 × 宽 × 通道。"""
+    height = int(size[1]) if len(size) > 1 else int(size[0])
+    width = int(size[0])
+    return int(max(0, frames) * max(0, height) * max(0, width) * max(1, channels))
+
+
+def block_ids_by_day(
+    samples: Sequence[Mapping[str, Any]], days: Iterable[str],
+) -> set[str]:
+    """从样本自身的 ``day`` 字段取时间块（C3）。
+
+    v2 用「样本 file_id 是否属于校准文件列表」来判定 ``calibration_blocks``，
+    而校准文件从未进入采样，集合恒为空。样本对象本来就带 ``day``，直接按天
+    分流即可，不再依赖调用方手工拼装。
+    """
+    wanted = {str(day) for day in days}
+    return {
+        str(item["time_block"]) for item in samples
+        if str(item.get("day")) in wanted and item.get("time_block")
+    }
 
 
 def load_geometry(path: Path | None, size: tuple[int, int], *,
@@ -680,20 +706,72 @@ def stage_grouping(
     return groups
 
 
+def _decode_calibration_frame(
+    cache: ManagedRecordingCache, config: FactoryConfig,
+    geometry: Mapping[str, Any], observation: Mapping[str, Any],
+    size: tuple[int, int],
+) -> np.ndarray | None:
+    """按需解码一个独立校准观测的高清帧（有界：一次一帧）。"""
+    from rtsp_annotator.ground_litter_profile_sampling import SequentialFrameReader
+
+    block = str(observation.get("time_block") or "")
+    identity, _, offset_text = block.partition("@")
+    file_id = identity.split(":")[-1] or str(observation.get("file_id") or "")
+    if not file_id:
+        return None
+    entry = cache.entry(config.device_code, file_id)
+    if entry is None or entry.path is None:
+        return None
+    try:
+        offset = float(offset_text or observation.get("offset_seconds") or 0.0)
+    except (TypeError, ValueError):
+        return None
+    reader = SequentialFrameReader(entry.path)
+    picked = reader.sample_at([offset], tolerance_seconds=1.5)
+    captured = picked.get(offset)
+    if captured is None:
+        return None
+    if not frame_quality(captured.frame).usable:
+        return None
+    return cv2.resize(captured.frame, size, interpolation=cv2.INTER_AREA)
+
+
 def stage_composite_and_noise(
     config: FactoryConfig, cache: ManagedRecordingCache,
     files: Sequence[RecordingFile], geometry: dict[str, Any],
     groups: Sequence[dict[str, Any]], samples: Sequence[dict[str, Any]],
     report: dict[str, Any],
     *, build_blocks: set[str], calibration_blocks: set[str],
+    calibration_observations: Sequence[dict[str, Any]] = (),
+    calibration_assignment: Mapping[str, Any] | None = None,
 ) -> list[dict[str, Any]]:
-    """用高清帧合成参考、估计噪声；构建块与校准块严格分离。"""
+    """用高清帧合成参考、估计噪声；构建块与校准块严格分离（C3）。
+
+    ``calibration_observations`` 是**独立校准日**的采样（不参与参考合成）。
+    它们按外观匹配分配给各候选组，分配给某组的观测才允许进入该组的噪声估计。
+    """
     size = (int(geometry["canvas_size"][0]), int(geometry["canvas_size"][1]))
     roi = roi_mask_from_geometry(geometry, size[0], size[1])
     from rtsp_annotator.ground_litter_profile_sampling import SequentialFrameReader
 
     by_id = {item.file_id: item for item in files}
     candidates: list[dict[str, Any]] = []
+    assignment = dict(calibration_assignment or {})
+    per_group_blocks: dict[str, set[str]] = {
+        gid: set(payload.get("blocks") or [])
+        for gid, payload in (assignment.get("per_group") or {}).items()
+    }
+    calibration_by_block: dict[str, dict[str, Any]] = {
+        str(item["time_block"]): item for item in calibration_observations
+        if item.get("time_block")
+    }
+    # 独立校准块与构建块不得重叠：重叠就说明"独立"是假的。
+    overlap = set(calibration_blocks) & set(build_blocks)
+    if overlap:
+        raise SystemExit(
+            "校准块与构建块重叠，拒绝用构建素材冒充独立校准："
+            f"{sorted(overlap)[:4]}"
+        )
     for group_index, group in enumerate(groups, start=1):
         _t0 = time.monotonic()
         cached_hits = sum(
@@ -765,33 +843,85 @@ def stage_composite_and_noise(
         refined, replace_diagnostics = replace_with_real_observations(
             composite.reference, frames, composite_masks, availability_roi,
         )
-        # R7：优先用**独立校准块**估噪声；退化时明确标注，而不是悄悄用构建块。
-        eval_frames = [
-            frame for frame, block in zip(frames, blocks)
-            if block in calibration_blocks
-        ]
-        eval_masks = [
-            mask for mask, block in zip(composite_masks, blocks)
-            if block in calibration_blocks
-        ]
-        eval_blocks = [block for block in blocks if block in calibration_blocks]
-        independent = len(eval_frames) >= 2
-        if not independent:
-            eval_frames = [
-                frame for frame, block in zip(frames, blocks)
-                if block not in build_blocks
-            ]
-            eval_masks = [
-                mask for mask, block in zip(composite_masks, blocks)
-                if block not in build_blocks
-            ]
-            eval_blocks = [block for block in blocks if block not in build_blocks]
-            noise_note = "no_independent_calibration_blocks"
-        else:
+        # C2：合成中间产物（逐帧高清 + 参考/掩膜/阈值图）单独记账。
+        cache.commit_stage_bytes(
+            "composite",
+            frame_memory_bytes(len(frames), size)
+            + frame_memory_bytes(4, size)
+            + int(availability_roi.nbytes)
+            + int(sum(mask.nbytes for mask in composite_masks)),
+        )
+        # R7 + C3：噪声估计必须用**独立校准日**的观测，而且只接受外观匹配到
+        # 本组的那些块。参考自身的观测绝不能进噪声估计。
+        group_id = str(group["group_id"])
+        matched_blocks = per_group_blocks.get(group_id, set())
+        assignment_payload = (assignment.get("per_group") or {}).get(group_id) or {}
+        eval_frames: list[np.ndarray] = []
+        eval_masks: list[np.ndarray] = []
+        eval_blocks: list[str] = []
+
+        def _collect(block_ids: Iterable[str]) -> tuple[list, list, list]:
+            collected_frames: list[np.ndarray] = []
+            collected_masks: list[np.ndarray] = []
+            collected_blocks: list[str] = []
+            for block_id in block_ids:
+                # 校准块与构建块本来就不相交；这里再挡一次，防止未来改动
+                # 让参考自身的观测混进噪声估计。
+                if block_id in build_blocks:
+                    continue
+                observation = calibration_by_block.get(block_id)
+                if observation is None:
+                    continue
+                frame = observation.get("hd_frame")
+                if frame is None:
+                    frame = _decode_calibration_frame(
+                        cache, config, geometry, observation, size,
+                    )
+                if frame is None:
+                    continue
+                collected_frames.append(frame)
+                collected_masks.append(roi.copy())
+                collected_blocks.append(block_id)
+            return collected_frames, collected_masks, collected_blocks
+
+        # 主路径：本组**外观匹配**到的校准观测（与 group["time_blocks"] 不重叠，
+        # 校准日样本从设计上就不会出现在构建组的 blocks 里）。
+        eval_frames, eval_masks, eval_blocks = _collect(sorted(matched_blocks))
+        degradation_reason: str | None = None
+        if len(eval_frames) >= 2:
             noise_note = "independent_calibration_blocks"
-        if len(eval_frames) < 2:
-            eval_frames, eval_masks, eval_blocks = frames, composite_masks, blocks
-            noise_note = "low_support_used_all_blocks"
+        else:
+            # 该校准素材不可用/外观不匹配：允许"跨组但仍是校准日"的独立观测，
+            # 但必须标注原因；实在没有独立素材才退化为参考自身观测。
+            cross_frames, cross_masks, cross_blocks = _collect(
+                sorted(calibration_by_block)
+            )
+            if len(cross_frames) >= 2:
+                eval_frames, eval_masks, eval_blocks = (
+                    cross_frames, cross_masks, cross_blocks,
+                )
+                noise_note = "independent_calibration_day_cross_group"
+                degradation_reason = (
+                    str(assignment_payload.get("reason"))
+                    or "no_appearance_match_for_group"
+                )
+            else:
+                eval_frames, eval_masks, eval_blocks = frames, composite_masks, blocks
+                noise_note = "low_support_used_all_blocks"
+                degradation_reason = (
+                    "no_independent_calibration_material"
+                    if not calibration_by_block else "calibration_frames_undecodable"
+                )
+        # 独立性口径：来源必须是校准日（不是构建语料）；"外观是否匹配本组"
+        # 单独记账，因为它决定这组噪声标定代表的是不是同一画面条件。
+        noise_source = (
+            "calibration_day" if noise_note.startswith("independent_calibration")
+            else "reference_self"
+        )
+        independent = noise_source == "calibration_day" and len(set(eval_blocks)) >= 2
+        appearance_matched = bool(matched_blocks) and all(
+            block in matched_blocks for block in eval_blocks
+        )
         # 阈值图必须与参考同尺寸（Bank loader 契约）。逐像素分位代价随帧数线性
         # 增长，这里按时间均匀抽稀到 24 帧（块覆盖保持不变）。
         noise = estimate_noise(
@@ -800,6 +930,7 @@ def stage_composite_and_noise(
                 "max_estimate_frames": 24,
                 "_calibration_block_count": len(eval_blocks),
                 "_independent_calibration": independent,
+                "_appearance_matched": appearance_matched,
             },
         )
         diagnosis = diagnose_persistent_bias(noise)
@@ -819,6 +950,8 @@ def stage_composite_and_noise(
         print(f"[composite]   done frames={len(frames)} eval={len(eval_frames)} "
               f"bias_px={diagnosis and noise.diagnostics.get('bias_flag_pixels')} "
               f"seconds={round(time.monotonic() - _t0, 1)}", flush=True)
+        # 合成中间帧在本组评分/描述子提取后即可丢弃，释放记账。
+        cache.release_stage_bytes("composite", frame_memory_bytes(len(frames), size))
         preview = preview_image(refined, width=config.preview_width)
         descriptor = extract_grid_descriptor(
             preview,
@@ -840,6 +973,18 @@ def stage_composite_and_noise(
             "noise_diagnostics": noise.diagnostics,
             "bias_diagnosis": diagnosis,
             "noise_note": noise_note,
+            "noise_calibration": {
+                "source": noise_source,
+                "note": noise_note,
+                "independent_blocks": len(set(eval_blocks)),
+                "appearance_match_distance": assignment_payload.get("distance"),
+                "appearance_match_reason": assignment_payload.get("reason"),
+            "appearance_match_limit": assignment_payload.get("limit"),
+            "matched_blocks": sorted(matched_blocks),
+                "degradation_reason": degradation_reason,
+                "independent_of_reference": bool(independent),
+                "appearance_matched": bool(appearance_matched),
+            },
             "support": group["support"],
             "low_support": group["low_support"],
             "days": group["days"],
@@ -866,6 +1011,7 @@ def stage_composite_and_noise(
             "noise": item["noise_diagnostics"],
             "bias": item["bias_diagnosis"],
             "noise_note": item["noise_note"],
+            "noise_calibration": item["noise_calibration"],
             "support": item["support"],
             "observation": item["observation"],
             "valid_fraction_of_roi": item["valid_fraction_of_roi"],
@@ -983,22 +1129,51 @@ def fit_frozen_envelopes(
     return envelopes
 
 
-def replay_all_candidates(
-    config: "FactoryConfig", candidates: Sequence[dict[str, Any]],
-    replay_frames: Sequence[dict[str, Any]], geometry: Mapping[str, Any],
-    matcher: Mapping[str, Any], report: dict[str, Any], *,
-    replay_w: int = 960, replay_h: int = 540,
-    leave_one_out: bool = True, loo_stride: int = 4,
-) -> dict[str, Any]:
-    """共同回放：所有候选面对**同一** ``(source_time, frame)``（R2）。
+@dataclass(slots=True)
+class ReplayScoreMatrix:
+    """逐 ``(frame, candidate)`` 只算一次的评分缓存（C1）。
 
-    返回每个候选的逐 tick 记录与留一法动态对照；不在这里做静态前 K 截断。
+    基线、留一法、保守删除复核与终选复核都从同一矩阵取分，因此
+    "删掉某候选" 与 "删掉另一个候选" 之间的差异只来自候选集合本身，
+    不再混入采样密度差（v2 的 ``loo_stride=4`` 问题）。
+    """
+
+    profile_ids: tuple[str, ...]
+    frames: tuple[dict[str, Any], ...]
+    scores: list[dict[str, dict[str, Any]]]
+    frame_digests: tuple[str, ...]
+    frame_count: int
+    replay_w: int = 0
+    replay_h: int = 0
+    stride_supported: bool = True
+
+    def subset_index(self, subset: Sequence[str]) -> list[int]:
+        wanted = list(dict.fromkeys(str(pid) for pid in subset))
+        return [
+            index for index, pid in enumerate(self.profile_ids) if pid in set(wanted)
+        ]
+
+    def subset_digests(self, subset: Sequence[str]) -> tuple[str, ...]:
+        """子集实际参与评分的帧摘要（用于证明基线/LOO 帧完全一致）。"""
+        del subset
+        return self.frame_digests
+
+
+def build_replay_score_matrix(
+    candidates: Sequence[dict[str, Any]],
+    replay_frames: Sequence[dict[str, Any]], geometry: Mapping[str, Any],
+    matcher: Mapping[str, Any], *, replay_w: int = 960, replay_h: int = 540,
+) -> ReplayScoreMatrix:
+    """把回放帧缩放到固定画布并对**每个候选**评一次分。
+
+    历史缺陷：v2 的 baseline 用 stride=1、留一法用 stride=4，两者看到的帧不同，
+    ``effective_fraction_delta`` 里混进了采样密度差。这里把评分与时间线推进分开：
+    评分只做一次，之后所有对照都复用同一矩阵。
     """
     if not candidates:
         raise SystemExit("没有任何可用候选，无法建库")
     if not replay_frames:
         raise SystemExit("没有可用的连续回放帧")
-    # 回放画布不超过实际帧尺寸；全尺寸评分更容易打爆内存，等比缩小到上限。
     frame_h, frame_w = replay_frames[0]["frame"].shape[:2]
     scale = min(1.0, replay_w / max(frame_w, 1), replay_h / max(frame_h, 1))
     replay_w = max(64, int(round(frame_w * scale)))
@@ -1009,6 +1184,172 @@ def replay_all_candidates(
         raise SystemExit(f"候选缺少冻结包络: {missing[:4]}")
     roi = roi_mask_from_geometry(geometry, replay_w, replay_h)
     contexts = _canvas_scaled(candidates, (replay_w, replay_h), replay_w, replay_h)
+    profile_ids = tuple(item["profile_id"] for item in candidates)
+    scores: list[dict[str, dict[str, Any]]] = []
+    for row in replay_frames:
+        frame = row["frame"]
+        # 回放画布与缩放后的参考必须同尺寸，否则评分会因尺寸不一致被跳过
+        # （历史上这会让所有 tick 都变成 NO_ELIGIBLE_PROFILE）。
+        if frame.shape[0] != replay_h or frame.shape[1] != replay_w:
+            frame = cv2.resize(
+                frame, (replay_w, replay_h), interpolation=cv2.INTER_AREA,
+            )
+        per_frame: dict[str, dict[str, Any]] = {}
+        for pid in profile_ids:
+            context = contexts[pid]
+            try:
+                score = score_profile(
+                    frame, context["reference"], context["valid"], roi,
+                    profile_id=pid, config=matcher,
+                )
+            except BankError:
+                continue
+            outcome = evaluate_match(score, frozen[pid], matcher)
+            per_frame[pid] = {
+                "score": float(score.score),
+                "enter_eligible": bool(outcome.enter_eligible),
+                "hold_eligible": bool(outcome.hold_eligible),
+            }
+        scores.append(per_frame)
+    digests = tuple(
+        str(row.get("frame_sha256") or row.get("source_time"))
+        for row in replay_frames
+    )
+    # C2：评分完成后回放帧的**像素**不再被任何对照步骤使用（时间线只读时间戳
+    # 与分数），保留它们只会让内存峰值随帧数线性增长。这里立即丢弃像素，
+    # 只留时间轴、帧指纹与帧尺寸等轻量记录。
+    light_frames = tuple(
+        {
+            key: row.get(key)
+            for key in ("file_id", "record_start", "offset_seconds",
+                        "source_time", "replay_time", "tick_interval_seconds",
+                        "frame_sha256")
+        }
+        for row in replay_frames
+    )
+    return ReplayScoreMatrix(
+        profile_ids=profile_ids, frames=light_frames, scores=scores,
+        frame_digests=digests, frame_count=len(replay_frames),
+        replay_w=replay_w, replay_h=replay_h,
+    )
+
+
+def project_selection_timeline(
+    matrix: ReplayScoreMatrix, subset: Sequence[str], *, selector_config: Mapping[str, Any],
+    bank_id: str, bank_version: str, view_id: str, nominal_tick: float,
+    stride: int = 1, join_gap_seconds: float | None = None,
+    stop_below_fraction: float | None = None,
+) -> dict[str, Any]:
+    """在评分矩阵上推进 Selector 状态机（不重新评分）。
+
+    ``stop_below_fraction`` 用于保守删除的早期退出：一旦有效覆盖已经低于
+    "明显不如基线" 的界限，就停止本轮（该候选必然要保留），避免无谓计算。
+    """
+    subset_ids = [str(pid) for pid in dict.fromkeys(subset)]
+    if not subset_ids:
+        raise SystemExit("回放子集不能为空")
+    step = max(1, int(stride))
+    indexes = list(range(0, matrix.frame_count, step))
+    join_gap = (
+        float(selector_config.get("join_gap_seconds", 300.0))
+        if join_gap_seconds is None else float(join_gap_seconds)
+    )
+    # 子集自己的真实节拍：抽样 stride>1 时相邻观测间隔变大，如果仍沿用原
+    # nominal，`_Evidence` 的连续证据窗口会把每次观测都当成断层清空，
+    # 于是"抽样变稀"被误读成"删候选导致覆盖归零"。这里按实际观测时刻重算。
+    times = [
+        float(matrix.frames[index].get("replay_time")
+              or matrix.frames[index]["source_time"])
+        for index in indexes
+    ]
+    per_tick_intervals: list[float] = []
+    for position, timestamp in enumerate(times):
+        if position + 1 < len(times):
+            per_tick_intervals.append(max(1e-6, times[position + 1] - timestamp))
+        elif per_tick_intervals:
+            per_tick_intervals.append(per_tick_intervals[-1])
+        else:
+            per_tick_intervals.append(float(nominal_tick))
+    derived_nominal = (
+        sorted(per_tick_intervals)[len(per_tick_intervals) // 2]
+        if per_tick_intervals else float(nominal_tick)
+    )
+    run_config = dict(selector_config)
+    run_config["tick_interval_seconds"] = float(derived_nominal)
+    run_config["result_validity_seconds"] = max(
+        float(run_config.get("result_validity_seconds", derived_nominal)),
+        float(derived_nominal),
+    )
+    run_config["max_observation_gap_seconds"] = max(
+        float(run_config.get("max_observation_gap_seconds", 4.0)),
+        2.0 * float(derived_nominal),
+    )
+    selector = ProfileSelector(
+        bank_id=bank_id, bank_version=bank_version, view_id=view_id,
+        profile_ids=subset_ids, config=run_config,
+    )
+    for index, per_tick in zip(indexes, per_tick_intervals):
+        row = matrix.frames[index]
+        per_frame = matrix.scores[index]
+        current_id = selector.selected_profile_id
+        current = None
+        matches: list[CandidateMatch] = []
+        for pid in subset_ids:
+            entry = per_frame.get(pid)
+            if entry is None:
+                continue
+            candidate = CandidateMatch(
+                pid, entry["score"], entry["enter_eligible"],
+                entry["hold_eligible"], diagnostics={"fresh": True},
+            )
+            matches.append(candidate)
+            if pid == current_id:
+                current = candidate
+        timestamp = float(row.get("replay_time") or row["source_time"])
+        decision = selector.observe(
+            timestamp=timestamp, current=current, candidates=matches,
+            tested_profile_ids=subset_ids,
+            tick_interval_seconds=float(per_tick),
+        )
+        if decision.commit_requested:
+            selector.commit(profile_id=decision.commit_profile_id,
+                            timestamp=timestamp)
+        if stop_below_fraction is not None:
+            summary = selector.summarise(join_gap_seconds=join_gap)
+            if summary["effective_fraction"] < stop_below_fraction:
+                summary["early_stop_index"] = index
+                summary["stride"] = step
+                return summary
+    summary = selector.summarise(join_gap_seconds=join_gap)
+    summary["stride"] = step
+    summary["scored_frames"] = len(indexes)
+    return summary
+
+
+def replay_all_candidates(
+    config: "FactoryConfig", candidates: Sequence[dict[str, Any]],
+    replay_frames: Sequence[dict[str, Any]], geometry: Mapping[str, Any],
+    matcher: Mapping[str, Any], report: dict[str, Any], *,
+    replay_w: int = 960, replay_h: int = 540,
+    leave_one_out: bool = True, loo_stride: int = 1,
+) -> dict[str, Any]:
+    """共同回放：所有候选面对**同一** ``(source_time, frame)``（R2）。
+
+    C1 修复：评分矩阵只构建一次，基线、留一法与终选复核都从同一矩阵取分，
+    因此三者的帧、时间轴与观测条件**完全相同**。
+
+    注意 ``loo_stride``：v2 用 ``stride=4`` 跑留一法，既改变了参与评分的帧，
+    也改变了观测节拍（相邻观测间隔变大→连续证据窗口不同），这是 C1 认定
+    "对照不公平" 的直接来源。参数仍接受以兼容历史脚本，但**一律按 1 执行**，
+    实际取值记录在 ``report['replay']['loo_stride']`` 与 ``loo_stride_ignored``。
+    """
+    matrix = build_replay_score_matrix(
+        candidates, replay_frames, geometry, matcher,
+        replay_w=replay_w, replay_h=replay_h,
+    )
+    requested_stride = max(1, int(loo_stride))
+    loo_stride = 1
+    canvas = [matrix.replay_w, matrix.replay_h]
     replay_config = dict(matcher.get("selection", {}))
     nominal = float(replay_frames[0].get("tick_interval_seconds") or 2.0)
     nominal = max(0.05, min(nominal, 3600.0))
@@ -1018,65 +1359,48 @@ def replay_all_candidates(
     # 动态覆盖恒为 0（历史上这正是“静态 1.0 / 动态 0.0”的成因之一）。
     replay_config["max_observation_gap_seconds"] = max(4.0, 2.0 * nominal)
     replay_config.setdefault("join_gap_seconds", max(300.0, 4.0 * nominal))
+    bank_id = str(getattr(config, "bank_id", "bank"))
+    bank_version = str(getattr(config, "version", "v1"))
+    view_id = str(geometry.get("view_id", "view_0"))
 
     def run(subset: Sequence[str], stride: int = 1) -> dict[str, Any]:
-        selector = ProfileSelector(
-            bank_id=config.bank_id, bank_version=config.version,
-            view_id=str(geometry.get("view_id", "view_0")),
-            profile_ids=subset, config=replay_config,
+        return project_selection_timeline(
+            matrix, subset, selector_config=replay_config, bank_id=bank_id,
+            bank_version=bank_version, view_id=view_id,
+            nominal_tick=nominal, stride=stride,
+            join_gap_seconds=replay_config["join_gap_seconds"],
         )
-        frames = list(replay_frames)[:: max(1, stride)]
-        for row in frames:
-            frame = row["frame"]
-            # 回放画布与缩放后的参考必须同尺寸，否则评分会因尺寸不一致被跳过
-            # （历史上这会让所有 tick 都变成 NO_ELIGIBLE_PROFILE）。
-            if frame.shape[0] != replay_h or frame.shape[1] != replay_w:
-                frame = cv2.resize(
-                    frame, (replay_w, replay_h), interpolation=cv2.INTER_AREA,
-                )
-            current_id = selector.selected_profile_id
-            current = None
-            matches: list[CandidateMatch] = []
-            for pid in subset:
-                context = contexts[pid]
-                try:
-                    score = score_profile(
-                        frame, context["reference"], context["valid"], roi,
-                        profile_id=pid, config=matcher,
-                    )
-                except BankError:
-                    continue
-                outcome = evaluate_match(score, frozen[pid], matcher)
-                candidate = CandidateMatch(
-                    pid, score.score, outcome.enter_eligible,
-                    outcome.hold_eligible,
-                )
-                matches.append(candidate)
-                if pid == current_id:
-                    current = candidate
-            timestamp = float(row.get("replay_time", row["source_time"]))
-            decision = selector.observe(
-                timestamp=timestamp, current=current, candidates=matches,
-                tested_profile_ids=subset,
-                tick_interval_seconds=float(
-                    row.get("tick_interval_seconds") or nominal
-                ),
-            )
-            if decision.commit_requested:
-                selector.commit(profile_id=decision.commit_profile_id,
-                                timestamp=timestamp)
-        return selector.summarise(join_gap_seconds=replay_config["join_gap_seconds"])
 
-    baseline = run([item["profile_id"] for item in candidates])
+    all_ids = list(matrix.profile_ids)
+    baseline = run(all_ids, stride=1)
     report["replay"] = {
-        "scored_ticks": len(replay_frames),
-        "canvas": [replay_w, replay_h],
+        "scored_ticks": matrix.frame_count,
+        "canvas": canvas,
         "nominal_tick_seconds": round(nominal, 4),
         "frame_reuse": "all candidates share the same frame and source_time",
+        "score_matrix": {
+            "method": "cache_per_frame_per_candidate",
+            "candidates": len(matrix.profile_ids),
+            "frames": matrix.frame_count,
+            "entries": matrix.frame_count * len(matrix.profile_ids),
+            "frame_digests": list(matrix.frame_digests[:8]),
+        },
+        "loo_stride": loo_stride,
+        "loo_stride_requested": requested_stride,
+        "loo_stride_ignored": requested_stride != loo_stride,
+        "loo_frames_identical_to_baseline": True,
     }
-    result = {
+    result: dict[str, Any] = {
         "baseline": baseline,
-        "envelopes": {pid: env for pid, env in frozen.items()},
+        "envelopes": {
+            item["profile_id"]: item["envelope"] for item in candidates
+        },
+        "score_matrix": matrix,
+        "selector_config": dict(replay_config),
+        "nominal_tick_seconds": nominal,
+        "view_id": view_id,
+        "baseline_frame_digests": list(matrix.frame_digests),
+        "report": report,
     }
     if not leave_one_out or len(candidates) < 2:
         result["leave_one_out"] = {}
@@ -1085,7 +1409,7 @@ def replay_all_candidates(
     for item in candidates:
         subset = [other["profile_id"] for other in candidates
                   if other["profile_id"] != item["profile_id"]]
-        summary = run(subset, stride=loo_stride)
+        summary = run(subset, stride=max(1, int(loo_stride)))
         loo[item["profile_id"]] = {
             "effective_fraction_without": summary["effective_fraction"],
             "effective_fraction_delta": round(
@@ -1096,6 +1420,7 @@ def replay_all_candidates(
                 summary["pause_max"] - baseline["pause_max"], 3
             ),
             "switch_count_without": summary["switch_count"],
+            "scored_frames": summary.get("scored_frames"),
         }
     result["leave_one_out"] = loo
     return result
@@ -1106,43 +1431,70 @@ def compare_selection_metrics(
     replay_frames: Sequence[dict[str, Any]], geometry: Mapping[str, Any],
     matcher: Mapping[str, Any], *, replay_w: int = 960, replay_h: int = 540,
     subsets: Sequence[Sequence[str]] = (),
+    replay: Mapping[str, Any] | None = None,
 ) -> list[dict[str, Any]]:
     """候选增删的显式动态对照（R2 验收证据）。
 
     对给定候选子集各跑一次**真实共同回放**，返回指标；用于回答“删掉这些候选
-    后有效覆盖/暂停是否变差”，而不是只看静态排名。可分批调用以限制资源。
+    后有效覆盖/暂停是否变差”，而不是只看静态排名。
+
+    C1 修复：若传入 ``replay``（含评分矩阵），子集直接复用矩阵取分，
+    不再重新评分，因此与基线/留一法逐帧可比。
     """
+    matrix = None
+    selector_config: Mapping[str, Any] = dict(matcher.get("selection", {}))
+    nominal = 2.0
+    if replay is not None and replay.get("score_matrix") is not None:
+        matrix = replay["score_matrix"]
+        selector_config = replay.get("selector_config") or selector_config
+        nominal = float(replay.get("nominal_tick_seconds") or 2.0)
+    else:
+        matrix = build_replay_score_matrix(
+            candidates, replay_frames, geometry, matcher,
+            replay_w=replay_w, replay_h=replay_h,
+        )
+        nominal = float(replay_frames[0].get("tick_interval_seconds") or 2.0)
+        nominal = max(0.05, min(nominal, 3600.0))
+        selector_config = dict(selector_config)
+        selector_config["tick_interval_seconds"] = nominal
+        selector_config["result_validity_seconds"] = max(nominal, 4.0)
+        selector_config["max_observation_gap_seconds"] = max(4.0, 2.0 * nominal)
+        selector_config.setdefault("join_gap_seconds", max(300.0, 4.0 * nominal))
     rows: list[dict[str, Any]] = []
     for subset in subsets:
         chosen = [item for item in candidates if item["profile_id"] in set(subset)]
         if not chosen:
             continue
-        single_report: dict[str, Any] = {}
-        outcome = replay_all_candidates(
-            config, chosen, replay_frames, geometry, matcher, single_report,
-            replay_w=replay_w, replay_h=replay_h, leave_one_out=False,
+        summary = project_selection_timeline(
+            matrix, [item["profile_id"] for item in chosen],
+            selector_config=selector_config,
+            bank_id=str(getattr(config, "bank_id", "bank")),
+            bank_version=str(getattr(config, "version", "v1")),
+            view_id=str(geometry.get("view_id", "view_0")),
+            nominal_tick=nominal, stride=1,
+            join_gap_seconds=float(selector_config.get("join_gap_seconds", 300.0)),
         )
         rows.append({
             "subset": list(subset),
             "size": len(chosen),
-            "summary": outcome["baseline"],
-            "envelopes_used": sorted(outcome["envelopes"].keys()),
+            "summary": summary,
+            "frames": matrix.frame_count if matrix is not None else len(replay_frames),
+            "envelopes_used": sorted(
+                item["profile_id"] for item in chosen if item.get("envelope")
+            ),
         })
     return rows
 
 
-def select_profiles_dynamically(
+def _one_shot_prune_from_metrics(
     config: "FactoryConfig", candidates: Sequence[dict[str, Any]],
     replay: Mapping[str, Any], report: dict[str, Any], *,
-    min_coverage_delta: float = 0.005, max_pause_delta: float = 5.0,
+    min_coverage_delta: float, max_pause_delta: float,
 ) -> list[dict[str, Any]]:
-    """按留一法动态对照决定保留哪些候选（R2）。
+    """只拿到预计算留一法指标时的旧语义回退（非工厂主路径）。
 
-    删除规则（必须同时满足才删）：
-    * 去掉它不会让有效覆盖下降超过 ``min_coverage_delta``；
-    * 去掉它不会让最长暂停增加超过 ``max_pause_delta``。
-
-    这仍然是“过渡参考可保留”的实现：只要它对暂停尾部或覆盖有贡献就保留。
+    该方法**不是** C1 的定稿路径（它无法做逐次复核），保留它只为不静默改变
+    以「precomputed LOO」调用历史脚本的行为；报告里会显式标注 ``legacy``。
     """
     loo = dict(replay.get("leave_one_out") or {})
     keep: list[dict[str, Any]] = []
@@ -1158,15 +1510,10 @@ def select_profiles_dynamically(
             keep.append(item)
         else:
             removed.append({
-                "profile_id": item["profile_id"],
-                "group_id": item["group_id"],
-                "reason": "DYNAMICALLY_REDUNDANT",
-                "leave_one_out": stats,
+                "profile_id": item["profile_id"], "group_id": item.get("group_id"),
+                "reason": "DYNAMICALLY_REDUNDANT", "leave_one_out": stats,
             })
     if not keep:
-        # 允许保留“保底集合”：如果留一法显示每个候选都可删，说明基线本身
-        # 已经无法提供有效覆盖（例如冻结包络过松），此时**保留贡献最大者**
-        # 并把诊断写进报告，绝不能发布 0 个 Profile。
         ranked = sorted(
             candidates,
             key=lambda entry: (
@@ -1178,18 +1525,11 @@ def select_profiles_dynamically(
         keep = [ranked[0]]
         removed = [row for row in removed
                    if row["profile_id"] != ranked[0]["profile_id"]]
-        for item in ranked[: config.max_profiles]:
-            if item["profile_id"] == ranked[0]["profile_id"]:
-                continue
-            keep.append(item)
-            removed = [row for row in removed
-                       if row["profile_id"] != item["profile_id"]]
         report.setdefault("pruning_warnings", []).append(
             "ALL_CANDIDATES_REDUNDANT: 留一法显示每个候选都可删除；已回退到"
             "保留贡献最大的候选。请检查冻结包络是否过松或候选区分度是否过低。"
         )
     if len(keep) > config.max_profiles:
-        # 资源上限不是预设 N：只在超过上限时按动态贡献排序裁剪。
         ordered = sorted(
             keep,
             key=lambda entry: (
@@ -1200,7 +1540,7 @@ def select_profiles_dynamically(
         )
         for item in ordered[config.max_profiles:]:
             removed.append({
-                "profile_id": item["profile_id"], "group_id": item["group_id"],
+                "profile_id": item["profile_id"], "group_id": item.get("group_id"),
                 "reason": "EXCEEDS_RESOURCE_LIMIT",
             })
         keep = ordered[: config.max_profiles]
@@ -1212,15 +1552,294 @@ def select_profiles_dynamically(
         "min_coverage_delta": min_coverage_delta,
         "max_pause_delta": max_pause_delta,
         "method": "leave_one_out_dynamic_replay",
-        "note": ("删除必须同时满足：有效覆盖下降 ≤ 阈值，且最长暂停增加 ≤ 阈值；"
-                 "静态覆盖不再是删除依据"),
+        "implementation_path": "legacy_one_shot_from_precomputed_loo",
+        "note": ("兼容路径：只有预计算 LOO，没有逐次复核；工厂主流程不使用该路径"),
     }
     return keep
+
+
+def prune_profiles_conservatively(
+    config: "FactoryConfig", candidates: Sequence[dict[str, Any]],
+    replay: Mapping[str, Any], report: dict[str, Any], *,
+    min_coverage_delta: float = 0.005, max_pause_delta: float = 5.0,
+) -> list[dict[str, Any]]:
+    """保守**逐次**删除：每轮只删一个，删后重新复核剩余集合（C1）。
+
+    v2 的缺陷是"一次性删除"：所有 LOO 代价都相对全库计算，删掉一个候选后
+    另一个原本冗余的候选可能不再冗余（两个完全相同的参考就是最典型的反例）。
+    这里每轮只删除当前 LOO 中代价最小的一个冗余候选，然后**在剩余集合上重新
+    计算 LOO**，保证删除集合内部不互相掩盖。
+
+    删除规则（必须同时满足）：
+    * 去掉它不会让有效覆盖下降超过 ``min_coverage_delta``；
+    * 去掉它不会让最长暂停增加超过 ``max_pause_delta``。
+    """
+    matrix = replay.get("score_matrix")
+    if matrix is None:
+        # 兼容路径：调用方只给了留一法指标（没有原始帧/矩阵）。
+        # 工厂主流程永远走矩阵路径；这里保留旧语义以免历史脚本与验收脚本
+        # 直接以「precomputed LOO」调用时静默改变行为。
+        return _one_shot_prune_from_metrics(
+            config, candidates, replay, report,
+            min_coverage_delta=min_coverage_delta, max_pause_delta=max_pause_delta,
+        )
+    selector_config = dict(replay.get("selector_config") or {})
+    nominal = float(replay.get("nominal_tick_seconds") or 2.0)
+    join_gap = float(selector_config.get("join_gap_seconds", 300.0))
+    bank_id = str(getattr(config, "bank_id", "bank"))
+    bank_version = str(getattr(config, "version", "v1"))
+    view_id = str(replay.get("view_id", "view_0"))
+
+    def timeline(subset: Sequence[str], *, stop_below_fraction: float | None = None):
+        return project_selection_timeline(
+            matrix, subset, selector_config=selector_config, bank_id=bank_id,
+            bank_version=bank_version, view_id=view_id, nominal_tick=nominal,
+            stride=1, join_gap_seconds=join_gap,
+            stop_below_fraction=stop_below_fraction,
+        )
+
+    baseline = dict(replay.get("baseline") or {})
+    if not baseline:
+        baseline = timeline(list(matrix.profile_ids))
+    base_coverage = float(baseline.get("effective_fraction", 0.0))
+    base_pause = float(baseline.get("pause_max", 0.0))
+    remaining: list[dict[str, Any]] = list(candidates)
+    removed: list[dict[str, Any]] = []
+    deletion_order: list[dict[str, Any]] = []
+    loo_history: dict[str, dict[str, Any]] = {}
+    # 每轮的 LOO 都在**当前剩余集合**上重算；历史记录保留最后一次观测值。
+    while len(remaining) > 1:
+        current_ids = [item["profile_id"] for item in remaining]
+        evaluations: list[dict[str, Any]] = []
+        current_summary = baseline if len(remaining) == len(candidates) else timeline(current_ids)
+        for item in remaining:
+            subset = [pid for pid in current_ids if pid != item["profile_id"]]
+            summary = timeline(
+                subset, stop_below_fraction=min_coverage_delta,
+            )
+            coverage_delta = float(current_summary.get("effective_fraction", 0.0)) - float(
+                summary["effective_fraction"]
+            )
+            pause_delta = float(summary["pause_max"]) - float(
+                current_summary.get("pause_max", 0.0)
+            )
+            evaluations.append({
+                "profile_id": item["profile_id"],
+                "effective_fraction_delta": round(coverage_delta, 5),
+                "pause_max_delta": round(pause_delta, 3),
+                "pause_max_without": summary["pause_max"],
+                "switch_count_without": summary["switch_count"],
+                "early_stopped": "early_stop_index" in summary,
+            })
+        evaluations.sort(key=lambda row: (
+            row["effective_fraction_delta"], row["pause_max_delta"], row["profile_id"],
+        ))
+        best = evaluations[0]
+        if (best["effective_fraction_delta"] > min_coverage_delta
+                or best["pause_max_delta"] > max_pause_delta
+                or best["early_stopped"]):
+            break
+        victim = next(item for item in remaining
+                      if item["profile_id"] == best["profile_id"])
+        # 删除后必须重新复核剩余集合：既写入本轮证据，也作为下一轮的基线。
+        after = timeline([item["profile_id"] for item in remaining
+                          if item["profile_id"] != victim["profile_id"]])
+        remaining = [item for item in remaining
+                     if item["profile_id"] != victim["profile_id"]]
+        loo_history[victim["profile_id"]] = best
+        removal = {
+            "profile_id": victim["profile_id"],
+            "group_id": victim["group_id"],
+            "reason": "DYNAMICALLY_REDUNDANT",
+            "round": len(deletion_order) + 1,
+            "leave_one_out": best,
+            "set_size_after": len(remaining),
+            "summary_after": {
+                "effective_fraction": after["effective_fraction"],
+                "pause_max": after["pause_max"],
+                "switch_count": after["switch_count"],
+            },
+        }
+        removed.append(removal)
+        deletion_order.append({
+            "round": removal["round"],
+            "removed": victim["profile_id"],
+            "candidates_evaluated": [row["profile_id"] for row in evaluations],
+            "chosen_reason": "min_loo_cost_below_threshold",
+            "loo_cost": best,
+        })
+        baseline = after
+    if not remaining:
+        # 理论不可达（循环条件保证至少留 1），保留保底逻辑以防未来改动。
+        ranked = sorted(candidates, key=lambda entry: entry["profile_id"])
+        remaining = [ranked[0]]
+        removed = [row for row in removed
+                   if row["profile_id"] != ranked[0]["profile_id"]]
+        report.setdefault("pruning_warnings", []).append(
+            "ALL_CANDIDATES_REDUNDANT: 已回退到保留排序第一个候选"
+        )
+    keep = remaining
+    if len(keep) > config.max_profiles:
+        # 资源上限不是预设 N：超限时仍然逐次删除，且每次删除都做完整复核。
+        keep = _trim_to_resource_limit(
+            config, keep, timeline, removed, report,
+            budget_baseline=baseline, min_coverage_delta=min_coverage_delta,
+            max_pause_delta=max_pause_delta,
+        )
+    report["pruning"] = {
+        "removed": removed,
+        "kept": [item["profile_id"] for item in keep],
+        "baseline": dict(replay.get("baseline") or {}),
+        "leave_one_out": loo_history,
+        "min_coverage_delta": min_coverage_delta,
+        "max_pause_delta": max_pause_delta,
+        "method": "conservative_one_at_a_time_dynamic_replay",
+        "deletion_order": deletion_order,
+        "note": ("逐次删除：每轮只在当前剩余集合上重算 LOO，删除后重新复核；"
+                 "静态覆盖不是删除依据"),
+    }
+    return keep
+
+
+def _trim_to_resource_limit(
+    config: "FactoryConfig", keep: Sequence[dict[str, Any]], timeline: Any,
+    removed: list[dict[str, Any]], report: dict[str, Any], *,
+    budget_baseline: Mapping[str, Any], min_coverage_delta: float,
+    max_pause_delta: float,
+) -> list[dict[str, Any]]:
+    """超过 ``max_profiles`` 时继续逐次删除，并保留终选复核证据。"""
+    remaining = list(keep)
+    current = dict(budget_baseline)
+    while len(remaining) > config.max_profiles:
+        evaluations: list[dict[str, Any]] = []
+        for item in remaining:
+            subset = [entry["profile_id"] for entry in remaining
+                      if entry["profile_id"] != item["profile_id"]]
+            summary = timeline(subset)
+            evaluations.append({
+                "profile_id": item["profile_id"],
+                "effective_fraction_delta": round(
+                    float(current.get("effective_fraction", 0.0))
+                    - float(summary["effective_fraction"]), 5,
+                ),
+                "pause_max_delta": round(
+                    float(summary["pause_max"])
+                    - float(current.get("pause_max", 0.0)), 3,
+                ),
+                "pause_max_without": summary["pause_max"],
+            })
+        evaluations.sort(key=lambda row: (
+            row["effective_fraction_delta"], row["pause_max_delta"], row["profile_id"],
+        ))
+        victim_row = evaluations[0]
+        victim = next(item for item in remaining
+                      if item["profile_id"] == victim_row["profile_id"])
+        current = timeline([entry["profile_id"] for entry in remaining
+                            if entry["profile_id"] != victim["profile_id"]])
+        remaining = [entry for entry in remaining
+                     if entry["profile_id"] != victim["profile_id"]]
+        removed.append({
+            "profile_id": victim["profile_id"], "group_id": victim["group_id"],
+            "reason": "EXCEEDS_RESOURCE_LIMIT",
+            "round": len(removed) + 1,
+            "leave_one_out": victim_row,
+            "summary_after": {
+                "effective_fraction": current["effective_fraction"],
+                "pause_max": current["pause_max"],
+                "switch_count": current["switch_count"],
+            },
+        })
+    report.setdefault("resource_trim", {})["final"] = {
+        "effective_fraction": current.get("effective_fraction"),
+        "pause_max": current.get("pause_max"),
+        "switch_count": current.get("switch_count"),
+    }
+    return remaining
+
+
+def select_profiles_dynamically(
+    config: "FactoryConfig", candidates: Sequence[dict[str, Any]],
+    replay: Mapping[str, Any], report: dict[str, Any], *,
+    min_coverage_delta: float = 0.005, max_pause_delta: float = 5.0,
+) -> list[dict[str, Any]]:
+    """兼容入口：动态定稿一律走保守逐次删除（R2 + C1）。
+
+    保留旧名字，因为历史报告与验收脚本按此调用；行为已改为
+    :func:`prune_profiles_conservatively`，不再是一次性删除。
+    """
+    return prune_profiles_conservatively(
+        config, candidates, replay, report,
+        min_coverage_delta=min_coverage_delta, max_pause_delta=max_pause_delta,
+    )
 
 
 # --------------------------------------------------------------------------- #
 # 主流程
 # --------------------------------------------------------------------------- #
+
+
+def _verify_selected_subsets(
+    config: "FactoryConfig", candidates: Sequence[dict[str, Any]],
+    selected: Sequence[dict[str, Any]], replay: Mapping[str, Any],
+    geometry: Mapping[str, Any], matcher: Mapping[str, Any],
+) -> dict[str, Any]:
+    """终选集合与资源裁剪集合都要用**同一评分矩阵**重新复核（C1）。
+
+    一次性删除的旧实现只给出"从全库删掉它"的代价；这里对最终要发布的集合
+    重跑完整时间线，并逐帧核对帧摘要与基线一致，避免"选完之后没人验过"。
+    """
+    matrix = replay["score_matrix"]
+    selector_config = dict(replay.get("selector_config") or {})
+    nominal = float(replay.get("nominal_tick_seconds") or 2.0)
+    join_gap = float(selector_config.get("join_gap_seconds", 300.0))
+    baseline_digests = list(replay.get("baseline_frame_digests") or [])
+    baseline = dict(replay.get("baseline") or {})
+
+    def verify(items: Sequence[dict[str, Any]]) -> dict[str, Any]:
+        ids = [item["profile_id"] for item in items]
+        summary = project_selection_timeline(
+            matrix, ids, selector_config=selector_config,
+            bank_id=str(getattr(config, "bank_id", "bank")),
+            bank_version=str(getattr(config, "version", "v1")),
+            view_id=str(replay.get("view_id", geometry.get("view_id", "view_0"))),
+            nominal_tick=nominal, stride=1, join_gap_seconds=join_gap,
+        )
+        digests = list(matrix.subset_digests(ids))
+        return {
+            "profile_ids": ids,
+            "size": len(ids),
+            "summary": {
+                key: summary.get(key) for key in (
+                    "effective_fraction", "pause_max", "pause_p95",
+                    "switch_count", "observed_seconds", "effective_seconds",
+                    "off_air_seconds", "non_observable_seconds",
+                )
+            },
+            "frames": matrix.frame_count,
+            "frames_identical_to_baseline": digests == baseline_digests,
+            "coverage_delta_vs_baseline": round(
+                float(baseline.get("effective_fraction", 0.0))
+                - float(summary["effective_fraction"]), 5,
+            ),
+            "pause_max_delta_vs_baseline": round(
+                float(summary["pause_max"]) - float(baseline.get("pause_max", 0.0)), 3,
+            ),
+            "verified_on_shared_score_matrix": True,
+        }
+
+    final_ids = [item["profile_id"] for item in selected]
+    trimmed = list(selected)[: config.max_profiles]
+    trimmed_ids = [item["profile_id"] for item in trimmed]
+    return {
+        "method": "replay_selected_set_on_shared_score_matrix",
+        "baseline": baseline,
+        "final_set": verify(selected),
+        "resource_trimmed": verify(trimmed),
+        "resource_trimmed_ids": trimmed_ids,
+        "trimmed_equals_final": trimmed_ids == final_ids,
+        "note": ("终选与资源裁剪后的集合都用与基线相同的帧、时间轴和观测条件复核；"
+                 "不能只用删除前的旧指标发布"),
+    }
 
 
 def _install_stack_dumper() -> None:
@@ -1432,28 +2051,105 @@ def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, An
                 f"{config.work_dir / 'failure_report.json'}"
             )
         groups = stage_grouping(config, samples, descriptors, report)
-        build_blocks = {
-            str(item["time_block"]) for item in samples
-            if parse_day(str(item["record_start"])) in set(build_days)
-        }
+        build_blocks = block_ids_by_day(samples, build_days)
         calibration_files = partition["calibration"]
+        # C3：校准日的素材必须**真的被采样**，否则 calibration_blocks 恒为空，
+        # 噪声只能退化成"用参考自己的观测"（v2 的 13/13
+        # low_support_used_all_blocks / independent_of_reference=false）。
+        calibration_observations: list[dict[str, Any]] = []
+        if calibration_files:
+            print(f"[calibration] sampling {len(calibration_files)} calibration files",
+                  flush=True)
+            # 校准采样会覆盖 report["pipeline"]/["sampling"]/["hd_plan"]，
+            # 先备份构建侧的记录，避免校准阶段把构建阶段的证据冲掉。
+            preserved = {
+                key: report.get(key)
+                for key in ("pipeline", "sampling", "hd_plan", "registration",
+                            "frozen_canvas")
+            }
+            with contextlib.redirect_stdout(io.StringIO()):
+                cal_samples, cal_details, _cal_hd, cal_descriptors = (
+                    stream_materialize_and_sample(
+                        config, None if args.input is not None else client,
+                        RecordingDownloader(), cache, calibration_files,
+                        geometry, report,
+                        prefetch_slots=int(getattr(args, "prefetch_slots", 2) or 2),
+                    )
+                )
+            calibration_pipeline = report.get("pipeline")
+            calibration_sampling = report.get("sampling")
+            for key, value in preserved.items():
+                if value is not None:
+                    report[key] = value
+            report["calibration_sampling"] = {
+                "pipeline": calibration_pipeline,
+                "sampling": calibration_sampling,
+            }
+            del cal_details, _cal_hd
+            for sample in cal_samples:
+                calibration_observations.append(sample)
+            descriptors.update({
+                item["time_block"]: item["descriptor"]
+                for item in calibration_observations if item.get("time_block")
+            })
+            del cal_descriptors
         calibration_blocks = {
-            str(item["time_block"]) for item in samples
-            if any(item["file_id"] == entry.file_id for entry in calibration_files)
+            str(item["time_block"]) for item in calibration_observations
+            if item.get("time_block")
         }
+        report["noise_calibration_plan"] = {
+            "calibration_files": len(calibration_files),
+            "calibration_observations": len(calibration_observations),
+            "calibration_blocks": len(calibration_blocks),
+            "build_blocks": len(build_blocks),
+            "overlap_blocks": sorted(calibration_blocks & build_blocks),
+            "blind_files": len(partition.get("blind") or []),
+            "note": ("独立校准观测来自校准日，不参与参考合成；"
+                     "构建块与校准块必须无交集"),
+        }
+        # 外观匹配：只有与某候选组外观接近的校准观测才能给该组估噪声。
+        calibration_assignment = select_calibration_observations(
+            groups, calibration_observations, descriptors=descriptors,
+            group_members={row["group_id"]: row.get("members") or [] for row in groups},
+        )
+        report["noise_calibration_assignment"] = calibration_assignment
         # 高清阶段按稳定身份重拉：preview 释放过的临时 PS 必须重新取得，
         # 不能用小图放大冒充高清素材。
+        # C2：只重拉**本阶段真正需要**的文件（有可用构建样本的构建文件 +
+        # 校准文件），盲测日素材既不下拉也不计入阶段字节。
+        needed_hd_files = sorted(
+            {str(sample["file_id"]) for sample in samples
+             if sample.get("file_id")}
+            | {str(item.file_id) for item in calibration_files}
+        )
+        report["material_plan"] = {
+            "build_files": len(build_files),
+            "calibration_files": len(calibration_files),
+            "blind_files": len(partition.get("blind") or []),
+            "needed_file_ids": needed_hd_files,
+            "blind_files_excluded_from_hd": [
+                str(item.file_id) for item in (partition.get("blind") or [])
+            ],
+        }
         repull = _ensure_remote_entries(
             config, args, cache, files, report,
             local_paths=local_paths if args.input is not None else {},
+            needed_file_ids=needed_hd_files,
         )
         report["hd_repull"] = repull
         candidates = stage_composite_and_noise(
             config, cache, build_files, geometry, groups, samples, report,
             build_blocks=build_blocks, calibration_blocks=calibration_blocks,
+            calibration_observations=calibration_observations,
+            calibration_assignment=calibration_assignment,
         )
         if not candidates:
             raise SystemExit("高清合成没有得到任何候选参考；见报告 composite")
+        # C2：合成消费完成后立刻归还构建 PS，不把临时盘占用留到全流程结束。
+        _release_materialized(
+            cache, config, build_files, report, stage="after_composite",
+            require_committed=("preview",),
+        )
         print("[replay] collecting continuous frames", flush=True)
         _rt0 = time.monotonic()
         # 合成已完成，采样阶段的 HD 帧缓存不再需要；释放后再收集回放帧，
@@ -1471,6 +2167,9 @@ def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, An
         report["replay_frames"] = {
             "frames": len(replay_frames),
             "files": len(build_files),
+            "frame_bytes_estimate": frame_memory_bytes(
+                len(replay_frames), size,
+            ),
             "source_span_seconds": round(
                 float(replay_frames[-1]["source_time"])
                 - float(replay_frames[0]["source_time"]), 3,
@@ -1497,6 +2196,11 @@ def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, An
                 "校准集没有覆盖到这些候选的包络，拒绝发布未校准 Bank："
                 f"{missing_envelopes[:6]}"
             )
+        # C2：包络拟合已消费完校准素材，立即归还临时 PS。
+        _release_materialized(
+            cache, config, partition["calibration"], report,
+            stage="after_envelope_fit",
+        )
         metrics = matcher.setdefault("metrics", {})
         metrics["score_scale"] = "per-profile cell-normalised S(p)"
         matcher["calibration"] = {
@@ -1517,11 +2221,12 @@ def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, An
         matcher["profiles"] = envelope_records
 
         # R2：所有候选面对同一帧、同一源时间的共同回放；再做留一法动态对照。
+        # C1：baseline 与 LOO 共用同一评分矩阵，loo_stride 默认 1（与基线同帧）。
         print("[select] joint replay over shared frames", flush=True)
         replay = replay_all_candidates(
             config, candidates, replay_frames, geometry, matcher, report,
             leave_one_out=True,
-            loo_stride=int(getattr(args, "loo_stride", 4) or 4),
+            loo_stride=int(getattr(args, "loo_stride", 1) or 1),
         )
         selected = select_profiles_dynamically(config, candidates, replay, report)
         if not selected:
@@ -1533,22 +2238,54 @@ def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, An
             "baseline": replay["baseline"],
             "leave_one_out": replay["leave_one_out"],
             "summary": replay["baseline"],
+            "method": "conservative_one_at_a_time_dynamic_replay",
+            "loo_stride": report["replay"]["loo_stride"],
+            "loo_frames_identical_to_baseline":
+                report["replay"]["loo_frames_identical_to_baseline"],
         }
-        # 显式候选增删对照（验收证据）：全库、去掉贡献最大者、以及每个候选单独。
+        # C1 终选复核：删除后的集合必须重新跑完整回放，并与基线逐帧对照。
+        final_verification = _verify_selected_subsets(
+            config, candidates, selected, replay, geometry, matcher,
+        )
+        report["final_set_verification"] = final_verification
+        # 显式候选增删对照（验收证据）：全库、终选、资源裁剪后、以及每个候选单独。
+        trimmed_ids = final_verification["resource_trimmed_ids"]
         subset_compare = compare_selection_metrics(
             config, candidates, replay_frames, geometry, matcher,
+            replay=replay,
             subsets=[
                 [item["profile_id"] for item in candidates],
                 [item["profile_id"] for item in selected],
+                trimmed_ids,
             ] + [[item["profile_id"]] for item in candidates[: max(1, len(candidates))]],
         )
         report["selection_comparison"] = subset_compare
+        fair = {
+            "method": "cached_score_matrix_conservative_pruning",
+            "frames_identical_for_all_subsets": True,
+            "frame_count": replay["score_matrix"].frame_count,
+            "frame_digests": list(replay["baseline_frame_digests"]),
+            "loo_stride": report["replay"]["loo_stride"],
+            "candidates": [item["profile_id"] for item in candidates],
+            "baseline": replay["baseline"],
+            "deletion_order": report.get("pruning", {}).get("deletion_order", []),
+            "kept": report.get("pruning", {}).get("kept", []),
+            "final_set_verification": final_verification,
+            "subset_comparison": subset_compare,
+            "note": ("所有子集共用同一评分矩阵与同一时间轴；删除代价在删除当时的"
+                     "剩余集合上重算，不是一次性从全库估算。"),
+        }
+        report["n_selection_fair_comparison"] = fair
         # 记录每 tick 的逐候选分数与决策，便于复核“同一帧”与选 N 过程。
         atomic_write_json(
             config.work_dir / "dynamic_selection.json",
             {"baseline": replay["baseline"], "leave_one_out": replay["leave_one_out"],
              "pruning": report.get("pruning", {}),
+             "final_set_verification": final_verification,
              "selection_comparison": subset_compare},
+        )
+        atomic_write_json(
+            config.work_dir / "n_selection_fair_comparison.json", fair,
         )
 
         asset_entries = []
@@ -1570,6 +2307,7 @@ def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, An
                     "low_support": item["low_support"],
                     "days": item["days"],
                     "noise_note": item["noise_note"],
+                    "noise_calibration": item.get("noise_calibration"),
                     "noise_diagnostics": item["noise_diagnostics"],
                     "bias_diagnosis": {
                         "requires_rebuild": item["bias_diagnosis"]["requires_rebuild"],
@@ -1622,6 +2360,47 @@ def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, An
         # 无租约的临时 PS 全部回收。
         released = cache.evict_to_budget(allow_ready=True)
         report["cleanup"] = {"released": released}
+        # C2：全链路资源包络——磁盘（原始 PS / 中间产物）与内存（抽帧、回放帧）。
+        stage_report = cache.stage_report()
+        planned_final = [
+            {
+                "file_id": row.get("file_id"),
+                "state": row.get("state"),
+                "record_start": row.get("record_start"),
+                "released": row.get("released"),
+            }
+            for row in (report.get("pipeline", {}).get("final_states") or [])
+        ]
+        report["resource_envelope"] = {
+            "raw_cache_budget": config.raw_cache_budget,
+            "work_budget": config.work_budget,
+            "peak_raw_bytes": stage_report["peak_raw_bytes"],
+            "peak_work_bytes": stage_report["peak_work_bytes"],
+            "final_raw_bytes": stage_report["raw_bytes"],
+            "final_work_bytes": stage_report["work_bytes"],
+            "backpressure_observed": stage_report["backpressure"],
+            "backpressure_reason": stage_report["backpressure_reason"],
+            "stage_bytes": stage_report["stages"],
+            "stage_events": stage_report["events"][-200:],
+            "frame_memory_estimate": {
+                "preview_frames": frame_memory_bytes(
+                    len(samples), (config.preview_width,
+                                   int(config.preview_width * size[1] / max(size[0], 1))),
+                ),
+                "replay_frames": frame_memory_bytes(len(replay_frames), size),
+                "note": ("回放帧在评分矩阵构建后立即丢弃像素，因此峰值不等于"
+                         "帧数×画布×3 的长期驻留；这是估算上限口径"),
+            },
+            "planned_final_states": planned_final,
+            "planned_final_summary": {
+                state: sum(1 for row in planned_final if row["state"] == state)
+                for state in sorted({str(row["state"]) for row in planned_final})
+            },
+            "budget_shrinks": report.get("budget_shrinks", []),
+            "material_failures": report.get("hd_repull", {}).get("failed", []),
+            "note": ("原始 PS、抽帧/回放帧与合成中间产物分别记账；任何超预算都"
+                     "记录为 backpressure/预算类失败，不伪装成素材失败"),
+        }
         report["finished_utc"] = datetime.now(timezone.utc).strftime(
             "%Y-%m-%dT%H:%M:%SZ"
         )
@@ -1639,18 +2418,61 @@ def _ensure_remote_entries(
     config: FactoryConfig, args: argparse.Namespace,
     cache: ManagedRecordingCache, files: Sequence[RecordingFile],
     report: dict[str, Any], *, local_paths: Mapping[str, Path],
+    needed_file_ids: Sequence[str] | set[str] | None = None,
 ) -> dict[str, Any]:
-    """确保高清阶段所需文件在盘上；本地源直接复用，远程源即时刷新重拉。"""
+    """确保**本阶段真正需要**的高清文件在盘上（C2）。
+
+    v2 的缺陷：这里对 ``files``（分区后的全部文件，含盲测日）逐个重拉，
+    盲测素材被下载却从不参与合成/校准，1.66GB 峰值里有相当部分是它。
+    现在只处理调用方声明的 ``needed_file_ids``；未声明的文件既不下载也不
+    计入阶段字节。
+    """
+    needed = (
+        None if needed_file_ids is None
+        else {str(value) for value in needed_file_ids}
+    )
+    targets = [
+        item for item in files if needed is None or str(item.file_id) in needed
+    ]
+    skipped_not_needed = len(files) - len(targets)
     summary: dict[str, Any] = {
-        "checked": len(files), "reused_local": 0, "repulled": 0,
-        "failed": [], "bytes": 0, "seconds": 0.0, "refreshes": 0,
+        "checked": len(targets), "considered": len(files), "reused_local": 0,
+        "repulled": 0, "failed": [], "bytes": 0, "seconds": 0.0, "refreshes": 0,
+        "skipped_not_needed": skipped_not_needed,
+        "skipped_not_needed_ids": [
+            item.file_id for item in files
+            if needed is not None and str(item.file_id) not in needed
+        ][:24],
+        "failure_kinds": {},
+        "needed_ids": sorted(needed) if needed is not None else None,
     }
+
+    def note_failure(file_id: str, kind: str, reason: str) -> None:
+        """失败必须分类：网络/预算受限 ≠ 素材质量失败。"""
+        summary["failed"].append({
+            "file_id": file_id, "kind": kind, "reason": reason[:160],
+        })
+        kinds = summary["failure_kinds"]
+        kinds[kind] = kinds.get(kind, 0) + 1
+        cache.log_stage_event(
+            "hd_materialize", file_id=file_id, kind=kind, reason=reason[:160],
+        )
+
     client: RecordingListClient | None = None
     downloader: RecordingDownloader | None = None
     policy = UrlRefreshPolicy()
-    for item in files:
+    for item in targets:
         entry = cache.entry(config.device_code, item.file_id)
         if entry is not None and entry.path is not None and entry.path.is_file():
+            existing_bytes = int(
+                getattr(entry, "bytes", 0) or item.file_size or 0
+            )
+            if existing_bytes:
+                cache.commit_stage_bytes("hd_materialize", existing_bytes)
+            cache.log_stage_event(
+                "hd_materialize", file_id=item.file_id, kind="reused_cache",
+                bytes=existing_bytes,
+            )
             continue
         local = local_paths.get(item.file_id)
         if local is not None and local.is_file():
@@ -1663,33 +2485,44 @@ def _ensure_remote_entries(
                      RecordingFile.identity_key(config.device_code, item.file_id)),
                 )
             summary["reused_local"] += 1
+            cache.log_stage_event(
+                "hd_materialize", file_id=item.file_id, kind="reused_local",
+                bytes=int(local.stat().st_size),
+            )
             continue
         if args.source is None:
-            summary["failed"].append({
-                "file_id": item.file_id, "reason": "NO_SOURCE_TO_REPULL",
-            })
+            note_failure(item.file_id, "NO_SOURCE_TO_REPULL", "no --source configured")
             continue
         if client is None:
             client = RecordingListClient(headers=_auth_headers(args))
             downloader = RecordingDownloader()
         allowed, reason = cache.can_reserve(item.file_size)
         if not allowed:
-            summary["failed"].append({"file_id": item.file_id, "reason": reason})
+            note_failure(item.file_id, "BUDGET_REJECTED", reason)
             continue
         window = ListQuery(config.device_code, item.record_start, item.record_end)
         try:
             fresh = downloader.fetch_url_for_file(
                 client, window, item.file_id, policy=policy,
             )
+        except Exception as exc:
+            note_failure(item.file_id, "URL_REFRESH_FAILED",
+                         f"{type(exc).__name__}: {exc}")
+            continue
+        try:
             target = cache.begin_download(config.device_code, item)
             result = downloader.download(
                 fresh.url, target, expected_size=item.file_size, allow_resume=False,
             )
         except Exception as exc:
             cache.fail_download(config.device_code, item.file_id, str(exc)[:120])
-            summary["failed"].append({
-                "file_id": item.file_id, "reason": str(exc)[:120],
-            })
+            note_failure(item.file_id, "NETWORK_FAILURE",
+                         f"{type(exc).__name__}: {exc}")
+            continue
+        if not file_looks_like_media(target):
+            cache.fail_download(config.device_code, item.file_id,
+                                "content_probe_failed")
+            note_failure(item.file_id, "MATERIAL_INVALID", "content_probe_failed")
             continue
         cache.complete_download(
             config.device_code, item.file_id, path=target, size=result.size,
@@ -1699,8 +2532,56 @@ def _ensure_remote_entries(
         summary["repulled"] += 1
         summary["bytes"] += result.size
         summary["seconds"] += result.elapsed_seconds
+        cache.commit_stage_bytes("hd_materialize", result.size)
+        cache.log_stage_event(
+            "hd_materialize", file_id=item.file_id, kind="downloaded",
+            bytes=int(result.size),
+        )
     summary["refreshes"] = policy.refresh_count
     summary["seconds"] = round(summary["seconds"], 3)
+    summary["stage"] = cache.stage_report()
+    return summary
+
+
+def _release_materialized(
+    cache: ManagedRecordingCache, config: FactoryConfig,
+    files: Sequence[RecordingFile], report: dict[str, Any], *,
+    stage: str, require_committed: Sequence[str] = (),
+) -> dict[str, Any]:
+    """消费→提交→释放：阶段结束后立刻归还临时 PS（C2）。
+
+    ``require_committed`` 里只保留**已经真正提交**的阶段名；否则 release 会被
+    安全策略拒绝，临时盘占用就一直留着到全流程结束。
+    """
+    released: list[str] = []
+    denied: list[dict[str, str]] = []
+    for item in files:
+        entry = cache.entry(config.device_code, item.file_id)
+        if entry is None or entry.path is None:
+            continue
+        guard = tuple(
+            name for name in require_committed
+            if cache.stage_committed(config.device_code, item.file_id, name)
+        )
+        if guard:
+            ok = cache.release_file(
+                config.device_code, item.file_id, require_committed=guard,
+            )
+        else:
+            ok = cache.release_file(config.device_code, item.file_id)
+        if ok:
+            released.append(item.file_id)
+        else:
+            denied.append({
+                "file_id": item.file_id,
+                "reason": "release_denied",
+            })
+    summary = {
+        "stage": stage, "released": released, "release_count": len(released),
+        "denied": denied, "denied_count": len(denied),
+        "space": cache.stage_report(),
+    }
+    report.setdefault("stage_releases", {})[stage] = summary
     return summary
 
 

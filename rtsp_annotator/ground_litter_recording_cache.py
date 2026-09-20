@@ -231,6 +231,51 @@ class ManagedRecordingCache:
             self._connection.executescript(_CACHE_SCHEMA)
         self.peak_raw_bytes = 0
         self.peak_work_bytes = 0
+        # C2：按阶段记账，报告"每阶段真正需要而且真的落盘"的字节与峰值，
+        # 避免把"盲测素材也拉下来了"这类问题埋进一个全流程总量里。
+        self._stage_bytes: dict[str, int] = {}
+        self._stage_events: list[dict[str, Any]] = []
+
+    # -- 阶段记账（C2） ----------------------------------------------------- #
+
+    def commit_stage_bytes(self, stage: str, size: int) -> int:
+        """记录某阶段产生的中间产物字节（例如抽帧、合成参考）。"""
+        value = max(0, int(size))
+        with self._lock:
+            self._stage_bytes[str(stage)] = self._stage_bytes.get(str(stage), 0) + value
+        return value
+
+    def release_stage_bytes(self, stage: str, size: int) -> int:
+        """阶段产物被释放；返回释放后该阶段的剩余记账字节。"""
+        value = max(0, int(size))
+        with self._lock:
+            remaining = max(0, self._stage_bytes.get(str(stage), 0) - value)
+            self._stage_bytes[str(stage)] = remaining
+        return remaining
+
+    def log_stage_event(self, stage: str, **payload: Any) -> None:
+        """记录阶段级事件（下载/复用/失败/释放），失败原因必须可区分。"""
+        with self._lock:
+            self._stage_events.append({"stage": str(stage), **payload})
+
+    def stage_report(self) -> dict[str, Any]:
+        report = self.budget_report()
+        with self._lock:
+            stages = dict(self._stage_bytes)
+            events = list(self._stage_events)
+        return {
+            "stages": stages,
+            "stage_total_bytes": sum(stages.values()),
+            "events": events,
+            "raw_bytes": report.raw_bytes,
+            "raw_budget": report.raw_budget,
+            "work_bytes": report.total_work_bytes,
+            "work_budget": report.work_budget,
+            "peak_raw_bytes": self.peak_raw_bytes,
+            "peak_work_bytes": self.peak_work_bytes,
+            "backpressure": report.backpressure,
+            "backpressure_reason": report.reason,
+        }
 
     # -- 基础 -------------------------------------------------------------- #
 

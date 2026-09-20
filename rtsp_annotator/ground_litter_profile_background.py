@@ -577,6 +577,141 @@ def _block_counts_for_frames(
     return counts, buckets
 
 
+def select_calibration_observations(
+    groups: Sequence[Mapping[str, Any]],
+    calibration_samples: Sequence[Mapping[str, Any]], *,
+    descriptors: Mapping[str, Mapping[str, np.ndarray]] | None = None,
+    group_members: Mapping[str, Sequence[str]] | None = None,
+    radius: float | None = None, max_distance: float | None = None,
+    tolerance: float = 0.6,
+) -> dict[str, Any]:
+    """把独立校准观测按**外观匹配**分配到各候选组（C3）。
+
+    接线缺陷的根源是：校准日的样本从未进入合成阶段，``calibration_blocks``
+    恒为空，于是所有 Profile 的噪声都退化成"用参考自己的观测"，并以
+    ``low_support_used_all_blocks`` 发布。这里显式做两件事：
+
+    1. 独立校准观测按自身外观聚类（不参与参考合成与分组）；
+    2. 每个候选组只接受**外观接近自己**的校准观测。接近程度用"该组自身成员的
+       外观离散度"作标尺（``group_members`` 提供），而不是一个与场景无关的
+       绝对阈值；显式传 ``max_distance`` 时才改用绝对阈值。
+
+    匹配不上时宁可标注 ``no_appearance_match`` 并退化，也不允许拿别的场景
+    冒充独立校准；同时记录每个组的匹配距离与近失距离，便于事后复核。
+    """
+    payloads: dict[str, Mapping[str, np.ndarray]] = dict(descriptors or {})
+    for item in calibration_samples:
+        key = _item_key(item)
+        if key not in payloads and "descriptor" in item:
+            payloads[key] = item["descriptor"]  # type: ignore[assignment]
+    empty = {
+        "per_group": {
+            str(group.get("group_id")): {
+                "blocks": [], "distance": None, "reason": "no_calibration_samples",
+            } for group in groups
+        },
+        "clusters": 0,
+        "assigned_observations": 0,
+        "unassigned_observations": len(calibration_samples),
+        "scale": {},
+    }
+    if not groups or not calibration_samples:
+        return empty
+    missing = [key for key in (_item_key(item) for item in calibration_samples)
+               if key not in payloads]
+    if missing:
+        empty["unassigned_reason"] = f"missing_descriptor:{missing[:3]}"
+        return empty
+
+    clustering = group_appearance_samples(
+        list(calibration_samples), descriptors=payloads, radius=radius,
+    )
+    scale = clustering.scale or global_descriptor_scale(
+        [descriptor_arrays(payloads[_item_key(item)]) for item in calibration_samples]
+    )
+    # 每个组的"自身离散度"标尺：组内成员两两距离最大值（至少取一个下限，
+    # 避免只有一个成员时退化成 0 导致任何观测都被拒）。
+    members_map = dict(group_members or {})
+    group_arrays: dict[str, Mapping[str, np.ndarray]] = {}
+    group_limits: dict[str, float] = {}
+    for group in groups:
+        gid = str(group.get("group_id"))
+        member_keys = [
+            str(key) for key in (members_map.get(gid) or [])
+        ] or [str(group.get("representative_key") or "")]
+        arrays = [descriptor_arrays(payloads[key]) for key in member_keys
+                  if key in payloads]
+        if not arrays:
+            continue
+        group_arrays[gid] = arrays[0]
+        diameter = 0.0
+        for left in range(len(arrays)):
+            for right in range(left + 1, len(arrays)):
+                diameter = max(diameter, descriptor_coarse_distance(
+                    arrays[left], arrays[right], scale=scale,
+                ))
+        group_limits[gid] = max(diameter * (1.0 + tolerance), 1e-6)
+    absolute = float(max_distance) if max_distance is not None else None
+    per_group: dict[str, dict[str, Any]] = {
+        str(group.get("group_id")): {
+            "blocks": [], "distances": [], "near_misses": [], "reason": None,
+            "limit": (
+                round(absolute, 5) if absolute is not None
+                else round(group_limits.get(str(group.get("group_id")), 0.0), 5)
+            ),
+        }
+        for group in groups
+    }
+    assigned = 0
+    unassigned = 0
+    for item in calibration_samples:
+        key = _item_key(item)
+        arrays = descriptor_arrays(payloads[key])
+        candidates = [
+            (descriptor_coarse_distance(arrays, group_arrays[gid], scale=scale), gid)
+            for gid in group_arrays
+        ]
+        if not candidates:
+            unassigned += 1
+            continue
+        distance, gid = min(candidates)
+        limit = absolute if absolute is not None else group_limits.get(gid, 0.0)
+        if limit > 0 and distance > limit:
+            # 外观不匹配：宁可不分配，也不串用别的场景当独立校准。
+            unassigned += 1
+            per_group[gid]["near_misses"].append({
+                "time_block": str(item.get("time_block")),
+                "distance": round(float(distance), 5),
+                "limit": round(float(limit), 5),
+            })
+            continue
+        block = str(item.get("time_block") or key)
+        if block not in per_group[gid]["blocks"]:
+            per_group[gid]["blocks"].append(block)
+        per_group[gid]["distances"].append(round(float(distance), 5))
+        assigned += 1
+    for gid, payload in per_group.items():
+        if not payload["blocks"]:
+            payload["reason"] = "no_appearance_match"
+        payload["distance"] = (
+            round(max(payload["distances"]), 5) if payload["distances"] else None
+        )
+        payload["blocks"].sort()
+        payload["near_misses"] = sorted(
+            payload["near_misses"], key=lambda row: row["distance"],
+        )[:8]
+    return {
+        "per_group": per_group,
+        "clusters": len(clustering.groups),
+        "assigned_observations": assigned,
+        "unassigned_observations": unassigned,
+        "match_threshold_mode": "absolute" if absolute is not None else "group_diameter",
+        "tolerance": tolerance,
+        "scale": {key: round(float(value), 6) for key, value in scale.items()},
+        "statistics": dict(clustering.statistics),
+    }
+
+
 def estimate_noise(
     reference: np.ndarray, frames: Sequence[np.ndarray],
     masks: Sequence[np.ndarray], block_ids: Sequence[str], *,
