@@ -1,0 +1,211 @@
+{
+  "old_static_preselect_removed": {
+    "stage_preselect_and_finalize": false,
+    "_match_frames_to_candidates": false,
+    "_prune_candidates": false,
+    "replacement": [
+      "replay_all_candidates",
+      "select_profiles_dynamically",
+      "compare_selection_metrics"
+    ]
+  },
+  "shared_frame_replay": {
+    "frame_reuse": "all candidates share the same frame and source_time",
+    "tick_interval_seconds": 60.0,
+    "baseline": {
+      "decisions": 6,
+      "effective_fraction": 0.4,
+      "effective_seconds": 120.0,
+      "switch_count": 2
+    },
+    "leave_one_out": {
+      "p1": {
+        "effective_fraction_without": 0.0,
+        "effective_fraction_delta": 0.4,
+        "pause_max_without": 60.0,
+        "pause_max_delta": -60.0,
+        "switch_count_without": 0
+      },
+      "p2": {
+        "effective_fraction_without": 0.0,
+        "effective_fraction_delta": 0.4,
+        "pause_max_without": 60.0,
+        "pause_max_delta": -60.0,
+        "switch_count_without": 0
+      },
+      "p3": {
+        "effective_fraction_without": 0.0,
+        "effective_fraction_delta": 0.4,
+        "pause_max_without": 60.0,
+        "pause_max_delta": -60.0,
+        "switch_count_without": 0
+      }
+    }
+  },
+  "dynamic_pruning": {
+    "method": "leave_one_out_dynamic_replay",
+    "kept": [
+      "p3"
+    ],
+    "removed": [
+      "p1",
+      "p2"
+    ]
+  },
+  "search_reaches_last_ranked": {
+    "only_eligible": "p5",
+    "distinct_checked": [
+      "p1",
+      "p2",
+      "p3",
+      "p4",
+      "p5",
+      "p6"
+    ],
+    "selected": "p5"
+  },
+  "eligibility_blocks_unavailability": {
+    "enter_eligible": false,
+    "hold_eligible": false,
+    "availability_fraction": 0.0,
+    "reason": "BLOCKED_FRAME_CORRUPT"
+  },
+  "candidate_size_filters": {
+    "candidates": [],
+    "rejected": {
+      "outside_availability": 0,
+      "too_small": 1,
+      "too_large": 1
+    }
+  },
+  "small_target_survives": {
+    "candidates": [
+      {
+        "box": [
+          40,
+          40,
+          48,
+          48
+        ],
+        "support_pixels": 64,
+        "anomaly_score": 0.5333
+      }
+    ]
+  },
+  "noise_support_is_per_observation": {
+    "expected_support_per_pixel": 1,
+    "actual_left": 1.0,
+    "actual_right": 1.0
+  },
+  "gap_forward_fill": {
+    "observed_seconds": 6.0,
+    "effective_seconds": 2.0,
+    "off_air_seconds": 0.0,
+    "wall_span_seconds": 6.0,
+    "effective_fraction": 0.33333
+  },
+  "small_target_roi": [
+    {
+      "box": [
+        658,
+        365,
+        661,
+        368
+      ],
+      "native_side": 8,
+      "inside_roi_pixels": 9
+    },
+    {
+      "box": [
+        589,
+        128,
+        592,
+        131
+      ],
+      "native_side": 8,
+      "inside_roi_pixels": 9
+    },
+    {
+      "box": [
+        746,
+        512,
+        749,
+        515
+      ],
+      "native_side": 8,
+      "inside_roi_pixels": 9
+    },
+    {
+      "box": [
+        504,
+        164,
+        507,
+        167
+      ],
+      "native_side": 8,
+      "inside_roi_pixels": 9
+    },
+    {
+      "box": [
+        434,
+        457,
+        437,
+        460
+      ],
+      "native_side": 8,
+      "inside_roi_pixels": 9
+    },
+    {
+      "box": [
+        534,
+        346,
+        537,
+        349
+      ],
+      "native_side": 8,
+      "inside_roi_pixels": 9
+    },
+    {
+      "box": [
+        534,
+        501,
+        537,
+        504
+      ],
+      "native_side": 8,
+      "inside_roi_pixels": 9
+    },
+    {
+      "box": [
+        566,
+        308,
+        569,
+        311
+      ],
+      "native_side": 8,
+      "inside_roi_pixels": 9
+    },
+    {
+      "box": [
+        566,
+        234,
+        569,
+        237
+      ],
+      "native_side": 8,
+      "inside_roi_pixels": 9
+    },
+    {
+      "box": [
+        492,
+        492,
+        495,
+        495
+      ],
+      "native_side": 8,
+      "inside_roi_pixels": 9
+    }
+  ],
+  "injections_with_any_roi_overlap": 10,
+  "interpretation": "All eight review counterexamples are re-run against the repaired API and now fail their old assertions; the removed static-preselect entry points are gone."
+}

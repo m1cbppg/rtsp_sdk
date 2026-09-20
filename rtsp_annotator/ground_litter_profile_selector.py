@@ -358,6 +358,14 @@ class ProfileSelector:
             self._number("tick_interval_seconds")
             if tick_interval_seconds is None else float(tick_interval_seconds)
         )
+        # 观测间隔上限必须随**实际**节拍自适应：默认 4s 只对 2s 级节拍成立。
+        # 离线回放/低分析频率下若沿用 4s，每个 tick 都会清空连续证据，
+        # 动态覆盖会恒为 0（这正是评审 R3/F4 陷阱的另一种表现）。
+        if interval > 0:
+            required_gap = max(self._number("max_observation_gap_seconds"),
+                               2.0 * interval)
+            if required_gap > self._number("max_observation_gap_seconds"):
+                self.config["max_observation_gap_seconds"] = float(required_gap)
         self._observation_span = max(
             0.0, min(interval, self._number("result_validity_seconds")),
         )

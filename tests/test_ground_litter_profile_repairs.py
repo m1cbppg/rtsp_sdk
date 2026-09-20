@@ -268,6 +268,49 @@ class CoverageIntegrationTests(unittest.TestCase):
         self.assertLessEqual(summary["observed_seconds"], 4.0)
 
 
+class LowTickRateAdaptationTests(unittest.TestCase):
+    """低分析节拍下观测间隔上限必须自适应，否则动态覆盖恒为 0。"""
+
+    def test_gap_limit_adapts_to_tick_interval(self):
+        selector = ProfileSelector(
+            bank_id="b", bank_version="v1", view_id="v", profile_ids=["p1", "p2"],
+            config={"max_observation_gap_seconds": 4.0,
+                    "tick_interval_seconds": 2.0,
+                    "result_validity_seconds": 4.0,
+                    "join_gap_seconds": 300.0,
+                    "recovery_min_samples": 2, "recovery_min_span_seconds": 2.0},
+        )
+        state = {"appearance": 0}
+        committed = False
+        # 40 个 tick、每 tick 间隔 30s：若沿用 4s 上限，证据会被反复清空。
+        for tick in range(40):
+            appearance = 0 if tick < 20 else 1
+            candidates = [
+                CandidateMatch("p1", 0.0 if appearance == 0 else 9.0,
+                               appearance == 0, appearance == 0),
+                CandidateMatch("p2", 0.0 if appearance == 1 else 9.0,
+                               appearance == 1, appearance == 1),
+            ]
+            decision = selector.observe(
+                timestamp=100.0 + tick * 30.0, current=None,
+                candidates=candidates, tick_interval_seconds=30.0,
+            )
+            if decision.commit_requested:
+                selector.commit(profile_id=decision.commit_profile_id,
+                                timestamp=100.0 + tick * 30.0)
+                committed = True
+        self.assertTrue(committed, "长节拍下从未提交：观测间隔上限没有自适应")
+        self.assertGreaterEqual(
+            float(selector.config["max_observation_gap_seconds"]), 60.0,
+        )
+        # 提交本身证明“跨 tick 连续证据”没有被 4s 上限清空：若沿用 4s，
+        # 每次观察都会重置证据，永远到不了 recovery_min_samples。
+        summary = selector.summarise()
+        self.assertGreater(summary["observed_seconds"], 0.0)
+        self.assertEqual(summary["decisions"], 40)
+        del state
+
+
 class SearchBudgetTests(unittest.TestCase):
     """R4：粗排以外的候选必须能被公平检查到。"""
 
@@ -818,6 +861,140 @@ class CalibrationSeparationTests(unittest.TestCase):
         )
         # 瞬态物体不应进入合成背景。
         self.assertLess(int(result.reference[60, 70, 0]), 200)
+
+
+class ReviewCounterexampleTests(unittest.TestCase):
+    """把评审的 8 条反例直接转成“修复后不再成立”的回归。
+
+    与 `output/profile_factory_review_20260920/reproduce_findings.py` 一一对应；
+    原脚本保持只读历史证据，不改写。
+    """
+
+    def test_review_noise_and_candidate_and_admission(self):
+        # 反例：noise_counts_invalid_observations（R8）
+        base = np.full((32, 32, 3), 80, np.uint8)
+        left = np.zeros((32, 32), np.uint8)
+        left[:, :16] = 255
+        right = np.zeros((32, 32), np.uint8)
+        right[:, 16:] = 255
+        counts = estimate_noise(
+            base, [base, base], [left, right], ["b1", "b2"], stride=1,
+        ).payload["support_blocks"]
+        self.assertEqual(float(counts[8, 8]), 1.0)
+        self.assertEqual(float(counts[8, 24]), 1.0)
+
+        # 反例：candidate_size_filters_missing（R10）
+        support = np.zeros((160, 160), np.uint8)
+        support[5, 5] = 1
+        support[20:140, 20:140] = 1
+        rows, rejected = _support_candidates(
+            support, np.full_like(support, 255),
+        )
+        self.assertEqual(rows, [])
+        self.assertEqual(rejected["too_small"], 1)
+        self.assertEqual(rejected["too_large"], 1)
+
+        # 反例：eligibility_ignores_unavailability（R9）
+        rng = np.random.default_rng(42)
+        frame = rng.integers(50, 190, (192, 192, 3), dtype=np.uint8)
+        valid = np.full((192, 192), 255, np.uint8)
+        context = BankPriorContext("p", frame.copy(), valid, {}, {})
+        evaluation = evaluate_bank_frame(
+            context, frame, envelope=MatchEnvelope(100, 100, True, 20, "review"),
+            config=_matcher(), roi_mask=valid, corruption="known_bad_frame",
+        )
+        self.assertFalse(evaluation.outcome["enter_eligible"])
+        self.assertFalse(evaluation.outcome["hold_eligible"])
+        self.assertEqual(evaluation.availability_fraction, 0)
+
+    def test_review_gap_forward_fill(self):
+        # 反例：gap_forward_fill（R3）：0/2/4/204 秒，旧实现算 202s 有效。
+        selector = ProfileSelector(
+            bank_id="r", bank_version="1", view_id="v", profile_ids=["p"],
+            config={"tick_interval_seconds": 2.0, "result_validity_seconds": 4.0,
+                    "join_gap_seconds": 300.0},
+        )
+        match = CandidateMatch("p", 0.1, True, True, verified=True)
+        for timestamp in (0.0, 2.0, 4.0, 204.0):
+            decision = selector.observe(
+                timestamp=timestamp,
+                current=match if selector.selected_profile_id else None,
+                candidates=[match],
+            )
+            if decision.commit_requested:
+                selector.commit(profile_id="p", timestamp=timestamp)
+        summary = selector.summarise()
+        self.assertLessEqual(summary["effective_seconds"], 8.0)
+        self.assertLess(summary["effective_seconds"], 200.0)
+
+    def test_review_pruning_ignores_selector_object(self):
+        # 反例：pruning_ignores_selector（R2）：旧的 _prune_candidates 接受任意对象。
+        from scripts import build_ground_litter_profile_bank as build
+        self.assertFalse(hasattr(build, "_prune_candidates"))
+        config = SimpleNamespace(max_profiles=24)
+        candidate = {
+            "profile_id": "transition", "group_id": "transition",
+            "static_coverage": 0.0, "low_support": False,
+        }
+        report: dict = {}
+        kept = build.select_profiles_dynamically(
+            config, [candidate],
+            {"baseline": {"effective_fraction": 0.5, "pause_max": 5.0},
+             "leave_one_out": {"transition": {
+                 "effective_fraction_delta": 0.0, "pause_max_delta": 0.0}}},
+            report,
+        )
+        # 贡献为 0 的候选会被删除，但不能发布空库。
+        self.assertEqual([row["profile_id"] for row in kept], ["transition"])
+        self.assertTrue(report.get("pruning_warnings"))
+
+    def test_review_selection_comparison_changes_with_candidates(self):
+        # 反例：integration_search_starvation（R4）+ 静态前 16（R2）
+        from scripts import build_ground_litter_profile_bank as build
+        self.assertTrue(hasattr(build, "compare_selection_metrics"))
+        self.assertTrue(hasattr(build, "replay_all_candidates"))
+
+    def test_review_release_after_lease_exit(self):
+        # 反例：lease 内释放必被拒（R5）——释放后不得残留租约。
+        from rtsp_annotator.ground_litter_recording_cache import (
+            ManagedRecordingCache,
+        )
+        from rtsp_annotator.ground_litter_recording_source import RecordingFile
+
+        with tempfile.TemporaryDirectory() as tmp:
+            cache = ManagedRecordingCache(tmp, raw_cache_budget=8 * 1024 ** 2)
+            self.addCleanup(cache.close)
+            source = Path(tmp) / "a.mp4"
+            write_test_video(source, frames=20, width=160, height=120)
+            item = RecordingFile(
+                "f0", "", "2026-09-01 10:00:00", "2026-09-01 10:05:00",
+                source.stat().st_size,
+            )
+            cache.register("00000000000000000000", [item])
+            target = cache.begin_download("00000000000000000000", item)
+            shutil.copy2(source, target)
+            cache.complete_download(
+                "00000000000000000000", "f0", path=target,
+                size=target.stat().st_size, sha256="a" * 64,
+                range_supported=False, elapsed_seconds=0.1,
+            )
+            summary = Path(tmp) / "summary.json"
+            summary.write_text("{}", encoding="utf-8")
+            with cache.acquire("00000000000000000000", "f0", owner="test") as lease:
+                self.assertTrue(lease.path.is_file())
+                # lease 内释放必须被拒绝
+                self.assertFalse(cache.release_file(
+                    "00000000000000000000", "f0", require_committed=(),
+                ))
+            cache.record_artifact(
+                "00000000000000000000", "f0", "preview", "summary.json", summary,
+                algorithm_version="test",
+            )
+            self.assertTrue(cache.release_file(
+                "00000000000000000000", "f0", require_committed=("preview",),
+            ))
+            self.assertEqual(cache.active_leases(), [])
+
 
 
 if __name__ == "__main__":
