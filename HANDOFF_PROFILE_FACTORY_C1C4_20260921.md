@@ -14,7 +14,7 @@ C1–C4，保留 R1–R11 全部结论；未实现方案二生产接入，也未
 | `rtsp_annotator/ground_litter_profile_background.py` | `0154feb34237d955…` |
 | `rtsp_annotator/ground_litter_recording_cache.py` | `d65af36b9e436aa2…` |
 | `rtsp_annotator/ground_litter_profile_selector.py` | `7936664f95014b88…`（补 `a27c2ab` 节拍自适应） |
-| 测试 | `tests/test_ground_litter_profile_c1c4.py`（20 项） |
+| 测试 | `tests/test_ground_litter_profile_c1c4.py`（21 项） |
 
 **服务器/本地漂移已消除**：v2 复核时服务器 `ground_litter_profile_selector.py`
 为 `0694d519ea35b419…`（缺 `a27c2ab`），本轮已同步为本地 `7936664f95014b88…`。
@@ -289,4 +289,6 @@ SHA-256 逐字节一致。**
 - 评审反例脚本 `output/profile_factory_v2_review_20260920/reproduce_remaining.py`
   保持只读：它的 stride 断言针对旧行为，修复后必然失败，这是"反例已闭合"的证据，
   不得为了让脚本通过而改它。新的验证放在
-  `tests/test_ground_litter_profile_c1c4.py`。
+  `tests/test_ground_litter_profile_c1c4.py`（21 项）与
+  `output/profile_factory_c1c4_20260921/verify_c1c4.py`（可独立运行，
+  结果见同目录 `verification_results.json`）。
