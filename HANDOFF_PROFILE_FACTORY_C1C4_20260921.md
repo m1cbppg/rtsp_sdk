@@ -148,14 +148,142 @@ stride 4 时两个完全相同的参考互相删除后覆盖为 0。
 `C4HitReportingTests`：潜力/可用分离、`prior_allowed` 门槛、汇总行完整、
 原生注入在画布上确实更小、成对基线辅助代码同帧同状态。
 
-## 5. 明确留给方案二
+## 5. 服务器隔离验证（v3 重建 + 独立日评估）
+
+服务器：`sf01@14.21.88.97:21002` 隔离目录 `~/profile-factory`（未触碰生产部署目录、
+未重启任何生产容器、未创建生产流）。分区与 v2 完全一致：构建 09-14~09-17、
+校准 09-18、独立验证 09-19/09-20。产物写入新版本 `out/bank/camera_01030/v3`，
+v1/v2 目录与历史报告均未覆盖。
+
+v3 manifest：`9347f99e01f9f8303192db9751ad2a69064978b192a56c39692bc32bbe190ac6`。
+`V3_EXIT=0`（2026-09-20T23:52:33+08:00）。原始抽取结果
+`out/c1c4_v3_analysis.json`、报告 `out/bank/camera_01030/v3/reports/factory_report.json`。
+
+### C1 实测（v2 → v3）
+
+| 指标 | v2 | v3 |
+| --- | --- | --- |
+| 候选 → 终选 | 13 → 13 | 13 → 13 |
+| baseline 有效覆盖 | 0.71111 | 0.71111 |
+| 留一法 `loo_stride` | 4（与基线不同帧） | **1**，`stride_ignored=true` |
+| 留一法 `effective_fraction_without` | 13/13 全为 **0.0** | 全部 > 0，见下 |
+| 删除轮数 | 一次性删除（无逐轮复核） | 0（没有任何候选满足删除阈值） |
+| 终选复核 | 无 | 105 帧同帧复核，覆盖差 0.0，暂停差 0.0 |
+| 资源裁剪复核 | 无 | 13 ≤ 24，与终选一致，同样复核 |
+
+反例直接闭合（fake I/O，`output/profile_factory_c1c4_20260921/verify_c1c4.py`）：
+两个完全相同的参考，`loo_stride=4` 与 `1` 下覆盖都不再归零
+（baseline 0.89474，单独删任一个仍 0.89474，两个都保留）；
+评分缓存使 3 候选 × 6 帧只调用 18 次 `score_profile`，不因 baseline+LOO 翻倍。
+
+子集对照（同一矩阵、105 帧）：全库 / 终选 / 资源裁剪后都是
+`effective_fraction=0.71111, pause_max=130.256, switch_count=13`；
+任意单候选只有 `0.37778, pause_max=824.958`，说明"保留全部"不是靠阈值放水。
+
+### C2 实测（v2 → v3）
+
+| 指标 | v2 | v3 |
+| --- | --- | --- |
+| 高清重拉 checked / considered | 25 / 25 | 19 / 25（6 个盲测日文件被跳过） |
+| 重拉字节 | 1,666,452,323 | 1,406,880,200 |
+| 原始缓存峰值 / 预算 | — / 8 GiB | 1,406,880,200 / 8,589,934,592 |
+| 工作目录峰值 / 预算 | — / 60 GiB | 1,413,204,521 / 64,424,509,440 |
+| 阶段字节 | 无 | `hd_materialize=2,523,806,486`、`composite=822,067,200` |
+| 阶段释放 | 仅最后 `evict_to_budget` | `after_composite=15`、`after_envelope_fit=4`、`after_replay_collect=15` |
+| 失败分类 | 未分类 | 2 个文件 `NETWORK_FAILURE`（下载字节数不符），0 个被当成素材质量问题 |
+
+第一次 v3 运行还暴露并修掉两个真实缺陷（两者都不是评审列出的，但都会让"有界"
+名不副实）：
+1. 合成阶段释放构建 PS 后，`--resume` 又会回收残留，回放阶段静默收集到 **0 帧**；
+   现在回放会自己按需重取，实测重新收集到 **105 帧**（`replay_materialize.ok=15`）。
+2. `begin_download` 要求条目先登记；换工作目录后画布预取以 `CacheError` 中止整段作业，
+   现在统一在 `materialize_entry` 里 `register`。
+计划文件终态：`consumed=15`、`failed:download_error:RecordingSourceError=2`，
+也就是说 2 个素材缺口被明确记成"来源下载不完整"，而不是被算作采样失败。
+
+### C3 实测（v2 → v3）
+
+| 指标 | v2 | v3 |
+| --- | --- | --- |
+| `noise_note` | 13/13 `low_support_used_all_blocks` | 13/13 `independent_calibration_*` |
+| 噪声来源 | 全部是参考自身观测 | 全部 `calibration_day` |
+| `independent_of_reference` | 13/13 false | **13/13 true** |
+| 独立块数 | 0 | 3~16（`calibration_blocks=16`，与 `build_blocks=60` 无交集） |
+| 外观匹配成功 | 无该机制 | 2/13（g016、g019） |
+| 参考自身观测 | 13/13 | **0** |
+
+校准日样本确实被采样：`calibration_files=4`、`calibration_observations=16`、
+`overlap_blocks=[]`（构建块与校准块求交为空是硬校验，重叠直接拒绝发布）。
+
+外观匹配没有全部成功的**诚实原因**：校准日（09-18）本身就是一个独立的外观簇，
+它到多数候选组的最小距离（22~40）大于"候选组自身离散度"标尺（9~23）。
+本轮已把标尺下限放宽到校准观测整体的公共离散尺度，仍然只有 2 个组匹配上；
+其余 11 个组退化为 `independent_calibration_day_cross_group`
+（**仍是独立校准日的观测，不是参考自身观测**），并在每个
+`profile.json.noise_calibration` 里写明 `degradation_reason=no_appearance_match_for_group`、
+`appearance_match_distance`、`appearance_match_limit` 与近失列表。
+这属于素材条件，不是接线缺失；要真正逐组匹配需要给每个外观簇准备各自的独立日素材。
+
+### C4 实测（同口径独立日评估，v2 与 v3 各跑一遍）
+
+命令：`./run_c1c4_eval.sh`（`eval_download_and_evaluate.py` +
+`--small-target-trials 12 --small-target-size-native-px 8`，**原生 2560×1440 注入后
+整体缩放到 960×540**，走真实共享 adapter；`--analysis-fps 0.05`；
+v2/v3 使用同一批素材、同一画布、同一随机种子）。
+
+| 口径 | v2 09-19 | v3 09-19 | v2 09-20 | v3 09-20 |
+| --- | --- | --- | --- | --- |
+| 行数（total / dropped） | 10 / 0 | 10 / 0 | 10 / 0 | 10 / 0 |
+| 潜力命中 potential | 3 (0.3) | 4 (0.4) | 2 (0.2) | 2 (0.2) |
+| 可用命中 effective | 0 (0.0) | 0 (0.0) | 1 (0.1) | 1 (0.1) |
+| 先验不允许时的命中 | 2 | 2 | 1 | 1 |
+| 命中但非生效参考 | 3 | 4 | 1 | 1 |
+| 成对基线带候选 | 10/10 | 10/10 | 10/10 | 10/10 |
+| 原生尺度注入行 | 10/10 | 10/10 | 10/10 | 10/10 |
+| 动态有效覆盖 | 0.63087 | 0.61745 | 0.81879 | 0.81879 |
+| 静态潜在覆盖 | 0.89474 | 0.89474 | 0.94737 | 0.94737 |
+
+结论按用户口径原样报告，不设通过线：
+
+* v2 与 v3 在同一天上几乎一致（09-20 完全相同），说明**这份数字的变化来自复核
+  口径本身，而不是 Bank 变化**。v2 旧报告写的是 09-19 8/10、09-20 7/12；
+  换成"原生尺度注入 + 生效参考 + prior_allowed"后只剩 3~4/10 与 2/10。
+  差的那些就是旧口径的虚高来源：目标在画布上被放大 2.67 倍，以及先验不允许 /
+  非生效参考的命中被算成命中。
+* 8 像素原生目标在 960×540 画布上只剩约 3 像素边长；
+  **可用命中只有 09-20 的 1 例（0.1），09-19 为 0**。
+* 成对基线 10/10 都带候选（51~151 个），说明独立日素材本身噪声很高，
+  单看"命中"不能当作识别能力证据；报告同时给出这两个数就是为了避免这种误读。
+* `event_memory_lifecycle=not_enabled`；事件 memory 本轮只做到实例化与切换通知，
+  完整生命周期验证**交给方案二**。
+
+### 测试结果（本地 / 服务器同一源码）
+
+| 范围 | 本地（`.venv-profile`） | 服务器（`~/profile-factory/venv`） |
+| --- | --- | --- |
+| `test_ground_litter_profile_{c1c4,repairs,factory}.py` | **137 passed** | **137 passed**（41.70s） |
+| 全量 `tests` | 769 passed + 4 failed（`test_shared_inference`，本机无 torch） | 720 passed + 17 failed |
+
+服务器那 17 项的构成必须说清楚，不能含糊成"服务器也全绿"：
+
+* 4 项 `test_shared_inference` 与本地同样失败，原因是该 venv 没有 torch；
+* 3 项 `test_ground_litter_v32_production`、5 项 `test_ground_litter_v33_api`、
+  5 项 `test_ground_litter_v33_bundle` 需要打包清单/Dockerfile/示例配置；
+  `~/profile-factory` 只是"profile-factory 子集 + 少量依赖"的隔离目录，
+  本来就不含这些生产打包文件，属于环境缺失，不是本轮改动回归。
+  这些测试在本地（含完整仓库）全部通过。
+
+**结论：与本轮 C1–C4 相关的 137 项在服务器上全绿，且服务器与本地 6 个源文件
+SHA-256 逐字节一致。**
+
+## 6. 明确留给方案二
 
 - 事件 memory 的完整生命周期验证（创建/更新/清理/重启恢复）；
 - 在线背景准备、最新帧验证与原子提交的实时表现；
 - 全天覆盖、在线恢复速度、现场准确率；
 - 构建期 score-only 回放画布与生产 availability-aware adapter 的边界测试。
 
-## 6. 本轮刻意不改的东西
+## 7. 本轮刻意不改的东西
 
 - r2 ROI（`config/ground_litter_01030_geometry.json`）保持不变；
 - 评审反例脚本 `output/profile_factory_v2_review_20260920/reproduce_remaining.py`

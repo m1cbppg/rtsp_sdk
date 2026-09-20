@@ -419,6 +419,91 @@ class C2BoundedPipelineTests(unittest.TestCase):
                 ["frames_identical_to_baseline"]
             )
 
+    def test_replay_collect_rematerializes_missing_build_files(self):
+        """回放是独立消费阶段：构建 PS 不在盘上时必须能自己按需重取。
+
+        历史缺陷：合成阶段 `_release_materialized` + `--resume` 回收之后，
+        `_collect_replay_frames` 静默收集 0 帧，动态定稿失去时间轴。
+        这里用远程来源桩走真实取回路径（受管缓存落盘名是 *.bin）。
+        """
+        from scripts import build_ground_litter_profile_bank as build
+        from rtsp_annotator.ground_litter_recording_cache import (
+            ManagedRecordingCache,
+        )
+        from rtsp_annotator.ground_litter_recording_source import RecordingFile
+        import hashlib
+
+        class FakeListClient:
+            def __init__(self, **kwargs):
+                pass
+
+        class FakeDownloader:
+            def __init__(self):
+                self.downloaded: list[str] = []
+
+            def fetch_url_for_file(self, client, query, file_id, **kwargs):
+                return SimpleNamespace(url="fake://" + file_id)
+
+            def download(self, url, target, **kwargs):
+                file_id = url.rsplit("/", 1)[-1]
+                self.downloaded.append(file_id)
+                target.parent.mkdir(parents=True, exist_ok=True)
+                staging = target.with_name(target.name + ".tmp.mp4")
+                writer = cv2.VideoWriter(
+                    str(staging), cv2.VideoWriter_fourcc(*"mp4v"), 5.0, (160, 120),
+                )
+                rng = np.random.default_rng(13)
+                for _ in range(14):
+                    writer.write(rng.integers(60, 180, (120, 160, 3), dtype=np.uint8))
+                writer.release()
+                staging.replace(target)
+                payload = target.read_bytes()
+                return SimpleNamespace(
+                    size=len(payload), sha256=hashlib.sha256(payload).hexdigest(),
+                    range_supported=False, elapsed_seconds=0.01,
+                )
+
+        files = [
+            RecordingFile(
+                file_id=f"r{index}", file_name=f"r{index}.ps",
+                record_start=f"2026-09-1{4 + index} 00:00:00",
+                record_end=f"2026-09-1{4 + index} 00:05:00", file_size=1000,
+            )
+            for index in range(2)
+        ]
+        with tempfile.TemporaryDirectory() as tmp:
+            work = Path(tmp) / "work"
+            work.mkdir()
+            config = build.FactoryConfig(
+                camera_id="cam_replay", bank_id="cam_replay", version="vreplay",
+                output_root=Path(tmp) / "banks", work_dir=work,
+                geometry_path=None, analysis_size=None,
+                device_code="00000000000000000000",
+            )
+            geometry = {"canvas_size": [160, 120], "roi": []}
+            args = SimpleNamespace(
+                input=None, source="ctseelink-file-urls",
+                auth_token=None, api_key=None,
+            )
+            downloader = FakeDownloader()
+            with ManagedRecordingCache(tmp, raw_cache_budget=10 ** 9) as cache:
+                with unittest.mock.patch.object(
+                    build, "RecordingListClient", FakeListClient,
+                ), unittest.mock.patch.object(
+                    build, "RecordingDownloader", lambda: downloader,
+                ):
+                    report: dict = {}
+                    rows = build._collect_replay_frames(
+                        cache, config, files, geometry, frame_budget=8,
+                        args=args, local_paths={}, report=report,
+                    )
+            self.assertGreater(len(rows), 0)
+            materialize = report["replay_materialize"]
+            self.assertGreater(materialize["attempted"], 0)
+            self.assertEqual(materialize["ok"], 2)
+            self.assertEqual(sorted(downloader.downloaded), ["r0", "r1"])
+            self.assertEqual(materialize["failed"], [])
+
 
 class C3NoiseCalibrationTests(unittest.TestCase):
     """C3：噪声来自独立校准观测；外观匹配；退化原因必须显式。"""

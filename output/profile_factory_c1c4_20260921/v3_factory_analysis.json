@@ -1,0 +1,610 @@
+{
+ "C1": {
+  "candidates": 13,
+  "selected": 13,
+  "baseline_effective_fraction": 0.71111,
+  "loo_stride": 1,
+  "loo_frames_identical_to_baseline": true,
+  "frames_used": 105,
+  "frames_identical_for_all_subsets": true,
+  "deletion_rounds": 0,
+  "deleted": [],
+  "loo_coverages": {},
+  "final_set": {
+   "coverage_delta_vs_baseline": 0.0,
+   "frames": 105,
+   "frames_identical_to_baseline": true,
+   "pause_max_delta_vs_baseline": 0.0,
+   "profile_ids": [
+    "p0001",
+    "p0002",
+    "p0003",
+    "p0004",
+    "p0005",
+    "p0006",
+    "p0007",
+    "p0008",
+    "p0009",
+    "p0010",
+    "p0011",
+    "p0012",
+    "p0013"
+   ],
+   "size": 13,
+   "summary": {
+    "effective_fraction": 0.71111,
+    "effective_seconds": 2778.806,
+    "non_observable_seconds": 0,
+    "observed_seconds": 3907.694,
+    "off_air_seconds": 0.0,
+    "pause_max": 130.256,
+    "pause_p95": 104.205,
+    "switch_count": 13
+   },
+   "verified_on_shared_score_matrix": true
+  },
+  "resource_trimmed": {
+   "coverage_delta_vs_baseline": 0.0,
+   "frames": 105,
+   "frames_identical_to_baseline": true,
+   "pause_max_delta_vs_baseline": 0.0,
+   "profile_ids": [
+    "p0001",
+    "p0002",
+    "p0003",
+    "p0004",
+    "p0005",
+    "p0006",
+    "p0007",
+    "p0008",
+    "p0009",
+    "p0010",
+    "p0011",
+    "p0012",
+    "p0013"
+   ],
+   "size": 13,
+   "summary": {
+    "effective_fraction": 0.71111,
+    "effective_seconds": 2778.806,
+    "non_observable_seconds": 0,
+    "observed_seconds": 3907.694,
+    "off_air_seconds": 0.0,
+    "pause_max": 130.256,
+    "pause_p95": 104.205,
+    "switch_count": 13
+   },
+   "verified_on_shared_score_matrix": true
+  },
+  "material_plan": {
+   "blind_files": 4,
+   "blind_files_excluded_from_hd": [
+    "318010_18081003969_44180209031322001030-1789747257000",
+    "318010_18081003969_44180209031322001030-1789761842000",
+    "318010_18081003969_44180209031322001030-1789772477000",
+    "318010_18081003969_44180209031322001030-1789786896000"
+   ],
+   "build_files": 17,
+   "calibration_files": 4,
+   "needed_file_ids": [
+    "318010_18081003969_44180209031322001030-1789315396000",
+    "318010_18081003969_44180209031322001030-1789369261000",
+    "318010_18081003969_44180209031322001030-1789398242000",
+    "318010_18081003969_44180209031322001030-1789401888000",
+    "318010_18081003969_44180209031322001030-1789430587000",
+    "318010_18081003969_44180209031322001030-1789455816000",
+    "318010_18081003969_44180209031322001030-1789484519000",
+    "318010_18081003969_44180209031322001030-1789488166000",
+    "318010_18081003969_44180209031322001030-1789517061000",
+    "318010_18081003969_44180209031322001030-1789542281000",
+    "318010_18081003969_44180209031322001030-1789570950000",
+    "318010_18081003969_44180209031322001030-1789574592000",
+    "318010_18081003969_44180209031322001030-1789603244000",
+    "318010_18081003969_44180209031322001030-1789628459000",
+    "318010_18081003969_44180209031322001030-1789657439000",
+    "318010_18081003969_44180209031322001030-1789661085000",
+    "318010_18081003969_44180209031322001030-1789689671000",
+    "318010_18081003969_44180209031322001030-1789714884000",
+    "318010_18081003969_44180209031322001030-1789743611000"
+   ]
+  }
+ },
+ "C2": {
+  "hd_repull": {
+   "bytes": 1406880200,
+   "checked": 19,
+   "considered": 25,
+   "failed": [],
+   "failure_kinds": {},
+   "needed_ids": [
+    "318010_18081003969_44180209031322001030-1789315396000",
+    "318010_18081003969_44180209031322001030-1789369261000",
+    "318010_18081003969_44180209031322001030-1789398242000",
+    "318010_18081003969_44180209031322001030-1789401888000",
+    "318010_18081003969_44180209031322001030-1789430587000",
+    "318010_18081003969_44180209031322001030-1789455816000",
+    "318010_18081003969_44180209031322001030-1789484519000",
+    "318010_18081003969_44180209031322001030-1789488166000",
+    "318010_18081003969_44180209031322001030-1789517061000",
+    "318010_18081003969_44180209031322001030-1789542281000",
+    "318010_18081003969_44180209031322001030-1789570950000",
+    "318010_18081003969_44180209031322001030-1789574592000",
+    "318010_18081003969_44180209031322001030-1789603244000",
+    "318010_18081003969_44180209031322001030-1789628459000",
+    "318010_18081003969_44180209031322001030-1789657439000",
+    "318010_18081003969_44180209031322001030-1789661085000",
+    "318010_18081003969_44180209031322001030-1789689671000",
+    "318010_18081003969_44180209031322001030-1789714884000",
+    "318010_18081003969_44180209031322001030-1789743611000"
+   ],
+   "refreshes": 19,
+   "repulled": 19,
+   "reused_local": 0,
+   "seconds": 57.706,
+   "skipped_not_needed": 6,
+   "skipped_not_needed_ids": [
+    "318010_18081003969_44180209031322001030-1789315092000",
+    "318010_18081003969_44180209031322001030-1789344020000",
+    "318010_18081003969_44180209031322001030-1789747257000",
+    "318010_18081003969_44180209031322001030-1789761842000",
+    "318010_18081003969_44180209031322001030-1789772477000",
+    "318010_18081003969_44180209031322001030-1789786896000"
+   ]
+  },
+  "stage_releases": {
+   "after_composite": {
+    "denied": [
+     {
+      "file_id": "318010_18081003969_44180209031322001030-1789315092000",
+      "reason": "release_denied"
+     },
+     {
+      "file_id": "318010_18081003969_44180209031322001030-1789344020000",
+      "reason": "release_denied"
+     }
+    ],
+    "denied_count": 2,
+    "release_count": 15,
+    "released": [
+     "318010_18081003969_44180209031322001030-1789315396000",
+     "318010_18081003969_44180209031322001030-1789369261000",
+     "318010_18081003969_44180209031322001030-1789398242000",
+     "318010_18081003969_44180209031322001030-1789401888000",
+     "318010_18081003969_44180209031322001030-1789430587000",
+     "318010_18081003969_44180209031322001030-1789455816000",
+     "318010_18081003969_44180209031322001030-1789484519000",
+     "318010_18081003969_44180209031322001030-1789488166000",
+     "318010_18081003969_44180209031322001030-1789517061000",
+     "318010_18081003969_44180209031322001030-1789542281000",
+     "318010_18081003969_44180209031322001030-1789570950000",
+     "318010_18081003969_44180209031322001030-1789574592000",
+     "318010_18081003969_44180209031322001030-1789603244000",
+     "318010_18081003969_44180209031322001030-1789628459000",
+     "318010_18081003969_44180209031322001030-1789657439000"
+    ],
+    "stage": "after_composite"
+   },
+   "after_envelope_fit": {
+    "denied": [],
+    "denied_count": 0,
+    "release_count": 4,
+    "released": [
+     "318010_18081003969_44180209031322001030-1789661085000",
+     "318010_18081003969_44180209031322001030-1789689671000",
+     "318010_18081003969_44180209031322001030-1789714884000",
+     "318010_18081003969_44180209031322001030-1789743611000"
+    ],
+    "stage": "after_envelope_fit"
+   },
+   "after_replay_collect": {
+    "denied": [
+     {
+      "file_id": "318010_18081003969_44180209031322001030-1789315092000",
+      "reason": "release_denied"
+     },
+     {
+      "file_id": "318010_18081003969_44180209031322001030-1789344020000",
+      "reason": "release_denied"
+     }
+    ],
+    "denied_count": 2,
+    "release_count": 15,
+    "released": [
+     "318010_18081003969_44180209031322001030-1789315396000",
+     "318010_18081003969_44180209031322001030-1789369261000",
+     "318010_18081003969_44180209031322001030-1789398242000",
+     "318010_18081003969_44180209031322001030-1789401888000",
+     "318010_18081003969_44180209031322001030-1789430587000",
+     "318010_18081003969_44180209031322001030-1789455816000",
+     "318010_18081003969_44180209031322001030-1789484519000",
+     "318010_18081003969_44180209031322001030-1789488166000",
+     "318010_18081003969_44180209031322001030-1789517061000",
+     "318010_18081003969_44180209031322001030-1789542281000",
+     "318010_18081003969_44180209031322001030-1789570950000",
+     "318010_18081003969_44180209031322001030-1789574592000",
+     "318010_18081003969_44180209031322001030-1789603244000",
+     "318010_18081003969_44180209031322001030-1789628459000",
+     "318010_18081003969_44180209031322001030-1789657439000"
+    ],
+    "stage": "after_replay_collect"
+   }
+  },
+  "resource_envelope": {
+   "backpressure_observed": false,
+   "backpressure_reason": "",
+   "budget_shrinks": [],
+   "final_raw_bytes": 0,
+   "final_work_bytes": 6373252,
+   "frame_memory_estimate": {
+    "note": "回放帧在评分矩阵构建后立即丢弃像素，因此峰值不等于帧数×画布×3 的长期驻留；这是估算上限口径",
+    "preview_frames": 93312000,
+    "replay_frames": 1161216000
+   },
+   "material_failures": [],
+   "note": "原始 PS、抽帧/回放帧与合成中间产物分别记账；任何超预算都记录为 backpressure/预算类失败，不伪装成素材失败",
+   "peak_raw_bytes": 1406880200,
+   "peak_work_bytes": 1413204521,
+   "planned_final_summary": {
+    "consumed": 15,
+    "failed:download_error:RecordingSourceError": 2
+   },
+   "raw_cache_budget": 8589934592,
+   "stage_bytes": {
+    "composite": 822067200,
+    "hd_materialize": 2523806486
+   },
+   "work_budget": 64424509440
+  },
+  "pipeline": {
+   "consumed": 15,
+   "downloaded_files": 15,
+   "failed": 2,
+   "planned": 17,
+   "prefetch_slots": 2,
+   "refresh_count": 18,
+   "released_files": 15,
+   "truncated_plan": false,
+   "wait_events": [
+    {
+     "file_id": "318010_18081003969_44180209031322001030-1789315092000",
+     "reason": "download_error:RecordingSourceError",
+     "waited_seconds": 6.919
+    },
+    {
+     "file_id": "318010_18081003969_44180209031322001030-1789344020000",
+     "reason": "download_error:RecordingSourceError",
+     "waited_seconds": 8.659
+    }
+   ],
+   "waited_seconds": 63.42
+  },
+  "replay_materialize": {
+   "attempted": 17,
+   "failed": [
+    {
+     "file_id": "318010_18081003969_44180209031322001030-1789315092000",
+     "kind": "NETWORK_FAILURE",
+     "reason": "RecordingSourceError: 下载字节数不符: 期望 59896042，实际 49243102"
+    },
+    {
+     "file_id": "318010_18081003969_44180209031322001030-1789344020000",
+     "kind": "NETWORK_FAILURE",
+     "reason": "RecordingSourceError: 下载字节数不符: 期望 82470629，实际 71979869"
+    }
+   ],
+   "note": "回放按需重取缺失素材；失败分类见 failed",
+   "ok": 15,
+   "policy_refreshes": 17
+  }
+ },
+ "C3": {
+  "plan": {
+   "blind_files": 4,
+   "build_blocks": 60,
+   "calibration_blocks": 16,
+   "calibration_files": 4,
+   "calibration_observations": 16,
+   "note": "独立校准观测来自校准日，不参与参考合成；构建块与校准块必须无交集",
+   "overlap_blocks": []
+  },
+  "assigned_observations": 8,
+  "unassigned_observations": 8,
+  "threshold_mode": "group_diameter",
+  "profiles": [
+   {
+    "group_id": "g001",
+    "note": "independent_calibration_day_cross_group",
+    "source": "calibration_day",
+    "independent": true,
+    "appearance_matched": false,
+    "independent_blocks": 16,
+    "match_distance": null,
+    "match_limit": 15.64284,
+    "degradation": "no_appearance_match",
+    "noise_independent_flag": true,
+    "noise_calibration_blocks": 16,
+    "bias_px": 6886,
+    "appearance_reason": "no_appearance_match",
+    "low_support": null
+   },
+   {
+    "group_id": "g002",
+    "note": "independent_calibration_day_cross_group",
+    "source": "calibration_day",
+    "independent": true,
+    "appearance_matched": false,
+    "independent_blocks": 16,
+    "match_distance": null,
+    "match_limit": 19.60209,
+    "degradation": "no_appearance_match",
+    "noise_independent_flag": true,
+    "noise_calibration_blocks": 16,
+    "bias_px": 8722,
+    "appearance_reason": "no_appearance_match",
+    "low_support": null
+   },
+   {
+    "group_id": "g003",
+    "note": "independent_calibration_day_cross_group",
+    "source": "calibration_day",
+    "independent": true,
+    "appearance_matched": false,
+    "independent_blocks": 16,
+    "match_distance": null,
+    "match_limit": 13.88448,
+    "degradation": "no_appearance_match",
+    "noise_independent_flag": true,
+    "noise_calibration_blocks": 16,
+    "bias_px": 5884,
+    "appearance_reason": "no_appearance_match",
+    "low_support": null
+   },
+   {
+    "group_id": "g004",
+    "note": "independent_calibration_day_cross_group",
+    "source": "calibration_day",
+    "independent": true,
+    "appearance_matched": false,
+    "independent_blocks": 16,
+    "match_distance": 21.86828,
+    "match_limit": 31.35914,
+    "degradation": "None",
+    "noise_independent_flag": true,
+    "noise_calibration_blocks": 16,
+    "bias_px": 18006,
+    "appearance_reason": null,
+    "low_support": null
+   },
+   {
+    "group_id": "g006",
+    "note": "independent_calibration_day_cross_group",
+    "source": "calibration_day",
+    "independent": true,
+    "appearance_matched": false,
+    "independent_blocks": 16,
+    "match_distance": null,
+    "match_limit": 23.39234,
+    "degradation": "no_appearance_match",
+    "noise_independent_flag": true,
+    "noise_calibration_blocks": 16,
+    "bias_px": 9759,
+    "appearance_reason": "no_appearance_match",
+    "low_support": null
+   },
+   {
+    "group_id": "g007",
+    "note": "independent_calibration_day_cross_group",
+    "source": "calibration_day",
+    "independent": true,
+    "appearance_matched": false,
+    "independent_blocks": 16,
+    "match_distance": 13.88287,
+    "match_limit": 15.18054,
+    "degradation": "None",
+    "noise_independent_flag": true,
+    "noise_calibration_blocks": 16,
+    "bias_px": 5905,
+    "appearance_reason": null,
+    "low_support": null
+   },
+   {
+    "group_id": "g009",
+    "note": "independent_calibration_day_cross_group",
+    "source": "calibration_day",
+    "independent": true,
+    "appearance_matched": false,
+    "independent_blocks": 16,
+    "match_distance": null,
+    "match_limit": 16.79669,
+    "degradation": "no_appearance_match",
+    "noise_independent_flag": true,
+    "noise_calibration_blocks": 16,
+    "bias_px": 21052,
+    "appearance_reason": "no_appearance_match",
+    "low_support": null
+   },
+   {
+    "group_id": "g010",
+    "note": "independent_calibration_day_cross_group",
+    "source": "calibration_day",
+    "independent": true,
+    "appearance_matched": false,
+    "independent_blocks": 16,
+    "match_distance": null,
+    "match_limit": 13.00579,
+    "degradation": "no_appearance_match",
+    "noise_independent_flag": true,
+    "noise_calibration_blocks": 16,
+    "bias_px": 27843,
+    "appearance_reason": "no_appearance_match",
+    "low_support": null
+   },
+   {
+    "group_id": "g011",
+    "note": "independent_calibration_day_cross_group",
+    "source": "calibration_day",
+    "independent": true,
+    "appearance_matched": false,
+    "independent_blocks": 16,
+    "match_distance": null,
+    "match_limit": 20.25419,
+    "degradation": "no_appearance_match",
+    "noise_independent_flag": true,
+    "noise_calibration_blocks": 16,
+    "bias_px": 19250,
+    "appearance_reason": "no_appearance_match",
+    "low_support": null
+   },
+   {
+    "group_id": "g013",
+    "note": "independent_calibration_day_cross_group",
+    "source": "calibration_day",
+    "independent": true,
+    "appearance_matched": false,
+    "independent_blocks": 16,
+    "match_distance": null,
+    "match_limit": 20.54744,
+    "degradation": "no_appearance_match",
+    "noise_independent_flag": true,
+    "noise_calibration_blocks": 16,
+    "bias_px": 8960,
+    "appearance_reason": "no_appearance_match",
+    "low_support": null
+   },
+   {
+    "group_id": "g016",
+    "note": "independent_calibration_blocks",
+    "source": "calibration_day",
+    "independent": true,
+    "appearance_matched": true,
+    "independent_blocks": 3,
+    "match_distance": 22.25246,
+    "match_limit": 25.34824,
+    "degradation": null,
+    "noise_independent_flag": true,
+    "noise_calibration_blocks": 3,
+    "bias_px": 18831,
+    "appearance_reason": null,
+    "low_support": null
+   },
+   {
+    "group_id": "g017",
+    "note": "independent_calibration_day_cross_group",
+    "source": "calibration_day",
+    "independent": true,
+    "appearance_matched": false,
+    "independent_blocks": 16,
+    "match_distance": null,
+    "match_limit": 9.1994,
+    "degradation": "no_appearance_match",
+    "noise_independent_flag": true,
+    "noise_calibration_blocks": 16,
+    "bias_px": 8216,
+    "appearance_reason": "no_appearance_match",
+    "low_support": null
+   },
+   {
+    "group_id": "g019",
+    "note": "independent_calibration_blocks",
+    "source": "calibration_day",
+    "independent": true,
+    "appearance_matched": true,
+    "independent_blocks": 3,
+    "match_distance": 12.74766,
+    "match_limit": 12.8378,
+    "degradation": null,
+    "noise_independent_flag": true,
+    "noise_calibration_blocks": 3,
+    "bias_px": 3680,
+    "appearance_reason": null,
+    "low_support": null
+   }
+  ],
+  "summary": {
+   "profiles": 13,
+   "independent_of_reference": 13,
+   "appearance_matched": 2,
+   "reference_self": 0,
+   "noise_flag_independent": 13
+  }
+ },
+ "bank": {
+  "manifest_sha256": "9347f99e01f9f8303192db9751ad2a69064978b192a56c39692bc32bbe190ac6",
+  "path": "/home/sf01/profile-factory/out/bank/camera_01030/v3",
+  "profiles": [
+   "p0001",
+   "p0002",
+   "p0003",
+   "p0004",
+   "p0005",
+   "p0006",
+   "p0007",
+   "p0008",
+   "p0009",
+   "p0010",
+   "p0011",
+   "p0012",
+   "p0013"
+  ]
+ },
+ "time_partition": {
+  "blind_day": "2026-09-19",
+  "build_days": [
+   "2026-09-13",
+   "2026-09-14",
+   "2026-09-15",
+   "2026-09-16",
+   "2026-09-17"
+  ],
+  "calibration_day": "2026-09-18",
+  "counts": {
+   "blind": 4,
+   "build": 17,
+   "calibration": 4,
+   "outside": 0
+  },
+  "cross_day": [],
+  "days": [
+   "2026-09-13",
+   "2026-09-14",
+   "2026-09-15",
+   "2026-09-16",
+   "2026-09-17",
+   "2026-09-18",
+   "2026-09-19"
+  ],
+  "leakage_check": "盲测日文件不参与构建/校准"
+ },
+ "space": {
+  "budget": {
+   "backpressure": false,
+   "leased_count": 0,
+   "managed_file_bytes": 0,
+   "part_bytes": 0,
+   "raw_budget": 8589934592,
+   "raw_bytes": 0,
+   "reason": "",
+   "total_work_bytes": 6373252,
+   "unmanaged_bytes": 6373252,
+   "work_budget": 64424509440
+  },
+  "by_state": {
+   "EVICTABLE": 21
+  },
+  "failures": [
+   {
+    "failure": "下载字节数不符: 期望 59896042，实际 49243102",
+    "file_id": "318010_18081003969_44180209031322001030-1789315092000"
+   },
+   {
+    "failure": "下载字节数不符: 期望 82470629，实际 71979869",
+    "file_id": "318010_18081003969_44180209031322001030-1789344020000"
+   }
+  ],
+  "files": 21,
+  "peak_raw_bytes": 1406880200,
+  "peak_work_bytes": 1413204521,
+  "total_download_seconds": 151.609,
+  "total_downloaded_bytes": 3930686686
+ }
+}

@@ -1,0 +1,47 @@
+{
+ "duplicate_profile_loo": {
+  "4": {
+   "baseline": 0.89474,
+   "leave_one_out": {
+    "p1": 0.89474,
+    "p2": 0.89474
+   },
+   "requested_stride": 4,
+   "effective_stride": 1,
+   "stride_ignored": true,
+   "frames_identical": true,
+   "kept": [
+    "p1",
+    "p2"
+   ],
+   "deletion_order": []
+  },
+  "1": {
+   "baseline": 0.89474,
+   "leave_one_out": {
+    "p1": 0.89474,
+    "p2": 0.89474
+   },
+   "requested_stride": 1,
+   "effective_stride": 1,
+   "stride_ignored": false,
+   "frames_identical": true,
+   "kept": [
+    "p1",
+    "p2"
+   ],
+   "deletion_order": []
+  }
+ },
+ "hd_repull_scoped": {
+  "considered": 4,
+  "checked": 2,
+  "skipped_not_needed_ids": [
+   "f0",
+   "f3"
+  ],
+  "failure_kinds": {
+   "URL_REFRESH_FAILED": 2
+  }
+ }
+}
