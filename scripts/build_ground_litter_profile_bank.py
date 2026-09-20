@@ -74,8 +74,8 @@ from rtsp_annotator.ground_litter_recording_cache import (  # noqa: E402
 )
 from rtsp_annotator.ground_litter_recording_source import (  # noqa: E402
     ListQuery, RecordingDownloader, RecordingFile, RecordingListClient,
-    UrlRefreshPolicy, deduplicate_files, detect_truncation,
-    file_looks_like_media,
+    RecordingSourceError, UrlRefreshPolicy, deduplicate_files,
+    detect_truncation, file_looks_like_media,
 )
 
 ALGORITHM_VERSION = "profile_factory_r3"
@@ -107,6 +107,8 @@ class FactoryConfig:
     supersede: bool = False
     use_seek: bool = False
     max_downloads_per_run: int | None = None
+    per_day_hours: int = 0
+    max_files: int = 400
     start_time: str = ""
     end_time: str = ""
 
@@ -134,6 +136,11 @@ def load_geometry(path: Path | None, size: tuple[int, int], *,
 
 def _state_path(work_dir: Path) -> Path:
     return work_dir / "factory_state.json"
+
+
+def inventory_cache_path(work_dir: Path, start: str, end: str) -> Path:
+    key = sha256_bytes(f"{start}|{end}".encode())[:16]
+    return work_dir / f"inventory_{key}.json"
 
 
 def load_state(work_dir: Path) -> dict[str, Any]:
@@ -202,6 +209,63 @@ def build_local_cache_entries(
 # --------------------------------------------------------------------------- #
 
 
+def _hour_slot(record_start: str) -> str:
+    text = str(record_start or "").replace("T", " ")
+    return text[:13] if len(text) >= 13 else text
+
+
+def robust_query(
+    client: RecordingListClient, query: ListQuery, *,
+    attempts: int = 3, base_delay: float = 1.0,
+) -> Any:
+    """清单查询的有限退避重试。
+
+    网络抖动、限流或单次超时不应让整段七天作业失败（方案一 §4.5）。超过尝试
+    次数后抛错，由调用方决定是跳过该窗口还是终止。
+    """
+    last: Exception | None = None
+    for attempt in range(1, max(1, attempts) + 1):
+        try:
+            return client.query(query)
+        except RecordingSourceError as exc:
+            last = exc
+            if attempt >= attempts:
+                break
+            time.sleep(base_delay * (2 ** (attempt - 1)))
+    assert last is not None
+    raise last
+
+
+def select_files_by_day_hours(
+    files: Sequence[RecordingFile], *, per_day_hours: int,
+    min_gap_minutes: int = 5, max_files: int = 400,
+) -> list[RecordingFile]:
+    """按「天 × 小时」均匀抽样，保证覆盖一天内的光照变化（含夜间）。
+
+    同一小时内只取一个文件，避免大段重复录像占满预算。选择是确定性的：
+    按 (record_start, file_id) 排序后每小时内取最早的一个。
+    """
+    grouped: dict[str, dict[str, RecordingFile]] = {}
+    for item in sorted(files, key=lambda entry: (entry.record_start, entry.file_id)):
+        day = parse_day(item.record_start)
+        hour = _hour_slot(item.record_start)
+        grouped.setdefault(day, {}).setdefault(hour, item)
+    chosen: list[RecordingFile] = []
+    for day in sorted(grouped):
+        hours = sorted(grouped[day])
+        if per_day_hours and per_day_hours < len(hours):
+            # 均匀取 per_day_hours 个小时槽，覆盖凌晨/白天/夜晚。
+            indexes = [
+                round(index * (len(hours) - 1) / (per_day_hours - 1))
+                for index in range(per_day_hours)
+            ] if per_day_hours > 1 else [0]
+            hours = [hours[index] for index in sorted(set(indexes))]
+        for hour in hours:
+            chosen.append(grouped[day][hour])
+    del min_gap_minutes
+    return chosen[:max_files]
+
+
 def stage_inventory_remote(
     config: FactoryConfig, client: RecordingListClient,
     cache: ManagedRecordingCache, report: dict[str, Any],
@@ -222,7 +286,14 @@ def stage_inventory_remote(
             cursor.strftime("%Y-%m-%d %H:%M:%S"),
             window_end.strftime("%Y-%m-%d %H:%M:%S"),
         )
-        page = client.query(query)
+        try:
+            page = robust_query(client, query)
+        except RecordingSourceError as exc:
+            report.setdefault("inventory_failures", []).append({
+                "start": query.start_time, "error": str(exc)[:120],
+            })
+            cursor = window_end
+            continue
         pages.append(page)
         # 一小时结果 vs 两个半小时结果的并集：检测列表截断嫌疑。
         halves = []
@@ -234,11 +305,14 @@ def stage_inventory_remote(
                 half_start + __import__("datetime").timedelta(seconds=half_window_seconds),
                 window_end,
             )
-            halves.append(client.query(ListQuery(
-                config.device_code,
-                half_start.strftime("%Y-%m-%d %H:%M:%S"),
-                half_end.strftime("%Y-%m-%d %H:%M:%S"),
-            )))
+            try:
+                halves.append(robust_query(client, ListQuery(
+                    config.device_code,
+                    half_start.strftime("%Y-%m-%d %H:%M:%S"),
+                    half_end.strftime("%Y-%m-%d %H:%M:%S"),
+                )))
+            except RecordingSourceError:
+                continue
         if halves:
             truncation_checks.append(detect_truncation(
                 page.files(),
@@ -406,10 +480,13 @@ def stage_sampling(
     if canvas_reference is None:
         raise SystemExit("无法从构建集建立共同画布")
 
-    for item in files:
+    for file_index, item in enumerate(files, start=1):
         entry = cache.entry(config.device_code, item.file_id)
         if entry is None or entry.path is None:
             continue
+        if file_index % 10 == 1 or file_index == len(files):
+            print(f"[sampling] {file_index}/{len(files)} {item.record_start} "
+                  f"samples={len(samples)}", flush=True)
         with cache.acquire(config.device_code, item.file_id, owner="sampler") as lease:
             sampler = BoundedPreviewSampler(
                 cache, analysis_size=size, roi_mask=roi,
@@ -449,6 +526,10 @@ def stage_sampling(
         ), 3),
         "seek_seconds": round(sum(item.get("seek_seconds", 0.0) for item in details), 3),
         "rejected": sum(len(item.get("rejected", [])) for item in details),
+        "mode": "seek" if config.use_seek else "sequential",
+        "bytes_downloaded": sum(
+            int(item.get("downloaded_bytes") or 0) for item in details
+        ),
         "per_file": details,
     }
     report["hd_plan"] = {
@@ -500,9 +581,16 @@ def stage_composite_and_noise(
     from rtsp_annotator.ground_litter_profile_sampling import SequentialFrameReader
 
     by_id = {item.file_id: item for item in files}
-    frame_cache: dict[str, list[tuple[np.ndarray, str]]] = {}
     candidates: list[dict[str, Any]] = []
-    for group in groups:
+    for group_index, group in enumerate(groups, start=1):
+        _t0 = time.monotonic()
+        cached_hits = sum(
+            1 for sample in samples
+            if sample.get("hd_frame") is not None
+            and str(sample["time_block"]) in set(group["time_blocks"])
+        )
+        print(f"[composite] group {group_index}/{len(groups)} {group['group_id']} "
+              f"blocks={len(group['time_blocks'])} cached_hd={cached_hits}", flush=True)
         needed = [block for block in group["time_blocks"]]
         if not needed:
             continue
@@ -547,6 +635,7 @@ def stage_composite_and_noise(
             blocks.append(block)
         if len(frames) < 2:
             report.setdefault("composite_skipped", []).append(group["group_id"])
+            print(f"[composite]   skipped (frames={len(frames)})", flush=True)
             continue
         composite = temporal_median_composite(
             frames, masks, roi, blocks, stride=2, min_observations=2,
@@ -569,11 +658,16 @@ def stage_composite_and_noise(
             noise_note = "low_support_used_all_blocks"
         else:
             noise_note = "held_out_blocks"
-        # 阈值图必须与参考同尺寸（Bank loader 契约）；内部按行采样以控制内存。
+        # 阈值图必须与参考同尺寸（Bank loader 契约）。逐像素分位代价随帧数线性
+        # 增长，这里按时间均匀抽稀到 24 帧（块覆盖保持不变）。
         noise = estimate_noise(
             refined, eval_frames, eval_masks, eval_blocks, stride=1,
+            config={"max_estimate_frames": 24},
         )
         diagnosis = diagnose_persistent_bias(noise)
+        print(f"[composite]   done frames={len(frames)} eval={len(eval_frames)} "
+              f"bias_px={diagnosis and noise.diagnostics.get('bias_flag_pixels')} "
+              f"seconds={round(time.monotonic() - _t0, 1)}", flush=True)
         preview = preview_image(refined, width=config.preview_width)
         descriptor = extract_grid_descriptor(
             preview,
@@ -590,9 +684,6 @@ def stage_composite_and_noise(
             "valid": roi.copy(),
             "noise": noise,
             "descriptor": descriptor,
-            "frames": frames,
-            "masks": masks,
-            "blocks": blocks,
             "composite": composite.diagnostics,
             "replacement": replace_diagnostics,
             "noise_diagnostics": noise.diagnostics,
@@ -616,7 +707,7 @@ def stage_composite_and_noise(
         }
         for item in candidates
     ]
-    del calibration_blocks, frame_cache
+    del calibration_blocks
     return candidates
 
 
@@ -627,13 +718,23 @@ def stage_preselect_and_finalize(
     config_hash: str,
 ) -> list[dict[str, Any]]:
     """静态贪心预选 + 完整 Selector 动态定稿（F4）。"""
+    _pt0 = time.monotonic()
     matcher = default_matcher_config()
+    # 动态定稿在 1280x720 回放画布上做：几何是归一化的，缩放不改变语义，
+    # 但全尺寸 36 候选 × 上百帧评分会把 15G 内存的服务器打爆（实测 9.9GB RSS）。
+    replay_w, replay_h = 960, 540
+    print(f"[preselect] replay canvas {replay_w}x{replay_h}", flush=True)
     if not candidates:
         raise SystemExit("没有任何可用候选，无法建库")
     # 1) 静态预选：用小图描述子统计每个候选的潜在覆盖。
     for item in candidates:
         item["potential_frames"] = 0
-    for _block, frame in build_frames:
+    # 静态预选：在回放画布上用小图描述子做粗排，不重复动全尺寸参考。
+    static_frames = [
+        (block, cv2.resize(frame, (replay_w, replay_h), interpolation=cv2.INTER_AREA))
+        for block, frame in build_frames[:120]
+    ]
+    for _block, frame in static_frames:
         preview = preview_image(frame, width=config.preview_width)
         payload = extract_grid_descriptor(
             preview,
@@ -649,14 +750,34 @@ def stage_preselect_and_finalize(
                 best = min(best, difference)
             item["potential_frames"] += 1 if best < 12.0 else 0
             scores.append(best)
-    total_frames = max(1, len(build_frames))
+    total_frames = max(1, len(static_frames))
     for item in candidates:
         item["static_coverage"] = item["potential_frames"] / total_frames
 
     # 2) 动态定稿：先测分数并校准包络，再用同一份 Selector 时序回放。
     #    每个候选的帧按 80/20 分成「合成用途」与「动态评估用途」；评估帧不参与
     #    该候选的合成，包络再从评估帧里每三个留出一个校准，尽量减少自证。
-    frames_by_candidate = _match_frames_to_candidates(candidates, build_frames)
+    replay_frames = [
+        (block, cv2.resize(frame, (replay_w, replay_h), interpolation=cv2.INTER_AREA))
+        for block, frame in build_frames
+    ]
+    del build_frames
+    import gc as _gc
+    _gc.collect()
+    frames_by_candidate = _match_frames_to_candidates(candidates, replay_frames)
+    # 预先把候选参考缩到回放画布，避免每帧重复缩放（同时限制内存峰值）。
+    replay_contexts: dict[str, dict[str, Any]] = {}
+    for item in candidates:
+        replay_contexts[item["profile_id"]] = {
+            "reference": cv2.resize(
+                item["reference"], (replay_w, replay_h),
+                interpolation=cv2.INTER_AREA,
+            ),
+            "valid": cv2.resize(
+                item["valid"], (replay_w, replay_h),
+                interpolation=cv2.INTER_NEAREST,
+            ),
+        }
     synthesis_frames: dict[str, list[np.ndarray]] = {}
     evaluation_frames: dict[str, list[np.ndarray]] = {}
     for profile_id, frames in frames_by_candidate.items():
@@ -671,18 +792,29 @@ def stage_preselect_and_finalize(
     measured: dict[str, list[float]] = {item["profile_id"]: [] for item in candidates}
     score_cache: dict[tuple[int, str], Any] = {}
     score_errors: dict[str, str] = {}
-    for index, (_block, frame) in enumerate(build_frames):
-        for item in candidates:
+    score_frame_limit = 120
+    # 候选太多会让评分成本与内存线性膨胀；先按静态覆盖粗排取前 K。
+    max_scored_candidates = 16
+    ordered_candidates = sorted(
+        candidates,
+        key=lambda entry: (-entry["static_coverage"], entry["profile_id"]),
+    )[: max_scored_candidates]
+    report["scored_candidates"] = [item["profile_id"] for item in ordered_candidates]
+    print(f"[preselect] scoring {len(ordered_candidates)}/{len(candidates)} candidates "
+          f"x {min(score_frame_limit, len(replay_frames))} frames at "
+          f"{replay_w}x{replay_h}", flush=True)
+    _pt0 = time.monotonic()
+    for index, (_block, frame) in enumerate(replay_frames[:score_frame_limit]):
+        for item in ordered_candidates:
             frames = evaluation_frames.get(item["profile_id"], [])
             if not frames:
                 continue
             matched = frames[index % len(frames)]
+            context = replay_contexts[item["profile_id"]]
             try:
                 score = score_profile(
-                    matched, item["reference"], item["valid"],
-                    roi_mask_from_geometry(
-                        geometry, matched.shape[1], matched.shape[0],
-                    ),
+                    matched, context["reference"], context["valid"],
+                    roi_mask_from_geometry(geometry, replay_w, replay_h),
                     profile_id=item["profile_id"], config=matcher,
                 )
             except Exception as exc:
@@ -693,7 +825,7 @@ def stage_preselect_and_finalize(
     # 包络必须在**参考来源之外**的观测上校准：每三个观测留出一个，
     # 与合成帧分离；样本不足时明确回退到公共稳健范围。
     envelopes = {}
-    for item in candidates:
+    for item in ordered_candidates:
         values = measured.get(item["profile_id"], [])
         holdout = values[2::3] if len(values) >= 6 else []
         envelopes[item["profile_id"]] = envelope_from_samples(holdout, matcher)
@@ -707,16 +839,16 @@ def stage_preselect_and_finalize(
     selector = ProfileSelector(
         bank_id=config.bank_id, bank_version=config.version,
         view_id=str(geometry.get("view_id", "view_0")),
-        profile_ids=[item["profile_id"] for item in candidates],
+        profile_ids=[item["profile_id"] for item in ordered_candidates],
         config=matcher["selection"],
     )
     timeline: list[dict[str, Any]] = []
-    for index, (_block, frame) in enumerate(build_frames):
+    for index, (_block, frame) in enumerate(replay_frames):
         timestamp = float(index)
         current_id = selector.selected_profile_id
         current = None
         candidates_this_tick: list[CandidateMatch] = []
-        for item in candidates:
+        for item in ordered_candidates:
             score = score_cache.get((index, item["profile_id"]))
             if score is None:
                 continue
@@ -737,6 +869,8 @@ def stage_preselect_and_finalize(
                 profile_id=decision.commit_profile_id, timestamp=timestamp,
             )
     summary = selector.summarise()
+    print(f"[preselect] done in {round(time.monotonic() - _pt0, 1)}s "
+          f"effective={summary['effective_fraction']}", flush=True)
     report["dynamic_finalisation"] = {
         "selector_summary": summary,
         "timeline_entries": len(timeline),
@@ -754,7 +888,7 @@ def stage_preselect_and_finalize(
         for item in candidates
     }
     # 3) 剪枝：只删掉既无静态增量、又没有缩短暂停的冗余候选。
-    selected = _prune_candidates(candidates, selector, report)
+    selected = _prune_candidates(ordered_candidates, selector, report)
     report["n_selection"] = {
         "candidates": len(candidates),
         "selected": len(selected),
@@ -819,7 +953,22 @@ def _prune_candidates(
 # --------------------------------------------------------------------------- #
 
 
+def _install_stack_dumper() -> None:
+    """``kill -USR1 <pid>`` 把当前 Python 栈写到 stderr，用于诊断卡住位置。
+
+    长时间离线作业必须能在不重启、不丢状态的前提下抓栈，否则只能靠猜。
+    """
+    import faulthandler
+    import signal
+
+    try:
+        faulthandler.register(signal.SIGUSR1, all_threads=True, chain=False)
+    except (AttributeError, ValueError):  # pragma: no cover - 平台不支持
+        pass
+
+
 def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, Any]:
+    _install_stack_dumper()
     report: dict[str, Any] = {
         "algorithm_version": ALGORITHM_VERSION,
         "started_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
@@ -857,8 +1006,52 @@ def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, An
                 ),
             }
         else:
+            cache_path = inventory_cache_path(
+                config.work_dir, config.start_time, config.end_time,
+            )
+            cached_inventory = None
+            if args.resume and cache_path.is_file():
+                try:
+                    cached = json.loads(cache_path.read_text(encoding="utf-8"))
+                    cached_inventory = [
+                        RecordingFile(
+                            file_id=row["file_id"], file_name=row.get("file_name", ""),
+                            record_start=row["record_start"],
+                            record_end=row["record_end"],
+                            file_size=row.get("file_size"),
+                            file_type=row.get("file_type", ""),
+                        )
+                        for row in cached.get("files", [])
+                    ]
+                    report["inventory"] = {**cached.get("summary", {}),
+                                           "source": "resume_cache"}
+                except (OSError, ValueError, KeyError):
+                    cached_inventory = None
+            # client 无论走不走清单缓存都必须存在：下载与高清重拉都要用它。
             client = RecordingListClient(headers=_auth_headers(args))
-            files = stage_inventory_remote(config, client, cache, report)
+            if cached_inventory:
+                files = cached_inventory
+                print(f"[inventory] reused cache with {len(files)} files", flush=True)
+            else:
+                files = stage_inventory_remote(config, client, cache, report)
+                atomic_write_json(cache_path, {
+                    "summary": {k: v for k, v in report["inventory"].items()},
+                    "files": [item.as_dict() for item in files],
+                })
+            all_files = list(files)
+            files = select_files_by_day_hours(
+                files, per_day_hours=config.per_day_hours,
+                max_files=config.max_files,
+            )
+            report["sampling_plan"] = {
+                "inventory_files": len(all_files),
+                "selected_files": len(files),
+                "per_day_hours": config.per_day_hours,
+                "per_day_selected": {
+                    day: sum(1 for item in files if parse_day(item.record_start) == day)
+                    for day in sorted({parse_day(item.record_start) for item in files})
+                },
+            }
             downloader = RecordingDownloader()
             ready = materialize_remote(
                 config, client, downloader, cache, files, report,
@@ -958,7 +1151,27 @@ def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, An
         )
         if not candidates:
             raise SystemExit("高清合成没有得到任何候选参考；见报告 composite")
-        build_frames = _collect_frames(cache, config, build_files, geometry)
+        print("[replay] collecting continuous frames", flush=True)
+        _rt0 = time.monotonic()
+        # 合成已完成，采样阶段的 HD 帧缓存不再需要；释放后再收集回放帧，
+        # 避免两者叠加把内存推高（实测曾到 9.9GB RSS）。
+        for sample in samples:
+            sample.pop("hd_frame", None)
+        import gc as _gc
+        _gc.collect()
+        build_frames = _collect_frames(
+            cache, config, build_files, geometry,
+            frame_budget=int(getattr(args, "max_replay_frames", 180) or 180),
+        )
+        print(f"[replay] collected {len(build_frames)} frames "
+              f"in {round(time.monotonic() - _rt0, 1)}s", flush=True)
+        print("[preselect] scoring candidates", flush=True)
+        _pt0 = time.monotonic()
+        report["replay_frames"] = {
+            "frames": len(build_frames),
+            "files": len(build_files),
+            "note": "动态定稿只回放有限连续片段；在线恢复速度必须由服务器实测",
+        }
         selected = stage_preselect_and_finalize(
             config, candidates, geometry, report,
             build_frames=build_frames, config_hash=config_hash,
@@ -1115,25 +1328,39 @@ def _ensure_remote_entries(
 def _collect_frames(
     cache: ManagedRecordingCache, config: FactoryConfig,
     files: Sequence[RecordingFile], geometry: Mapping[str, Any],
+    *, frame_budget: int = 180,
 ) -> list[tuple[str, np.ndarray]]:
     """构建集顺序解码：用于动态回放的连续帧（按时间顺序，跨文件不重置）。"""
     from rtsp_annotator.ground_litter_profile_sampling import SequentialFrameReader
     size = (int(geometry["canvas_size"][0]), int(geometry["canvas_size"][1]))
     ordered = sorted(files, key=lambda item: (item.record_start, item.file_id))
+    import gc
+
     frames: list[tuple[str, np.ndarray]] = []
+    # 动态定稿只需要足以覆盖时间块的连续片段；按帧预算截断，不把整天高清帧
+    # 常驻内存（方案一 §7.1）。这里按文件数均分预算，保证跨文件连续性，
+    # 并周期性 gc，避免 PyAV/glibc 把已释放的大数组留在 RSS 里。
+    per_file = max(1, frame_budget // max(1, len(ordered)))
     for item in ordered:
+        if len(frames) >= frame_budget:
+            break
         entry = cache.entry(config.device_code, item.file_id)
         if entry is None or entry.path is None:
             continue
         reader = SequentialFrameReader(entry.path)
+        taken = 0
         try:
             for frame in reader.iter_frames():
                 resized = cv2.resize(frame.frame, size, interpolation=cv2.INTER_AREA)
+                del frame
                 frames.append((item.file_id, resized))
-                if len(frames) >= 240:
-                    return frames
+                taken += 1
+                if taken >= per_file or len(frames) >= frame_budget:
+                    break
         except Exception:
             continue
+        finally:
+            gc.collect()
     return frames
 
 
@@ -1207,7 +1434,14 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--seed", type=int, default=20260920)
     parser.add_argument("--preview-width", type=int, default=960)
     parser.add_argument("--max-downloads", type=int, default=None)
-    parser.add_argument("--use-seek", action="store_true")
+    parser.add_argument("--per-day-hours", type=int, default=0,
+                        help="每天最多取多少个小时槽的文件；0=全部")
+    parser.add_argument("--max-files", type=int, default=400,
+                        help="抽样后最多处理多少个文件")
+    parser.add_argument("--max-replay-frames", type=int, default=180,
+                        help="动态定稿连续回放的帧预算")
+    parser.add_argument("--use-seek", action="store_true",
+                        help="用 seek 逐点取帧（服务器实测 1s/点，推荐）")
     parser.add_argument("--supersede", action="store_true",
                         help="允许把同名版本改名保留后重新发布")
     parser.add_argument("--resume", action="store_true")
@@ -1255,6 +1489,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         supersede=args.supersede,
         use_seek=args.use_seek,
         max_downloads_per_run=args.max_downloads,
+        per_day_hours=getattr(args, "per_day_hours", 0),
+        max_files=getattr(args, "max_files", 400),
     )
     if args.source is not None:
         config.start_time = args.start

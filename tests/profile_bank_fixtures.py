@@ -93,7 +93,7 @@ def synthetic_descriptor(width: int = 16, height: int = 9, *,
 
 def synthetic_reference(width: int, height: int, *, value: int = 120,
                         gradient: bool = True) -> np.ndarray:
-    """合成背景：可选水平亮度梯度，避免所有残差恒为零。"""
+    """合成背景：参数顺序是 (width, height)。可选水平亮度梯度。"""
     canvas = np.full((height, width, 3), value, np.uint8)
     if gradient:
         ramp = np.linspace(-20, 20, width, dtype=np.float32)
@@ -105,6 +105,7 @@ def synthetic_reference(width: int, height: int, *, value: int = 120,
 
 
 def synthetic_valid(width: int, height: int, *, inset: int = 0) -> np.ndarray:
+    """参数顺序是 (width, height)，与 build_synthetic_bank/reference 一致。"""
     mask = np.zeros((height, width), np.uint8)
     mask[inset:height - inset, inset:width - inset] = 255
     return mask

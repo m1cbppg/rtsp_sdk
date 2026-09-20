@@ -255,6 +255,10 @@ class SequentialFrameReader:
             )
             if stream is None:
                 raise BankError("录像没有视频流")
+            # HEVC 2.5K 单线程顺序解码实测约 180s/5 分钟文件；服务器上
+            # thread_count=0（自动）约为其 1/3，必须开启。
+            stream.thread_type = "FRAME"
+            stream.codec_context.thread_count = 0
             for decoded in container.decode(video=0):
                 timestamp = decoded.time
                 if timestamp is None and decoded.pts is not None and stream.time_base:
@@ -311,64 +315,129 @@ class SequentialFrameReader:
             or len(targets) == 1
         }
 
-    def sample_with_seek(
-        self, offsets_seconds: Sequence[float], *,
-        tolerance_seconds: float = 1.0,
-    ) -> dict[float, RecordedFrame]:
-        """seek 模式：逐目标定位。seek 成本单独计入 ``seek_seconds``。"""
+    def probe_seek(
+        self, target_seconds: float, *, tolerance_seconds: float = 1.0,
+        window_seconds: float = 4.0,
+    ) -> tuple[RecordedFrame | None, dict[str, Any]]:
+        """seek 到目标附近取最接近的一帧，并报告实际耗时与命中偏差。
+
+        ``target_seconds`` 是**文件内相对秒**。seek 目标用容器真实时间
+        （首帧基准 + 目标），因为 PS 的 PTS 基值可能是任意大数。
+
+        实测 PS 的关键帧间隔可达数秒，只往后解码会稳定偏晚 2–4s；因此同时保留
+        「目标之前最后一帧」与「目标之后第一帧」，取时间上更近的那一帧，并在
+        诊断里记录它是 before 还是 after，便于报告说明偏差方向。
+        """
         try:
             import av
         except ImportError as exc:  # pragma: no cover
             raise BankError("缺少 PyAV") from exc
-        result: dict[float, RecordedFrame] = {}
+        started = time.monotonic()
+        diagnostics: dict[str, Any] = {"mode": "seek", "target_seconds": target_seconds}
         with av.open(str(self.path), timeout=(10.0, self.timeout)) as container:
             stream = next(
                 (item for item in container.streams if item.type == "video"), None
             )
             if stream is None:
                 raise BankError("录像没有视频流")
-            # 先取首帧确定容器时间基，再按「基值 + 偏移」定位；PS 的 PTS 基值
-            # 可能是任意大数，直接用 0 附近的时间去 seek 会永远找不到。
+            stream.thread_type = "FRAME"
+            stream.codec_context.thread_count = 0
             base: float | None = None
             for decoded in container.decode(video=0):
                 timestamp = decoded.time
                 if timestamp is None and decoded.pts is not None and stream.time_base:
                     timestamp = float(decoded.pts * stream.time_base)
-                base = float(timestamp or 0.0)
+                base = float(timestamp) if timestamp is not None else None
                 break
             if base is None:
-                return result
-            for target in sorted({float(value) for value in offsets_seconds}):
-                seek_target = base + max(0.0, target - tolerance_seconds)
-                seek_started = time.monotonic()
-                try:
-                    container.seek(int(seek_target * 1_000_000), backward=True)
-                except Exception:
-                    self.seek_seconds += time.monotonic() - seek_started
-                    continue
+                diagnostics["error"] = "no_first_frame"
+                return None, diagnostics
+            seek_started = time.monotonic()
+            try:
+                container.seek(
+                    int(max(0.0, base + target_seconds - window_seconds) * 1_000_000),
+                    backward=True,
+                )
+            except Exception as exc:
+                diagnostics["error"] = f"seek_failed:{type(exc).__name__}"
                 self.seek_seconds += time.monotonic() - seek_started
-                best: RecordedFrame | None = None
-                for decoded in container.decode(video=0):
-                    timestamp = decoded.time
-                    if timestamp is None and decoded.pts is not None and stream.time_base:
-                        timestamp = float(decoded.pts * stream.time_base)
-                    if timestamp is None:
-                        continue
-                    relative = float(timestamp) - base
-                    if relative > target + tolerance_seconds:
-                        break
-                    candidate = RecordedFrame(
-                        frame=decoded.to_ndarray(format="bgr24"),
-                        time_seconds=relative, index=0,
-                        pts=None if decoded.pts is None else float(decoded.pts),
-                        source=str(self.path),
-                    )
-                    if best is None or abs(candidate.time_seconds - target) < abs(
-                        best.time_seconds - target
-                    ):
-                        best = candidate
-                if best is not None:
-                    result[target] = best
+                return None, diagnostics
+            self.seek_seconds += time.monotonic() - seek_started
+            diagnostics["seek_seconds"] = round(self.seek_seconds, 4)
+            before: RecordedFrame | None = None
+            after: RecordedFrame | None = None
+            decoded_count = 0
+            gop_gap: float | None = None
+            for decoded in container.decode(video=0):
+                timestamp = decoded.time
+                if timestamp is None and decoded.pts is not None and stream.time_base:
+                    timestamp = float(decoded.pts * stream.time_base)
+                if timestamp is None:
+                    continue
+                relative = float(timestamp) - base
+                decoded_count += 1
+                candidate = RecordedFrame(
+                    frame=decoded.to_ndarray(format="bgr24"),
+                    time_seconds=relative, index=0,
+                    pts=None if decoded.pts is None else float(decoded.pts),
+                    source=str(self.path),
+                )
+                if relative <= target_seconds:
+                    if before is None or relative > before.time_seconds:
+                        before = candidate
+                elif after is None:
+                    after = candidate
+                    if before is not None:
+                        gop_gap = round(after.time_seconds - before.time_seconds, 3)
+                if relative > target_seconds + window_seconds and after is not None:
+                    break
+            diagnostics["decoded_frames"] = decoded_count
+            diagnostics["wall_seconds"] = round(time.monotonic() - started, 4)
+            if gop_gap is not None:
+                diagnostics["keyframe_gap_seconds"] = gop_gap
+            if before is None and after is None:
+                diagnostics["error"] = "no_frame_after_seek"
+                return None, diagnostics
+            if before is None:
+                best, side = after, "after"
+            elif after is None:
+                best, side = before, "before"
+            elif abs(before.time_seconds - target_seconds) <= abs(
+                after.time_seconds - target_seconds
+            ):
+                best, side = before, "before"
+            else:
+                best, side = after, "after"
+            assert best is not None
+            diagnostics["side"] = side
+            diagnostics["hit_seconds"] = round(best.time_seconds, 4)
+            diagnostics["offset_error_seconds"] = round(
+                best.time_seconds - target_seconds, 4
+            )
+            if abs(best.time_seconds - target_seconds) > max(tolerance_seconds, 0.0):
+                diagnostics["error"] = "outside_tolerance"
+                return None, diagnostics
+            return best, diagnostics
+
+    def sample_with_seek(
+        self, offsets_seconds: Sequence[float], *,
+        tolerance_seconds: float = 1.0, window_seconds: float = 4.0,
+    ) -> dict[float, RecordedFrame]:
+        """逐目标 seek 取帧；seek 成本单独计入 ``seek_seconds``。
+
+        对 5 分钟 HEVC 2.5K 文件，顺序解码约 180s 且每个文件只能取到固定几个
+        时间点；seek 模式实测约 1s/点，是长时段抽样的默认方式。
+        """
+        result: dict[float, RecordedFrame] = {}
+        self.seek_diagnostics = getattr(self, "seek_diagnostics", [])
+        for target in sorted({float(value) for value in offsets_seconds}):
+            frame, diagnostics = self.probe_seek(
+                target, tolerance_seconds=tolerance_seconds,
+                window_seconds=window_seconds,
+            )
+            self.seek_diagnostics.append(diagnostics)
+            if frame is not None:
+                result[target] = frame
         return result
 
 
@@ -684,9 +753,12 @@ class BoundedPreviewSampler:
             offsets = densify_offsets(duration, offsets, step_seconds=densify_step_seconds)
         reader = SequentialFrameReader(lease.path)
         if self.use_seek:
-            picked = reader.sample_with_seek(offsets)
+            # seek 取帧的时间偏差实测 <0.02s；留 1s 容差防止个别关键帧边界失败。
+            picked = reader.sample_with_seek(offsets, tolerance_seconds=1.0)
+            seek_diagnostics = list(getattr(reader, "seek_diagnostics", []))
         else:
             picked = reader.sample_at(offsets)
+            seek_diagnostics = []
         self.decode_seconds += reader.decode_seconds
         self.seek_seconds += reader.seek_seconds
         self.frames_read += reader.frames_decoded
@@ -697,7 +769,15 @@ class BoundedPreviewSampler:
         for offset in offsets:
             captured = picked.get(offset)
             if captured is None:
-                rejected.append({"offset_seconds": offset, "reason": "MISSING_AT_OFFSET"})
+                detail = next(
+                    (item for item in seek_diagnostics
+                     if abs(float(item.get("target_seconds", -1)) - offset) < 1e-6),
+                    {},
+                )
+                rejected.append({
+                    "offset_seconds": offset, "reason": "MISSING_AT_OFFSET",
+                    "seek": detail,
+                })
                 continue
             quality = frame_quality(captured.frame)
             if not quality.usable:
@@ -758,6 +838,7 @@ class BoundedPreviewSampler:
             "codec": probe.codec,
             "resolution": [probe.width, probe.height],
             "downloaded_bytes": lease.entry.bytes,
+            "seek_diagnostics": seek_diagnostics,
         }
         # 阶段产物 = 采样摘要；提交后 preview 阶段才算完成。
         summary_path = self.cache.work_dir / "stages" / "preview" / f"{lease.identity_key.replace(':','_')}.json"

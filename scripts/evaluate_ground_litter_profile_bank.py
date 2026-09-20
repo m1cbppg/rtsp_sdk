@@ -17,6 +17,7 @@ from datetime import datetime, timezone
 import json
 import math
 from pathlib import Path
+import re
 import sys
 import time
 from typing import Any, Mapping, Sequence
@@ -67,10 +68,22 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--small-target-size-px", type=int, default=8)
     parser.add_argument("--seed", type=int, default=20260920)
     parser.add_argument("--report", type=Path, default=None)
+    parser.add_argument("--replay-size", default="960x540",
+                        help="评估画布（归一化几何天然可缩放），默认 960x540")
+    parser.add_argument("--max-files", type=int, default=0,
+                        help="最多评估多少个录像文件（0=全部）")
     return parser.parse_args(argv)
 
 
+_MEDIA_STAMP = re.compile(r"^(\d{4}-\d{2}-\d{2})T(\d{2})(\d{2})(\d{2})")
+
+
 def collect_media(root: Path) -> list[RecordingFile]:
+    """收集可评估录像；时间优先取文件名里的录像起始时刻。
+
+    下载工具把 ``record_start`` 编进文件名（``2026-09-20T022904.ps``），
+    因此这里不需要依赖 mtime；缺少该模式时回退到 mtime 并如实标注。
+    """
     files: list[RecordingFile] = []
     patterns = ("*.ps", "*.mp4", "*.mkv", "*.avi", "*.mov", "*.ts", "*.m4v")
     for pattern in patterns:
@@ -78,15 +91,20 @@ def collect_media(root: Path) -> list[RecordingFile]:
             if not path.is_file():
                 continue
             stat = path.stat()
+            match = _MEDIA_STAMP.match(path.stem)
+            if match:
+                record_start = (
+                    f"{match.group(1)} {match.group(2)}:{match.group(3)}:{match.group(4)}"
+                )
+            else:
+                record_start = datetime.fromtimestamp(stat.st_mtime).strftime(
+                    "%Y-%m-%d %H:%M:%S"
+                )
             files.append(RecordingFile(
                 file_id=path.name,
                 file_name=str(path),
-                record_start=datetime.fromtimestamp(
-                    stat.st_mtime
-                ).strftime("%Y-%m-%d %H:%M:%S"),
-                record_end=datetime.fromtimestamp(
-                    stat.st_mtime
-                ).strftime("%Y-%m-%d %H:%M:%S"),
+                record_start=record_start,
+                record_end=record_start,
                 file_size=stat.st_size,
             ))
     return sorted(files, key=lambda item: (item.record_start, item.file_id))
@@ -96,7 +114,15 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parse_args(argv)
     started = time.monotonic()
     bank = load_bank(args.bank_root, args.bank_id, args.version)
-    size = bank.reference_size
+    bank_size = bank.reference_size
+    try:
+        width_text, height_text = str(args.replay_size).lower().split("x")
+        size = (int(width_text), int(height_text))
+    except (AttributeError, ValueError):
+        raise SystemExit("--replay-size 必须是 WxH，例如 960x540")
+    if size[0] < 320 or size[1] < 180:
+        raise SystemExit("--replay-size 太小，评分不再可信")
+    report: dict[str, Any] = {}
     matcher = bank.matcher
     geometry = bank.geometry
     roi = roi_mask_from_geometry(geometry, size[0], size[1])
@@ -104,22 +130,36 @@ def main(argv: Sequence[str] | None = None) -> int:
     output = Path(args.output)
     output.mkdir(parents=True, exist_ok=True)
 
-    contexts = {pid: build_prior_context(bank, pid) for pid in bank.ids()}
+    contexts = {}
+    for pid in bank.ids():
+        context = build_prior_context(bank, pid)
+        if context.reference.shape[:2] != (size[1], size[0]):
+            context = _scale_context(context, size)
+        contexts[pid] = context
     descriptors = {pid: bank.load_descriptor(pid) for pid in bank.ids()}
     scale = global_descriptor_scale(list(descriptors.values()))
     probe_scores = _calibration_scores(
         bank, args.input, size, roi, overlay, matcher,
         max_files=3, max_frames=12,
     )
+    report["replay_size"] = list(size)
+    report["bank_reference_size"] = list(bank_size)
     envelopes = {
         pid: envelope_from_samples(probe_scores.get(pid, []), matcher)
         for pid in bank.ids()
     }
 
     replay_config = dict(matcher.get("selection", {}))
-    replay_config.setdefault(
-        "max_observation_gap_seconds",
-        max(4.0, 2.0 / max(args.analysis_fps, 1e-3)),
+    # 观测间隔上限必须与实际分析节拍一致：0.05 FPS 时两 tick 相隔 20s，
+    # 若仍用 4s，每次观测都会清空连续证据，动态覆盖会恒为 0（而静态覆盖是 1.0），
+    # 这正是 F4 要求区分的「静态 ≠ 动态」。这里按节拍覆盖，并允许 2 倍余量。
+    tick_interval = 1.0 / max(args.analysis_fps, 1e-3)
+    replay_config["max_observation_gap_seconds"] = max(
+        4.0, 2.0 * tick_interval,
+    )
+    replay_config["join_gap_seconds"] = max(
+        float(replay_config.get("join_gap_seconds", 300.0)),
+        4.0 * tick_interval,
     )
     selector = ProfileSelector(
         bank_id=bank.bank_id, bank_version=bank.version,
@@ -127,7 +167,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         profile_ids=list(bank.ids()), config=replay_config,
     )
 
-    report: dict[str, Any] = {
+    report.update({
         "kind": "ground_litter_profile_bank_evaluation",
         "bank": {
             "bank_id": bank.bank_id, "version": bank.version,
@@ -140,7 +180,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         "analysis_fps": args.analysis_fps,
         "roi_pixels": int(np.count_nonzero(roi)),
         "started_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-    }
+    })
 
     ticks: list[dict[str, Any]] = []
     static_covered = 0
@@ -158,8 +198,11 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.input is None:
         raise SystemExit("--input 为必填：评估必须消费真实/回放的连续录像")
     media = collect_media(Path(args.input))
+    if args.max_files:
+        media = media[: args.max_files]
     if not media:
         raise SystemExit(f"目录里没有可评估的录像: {args.input}")
+    report["files_evaluated"] = len(media)
 
     selector.reset_search(reason="evaluation_start")
     for item in media:
@@ -261,6 +304,14 @@ def main(argv: Sequence[str] | None = None) -> int:
         "gap_count": len(gaps),
         "small_target": confirmations,
         "false_positive_examples": false_positive_samples[:40],
+        "selector_config_used": {
+            key: replay_config.get(key) for key in (
+                "max_observation_gap_seconds", "join_gap_seconds",
+                "switch_min_samples", "switch_min_span_seconds",
+                "recovery_min_samples", "recovery_min_span_seconds",
+                "min_dwell_seconds", "top_k", "max_small_matches_per_tick",
+            )
+        },
         "performance": {
             "source_seconds": round(source_seconds, 3),
             "decode_seconds": round(decode_seconds, 3),
@@ -303,6 +354,32 @@ def main(argv: Sequence[str] | None = None) -> int:
         "output": str(output),
     }, ensure_ascii=False, indent=2))
     return 0
+
+
+def _scale_context(context: Any, size: tuple[int, int]) -> Any:
+    """把 Bank 上下文缩放到评估画布；几何是归一化的，缩放不改变语义。"""
+    from rtsp_annotator.ground_litter_profile_analysis import BankPriorContext
+    import cv2 as _cv2
+    import numpy as _np
+
+    def scale_map(array: _np.ndarray, interpolation: int) -> _np.ndarray:
+        if array.ndim == 2:
+            return _cv2.resize(array, size, interpolation=interpolation)
+        return array
+
+    noise = {
+        key: scale_map(_np.asarray(value), _cv2.INTER_NEAREST)
+        if _np.asarray(value).ndim == 2 else value
+        for key, value in context.noise.items()
+    }
+    return BankPriorContext(
+        profile_id=context.profile_id,
+        reference=_cv2.resize(context.reference, size, interpolation=_cv2.INTER_AREA),
+        valid=_cv2.resize(context.valid, size, interpolation=_cv2.INTER_NEAREST),
+        noise=noise,
+        metadata=context.metadata,
+        geometry_diagnostics=context.geometry_diagnostics,
+    )
 
 
 def _source_seconds(item: RecordingFile, offset: float) -> float:
@@ -474,6 +551,10 @@ def _calibration_scores(
     scores: dict[str, list[float]] = {pid: [] for pid in bank.ids()}
     if input_dir is None:
         return scores
+    scaled = {
+        pid: _scale_context(build_prior_context(bank, pid), size)
+        for pid in bank.ids()
+    }
     media = collect_media(Path(input_dir))[:max_files]
     registrar: CanvasRegistrar | None = None
     for item in media:
@@ -490,9 +571,10 @@ def _calibration_scores(
                 if not frame_quality(frame).usable:
                     continue
                 for pid in bank.ids():
+                    context = scaled[pid]
                     try:
                         score = score_profile(
-                            frame, bank.load_reference(pid), bank.load_valid(pid),
+                            frame, context.reference, context.valid,
                             roi, profile_id=pid, config=matcher,
                         )
                     except BankError:

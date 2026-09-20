@@ -41,6 +41,9 @@ NOISE_DEFAULTS: dict[str, Any] = {
     "bias_over_cap_fraction": 0.02,
     "min_support_blocks": 3,
     "chunk_frames": 12,
+    # 逐像素 95 分位是 O(帧数) 排序：必须限制参与估计的帧数，
+    # 否则 5 分钟级 2.5K 帧数会把内存与耗时都放大到不可接受。
+    "max_estimate_frames": 24,
 }
 
 MINIMUM_CLUSTER_DIAMETER = 0.12
@@ -331,6 +334,27 @@ class CompositeResult:
     diagnostics: dict[str, Any]
 
 
+def _weighted_quantile_counts(
+    values: np.ndarray, weights: np.ndarray, quantile: float,
+    totals: np.ndarray, *, iterations: int = 32,
+) -> np.ndarray:
+    """逐像素加权分位数：二分阈值而不是排序。
+
+    ``values`` 形状 (frames, n)，``weights`` 同形且非负。返回长度 n 的分位数。
+    对 24 帧、数百万像素的场景，这比 ``np.nanquantile`` 快一个数量级。
+    """
+    low = np.nanmin(values, axis=0).astype(np.float64)
+    high = np.nanmax(values, axis=0).astype(np.float64)
+    target = quantile * np.maximum(totals, 0.0)
+    for _ in range(int(iterations)):
+        mid = 0.5 * (low + high)
+        below = ((values <= mid[None, :]) * np.where(np.isnan(values), 0.0, weights)).sum(axis=0)
+        move_up = below < target
+        low = np.where(move_up, mid, low)
+        high = np.where(move_up, high, mid)
+    return (0.5 * (low + high)).astype(np.float32)
+
+
 def _validate_aligned(frames: Sequence[np.ndarray], valid: np.ndarray) -> tuple[int, int]:
     if not frames:
         raise BankError("合成至少需要一帧")
@@ -500,6 +524,15 @@ def estimate_noise(
         raise BankError("噪声估计至少需要一帧留出观测")
     if not (len(frames) == len(masks) == len(block_ids)):
         raise BankError("frames/masks/block_ids 长度必须一致")
+    limit = int(settings.get("max_estimate_frames", 24))
+    if limit > 0 and len(frames) > limit:
+        # 按时间均匀抽稀，保持时间块覆盖，同时限制逐像素分位的代价。
+        indexes = sorted({
+            round(index * (len(frames) - 1) / (limit - 1)) for index in range(limit)
+        }) if limit > 1 else [0]
+        frames = [frames[index] for index in indexes]
+        masks = [masks[index] for index in indexes]
+        block_ids = [block_ids[index] for index in indexes]
     height, width = reference.shape[:2]
     if any(frame.shape[:2] != (height, width) for frame in frames):
         raise BankError("噪声估计帧尺寸不一致")
@@ -508,64 +541,68 @@ def estimate_noise(
     if len(blocks) == 0:
         raise BankError("缺少时间块信息")
 
-    samples: list[tuple[np.ndarray, np.ndarray, np.ndarray, str]] = []
-    small = (
-        max(1, math.ceil(width / stride)), max(1, math.ceil(height / stride)),
-    )
+    small_h = max(1, math.ceil(height / stride))
+    small_w = max(1, math.ceil(width / stride))
+    cv_size = (small_w, small_h)          # cv2.resize 需要 (宽, 高)
+    small = (small_h, small_w)            # numpy 数组是 (行, 列)
+    # 只在 ROI 内、且至少被一个时间块观测到的像素上做统计：本机位 ROI 约占
+    # 画面 20%，全图逐像素分位/中位数既慢又无意义。
+    blocks = sorted(set(str(block) for block in block_ids))
+    support = np.zeros(small, bool)
+    resized: list[tuple[np.ndarray, np.ndarray, str]] = []
     for frame, mask, block in zip(frames, masks, block_ids):
         sig, lum = residual_maps(reference, frame)
-        keep = cv2.resize(mask, small, interpolation=cv2.INTER_NEAREST) > 0
-        samples.append((
-            cv2.resize(sig, small, interpolation=cv2.INTER_AREA),
-            cv2.resize(lum, small, interpolation=cv2.INTER_AREA),
-            keep, str(block),
-        ))
+        keep = cv2.resize(mask, cv_size, interpolation=cv2.INTER_NEAREST) > 0
+        sig_s = cv2.resize(sig, cv_size, interpolation=cv2.INTER_AREA)
+        lum_s = cv2.resize(lum, cv_size, interpolation=cv2.INTER_AREA)
+        support |= keep
+        resized.append((sig_s, lum_s, str(block)))
+    rows, cols = np.nonzero(support)
+    n = int(rows.size)
+    zeros = np.zeros(small, np.float32)
+    if n == 0:
+        raise BankError("噪声估计没有可用的有效像素")
 
-    def per_pixel(values: np.ndarray, buckets: np.ndarray,
-                  *, quantile: float) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-        """按时间块取中位数/MAD/分位数；块内重复帧不额外加权。
+    # 权重：每个时间块在该像素出现一次记 1，块内重复帧不额外加权。
+    block_index = {block: index for index, block in enumerate(blocks)}
+    pixel_index = np.full(small, -1, np.int64)
+    pixel_index[rows, cols] = np.arange(n)
+    flat_index = pixel_index[rows, cols]
+    sig_values = np.zeros((len(blocks), n), np.float32)
+    lum_values = np.zeros((len(blocks), n), np.float32)
+    weights = np.zeros((len(blocks), n), np.float32)
+    for sig_s, lum_s, block in resized:
+        index = block_index[block]
+        sig_values[index, flat_index] = sig_s[rows, cols]
+        lum_values[index, flat_index] = lum_s[rows, cols]
+        weights[index, flat_index] = 1.0
 
-        ``buckets`` 是 (块数, H, W) 的每块计数，同一块内先取均值再去重，
-        避免同一时段的重复帧把统计拉偏。
-        """
-        totals = buckets.sum(axis=0)
-        weights = np.divide(
-            buckets, np.maximum(totals, 1e-6)[None, ...],
-            out=np.zeros_like(buckets), where=totals[None, ...] > 0,
-        )
-        active = weights > 0
-        with np.errstate(all="ignore"):
-            # 逐像素非零元素数量一致，可以安全用 nanmedian/nanquantile。
-            masked = np.where(active, values, np.nan)
-            median = np.nanmedian(masked, axis=0)
-            deviation = np.abs(masked - median[None, ...])
-            mad = np.nanmedian(deviation, axis=0)
-            q95 = np.nanquantile(masked, quantile, axis=0)
-        median = np.nan_to_num(median, nan=0.0).astype(np.float32)
-        mad = np.nan_to_num(mad, nan=0.0).astype(np.float32)
-        q95 = np.nan_to_num(q95, nan=0.0).astype(np.float32)
+    totals = weights.sum(axis=0)
+    support_blocks = (weights > 0).sum(axis=0).astype(np.float32)
+
+    def weighted_stats(values: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+        median = _weighted_quantile_counts(values, weights, 0.5, totals)
+        deviation = np.abs(values - median[None, :])
+        mad = _weighted_quantile_counts(deviation, weights, 0.5, totals)
+        q95 = _weighted_quantile_counts(values, weights, 0.95, totals)
         return median, mad, q95
 
-    sig_values = np.stack([item[0] for item in samples], axis=0)
-    lum_values = np.stack([item[1] for item in samples], axis=0)
-    block_index = {block: index for index, block in enumerate(blocks)}
-    block_stack = np.zeros((len(blocks),) + sig_values.shape[1:], np.float32)
-    for __sig, __lum, keep, block in samples:
-        block_stack[block_index[block]] += keep.astype(np.float32)
-    valid_frac = np.clip(block_stack, 0.0, 1.0)
-    # 同一块内重复帧只算一次：块权重归一化，再按块计数展开到每个样本。
-    block_weight = (valid_frac > 0).astype(np.float32)
-    block_weight /= np.maximum(block_weight.sum(axis=0, keepdims=True), 1e-6)
+    sig_median_sel, sig_mad_sel, sig_q95_sel = weighted_stats(sig_values)
+    lum_median_sel, lum_mad_sel, lum_q95_sel = weighted_stats(lum_values)
 
-    def weighted(values: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-        counts = np.zeros_like(values, np.float32)
-        for index, (_sig, _lum, keep, block) in enumerate(samples):
-            counts[index] = np.where(keep, block_weight[block_index[block]], 0.0)
-        return per_pixel(values, counts, quantile=0.95)
+    def scatter(values: np.ndarray) -> np.ndarray:
+        out = zeros.copy()
+        out[rows, cols] = values
+        return out
 
-    sig_median, sig_mad, sig_q95 = weighted(sig_values)
-    lum_median, lum_mad, lum_q95 = weighted(lum_values)
-    support_blocks = (valid_frac > 0).sum(axis=0).astype(np.float32)
+    sig_median = scatter(sig_median_sel)
+    sig_mad = scatter(sig_mad_sel)
+    sig_q95 = scatter(sig_q95_sel)
+    lum_median = scatter(lum_median_sel)
+    lum_mad = scatter(lum_mad_sel)
+    lum_q95 = scatter(lum_q95_sel)
+    support_out = scatter(support_blocks)
+    del sig_values, lum_values, weights
 
     def build(
         median: np.ndarray, mad: np.ndarray, q95: np.ndarray,
@@ -597,7 +634,7 @@ def estimate_noise(
         float(settings["epsilon_support_luminance"]),
     )
 
-    low_support = support_blocks < float(settings["min_support_blocks"])
+    low_support = support_out < float(settings["min_support_blocks"])
     seed_sig_T[low_support] = float(settings["seed_signature_base"])
     seed_lum_T[low_support] = float(settings["seed_luminance_base"])
     support_sig_T[low_support] = float(settings["support_signature_base"])
@@ -628,7 +665,7 @@ def estimate_noise(
         "seed_luminance_cap": np.full_like(seed_lum_T, float(settings["seed_luminance_cap"])),
         "seed_signature_raw": seed_sig_raw,
         "seed_luminance_raw": seed_lum_raw,
-        "support_blocks": support_blocks,
+        "support_blocks": support_out,
         "over_cap_fraction": over_fraction,
         "bias_flag": bias_flag,
         "low_support": low_support.astype(np.uint8),
@@ -642,7 +679,7 @@ def estimate_noise(
         "stride": stride,
         "bias_flag_pixels": int(np.count_nonzero(bias_flag)),
         "bias_flag_fraction": round(
-            float(np.count_nonzero(bias_flag)) / max(int(np.count_nonzero(valid_frac.sum(axis=0) > 0)), 1), 5
+            float(np.count_nonzero(bias_flag)) / max(int(np.count_nonzero(support_out > 0)), 1), 5
         ),
         "low_support_pixels": int(np.count_nonzero(low_support)),
         "persistent_bias_pixels": int(np.count_nonzero(persistent)),
