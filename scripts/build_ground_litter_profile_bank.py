@@ -111,6 +111,7 @@ class FactoryConfig:
     supersede: bool = False
     use_seek: bool = False
     max_downloads_per_run: int | None = None
+    calibration_day: str = ""
     per_day_hours: int = 0
     max_files: int = 400
     start_time: str = ""
@@ -382,8 +383,36 @@ def stream_materialize_and_sample(
         "downloaded_files": 0, "released_files": 0,
     }
 
-    # 第一帧用于冻结画布：优先用已就绪的文件；冷缓存时先取一个源。
+    # 第一帧用于冻结画布：优先用已就绪的缓存文件；冷缓存/远端时用一个已下载
+    # 的候选文件（下载本身属于流水线，画布必须先于处理确定）。
     canvas_reference: np.ndarray | None = None
+    def ensure_ready_for_canvas(item: RecordingFile) -> tuple[bool, str]:
+        """仅为确定画布而拉取一个文件（随后会被正常消费，不重复下载）。"""
+        if client is None:
+            return False, "no_client_for_canvas"
+        ok, reason = cache.wait_for_capacity(item.file_size, timeout=wait_timeout)
+        if not ok:
+            return False, reason
+        window = ListQuery(config.device_code, item.record_start, item.record_end)
+        try:
+            fresh = downloader.fetch_url_for_file(
+                client, window, item.file_id, policy=policy,
+            )
+            target = cache.begin_download(config.device_code, item)
+            result = downloader.download(
+                fresh.url, target, expected_size=item.file_size, allow_resume=False,
+            )
+        except Exception as exc:
+            cache.fail_download(config.device_code, item.file_id, str(exc)[:120])
+            return False, f"download_error:{type(exc).__name__}"
+        cache.complete_download(
+            config.device_code, item.file_id, path=target, size=result.size,
+            sha256=result.sha256, range_supported=result.range_supported,
+            elapsed_seconds=result.elapsed_seconds,
+        )
+        pipeline["downloaded_files"] += 1
+        return True, ""
+
     canvas_source: Path | None = None
     for item in files:
         entry = cache.entry(config.device_code, item.file_id)
@@ -394,6 +423,23 @@ def stream_materialize_and_sample(
         if fallback.is_file():
             canvas_source = fallback
             break
+    if canvas_source is None and files:
+        # 远端场景：为了确定画布需要先取一个文件。逐个尝试，避免因个别素材
+        # 已过期/删除而中止整段作业；尝试次数有界。
+        attempts = 0
+        for candidate in files:
+            attempts += 1
+            if attempts > 5:
+                break
+            ok, reason = ensure_ready_for_canvas(candidate)
+            if not ok:
+                print(f"[canvas] 候选不可用({candidate.record_start}): {reason}",
+                      flush=True)
+                continue
+            entry = cache.entry(config.device_code, candidate.file_id)
+            if entry is not None and entry.path is not None:
+                canvas_source = entry.path
+                break
     if canvas_source is not None:
         try:
             for frame in SequentialFrameReader(canvas_source).iter_frames():
@@ -581,17 +627,28 @@ def stream_materialize_and_sample(
 
 def find_first_decodable(
     cache: ManagedRecordingCache, device_code: str, files: Sequence[RecordingFile],
-    *, work_dir: Path,
+    *, work_dir: Path, allow_source_paths: bool = False,
 ) -> tuple[tuple[int, int], str]:
-    """用第一个可解码文件确定分析尺寸；不假定七天素材的分辨率。"""
+    """用第一个可解码文件确定分析尺寸；不假定七天素材的分辨率。
+
+    ``allow_source_paths`` 为本机素材目录场景：冷缓存时可以直接探测源文件，
+    不必先把它下载（它是本地只读输入）。
+    """
+    del work_dir
     for item in files:
         entry = cache.entry(device_code, item.file_id)
-        if entry is None or entry.path is None:
+        candidate = None
+        if entry is not None and entry.path is not None and entry.path.is_file():
+            candidate = entry.path
+        elif allow_source_paths:
+            source = Path(item.file_name)
+            if source.is_file():
+                candidate = source
+        if candidate is None:
             continue
-        probe = probe_recording(entry.path)
+        probe = probe_recording(candidate)
         if probe.ok:
-            return (probe.width, probe.height), str(entry.path)
-        del work_dir
+            return (probe.width, probe.height), str(candidate)
     raise SystemExit("没有任何文件可解码，无法确定分析尺寸")
 
 
@@ -953,11 +1010,13 @@ def replay_all_candidates(
     roi = roi_mask_from_geometry(geometry, replay_w, replay_h)
     contexts = _canvas_scaled(candidates, (replay_w, replay_h), replay_w, replay_h)
     replay_config = dict(matcher.get("selection", {}))
-    nominal = float(
-        replay_frames[1]["source_time"] - replay_frames[0]["source_time"]
-    ) if len(replay_frames) > 1 else 2.0
+    nominal = float(replay_frames[0].get("tick_interval_seconds") or 2.0)
     nominal = max(0.05, min(nominal, 3600.0))
     replay_config["tick_interval_seconds"] = nominal
+    replay_config["result_validity_seconds"] = max(nominal, 4.0)
+    # 观测间隔上限必须随实际节拍缩放；否则每个 tick 都会清空连续证据，
+    # 动态覆盖恒为 0（历史上这正是“静态 1.0 / 动态 0.0”的成因之一）。
+    replay_config["max_observation_gap_seconds"] = max(4.0, 2.0 * nominal)
     replay_config.setdefault("join_gap_seconds", max(300.0, 4.0 * nominal))
 
     def run(subset: Sequence[str], stride: int = 1) -> dict[str, Any]:
@@ -969,6 +1028,12 @@ def replay_all_candidates(
         frames = list(replay_frames)[:: max(1, stride)]
         for row in frames:
             frame = row["frame"]
+            # 回放画布与缩放后的参考必须同尺寸，否则评分会因尺寸不一致被跳过
+            # （历史上这会让所有 tick 都变成 NO_ELIGIBLE_PROFILE）。
+            if frame.shape[0] != replay_h or frame.shape[1] != replay_w:
+                frame = cv2.resize(
+                    frame, (replay_w, replay_h), interpolation=cv2.INTER_AREA,
+                )
             current_id = selector.selected_profile_id
             current = None
             matches: list[CandidateMatch] = []
@@ -989,13 +1054,17 @@ def replay_all_candidates(
                 matches.append(candidate)
                 if pid == current_id:
                     current = candidate
+            timestamp = float(row.get("replay_time", row["source_time"]))
             decision = selector.observe(
-                timestamp=float(row["source_time"]), current=current,
-                candidates=matches, tested_profile_ids=subset,
+                timestamp=timestamp, current=current, candidates=matches,
+                tested_profile_ids=subset,
+                tick_interval_seconds=float(
+                    row.get("tick_interval_seconds") or nominal
+                ),
             )
             if decision.commit_requested:
                 selector.commit(profile_id=decision.commit_profile_id,
-                                timestamp=float(row["source_time"]))
+                                timestamp=timestamp)
         return selector.summarise(join_gap_seconds=replay_config["join_gap_seconds"])
 
     baseline = run([item["profile_id"] for item in candidates])
@@ -1032,6 +1101,36 @@ def replay_all_candidates(
     return result
 
 
+def compare_selection_metrics(
+    config: "FactoryConfig", candidates: Sequence[dict[str, Any]],
+    replay_frames: Sequence[dict[str, Any]], geometry: Mapping[str, Any],
+    matcher: Mapping[str, Any], *, replay_w: int = 960, replay_h: int = 540,
+    subsets: Sequence[Sequence[str]] = (),
+) -> list[dict[str, Any]]:
+    """候选增删的显式动态对照（R2 验收证据）。
+
+    对给定候选子集各跑一次**真实共同回放**，返回指标；用于回答“删掉这些候选
+    后有效覆盖/暂停是否变差”，而不是只看静态排名。可分批调用以限制资源。
+    """
+    rows: list[dict[str, Any]] = []
+    for subset in subsets:
+        chosen = [item for item in candidates if item["profile_id"] in set(subset)]
+        if not chosen:
+            continue
+        single_report: dict[str, Any] = {}
+        outcome = replay_all_candidates(
+            config, chosen, replay_frames, geometry, matcher, single_report,
+            replay_w=replay_w, replay_h=replay_h, leave_one_out=False,
+        )
+        rows.append({
+            "subset": list(subset),
+            "size": len(chosen),
+            "summary": outcome["baseline"],
+            "envelopes_used": sorted(outcome["envelopes"].keys()),
+        })
+    return rows
+
+
 def select_profiles_dynamically(
     config: "FactoryConfig", candidates: Sequence[dict[str, Any]],
     replay: Mapping[str, Any], report: dict[str, Any], *,
@@ -1064,6 +1163,31 @@ def select_profiles_dynamically(
                 "reason": "DYNAMICALLY_REDUNDANT",
                 "leave_one_out": stats,
             })
+    if not keep:
+        # 允许保留“保底集合”：如果留一法显示每个候选都可删，说明基线本身
+        # 已经无法提供有效覆盖（例如冻结包络过松），此时**保留贡献最大者**
+        # 并把诊断写进报告，绝不能发布 0 个 Profile。
+        ranked = sorted(
+            candidates,
+            key=lambda entry: (
+                -float((loo.get(entry["profile_id"]) or {}).get(
+                    "effective_fraction_delta", 0.0)),
+                entry["profile_id"],
+            ),
+        )
+        keep = [ranked[0]]
+        removed = [row for row in removed
+                   if row["profile_id"] != ranked[0]["profile_id"]]
+        for item in ranked[: config.max_profiles]:
+            if item["profile_id"] == ranked[0]["profile_id"]:
+                continue
+            keep.append(item)
+            removed = [row for row in removed
+                       if row["profile_id"] != item["profile_id"]]
+        report.setdefault("pruning_warnings", []).append(
+            "ALL_CANDIDATES_REDUNDANT: 留一法显示每个候选都可删除；已回退到"
+            "保留贡献最大的候选。请检查冻结包络是否过松或候选区分度是否过低。"
+        )
     if len(keep) > config.max_profiles:
         # 资源上限不是预设 N：只在超过上限时按动态贡献排序裁剪。
         ordered = sorted(
@@ -1083,6 +1207,10 @@ def select_profiles_dynamically(
     report["pruning"] = {
         "removed": removed,
         "kept": [item["profile_id"] for item in keep],
+        "baseline": dict(replay.get("baseline") or {}),
+        "leave_one_out": loo,
+        "min_coverage_delta": min_coverage_delta,
+        "max_pause_delta": max_pause_delta,
         "method": "leave_one_out_dynamic_replay",
         "note": ("删除必须同时满足：有效覆盖下降 ≤ 阈值，且最长暂停增加 ≤ 阈值；"
                  "静态覆盖不再是删除依据"),
@@ -1211,6 +1339,18 @@ def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, An
             build_days = days[:max(1, len(days) - 2 * split)]
             calibration = days[-2] if len(days) >= 2 else days[-1]
             blind = days[-1]
+        elif config.calibration_day:
+            # 显式指定校准日：构建日 = 早于校准日的全部日期，盲测日 = 最晚日期。
+            calibration = str(config.calibration_day)
+            if calibration not in days:
+                raise SystemExit(
+                    f"--calibration-day {calibration} 不在可用日期 {days}"
+                )
+            build_days = [day for day in days if day < calibration]
+            later = [day for day in days if day > calibration]
+            blind = later[-1] if later else calibration
+            if not build_days:
+                raise SystemExit("指定的校准日之前没有构建日")
         else:
             build_count = min(config.build_days, max(1, len(days) - 2))
             build_days = days[:build_count]
@@ -1233,10 +1373,23 @@ def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, An
         }
         build_files = partition["build"] or partition["calibration"] or files
 
-        size, first_path = find_first_decodable(
-            cache, config.device_code, build_files, work_dir=config.work_dir,
-        )
-        del first_path
+        # 分析尺寸先由几何配置或源文件探测确定；**不**要求文件已经下载完毕，
+        # 因为拉取本身属于有界流水线（R5）。
+        geometry_size = None
+        if config.geometry_path is not None:
+            probe_geometry = json.loads(
+                Path(config.geometry_path).read_text(encoding="utf-8")
+            )
+            canvas = probe_geometry.get("canvas_size")
+            if canvas:
+                geometry_size = (int(canvas[0]), int(canvas[1]))
+        if geometry_size is None:
+            geometry_size, _ = find_first_decodable(
+                cache, config.device_code, build_files,
+                work_dir=config.work_dir,
+                allow_source_paths=args.input is not None,
+            )
+        size = geometry_size
         geometry = load_geometry(
             config.geometry_path, size, camera_id=config.camera_id,
         )
@@ -1381,11 +1534,21 @@ def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, An
             "leave_one_out": replay["leave_one_out"],
             "summary": replay["baseline"],
         }
+        # 显式候选增删对照（验收证据）：全库、去掉贡献最大者、以及每个候选单独。
+        subset_compare = compare_selection_metrics(
+            config, candidates, replay_frames, geometry, matcher,
+            subsets=[
+                [item["profile_id"] for item in candidates],
+                [item["profile_id"] for item in selected],
+            ] + [[item["profile_id"]] for item in candidates[: max(1, len(candidates))]],
+        )
+        report["selection_comparison"] = subset_compare
         # 记录每 tick 的逐候选分数与决策，便于复核“同一帧”与选 N 过程。
         atomic_write_json(
             config.work_dir / "dynamic_selection.json",
             {"baseline": replay["baseline"], "leave_one_out": replay["leave_one_out"],
-             "pruning": report.get("pruning", {})},
+             "pruning": report.get("pruning", {}),
+             "selection_comparison": subset_compare},
         )
 
         asset_entries = []
@@ -1555,10 +1718,12 @@ def _collect_replay_frames(
 
     size = (int(geometry["canvas_size"][0]), int(geometry["canvas_size"][1]))
     ordered = sorted(files, key=lambda item: (item.record_start, item.file_id))
-    rows: list[dict[str, Any]] = []
     per_file = max(1, frame_budget // max(1, len(ordered)))
+    # 每个文件的抽帧要覆盖整段录像，而不是只解开头几帧：否则回放时间轴会
+    # 退化成「同一秒内 105 个 tick」，覆盖率与暂停统计都失去意义。
+    per_file_rows: list[list[dict[str, Any]]] = []
     for item in ordered:
-        if len(rows) >= frame_budget:
+        if sum(len(rows) for rows in per_file_rows) >= frame_budget:
             break
         entry = cache.entry(config.device_code, item.file_id)
         if entry is None or entry.path is None:
@@ -1567,31 +1732,63 @@ def _collect_replay_frames(
             base = parse_seconds(item.record_start)
         except Exception:
             base = 0.0
+        probe = probe_recording(entry.path)
+        duration = float(probe.duration_seconds or 0.0)
+        if duration <= 0:
+            try:
+                duration = max(
+                    0.0, parse_seconds(item.record_end) - base,
+                )
+            except Exception:
+                duration = 0.0
+        if duration <= 0:
+            duration = float(per_file)
+        offsets = [
+            round(duration * (index + 0.5) / per_file, 3)
+            for index in range(per_file)
+        ]
         reader = SequentialFrameReader(entry.path)
-        taken = 0
+        captured_rows: list[dict[str, Any]] = []
         try:
-            for frame in reader.iter_frames():
-                resized = cv2.resize(frame.frame, size, interpolation=cv2.INTER_AREA)
-                offset = float(frame.time_seconds)
-                del frame
-                rows.append({
-                    "file_id": item.file_id,
-                    "record_start": item.record_start,
-                    "offset_seconds": round(offset, 3),
-                    "source_time": base + offset,
-                    "frame": resized,
-                    "frame_sha256": sha256_bytes(
-                        cv2.imencode(".jpg", resized,
-                                     [cv2.IMWRITE_JPEG_QUALITY, 80])[1].tobytes()
-                    ),
-                })
-                taken += 1
-                if taken >= per_file or len(rows) >= frame_budget:
-                    break
+            if config.use_seek:
+                picked = reader.sample_with_seek(offsets, tolerance_seconds=3.0)
+            else:
+                picked = reader.sample_at(offsets, tolerance_seconds=3.0)
         except Exception:
-            continue
-        finally:
-            _gc.collect()
+            picked = {}
+        for offset in offsets:
+            captured = picked.get(offset)
+            if captured is None:
+                continue
+            resized = cv2.resize(
+                captured.frame, size, interpolation=cv2.INTER_AREA,
+            )
+            captured_rows.append({
+                "file_id": item.file_id,
+                "record_start": item.record_start,
+                "offset_seconds": round(float(captured.time_seconds), 3),
+                "source_time": base + float(captured.time_seconds),
+                "replay_time": base + float(offset),
+                "frame": resized,
+                "frame_sha256": sha256_bytes(
+                    cv2.imencode(".jpg", resized,
+                                 [cv2.IMWRITE_JPEG_QUALITY, 80])[1].tobytes()
+                ),
+            })
+        del reader
+        _gc.collect()
+        captured_rows.sort(key=lambda row: row["replay_time"])
+        per_file_rows.append(captured_rows)
+    rows = [row for group in per_file_rows for row in group]
+    # 计划节拍 = 实际相邻回放点的间隔中位数（真实时间轴，不是文件内偏移）。
+    if len(rows) > 1:
+        deltas = sorted(
+            rows[index + 1]["replay_time"] - rows[index]["replay_time"]
+            for index in range(len(rows) - 1)
+        )
+        nominal = deltas[len(deltas) // 2]
+        for row in rows:
+            row["tick_interval_seconds"] = round(float(nominal), 4)
     return rows
 
 
@@ -1667,6 +1864,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--max-downloads", type=int, default=None)
     parser.add_argument("--prefetch-slots", type=int, default=2,
                         help="有界流水线的预取槽数（下载中+等待处理的文件数）")
+    parser.add_argument("--calibration-day", default="",
+                        help="显式指定校准日（YYYY-MM-DD）；之前为构建日，之后为盲测日")
     parser.add_argument("--per-day-hours", type=int, default=0,
                         help="每天最多取多少个小时槽的文件；0=全部")
     parser.add_argument("--max-files", type=int, default=400,
@@ -1722,6 +1921,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         supersede=args.supersede,
         use_seek=args.use_seek,
         max_downloads_per_run=args.max_downloads,
+        calibration_day=getattr(args, "calibration_day", "") or "",
         per_day_hours=getattr(args, "per_day_hours", 0),
         max_files=getattr(args, "max_files", 400),
     )

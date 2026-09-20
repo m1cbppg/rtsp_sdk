@@ -1,0 +1,2635 @@
+{
+  "read_at_utc": "2026-09-20T09:11:39.071406+00:00",
+  "hashes": {
+    "rtsp_annotator/ground_litter_profile_sampling.py": "1cef53ab7ee554ba008a57a5a9087b23476e14a515d62d54aedc088454ea1c38",
+    "rtsp_annotator/ground_litter_profile_match.py": "05c5fe9d9bc88dfe2ed45d25b9bcbc6eb7c055dc86eec141506ba59762bfc851",
+    "rtsp_annotator/ground_litter_profile_background.py": "5394fda7ab7431b08bfe7edaab2e08006000db67a413b5f290a60f36df67f7ae",
+    "rtsp_annotator/ground_litter_profile_bank.py": "d972b4d7c7d92f9417edce2c83a9091f93887f79d7f6c854361a77d2faed0225",
+    "rtsp_annotator/ground_litter_profile_analysis.py": "fc9fa29b7c68c0fab03bc0907cce7838944fbfd5da18c00a75dae15c782d250c",
+    "rtsp_annotator/ground_litter_profile_selector.py": "a7c82f035e7a3e68be44946eff42409948a9da20f55bbfc4d52f8abc924f838a",
+    "rtsp_annotator/ground_litter_recording_source.py": "f05361b222fd3f083b1ad6064055c46d7574cfe779fe8b6a015a533aeaadbc1f",
+    "rtsp_annotator/ground_litter_recording_cache.py": "5af9cfc4fff475e5715d980fcc1bea254706b29c231a63c8ff8b43b46f24ce06",
+    "scripts/build_ground_litter_profile_bank.py": "197e6f4a8323a1bce2d72b30e4d57915290a345107bf44d11f6813d6ab74c087",
+    "scripts/evaluate_ground_litter_profile_bank.py": "a7c7f603102de08257b26263a840d9e9c911d54ec26c038f376fbeae5cf3cf18"
+  },
+  "manifest_sha256": "cf39406a922b0becc64e88eae80a115f1e454747b5aa35a4913c2bca5a4f6df7",
+  "factory": {
+    "sampling_plan": {
+      "inventory_files": 1831,
+      "per_day_hours": 6,
+      "per_day_selected": {
+        "2026-09-13": 1,
+        "2026-09-14": 6,
+        "2026-09-15": 6,
+        "2026-09-16": 6,
+        "2026-09-17": 6,
+        "2026-09-18": 6,
+        "2026-09-19": 6,
+        "2026-09-20": 6
+      },
+      "selected_files": 43
+    },
+    "time_partition": {
+      "blind_day": "2026-09-20",
+      "build_days": [
+        "2026-09-14",
+        "2026-09-15",
+        "2026-09-16",
+        "2026-09-17",
+        "2026-09-18"
+      ],
+      "calibration_day": "2026-09-19",
+      "counts": {
+        "blind": 6,
+        "build": 28,
+        "calibration": 6,
+        "outside": 0
+      },
+      "cross_day": [],
+      "days": [
+        "2026-09-14",
+        "2026-09-15",
+        "2026-09-16",
+        "2026-09-17",
+        "2026-09-18",
+        "2026-09-19",
+        "2026-09-20"
+      ],
+      "leakage_check": "盲测日文件不参与构建/校准"
+    },
+    "replay_frames": {
+      "files": 28,
+      "frames": 84,
+      "note": "动态定稿只回放有限连续片段；在线恢复速度必须由服务器实测"
+    },
+    "dynamic_finalisation": {
+      "config_hash": "2e074d3944d6d4ad6a566a339d14b8163fb9ab8f632589add5b3316c37a171e4",
+      "note": "离线回放使用显式虚拟时钟与零加载时延；服务器实测前不代表在线恢复速度",
+      "selector_summary": {
+        "budget_exhausted_ticks": 0,
+        "decisions": 84,
+        "effective_fraction": 0.96471,
+        "effective_seconds": 82,
+        "generation": 1,
+        "observed_seconds": 85,
+        "off_air_seconds": 0,
+        "pause_intervals": [
+          3
+        ],
+        "pause_max": 3,
+        "pause_p95": 3,
+        "switch_count": 1,
+        "unknown_reasons": {
+          "RECOVERY_READY": 1,
+          "WAITING_RECOVERY_SPAN": 2
+        }
+      },
+      "timeline_entries": 84
+    },
+    "n_selection": {
+      "candidates": 23,
+      "max_profiles": 24,
+      "selected": 16,
+      "summary": {
+        "budget_exhausted_ticks": 0,
+        "decisions": 84,
+        "effective_fraction": 0.96471,
+        "effective_seconds": 82,
+        "generation": 1,
+        "observed_seconds": 85,
+        "off_air_seconds": 0,
+        "pause_intervals": [
+          3
+        ],
+        "pause_max": 3,
+        "pause_p95": 3,
+        "switch_count": 1,
+        "unknown_reasons": {
+          "RECOVERY_READY": 1,
+          "WAITING_RECOVERY_SPAN": 2
+        }
+      }
+    },
+    "pruning": {
+      "kept": [
+        "g001",
+        "g002",
+        "g004",
+        "g006",
+        "g007",
+        "g008",
+        "g009",
+        "g010",
+        "g012",
+        "g013",
+        "g016",
+        "g017",
+        "g019",
+        "g021",
+        "g024",
+        "g025"
+      ],
+      "note": "只在动态回放的有效覆盖、暂停尾部与确认延迟均未变差时才删除参考",
+      "removed": []
+    },
+    "envelopes": {
+      "p0001": {
+        "calibrated": true,
+        "enter": 9.27775,
+        "hold": 9.39775,
+        "samples": 28,
+        "source": "calibration_quantile"
+      },
+      "p0002": {
+        "calibrated": true,
+        "enter": 8.74517,
+        "hold": 8.86517,
+        "samples": 28,
+        "source": "calibration_quantile"
+      },
+      "p0003": {
+        "calibrated": true,
+        "enter": 10.80455,
+        "hold": 10.92455,
+        "samples": 28,
+        "source": "calibration_quantile"
+      },
+      "p0004": {
+        "calibrated": true,
+        "enter": 10.18721,
+        "hold": 10.30721,
+        "samples": 28,
+        "source": "calibration_quantile"
+      },
+      "p0005": {
+        "calibrated": true,
+        "enter": 8.12883,
+        "hold": 8.24883,
+        "samples": 28,
+        "source": "calibration_quantile"
+      },
+      "p0006": {
+        "calibrated": true,
+        "enter": 8.05272,
+        "hold": 8.17272,
+        "samples": 28,
+        "source": "calibration_quantile"
+      },
+      "p0007": {
+        "calibrated": true,
+        "enter": 8.63608,
+        "hold": 8.75608,
+        "samples": 28,
+        "source": "calibration_quantile"
+      },
+      "p0008": {
+        "calibrated": true,
+        "enter": 10.07241,
+        "hold": 10.19241,
+        "samples": 28,
+        "source": "calibration_quantile"
+      },
+      "p0009": {
+        "calibrated": true,
+        "enter": 10.28538,
+        "hold": 10.40538,
+        "samples": 28,
+        "source": "calibration_quantile"
+      },
+      "p0010": {
+        "calibrated": true,
+        "enter": 11.20465,
+        "hold": 11.32465,
+        "samples": 28,
+        "source": "calibration_quantile"
+      },
+      "p0011": {
+        "calibrated": true,
+        "enter": 10.86573,
+        "hold": 10.98573,
+        "samples": 28,
+        "source": "calibration_quantile"
+      },
+      "p0012": {
+        "calibrated": true,
+        "enter": 9.68867,
+        "hold": 9.80867,
+        "samples": 28,
+        "source": "calibration_quantile"
+      },
+      "p0013": {
+        "calibrated": true,
+        "enter": 8.8705,
+        "hold": 8.9905,
+        "samples": 28,
+        "source": "calibration_quantile"
+      },
+      "p0014": {
+        "calibrated": true,
+        "enter": 6.36235,
+        "hold": 6.48235,
+        "samples": 28,
+        "source": "calibration_quantile"
+      },
+      "p0015": {
+        "calibrated": true,
+        "enter": 9.25903,
+        "hold": 9.37903,
+        "samples": 28,
+        "source": "calibration_quantile"
+      },
+      "p0016": {
+        "calibrated": true,
+        "enter": 6.99705,
+        "hold": 7.11705,
+        "samples": 28,
+        "source": "calibration_quantile"
+      }
+    }
+  },
+  "space": {
+    "budget": {
+      "backpressure": false,
+      "leased_count": 0,
+      "managed_file_bytes": 2857913836,
+      "part_bytes": 0,
+      "raw_budget": 8589934592,
+      "raw_bytes": 2857913836,
+      "reason": "",
+      "total_work_bytes": 2859348795,
+      "unmanaged_bytes": 1434959,
+      "work_budget": 85899345920
+    },
+    "by_state": {
+      "ABSENT": 1791,
+      "EVICTABLE": 28,
+      "READY": 12
+    },
+    "peak_raw_bytes": 2857913836,
+    "peak_work_bytes": 2859348795,
+    "total_downloaded_bytes": 11431655344
+  },
+  "cleanup_released_count": 40,
+  "evaluation": {
+    "ticks": 46,
+    "analysis_fps": 0.05,
+    "replay_size": [
+      960,
+      540
+    ],
+    "bank_reference_size": [
+      2560,
+      1440
+    ],
+    "dynamic_coverage": {
+      "budget_exhausted_ticks": 0,
+      "decisions": 46,
+      "effective_fraction": 0.94529,
+      "effective_seconds": 1381.65,
+      "generation": 2,
+      "observed_seconds": 1461.614,
+      "off_air_seconds": 27506.255,
+      "pause_intervals": [
+        39.982,
+        39.982
+      ],
+      "pause_max": 39.982,
+      "pause_p95": 39.982,
+      "switch_count": 2,
+      "unknown_reasons": {
+        "RECOVERY_READY": 2,
+        "WAITING_RECOVERY_SPAN": 2
+      }
+    },
+    "static_potential_coverage": {
+      "covered_ticks": 46,
+      "fraction": 1,
+      "note": "潜在覆盖只表示库能力，不能冒充动态可用覆盖"
+    },
+    "small_target": {
+      "discovery_to_commit_seconds": 0,
+      "first_commit_seconds": 1789842583.982,
+      "first_prior_available_seconds": 1789842583.982,
+      "note": "小目标为合成叠加，只用于「不被噪声/局部无效吞掉」的机制对照，不代表现场准确率",
+      "ticks_with_prior_candidates": 46,
+      "trials": 10
+    },
+    "gaps": [
+      {
+        "file": "2026-09-20T143004.ps",
+        "reason": "DECODE_FAILED"
+      }
+    ],
+    "files": [
+      {
+        "decode_seconds": 179.535,
+        "decoded_frames": 7600,
+        "duration_seconds": 303.961,
+        "file": "2026-09-20T022904.ps",
+        "source_seconds": 1789842544
+      },
+      {
+        "decode_seconds": 170.359,
+        "decoded_frames": 7600,
+        "duration_seconds": 303.928,
+        "file": "2026-09-20T062705.ps",
+        "source_seconds": 1789856825
+      },
+      {
+        "decode_seconds": 121.975,
+        "decoded_frames": 7600,
+        "duration_seconds": 303.946,
+        "file": "2026-09-20T102658.ps",
+        "source_seconds": 1789871218
+      }
+    ],
+    "envelopes": {
+      "p0001": {
+        "calibrated": true,
+        "enter": 9.72604,
+        "hold": 9.84604,
+        "samples": 12,
+        "source": "calibration_quantile"
+      },
+      "p0002": {
+        "calibrated": true,
+        "enter": 8.78072,
+        "hold": 8.90072,
+        "samples": 12,
+        "source": "calibration_quantile"
+      },
+      "p0003": {
+        "calibrated": true,
+        "enter": 11.219,
+        "hold": 11.339,
+        "samples": 12,
+        "source": "calibration_quantile"
+      },
+      "p0004": {
+        "calibrated": true,
+        "enter": 9.16796,
+        "hold": 9.28796,
+        "samples": 12,
+        "source": "calibration_quantile"
+      },
+      "p0005": {
+        "calibrated": true,
+        "enter": 10.81965,
+        "hold": 10.93965,
+        "samples": 12,
+        "source": "calibration_quantile"
+      },
+      "p0006": {
+        "calibrated": true,
+        "enter": 10.62954,
+        "hold": 10.74954,
+        "samples": 12,
+        "source": "calibration_quantile"
+      },
+      "p0007": {
+        "calibrated": true,
+        "enter": 10.82086,
+        "hold": 10.94086,
+        "samples": 12,
+        "source": "calibration_quantile"
+      },
+      "p0008": {
+        "calibrated": true,
+        "enter": 11.06303,
+        "hold": 11.18303,
+        "samples": 12,
+        "source": "calibration_quantile"
+      },
+      "p0009": {
+        "calibrated": true,
+        "enter": 9.07196,
+        "hold": 9.19196,
+        "samples": 12,
+        "source": "calibration_quantile"
+      },
+      "p0010": {
+        "calibrated": true,
+        "enter": 8.60547,
+        "hold": 8.72547,
+        "samples": 12,
+        "source": "calibration_quantile"
+      },
+      "p0011": {
+        "calibrated": true,
+        "enter": 11.82594,
+        "hold": 11.94594,
+        "samples": 12,
+        "source": "calibration_quantile"
+      },
+      "p0012": {
+        "calibrated": true,
+        "enter": 10.93405,
+        "hold": 11.05405,
+        "samples": 12,
+        "source": "calibration_quantile"
+      },
+      "p0013": {
+        "calibrated": true,
+        "enter": 10.57115,
+        "hold": 10.69115,
+        "samples": 12,
+        "source": "calibration_quantile"
+      },
+      "p0014": {
+        "calibrated": true,
+        "enter": 8.92422,
+        "hold": 9.04422,
+        "samples": 12,
+        "source": "calibration_quantile"
+      },
+      "p0015": {
+        "calibrated": true,
+        "enter": 9.05214,
+        "hold": 9.17214,
+        "samples": 12,
+        "source": "calibration_quantile"
+      },
+      "p0016": {
+        "calibrated": true,
+        "enter": 10.77904,
+        "hold": 10.89904,
+        "samples": 12,
+        "source": "calibration_quantile"
+      }
+    },
+    "selector_timeline": [
+      {
+        "at": null,
+        "kind": "search_round",
+        "reason": "evaluation_start",
+        "round": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 1
+        },
+        "dwell_seconds": 0,
+        "improvement": null,
+        "input_timestamp": 1789842544,
+        "kind": "decision",
+        "phase": "SEARCHING",
+        "prior_allowed": false,
+        "profile_generation": 0,
+        "reason": "WAITING_RECOVERY_SPAN",
+        "score_best": 8.52514,
+        "score_current": null,
+        "search_cursor": 3,
+        "search_exhausted": false,
+        "selected_profile_id": null,
+        "status": "UNKNOWN",
+        "switch_count": 0,
+        "tested_profile_ids": [
+          "p0002",
+          "p0010",
+          "p0015",
+          "p0001"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": "p0010",
+        "commit_profile_id": "p0010",
+        "commit_requested": true,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 2
+        },
+        "dwell_seconds": 0,
+        "improvement": null,
+        "input_timestamp": 1789842563.991,
+        "kind": "decision",
+        "phase": "VALIDATING",
+        "prior_allowed": false,
+        "profile_generation": 0,
+        "reason": "RECOVERY_READY",
+        "score_best": 8.52592,
+        "score_current": null,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": null,
+        "status": "SWITCH_PENDING",
+        "switch_count": 0,
+        "tested_profile_ids": [
+          "p0002",
+          "p0010",
+          "p0015",
+          "p0004"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "generation": 1,
+        "kind": "commit",
+        "pause_seconds": 19.991,
+        "previous": null,
+        "profile_id": "p0010",
+        "same_profile_id": false,
+        "switch_count": 1,
+        "timestamp": 1789842563.991
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 3
+        },
+        "dwell_seconds": 19.991,
+        "improvement": null,
+        "input_timestamp": 1789842583.982,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 1,
+        "reason": "OK",
+        "score_best": 8.55153,
+        "score_current": 8.55153,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0010",
+        "status": "MATCHED",
+        "switch_count": 1,
+        "tested_profile_ids": [
+          "p0010",
+          "p0002",
+          "p0015",
+          "p0001"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 4
+        },
+        "dwell_seconds": 39.982,
+        "improvement": null,
+        "input_timestamp": 1789842603.973,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 1,
+        "reason": "OK",
+        "score_best": 8.46606,
+        "score_current": 8.46606,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0010",
+        "status": "MATCHED",
+        "switch_count": 1,
+        "tested_profile_ids": [
+          "p0010",
+          "p0002",
+          "p0015",
+          "p0001"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 5
+        },
+        "dwell_seconds": 59.973,
+        "improvement": null,
+        "input_timestamp": 1789842623.964,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 1,
+        "reason": "OK",
+        "score_best": 8.50612,
+        "score_current": 8.50612,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0010",
+        "status": "MATCHED",
+        "switch_count": 1,
+        "tested_profile_ids": [
+          "p0010",
+          "p0002",
+          "p0015",
+          "p0001"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 6
+        },
+        "dwell_seconds": 79.964,
+        "improvement": null,
+        "input_timestamp": 1789842643.955,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 1,
+        "reason": "OK",
+        "score_best": 8.4212,
+        "score_current": 8.4212,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0010",
+        "status": "MATCHED",
+        "switch_count": 1,
+        "tested_profile_ids": [
+          "p0010",
+          "p0002",
+          "p0015",
+          "p0001"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 7
+        },
+        "dwell_seconds": 99.956,
+        "improvement": null,
+        "input_timestamp": 1789842663.947,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 1,
+        "reason": "OK",
+        "score_best": 8.37324,
+        "score_current": 8.37324,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0010",
+        "status": "MATCHED",
+        "switch_count": 1,
+        "tested_profile_ids": [
+          "p0010",
+          "p0002",
+          "p0007",
+          "p0001"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 8
+        },
+        "dwell_seconds": 119.947,
+        "improvement": null,
+        "input_timestamp": 1789842683.938,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 1,
+        "reason": "OK",
+        "score_best": 8.47055,
+        "score_current": 8.47055,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0010",
+        "status": "MATCHED",
+        "switch_count": 1,
+        "tested_profile_ids": [
+          "p0010",
+          "p0002",
+          "p0015",
+          "p0001"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 9
+        },
+        "dwell_seconds": 139.938,
+        "improvement": null,
+        "input_timestamp": 1789842703.929,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 1,
+        "reason": "OK",
+        "score_best": 8.4534,
+        "score_current": 8.4534,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0010",
+        "status": "MATCHED",
+        "switch_count": 1,
+        "tested_profile_ids": [
+          "p0010",
+          "p0002",
+          "p0007",
+          "p0001"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 10
+        },
+        "dwell_seconds": 159.929,
+        "improvement": null,
+        "input_timestamp": 1789842723.92,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 1,
+        "reason": "OK",
+        "score_best": 8.4894,
+        "score_current": 8.4894,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0010",
+        "status": "MATCHED",
+        "switch_count": 1,
+        "tested_profile_ids": [
+          "p0010",
+          "p0002",
+          "p0007",
+          "p0001"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 11
+        },
+        "dwell_seconds": 179.92,
+        "improvement": null,
+        "input_timestamp": 1789842743.911,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 1,
+        "reason": "OK",
+        "score_best": 8.50511,
+        "score_current": 8.50511,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0010",
+        "status": "MATCHED",
+        "switch_count": 1,
+        "tested_profile_ids": [
+          "p0010",
+          "p0002",
+          "p0007",
+          "p0001"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 12
+        },
+        "dwell_seconds": 199.911,
+        "improvement": null,
+        "input_timestamp": 1789842763.902,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 1,
+        "reason": "OK",
+        "score_best": 8.52875,
+        "score_current": 8.52875,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0010",
+        "status": "MATCHED",
+        "switch_count": 1,
+        "tested_profile_ids": [
+          "p0010",
+          "p0002",
+          "p0007",
+          "p0001"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 13
+        },
+        "dwell_seconds": 219.902,
+        "improvement": null,
+        "input_timestamp": 1789842783.893,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 1,
+        "reason": "OK",
+        "score_best": 8.41874,
+        "score_current": 8.41874,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0010",
+        "status": "MATCHED",
+        "switch_count": 1,
+        "tested_profile_ids": [
+          "p0010",
+          "p0002",
+          "p0007",
+          "p0001"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 14
+        },
+        "dwell_seconds": 239.893,
+        "improvement": null,
+        "input_timestamp": 1789842803.884,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 1,
+        "reason": "OK",
+        "score_best": 8.4638,
+        "score_current": 8.4638,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0010",
+        "status": "MATCHED",
+        "switch_count": 1,
+        "tested_profile_ids": [
+          "p0010",
+          "p0002",
+          "p0007",
+          "p0001"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 15
+        },
+        "dwell_seconds": 259.884,
+        "improvement": null,
+        "input_timestamp": 1789842823.875,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 1,
+        "reason": "OK",
+        "score_best": 8.60412,
+        "score_current": 8.60412,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0010",
+        "status": "MATCHED",
+        "switch_count": 1,
+        "tested_profile_ids": [
+          "p0010",
+          "p0002",
+          "p0007",
+          "p0001"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 16
+        },
+        "dwell_seconds": 279.875,
+        "improvement": null,
+        "input_timestamp": 1789842843.866,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 1,
+        "reason": "OK",
+        "score_best": 8.44173,
+        "score_current": 8.44173,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0010",
+        "status": "MATCHED",
+        "switch_count": 1,
+        "tested_profile_ids": [
+          "p0010",
+          "p0002",
+          "p0012",
+          "p0001"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 17
+        },
+        "dwell_seconds": 14277.002,
+        "improvement": null,
+        "input_timestamp": 1789856840.993,
+        "kind": "decision",
+        "phase": "SEARCHING",
+        "prior_allowed": false,
+        "profile_generation": 1,
+        "reason": "WAITING_RECOVERY_SPAN",
+        "score_best": 7.53472,
+        "score_current": 10.68507,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0010",
+        "status": "UNKNOWN",
+        "switch_count": 1,
+        "tested_profile_ids": [
+          "p0010",
+          "p0016",
+          "p0005",
+          "p0003"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": "p0016",
+        "commit_profile_id": "p0016",
+        "commit_requested": true,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 18
+        },
+        "dwell_seconds": 14296.993,
+        "improvement": null,
+        "input_timestamp": 1789856860.984,
+        "kind": "decision",
+        "phase": "VALIDATING",
+        "prior_allowed": false,
+        "profile_generation": 1,
+        "reason": "RECOVERY_READY",
+        "score_best": 7.9422,
+        "score_current": 10.26174,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0010",
+        "status": "SWITCH_PENDING",
+        "switch_count": 1,
+        "tested_profile_ids": [
+          "p0010",
+          "p0003",
+          "p0016",
+          "p0005"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "generation": 2,
+        "kind": "commit",
+        "pause_seconds": 19.991,
+        "previous": "p0010",
+        "profile_id": "p0016",
+        "same_profile_id": false,
+        "switch_count": 2,
+        "timestamp": 1789856860.984
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 19
+        },
+        "dwell_seconds": 19.991,
+        "improvement": null,
+        "input_timestamp": 1789856880.975,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 2,
+        "reason": "OK",
+        "score_best": 8.38778,
+        "score_current": 8.38778,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0016",
+        "status": "MATCHED",
+        "switch_count": 2,
+        "tested_profile_ids": [
+          "p0016",
+          "p0003",
+          "p0005",
+          "p0001"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 20
+        },
+        "dwell_seconds": 39.982,
+        "improvement": null,
+        "input_timestamp": 1789856900.966,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 2,
+        "reason": "OK",
+        "score_best": 7.81966,
+        "score_current": 7.81966,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0016",
+        "status": "MATCHED",
+        "switch_count": 2,
+        "tested_profile_ids": [
+          "p0016",
+          "p0005",
+          "p0003",
+          "p0001"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 21
+        },
+        "dwell_seconds": 59.973,
+        "improvement": null,
+        "input_timestamp": 1789856920.957,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 2,
+        "reason": "OK",
+        "score_best": 7.65169,
+        "score_current": 7.65169,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0016",
+        "status": "MATCHED",
+        "switch_count": 2,
+        "tested_profile_ids": [
+          "p0016",
+          "p0005",
+          "p0003",
+          "p0001"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 22
+        },
+        "dwell_seconds": 79.964,
+        "improvement": null,
+        "input_timestamp": 1789856940.948,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 2,
+        "reason": "OK",
+        "score_best": 7.65072,
+        "score_current": 7.65072,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0016",
+        "status": "MATCHED",
+        "switch_count": 2,
+        "tested_profile_ids": [
+          "p0016",
+          "p0003",
+          "p0005",
+          "p0001"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 23
+        },
+        "dwell_seconds": 99.955,
+        "improvement": null,
+        "input_timestamp": 1789856960.939,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 2,
+        "reason": "OK",
+        "score_best": 7.27791,
+        "score_current": 7.27791,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0016",
+        "status": "MATCHED",
+        "switch_count": 2,
+        "tested_profile_ids": [
+          "p0016",
+          "p0003",
+          "p0005",
+          "p0001"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 24
+        },
+        "dwell_seconds": 119.946,
+        "improvement": null,
+        "input_timestamp": 1789856980.93,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 2,
+        "reason": "OK",
+        "score_best": 7.17834,
+        "score_current": 7.17834,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0016",
+        "status": "MATCHED",
+        "switch_count": 2,
+        "tested_profile_ids": [
+          "p0016",
+          "p0003",
+          "p0008",
+          "p0001"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 25
+        },
+        "dwell_seconds": 139.937,
+        "improvement": null,
+        "input_timestamp": 1789857000.921,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 2,
+        "reason": "OK",
+        "score_best": 7.27808,
+        "score_current": 7.27808,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0016",
+        "status": "MATCHED",
+        "switch_count": 2,
+        "tested_profile_ids": [
+          "p0016",
+          "p0003",
+          "p0008",
+          "p0001"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 26
+        },
+        "dwell_seconds": 159.928,
+        "improvement": null,
+        "input_timestamp": 1789857020.912,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 2,
+        "reason": "OK",
+        "score_best": 8.30506,
+        "score_current": 8.30506,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0016",
+        "status": "MATCHED",
+        "switch_count": 2,
+        "tested_profile_ids": [
+          "p0016",
+          "p0005",
+          "p0013",
+          "p0001"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 27
+        },
+        "dwell_seconds": 179.919,
+        "improvement": null,
+        "input_timestamp": 1789857040.903,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 2,
+        "reason": "OK",
+        "score_best": 7.36803,
+        "score_current": 7.36803,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0016",
+        "status": "MATCHED",
+        "switch_count": 2,
+        "tested_profile_ids": [
+          "p0016",
+          "p0003",
+          "p0005",
+          "p0001"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 28
+        },
+        "dwell_seconds": 199.91,
+        "improvement": null,
+        "input_timestamp": 1789857060.894,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 2,
+        "reason": "OK",
+        "score_best": 7.43786,
+        "score_current": 7.43786,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0016",
+        "status": "MATCHED",
+        "switch_count": 2,
+        "tested_profile_ids": [
+          "p0016",
+          "p0003",
+          "p0013",
+          "p0001"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 29
+        },
+        "dwell_seconds": 219.901,
+        "improvement": null,
+        "input_timestamp": 1789857080.885,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 2,
+        "reason": "OK",
+        "score_best": 7.33003,
+        "score_current": 7.33003,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0016",
+        "status": "MATCHED",
+        "switch_count": 2,
+        "tested_profile_ids": [
+          "p0016",
+          "p0003",
+          "p0005",
+          "p0001"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 30
+        },
+        "dwell_seconds": 239.892,
+        "improvement": null,
+        "input_timestamp": 1789857100.876,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 2,
+        "reason": "OK",
+        "score_best": 7.62847,
+        "score_current": 7.62847,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0016",
+        "status": "MATCHED",
+        "switch_count": 2,
+        "tested_profile_ids": [
+          "p0016",
+          "p0003",
+          "p0005",
+          "p0001"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 31
+        },
+        "dwell_seconds": 259.883,
+        "improvement": null,
+        "input_timestamp": 1789857120.867,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 2,
+        "reason": "OK",
+        "score_best": 7.64401,
+        "score_current": 7.80237,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0016",
+        "status": "MATCHED",
+        "switch_count": 2,
+        "tested_profile_ids": [
+          "p0016",
+          "p0003",
+          "p0005",
+          "p0001"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 32
+        },
+        "dwell_seconds": 14369.011,
+        "improvement": null,
+        "input_timestamp": 1789871229.995,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 2,
+        "reason": "OK",
+        "score_best": 8.45467,
+        "score_current": 8.50489,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0016",
+        "status": "MATCHED",
+        "switch_count": 2,
+        "tested_profile_ids": [
+          "p0016",
+          "p0005",
+          "p0006",
+          "p0001"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 33
+        },
+        "dwell_seconds": 14389.002,
+        "improvement": null,
+        "input_timestamp": 1789871249.986,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 2,
+        "reason": "OK",
+        "score_best": 7.76591,
+        "score_current": 7.89336,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0016",
+        "status": "MATCHED",
+        "switch_count": 2,
+        "tested_profile_ids": [
+          "p0016",
+          "p0006",
+          "p0005",
+          "p0012"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 34
+        },
+        "dwell_seconds": 14408.993,
+        "improvement": null,
+        "input_timestamp": 1789871269.977,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 2,
+        "reason": "OK",
+        "score_best": 7.80697,
+        "score_current": 7.80697,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0016",
+        "status": "MATCHED",
+        "switch_count": 2,
+        "tested_profile_ids": [
+          "p0016",
+          "p0005",
+          "p0006",
+          "p0012"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 35
+        },
+        "dwell_seconds": 14428.984,
+        "improvement": null,
+        "input_timestamp": 1789871289.968,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 2,
+        "reason": "OK",
+        "score_best": 7.5715,
+        "score_current": 7.76973,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0016",
+        "status": "MATCHED",
+        "switch_count": 2,
+        "tested_profile_ids": [
+          "p0016",
+          "p0005",
+          "p0011",
+          "p0001"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 36
+        },
+        "dwell_seconds": 14448.975,
+        "improvement": null,
+        "input_timestamp": 1789871309.959,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 2,
+        "reason": "OK",
+        "score_best": 7.88149,
+        "score_current": 7.88149,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0016",
+        "status": "MATCHED",
+        "switch_count": 2,
+        "tested_profile_ids": [
+          "p0016",
+          "p0005",
+          "p0006",
+          "p0012"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 37
+        },
+        "dwell_seconds": 14468.966,
+        "improvement": null,
+        "input_timestamp": 1789871329.95,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 2,
+        "reason": "OK",
+        "score_best": 8.42115,
+        "score_current": 8.42115,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0016",
+        "status": "MATCHED",
+        "switch_count": 2,
+        "tested_profile_ids": [
+          "p0016",
+          "p0005",
+          "p0006",
+          "p0012"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 38
+        },
+        "dwell_seconds": 14488.957,
+        "improvement": null,
+        "input_timestamp": 1789871349.941,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 2,
+        "reason": "OK",
+        "score_best": 7.89588,
+        "score_current": 7.89588,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0016",
+        "status": "MATCHED",
+        "switch_count": 2,
+        "tested_profile_ids": [
+          "p0016",
+          "p0005",
+          "p0006",
+          "p0001"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 39
+        },
+        "dwell_seconds": 14508.948,
+        "improvement": null,
+        "input_timestamp": 1789871369.932,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 2,
+        "reason": "OK",
+        "score_best": 8.54685,
+        "score_current": 8.54685,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0016",
+        "status": "MATCHED",
+        "switch_count": 2,
+        "tested_profile_ids": [
+          "p0016",
+          "p0006",
+          "p0005",
+          "p0012"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 40
+        },
+        "dwell_seconds": 14528.939,
+        "improvement": null,
+        "input_timestamp": 1789871389.923,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 2,
+        "reason": "OK",
+        "score_best": 9.04397,
+        "score_current": 9.15559,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0016",
+        "status": "MATCHED",
+        "switch_count": 2,
+        "tested_profile_ids": [
+          "p0016",
+          "p0005",
+          "p0011",
+          "p0012"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 41
+        },
+        "dwell_seconds": 14548.93,
+        "improvement": null,
+        "input_timestamp": 1789871409.914,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 2,
+        "reason": "OK",
+        "score_best": 7.36604,
+        "score_current": 7.59207,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0016",
+        "status": "MATCHED",
+        "switch_count": 2,
+        "tested_profile_ids": [
+          "p0016",
+          "p0005",
+          "p0006",
+          "p0012"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 42
+        },
+        "dwell_seconds": 14568.921,
+        "improvement": null,
+        "input_timestamp": 1789871429.905,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 2,
+        "reason": "OK",
+        "score_best": 7.33266,
+        "score_current": 7.47976,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0016",
+        "status": "MATCHED",
+        "switch_count": 2,
+        "tested_profile_ids": [
+          "p0016",
+          "p0005",
+          "p0006",
+          "p0001"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 43
+        },
+        "dwell_seconds": 14588.912,
+        "improvement": null,
+        "input_timestamp": 1789871449.896,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 2,
+        "reason": "OK",
+        "score_best": 7.23962,
+        "score_current": 7.57546,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0016",
+        "status": "MATCHED",
+        "switch_count": 2,
+        "tested_profile_ids": [
+          "p0016",
+          "p0005",
+          "p0006",
+          "p0012"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 44
+        },
+        "dwell_seconds": 14608.903,
+        "improvement": null,
+        "input_timestamp": 1789871469.887,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 2,
+        "reason": "OK",
+        "score_best": 7.33213,
+        "score_current": 7.50531,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0016",
+        "status": "MATCHED",
+        "switch_count": 2,
+        "tested_profile_ids": [
+          "p0016",
+          "p0005",
+          "p0006",
+          "p0001"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 45
+        },
+        "dwell_seconds": 14628.894,
+        "improvement": null,
+        "input_timestamp": 1789871489.878,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 2,
+        "reason": "OK",
+        "score_best": 8.12223,
+        "score_current": 8.12223,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0016",
+        "status": "MATCHED",
+        "switch_count": 2,
+        "tested_profile_ids": [
+          "p0016",
+          "p0005",
+          "p0006",
+          "p0012"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      },
+      {
+        "alignment_generation": 0,
+        "bank_id": "camera_01030",
+        "bank_version": "v1",
+        "budget_exhausted": false,
+        "candidate_profile_id": null,
+        "commit_profile_id": null,
+        "commit_requested": false,
+        "diagnostics": {
+          "cooldown": {},
+          "queue_length": 16,
+          "search_round": 1,
+          "tick": 46
+        },
+        "dwell_seconds": 14648.885,
+        "improvement": null,
+        "input_timestamp": 1789871509.869,
+        "kind": "decision",
+        "phase": "STEADY",
+        "prior_allowed": true,
+        "profile_generation": 2,
+        "reason": "OK",
+        "score_best": 8.3715,
+        "score_current": 8.3715,
+        "search_cursor": 5,
+        "search_exhausted": false,
+        "selected_profile_id": "p0016",
+        "status": "MATCHED",
+        "switch_count": 2,
+        "tested_profile_ids": [
+          "p0016",
+          "p0005",
+          "p0006",
+          "p0001"
+        ],
+        "valid_fraction": 1,
+        "view_id": "fixed-01030-day-202609",
+        "visible_fraction": 1
+      }
+    ]
+  },
+  "matcher": {
+    "algorithm_version": "matcher_r3",
+    "calibration": {
+      "calibrated_utc": null,
+      "source": "uncalibrated_defaults"
+    },
+    "compensation": {
+      "bias_range": [
+        -60,
+        60
+      ],
+      "gain_range": [
+        0.65,
+        1.45
+      ],
+      "max_abs_bias": 30,
+      "max_abs_gain_delta": 0.18
+    },
+    "envelope": {
+      "enter_margin": 0.08,
+      "fallback_enter": 1.6,
+      "fallback_hold": 2.2,
+      "fallback_score": 2.5,
+      "hold_margin": 0.2,
+      "min_calibration_samples": 8,
+      "quantile": 0.95
+    },
+    "geometry": {
+      "max_reprojection_p95_px": 2,
+      "min_anchor_fraction": 0.35,
+      "min_distinct_regions": 3,
+      "min_inlier_hull_fraction": 0.02
+    },
+    "grid": {
+      "cols": 16,
+      "min_weight": 0.02,
+      "rows": 9
+    },
+    "kind": "ground_litter_profile_matcher",
+    "scale_floor": {
+      "chroma": 10,
+      "luminance": 12,
+      "structure": 0.06
+    },
+    "schema_version": 1,
+    "score_weights": {
+      "chroma": 0.2,
+      "compensation": 0.2,
+      "luminance": 0.4,
+      "missing": 1,
+      "q50": 0.5,
+      "q90": 0.5,
+      "structure": 0.4
+    },
+    "selection": {
+      "cache_profiles": 4,
+      "failed_candidate_cooldown_seconds": 10,
+      "loader_inflight": 1,
+      "max_observation_gap_seconds": 4,
+      "max_result_age_seconds": 4,
+      "max_small_matches_per_tick": 4,
+      "min_dwell_seconds": 10,
+      "recovery_min_samples": 2,
+      "recovery_min_span_seconds": 2,
+      "score_floor": 0.25,
+      "switch_improvement_ratio": 0.15,
+      "switch_min_samples": 3,
+      "switch_min_span_seconds": 4,
+      "top_k": 3
+    }
+  },
+  "profiles": [
+    {
+      "profile_id": "p0001",
+      "sample_count": 4,
+      "low_support": true,
+      "support": {
+        "days": [
+          "2026-09-14"
+        ],
+        "distinct_files": 1,
+        "low_support": true,
+        "requested": 90,
+        "satisfied": false,
+        "selected_blocks": 4
+      },
+      "noise_note": "low_support_used_all_blocks",
+      "valid_ground_fraction": 0.18733
+    },
+    {
+      "profile_id": "p0002",
+      "sample_count": 8,
+      "low_support": false,
+      "support": {
+        "days": [
+          "2026-09-14",
+          "2026-09-15"
+        ],
+        "distinct_files": 2,
+        "low_support": true,
+        "requested": 90,
+        "satisfied": false,
+        "selected_blocks": 8
+      },
+      "noise_note": "low_support_used_all_blocks",
+      "valid_ground_fraction": 0.18733
+    },
+    {
+      "profile_id": "p0003",
+      "sample_count": 2,
+      "low_support": true,
+      "support": {
+        "days": [
+          "2026-09-14"
+        ],
+        "distinct_files": 1,
+        "low_support": true,
+        "requested": 90,
+        "satisfied": false,
+        "selected_blocks": 2
+      },
+      "noise_note": "low_support_used_all_blocks",
+      "valid_ground_fraction": 0.18733
+    },
+    {
+      "profile_id": "p0004",
+      "sample_count": 8,
+      "low_support": false,
+      "support": {
+        "days": [
+          "2026-09-14",
+          "2026-09-15"
+        ],
+        "distinct_files": 2,
+        "low_support": true,
+        "requested": 90,
+        "satisfied": false,
+        "selected_blocks": 8
+      },
+      "noise_note": "low_support_used_all_blocks",
+      "valid_ground_fraction": 0.18733
+    },
+    {
+      "profile_id": "p0005",
+      "sample_count": 4,
+      "low_support": true,
+      "support": {
+        "days": [
+          "2026-09-15"
+        ],
+        "distinct_files": 1,
+        "low_support": true,
+        "requested": 90,
+        "satisfied": false,
+        "selected_blocks": 4
+      },
+      "noise_note": "low_support_used_all_blocks",
+      "valid_ground_fraction": 0.18733
+    },
+    {
+      "profile_id": "p0006",
+      "sample_count": 2,
+      "low_support": true,
+      "support": {
+        "days": [
+          "2026-09-15"
+        ],
+        "distinct_files": 1,
+        "low_support": true,
+        "requested": 90,
+        "satisfied": false,
+        "selected_blocks": 2
+      },
+      "noise_note": "low_support_used_all_blocks",
+      "valid_ground_fraction": 0.18733
+    },
+    {
+      "profile_id": "p0007",
+      "sample_count": 2,
+      "low_support": true,
+      "support": {
+        "days": [
+          "2026-09-15"
+        ],
+        "distinct_files": 1,
+        "low_support": true,
+        "requested": 90,
+        "satisfied": false,
+        "selected_blocks": 2
+      },
+      "noise_note": "low_support_used_all_blocks",
+      "valid_ground_fraction": 0.18733
+    },
+    {
+      "profile_id": "p0008",
+      "sample_count": 3,
+      "low_support": true,
+      "support": {
+        "days": [
+          "2026-09-15"
+        ],
+        "distinct_files": 1,
+        "low_support": true,
+        "requested": 90,
+        "satisfied": false,
+        "selected_blocks": 3
+      },
+      "noise_note": "low_support_used_all_blocks",
+      "valid_ground_fraction": 0.18733
+    },
+    {
+      "profile_id": "p0009",
+      "sample_count": 8,
+      "low_support": false,
+      "support": {
+        "days": [
+          "2026-09-15",
+          "2026-09-16"
+        ],
+        "distinct_files": 2,
+        "low_support": true,
+        "requested": 90,
+        "satisfied": false,
+        "selected_blocks": 8
+      },
+      "noise_note": "low_support_used_all_blocks",
+      "valid_ground_fraction": 0.18733
+    },
+    {
+      "profile_id": "p0010",
+      "sample_count": 4,
+      "low_support": true,
+      "support": {
+        "days": [
+          "2026-09-16"
+        ],
+        "distinct_files": 1,
+        "low_support": true,
+        "requested": 90,
+        "satisfied": false,
+        "selected_blocks": 4
+      },
+      "noise_note": "low_support_used_all_blocks",
+      "valid_ground_fraction": 0.18733
+    },
+    {
+      "profile_id": "p0011",
+      "sample_count": 2,
+      "low_support": true,
+      "support": {
+        "days": [
+          "2026-09-16"
+        ],
+        "distinct_files": 1,
+        "low_support": true,
+        "requested": 90,
+        "satisfied": false,
+        "selected_blocks": 2
+      },
+      "noise_note": "low_support_used_all_blocks",
+      "valid_ground_fraction": 0.18733
+    },
+    {
+      "profile_id": "p0012",
+      "sample_count": 3,
+      "low_support": true,
+      "support": {
+        "days": [
+          "2026-09-16"
+        ],
+        "distinct_files": 1,
+        "low_support": true,
+        "requested": 90,
+        "satisfied": false,
+        "selected_blocks": 3
+      },
+      "noise_note": "low_support_used_all_blocks",
+      "valid_ground_fraction": 0.18733
+    },
+    {
+      "profile_id": "p0013",
+      "sample_count": 3,
+      "low_support": true,
+      "support": {
+        "days": [
+          "2026-09-16"
+        ],
+        "distinct_files": 1,
+        "low_support": true,
+        "requested": 90,
+        "satisfied": false,
+        "selected_blocks": 3
+      },
+      "noise_note": "low_support_used_all_blocks",
+      "valid_ground_fraction": 0.18733
+    },
+    {
+      "profile_id": "p0014",
+      "sample_count": 6,
+      "low_support": false,
+      "support": {
+        "days": [
+          "2026-09-16",
+          "2026-09-17"
+        ],
+        "distinct_files": 2,
+        "low_support": true,
+        "requested": 90,
+        "satisfied": false,
+        "selected_blocks": 6
+      },
+      "noise_note": "low_support_used_all_blocks",
+      "valid_ground_fraction": 0.18733
+    },
+    {
+      "profile_id": "p0015",
+      "sample_count": 4,
+      "low_support": true,
+      "support": {
+        "days": [
+          "2026-09-17"
+        ],
+        "distinct_files": 1,
+        "low_support": true,
+        "requested": 90,
+        "satisfied": false,
+        "selected_blocks": 4
+      },
+      "noise_note": "low_support_used_all_blocks",
+      "valid_ground_fraction": 0.18733
+    },
+    {
+      "profile_id": "p0016",
+      "sample_count": 4,
+      "low_support": true,
+      "support": {
+        "days": [
+          "2026-09-17"
+        ],
+        "distinct_files": 1,
+        "low_support": true,
+        "requested": 90,
+        "satisfied": false,
+        "selected_blocks": 4
+      },
+      "noise_note": "low_support_used_all_blocks",
+      "valid_ground_fraction": 0.18733
+    }
+  ],
+  "valid_mask_hashes": [
+    "2c2d30e7dd4131ffba470e92912bd887431a7e637a0074b8d1da6a6ff5f3db89"
+  ]
+}

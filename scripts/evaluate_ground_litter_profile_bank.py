@@ -73,6 +73,11 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
                         help="评估画布（归一化几何天然可缩放），默认 960x540")
     parser.add_argument("--max-files", type=int, default=0,
                         help="最多评估多少个录像文件（0=全部）")
+    parser.add_argument("--days", default="",
+                        help="只评估这些日期（逗号分隔 YYYY-MM-DD）；用于把独立"
+                             "验证集与训练/校准集分开")
+    parser.add_argument("--record-split", action="store_true",
+                        help="在报告中记录本次评估所属的分区与来源")
     parser.add_argument("--allow-uncalibrated-bank", action="store_true",
                         help="允许加载缺少冻结包络的历史 Bank（仅用于回归对照）")
     parser.add_argument("--refit-envelope-on-input", action="store_true",
@@ -238,11 +243,24 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.input is None:
         raise SystemExit("--input 为必填：评估必须消费真实/回放的连续录像")
     media = collect_media(Path(args.input))
+    if args.days:
+        wanted_days = {
+            value.strip() for value in str(args.days).split(",") if value.strip()
+        }
+        media = [item for item in media
+                 if str(item.record_start)[:10] in wanted_days]
     planned_files = len(media)
     if args.max_files:
         media = media[: args.max_files]
     if not media:
         raise SystemExit(f"目录里没有可评估的录像: {args.input}")
+    report["split"] = {
+        "days": sorted({str(item.record_start)[:10] for item in media}),
+        "source_root": str(args.input),
+        "declared_role": "independent_validation",
+        "note": ("独立验证集必须与训练/校准集按日期隔离；本报告只记录本次实际"
+                 "消费的日期，不声称覆盖训练集"),
+    }
     report["files_planned"] = planned_files
     report["files_attempted"] = len(media)
     report["files_evaluated"] = len(media)

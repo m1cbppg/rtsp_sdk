@@ -1,3 +1,10 @@
+> **状态更正（2026-09-20 晚）**：本文 §1 的“真实 PS 验证：通过”**已被撤回**。
+> 实施评审（`docs/plans/2026-09-20-profile-factory-implementation-review.md`）判定本次
+> 验收**不通过**，R1～R11 共 11 项缺陷。本文 §11.3 的 0.9453 与 §11.2 的 N=16
+> **不能作为验收结论**（覆盖率前向填充、盲测参与拟合、静态前 16 截断）。
+> 修复与重新验收见 `HANDOFF_PROFILE_FACTORY_20260920_R2.md`；`camera_01030/v1` 保留为
+> 可追溯实验产物，不再作为方案二接入基线。旧数字按原样保留，不改写。
+
 # HANDOFF：方案一 Profile 工厂 + 共享 matcher/Selector（2026-09-20）
 
 本文交接方案一 A0～A6 与方案一必需的共享核心（bank loader、matcher、Bank prior
