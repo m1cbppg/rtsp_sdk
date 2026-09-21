@@ -518,6 +518,13 @@ def _runtime_decision(
         return {
             "status": decision.status, "reason": decision.reason,
             "prior_allowed": bool(decision.prior_allowed),
+            "prior_available": bool(getattr(decision, "prior_available", False)),
+            "prior_unavailable_reason": getattr(
+                decision, "prior_unavailable_reason", None,
+            ),
+            "profile_match_available": bool(
+                getattr(decision, "profile_match_available", False)
+            ),
             "selected_profile_id": decision.selected_profile_id,
             "candidate_profile_id": decision.candidate_profile_id,
         }
@@ -528,6 +535,9 @@ def _runtime_decision(
     warm_result = {
         "effective_profile_id": state["selected_profile_id"],
         "prior_allowed": state["prior_allowed"],
+        "prior_available": state["prior_available"],
+        "prior_unavailable_reason": state["prior_unavailable_reason"],
+        "profile_match_available": state["profile_match_available"],
         "status": state["status"],
         "reason": state["reason"],
         "candidate_profile_id": state["candidate_profile_id"],
@@ -552,6 +562,8 @@ def _runtime_decision(
         "cold_start": {
             "effective_profile_id": cold_state["selected_profile_id"],
             "prior_allowed": cold_state["prior_allowed"],
+            "prior_available": cold_state["prior_available"],
+            "prior_unavailable_reason": cold_state["prior_unavailable_reason"],
             "status": cold_state["status"],
             "reason": cold_state["reason"],
         },
