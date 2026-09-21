@@ -49,6 +49,9 @@ from rtsp_annotator.ground_litter_profile_match import (  # noqa: E402
 from rtsp_annotator.ground_litter_profile_sampling import (  # noqa: E402
     SequentialFrameReader, frame_quality, preview_image,
 )
+from rtsp_annotator.ground_litter_profile_selector import (  # noqa: E402
+    CandidateMatch, ProfileSelector,
+)
 
 STAGES = (
     "FRAME_QUALITY", "ROI_OR_VALID", "RESIDUAL_BELOW_THRESHOLD",
@@ -323,15 +326,29 @@ def diagnose(args: argparse.Namespace) -> dict[str, Any]:
             effective = (injected_tick.get("profiles") or {}).get(
                 best["profile_id"], {},
             ) if best else {}
+            # C：真实共享 Selector 的决策（不是"最佳参考"）。为了让状态机
+            # 稳定，先用同一批候选吃若干帧预热，再看注入帧的决策。
+            runtime = _runtime_decision(
+                contexts, work, injected, roi, matcher, size, geometry,
+                bank_id=args.bank_id, version=args.version,
+            )
+            selected_matches = [
+                pid for pid, payload in (injected_tick.get("profiles") or {}).items()
+                if int(payload.get("matched_candidate_count") or 0) > 0
+            ]
+            selected_by_runtime = (
+                runtime.get("effective_profile_id") in selected_matches
+                if runtime.get("effective_profile_id") else False
+            )
             verdict = _stage_verdict(
                 quality_ok=quality.usable,
                 inside_roi=bool(truth["inside_roi"]),
                 inside_valid=bool(best["inside_valid"]) if best else False,
                 seed_pixels=int(effective.get("seed_pixels_at_target") or 0),
                 support_pixels=int(effective.get("support_pixels_at_target") or 0),
-                candidates=int(best["candidate_count"]) if best else 0,
-                selected=bool(best["candidate_count"]) if best else False,
-                prior_allowed=True,
+                candidates=int(effective.get("candidate_count") or 0),
+                selected=bool(selected_by_runtime),
+                prior_allowed=bool(runtime.get("prior_allowed")),
                 rejected=effective.get("rejected") or {},
                 residual_at_target=float(
                     effective.get("luminance_median_at_target") or 0.0
@@ -352,6 +369,8 @@ def diagnose(args: argparse.Namespace) -> dict[str, Any]:
                 "injected_candidates_any": injected_tick["candidate_count"],
                 "search_candidates": search,
                 "best_reference": best,
+                "runtime_selector": runtime,
+                "selected_matches_at_target": selected_matches,
                 "loss_stage": verdict,
                 "profiles": injected_tick.get("profiles"),
             })
@@ -383,6 +402,83 @@ def diagnose(args: argparse.Namespace) -> dict[str, Any]:
         for name, payload in visuals.items():
             _write_visual(output / f"{name}.png", payload)
     return report
+
+
+def _runtime_decision(
+    contexts: Mapping[str, BankPriorContext], baseline: np.ndarray,
+    injected: np.ndarray, roi: np.ndarray, matcher: Mapping[str, Any],
+    size: tuple[int, int], geometry: Mapping[str, Any], *,
+    bank_id: str, version: str, warmup: int = 6,
+) -> dict[str, Any]:
+    """用真实共享 Selector 跑一次（含预热），返回注入帧的决策。
+
+    D 对照是"离线最佳参考"，只是诊断上界；C 必须是真实 Selector 的选择，
+    否则不能回答"是哪一步丢的"。
+    """
+    replay_config = dict(matcher.get("selection", {}))
+    nominal = 2.0
+    replay_config["tick_interval_seconds"] = nominal
+    replay_config["result_validity_seconds"] = max(nominal, 4.0)
+    replay_config["max_observation_gap_seconds"] = max(4.0, 2.0 * nominal)
+    replay_config.setdefault("join_gap_seconds", 300.0)
+    selector = ProfileSelector(
+        bank_id=bank_id, bank_version=version,
+        view_id=str(geometry.get("view_id", "view_0")),
+        profile_ids=list(contexts), config=replay_config,
+    )
+
+    def step(frame: np.ndarray, timestamp: float) -> dict[str, Any]:
+        current_id = selector.selected_profile_id
+        current = None
+        matches: list[CandidateMatch] = []
+        envelope_map = {
+            pid: _envelope_for(context, matcher)
+            for pid, context in contexts.items()
+        }
+        for pid, context in contexts.items():
+            evaluation = evaluate_bank_frame(
+                context, frame, envelope=envelope_map[pid], config=matcher,
+                roi_mask=roi,
+            )
+            candidate = CandidateMatch(
+                pid, float(evaluation.outcome.get("score") or 0.0),
+                bool(evaluation.outcome.get("enter_eligible")),
+                bool(evaluation.outcome.get("hold_eligible")),
+                verified=bool(
+                    evaluation.outcome.get("enter_eligible")
+                    or evaluation.outcome.get("hold_eligible")
+                ),
+            )
+            matches.append(candidate)
+            if pid == current_id:
+                current = candidate
+        decision = selector.observe(
+            timestamp=timestamp, current=current, candidates=matches,
+            tested_profile_ids=list(contexts), observable=True,
+            tick_interval_seconds=nominal,
+        )
+        if decision.commit_requested:
+            selector.commit(
+                profile_id=decision.commit_profile_id, timestamp=timestamp,
+            )
+        return {
+            "status": decision.status, "reason": decision.reason,
+            "prior_allowed": bool(decision.prior_allowed),
+            "selected_profile_id": decision.selected_profile_id,
+            "candidate_profile_id": decision.candidate_profile_id,
+        }
+
+    for index in range(max(1, int(warmup))):
+        step(baseline, float(index) * nominal)
+    state = step(injected, float(max(1, int(warmup))) * nominal)
+    return {
+        "effective_profile_id": state["selected_profile_id"],
+        "prior_allowed": state["prior_allowed"],
+        "status": state["status"],
+        "reason": state["reason"],
+        "candidate_profile_id": state["candidate_profile_id"],
+        "warmup_frames": int(warmup),
+    }
 
 
 def _evaluate_all(
