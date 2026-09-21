@@ -11,10 +11,11 @@
    "stride_ignored": true,
    "frames_identical": true,
    "kept": [
-    "p1",
     "p2"
    ],
-   "deletion_order": []
+   "deletion_order": [
+    "p1"
+   ]
   },
   "1": {
    "baseline": 0.89474,
@@ -27,21 +28,29 @@
    "stride_ignored": false,
    "frames_identical": true,
    "kept": [
-    "p1",
     "p2"
    ],
-   "deletion_order": []
+   "deletion_order": [
+    "p1"
+   ]
   }
  },
  "hd_repull_scoped": {
-  "considered": 4,
-  "checked": 2,
-  "skipped_not_needed_ids": [
+  "requested": [
+   "f1",
+   "f2"
+  ],
+  "unrequested": [
    "f0",
    "f3"
   ],
-  "failure_kinds": {
-   "URL_REFRESH_FAILED": 2
-  }
+  "needed_paths_ok": true,
+  "requested_files": [
+   "f1",
+   "f2"
+  ],
+  "failure_kinds": {},
+  "need": 2,
+  "released": 2
  }
 }
