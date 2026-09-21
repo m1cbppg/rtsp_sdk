@@ -1,0 +1,418 @@
+{
+ "bank": {
+  "manifest_sha256": "779ddc7ceccf21900ef3e7eb6fc62e6276ab7a6a46d573edfd0219b8f3fa0aa0",
+  "path": "/home/sf01/profile-factory/out/bank/camera_01030/v4",
+  "profiles": [
+   "p0003",
+   "p0010"
+  ]
+ },
+ "C1": {
+  "candidates": 13,
+  "selected": 2,
+  "baseline": {
+   "budget_exhausted_ticks": 0,
+   "decisions": 98,
+   "effective_fraction": 0.78571,
+   "effective_seconds": 2865.686,
+   "generation": 10,
+   "non_observable_reasons": {},
+   "non_observable_seconds": 0,
+   "observed_seconds": 3647.235,
+   "off_air_seconds": 0.0,
+   "pause_intervals": [
+    86.84,
+    43.419,
+    86.837,
+    86.836,
+    86.837,
+    86.84,
+    86.84,
+    43.42,
+    86.84,
+    86.84
+   ],
+   "pause_max": 86.84,
+   "pause_p95": 86.84,
+   "scored_frames": 98,
+   "stride": 1,
+   "switch_count": 10,
+   "unknown_reasons": {
+    "RECOVERY_READY": 8,
+    "WAITING_RECOVERY_SPAN": 10
+   },
+   "unobservable_ticks": 0,
+   "wall_span_seconds": 3647.235
+  },
+  "loo_stride": 1,
+  "loo_len": 11,
+  "deletion_order": [
+   "p0006",
+   "p0007",
+   "p0004",
+   "p0005",
+   "p0008",
+   "p0009",
+   "p0011",
+   "p0012",
+   "p0013",
+   "p0001",
+   "p0002"
+  ],
+  "final_set": {
+   "coverage_delta_vs_baseline": -0.07143,
+   "frames": 98,
+   "frames_identical_to_baseline": true,
+   "pause_max_delta_vs_baseline": 0.0,
+   "profile_ids": [
+    "p0003",
+    "p0010"
+   ],
+   "size": 2,
+   "summary": {
+    "effective_fraction": 0.85714,
+    "effective_seconds": 3126.205,
+    "non_observable_seconds": 0,
+    "observed_seconds": 3647.235,
+    "off_air_seconds": 0.0,
+    "pause_max": 86.84,
+    "pause_p95": 86.84,
+    "switch_count": 7
+   },
+   "verified_on_shared_score_matrix": true
+  },
+  "resource_trimmed": {
+   "coverage_delta_vs_baseline": -0.07143,
+   "frames": 98,
+   "frames_identical_to_baseline": true,
+   "pause_max_delta_vs_baseline": 0.0,
+   "profile_ids": [
+    "p0003",
+    "p0010"
+   ],
+   "size": 2,
+   "summary": {
+    "effective_fraction": 0.85714,
+    "effective_seconds": 3126.205,
+    "non_observable_seconds": 0,
+    "observed_seconds": 3647.235,
+    "off_air_seconds": 0.0,
+    "pause_max": 86.84,
+    "pause_p95": 86.84,
+    "switch_count": 7
+   },
+   "verified_on_shared_score_matrix": true
+  }
+ },
+ "C2": {
+  "hd_repull": {
+   "backpressure_waits": 0,
+   "bytes": 0,
+   "downloaded": 0,
+   "failure_kinds": {
+    "NETWORK_FAILURE": 1,
+    "URL_REFRESH_FAILED": 1
+   },
+   "need": 0,
+   "peak_raw_bytes": 79621876,
+   "policy_refreshes": 0,
+   "raw_budget": 8589934592,
+   "released": 0,
+   "reused_cache": 0,
+   "reused_local": 0,
+   "wait_seconds": 0.0
+  },
+  "replay_materialize": {
+   "backpressure_waits": 0,
+   "bytes": 1051608999,
+   "consumed_files": 14,
+   "downloaded": 14,
+   "failed": [
+    {
+     "file_id": "318010_18081003969_44180209031322001030-1789354364000",
+     "kind": "URL_REFRESH_FAILED",
+     "reason": "RecordingSourceError: file-urls 业务码非 200: 1500"
+    },
+    {
+     "file_id": "318010_18081003969_44180209031322001030-1789365611000",
+     "kind": "NETWORK_FAILURE",
+     "reason": "RecordingSourceError: 下载字节数不符: 期望 83051188，实际 77802140"
+    }
+   ],
+   "failure_kinds": {
+    "NETWORK_FAILURE": 1,
+    "URL_REFRESH_FAILED": 1
+   },
+   "need": 16,
+   "note": "回放逐文件准备→消费→释放；失败分类见 failed，释放计数见 released",
+   "peak_raw_bytes": 79621876,
+   "planned_files": 16,
+   "policy_refreshes": 15,
+   "raw_budget": 8589934592,
+   "released": 14,
+   "reused_cache": 0,
+   "reused_local": 0,
+   "wait_seconds": 0.0
+  },
+  "calibration_material": {
+   "consumed": 4,
+   "per_file": [
+    {
+     "decode_failed": false,
+     "file_id": "318010_18081003969_44180209031322001030-1789661085000",
+     "frames": 4,
+     "state": "consumed"
+    },
+    {
+     "decode_failed": false,
+     "file_id": "318010_18081003969_44180209031322001030-1789689671000",
+     "frames": 4,
+     "state": "consumed"
+    },
+    {
+     "decode_failed": false,
+     "file_id": "318010_18081003969_44180209031322001030-1789714884000",
+     "frames": 4,
+     "state": "consumed"
+    },
+    {
+     "decode_failed": false,
+     "file_id": "318010_18081003969_44180209031322001030-1789743611000",
+     "frames": 4,
+     "state": "consumed"
+    }
+   ],
+   "planned": 4
+  },
+  "peak_raw_bytes": 79621876,
+  "raw_budget": 8589934592,
+  "final_raw_bytes": 0,
+  "planned_final_summary": {
+   "consumed": 14,
+   "failed:download_error:RecordingSourceError": 2
+  }
+ },
+ "C3": [
+  {
+   "group_id": "g001",
+   "appearance_match_distance": null,
+   "appearance_match_limit": 13.50654,
+   "appearance_match_reason": "no_appearance_match",
+   "appearance_matched": false,
+   "calibration_sufficient": false,
+   "degradation_reason": "no_appearance_match",
+   "independent_blocks": 4,
+   "independent_of_reference": false,
+   "matched_blocks": [],
+   "note": "no_appearance_match_low_support",
+   "prior_suitable": false,
+   "source": "reference_self",
+   "source_independent": true
+  },
+  {
+   "group_id": "g002",
+   "appearance_match_distance": 11.32548,
+   "appearance_match_limit": 13.88175,
+   "appearance_match_reason": null,
+   "appearance_matched": false,
+   "calibration_sufficient": false,
+   "degradation_reason": "single_matched_observation",
+   "independent_blocks": 8,
+   "independent_of_reference": false,
+   "matched_blocks": [
+    "44180209031322001030:318010_18081003969_44180209031322001030-1789743611000@00151966"
+   ],
+   "note": "no_appearance_match_low_support",
+   "prior_suitable": false,
+   "source": "reference_self",
+   "source_independent": true
+  },
+  {
+   "group_id": "g003",
+   "appearance_match_distance": 21.86828,
+   "appearance_match_limit": 31.35914,
+   "appearance_match_reason": null,
+   "appearance_matched": false,
+   "calibration_sufficient": false,
+   "degradation_reason": "single_matched_observation",
+   "independent_blocks": 3,
+   "independent_of_reference": false,
+   "matched_blocks": [
+    "44180209031322001030:318010_18081003969_44180209031322001030-1789689671000@00297853"
+   ],
+   "note": "no_appearance_match_low_support",
+   "prior_suitable": false,
+   "source": "reference_self",
+   "source_independent": true
+  },
+  {
+   "group_id": "g005",
+   "appearance_match_distance": null,
+   "appearance_match_limit": 13.09945,
+   "appearance_match_reason": "no_appearance_match",
+   "appearance_matched": false,
+   "calibration_sufficient": false,
+   "degradation_reason": "no_appearance_match",
+   "independent_blocks": 2,
+   "independent_of_reference": false,
+   "matched_blocks": [],
+   "note": "no_appearance_match_low_support|valid_fallback_to_observation_mask",
+   "prior_suitable": false,
+   "source": "reference_self",
+   "source_independent": true
+  },
+  {
+   "group_id": "g006",
+   "appearance_match_distance": null,
+   "appearance_match_limit": 8.42195,
+   "appearance_match_reason": "no_appearance_match",
+   "appearance_matched": false,
+   "calibration_sufficient": false,
+   "degradation_reason": "no_appearance_match",
+   "independent_blocks": 2,
+   "independent_of_reference": false,
+   "matched_blocks": [],
+   "note": "no_appearance_match_low_support|valid_fallback_to_observation_mask",
+   "prior_suitable": false,
+   "source": "reference_self",
+   "source_independent": true
+  },
+  {
+   "group_id": "g007",
+   "appearance_match_distance": 11.98103,
+   "appearance_match_limit": 15.63828,
+   "appearance_match_reason": null,
+   "appearance_matched": false,
+   "calibration_sufficient": false,
+   "degradation_reason": "single_matched_observation",
+   "independent_blocks": 8,
+   "independent_of_reference": false,
+   "matched_blocks": [
+    "44180209031322001030:318010_18081003969_44180209031322001030-1789743611000@00297853"
+   ],
+   "note": "no_appearance_match_low_support",
+   "prior_suitable": false,
+   "source": "reference_self",
+   "source_independent": true
+  },
+  {
+   "group_id": "g009",
+   "appearance_match_distance": null,
+   "appearance_match_limit": 16.79669,
+   "appearance_match_reason": "no_appearance_match",
+   "appearance_matched": false,
+   "calibration_sufficient": false,
+   "degradation_reason": "no_appearance_match",
+   "independent_blocks": 3,
+   "independent_of_reference": false,
+   "matched_blocks": [],
+   "note": "no_appearance_match_low_support",
+   "prior_suitable": false,
+   "source": "reference_self",
+   "source_independent": true
+  },
+  {
+   "group_id": "g010",
+   "appearance_match_distance": null,
+   "appearance_match_limit": 13.00579,
+   "appearance_match_reason": "no_appearance_match",
+   "appearance_matched": false,
+   "calibration_sufficient": false,
+   "degradation_reason": "no_appearance_match",
+   "independent_blocks": 2,
+   "independent_of_reference": false,
+   "matched_blocks": [],
+   "note": "no_appearance_match_low_support|valid_fallback_to_observation_mask",
+   "prior_suitable": false,
+   "source": "reference_self",
+   "source_independent": true
+  },
+  {
+   "group_id": "g011",
+   "appearance_match_distance": null,
+   "appearance_match_limit": 20.25419,
+   "appearance_match_reason": "no_appearance_match",
+   "appearance_matched": false,
+   "calibration_sufficient": false,
+   "degradation_reason": "no_appearance_match",
+   "independent_blocks": 2,
+   "independent_of_reference": false,
+   "matched_blocks": [],
+   "note": "no_appearance_match_low_support|valid_fallback_to_observation_mask",
+   "prior_suitable": false,
+   "source": "reference_self",
+   "source_independent": true
+  },
+  {
+   "group_id": "g012",
+   "appearance_match_distance": null,
+   "appearance_match_limit": 25.68647,
+   "appearance_match_reason": "no_appearance_match",
+   "appearance_matched": false,
+   "calibration_sufficient": false,
+   "degradation_reason": "no_appearance_match",
+   "independent_blocks": 6,
+   "independent_of_reference": false,
+   "matched_blocks": [],
+   "note": "no_appearance_match_low_support",
+   "prior_suitable": false,
+   "source": "reference_self",
+   "source_independent": true
+  },
+  {
+   "group_id": "g015",
+   "appearance_match_distance": 22.25246,
+   "appearance_match_limit": 25.34824,
+   "appearance_match_reason": null,
+   "appearance_matched": true,
+   "calibration_sufficient": true,
+   "degradation_reason": null,
+   "independent_blocks": 3,
+   "independent_of_reference": true,
+   "matched_blocks": [
+    "44180209031322001030:318010_18081003969_44180209031322001030-1789689671000@00006079",
+    "44180209031322001030:318010_18081003969_44180209031322001030-1789689671000@00151966",
+    "44180209031322001030:318010_18081003969_44180209031322001030-1789689671000@00213243"
+   ],
+   "note": "independent_calibration_blocks",
+   "prior_suitable": true,
+   "source": "calibration_day",
+   "source_independent": true
+  },
+  {
+   "group_id": "g016",
+   "appearance_match_distance": null,
+   "appearance_match_limit": 9.1994,
+   "appearance_match_reason": "no_appearance_match",
+   "appearance_matched": false,
+   "calibration_sufficient": false,
+   "degradation_reason": "no_appearance_match",
+   "independent_blocks": 3,
+   "independent_of_reference": false,
+   "matched_blocks": [],
+   "note": "no_appearance_match_low_support",
+   "prior_suitable": false,
+   "source": "reference_self",
+   "source_independent": true
+  },
+  {
+   "group_id": "g018",
+   "appearance_match_distance": 10.61432,
+   "appearance_match_limit": 10.72279,
+   "appearance_match_reason": null,
+   "appearance_matched": true,
+   "calibration_sufficient": true,
+   "degradation_reason": null,
+   "independent_blocks": 2,
+   "independent_of_reference": true,
+   "matched_blocks": [
+    "44180209031322001030:318010_18081003969_44180209031322001030-1789743611000@00006079",
+    "44180209031322001030:318010_18081003969_44180209031322001030-1789743611000@00213243"
+   ],
+   "note": "independent_calibration_blocks|valid_fallback_to_observation_mask",
+   "prior_suitable": true,
+   "source": "calibration_day",
+   "source_independent": true
+  }
+ ]
+}

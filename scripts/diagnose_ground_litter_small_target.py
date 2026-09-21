@@ -340,6 +340,10 @@ def diagnose(args: argparse.Namespace) -> dict[str, Any]:
                 runtime.get("effective_profile_id") in selected_matches
                 if runtime.get("effective_profile_id") else False
             )
+            cold_selected = (
+                (runtime.get("cold_start") or {}).get("effective_profile_id")
+                in selected_matches
+            )
             verdict = _stage_verdict(
                 quality_ok=quality.usable,
                 inside_roi=bool(truth["inside_roi"]),
@@ -370,6 +374,7 @@ def diagnose(args: argparse.Namespace) -> dict[str, Any]:
                 "search_candidates": search,
                 "best_reference": best,
                 "runtime_selector": runtime,
+                "cold_start_selects_match": bool(cold_selected),
                 "selected_matches_at_target": selected_matches,
                 "loss_stage": verdict,
                 "profiles": injected_tick.get("profiles"),
@@ -471,13 +476,35 @@ def _runtime_decision(
     for index in range(max(1, int(warmup))):
         step(baseline, float(index) * nominal)
     state = step(injected, float(max(1, int(warmup))) * nominal)
-    return {
+    warm_result = {
         "effective_profile_id": state["selected_profile_id"],
         "prior_allowed": state["prior_allowed"],
         "status": state["status"],
         "reason": state["reason"],
         "candidate_profile_id": state["candidate_profile_id"],
         "warmup_frames": int(warmup),
+    }
+    # 冷启动对照：同一注入帧、同一个 Selector 配置但从空状态开始。用来区分
+    # "启动选错参考"和"稳态切换失败"——两者要修的环节完全不同。
+    cold = ProfileSelector(
+        bank_id=bank_id, bank_version=version,
+        view_id=str(geometry.get("view_id", "view_0")),
+        profile_ids=list(contexts), config=replay_config,
+    )
+    original = selector
+    try:
+        selector = cold  # step() 闭包引用同名变量
+        cold_state = step(injected, 0.0)
+    finally:
+        selector = original
+    return {
+        **warm_result,
+        "cold_start": {
+            "effective_profile_id": cold_state["selected_profile_id"],
+            "prior_allowed": cold_state["prior_allowed"],
+            "status": cold_state["status"],
+            "reason": cold_state["reason"],
+        },
     }
 
 
