@@ -269,6 +269,11 @@ v4 重建已完成：产物在 `out/bank/camera_01030/v4`，manifest
   `source=reference_self`、`prior_suitable=false`、`low_support=true/false`，
   阈值来自参考自身分布与基础阈值。
 
+  **保守行为的边界**：`prior_suitable` 目前是**报告字段**，运行时没有用它去做
+  准入判断——真正生效的保守行为是"噪声来自参考自身观测 + 基础阈值 + 低支持
+  标记"，这正是用户要求的两种做法之一。把"不适合 prior"变成运行时门禁需要改
+  Selector 契约，已列入留给方案二的清单，本轮没有改 Selector 代码。
+
 ## 6. 留给方案二（不变）
 
 事件 memory 完整生命周期、在线背景准备与原子提交的实时表现、全天覆盖与在线
