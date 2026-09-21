@@ -727,6 +727,7 @@ def estimate_noise(
     reference: np.ndarray, frames: Sequence[np.ndarray],
     masks: Sequence[np.ndarray], block_ids: Sequence[str], *,
     config: Mapping[str, Any] | None = None, stride: int = 2,
+    valid: np.ndarray | None = None,
 ) -> NoiseEstimate:
     """在来源之外的时间块上做与运行时相同的受限补偿，得到有限噪声容差。
 
@@ -739,7 +740,9 @@ def estimate_noise(
     残差中心 ``m`` 与 MAD 分别保存；``epsilon`` 为正，避免恒定残差恰好等于门槛
     仍触发 ``>=``。
     """
-    from .ground_litter_profile_match import residual_maps
+    from .ground_litter_profile_match import (
+        apply_compensation, residual_maps, robust_color_compensation,
+    )
 
     settings = {**NOISE_DEFAULTS, **dict(config or {})}
     if not frames:
@@ -771,10 +774,57 @@ def estimate_noise(
     # 会把某块被遮挡的像素也算成有支持，支持计数和分位都被污染。
     blocks = sorted(set(str(block) for block in block_ids))
     block_index = {block: index for index, block in enumerate(blocks)}
+    # C3：离线噪声必须与在线前景走**同一套实际补偿路径**。
+    # 在线 `score_profile` 会先用共同拟合区估一套受限全局增益/偏移，把参考
+    # 归一化到当前帧，再算残差；如果离线直接 `residual_maps(原始参考, 帧)`，
+    # 同一像素的亮度残差中位数会从 ~2.31 掉到 ~0.50（补偿把全局色偏吃掉了），
+    # 于是学习到的容差与运行时用的门槛不是同一个东西。
+    # 这里显式复用同一个 `robust_color_compensation` + `apply_compensation`。
+    valid_reference = (
+        np.full(reference.shape[:2], 255, np.uint8)
+        if valid is None else np.asarray(valid)
+    )
+    fit_mask = np.zeros(reference.shape[:2], np.uint8)
+    for frame, mask in zip(frames, masks):
+        usable = (np.asarray(mask) > 0) & (valid_reference > 0)
+        if int(np.count_nonzero(usable)) > int(np.count_nonzero(fit_mask)):
+            fit_mask = np.where(usable, 255, 0).astype(np.uint8)
+    compensated_reference = reference
+    compensation_diag: dict[str, Any] = {"applied": False}
+    comp_config = dict(settings.get("compensation", {}) or {})
+    min_fit_pixels = int(settings.get("compensation_min_fit_pixels", 5000))
+    best_frame = None
+    if int(np.count_nonzero(fit_mask)) >= min_fit_pixels:
+        # 用拟合区最大的一帧做参考帧，整套校准观测共用同一套系数
+        # （同一地点几分钟内的光照是稳定的，逐帧重估只会把噪声混进系数）。
+        best_frame = max(
+            zip(frames, masks),
+            key=lambda pair: int(np.count_nonzero(
+                (np.asarray(pair[1]) > 0) & (valid_reference > 0)
+            )),
+        )[0]
+        try:
+            compensation = robust_color_compensation(
+                reference, best_frame, fit_mask,
+                gain_range=comp_config.get("gain_range", (0.65, 1.45)),
+                bias_range=comp_config.get("bias_range", (-60.0, 60.0)),
+            )
+        except BankError as exc:
+            compensation_diag = {"applied": False, "reason": str(exc)[:120]}
+        else:
+            compensated_reference = apply_compensation(reference, compensation)
+            compensation_diag = {
+                "applied": True, "compensation": compensation.as_dict(),
+            }
+    else:
+        compensation_diag = {
+            "applied": False, "reason": "fit_region_too_small",
+            "fit_pixels": int(np.count_nonzero(fit_mask)),
+        }
     resized: list[tuple[np.ndarray, np.ndarray, np.ndarray, str]] = []
     support = np.zeros(small, bool)
     for frame, mask, block in zip(frames, masks, block_ids):
-        sig, lum = residual_maps(reference, frame)
+        sig, lum = residual_maps(compensated_reference, frame)
         keep = cv2.resize(mask, cv_size, interpolation=cv2.INTER_NEAREST) > 0
         sig_s = cv2.resize(sig, cv_size, interpolation=cv2.INTER_AREA)
         lum_s = cv2.resize(lum, cv_size, interpolation=cv2.INTER_AREA)
@@ -902,6 +952,8 @@ def estimate_noise(
     }
     diagnostics = {
         "time_blocks": len(blocks),
+        "shared_compensation": compensation_diag,
+        "residual_path": "robust_color_compensation+apply_compensation+residual_maps",
         "per_block_valid_pixels": per_block_valid_pixels,
         "calibration_blocks": int(settings.get("_calibration_block_count", 0) or 0),
         "independent_of_reference": bool(settings.get("_independent_calibration", False)),

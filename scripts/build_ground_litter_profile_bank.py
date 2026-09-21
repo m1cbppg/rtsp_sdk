@@ -714,9 +714,13 @@ def stage_grouping(
 def _decode_calibration_frame(
     cache: ManagedRecordingCache, config: FactoryConfig,
     geometry: Mapping[str, Any], observation: Mapping[str, Any],
-    size: tuple[int, int],
+    size: tuple[int, int], *, path: Path | None = None,
 ) -> np.ndarray | None:
-    """按需解码一个独立校准观测的高清帧（有界：一次一帧）。"""
+    """按需解码一个独立校准观测的高清帧（有界：一次一帧）。
+
+    ``path`` 由调用方传入时直接使用（消费方已按文件准备并在用完后释放），
+    避免为了同一帧再次触发一次素材准备。
+    """
     from rtsp_annotator.ground_litter_profile_sampling import SequentialFrameReader
 
     block = str(observation.get("time_block") or "")
@@ -724,14 +728,16 @@ def _decode_calibration_frame(
     file_id = identity.split(":")[-1] or str(observation.get("file_id") or "")
     if not file_id:
         return None
-    entry = cache.entry(config.device_code, file_id)
-    if entry is None or entry.path is None:
-        return None
+    if path is None:
+        entry = cache.entry(config.device_code, file_id)
+        if entry is None or entry.path is None:
+            return None
+        path = entry.path
     try:
         offset = float(offset_text or observation.get("offset_seconds") or 0.0)
     except (TypeError, ValueError):
         return None
-    reader = SequentialFrameReader(entry.path)
+    reader = SequentialFrameReader(path)
     picked = reader.sample_at([offset], tolerance_seconds=1.5)
     captured = picked.get(offset)
     if captured is None:
@@ -739,6 +745,56 @@ def _decode_calibration_frame(
     if not frame_quality(captured.frame).usable:
         return None
     return cv2.resize(captured.frame, size, interpolation=cv2.INTER_AREA)
+
+
+def classify_calibration_state(
+    *, matched_blocks: Sequence[str], matched_frame_count: int,
+    calibration_available: bool, assignment_reason: str | None = None,
+) -> dict[str, Any]:
+    """把"独立来源 / 外观匹配 / 校准足够"三个状态判成实际行为（C3）。
+
+    规则（v3 复核后的保守口径）：
+
+    * 只有**本组外观匹配**的独立校准观测（≥2 块）才允许用来学这个参考的
+      正常噪声容差；
+    * 外观不匹配时不用跨外观素材凑数，直接退回"参考自身观测 + 基础阈值"，
+      并标记 ``prior_suitable=false``（该参考暂不适合单独发起 prior）；
+    * 三个状态分开返回，报告与实际行为都以此为准。
+    """
+    blocks = sorted({str(block) for block in matched_blocks})
+    source_independent = bool(calibration_available)
+    appearance_matched = len(blocks) >= 1 and int(matched_frame_count) >= 2
+    calibration_sufficient = appearance_matched and len(blocks) >= 2
+    degradation_reason: str | None = None
+    if calibration_sufficient:
+        return {
+            "note": "independent_calibration_blocks",
+            "source": "calibration_day",
+            "source_independent": source_independent,
+            "appearance_matched": True,
+            "calibration_sufficient": True,
+            "prior_suitable": True,
+            "degradation_reason": None,
+            "matched_blocks": blocks,
+        }
+    if not calibration_available:
+        degradation_reason = "no_independent_calibration_material"
+    elif not blocks:
+        degradation_reason = (
+            str(assignment_reason) or "no_appearance_match_for_group"
+        )
+    else:
+        degradation_reason = "single_matched_observation"
+    return {
+        "note": "no_appearance_match_low_support",
+        "source": "reference_self",
+        "source_independent": source_independent,
+        "appearance_matched": bool(appearance_matched),
+        "calibration_sufficient": False,
+        "prior_suitable": False,
+        "degradation_reason": degradation_reason,
+        "matched_blocks": blocks,
+    }
 
 
 def stage_composite_and_noise(
@@ -749,6 +805,7 @@ def stage_composite_and_noise(
     *, build_blocks: set[str], calibration_blocks: set[str],
     calibration_observations: Sequence[dict[str, Any]] = (),
     calibration_assignment: Mapping[str, Any] | None = None,
+    materializer: "FileMaterializer | None" = None,
 ) -> list[dict[str, Any]]:
     """用高清帧合成参考、估计噪声；构建块与校准块严格分离（C3）。
 
@@ -770,6 +827,33 @@ def stage_composite_and_noise(
         str(item["time_block"]): item for item in calibration_observations
         if item.get("time_block")
     }
+    # C2：合成阶段按需取素材，每个文件用完立刻归还，不做阶段级整批重拉。
+    stage_paths: set[str] = set()
+
+    def path_for(file_id: str) -> Path | None:
+        item = by_id.get(file_id)
+        if item is None:
+            return None
+        if materializer is None:
+            entry = cache.entry(config.device_code, file_id)
+            if entry is None or entry.path is None:
+                return None
+            stage_paths.add(file_id)
+            return entry.path
+        path = materializer.need(item)
+        if path is not None:
+            stage_paths.add(file_id)
+        return path
+
+    def release_stage_material() -> None:
+        if materializer is None:
+            return
+        for file_id in sorted(stage_paths):
+            item = by_id.get(file_id)
+            if item is not None:
+                materializer.release(item)
+        stage_paths.clear()
+
     # 独立校准块与构建块不得重叠：重叠就说明"独立"是假的。
     overlap = set(calibration_blocks) & set(build_blocks)
     if overlap:
@@ -809,14 +893,14 @@ def stage_composite_and_noise(
             item = by_id.get(file_id)
             if item is None:
                 continue
-            entry = cache.entry(config.device_code, file_id)
-            if entry is None or entry.path is None:
+            path = path_for(file_id)
+            if path is None:
                 continue
             try:
                 offset = float(offset_text)
             except ValueError:
                 continue
-            reader = SequentialFrameReader(entry.path)
+            reader = SequentialFrameReader(path)
             picked = reader.sample_at([offset], tolerance_seconds=1.5)
             captured = picked.get(offset)
             if captured is None:
@@ -831,6 +915,7 @@ def stage_composite_and_noise(
         if len(frames) < 2:
             report.setdefault("composite_skipped", []).append(group["group_id"])
             print(f"[composite]   skipped (frames={len(frames)})", flush=True)
+            release_stage_material()
             continue
         # R7：用真实观测导出遮挡/运动掩膜；每帧一个 mask，而不是整块 ROI。
         availability_roi, observation_diag, observation_masks = (
@@ -879,8 +964,10 @@ def stage_composite_and_noise(
                     continue
                 frame = observation.get("hd_frame")
                 if frame is None:
+                    file_id = str(observation.get("file_id") or "")
+                    path = path_for(file_id) if file_id else None
                     frame = _decode_calibration_frame(
-                        cache, config, geometry, observation, size,
+                        cache, config, geometry, observation, size, path=path,
                     )
                 if frame is None:
                     continue
@@ -891,42 +978,34 @@ def stage_composite_and_noise(
 
         # 主路径：本组**外观匹配**到的校准观测（与 group["time_blocks"] 不重叠，
         # 校准日样本从设计上就不会出现在构建组的 blocks 里）。
-        eval_frames, eval_masks, eval_blocks = _collect(sorted(matched_blocks))
-        degradation_reason: str | None = None
-        if len(eval_frames) >= 2:
-            noise_note = "independent_calibration_blocks"
-        else:
-            # 该校准素材不可用/外观不匹配：允许"跨组但仍是校准日"的独立观测，
-            # 但必须标注原因；实在没有独立素材才退化为参考自身观测。
-            cross_frames, cross_masks, cross_blocks = _collect(
-                sorted(calibration_by_block)
+        # C3（v3 复核）：外观不匹配的校准素材**不能**用来学这个参考的正常
+        # 噪声容差。跨外观的残差主要来自环境差，把它当容差会把门槛抬高、
+        # 让小目标更容易被阈值吃掉；"来源独立"不等于"适合校准这个参考"。
+        matched_frames, matched_masks, matched_eval_blocks = _collect(
+            sorted(matched_blocks)
+        )
+        state = classify_calibration_state(
+            matched_blocks=sorted(matched_blocks),
+            matched_frame_count=len(matched_frames),
+            calibration_available=bool(calibration_by_block),
+            assignment_reason=assignment_payload.get("reason"),
+        )
+        noise_note = state["note"]
+        degradation_reason = state["degradation_reason"]
+        appearance_ok = bool(state["appearance_matched"])
+        if state["calibration_sufficient"]:
+            eval_frames, eval_masks, eval_blocks = (
+                matched_frames, matched_masks, matched_eval_blocks,
             )
-            if len(cross_frames) >= 2:
-                eval_frames, eval_masks, eval_blocks = (
-                    cross_frames, cross_masks, cross_blocks,
-                )
-                noise_note = "independent_calibration_day_cross_group"
-                degradation_reason = (
-                    str(assignment_payload.get("reason"))
-                    or "no_appearance_match_for_group"
-                )
-            else:
-                eval_frames, eval_masks, eval_blocks = frames, composite_masks, blocks
-                noise_note = "low_support_used_all_blocks"
-                degradation_reason = (
-                    "no_independent_calibration_material"
-                    if not calibration_by_block else "calibration_frames_undecodable"
-                )
-        # 独立性口径：来源必须是校准日（不是构建语料）；"外观是否匹配本组"
-        # 单独记账，因为它决定这组噪声标定代表的是不是同一画面条件。
-        noise_source = (
-            "calibration_day" if noise_note.startswith("independent_calibration")
-            else "reference_self"
-        )
-        independent = noise_source == "calibration_day" and len(set(eval_blocks)) >= 2
-        appearance_matched = bool(matched_blocks) and all(
-            block in matched_blocks for block in eval_blocks
-        )
+        else:
+            eval_frames, eval_masks, eval_blocks = frames, composite_masks, blocks
+        # C3：三个状态分开记账，并各自对应实际行为（见 classify_calibration_state）。
+        source_independent = bool(state["source_independent"])
+        appearance_matched = bool(state["appearance_matched"])
+        calibration_sufficient = bool(state["calibration_sufficient"])
+        independent = calibration_sufficient
+        noise_source = str(state["source"])
+        prior_suitable = bool(state["prior_suitable"])
         # 阈值图必须与参考同尺寸（Bank loader 契约）。逐像素分位代价随帧数线性
         # 增长，这里按时间均匀抽稀到 24 帧（块覆盖保持不变）。
         noise = estimate_noise(
@@ -957,6 +1036,7 @@ def stage_composite_and_noise(
               f"seconds={round(time.monotonic() - _t0, 1)}", flush=True)
         # 合成中间帧在本组评分/描述子提取后即可丢弃，释放记账。
         cache.release_stage_bytes("composite", frame_memory_bytes(len(frames), size))
+        release_stage_material()
         preview = preview_image(refined, width=config.preview_width)
         descriptor = extract_grid_descriptor(
             preview,
@@ -984,11 +1064,15 @@ def stage_composite_and_noise(
                 "independent_blocks": len(set(eval_blocks)),
                 "appearance_match_distance": assignment_payload.get("distance"),
                 "appearance_match_reason": assignment_payload.get("reason"),
-            "appearance_match_limit": assignment_payload.get("limit"),
-            "matched_blocks": sorted(matched_blocks),
+                "appearance_match_limit": assignment_payload.get("limit"),
+                "matched_blocks": sorted(matched_blocks),
                 "degradation_reason": degradation_reason,
-                "independent_of_reference": bool(independent),
+                # 三个状态分开：来源独立 / 外观匹配 / 校准足够。
+                "source_independent": bool(source_independent),
                 "appearance_matched": bool(appearance_matched),
+                "calibration_sufficient": bool(calibration_sufficient),
+                "independent_of_reference": bool(independent),
+                "prior_suitable": bool(prior_suitable),
             },
             "support": group["support"],
             "low_support": group["low_support"],
@@ -1023,6 +1107,7 @@ def stage_composite_and_noise(
         }
         for item in candidates
     ]
+    release_stage_material()
     del calibration_blocks
     return candidates
 
@@ -1043,15 +1128,76 @@ def _canvas_scaled(candidates: Sequence[dict[str, Any]], size: tuple[int, int],
     return contexts
 
 
+def _score_calibration_file(
+    path: Path, item: RecordingFile, contexts: Mapping[str, Any],
+    roi: np.ndarray, size: tuple[int, int], config: "FactoryConfig",
+    matcher: Mapping[str, Any], scores: dict[str, list[float]],
+    frames_used: list[dict[str, Any]], max_frames_per_file: int,
+    *, registrar_holder: dict[str, Any], overlay: Sequence[Any] = (),
+) -> tuple[int, bool]:
+    """给一个校准文件打分；返回 ``(用到的帧数, 是否解码失败)``。
+
+    逐文件调用，调用方负责在该文件消费完后立刻释放它的临时 PS（C2）。
+    """
+    probe = probe_recording(path)
+    if not probe.ok:
+        return 0, True
+    reader = SequentialFrameReader(path)
+    offsets = coarse_sample_offsets(probe.duration_seconds, seed=config.seed)
+    picked = (
+        reader.sample_with_seek(offsets, tolerance_seconds=1.0)
+        if config.use_seek else reader.sample_at(offsets)
+    )
+    taken = 0
+    for offset in offsets:
+        captured = picked.get(offset)
+        if captured is None:
+            continue
+        frame = cv2.resize(captured.frame, size, interpolation=cv2.INTER_AREA)
+        if not frame_quality(frame).usable:
+            continue
+        registrar = registrar_holder.get("registrar")
+        if registrar is None:
+            registrar = CanvasRegistrar(frame, overlay_exclude_zones=overlay)
+            registrar_holder["registrar"] = registrar
+        try:
+            aligned, diagnostics = registrar.register(frame)
+        except BankError:
+            continue
+        del diagnostics
+        aligned = cv2.resize(aligned, size, interpolation=cv2.INTER_AREA)
+        for pid, context in contexts.items():
+            try:
+                score = score_profile(
+                    aligned, context.reference, context.valid, roi,
+                    profile_id=pid, config=matcher,
+                )
+            except BankError:
+                continue
+            scores[pid].append(score.score)
+        taken += 1
+        frames_used.append({
+            "file_id": item.file_id,
+            "record_start": item.record_start,
+            "offset_seconds": round(float(offset), 3),
+        })
+        if taken >= max_frames_per_file:
+            break
+    return taken, False
+
+
 def fit_frozen_envelopes(
     config: "FactoryConfig", cache: ManagedRecordingCache,
     candidates: Sequence[dict[str, Any]], calibration_files: Sequence[RecordingFile],
     geometry: Mapping[str, Any], matcher: Mapping[str, Any], report: dict[str, Any],
     *, max_frames_per_file: int = 6, replay_scale: float = 1.0,
+    materializer: "FileMaterializer | None" = None,
 ) -> dict[str, dict[str, Any]]:
     """只在**校准集**上拟合进入/保持包络，并记录来源（R1）。
 
     校准集与构建集、盲测集按天隔离；这里只读校准文件，绝不使用待评数据。
+
+    C2：逐文件"准备→打分→释放"，不先凑齐整批校准 PS。
     """
     size = (int(geometry["canvas_size"][0]), int(geometry["canvas_size"][1]))
     roi = roi_mask_from_geometry(geometry, size[0], size[1])
@@ -1062,55 +1208,37 @@ def fit_frozen_envelopes(
     }
     scores: dict[str, list[float]] = {pid: [] for pid in contexts}
     frames_used: list[dict[str, Any]] = []
-    registrar: CanvasRegistrar | None = None
+    registrar_holder: dict[str, Any] = {"registrar": None}
+    consumed: list[dict[str, Any]] = []
     for item in calibration_files:
-        entry = cache.entry(config.device_code, item.file_id)
-        if entry is None or entry.path is None:
+        if materializer is not None:
+            path = materializer.need(item)
+        else:
+            entry = cache.entry(config.device_code, item.file_id)
+            path = None if entry is None else entry.path
+        if path is None:
+            consumed.append({"file_id": item.file_id, "state": "materialize_failed"})
             continue
-        probe = probe_recording(entry.path)
-        if not probe.ok:
-            continue
-        reader = SequentialFrameReader(entry.path)
-        offsets = coarse_sample_offsets(probe.duration_seconds,
-                                        seed=config.seed)
-        picked = (
-            reader.sample_with_seek(offsets, tolerance_seconds=1.0)
-            if config.use_seek else reader.sample_at(offsets)
-        )
-        taken = 0
-        for offset in offsets:
-            captured = picked.get(offset)
-            if captured is None:
-                continue
-            frame = cv2.resize(captured.frame, size, interpolation=cv2.INTER_AREA)
-            if not frame_quality(frame).usable:
-                continue
-            if registrar is None:
-                registrar = CanvasRegistrar(frame, overlay_exclude_zones=overlay)
-            try:
-                aligned, diagnostics = registrar.register(frame)
-            except BankError:
-                continue
-            del diagnostics
-            aligned = cv2.resize(aligned, size, interpolation=cv2.INTER_AREA)
-            for pid, context in contexts.items():
-                context_frame = aligned
-                try:
-                    score = score_profile(
-                        context_frame, context.reference, context.valid, roi,
-                        profile_id=pid, config=matcher,
-                    )
-                except BankError:
-                    continue
-                scores[pid].append(score.score)
-            taken += 1
-            frames_used.append({
-                "file_id": item.file_id,
-                "record_start": item.record_start,
-                "offset_seconds": round(float(offset), 3),
-            })
-            if taken >= max_frames_per_file:
-                break
+        try:
+            taken, failed = _score_calibration_file(
+                path, item, contexts, roi, size, config, matcher, scores,
+                frames_used, max_frames_per_file,
+                registrar_holder=registrar_holder, overlay=overlay,
+            )
+        finally:
+            # 逐文件释放：下一个文件准备时缓存里最多只有当前这一个。
+            if materializer is not None:
+                materializer.release(item)
+        consumed.append({
+            "file_id": item.file_id,
+            "state": "consumed" if taken else "no_usable_frames",
+            "frames": taken, "decode_failed": failed,
+        })
+    report["calibration_material"] = {
+        "planned": len(calibration_files),
+        "consumed": sum(1 for row in consumed if row["state"] == "consumed"),
+        "per_file": consumed,
+    }
     envelopes: dict[str, dict[str, Any]] = {}
     for pid, values in scores.items():
         envelope = envelope_from_samples(values, matcher)
@@ -1243,12 +1371,14 @@ def project_selection_timeline(
     matrix: ReplayScoreMatrix, subset: Sequence[str], *, selector_config: Mapping[str, Any],
     bank_id: str, bank_version: str, view_id: str, nominal_tick: float,
     stride: int = 1, join_gap_seconds: float | None = None,
-    stop_below_fraction: float | None = None,
 ) -> dict[str, Any]:
     """在评分矩阵上推进 Selector 状态机（不重新评分）。
 
-    ``stop_below_fraction`` 用于保守删除的早期退出：一旦有效覆盖已经低于
-    "明显不如基线" 的界限，就停止本轮（该候选必然要保留），避免无谓计算。
+    **没有**提前退出：早期版本用 ``stop_below_fraction`` 在看到低覆盖时提前
+    结束，但回放开头本来就要经历"尚未恢复"的启动阶段（前几个 tick 的
+    ``effective_fraction`` 天然接近 0），于是每个删减对照都会被误判成"很差"，
+    所有候选都被判定必须保留，剪枝永远不会发生。启动期的低覆盖不能证明完整
+    回放效果差，因此这里一律跑满整条时间轴。
     """
     subset_ids = [str(pid) for pid in dict.fromkeys(subset)]
     if not subset_ids:
@@ -1319,12 +1449,6 @@ def project_selection_timeline(
         if decision.commit_requested:
             selector.commit(profile_id=decision.commit_profile_id,
                             timestamp=timestamp)
-        if stop_below_fraction is not None:
-            summary = selector.summarise(join_gap_seconds=join_gap)
-            if summary["effective_fraction"] < stop_below_fraction:
-                summary["early_stop_index"] = index
-                summary["stride"] = step
-                return summary
     summary = selector.summarise(join_gap_seconds=join_gap)
     summary["stride"] = step
     summary["scored_frames"] = len(indexes)
@@ -1595,12 +1719,11 @@ def prune_profiles_conservatively(
     bank_version = str(getattr(config, "version", "v1"))
     view_id = str(replay.get("view_id", "view_0"))
 
-    def timeline(subset: Sequence[str], *, stop_below_fraction: float | None = None):
+    def timeline(subset: Sequence[str]) -> dict[str, Any]:
         return project_selection_timeline(
             matrix, subset, selector_config=selector_config, bank_id=bank_id,
             bank_version=bank_version, view_id=view_id, nominal_tick=nominal,
             stride=1, join_gap_seconds=join_gap,
-            stop_below_fraction=stop_below_fraction,
         )
 
     baseline = dict(replay.get("baseline") or {})
@@ -1619,9 +1742,8 @@ def prune_profiles_conservatively(
         current_summary = baseline if len(remaining) == len(candidates) else timeline(current_ids)
         for item in remaining:
             subset = [pid for pid in current_ids if pid != item["profile_id"]]
-            summary = timeline(
-                subset, stop_below_fraction=min_coverage_delta,
-            )
+            # 完整跑满整条时间轴：不做任何"看起来很差就早退"的优化。
+            summary = timeline(subset)
             coverage_delta = float(current_summary.get("effective_fraction", 0.0)) - float(
                 summary["effective_fraction"]
             )
@@ -1634,15 +1756,14 @@ def prune_profiles_conservatively(
                 "pause_max_delta": round(pause_delta, 3),
                 "pause_max_without": summary["pause_max"],
                 "switch_count_without": summary["switch_count"],
-                "early_stopped": "early_stop_index" in summary,
+                "frames_evaluated": int(summary.get("scored_frames") or 0),
             })
         evaluations.sort(key=lambda row: (
             row["effective_fraction_delta"], row["pause_max_delta"], row["profile_id"],
         ))
         best = evaluations[0]
         if (best["effective_fraction_delta"] > min_coverage_delta
-                or best["pause_max_delta"] > max_pause_delta
-                or best["early_stopped"]):
+                or best["pause_max_delta"] > max_pause_delta):
             break
         victim = next(item for item in remaining
                       if item["profile_id"] == best["profile_id"])
@@ -2136,25 +2257,24 @@ def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, An
                 str(item.file_id) for item in (partition.get("blind") or [])
             ],
         }
-        repull = _ensure_remote_entries(
-            config, args, cache, files, report,
+        # C2：不再在阶段开始时整批重拉。合成/回放/包络都通过逐文件
+        # "准备→消费→释放"的有界管理器取素材；盲测日文件不在 needed 集合里，
+        # 因此既不下拉也不计入阶段字节。
+        materializer = FileMaterializer(
+            config, args, cache, report,
             local_paths=local_paths if args.input is not None else {},
-            needed_file_ids=needed_hd_files,
         )
-        report["hd_repull"] = repull
+        report["material_plan"]["materializer"] = "per_file_consume_release"
         candidates = stage_composite_and_noise(
             config, cache, build_files, geometry, groups, samples, report,
             build_blocks=build_blocks, calibration_blocks=calibration_blocks,
             calibration_observations=calibration_observations,
             calibration_assignment=calibration_assignment,
+            materializer=materializer,
         )
         if not candidates:
             raise SystemExit("高清合成没有得到任何候选参考；见报告 composite")
-        # C2：合成消费完成后立刻归还构建 PS，不把临时盘占用留到全流程结束。
-        _release_materialized(
-            cache, config, build_files, report, stage="after_composite",
-            require_committed=("preview",),
-        )
+        report["hd_repull"] = materializer.publish("composite")
         print("[replay] collecting continuous frames", flush=True)
         _rt0 = time.monotonic()
         # 合成已完成，采样阶段的 HD 帧缓存不再需要；释放后再收集回放帧，
@@ -2167,6 +2287,7 @@ def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, An
             cache, config, build_files, geometry,
             frame_budget=int(getattr(args, "max_replay_frames", 180) or 180),
             args=args, local_paths=local_paths, report=report,
+            materializer=materializer,
         )
         print(f"[replay] collected {len(replay_frames)} frames "
               f"in {round(time.monotonic() - _rt0, 1)}s", flush=True)
@@ -2188,7 +2309,7 @@ def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, An
         matcher = default_matcher_config()
         envelope_records = fit_frozen_envelopes(
             config, cache, candidates, partition["calibration"], geometry,
-            matcher, report,
+            matcher, report, materializer=materializer,
         )
         for item in candidates:
             item["envelope"] = (envelope_records.get(item["profile_id"]) or {}).get(
@@ -2202,10 +2323,9 @@ def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, An
                 "校准集没有覆盖到这些候选的包络，拒绝发布未校准 Bank："
                 f"{missing_envelopes[:6]}"
             )
-        # C2：包络拟合已消费完校准素材，立即归还临时 PS。
-        _release_materialized(
-            cache, config, partition["calibration"], report,
-            stage="after_envelope_fit",
+        # C2：三个阶段各自的逐文件释放计数与峰值都在这里汇总。
+        report["materialization_summary"] = dict(
+            report.get("file_materialization") or {}
         )
         metrics = matcher.setdefault("metrics", {})
         metrics["score_scale"] = "per-profile cell-normalised S(p)"
@@ -2455,6 +2575,14 @@ def materialize_entry(
     if source is None or client is None or downloader is None:
         return False, "NO_SOURCE_TO_REPULL", "no --source configured"
     cache.register(config.device_code, [item])
+    # 单文件本身就超过整个原始缓存配额：等多久都放不下，立即如实报告预算受限，
+    # 不要靠"等待超时"来表达同一个事实。
+    needed = (
+        int(item.file_size) if item.file_size and item.file_size > 0
+        else int(cache.unknown_size_reserve)
+    )
+    if needed > int(cache.raw_cache_budget):
+        return False, "BUDGET_REJECTED", "single_file_exceeds_raw_cache_budget"
     allowed, reason = cache.can_reserve(item.file_size)
     if not allowed:
         return False, "BUDGET_REJECTED", reason
@@ -2486,135 +2614,176 @@ def materialize_entry(
     return True, "downloaded", ""
 
 
-def _ensure_remote_entries(
-    config: FactoryConfig, args: argparse.Namespace,
-    cache: ManagedRecordingCache, files: Sequence[RecordingFile],
-    report: dict[str, Any], *, local_paths: Mapping[str, Path],
-    needed_file_ids: Sequence[str] | set[str] | None = None,
-) -> dict[str, Any]:
-    """确保**本阶段真正需要**的高清文件在盘上（C2）。
+class FileMaterializer:
+    """逐文件"准备 → 消费 → 释放"的有界素材管理器（C2）。
 
-    v2 的缺陷：这里对 ``files``（分区后的全部文件，含盲测日）逐个重拉，
-    盲测素材被下载却从不参与合成/校准，1.66GB 峰值里有相当部分是它。
-    现在只处理调用方声明的 ``needed_file_ids``；未声明的文件既不下载也不
-    计入阶段字节。
+    用户口径是"拉取→处理→删除"：任何阶段都不能先把本阶段全部文件下载齐再开始
+    消费。之前工厂里只有采样阶段满足这一点，合成/包络/回放阶段仍在阶段开始时
+    一次性重拉，于是缓存只够一个文件时，除第一个外全部被记成
+    ``BUDGET_REJECTED``——那是**实现没释放**，不是素材不可达。
+
+    这里把"需要某文件时再准备、消费完立刻释放"做成唯一入口：
+
+    * 背压（``BUDGET_REJECTED``）不会直接记失败，而是等待容量或重试；只有在
+      等待窗口内始终拿不到容量（例如单文件本身就超过配额）才如实报告；
+    * ``reused_cache`` 命中不会重复下载，也不计入下载字节；
+    * 每个文件消费完立即 ``release``，因此同时驻留的原始 PS 数量恒定（≈1）。
     """
-    needed = (
-        None if needed_file_ids is None
-        else {str(value) for value in needed_file_ids}
-    )
-    targets = [
-        item for item in files if needed is None or str(item.file_id) in needed
-    ]
-    skipped_not_needed = len(files) - len(targets)
-    summary: dict[str, Any] = {
-        "checked": len(targets), "considered": len(files), "reused_local": 0,
-        "repulled": 0, "failed": [], "bytes": 0, "seconds": 0.0, "refreshes": 0,
-        "skipped_not_needed": skipped_not_needed,
-        "skipped_not_needed_ids": [
-            item.file_id for item in files
-            if needed is not None and str(item.file_id) not in needed
-        ][:24],
-        "failure_kinds": {},
-        "needed_ids": sorted(needed) if needed is not None else None,
-    }
 
-    def note_failure(file_id: str, kind: str, reason: str) -> None:
-        """失败必须分类：网络/预算受限 ≠ 素材质量失败。"""
-        summary["failed"].append({
-            "file_id": file_id, "kind": kind, "reason": reason[:160],
-        })
-        kinds = summary["failure_kinds"]
+    def __init__(
+        self, config: "FactoryConfig", args: argparse.Namespace,
+        cache: ManagedRecordingCache, report: dict[str, Any],
+        *, local_paths: Mapping[str, Path] | None = None,
+        wait_timeout: float = 300.0, max_retries: int = 3,
+    ) -> None:
+        self.config = config
+        self.args = args
+        self.cache = cache
+        self.report = report
+        self.local_paths = dict(local_paths or {})
+        self.wait_timeout = float(wait_timeout)
+        self.max_retries = max(0, int(max_retries))
+        self._client: Any = None
+        self._downloader: Any = None
+        self._policy = UrlRefreshPolicy()
+        self.stats: dict[str, Any] = {
+            "need": 0, "reused_cache": 0, "reused_local": 0, "downloaded": 0,
+            "failed": [], "failure_kinds": {}, "bytes": 0, "released": 0,
+            "backpressure_waits": 0, "backpressure_wait_seconds": 0.0,
+        }
+
+    # -- 内部 ------------------------------------------------------------- #
+
+    def _source(self) -> str | None:
+        return getattr(self.args, "source", None)
+
+    def _clients(self) -> tuple[Any, Any]:
+        if self._client is None:
+            self._client = RecordingListClient(headers=_auth_headers(self.args))
+            self._downloader = RecordingDownloader()
+        return self._client, self._downloader
+
+    def _record_failure(self, file_id: str, kind: str, reason: str) -> None:
+        self.stats["failed"].append(
+            {"file_id": file_id, "kind": kind, "reason": str(reason)[:160]}
+        )
+        kinds = self.stats["failure_kinds"]
         kinds[kind] = kinds.get(kind, 0) + 1
-        cache.log_stage_event(
-            "hd_materialize", file_id=file_id, kind=kind, reason=reason[:160],
+        self.cache.log_stage_event(
+            "materialize", file_id=file_id, kind=kind, reason=str(reason)[:160],
         )
 
-    client: RecordingListClient | None = None
-    downloader: RecordingDownloader | None = None
-    policy = UrlRefreshPolicy()
-    for item in targets:
-        entry = cache.entry(config.device_code, item.file_id)
+    # -- 对外 ------------------------------------------------------------- #
+
+    def need(self, item: RecordingFile) -> Path | None:
+        """准备一个文件并返回可解码路径；失败返回 ``None`` 并已分类记账。"""
+        self.stats["need"] += 1
+        entry = self.cache.entry(self.config.device_code, item.file_id)
         if entry is not None and entry.path is not None and entry.path.is_file():
-            existing_bytes = int(getattr(entry, "bytes", 0) or item.file_size or 0)
-            if existing_bytes:
-                cache.commit_stage_bytes("hd_materialize", existing_bytes)
-            cache.log_stage_event(
-                "hd_materialize", file_id=item.file_id, kind="reused_cache",
-                bytes=existing_bytes,
+            self.stats["reused_cache"] += 1
+            return entry.path
+        source = self._source()
+        has_local = bool(
+            self.local_paths.get(item.file_id)
+            and Path(self.local_paths[item.file_id]).is_file()
+        )
+        if source is None and not has_local:
+            self._record_failure(
+                item.file_id, "NO_SOURCE_TO_REPULL", "no --source configured",
             )
-            continue
-        local = local_paths.get(item.file_id)
-        if args.source is not None and client is None:
-            client = RecordingListClient(headers=_auth_headers(args))
-            downloader = RecordingDownloader()
-        started = time.monotonic()
+            return None
+        # 先等容量：前一个文件已经释放，正常情况下第一次等待就能通过。
+        # 背压不是失败条件，而是"等消费/等释放"的信号。
+        needed = (
+            int(item.file_size) if item.file_size and item.file_size > 0
+            else int(self.cache.unknown_size_reserve)
+        )
+        if needed > int(self.cache.raw_cache_budget):
+            self._record_failure(
+                item.file_id, "BUDGET_REJECTED",
+                "single_file_exceeds_raw_cache_budget",
+            )
+            return None
+        allowed, reason = self.cache.can_reserve(item.file_size)
+        waits = 0
+        while not allowed and waits <= self.max_retries:
+            wait_started = time.monotonic()
+            self.cache.wait_for_capacity(item.file_size, timeout=self.wait_timeout)
+            self.stats["backpressure_waits"] += 1
+            self.stats["backpressure_wait_seconds"] += (
+                time.monotonic() - wait_started
+            )
+            waits += 1
+            allowed, reason = self.cache.can_reserve(item.file_size)
+        if not allowed:
+            # 等过整个窗口仍放不下：单文件本身就超配额，如实报告。
+            self._record_failure(item.file_id, "BUDGET_REJECTED", reason)
+            return None
+        client = downloader = None
+        if source is not None:
+            client, downloader = self._clients()
         ok, kind, reason = materialize_entry(
-            config, cache, item, source=args.source,
-            auth_headers=_auth_headers(args), local_path=local,
-            downloader=downloader, client=client, policy=policy,
+            self.config, self.cache, item, source=source,
+            auth_headers=_auth_headers(self.args),
+            local_path=self.local_paths.get(item.file_id),
+            downloader=downloader, client=client, policy=self._policy,
         )
         if not ok:
-            note_failure(item.file_id, kind, reason)
-            continue
+            self._record_failure(item.file_id, kind, reason)
+            return None
         if kind == "reused_local":
-            summary["reused_local"] += 1
+            self.stats["reused_local"] += 1
         elif kind == "downloaded":
-            entry = cache.entry(config.device_code, item.file_id)
-            size = int(getattr(entry, "bytes", 0) or item.file_size or 0)
-            summary["repulled"] += 1
-            summary["bytes"] += size
-            summary["seconds"] += time.monotonic() - started
-        cache.log_stage_event(
-            "hd_materialize", file_id=item.file_id, kind=kind,
+            self.stats["downloaded"] += 1
+            entry = self.cache.entry(self.config.device_code, item.file_id)
+            self.stats["bytes"] += int(
+                getattr(entry, "bytes", 0) or item.file_size or 0
+            )
+        self.cache.log_stage_event(
+            "materialize", file_id=item.file_id, kind=kind,
         )
-    summary["refreshes"] = policy.refresh_count
-    summary["seconds"] = round(summary["seconds"], 3)
-    summary["stage"] = cache.stage_report()
-    return summary
-
-
-def _release_materialized(
-    cache: ManagedRecordingCache, config: FactoryConfig,
-    files: Sequence[RecordingFile], report: dict[str, Any], *,
-    stage: str, require_committed: Sequence[str] = (),
-) -> dict[str, Any]:
-    """消费→提交→释放：阶段结束后立刻归还临时 PS（C2）。
-
-    ``require_committed`` 里只保留**已经真正提交**的阶段名；否则 release 会被
-    安全策略拒绝，临时盘占用就一直留着到全流程结束。
-    """
-    released: list[str] = []
-    denied: list[dict[str, str]] = []
-    for item in files:
-        entry = cache.entry(config.device_code, item.file_id)
+        entry = self.cache.entry(self.config.device_code, item.file_id)
         if entry is None or entry.path is None:
-            continue
+            self._record_failure(item.file_id, "MATERIAL_INVALID",
+                                 "entry_missing_after_materialize")
+            return None
+        return entry.path
+
+    def release(self, item: RecordingFile) -> bool:
+        """消费完成后立即归还该文件的临时 PS。"""
+        entry = self.cache.entry(self.config.device_code, item.file_id)
+        if entry is None or entry.path is None:
+            return False
         guard = tuple(
-            name for name in require_committed
-            if cache.stage_committed(config.device_code, item.file_id, name)
+            name for name in ("preview",)
+            if self.cache.stage_committed(
+                self.config.device_code, item.file_id, name,
+            )
         )
         if guard:
-            ok = cache.release_file(
-                config.device_code, item.file_id, require_committed=guard,
+            removed = self.cache.release_file(
+                self.config.device_code, item.file_id, require_committed=guard,
             )
         else:
-            ok = cache.release_file(config.device_code, item.file_id)
-        if ok:
-            released.append(item.file_id)
-        else:
-            denied.append({
-                "file_id": item.file_id,
-                "reason": "release_denied",
-            })
-    summary = {
-        "stage": stage, "released": released, "release_count": len(released),
-        "denied": denied, "denied_count": len(denied),
-        "space": cache.stage_report(),
-    }
-    report.setdefault("stage_releases", {})[stage] = summary
-    return summary
+            removed = self.cache.release_file(self.config.device_code, item.file_id)
+        if removed:
+            self.stats["released"] += 1
+        return removed
 
+    def summary(self) -> dict[str, Any]:
+        payload = dict(self.stats)
+        payload["wait_seconds"] = round(
+            float(payload.pop("backpressure_wait_seconds", 0.0)), 3,
+        )
+        payload["policy_refreshes"] = self._policy.refresh_count
+        payload["peak_raw_bytes"] = self.cache.peak_raw_bytes
+        payload["raw_budget"] = self.cache.raw_cache_budget
+        return payload
+
+    def publish(self, stage: str) -> dict[str, Any]:
+        payload = self.summary()
+        self.report.setdefault("file_materialization", {})[stage] = payload
+        return payload
 
 def _collect_replay_frames(
     cache: ManagedRecordingCache, config: FactoryConfig,
@@ -2622,6 +2791,7 @@ def _collect_replay_frames(
     *, frame_budget: int = 180, args: argparse.Namespace | None = None,
     local_paths: Mapping[str, Path] | None = None,
     report: dict[str, Any] | None = None,
+    materializer: "FileMaterializer | None" = None,
 ) -> list[dict[str, Any]]:
     """按时间顺序收集连续回放帧，并保留**真实源时间**与帧指纹（R2）。
 
@@ -2637,39 +2807,16 @@ def _collect_replay_frames(
     size = (int(geometry["canvas_size"][0]), int(geometry["canvas_size"][1]))
     ordered = sorted(files, key=lambda item: (item.record_start, item.file_id))
     per_file = max(1, frame_budget // max(1, len(ordered)))
-    materialize: dict[str, Any] = {"attempted": 0, "ok": 0, "failed": []}
-    client: Any = None
-    downloader: Any = None
-    policy = UrlRefreshPolicy()
-
-    def ensure(item: RecordingFile) -> Path | None:
-        nonlocal client, downloader
-        entry = cache.entry(config.device_code, item.file_id)
-        if entry is not None and entry.path is not None and entry.path.is_file():
-            return entry.path
-        if args is None:
-            return None
-        local = (local_paths or {}).get(item.file_id)
-        source = getattr(args, "source", None)
-        if source is not None and client is None:
-            client = RecordingListClient(headers=_auth_headers(args))
-            downloader = RecordingDownloader()
-        materialize["attempted"] += 1
-        ok, kind, reason = materialize_entry(
-            config, cache, item, source=source,
-            auth_headers=_auth_headers(args), local_path=local,
-            downloader=downloader, client=client, policy=policy,
+    own_materializer = materializer is None
+    if own_materializer:
+        materializer = FileMaterializer(
+            config,
+            args if args is not None
+            else SimpleNamespace(source=None, auth_token=None, api_key=None),
+            cache, report if report is not None else {},
+            local_paths=local_paths or {},
         )
-        if not ok:
-            materialize["failed"].append({
-                "file_id": item.file_id, "kind": kind, "reason": reason[:160],
-            })
-            return None
-        materialize["ok"] += 1
-        entry = cache.entry(config.device_code, item.file_id)
-        if entry is None or entry.path is None:
-            return None
-        return entry.path
+    consumed: list[dict[str, Any]] = []
 
     # 每个文件的抽帧要覆盖整段录像，而不是只解开头几帧：否则回放时间轴会
     # 退化成「同一秒内 105 个 tick」，覆盖率与暂停统计都失去意义。
@@ -2677,8 +2824,12 @@ def _collect_replay_frames(
     for item in ordered:
         if sum(len(rows) for rows in per_file_rows) >= frame_budget:
             break
-        path = ensure(item)
+        # C2：准备一个、消费一个、释放一个；不同时驻留多个原始 PS。
+        path = materializer.need(item)
         if path is None:
+            consumed.append({
+                "file_id": item.file_id, "state": "materialize_failed",
+            })
             continue
         try:
             base = parse_seconds(item.record_start)
@@ -2731,19 +2882,30 @@ def _collect_replay_frames(
         _gc.collect()
         captured_rows.sort(key=lambda row: row["replay_time"])
         per_file_rows.append(captured_rows)
+        # 本文件的回放帧已经在内存里，立刻归还它的临时 PS。
+        materializer.release(item)
+        consumed.append({
+            "file_id": item.file_id, "state": "consumed",
+            "frames": len(captured_rows),
+        })
     rows = [row for group in per_file_rows for row in group]
     if report is not None:
+        payload = materializer.summary()
         report["replay_materialize"] = {
-            **materialize,
-            "policy_refreshes": policy.refresh_count,
-            "note": "回放按需重取缺失素材；失败分类见 failed",
+            **payload,
+            "planned_files": len(ordered),
+            "consumed_files": sum(
+                1 for row in consumed if row["state"] == "consumed"
+            ),
+            "per_file": consumed,
+            "note": ("回放逐文件准备→消费→释放；"
+                     "失败分类见 failed，释放计数见 released"),
         }
-    # C2：只为回放重取的素材在收集完成后立即归还。
-    if materialize["ok"]:
-        _release_materialized(
-            cache, config, ordered, report if report is not None else {},
-            stage="after_replay_collect",
-        )
+        materializer.publish("replay_collect")
+    if own_materializer:
+        # 兜底：即使中途异常，也不留下无租约的临时 PS。
+        for item in ordered:
+            materializer.release(item)
     # 计划节拍 = 实际相邻回放点的间隔中位数（真实时间轴，不是文件内偏移）。
     if len(rows) > 1:
         deltas = sorted(

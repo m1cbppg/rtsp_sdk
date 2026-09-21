@@ -140,6 +140,51 @@ def build_prior_context(
     )
 
 
+def build_prior_context_at(
+    bank: Any, profile_id: str, size: tuple[int, int], *,
+    geometry_diagnostics: Mapping[str, Any] | None = None,
+) -> BankPriorContext:
+    """把冻结参考缩放到指定画布，得到该尺寸下的 prior 上下文。
+
+    用途：诊断"目标在哪一步丢失"。同一帧、同一参考、同一冻结资产，只改分析
+    画布（例如原生 2560×1440 vs 在线 960×540），就能把缩放损失单独隔离出来。
+
+    参考与有效掩膜用面积/最近邻缩放；``noise.npz`` 的每个数组都按元素缩放，
+    因此上下文内部的阈值图、残差中心与参考始终同尺寸、自洽。
+    """
+    width, height = int(size[0]), int(size[1])
+    reference = cv2.resize(
+        bank.load_reference(profile_id), (width, height),
+        interpolation=cv2.INTER_AREA,
+    )
+    valid = cv2.resize(
+        bank.load_valid(profile_id), (width, height),
+        interpolation=cv2.INTER_NEAREST,
+    )
+    noise: dict[str, np.ndarray] = {}
+    for key, value in dict(bank.load_noise(profile_id)).items():
+        array = np.asarray(value)
+        if array.ndim == 2 and array.shape[:2] != (height, width):
+            interpolation = (
+                cv2.INTER_NEAREST
+                if array.dtype == np.uint8 or key in (
+                    "bias_flag", "low_support",
+                )
+                else cv2.INTER_AREA
+            )
+            array = cv2.resize(array, (width, height), interpolation=interpolation)
+        noise[key] = array
+    record = bank.profile(profile_id)
+    return BankPriorContext(
+        profile_id=profile_id,
+        reference=reference,
+        valid=valid,
+        noise=noise,
+        metadata=dict(record.metadata),
+        geometry_diagnostics=dict(geometry_diagnostics or {}),
+    )
+
+
 def roi_mask_from_geometry(
     geometry: Mapping[str, Any], width: int, height: int,
 ) -> np.ndarray:
@@ -553,6 +598,7 @@ def static_potential_coverage(
 
 __all__ = [
     "AVAILABILITY_REASONS", "BankPriorContext", "BankSelectionEvaluation",
-    "MaskSet", "StaticCoverage", "build_prior_context", "compute_mask_set",
+    "MaskSet", "StaticCoverage", "build_prior_context",
+    "build_prior_context_at", "compute_mask_set",
     "evaluate_bank_frame", "roi_mask_from_geometry", "static_potential_coverage",
 ]
