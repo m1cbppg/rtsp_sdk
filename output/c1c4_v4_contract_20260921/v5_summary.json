@@ -1,0 +1,194 @@
+{
+ "bank": {
+  "manifest_sha256": "0de0093edba79a3c799d74c381ee935e60fcddbd55812303c83c4f35a81ca6bf",
+  "path": "/home/sf01/profile-factory/out/bank/camera_01030/v5",
+  "profiles": [
+   "p0001",
+   "p0002",
+   "p0003",
+   "p0004",
+   "p0005",
+   "p0006",
+   "p0007",
+   "p0008",
+   "p0009",
+   "p0010"
+  ]
+ },
+ "candidates": 10,
+ "selected": 10,
+ "deletion_order": [],
+ "prior_bank": {
+  "available": false,
+  "prior_suitable_profiles_candidates": [],
+  "prior_suitable_profiles_kept": [],
+  "reason": "NO_PRIOR_SUITABLE_CANDIDATE"
+ },
+ "semantic_only": true,
+ "match_coverage": {
+  "effective_fraction": 0.7619,
+  "pause_max": 260.52
+ },
+ "prior_effective_coverage": 0.0,
+ "prior_pause_max": 3690.651,
+ "semantic_only_intervals": [
+  {
+   "reason": "NO_MATCHED_PROFILE",
+   "seconds": 86.839,
+   "start": 21.71,
+   "ticks": 2
+  },
+  {
+   "reason": "PROFILE_PRIOR_UNSUITABLE",
+   "seconds": 3603.812,
+   "start": 108.549,
+   "ticks": 96
+  }
+ ],
+ "prior_suitable_profiles_kept": [],
+ "final_set": {
+  "effective_fraction": 0.7619,
+  "effective_seconds": 2778.843,
+  "non_observable_seconds": 0,
+  "observed_seconds": 3647.231,
+  "off_air_seconds": 0.0,
+  "pause_max": 260.52,
+  "pause_p95": 199.732,
+  "switch_count": 11
+ },
+ "materialization": {
+  "composite_need": 0,
+  "composite_downloaded": 0,
+  "replay": {
+   "backpressure_waits": 0,
+   "bytes": 1049182968,
+   "consumed_files": 14,
+   "downloaded": 14,
+   "failed": [
+    {
+     "file_id": "318010_18081003969_44180209031322001030-1789315092000",
+     "kind": "URL_REFRESH_FAILED",
+     "reason": "RecordingSourceError: file-urls 业务码非 200: 1500"
+    },
+    {
+     "file_id": "318010_18081003969_44180209031322001030-1789315396000",
+     "kind": "URL_REFRESH_FAILED",
+     "reason": "RecordingSourceError: file-urls 业务码非 200: 1500"
+    },
+    {
+     "file_id": "318010_18081003969_44180209031322001030-1789344020000",
+     "kind": "URL_REFRESH_FAILED",
+     "reason": "RecordingSourceError: file-urls 业务码非 200: 1500"
+    }
+   ],
+   "failure_kinds": {
+    "URL_REFRESH_FAILED": 3
+   },
+   "need": 17,
+   "note": "回放逐文件准备→消费→释放；失败分类见 failed，释放计数见 released",
+   "peak_raw_bytes": 77195845,
+   "planned_files": 17,
+   "policy_refreshes": 14,
+   "raw_budget": 8589934592,
+   "released": 14,
+   "reused_cache": 0,
+   "reused_local": 0,
+   "wait_seconds": 0.0
+  },
+  "calibration": 4,
+  "peak_raw_bytes": 77195845,
+  "raw_budget": 8589934592
+ },
+ "profiles": [
+  {
+   "profile_id": "p0001",
+   "group_id": "g001",
+   "samples": 4,
+   "source": "reference_self",
+   "prior_suitable": false,
+   "calibration_state": "reference_self_low_support",
+   "degradation_reason": "no_appearance_match"
+  },
+  {
+   "profile_id": "p0002",
+   "group_id": "g002",
+   "samples": 3,
+   "source": "reference_self",
+   "prior_suitable": false,
+   "calibration_state": "reference_self_low_support",
+   "degradation_reason": "no_appearance_match"
+  },
+  {
+   "profile_id": "p0003",
+   "group_id": "g004",
+   "samples": 4,
+   "source": "reference_self",
+   "prior_suitable": false,
+   "calibration_state": "reference_self_low_support",
+   "degradation_reason": "no_appearance_match"
+  },
+  {
+   "profile_id": "p0004",
+   "group_id": "g005",
+   "samples": 16,
+   "source": "reference_self",
+   "prior_suitable": false,
+   "calibration_state": "reference_self_low_support",
+   "degradation_reason": "single_matched_observation"
+  },
+  {
+   "profile_id": "p0005",
+   "group_id": "g007",
+   "samples": 3,
+   "source": "reference_self",
+   "prior_suitable": false,
+   "calibration_state": "reference_self_low_support",
+   "degradation_reason": "no_appearance_match"
+  },
+  {
+   "profile_id": "p0006",
+   "group_id": "g008",
+   "samples": 2,
+   "source": "reference_self",
+   "prior_suitable": false,
+   "calibration_state": "reference_self_low_support",
+   "degradation_reason": "single_matched_observation"
+  },
+  {
+   "profile_id": "p0007",
+   "group_id": "g011",
+   "samples": 6,
+   "source": "reference_self",
+   "prior_suitable": false,
+   "calibration_state": "reference_self_low_support",
+   "degradation_reason": "no_appearance_match"
+  },
+  {
+   "profile_id": "p0008",
+   "group_id": "g014",
+   "samples": 4,
+   "source": "reference_self",
+   "prior_suitable": false,
+   "calibration_state": "reference_self_low_support",
+   "degradation_reason": "single_matched_observation"
+  },
+  {
+   "profile_id": "p0009",
+   "group_id": "g015",
+   "samples": 4,
+   "source": "reference_self",
+   "prior_suitable": false,
+   "calibration_state": "reference_self_low_support",
+   "degradation_reason": "no_appearance_match"
+  },
+  {
+   "profile_id": "p0010",
+   "group_id": "g016",
+   "samples": 4,
+   "source": "reference_self",
+   "prior_suitable": false,
+   "calibration_state": "reference_self_low_support",
+   "degradation_reason": "single_matched_observation"
+  }
+ ]
+}
