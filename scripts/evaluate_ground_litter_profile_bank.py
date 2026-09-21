@@ -690,7 +690,16 @@ def _run_tick(
         "candidate_profile_id": decision.candidate_profile_id,
         "status": decision.status,
         "phase": decision.phase,
+        # prior_allowed 保留为"环境匹配可用"，prior_available 才是
+        # "允许产生 prior 候选"（含 prior_suitable 门禁）。
         "prior_allowed": decision.prior_allowed,
+        "prior_available": bool(getattr(decision, "prior_available", False)),
+        "prior_unavailable_reason": getattr(
+            decision, "prior_unavailable_reason", None,
+        ),
+        "profile_match_available": bool(
+            getattr(decision, "profile_match_available", False)
+        ),
         "reason": decision.reason,
         "tested": list(to_check),
         "tested_budget": len(to_check),
@@ -962,13 +971,17 @@ def _match_target(
 
     active = str(active_profile_id or tick.get("profile_id") or "")
     prior_allowed = bool(tick.get("prior_allowed"))
+    # 可用输出必须同时满足：环境匹配可用 + 该参考 prior_suitable。
+    prior_outputtable = bool(
+        tick.get("prior_available", tick.get("prior_allowed", False))
+    )
     # 可用输出只能来自"当时真正生效的参考"：Selector 的输出契约是先验允许时
     # 才用当前生效参考。未生效的候选（正在挑战/恢复中）只能算潜力命中。
     outputtable = (
         {str(pid) for pid in outputtable_ids}
         if outputtable_ids else ({active} if active else set())
     )
-    if not prior_allowed:
+    if not prior_outputtable:
         outputtable = set()
     effective_rows = [
         row for row in rows if str(row.get("profile_id")) in outputtable
@@ -986,8 +999,10 @@ def _match_target(
         "native_side": truth.get("native_side"),
         "injection_scale": truth.get("injection_scale", "canvas"),
         "native_box": truth.get("native_box"),
-        "available": prior_allowed,
+        "available": prior_outputtable,
         "prior_allowed": prior_allowed,
+        "prior_available": prior_outputtable,
+        "prior_unavailable_reason": tick.get("prior_unavailable_reason"),
         "availability_max": tick.get("availability_max"),
         "active_profile_id": active or None,
         "any_candidate": bool(tick.get("candidate_boxes")),

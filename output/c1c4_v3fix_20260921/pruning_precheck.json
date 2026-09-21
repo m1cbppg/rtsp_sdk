@@ -1,0 +1,192 @@
+{
+ "frames": 60,
+ "candidates": [
+  "p0001",
+  "p0002",
+  "p0003",
+  "p0004",
+  "p0005",
+  "p0006",
+  "p0007",
+  "p0008",
+  "p0009",
+  "p0010",
+  "p0011",
+  "p0012",
+  "p0013"
+ ],
+ "prior_suitable_candidates": [
+  "p0011",
+  "p0013"
+ ],
+ "kept": [
+  "p0012",
+  "p0013"
+ ],
+ "prior_suitable_profiles_kept": [
+  "p0013"
+ ],
+ "prior_bank_available": true,
+ "match_coverage": {
+  "effective_fraction": null,
+  "pause_max": null
+ },
+ "prior_effective_coverage": 0.6,
+ "prior_pause_max": 607.857,
+ "semantic_only_intervals": [
+  {
+   "start": 15.797,
+   "reason": "NO_MATCHED_PROFILE",
+   "seconds": 60.786,
+   "ticks": 2
+  },
+  {
+   "start": 15.197,
+   "reason": "NOT_OBSERVABLE",
+   "seconds": 60.786,
+   "ticks": 2
+  },
+  {
+   "start": 75.983,
+   "reason": "PROFILE_PRIOR_UNSUITABLE",
+   "seconds": 547.071,
+   "ticks": 20
+  }
+ ],
+ "deletion_rounds": [
+  {
+   "round": 1,
+   "removed": "p0001",
+   "metrics_before": {
+    "match_coverage": 0.85185,
+    "prior_effective_coverage": 0.0
+   },
+   "metrics_after": {
+    "match_coverage": 0.85185,
+    "prior_effective_coverage": 0.0
+   }
+  },
+  {
+   "round": 2,
+   "removed": "p0002",
+   "metrics_before": {
+    "match_coverage": 0.85185,
+    "prior_effective_coverage": 0.0
+   },
+   "metrics_after": {
+    "match_coverage": 0.85185,
+    "prior_effective_coverage": 0.0
+   }
+  },
+  {
+   "round": 3,
+   "removed": "p0003",
+   "metrics_before": {
+    "match_coverage": 0.85185,
+    "prior_effective_coverage": 0.0
+   },
+   "metrics_after": {
+    "match_coverage": 0.85185,
+    "prior_effective_coverage": 0.0
+   }
+  },
+  {
+   "round": 4,
+   "removed": "p0004",
+   "metrics_before": {
+    "match_coverage": 0.85185,
+    "prior_effective_coverage": 0.0
+   },
+   "metrics_after": {
+    "match_coverage": 0.87037,
+    "prior_effective_coverage": 0.0
+   }
+  },
+  {
+   "round": 5,
+   "removed": "p0011",
+   "metrics_before": {
+    "match_coverage": 0.87037,
+    "prior_effective_coverage": 0.0
+   },
+   "metrics_after": {
+    "match_coverage": 0.88889,
+    "prior_effective_coverage": 0.0
+   }
+  },
+  {
+   "round": 6,
+   "removed": "p0005",
+   "metrics_before": {
+    "match_coverage": 0.88889,
+    "prior_effective_coverage": 0.0
+   },
+   "metrics_after": {
+    "match_coverage": 0.88889,
+    "prior_effective_coverage": 0.0
+   }
+  },
+  {
+   "round": 7,
+   "removed": "p0006",
+   "metrics_before": {
+    "match_coverage": 0.88889,
+    "prior_effective_coverage": 0.0
+   },
+   "metrics_after": {
+    "match_coverage": 0.88889,
+    "prior_effective_coverage": 0.0
+   }
+  },
+  {
+   "round": 8,
+   "removed": "p0010",
+   "metrics_before": {
+    "match_coverage": 0.88889,
+    "prior_effective_coverage": 0.0
+   },
+   "metrics_after": {
+    "match_coverage": 0.88889,
+    "prior_effective_coverage": 0.6
+   }
+  },
+  {
+   "round": 9,
+   "removed": "p0007",
+   "metrics_before": {
+    "match_coverage": 0.88889,
+    "prior_effective_coverage": 0.6
+   },
+   "metrics_after": {
+    "match_coverage": 0.88889,
+    "prior_effective_coverage": 0.6
+   }
+  },
+  {
+   "round": 10,
+   "removed": "p0008",
+   "metrics_before": {
+    "match_coverage": 0.88889,
+    "prior_effective_coverage": 0.6
+   },
+   "metrics_after": {
+    "match_coverage": 0.88889,
+    "prior_effective_coverage": 0.6
+   }
+  },
+  {
+   "round": 11,
+   "removed": "p0009",
+   "metrics_before": {
+    "match_coverage": 0.88889,
+    "prior_effective_coverage": 0.6
+   },
+   "metrics_after": {
+    "match_coverage": 0.88889,
+    "prior_effective_coverage": 0.6
+   }
+  }
+ ],
+ "warnings": [],
+ "note": "离线预演：只重跑选择/剪枝，不重做下载、合成与噪声；参考资产取自同一分区、同一分组的完整候选集合。"
+}
