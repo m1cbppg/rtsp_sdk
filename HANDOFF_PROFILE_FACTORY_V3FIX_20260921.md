@@ -10,7 +10,7 @@
 | `scripts/build_ground_litter_profile_bank.py` | `c5bcc9f1576de3d1` |
 | `rtsp_annotator/ground_litter_profile_background.py` | `48752b2ce7e59089` |
 | `rtsp_annotator/ground_litter_profile_analysis.py` | `5a07d5bc68208d2f` |
-| `scripts/diagnose_ground_litter_small_target.py` | `7c186bfe28e36d2e` |
+| `scripts/diagnose_ground_litter_small_target.py` | `55cc3ff66ee5963a` |
 | `tests/test_ground_litter_profile_c1c4.py` | `09b69616e21583c0` |
 
 服务器 `~/profile-factory` 与本地逐字节一致（逐文件 SHA-256 比对）。
