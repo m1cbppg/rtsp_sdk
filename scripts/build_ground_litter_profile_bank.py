@@ -797,6 +797,23 @@ def classify_calibration_state(
     }
 
 
+def calibration_state_of(item: Mapping[str, Any]) -> str:
+    """把 Profile 的校准状态归成契约里的三种明确状态。
+
+    * ``independent_matched``：外观匹配到本组且有 >=2 个独立校准块；只有它能
+      产生 prior-only 候选（``prior_suitable=true``）。
+    * ``reference_self_low_support``：有校准素材，但外观不匹配或只有一块匹配，
+      噪声退回参考自身观测 + 基础阈值。
+    * ``no_independent_material``：校准日完全没有可用观测。
+    """
+    payload = dict(item.get("noise_calibration") or {})
+    if payload.get("calibration_sufficient"):
+        return "independent_matched"
+    if payload.get("source_independent"):
+        return "reference_self_low_support"
+    return "no_independent_material"
+
+
 def stage_composite_and_noise(
     config: FactoryConfig, cache: ManagedRecordingCache,
     files: Sequence[RecordingFile], geometry: dict[str, Any],
@@ -1367,10 +1384,70 @@ def build_replay_score_matrix(
     )
 
 
+def export_replay_score_matrix(matrix: "ReplayScoreMatrix") -> dict[str, Any]:
+    """把评分矩阵导出成可 JSON 化的 dict（v4 复核：离线重新剪枝用）。
+
+    导出内容足以在**不重跑真实素材**的前提下重放选择时间线与剪枝判据：
+    逐帧的 replay/source 时间、帧指纹，以及每个候选的 score / enter / hold。
+    """
+    return {
+        "kind": "profile_factory_replay_score_matrix",
+        "profile_ids": list(matrix.profile_ids),
+        "frame_count": matrix.frame_count,
+        "replay_w": int(matrix.replay_w),
+        "replay_h": int(matrix.replay_h),
+        "frames": [
+            {
+                "replay_time": row.get("replay_time"),
+                "source_time": row.get("source_time"),
+                "tick_interval_seconds": row.get("tick_interval_seconds"),
+                "frame_sha256": row.get("frame_sha256"),
+            }
+            for row in matrix.frames
+        ],
+        "scores": [dict(per_frame) for per_frame in matrix.scores],
+        "frame_digests": list(matrix.frame_digests),
+    }
+
+
+def import_replay_score_matrix(payload: Mapping[str, Any]) -> "ReplayScoreMatrix":
+    """从 :func:`export_replay_score_matrix` 的产物恢复评分矩阵。"""
+    if payload.get("kind") != "profile_factory_replay_score_matrix":
+        raise SystemExit("导入的评分矩阵 kind 不匹配")
+    scores: list[dict[str, dict[str, Any]]] = []
+    for per_frame in payload["scores"]:
+        scores.append({
+            str(pid): {
+                "score": float(entry["score"]),
+                "enter_eligible": bool(entry["enter_eligible"]),
+                "hold_eligible": bool(entry["hold_eligible"]),
+            }
+            for pid, entry in dict(per_frame).items()
+        })
+    frames = tuple(
+        {
+            "replay_time": row.get("replay_time"),
+            "source_time": row.get("source_time"),
+            "tick_interval_seconds": row.get("tick_interval_seconds"),
+            "frame_sha256": row.get("frame_sha256"),
+        }
+        for row in payload["frames"]
+    )
+    return ReplayScoreMatrix(
+        profile_ids=tuple(str(pid) for pid in payload["profile_ids"]),
+        frames=frames, scores=scores,
+        frame_digests=tuple(payload.get("frame_digests") or []),
+        frame_count=int(payload["frame_count"]),
+        replay_w=int(payload.get("replay_w") or 0),
+        replay_h=int(payload.get("replay_h") or 0),
+    )
+
+
 def project_selection_timeline(
     matrix: ReplayScoreMatrix, subset: Sequence[str], *, selector_config: Mapping[str, Any],
     bank_id: str, bank_version: str, view_id: str, nominal_tick: float,
     stride: int = 1, join_gap_seconds: float | None = None,
+    prior_suitable_profile_ids: Sequence[str] | None = None,
 ) -> dict[str, Any]:
     """在评分矩阵上推进 Selector 状态机（不重新评分）。
 
@@ -1422,6 +1499,7 @@ def project_selection_timeline(
     selector = ProfileSelector(
         bank_id=bank_id, bank_version=bank_version, view_id=view_id,
         profile_ids=subset_ids, config=run_config,
+        prior_suitable_profile_ids=prior_suitable_profile_ids,
     )
     for index, per_tick in zip(indexes, per_tick_intervals):
         row = matrix.frames[index]
@@ -1452,6 +1530,7 @@ def project_selection_timeline(
     summary = selector.summarise(join_gap_seconds=join_gap)
     summary["stride"] = step
     summary["scored_frames"] = len(indexes)
+    summary["prior"] = selector.prior_summary()
     return summary
 
 
@@ -1687,21 +1766,60 @@ def _one_shot_prune_from_metrics(
     return keep
 
 
+def _prior_metrics(summary: Mapping[str, Any]) -> dict[str, Any]:
+    """从一条 Selector 时间线里抽出 prior 目标所需指标。"""
+    prior = dict(summary.get("prior") or {})
+    return {
+        "prior_effective_coverage": float(
+            prior.get("prior_effective_coverage", 0.0)
+        ),
+        "prior_effective_seconds": float(
+            prior.get("prior_effective_seconds", 0.0)
+        ),
+        "prior_pause_max": float(prior.get("prior_pause_max", 0.0)),
+        "semantic_only_seconds": float(prior.get("semantic_only_seconds", 0.0)),
+        "semantic_only_intervals": list(
+            prior.get("semantic_only_intervals") or []
+        ),
+        "prior_available_seconds": float(
+            prior.get("prior_effective_seconds", 0.0)
+        ),
+    }
+
+
+def prior_suitable_ids_of(candidates: Sequence[Mapping[str, Any]]) -> list[str]:
+    """候选集合里允许产生 prior-only 候选的 Profile（v4 复核契约）。"""
+    return sorted(
+        str(item["profile_id"]) for item in candidates
+        if bool((item.get("noise_calibration") or {}).get("prior_suitable"))
+    )
+
+
 def prune_profiles_conservatively(
     config: "FactoryConfig", candidates: Sequence[dict[str, Any]],
     replay: Mapping[str, Any], report: dict[str, Any], *,
     min_coverage_delta: float = 0.005, max_pause_delta: float = 5.0,
+    min_prior_coverage_delta: float = 0.0, max_prior_pause_delta: float = 0.0,
+    require_prior: bool = True,
 ) -> list[dict[str, Any]]:
-    """保守**逐次**删除：每轮只删一个，删后重新复核剩余集合（C1）。
+    """保守**逐次**删除：每轮只删一个，删后重新复核剩余集合（C1 + v4 契约）。
 
     v2 的缺陷是"一次性删除"：所有 LOO 代价都相对全库计算，删掉一个候选后
     另一个原本冗余的候选可能不再冗余（两个完全相同的参考就是最典型的反例）。
     这里每轮只删除当前 LOO 中代价最小的一个冗余候选，然后**在剩余集合上重新
     计算 LOO**，保证删除集合内部不互相掩盖。
 
-    删除规则（必须同时满足）：
-    * 去掉它不会让有效覆盖下降超过 ``min_coverage_delta``；
-    * 去掉它不会让最长暂停增加超过 ``max_pause_delta``。
+    v4 复核新增：剪枝目标必须同时覆盖两种业务能力。删除规则（必须全部满足）：
+
+    * 环境匹配有效覆盖下降 ≤ ``min_coverage_delta``；
+    * 环境匹配最长暂停增加 ≤ ``max_pause_delta``；
+    * **prior 有效覆盖下降 ≤ ``min_prior_coverage_delta``**（默认 0，即不允许下降）；
+    * **prior 最长暂停增加 ≤ ``max_prior_pause_delta``**（默认 0）；
+    * 删除后 prior-capable 集合不能为空；只剩一个时禁止删除它。
+
+    如果候选阶段一个 prior-capable 都没有，``require_prior=True`` 时不发布
+    "prior 可用"的结论：``report['prior_bank']`` 明确标为不可用，
+    ``report['semantic_only']=True``，Bank 仍可用于环境匹配。
     """
     matrix = replay.get("score_matrix")
     if matrix is None:
@@ -1719,16 +1837,26 @@ def prune_profiles_conservatively(
     bank_version = str(getattr(config, "version", "v1"))
     view_id = str(replay.get("view_id", "view_0"))
 
+    # 候选阶段的能力集合：只有它进入 Selector 的 prior 门禁，
+    # 因此时间线给出的 prior 覆盖就是"真实可输出"的 prior 能力。
+    capability_ids = prior_suitable_ids_of(candidates)
+    capability_all = sorted(
+        str(item["profile_id"]) for item in candidates
+    )
+
     def timeline(subset: Sequence[str]) -> dict[str, Any]:
+        # 能力集合按子集过滤：Selector 只接受属于本子集的 Profile。
+        subset_set = set(str(pid) for pid in subset)
         return project_selection_timeline(
             matrix, subset, selector_config=selector_config, bank_id=bank_id,
             bank_version=bank_version, view_id=view_id, nominal_tick=nominal,
             stride=1, join_gap_seconds=join_gap,
+            prior_suitable_profile_ids=[
+                pid for pid in capability_ids if pid in subset_set
+            ],
         )
 
-    baseline = dict(replay.get("baseline") or {})
-    if not baseline:
-        baseline = timeline(list(matrix.profile_ids))
+    baseline = timeline(list(matrix.profile_ids))
     base_coverage = float(baseline.get("effective_fraction", 0.0))
     base_pause = float(baseline.get("pause_max", 0.0))
     remaining: list[dict[str, Any]] = list(candidates)
@@ -1740,6 +1868,7 @@ def prune_profiles_conservatively(
         current_ids = [item["profile_id"] for item in remaining]
         evaluations: list[dict[str, Any]] = []
         current_summary = baseline if len(remaining) == len(candidates) else timeline(current_ids)
+        current_prior = _prior_metrics(current_summary)
         for item in remaining:
             subset = [pid for pid in current_ids if pid != item["profile_id"]]
             # 完整跑满整条时间轴：不做任何"看起来很差就早退"的优化。
@@ -1750,6 +1879,21 @@ def prune_profiles_conservatively(
             pause_delta = float(summary["pause_max"]) - float(
                 current_summary.get("pause_max", 0.0)
             )
+            prior = _prior_metrics(summary)
+            prior_cov_delta = (
+                current_prior["prior_effective_coverage"]
+                - prior["prior_effective_coverage"]
+            )
+            prior_pause_delta = (
+                prior["prior_pause_max"] - current_prior["prior_pause_max"]
+            )
+            prior_kept = [
+                pid for pid in subset
+                if pid in set(prior_suitable_ids_of(
+                    [entry for entry in remaining
+                     if entry["profile_id"] in set(subset)]
+                ))
+            ]
             evaluations.append({
                 "profile_id": item["profile_id"],
                 "effective_fraction_delta": round(coverage_delta, 5),
@@ -1757,13 +1901,32 @@ def prune_profiles_conservatively(
                 "pause_max_without": summary["pause_max"],
                 "switch_count_without": summary["switch_count"],
                 "frames_evaluated": int(summary.get("scored_frames") or 0),
+                # prior 目标：删除后 prior 覆盖/暂停如何变化，以及还剩几个
+                # prior-capable Profile。
+                "prior_effective_coverage_without":
+                    prior["prior_effective_coverage"],
+                "prior_coverage_delta": round(prior_cov_delta, 5),
+                "prior_pause_max_without": prior["prior_pause_max"],
+                "prior_pause_delta": round(prior_pause_delta, 4),
+                "semantic_only_seconds_without":
+                    prior["semantic_only_seconds"],
+                "prior_suitable_kept": prior_kept,
+                "prior_would_be_empty": not prior_kept,
             })
         evaluations.sort(key=lambda row: (
-            row["effective_fraction_delta"], row["pause_max_delta"], row["profile_id"],
+            row["effective_fraction_delta"], row["pause_max_delta"],
+            row["prior_coverage_delta"], row["prior_pause_delta"],
+            row["profile_id"],
         ))
         best = evaluations[0]
+        prior_blocked = (
+            best["prior_coverage_delta"] > min_prior_coverage_delta
+            or best["prior_pause_delta"] > max_prior_pause_delta
+            or best["prior_would_be_empty"]
+        )
         if (best["effective_fraction_delta"] > min_coverage_delta
-                or best["pause_max_delta"] > max_pause_delta):
+                or best["pause_max_delta"] > max_pause_delta
+                or prior_blocked):
             break
         victim = next(item for item in remaining
                       if item["profile_id"] == best["profile_id"])
@@ -1785,6 +1948,7 @@ def prune_profiles_conservatively(
                 "pause_max": after["pause_max"],
                 "switch_count": after["switch_count"],
             },
+            "prior_after": _prior_metrics(after),
         }
         removed.append(removal)
         deletion_order.append({
@@ -1793,6 +1957,16 @@ def prune_profiles_conservatively(
             "candidates_evaluated": [row["profile_id"] for row in evaluations],
             "chosen_reason": "min_loo_cost_below_threshold",
             "loo_cost": best,
+            "metrics_before": {
+                "match_coverage": current_summary.get("effective_fraction"),
+                "match_pause_max": current_summary.get("pause_max"),
+                **current_prior,
+            },
+            "metrics_after": {
+                "match_coverage": after.get("effective_fraction"),
+                "match_pause_max": after.get("pause_max"),
+                **_prior_metrics(after),
+            },
         })
         baseline = after
     if not remaining:
@@ -1812,6 +1986,24 @@ def prune_profiles_conservatively(
             budget_baseline=baseline, min_coverage_delta=min_coverage_delta,
             max_pause_delta=max_pause_delta,
         )
+    final_prior = _prior_metrics(timeline([item["profile_id"] for item in keep]))
+    kept_prior_ids = prior_suitable_ids_of(keep)
+    prior_bank = {
+        "available": bool(kept_prior_ids),
+        "prior_suitable_profiles_kept": kept_prior_ids,
+        "prior_suitable_profiles_candidates": capability_ids,
+        "reason": (
+            None if kept_prior_ids else "NO_PRIOR_SUITABLE_CANDIDATE"
+        ),
+    }
+    if require_prior and not kept_prior_ids:
+        report["semantic_only"] = True
+        report.setdefault("pruning_warnings", []).append(
+            "PRIOR_BANK_UNAVAILABLE: 最终集合没有任何 prior_suitable=true 的 "
+            "Profile；Bank 仍可用于环境匹配，但不能宣称 prior 可用，"
+            "需要补采该外观簇的独立校准素材。"
+        )
+    report["prior_bank"] = prior_bank
     report["pruning"] = {
         "removed": removed,
         "kept": [item["profile_id"] for item in keep],
@@ -1819,10 +2011,24 @@ def prune_profiles_conservatively(
         "leave_one_out": loo_history,
         "min_coverage_delta": min_coverage_delta,
         "max_pause_delta": max_pause_delta,
+        "min_prior_coverage_delta": min_prior_coverage_delta,
+        "max_prior_pause_delta": max_prior_pause_delta,
         "method": "conservative_one_at_a_time_dynamic_replay",
         "deletion_order": deletion_order,
+        # 两类能力分开报告（v4 复核后的要求）。
+        "match_coverage": {
+            "effective_fraction": (replay.get("baseline") or {}).get(
+                "effective_fraction"
+            ),
+            "pause_max": (replay.get("baseline") or {}).get("pause_max"),
+        },
+        "prior_effective_coverage": final_prior["prior_effective_coverage"],
+        "prior_pause_max": final_prior["prior_pause_max"],
+        "semantic_only_intervals": final_prior["semantic_only_intervals"],
+        "prior_suitable_profiles_kept": kept_prior_ids,
+        "prior_bank_available": prior_bank["available"],
         "note": ("逐次删除：每轮只在当前剩余集合上重算 LOO，删除后重新复核；"
-                 "静态覆盖不是删除依据"),
+                 "静态覆盖不是删除依据；删除必须同时不恶化环境匹配与 prior 覆盖"),
     }
     return keep
 
@@ -2451,6 +2657,22 @@ def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, An
                     "envelope": item.get("envelope"),
                     "observation": item.get("observation"),
                     "valid_fraction_of_roi": item.get("valid_fraction_of_roi"),
+                    # 跨模块契约：环境匹配能力与 prior 能力分开建模。
+                    # `match_eligible` 可参与环境匹配；`prior_suitable` 可否产生
+                    # prior-only 候选；`calibration_state` 是二者的来源状态。
+                    "match_eligible": bool(item.get("match_eligible", True)),
+                    "prior_suitable": bool(
+                        (item.get("noise_calibration") or {}).get(
+                            "prior_suitable", False,
+                        )
+                    ),
+                    "calibration_state": calibration_state_of(item),
+                    "prior_degradation_reason": (
+                        (item.get("noise_calibration") or {}).get(
+                            "degradation_reason"
+                        )
+                    ),
+                    "valid_fraction": item.get("valid_fraction_of_roi"),
                 },
             })
         final = publish_version(

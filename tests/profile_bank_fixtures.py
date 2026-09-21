@@ -114,7 +114,7 @@ def synthetic_valid(width: int, height: int, *, inset: int = 0) -> np.ndarray:
 def build_synthetic_bank(
     root: str | Path, bank_id: str, version: str, *, profiles: int = 2,
     width: int = 160, height: int = 120, supersede_existing: bool = False,
-    bias: bool = False,
+    bias: bool = False, prior_suitable: bool = True,
 ) -> Path:
     entries = []
     envelopes: dict[str, Any] = {}
@@ -139,6 +139,13 @@ def build_synthetic_bank(
             "profile_json": {
                 "sample_count": 12, "valid_ground_fraction": 1.0,
                 "source": {"kind": "synthetic_test"},
+                # 跨模块契约：能力字段（v4 复核后 loader 要求存在）。
+                "match_eligible": True,
+                "prior_suitable": bool(prior_suitable),
+                "calibration_state": (
+                    "independent_matched" if prior_suitable
+                    else "reference_self_low_support"
+                ),
             },
         })
     matcher = default_matcher_config()

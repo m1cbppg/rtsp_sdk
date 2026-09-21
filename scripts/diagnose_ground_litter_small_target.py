@@ -78,6 +78,25 @@ def parse_args() -> argparse.Namespace:
                         help="在线分析画布（与评估器一致）")
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--save-visuals", action="store_true")
+    parser.add_argument(
+        "--profiles", default="",
+        help=("只跑这些 Profile（逗号分隔）。留空=Bank 全部。用于 A/B/C 对照："
+              "A 全 13 个、B 只跑最终发布的两个、C 加上可靠 prior Profile"),
+    )
+    parser.add_argument(
+        "--allow-legacy-capabilities", action="store_true",
+        help=("读取缺少 prior_suitable/calibration_state 的历史 Bank（v4 之前）。"
+              "只用于对照，读到的 Profile 会被保守视为 prior_suitable=false"),
+    )
+    parser.add_argument(
+        "--prior-capable", default="",
+        help=("哪些 Profile 可产生 prior（逗号分隔；留空=不加 prior 门禁）。"
+              "用于在诊断里复现 v4 的能力集合"),
+    )
+    parser.add_argument(
+        "--label", default="",
+        help="本次诊断的标签（写进报告，便于对照）",
+    )
     return parser.parse_args()
 
 
@@ -246,6 +265,9 @@ def diagnose(args: argparse.Namespace) -> dict[str, Any]:
     bank = load_bank(
         args.bank_root, args.bank_id, args.version,
         require_calibration=True,
+        allow_legacy_profile_capabilities=bool(
+            getattr(args, "allow_legacy_capabilities", False)
+        ),
     )
     geometry = _load_geometry(args.bank_root, args.bank_id, args.version,
                               args.geometry)
@@ -276,7 +298,28 @@ def diagnose(args: argparse.Namespace) -> dict[str, Any]:
     else:
         center = (int(np.median(cols)), int(np.median(rows)))
 
-    descriptors = {pid: bank.load_descriptor(pid) for pid in bank.ids()}
+    selected_ids = [
+        value.strip() for value in str(getattr(args, "profiles", "") or "").split(",")
+        if value.strip()
+    ]
+    # 能力集合：来自调用方（v4 报告/离线预演）。留空=诊断不加 prior 门禁，
+    # 与历史 A 组对照保持一致。
+    prior_capable_ids = [
+        value.strip() for value in str(
+            getattr(args, "prior_capable", "") or ""
+        ).split(",") if value.strip()
+    ]
+    prior_capable: list[str] | None = (
+        prior_capable_ids if prior_capable_ids else None
+    )
+    if selected_ids:
+        unknown = [pid for pid in selected_ids if pid not in bank.ids()]
+        if unknown:
+            raise SystemExit(f"--profiles 含未知 Profile: {unknown}")
+        active_ids = selected_ids
+    else:
+        active_ids = list(bank.ids())
+    descriptors = {pid: bank.load_descriptor(pid) for pid in active_ids}
     scales = global_descriptor_scale(list(descriptors.values()))
     online_scale = online_w / max(native_w, 1)
 
@@ -289,7 +332,7 @@ def diagnose(args: argparse.Namespace) -> dict[str, Any]:
         ):
             contexts = {
                 pid: build_prior_context_at(bank, pid, size)
-                for pid in bank.ids()
+                for pid in active_ids
             }
             roi = roi_mask_from_geometry(geometry, size[0], size[1])
             scale = size[0] / max(native_w, 1)
@@ -331,6 +374,7 @@ def diagnose(args: argparse.Namespace) -> dict[str, Any]:
             runtime = _runtime_decision(
                 contexts, work, injected, roi, matcher, size, geometry,
                 bank_id=args.bank_id, version=args.version,
+                prior_suitable_profile_ids=prior_capable,
             )
             selected_matches = [
                 pid for pid, payload in (injected_tick.get("profiles") or {}).items()
@@ -385,9 +429,11 @@ def diagnose(args: argparse.Namespace) -> dict[str, Any]:
                     "best_reference_id": best["profile_id"] if best else None,
                 }
     report = {
+        "label": str(getattr(args, "label", "") or ""),
         "bank": {
             "bank_root": str(args.bank_root), "bank_id": args.bank_id,
-            "version": args.version, "profiles": list(bank.ids()),
+            "version": args.version, "profiles": list(active_ids),
+            "bank_profiles": list(bank.ids()),
             "reference_size": [int(native_w), int(native_h)],
         },
         "source": {
@@ -396,6 +442,7 @@ def diagnose(args: argparse.Namespace) -> dict[str, Any]:
             "native_center": [int(center[0]), int(center[1])],
         },
         "comparisons": comparisons,
+        "prior_capable_profiles": prior_capable,
         "loss_stage_vocabulary": list(STAGES),
         "note": ("诊断不修改任何阈值，也不把'最佳参考'当成实际 Selector；"
                  "所有候选都来自真实共享 adapter。"),
@@ -414,6 +461,7 @@ def _runtime_decision(
     injected: np.ndarray, roi: np.ndarray, matcher: Mapping[str, Any],
     size: tuple[int, int], geometry: Mapping[str, Any], *,
     bank_id: str, version: str, warmup: int = 6,
+    prior_suitable_profile_ids: Sequence[str] | None = None,
 ) -> dict[str, Any]:
     """用真实共享 Selector 跑一次（含预热），返回注入帧的决策。
 
@@ -430,6 +478,7 @@ def _runtime_decision(
         bank_id=bank_id, bank_version=version,
         view_id=str(geometry.get("view_id", "view_0")),
         profile_ids=list(contexts), config=replay_config,
+        prior_suitable_profile_ids=prior_suitable_profile_ids,
     )
 
     def step(frame: np.ndarray, timestamp: float) -> dict[str, Any]:
@@ -490,6 +539,7 @@ def _runtime_decision(
         bank_id=bank_id, bank_version=version,
         view_id=str(geometry.get("view_id", "view_0")),
         profile_ids=list(contexts), config=replay_config,
+        prior_suitable_profile_ids=prior_suitable_profile_ids,
     )
     original = selector
     try:

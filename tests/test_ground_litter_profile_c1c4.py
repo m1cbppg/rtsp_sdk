@@ -29,9 +29,25 @@ from tests.test_ground_litter_profile_repairs import (
 )
 
 
-def _candidates(count: int = 3, size: int = 160) -> list[dict]:
+def _candidates(count: int = 3, size: int = 160, *,
+                prior_suitable: bool = True) -> list[dict]:
+    """测试候选默认带 prior 能力（v4 契约后剪枝会检查它）。"""
     helper = SharedFrameReplayTests()
-    return [helper._candidate(f"p{index + 1}") for index in range(count)]
+    rows = [helper._candidate(f"p{index + 1}") for index in range(count)]
+    for row in rows:
+        row["noise_calibration"] = {
+            "source": (
+                "calibration_day" if prior_suitable else "reference_self"
+            ),
+            "source_independent": True,
+            "appearance_matched": bool(prior_suitable),
+            "calibration_sufficient": bool(prior_suitable),
+            "prior_suitable": bool(prior_suitable),
+            "degradation_reason": None if prior_suitable
+            else "no_appearance_match",
+            "independent_blocks": 3 if prior_suitable else 0,
+        }
+    return rows
 
 
 def _reference_frames(candidate: dict, count: int = 20) -> list[dict]:
@@ -214,6 +230,276 @@ class C1FairComparisonTests(unittest.TestCase):
         )
         self.assertLessEqual(len(verification["resource_trimmed_ids"]), 2)
         self.assertIn("coverage_delta_vs_baseline", verification["final_set"])
+
+
+class PriorCapabilityContractTests(unittest.TestCase):
+    """v4 复核：prior 能力必须进入剪枝目标与运行时门禁，不能只是报告字段。"""
+
+    # -- 剪枝：两类覆盖同时约束 ------------------------------------------- #
+
+    def _replay(self, build, candidates, frames, *, max_profiles=24):
+        config = SimpleNamespace(bank_id="b", version="v", max_profiles=max_profiles)
+        replay: dict = {}
+        result = build.replay_all_candidates(
+            config, candidates, frames,
+            {"canvas_size": [160, 160], "roi": []}, _matcher(), replay,
+            replay_w=160, replay_h=160,
+        )
+        return config, result
+
+    def test_unique_prior_suitable_reference_is_never_deleted(self):
+        """环境覆盖完全冗余、但唯一 prior_suitable=true 的参考必须留下。"""
+        from scripts import build_ground_litter_profile_bank as build
+
+        # p1/p2/p3 完全相同（环境上互相冗余），只有 p3 允许 prior。
+        candidates = _candidates(3)
+        for row in candidates[:2]:
+            row["noise_calibration"]["prior_suitable"] = False
+            row["noise_calibration"]["calibration_sufficient"] = False
+            row["noise_calibration"]["source"] = "reference_self"
+        self.assertEqual(
+            build.prior_suitable_ids_of(candidates), ["p3"],
+        )
+        frames = _reference_frames(candidates[0])
+        config, result = self._replay(build, candidates, frames)
+        pruning: dict = {}
+        kept = build.select_profiles_dynamically(config, candidates, result, pruning)
+        kept_ids = {item["profile_id"] for item in kept}
+        self.assertIn("p3", kept_ids, kept_ids)
+        self.assertTrue(pruning["prior_bank"]["available"])
+        self.assertEqual(
+            pruning["prior_bank"]["prior_suitable_profiles_kept"], ["p3"],
+        )
+        # 环境覆盖冗余的两个 match-only 参考可以被删。
+        self.assertTrue(pruning["pruning"]["removed"])
+
+    def test_two_identical_prior_suitable_references_delete_one(self):
+        """两个完全重复且都适合 prior：可以删一个，prior 覆盖不变。"""
+        from scripts import build_ground_litter_profile_bank as build
+
+        candidates = _candidates(2)
+        frames = _reference_frames(candidates[0])
+        config, result = self._replay(build, candidates, frames)
+        pruning: dict = {}
+        kept = build.select_profiles_dynamically(config, candidates, result, pruning)
+        self.assertEqual(len(kept), 1)
+        base_prior = result["baseline"]["prior"]["prior_effective_coverage"]
+        after_prior = pruning["pruning"]["prior_effective_coverage"]
+        self.assertAlmostEqual(base_prior, after_prior, places=5)
+        self.assertEqual(pruning["prior_bank"]["prior_suitable_profiles_kept"],
+                         [kept[0]["profile_id"]])
+
+    def test_match_only_candidate_is_kept_when_constraints_allow(self):
+        """match-only 参考不会被"prior 约束"或误判无条件删除。
+
+        这一项不依赖轨迹打分器的动态（那部分由
+        ``test_conservative_pruning_removes_one_at_a_time_and_reverifies``
+        覆盖），而是直接检查剪枝决策记录：match-only 候选被删除时，
+        **必然**是因为它在当时剩余集合上两类约束都满足，而不是被当成
+        "没有 prior 能力"就无条件清理。
+        """
+        from scripts import build_ground_litter_profile_bank as build
+
+        candidates = _candidates(3, prior_suitable=False)
+        candidates[0]["noise_calibration"]["prior_suitable"] = True
+        candidates[0]["noise_calibration"]["calibration_sufficient"] = True
+        frames = _reference_frames(candidates[0])
+        config, result = self._replay(build, candidates, frames)
+        pruning: dict = {}
+        kept = build.select_profiles_dynamically(config, candidates, result, pruning)
+        decisions = {row["removed"]: row for row in pruning["pruning"]["deletion_order"]}
+        for pid, decision in decisions.items():
+            cost = decision["loo_cost"]
+            # 每条删除都必须同时满足环境与 prior 两类阈值。
+            self.assertLessEqual(cost["effective_fraction_delta"], 0.005)
+            self.assertLessEqual(cost["pause_max_delta"], 5.0)
+            self.assertLessEqual(cost["prior_coverage_delta"], 0.0)
+            self.assertLessEqual(cost["prior_pause_delta"], 0.0)
+            self.assertTrue(cost["prior_suitable_kept"])
+        # 只要还有 prior-capable 候选，就不会被删空。
+        self.assertTrue(pruning["prior_bank"]["available"])
+
+    def test_no_prior_capable_candidate_is_reported_not_hidden(self):
+        """候选阶段一个 suitable 都没有：必须明确 prior unavailable。"""
+        from scripts import build_ground_litter_profile_bank as build
+
+        candidates = _candidates(2, prior_suitable=False)
+        self.assertEqual(build.prior_suitable_ids_of(candidates), [])
+        frames = _reference_frames(candidates[0])
+        config, result = self._replay(build, candidates, frames)
+        pruning: dict = {}
+        kept = build.select_profiles_dynamically(config, candidates, result, pruning)
+        self.assertTrue(kept)
+        self.assertFalse(pruning["prior_bank"]["available"])
+        self.assertEqual(
+            pruning["prior_bank"]["reason"], "NO_PRIOR_SUITABLE_CANDIDATE",
+        )
+        self.assertTrue(pruning.get("semantic_only"))
+        self.assertTrue(pruning.get("pruning_warnings"))
+
+    def test_resource_trim_keeps_a_prior_capable_profile(self):
+        """资源裁剪不能把 prior-capable 集合删空。"""
+        from scripts import build_ground_litter_profile_bank as build
+
+        candidates = _candidates(4, prior_suitable=False)
+        # 只有 p4 允许 prior。
+        last = candidates[-1]["noise_calibration"]
+        last["prior_suitable"] = True
+        last["calibration_sufficient"] = True
+        last["source"] = "calibration_day"
+        frames = _reference_frames(candidates[0])
+        config, result = self._replay(build, candidates, frames, max_profiles=2)
+        pruning: dict = {}
+        kept = build.select_profiles_dynamically(config, candidates, result, pruning)
+        self.assertLessEqual(len(kept), 2)
+        self.assertIn("p4", {item["profile_id"] for item in kept})
+        self.assertTrue(pruning["prior_bank"]["available"])
+
+    def test_pruning_report_exposes_both_capabilities(self):
+        from scripts import build_ground_litter_profile_bank as build
+
+        candidates = _candidates(3)
+        frames = _reference_frames(candidates[0])
+        config, result = self._replay(build, candidates, frames)
+        pruning: dict = {}
+        build.select_profiles_dynamically(config, candidates, result, pruning)
+        report = pruning["pruning"]
+        for key in ("match_coverage", "prior_effective_coverage",
+                    "prior_pause_max", "semantic_only_intervals",
+                    "prior_suitable_profiles_kept"):
+            self.assertIn(key, report)
+        self.assertIn("prior_bank_available", report)
+
+
+class PriorRuntimeGateTests(unittest.TestCase):
+    """运行时门禁：unsuitable active Profile 不能产生 prior-only 候选。"""
+
+    def _selector(self, *, prior_ids, config=None):
+        from rtsp_annotator.ground_litter_profile_selector import ProfileSelector
+
+        return ProfileSelector(
+            bank_id="b", bank_version="v", view_id="view_0",
+            profile_ids=["p1", "p2"], config=config or {
+                "tick_interval_seconds": 2.0, "result_validity_seconds": 4.0,
+                "join_gap_seconds": 300.0,
+            },
+            prior_suitable_profile_ids=prior_ids,
+        )
+
+    def _feed(self, selector, profile_id, ticks=4, step=2.0, start=0.0):
+        from rtsp_annotator.ground_litter_profile_selector import CandidateMatch
+
+        decisions = []
+        for index in range(ticks):
+            timestamp = start + index * step
+            current_id = selector.selected_profile_id
+            match = CandidateMatch(
+                profile_id, 0.1, True, True, verified=True,
+            )
+            current = (
+                match if current_id == profile_id
+                else (CandidateMatch(current_id, 0.1, True, True, verified=True)
+                      if current_id else None)
+            )
+            decision = selector.observe(
+                timestamp=timestamp, current=current, candidates=[match],
+                tested_profile_ids=[profile_id],
+            )
+            if decision.commit_requested:
+                selector.commit(
+                    profile_id=decision.commit_profile_id, timestamp=timestamp,
+                )
+            decisions.append(decision)
+        return decisions
+
+    def test_unsuitable_active_profile_blocks_prior_output(self):
+        selector = self._selector(prior_ids=["p2"])
+        decisions = self._feed(selector, "p1", ticks=6)
+        self.assertEqual(selector.selected_profile_id, "p1")
+        last = decisions[-1]
+        self.assertTrue(last.prior_allowed)          # 环境匹配仍然成立
+        self.assertFalse(last.prior_available)       # 但 prior 被门禁
+        self.assertIsNone(last.prior_profile_id)
+        self.assertEqual(
+            last.prior_unavailable_reason, "PROFILE_PRIOR_UNSUITABLE",
+        )
+        self.assertTrue(last.profile_match_available)
+        summary = selector.prior_summary()
+        self.assertEqual(summary["prior_effective_coverage"], 0.0)
+        self.assertGreater(summary["semantic_only_seconds"], 0.0)
+        reasons = {row["reason"] for row in summary["semantic_only_intervals"]}
+        self.assertIn("PROFILE_PRIOR_UNSUITABLE", reasons)
+        # 启动窗口还没有 active 参考，reason 必须是"无匹配"而不是"不适合"。
+        self.assertIn("NO_MATCHED_PROFILE", reasons)
+
+    def test_suitable_active_profile_allows_prior_output(self):
+        selector = self._selector(prior_ids=["p1"])
+        decisions = self._feed(selector, "p1", ticks=6)
+        last = decisions[-1]
+        self.assertTrue(last.prior_available)
+        self.assertEqual(last.prior_profile_id, "p1")
+        self.assertIsNone(last.prior_unavailable_reason)
+        summary = selector.prior_summary()
+        self.assertGreater(summary["prior_effective_coverage"], 0.0)
+
+    def test_no_matched_profile_is_distinct_from_unsuitable(self):
+        selector = self._selector(prior_ids=[])
+        decisions = self._feed(selector, "p1", ticks=1)
+        first = decisions[0]
+        self.assertFalse(first.profile_match_available)
+        self.assertEqual(
+            first.prior_unavailable_reason, "NO_MATCHED_PROFILE",
+        )
+
+    def test_suitability_transition_advances_prior_generation(self):
+        """suitable → unsuitable 后 prior 立即暂停，并推进 prior 代际。"""
+        selector = self._selector(prior_ids=["p1"])
+        self._feed(selector, "p1", ticks=4)
+        generation_before = selector.prior_generation
+        self.assertTrue(selector._prior_suitability_last)
+        # 同一 Profile，但能力集合变化（模拟参考切到 unsuitable 参考）。
+        selector.prior_suitable_profile_ids = frozenset()
+        decisions = self._feed(selector, "p1", ticks=1, start=8.0)
+        self.assertFalse(decisions[-1].prior_available)
+        self.assertGreater(selector.prior_generation, generation_before)
+
+    def test_missing_capability_set_keeps_legacy_behaviour(self):
+        """没有能力集合（老调用/离线对照）时不加门禁，避免静默改变历史结果。"""
+        selector = self._selector(prior_ids=None)
+        decisions = self._feed(selector, "p1", ticks=6)
+        self.assertTrue(decisions[-1].prior_available)
+
+
+class LegacyBankCapabilityTests(unittest.TestCase):
+    """历史 Bank 缺能力字段：默认拒绝，显式开关下保守按 false 读取。"""
+
+    def test_legacy_bank_requires_explicit_compatibility_flag(self):
+        import tempfile as _tempfile
+
+        from rtsp_annotator.ground_litter_profile_bank import BankError, load_bank
+        from tests.profile_bank_fixtures import build_synthetic_bank
+
+        root = Path(_tempfile.mkdtemp()) / "banks"
+        build_synthetic_bank(root, "camera_legacy", "v1", profiles=2)
+        # 手工抹掉能力字段，模拟 v3 及更早的产物。
+        import json as _json
+        for pid in ("p0001", "p0002"):
+            path = root / "camera_legacy" / "v1" / "profiles" / pid / "profile.json"
+            payload = _json.loads(path.read_text(encoding="utf-8"))
+            payload.pop("prior_suitable", None)
+            payload.pop("calibration_state", None)
+            path.write_text(_json.dumps(payload), encoding="utf-8")
+        with self.assertRaises(BankError):
+            load_bank(root, "camera_legacy", "v1", verify=False)
+        bank = load_bank(
+            root, "camera_legacy", "v1", verify=False,
+            allow_legacy_profile_capabilities=True,
+        )
+        self.assertTrue(bank.legacy_capabilities)
+        self.assertEqual(bank.prior_suitable_ids, ())
+        for record in bank.profiles:
+            self.assertFalse(record.prior_suitable)
+            self.assertEqual(record.capability_source, "legacy_conservative")
 
 
 class C2BoundedPipelineTests(unittest.TestCase):

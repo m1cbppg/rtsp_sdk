@@ -402,6 +402,41 @@ class ProfileRecord:
     def valid_ground_fraction(self) -> float:
         return float(self.metadata.get("valid_ground_fraction", 0.0))
 
+    # -- 跨模块契约：能力字段（v4 复核后新增） ------------------------------ #
+
+    @property
+    def match_eligible(self) -> bool:
+        """是否可参与环境匹配。"""
+        return bool(self.metadata.get("match_eligible", True))
+
+    @property
+    def prior_suitable(self) -> bool:
+        """是否允许产生 prior-only 候选。
+
+        历史 Bank（v3 及更早）没有该字段；loader 会按保守值写入
+        ``capability_source='legacy_conservative'``，这里缺省也返回 False。
+        """
+        return bool(self.metadata.get("prior_suitable", False))
+
+    @property
+    def calibration_state(self) -> str:
+        state = str(self.metadata.get("calibration_state") or "")
+        if state:
+            return state
+        return (
+            "independent_matched" if self.prior_suitable
+            else "reference_self_low_support"
+        )
+
+    @property
+    def calibration_degradation_reason(self) -> str | None:
+        value = self.metadata.get("prior_degradation_reason")
+        return None if value in (None, "", "None") else str(value)
+
+    @property
+    def capability_source(self) -> str:
+        return str(self.metadata.get("capability_source") or "declared")
+
 
 @dataclass(frozen=True, slots=True)
 class ProfileBank:
@@ -423,6 +458,16 @@ class ProfileBank:
     @property
     def banner(self) -> str:
         return f"{self.bank_id}/{self.version}"
+
+    @property
+    def prior_suitable_ids(self) -> tuple[str, ...]:
+        return tuple(r.profile_id for r in self.profiles if r.prior_suitable)
+
+    @property
+    def legacy_capabilities(self) -> bool:
+        return any(
+            r.capability_source == "legacy_conservative" for r in self.profiles
+        )
 
     def profile(self, profile_id: str) -> ProfileRecord:
         for record in self.profiles:
@@ -510,14 +555,27 @@ def validate_calibration(
     return problems
 
 
+CALIBRATION_STATES = (
+    "independent_matched", "reference_self_low_support",
+    "no_independent_material",
+)
+
+
 def load_bank(
     root: str | Path, bank_id: str, version: str | None = None,
     *, verify: bool = True, require_calibration: bool = True,
+    allow_legacy_profile_capabilities: bool = False,
 ) -> ProfileBank:
     """加载并校验一个 Bank 版本。``version=None`` 时取最新版本。
 
     ``require_calibration=True``（默认）时，缺少冻结包络的 Bank 直接拒绝加载；
     读取历史实验产物（例如未校准的 v1）需显式传 False，并在报告中标注。
+
+    ``allow_legacy_profile_capabilities``（默认 False）：v4 复核后，
+    ``prior_suitable`` / ``calibration_state`` 是跨模块契约的一部分，缺失即拒绝
+    加载。只有显式打开该开关，才允许读取 v3 及更早的历史 Bank，此时
+    **保守地把每个 Profile 视为 ``prior_suitable=false``**，
+    并在 ``ProfileRecord.capability_source`` 标注 ``legacy_conservative``。
     """
     if version is None:
         version = latest_version(root, bank_id)
@@ -589,6 +647,34 @@ def load_bank(
         size = metadata.get("reference_size")
         if not isinstance(size, list) or [width, height] != [int(v) for v in size]:
             raise BankError(f"{profile_id} reference_size 与 Bank 不一致")
+        declared = (
+            "prior_suitable" in metadata and "calibration_state" in metadata
+        )
+        if not declared:
+            if not allow_legacy_profile_capabilities:
+                raise BankError(
+                    f"{profile_id} 缺少能力字段 prior_suitable/calibration_state；"
+                    "历史 Bank 必须显式传 allow_legacy_profile_capabilities=True，"
+                    "且会被保守视为 prior_suitable=false"
+                )
+            metadata = dict(metadata)
+            metadata["prior_suitable"] = False
+            metadata["calibration_state"] = None
+            metadata["capability_source"] = "legacy_conservative"
+        else:
+            state = str(metadata.get("calibration_state") or "")
+            if state not in CALIBRATION_STATES:
+                raise BankError(
+                    f"{profile_id} calibration_state 非法: {state!r}"
+                )
+            suitable = bool(metadata.get("prior_suitable"))
+            if suitable and state != "independent_matched":
+                raise BankError(
+                    f"{profile_id} prior_suitable=true 但 calibration_state={state}；"
+                    "只有 independent_matched 才允许产生 prior 候选"
+                )
+            metadata = dict(metadata)
+            metadata["capability_source"] = "declared"
         records.append(ProfileRecord(
             profile_id=profile_id,
             directory=directory_path,

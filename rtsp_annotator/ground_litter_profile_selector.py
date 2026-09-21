@@ -106,6 +106,19 @@ class SelectionDecision:
     commit_profile_id: str | None
     switch_count: int
     dwell_seconds: float
+    # 跨模块契约（v4 复核后）：环境匹配能力与 prior 能力分开输出。
+    #   active_profile_id  —— 当前最匹配环境的 Profile；
+    #   prior_profile_id    —— 允许产生 prior 的 Profile；unsuitable 时为 None；
+    #   profile_match_available —— 是否有可用参考（区分"无匹配"与"匹配但 prior 不可靠"）；
+    #   prior_available     —— 本 tick 是否允许 prior-only 候选；
+    #   prior_unavailable_reason —— NO_MATCHED_PROFILE / PROFILE_PRIOR_UNSUITABLE /
+    #                               NOT_OBSERVABLE / None。
+    active_profile_id: str | None = None
+    prior_profile_id: str | None = None
+    profile_match_available: bool = False
+    prior_available: bool = False
+    prior_unavailable_reason: str | None = None
+    prior_generation: int = 0
     diagnostics: dict[str, Any] = field(default_factory=dict)
 
     def as_dict(self) -> dict[str, Any]:
@@ -118,6 +131,12 @@ class SelectionDecision:
             "status": self.status,
             "phase": self.phase,
             "prior_allowed": self.prior_allowed,
+            "active_profile_id": self.active_profile_id,
+            "prior_profile_id": self.prior_profile_id,
+            "profile_match_available": self.profile_match_available,
+            "prior_available": self.prior_available,
+            "prior_unavailable_reason": self.prior_unavailable_reason,
+            "prior_generation": self.prior_generation,
             "score_current": None if self.score_current is None
             else round(self.score_current, 5),
             "score_best": None if self.score_best is None
@@ -174,6 +193,11 @@ class _SearchState:
         return self.cursor >= len(self.queue)
 
 
+PRIOR_UNAVAILABLE_NO_MATCH = "NO_MATCHED_PROFILE"
+PRIOR_UNAVAILABLE_UNSUITABLE = "PROFILE_PRIOR_UNSUITABLE"
+PRIOR_UNAVAILABLE_NOT_OBSERVABLE = "NOT_OBSERVABLE"
+
+
 class ProfileSelector:
     """有状态、纯逻辑的 Profile 选择器。"""
 
@@ -181,6 +205,7 @@ class ProfileSelector:
         self, *, bank_id: str, bank_version: str, view_id: str,
         profile_ids: Sequence[str], config: Mapping[str, Any] | None = None,
         algorithm_version: str = "selector_r3",
+        prior_suitable_profile_ids: Sequence[str] | None = None,
     ) -> None:
         if not profile_ids:
             raise SelectorError("Selector 至少需要一个候选 Profile")
@@ -190,8 +215,22 @@ class ProfileSelector:
         self.bank_version = str(bank_version)
         self.view_id = str(view_id)
         self.profile_ids = tuple(str(item) for item in profile_ids)
+        # prior 能力集合：缺省（老调用/离线诊断）视为"未知"，
+        # 此时保持旧行为——不做 prior 门禁，避免静默改变历史对照。
+        if prior_suitable_profile_ids is None:
+            self.prior_suitable_profile_ids: frozenset[str] | None = None
+        else:
+            declared = {str(item) for item in prior_suitable_profile_ids}
+            unknown = declared - set(self.profile_ids)
+            if unknown:
+                raise SelectorError(
+                    f"prior_suitable_profile_ids 含未知 Profile: {sorted(unknown)}"
+                )
+            self.prior_suitable_profile_ids = frozenset(declared)
         self.config = {**DEFAULT_SELECTION_CONFIG, **dict(config or {})}
         self.algorithm_version = algorithm_version
+        self.prior_generation = 0
+        self._prior_suitability_last: bool | None = None
 
         self.selected_profile_id: str | None = None
         self.pending_profile_id: str | None = None
@@ -473,6 +512,31 @@ class ProfileSelector:
             key=lambda item: (item.score, item.profile_id), default=None,
         )
         tested = tuple(tested_profile_ids or [item.profile_id for item in candidates])
+        # 环境匹配可用性：有 active 参考且本 tick 可判断。
+        active = self.selected_profile_id
+        profile_match_available = bool(active) and bool(observable)
+        prior_suitable = (
+            True if self.prior_suitable_profile_ids is None
+            else bool(active) and active in self.prior_suitable_profile_ids
+        )
+        prior_available = bool(current_hold) and bool(observable) and prior_suitable
+        prior_profile_id = active if prior_available else None
+        if prior_available:
+            prior_unavailable_reason = None
+        elif not observable:
+            prior_unavailable_reason = PRIOR_UNAVAILABLE_NOT_OBSERVABLE
+        elif not active:
+            prior_unavailable_reason = PRIOR_UNAVAILABLE_NO_MATCH
+        elif not prior_suitable:
+            prior_unavailable_reason = PRIOR_UNAVAILABLE_UNSUITABLE
+        else:
+            prior_unavailable_reason = PRIOR_UNAVAILABLE_NOT_OBSERVABLE
+        if self._prior_suitability_last is not None and (
+            self._prior_suitability_last != bool(prior_available)
+        ):
+            # prior 能力发生变化（恢复或暂停）：按代际重新开始，不继承旧证据。
+            self.prior_generation += 1
+        self._prior_suitability_last = bool(prior_available)
         decision = SelectionDecision(
             bank_id=self.bank_id,
             bank_version=self.bank_version,
@@ -485,6 +549,12 @@ class ProfileSelector:
             status=decision_status,
             phase=decision_phase,
             prior_allowed=current_hold,
+            active_profile_id=active,
+            prior_profile_id=prior_profile_id,
+            profile_match_available=profile_match_available,
+            prior_available=prior_available,
+            prior_unavailable_reason=prior_unavailable_reason,
+            prior_generation=self.prior_generation,
             score_current=None if current is None else current.score,
             score_best=None if best is None else best.score,
             reason=self._last_reason,
@@ -519,6 +589,10 @@ class ProfileSelector:
             "non_observable_reason": str(non_observable_reason or ""),
             "observation_span_seconds": round(float(self._observation_span), 4),
             "prior_allowed": bool(current_hold) and bool(observable),
+            "prior_available": prior_available,
+            "prior_profile_id": prior_profile_id,
+            "prior_unavailable_reason": prior_unavailable_reason,
+            "prior_generation": self.prior_generation,
         })
         self._timeline.append({"kind": "decision", **record})
         # prior_allowed 是按“可判断且当前参考仍合格”记录的，决策对象本身同步。
@@ -631,6 +705,78 @@ class ProfileSelector:
         })
 
     # -- 统计（方案一 §7.2 统一口径）-------------------------------------- #
+
+    def prior_summary(self) -> dict[str, Any]:
+        """prior 通道的可用性统计（与 match 覆盖分开）。
+
+        判据完全来自决策记录：``prior_available`` 是 Selector 在**当时**根据
+        "active 参考合格 + 可判断 + 该参考 prior_suitable" 得出的结论，因此
+        这里的统计就是运行时真实会输出的 prior 能力，而不是事后推断。
+        """
+        decisions = [
+            row for row in self._timeline if row.get("kind") == "decision"
+        ]
+        effective = 0.0
+        observed = 0.0
+        pause_runs: list[float] = []
+        pause_total = 0.0
+        intervals: list[dict[str, Any]] = []
+        open_interval: dict[str, Any] | None = None
+        for row in decisions:
+            span = float(row.get("observation_span_seconds", 0.0) or 0.0)
+            observable = bool(row.get("observable", True))
+            if not observable:
+                continue
+            observed += span
+            if row.get("prior_available"):
+                effective += span
+                if pause_total > 0.0:
+                    pause_runs.append(pause_total)
+                    pause_total = 0.0
+                if open_interval is not None:
+                    intervals.append(open_interval)
+                    open_interval = None
+                continue
+            pause_total += span
+            reason = str(
+                row.get("prior_unavailable_reason") or "PRIOR_NOT_AVAILABLE"
+            )
+            if open_interval is not None and open_interval["reason"] == reason:
+                open_interval["seconds"] += span
+                open_interval["ticks"] += 1
+            else:
+                if open_interval is not None:
+                    intervals.append(open_interval)
+                open_interval = {
+                    "start": float(row.get("input_timestamp", 0.0)),
+                    "reason": reason, "seconds": span, "ticks": 1,
+                }
+        if pause_total > 0.0:
+            pause_runs.append(pause_total)
+        if open_interval is not None:
+            intervals.append(open_interval)
+        for row in intervals:
+            row["seconds"] = round(float(row["seconds"]), 4)
+        pauses_sorted = sorted(pause_runs)
+        return {
+            "prior_effective_seconds": round(effective, 4),
+            "prior_effective_coverage": (
+                round(effective / observed, 5) if observed > 0 else 0.0
+            ),
+            "prior_pause_max": round(max(pause_runs), 4) if pause_runs else 0.0,
+            "prior_pause_p95": round(
+                pauses_sorted[
+                    max(0, math.ceil(len(pauses_sorted) * 0.95) - 1)
+                ], 4,
+            ) if pause_runs else 0.0,
+            "observed_seconds": round(observed, 4),
+            "semantic_only_seconds": round(
+                sum(row["seconds"] for row in intervals), 4,
+            ),
+            "semantic_only_intervals": intervals,
+            "semantic_only_ticks": sum(row["ticks"] for row in intervals),
+            "decisions": len(decisions),
+        }
 
     def summarise(self, *, join_gap_seconds: float | None = None) -> dict[str, Any]:
         """按真实观测区间积分动态覆盖（R3）。
