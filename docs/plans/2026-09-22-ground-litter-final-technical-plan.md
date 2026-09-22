@@ -115,6 +115,8 @@ FN + 高价值 FP
 
 因此历史 2,460 张数据定义为 **Silver Data**，不能直接等同于 Ground Truth。
 
+需要特别区分“训练价值”和“当前 ROI 验收价值”。历史明确标签中位于当前最终 ROI 外的 145 张垃圾和 1,713 张非垃圾，**不能用于证明当前五路最终 ROI 的效果，但也不应因为 ROI 外就丢弃**。由于 ROI 未来可能重画、摄像头可能移动，这些样本在人工重新确认后，只要确实来自可部署的地面/道路类场景，就可以进入 shared detector 的训练池；但应限制其占比，避免旧场景背景压过当前业务域。当前 ROI / 当前 scene_version 的 Blind Test 仍必须独立统计。
+
 ### 2.2 人工能力
 
 人工可以：
@@ -560,9 +562,14 @@ Blind 模式：
   - 无明显垃圾；
   - 不确定。
 
-一旦标“有垃圾”，再进入机器框 A/B/C 选择；没有合适框时保留 positive_unlocalized。
+一旦标“有垃圾”，Ground Truth 的“存在性”已经由人工独立确定。后续定位优先采用以下顺序：
 
-Blind 数据不允许被训练阶段读取。
+1. 页面允许时，让审核者只**单击目标中心一次**，不要求画框；再由独立 annotation helper（例如基于 point/box prompt 的分割或 proposal 工具）生成框；
+2. 如果不增加单击操作，则显示 A / B / C 候选框供选择，但必须记录 box_source；
+3. 如果 A / B / C 来自本轮被评估 detector，则该框只能帮助人工定位，不能把它当作独立自动 Ground Truth 来计算 box-level 指标；
+4. 都不合适时保留 positive_unlocalized，仍可用于人工 event-level recall 判断。
+
+Blind 数据不允许被训练阶段读取。Blind Test 的核心真值是“该时间窗口是否存在 Required Litter event”，不是追求像素级 bbox。
 
 ### 8.4 为什么必须有 Blind 模式
 
@@ -770,7 +777,9 @@ Positive：
 Negative：
 
 - 经人工验证的紧凑 NON_LITTER patch；
-- 随机 clean ROI tile。
+- 只有经过 Blind / Gold 审核确认“该训练 tile 内没有 Required Litter”的 clean ROI tile。
+
+禁止把“某个候选框是 NON_LITTER”直接扩展成“整张原始 context 都是负样本”，否则 context 中未标出的真实垃圾会被错误当成背景。
 
 Exclude：
 
@@ -906,6 +915,15 @@ YOLO26s 与 RF-DETR-S 使用同一 Gold 数据。
 - 同一批次将当前待分析摄像头的 ROI tiles 合并 batch；
 - 先离线测 YOLO26s / RF-DETR-S / Turhancan 的真实 P50/P95；
 - 生产 cadence 由“5 路总 GPU 占用 + 事件可接受确认延迟”共同决定。
+
+双 detector 并行是**逻辑架构**，不是承诺 3060 Ti 一定能在同一时刻全量运行两套模型。如果实测 GPU 预算不足，按以下顺序处理：
+
+1. 跨摄像头 / 跨 tile batch；
+2. 交错 Turhancan 与 new detector 的扫描时刻；
+3. 降低低价值通道扫描频率；
+4. 根据消融结果淘汰独立增量召回很低但成本高的通道。
+
+禁止通过堆积旧帧来换吞吐。
 
 垃圾是持续性目标，不需要每帧检测。宁可 4～6 秒看一次最新帧，也不要排队处理过时帧。
 
@@ -1216,7 +1234,46 @@ YOLO26s 与 RF-DETR-S 使用同一 Gold 数据。
 
 ---
 
-## 22. 参考资料
+## 22. 自审结论（第二轮）
+
+文档写入后按以下问题重新检查：
+
+### 22.1 是否错误依赖固定 ROI / 固定摄像头
+
+通过。ROI 只用于运行时切图和结果过滤；shared detector 不读取 camera_id 和绝对位置。旧 scene 数据可以用于共享训练，但 scene_version 隔离评估与事件状态。
+
+### 22.2 是否再次把候选模型当成 Ground Truth
+
+已修正。Candidate Review 用于训练；Blind ROI Audit 先由人工独立判断“是否有 Required Litter”，随后定位过程与存在性真值分离。被测 detector 提供的框不能反过来定义自己的 box-level Ground Truth。
+
+### 22.3 是否会把错误负标签大量灌进 detector
+
+已修正。NON_LITTER 只生成紧凑 hard-negative patch；完整 clean tile 必须经过明确审核，防止 context 中未标垃圾被训练成背景。
+
+### 22.4 是否浪费当前 ROI 外历史资产
+
+已修正。ROI 外的已审核正负样本在重新确认后可用于 shared detector 训练，因为未来 ROI / scene 会变化；但不得参与当前 ROI 的 Blind Test 或当前部署效果声明。
+
+### 22.5 双模型是否默认超出 3060 Ti 预算
+
+已修正。双通道是逻辑召回设计，生产必须通过真实 P50/P95、tile 数、batch 和显存验收；必要时交错扫描、降低通道 cadence 或根据消融淘汰低增益通道，绝不排队处理旧帧。
+
+### 22.6 当前仍存在的主要不确定性
+
+方案本身已不存在明显逻辑缺口，但以下事实必须通过实验而不是文档证明：
+
+1. 历史 189 张 LITTER 去重后到底有多少独立自然垃圾事件；
+2. shared detector 在 native ROI/tile 后，对自然纸巾、塑料袋、瓶罐、包装物能达到多高的低阈值 proposal recall；
+3. hard-negative 第二轮能否在不明显损失 recall 的前提下把 confirmed FP 压到 ≤5 / camera-day；
+4. Turhancan 对最终 Fusion 还有多少独立增量召回，是否值得长期保留生产算力；
+5. 五路实际 tile 数和双 detector 在 3060 Ti 上的资源预算；
+6. “多久以内快速消失的垃圾不需要报警”仍是业务参数，当前不影响 Day 1 数据重建。
+
+因此本方案的下一步不是继续扩展算法，而是执行 Day 1～Day 7 的预注册实验，用冻结 Blind Set 给出 Go / No-Go。
+
+---
+
+## 23. 参考资料
 
 项目内部：
 
@@ -1235,3 +1292,4 @@ YOLO26s 与 RF-DETR-S 使用同一 Gold 数据。
 - Ultralytics YOLOE: https://docs.ultralytics.com/models/yoloe
 - SAHI Sliced Inference: https://github.com/obss/sahi/blob/main/docs/guides/sliced-inference.md
 - RF-DETR: https://github.com/roboflow/rf-detr/blob/develop/docs/index.md
+- TACO: https://github.com/pedropro/TACO
