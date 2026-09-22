@@ -1,0 +1,6898 @@
+{
+  "schema": "ground_litter_false_positive_clusters_v1",
+  "scope": "final_roi",
+  "radius": 0.02,
+  "appearance_rule": "crop_dhash<=12 OR context_dhash<=10",
+  "clusters": [
+    {
+      "rank": 1,
+      "size": 5,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f03s01-0134",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f03s01-0134-context.jpg",
+      "center_mean": [
+        0.515625,
+        0.45
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f03s01-0134",
+        "f04s01-0142",
+        "f08s01-0145",
+        "f04s02-0164",
+        "f08s00-0165"
+      ]
+    },
+    {
+      "rank": 2,
+      "size": 5,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f06s00-0133",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f06s00-0133-context.jpg",
+      "center_mean": [
+        0.50625,
+        0.9666666666666666
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f06s00-0133",
+        "f04s01-0135",
+        "f08s01-0159",
+        "f06s01-0160",
+        "f08s00-0167"
+      ]
+    },
+    {
+      "rank": 3,
+      "size": 5,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f08s00-0009",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f08s00-0009-context.jpg",
+      "center_mean": [
+        0.7324609375,
+        0.9086805555555555
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921",
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20",
+        "2026-09-21"
+      ],
+      "members": [
+        "f08s00-0009",
+        "f08s02-0033",
+        "f09s01-0039",
+        "f05s02-0046",
+        "01030-f06s00-f232f56d90f2"
+      ]
+    },
+    {
+      "rank": 4,
+      "size": 3,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f04s02-0037",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f04s02-0037-context.jpg",
+      "center_mean": [
+        0.7072265624999999,
+        0.5427083333333332
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919",
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-19",
+        "2026-09-20"
+      ],
+      "members": [
+        "01030-f04s02-0037",
+        "f03s02-0030",
+        "f03s00-0055"
+      ]
+    },
+    {
+      "rank": 5,
+      "size": 3,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f01s00-0060",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f01s00-0060-context.jpg",
+      "center_mean": [
+        0.7388020833333333,
+        0.7172453703703704
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f01s00-0060",
+        "f01s02-0061",
+        "f01s01-0063"
+      ]
+    },
+    {
+      "rank": 6,
+      "size": 3,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f01s00-0077",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f01s00-0077-context.jpg",
+      "center_mean": [
+        0.7277994791666668,
+        0.8663194444444443
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f01s00-0077",
+        "f01s02-0081",
+        "f01s01-0084"
+      ]
+    },
+    {
+      "rank": 7,
+      "size": 3,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f01s02-0018",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f01s02-0018-context.jpg",
+      "center_mean": [
+        0.6223307291666668,
+        0.8222222222222223
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f01s02-0018",
+        "f01s00-0067",
+        "f01s01-0068"
+      ]
+    },
+    {
+      "rank": 8,
+      "size": 2,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f03s01-0147",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001021/review/assets/f03s01-0147-context.jpg",
+      "center_mean": [
+        0.289453125,
+        0.5986111111111111
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919",
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-19",
+        "2026-09-20"
+      ],
+      "members": [
+        "01021-f03s01-0147",
+        "01021-f03s01-0155"
+      ]
+    },
+    {
+      "rank": 9,
+      "size": 2,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f05s01-0123",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001021/review/assets/f05s01-0123-context.jpg",
+      "center_mean": [
+        0.2140625,
+        0.4444444444444444
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919",
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-19",
+        "2026-09-20"
+      ],
+      "members": [
+        "01021-f05s01-0123",
+        "01021-f05s01-0131"
+      ]
+    },
+    {
+      "rank": 10,
+      "size": 2,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f01s02-0151",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001022/review/assets/f01s02-0151-context.jpg",
+      "center_mean": [
+        0.58046875,
+        0.5763888888888888
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919",
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-19",
+        "2026-09-20"
+      ],
+      "members": [
+        "01022-f01s02-0151",
+        "01022-f01s02-0158"
+      ]
+    },
+    {
+      "rank": 11,
+      "size": 2,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f02s01-0032",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001022/review/assets/f02s01-0032-context.jpg",
+      "center_mean": [
+        0.69658203125,
+        0.8642361111111111
+      ],
+      "datasets": [
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "01022-f02s01-0032",
+        "01022-f05s01-0005"
+      ]
+    },
+    {
+      "rank": 12,
+      "size": 2,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f03s01-0131",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001022/review/assets/f03s01-0131-context.jpg",
+      "center_mean": [
+        0.60390625,
+        0.8472222222222222
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919",
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-19",
+        "2026-09-20"
+      ],
+      "members": [
+        "01022-f03s01-0131",
+        "01022-f03s01-0138"
+      ]
+    },
+    {
+      "rank": 13,
+      "size": 2,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f05s01-0122",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001022/review/assets/f05s01-0122-context.jpg",
+      "center_mean": [
+        0.55078125,
+        0.9680555555555556
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919",
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-19",
+        "2026-09-20"
+      ],
+      "members": [
+        "01022-f05s01-0122",
+        "01022-f05s01-0129"
+      ]
+    },
+    {
+      "rank": 14,
+      "size": 2,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f05s01-0135",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001022/review/assets/f05s01-0135-context.jpg",
+      "center_mean": [
+        0.575,
+        0.4861111111111111
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919",
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-19",
+        "2026-09-20"
+      ],
+      "members": [
+        "01022-f05s01-0135",
+        "01022-f05s01-0142"
+      ]
+    },
+    {
+      "rank": 15,
+      "size": 2,
+      "camera_id": "01028",
+      "device_code": "44180209031322001028",
+      "representative_review_id": "01028-f00s02-0035",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001028/review/assets/f00s02-0035-context.jpg",
+      "center_mean": [
+        0.70634765625,
+        0.7199652777777777
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919",
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-19",
+        "2026-09-20"
+      ],
+      "members": [
+        "01028-f00s02-0035",
+        "01028-f07s01-0105"
+      ]
+    },
+    {
+      "rank": 16,
+      "size": 2,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f00s00-0108",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f00s00-0108-context.jpg",
+      "center_mean": [
+        0.58984375,
+        0.46111111111111114
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919",
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-19",
+        "2026-09-20"
+      ],
+      "members": [
+        "01030-f00s00-0108",
+        "f00s00-0178"
+      ]
+    },
+    {
+      "rank": 17,
+      "size": 2,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f00s01-0112",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f00s01-0112-context.jpg",
+      "center_mean": [
+        0.631640625,
+        0.2701388888888889
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919",
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-19",
+        "2026-09-20"
+      ],
+      "members": [
+        "01030-f00s01-0112",
+        "f00s01-0183"
+      ]
+    },
+    {
+      "rank": 18,
+      "size": 2,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f00s02-0105",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f00s02-0105-context.jpg",
+      "center_mean": [
+        0.537890625,
+        0.5791666666666667
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919",
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-19",
+        "2026-09-20"
+      ],
+      "members": [
+        "01030-f00s02-0105",
+        "f00s02-0172"
+      ]
+    },
+    {
+      "rank": 19,
+      "size": 2,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f01s01-0000",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f01s01-0000-context.jpg",
+      "center_mean": [
+        0.708203125,
+        0.55
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919",
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-19",
+        "2026-09-20"
+      ],
+      "members": [
+        "01030-f01s01-0000",
+        "f02s02-0044"
+      ]
+    },
+    {
+      "rank": 20,
+      "size": 2,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f02s02-0103",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f02s02-0103-context.jpg",
+      "center_mean": [
+        0.7544921875,
+        0.8010416666666667
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f02s02-0103",
+        "01030-f02s00-0136"
+      ]
+    },
+    {
+      "rank": 21,
+      "size": 2,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f04s00-0117",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f04s00-0117-context.jpg",
+      "center_mean": [
+        0.56171875,
+        0.39166666666666666
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919",
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-19",
+        "2026-09-20"
+      ],
+      "members": [
+        "01030-f04s00-0117",
+        "f04s00-0189"
+      ]
+    },
+    {
+      "rank": 22,
+      "size": 2,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f04s00-0124",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f04s00-0124-context.jpg",
+      "center_mean": [
+        0.6546875,
+        0.9118055555555555
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919",
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-19",
+        "2026-09-20"
+      ],
+      "members": [
+        "01030-f04s00-0124",
+        "f04s00-0198"
+      ]
+    },
+    {
+      "rank": 23,
+      "size": 2,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f04s00-0132",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f04s00-0132-context.jpg",
+      "center_mean": [
+        0.437109375,
+        0.8270833333333333
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919",
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-19",
+        "2026-09-20"
+      ],
+      "members": [
+        "01030-f04s00-0132",
+        "f04s00-0208"
+      ]
+    },
+    {
+      "rank": 24,
+      "size": 2,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f04s01-0116",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f04s01-0116-context.jpg",
+      "center_mean": [
+        0.4859375,
+        0.5458333333333333
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919",
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-19",
+        "2026-09-20"
+      ],
+      "members": [
+        "01030-f04s01-0116",
+        "f04s01-0187"
+      ]
+    },
+    {
+      "rank": 25,
+      "size": 2,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f04s01-0121",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f04s01-0121-context.jpg",
+      "center_mean": [
+        0.75703125,
+        0.6680555555555555
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919",
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-19",
+        "2026-09-20"
+      ],
+      "members": [
+        "01030-f04s01-0121",
+        "f04s01-0195"
+      ]
+    },
+    {
+      "rank": 26,
+      "size": 2,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f04s02-0118",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f04s02-0118-context.jpg",
+      "center_mean": [
+        0.629296875,
+        0.6048611111111111
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919",
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-19",
+        "2026-09-20"
+      ],
+      "members": [
+        "01030-f04s02-0118",
+        "f04s02-0192"
+      ]
+    },
+    {
+      "rank": 27,
+      "size": 2,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f05s01-0115",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f05s01-0115-context.jpg",
+      "center_mean": [
+        0.55078125,
+        0.9680555555555556
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919",
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-19",
+        "2026-09-20"
+      ],
+      "members": [
+        "01030-f05s01-0115",
+        "f05s01-0186"
+      ]
+    },
+    {
+      "rank": 28,
+      "size": 2,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f02s00-0105",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f02s00-0105-context.jpg",
+      "center_mean": [
+        0.7176757812500001,
+        0.515625
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f02s00-0105",
+        "f02s01-0111"
+      ]
+    },
+    {
+      "rank": 29,
+      "size": 2,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f02s02-0170",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f02s02-0170-context.jpg",
+      "center_mean": [
+        0.7544921875,
+        0.8010416666666667
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f02s02-0170",
+        "f02s00-0216"
+      ]
+    },
+    {
+      "rank": 30,
+      "size": 2,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f03s00-0141",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f03s00-0141-context.jpg",
+      "center_mean": [
+        0.646875,
+        0.7833333333333333
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f03s00-0141",
+        "f03s02-0147"
+      ]
+    },
+    {
+      "rank": 31,
+      "size": 2,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f03s01-0130",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f03s01-0130-context.jpg",
+      "center_mean": [
+        0.6375,
+        0.9
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f03s01-0130",
+        "f03s00-0150"
+      ]
+    },
+    {
+      "rank": 32,
+      "size": 2,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f03s01-0132",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f03s01-0132-context.jpg",
+      "center_mean": [
+        0.646875,
+        0.8666666666666667
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f03s01-0132",
+        "f03s02-0153"
+      ]
+    },
+    {
+      "rank": 33,
+      "size": 2,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f10s02-0086",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f10s02-0086-context.jpg",
+      "center_mean": [
+        0.5435546874999999,
+        0.2232638888888889
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f10s02-0086",
+        "f10s01-0089"
+      ]
+    },
+    {
+      "rank": 34,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f00s01-0040",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001021/review/assets/f00s01-0040-context.jpg",
+      "center_mean": [
+        0.2349609375,
+        0.42465277777777777
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01021-f00s01-0040"
+      ]
+    },
+    {
+      "rank": 35,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f00s02-207717831008",
+      "representative_context": "output/ground_litter_audit_holdout_20260918/assets/01021-f00s02-207717831008-context.jpg",
+      "center_mean": [
+        0.2333984375,
+        0.42569444444444443
+      ],
+      "datasets": [
+        "holdout_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01021-f00s02-207717831008"
+      ]
+    },
+    {
+      "rank": 36,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f00s02-aa0163b4a51b",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01021-f00s02-aa0163b4a51b-context.jpg",
+      "center_mean": [
+        0.1654296875,
+        0.6805555555555556
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01021-f00s02-aa0163b4a51b"
+      ]
+    },
+    {
+      "rank": 37,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f01s00-c6c92e8b3a94",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01021-f01s00-c6c92e8b3a94-context.jpg",
+      "center_mean": [
+        0.1525390625,
+        0.7305555555555555
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01021-f01s00-c6c92e8b3a94"
+      ]
+    },
+    {
+      "rank": 38,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f01s01-a4fca3ef6f46",
+      "representative_context": "output/ground_litter_audit_holdout_20260918/assets/01021-f01s01-a4fca3ef6f46-context.jpg",
+      "center_mean": [
+        0.2341796875,
+        0.5947916666666667
+      ],
+      "datasets": [
+        "holdout_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01021-f01s01-a4fca3ef6f46"
+      ]
+    },
+    {
+      "rank": 39,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f01s01-e3189db3ccd9",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01021-f01s01-e3189db3ccd9-context.jpg",
+      "center_mean": [
+        0.176171875,
+        0.6302083333333334
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01021-f01s01-e3189db3ccd9"
+      ]
+    },
+    {
+      "rank": 40,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f02s00-0067",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001021/review/assets/f02s00-0067-context.jpg",
+      "center_mean": [
+        0.2650390625,
+        0.4583333333333333
+      ],
+      "datasets": [
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "01021-f02s00-0067"
+      ]
+    },
+    {
+      "rank": 41,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f02s00-762f7b037c58",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01021-f02s00-762f7b037c58-context.jpg",
+      "center_mean": [
+        0.2953125,
+        0.25972222222222224
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01021-f02s00-762f7b037c58"
+      ]
+    },
+    {
+      "rank": 42,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f02s01-0045",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001021/review/assets/f02s01-0045-context.jpg",
+      "center_mean": [
+        0.143359375,
+        0.7260416666666667
+      ],
+      "datasets": [
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "01021-f02s01-0045"
+      ]
+    },
+    {
+      "rank": 43,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f02s01-0061",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001021/review/assets/f02s01-0061-context.jpg",
+      "center_mean": [
+        0.2609375,
+        0.321875
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01021-f02s01-0061"
+      ]
+    },
+    {
+      "rank": 44,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f02s01-0075",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001021/review/assets/f02s01-0075-context.jpg",
+      "center_mean": [
+        0.2732421875,
+        0.33645833333333336
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01021-f02s01-0075"
+      ]
+    },
+    {
+      "rank": 45,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f02s01-9c220e6714da",
+      "representative_context": "output/ground_litter_audit_holdout_20260918/assets/01021-f02s01-9c220e6714da-context.jpg",
+      "center_mean": [
+        0.1298828125,
+        0.7204861111111112
+      ],
+      "datasets": [
+        "holdout_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01021-f02s01-9c220e6714da"
+      ]
+    },
+    {
+      "rank": 46,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f02s02-0019",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001021/review/assets/f02s02-0019-context.jpg",
+      "center_mean": [
+        0.26484375,
+        0.38680555555555557
+      ],
+      "datasets": [
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "01021-f02s02-0019"
+      ]
+    },
+    {
+      "rank": 47,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f02s02-0061",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001021/review/assets/f02s02-0061-context.jpg",
+      "center_mean": [
+        0.26171875,
+        0.3434027777777778
+      ],
+      "datasets": [
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "01021-f02s02-0061"
+      ]
+    },
+    {
+      "rank": 48,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f03s00-0123",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001021/review/assets/f03s00-0123-context.jpg",
+      "center_mean": [
+        0.330859375,
+        0.30069444444444443
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01021-f03s00-0123"
+      ]
+    },
+    {
+      "rank": 49,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f03s01-4fe9ccd232e7",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01021-f03s01-4fe9ccd232e7-context.jpg",
+      "center_mean": [
+        0.3408203125,
+        0.325
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01021-f03s01-4fe9ccd232e7"
+      ]
+    },
+    {
+      "rank": 50,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f03s02-0066",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001021/review/assets/f03s02-0066-context.jpg",
+      "center_mean": [
+        0.150390625,
+        0.6684027777777778
+      ],
+      "datasets": [
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "01021-f03s02-0066"
+      ]
+    },
+    {
+      "rank": 51,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f03s02-0069",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001021/review/assets/f03s02-0069-context.jpg",
+      "center_mean": [
+        0.1521484375,
+        0.71875
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01021-f03s02-0069"
+      ]
+    },
+    {
+      "rank": 52,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f03s02-0157",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001021/review/assets/f03s02-0157-context.jpg",
+      "center_mean": [
+        0.174609375,
+        0.7819444444444444
+      ],
+      "datasets": [
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "01021-f03s02-0157"
+      ]
+    },
+    {
+      "rank": 53,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f03s02-d85036819e1d",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01021-f03s02-d85036819e1d-context.jpg",
+      "center_mean": [
+        0.11484375,
+        0.9451388888888889
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01021-f03s02-d85036819e1d"
+      ]
+    },
+    {
+      "rank": 54,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f04s00-7c847fe6174b",
+      "representative_context": "output/ground_litter_audit_holdout_20260918/assets/01021-f04s00-7c847fe6174b-context.jpg",
+      "center_mean": [
+        0.2685546875,
+        0.2767361111111111
+      ],
+      "datasets": [
+        "holdout_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01021-f04s00-7c847fe6174b"
+      ]
+    },
+    {
+      "rank": 55,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f04s00-aead927998ce",
+      "representative_context": "output/ground_litter_audit_holdout_20260918/assets/01021-f04s00-aead927998ce-context.jpg",
+      "center_mean": [
+        0.2716796875,
+        0.32916666666666666
+      ],
+      "datasets": [
+        "holdout_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01021-f04s00-aead927998ce"
+      ]
+    },
+    {
+      "rank": 56,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f04s01-3039b5dc7459",
+      "representative_context": "output/ground_litter_audit_holdout_20260918/assets/01021-f04s01-3039b5dc7459-context.jpg",
+      "center_mean": [
+        0.2470703125,
+        0.4114583333333333
+      ],
+      "datasets": [
+        "holdout_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01021-f04s01-3039b5dc7459"
+      ]
+    },
+    {
+      "rank": 57,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f04s01-5c39b23592e4",
+      "representative_context": "output/ground_litter_audit_holdout_20260918/assets/01021-f04s01-5c39b23592e4-context.jpg",
+      "center_mean": [
+        0.2736328125,
+        0.30416666666666664
+      ],
+      "datasets": [
+        "holdout_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01021-f04s01-5c39b23592e4"
+      ]
+    },
+    {
+      "rank": 58,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f05s00-871a25c1d26a",
+      "representative_context": "output/ground_litter_audit_holdout_20260918/assets/01021-f05s00-871a25c1d26a-context.jpg",
+      "center_mean": [
+        0.318359375,
+        0.321875
+      ],
+      "datasets": [
+        "holdout_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01021-f05s00-871a25c1d26a"
+      ]
+    },
+    {
+      "rank": 59,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f05s00-b823e2487118",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01021-f05s00-b823e2487118-context.jpg",
+      "center_mean": [
+        0.3150390625,
+        0.5600694444444444
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01021-f05s00-b823e2487118"
+      ]
+    },
+    {
+      "rank": 60,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f05s01-0032",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001021/review/assets/f05s01-0032-context.jpg",
+      "center_mean": [
+        0.315625,
+        0.5145833333333333
+      ],
+      "datasets": [
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "01021-f05s01-0032"
+      ]
+    },
+    {
+      "rank": 61,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f05s01-0073",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001021/review/assets/f05s01-0073-context.jpg",
+      "center_mean": [
+        0.3216796875,
+        0.28506944444444443
+      ],
+      "datasets": [
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "01021-f05s01-0073"
+      ]
+    },
+    {
+      "rank": 62,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f05s01-0093",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001021/review/assets/f05s01-0093-context.jpg",
+      "center_mean": [
+        0.2763671875,
+        0.3013888888888889
+      ],
+      "datasets": [
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "01021-f05s01-0093"
+      ]
+    },
+    {
+      "rank": 63,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f05s01-0100",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001021/review/assets/f05s01-0100-context.jpg",
+      "center_mean": [
+        0.2748046875,
+        0.2986111111111111
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01021-f05s01-0100"
+      ]
+    },
+    {
+      "rank": 64,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f05s01-0101",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001021/review/assets/f05s01-0101-context.jpg",
+      "center_mean": [
+        0.0705078125,
+        0.9159722222222222
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01021-f05s01-0101"
+      ]
+    },
+    {
+      "rank": 65,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f05s01-0106",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001021/review/assets/f05s01-0106-context.jpg",
+      "center_mean": [
+        0.3103515625,
+        0.2604166666666667
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01021-f05s01-0106"
+      ]
+    },
+    {
+      "rank": 66,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f05s02-0151",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001021/review/assets/f05s02-0151-context.jpg",
+      "center_mean": [
+        0.168359375,
+        0.7
+      ],
+      "datasets": [
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "01021-f05s02-0151"
+      ]
+    },
+    {
+      "rank": 67,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f05s02-0159",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001021/review/assets/f05s02-0159-context.jpg",
+      "center_mean": [
+        0.168359375,
+        0.7
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01021-f05s02-0159"
+      ]
+    },
+    {
+      "rank": 68,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f06s01-794163c3989d",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01021-f06s01-794163c3989d-context.jpg",
+      "center_mean": [
+        0.2689453125,
+        0.30277777777777776
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01021-f06s01-794163c3989d"
+      ]
+    },
+    {
+      "rank": 69,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f07s00-0008",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001021/review/assets/f07s00-0008-context.jpg",
+      "center_mean": [
+        0.1556640625,
+        0.7086805555555555
+      ],
+      "datasets": [
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "01021-f07s00-0008"
+      ]
+    },
+    {
+      "rank": 70,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f07s01-0825d8a4d31c",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01021-f07s01-0825d8a4d31c-context.jpg",
+      "center_mean": [
+        0.183984375,
+        0.6513888888888889
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01021-f07s01-0825d8a4d31c"
+      ]
+    },
+    {
+      "rank": 71,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f07s01-dd72a2d3126e",
+      "representative_context": "output/ground_litter_audit_holdout_20260918/assets/01021-f07s01-dd72a2d3126e-context.jpg",
+      "center_mean": [
+        0.3283203125,
+        0.2552083333333333
+      ],
+      "datasets": [
+        "holdout_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01021-f07s01-dd72a2d3126e"
+      ]
+    },
+    {
+      "rank": 72,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f07s02-0036",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001021/review/assets/f07s02-0036-context.jpg",
+      "center_mean": [
+        0.1515625,
+        0.6368055555555555
+      ],
+      "datasets": [
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "01021-f07s02-0036"
+      ]
+    },
+    {
+      "rank": 73,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f07s02-0057",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001021/review/assets/f07s02-0057-context.jpg",
+      "center_mean": [
+        0.1240234375,
+        0.8045138888888889
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01021-f07s02-0057"
+      ]
+    },
+    {
+      "rank": 74,
+      "size": 1,
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "representative_review_id": "01021-f07s02-6b3fcecc4ae2",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01021-f07s02-6b3fcecc4ae2-context.jpg",
+      "center_mean": [
+        0.16171875,
+        0.6434027777777778
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01021-f07s02-6b3fcecc4ae2"
+      ]
+    },
+    {
+      "rank": 75,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f00s00-3d6d936bff6e",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01022-f00s00-3d6d936bff6e-context.jpg",
+      "center_mean": [
+        0.5255859375,
+        0.44305555555555554
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01022-f00s00-3d6d936bff6e"
+      ]
+    },
+    {
+      "rank": 76,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f00s00-e0cae7230073",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01022-f00s00-e0cae7230073-context.jpg",
+      "center_mean": [
+        0.6740234375,
+        0.7923611111111111
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01022-f00s00-e0cae7230073"
+      ]
+    },
+    {
+      "rank": 77,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f00s01-2f19c19b5085",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01022-f00s01-2f19c19b5085-context.jpg",
+      "center_mean": [
+        0.6732421875,
+        0.7774305555555555
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01022-f00s01-2f19c19b5085"
+      ]
+    },
+    {
+      "rank": 78,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f00s02-0075",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001022/review/assets/f00s02-0075-context.jpg",
+      "center_mean": [
+        0.5455078125,
+        0.4125
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01022-f00s02-0075"
+      ]
+    },
+    {
+      "rank": 79,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f00s02-0084",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001022/review/assets/f00s02-0084-context.jpg",
+      "center_mean": [
+        0.603125,
+        0.5760416666666667
+      ],
+      "datasets": [
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "01022-f00s02-0084"
+      ]
+    },
+    {
+      "rank": 80,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f00s02-0146",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001022/review/assets/f00s02-0146-context.jpg",
+      "center_mean": [
+        0.542578125,
+        0.7270833333333333
+      ],
+      "datasets": [
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "01022-f00s02-0146"
+      ]
+    },
+    {
+      "rank": 81,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f00s02-0153",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001022/review/assets/f00s02-0153-context.jpg",
+      "center_mean": [
+        0.542578125,
+        0.7270833333333333
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01022-f00s02-0153"
+      ]
+    },
+    {
+      "rank": 82,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f01s00-534e5fb83ec9",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01022-f01s00-534e5fb83ec9-context.jpg",
+      "center_mean": [
+        0.48984375,
+        0.36527777777777776
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01022-f01s00-534e5fb83ec9"
+      ]
+    },
+    {
+      "rank": 83,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f01s01-0036",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001022/review/assets/f01s01-0036-context.jpg",
+      "center_mean": [
+        0.51171875,
+        0.4444444444444444
+      ],
+      "datasets": [
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "01022-f01s01-0036"
+      ]
+    },
+    {
+      "rank": 84,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f01s02-0033",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001022/review/assets/f01s02-0033-context.jpg",
+      "center_mean": [
+        0.5267578125,
+        0.4427083333333333
+      ],
+      "datasets": [
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "01022-f01s02-0033"
+      ]
+    },
+    {
+      "rank": 85,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f01s02-0085",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001022/review/assets/f01s02-0085-context.jpg",
+      "center_mean": [
+        0.58984375,
+        0.6027777777777777
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01022-f01s02-0085"
+      ]
+    },
+    {
+      "rank": 86,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f01s02-182c331e3ba7",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01022-f01s02-182c331e3ba7-context.jpg",
+      "center_mean": [
+        0.54921875,
+        0.5371527777777778
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01022-f01s02-182c331e3ba7"
+      ]
+    },
+    {
+      "rank": 87,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f01s02-6ffeaf52db40",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01022-f01s02-6ffeaf52db40-context.jpg",
+      "center_mean": [
+        0.5947265625,
+        0.6857638888888888
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01022-f01s02-6ffeaf52db40"
+      ]
+    },
+    {
+      "rank": 88,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f02s00-7d8520c83f2b",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01022-f02s00-7d8520c83f2b-context.jpg",
+      "center_mean": [
+        0.452734375,
+        0.3871527777777778
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01022-f02s00-7d8520c83f2b"
+      ]
+    },
+    {
+      "rank": 89,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f02s01-0015",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001022/review/assets/f02s01-0015-context.jpg",
+      "center_mean": [
+        0.6294921875,
+        0.9447916666666667
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01022-f02s01-0015"
+      ]
+    },
+    {
+      "rank": 90,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f02s01-0068",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001022/review/assets/f02s01-0068-context.jpg",
+      "center_mean": [
+        0.7138671875,
+        0.9177083333333333
+      ],
+      "datasets": [
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "01022-f02s01-0068"
+      ]
+    },
+    {
+      "rank": 91,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f02s01-069c52a57bfe",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01022-f02s01-069c52a57bfe-context.jpg",
+      "center_mean": [
+        0.5744140625,
+        0.7444444444444445
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01022-f02s01-069c52a57bfe"
+      ]
+    },
+    {
+      "rank": 92,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f02s01-2a33a5006ac1",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01022-f02s01-2a33a5006ac1-context.jpg",
+      "center_mean": [
+        0.5189453125,
+        0.6607638888888889
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01022-f02s01-2a33a5006ac1"
+      ]
+    },
+    {
+      "rank": 93,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f02s01-482b494e42dd",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01022-f02s01-482b494e42dd-context.jpg",
+      "center_mean": [
+        0.570703125,
+        0.70625
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01022-f02s01-482b494e42dd"
+      ]
+    },
+    {
+      "rank": 94,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f02s01-7e4445ea4714",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01022-f02s01-7e4445ea4714-context.jpg",
+      "center_mean": [
+        0.5431640625,
+        0.775
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01022-f02s01-7e4445ea4714"
+      ]
+    },
+    {
+      "rank": 95,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f02s01-8b34a08b1164",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01022-f02s01-8b34a08b1164-context.jpg",
+      "center_mean": [
+        0.576171875,
+        0.7142361111111111
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01022-f02s01-8b34a08b1164"
+      ]
+    },
+    {
+      "rank": 96,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f02s01-a8eda632bb30",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01022-f02s01-a8eda632bb30-context.jpg",
+      "center_mean": [
+        0.5423828125,
+        0.5559027777777777
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01022-f02s01-a8eda632bb30"
+      ]
+    },
+    {
+      "rank": 97,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f02s01-cacd61db06d2",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01022-f02s01-cacd61db06d2-context.jpg",
+      "center_mean": [
+        0.5466796875,
+        0.7538194444444445
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01022-f02s01-cacd61db06d2"
+      ]
+    },
+    {
+      "rank": 98,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f02s02-0002",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001022/review/assets/f02s02-0002-context.jpg",
+      "center_mean": [
+        0.6294921875,
+        0.9444444444444444
+      ],
+      "datasets": [
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "01022-f02s02-0002"
+      ]
+    },
+    {
+      "rank": 99,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f03s00-0019",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001022/review/assets/f03s00-0019-context.jpg",
+      "center_mean": [
+        0.560546875,
+        0.4409722222222222
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01022-f03s00-0019"
+      ]
+    },
+    {
+      "rank": 100,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f03s00-0026",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001022/review/assets/f03s00-0026-context.jpg",
+      "center_mean": [
+        0.5021484375,
+        0.3902777777777778
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01022-f03s00-0026"
+      ]
+    },
+    {
+      "rank": 101,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f03s00-0077",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001022/review/assets/f03s00-0077-context.jpg",
+      "center_mean": [
+        0.718359375,
+        0.9215277777777777
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01022-f03s00-0077"
+      ]
+    },
+    {
+      "rank": 102,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f03s00-0155",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001022/review/assets/f03s00-0155-context.jpg",
+      "center_mean": [
+        0.6078125,
+        0.6868055555555556
+      ],
+      "datasets": [
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "01022-f03s00-0155"
+      ]
+    },
+    {
+      "rank": 103,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f03s01-656017b30a92",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01022-f03s01-656017b30a92-context.jpg",
+      "center_mean": [
+        0.687109375,
+        0.8128472222222223
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01022-f03s01-656017b30a92"
+      ]
+    },
+    {
+      "rank": 104,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f03s01-c407e4f53c1b",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01022-f03s01-c407e4f53c1b-context.jpg",
+      "center_mean": [
+        0.629296875,
+        0.9451388888888889
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01022-f03s01-c407e4f53c1b"
+      ]
+    },
+    {
+      "rank": 105,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f04s00-0066",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001022/review/assets/f04s00-0066-context.jpg",
+      "center_mean": [
+        0.50859375,
+        0.8336805555555555
+      ],
+      "datasets": [
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "01022-f04s00-0066"
+      ]
+    },
+    {
+      "rank": 106,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f04s00-0083",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001022/review/assets/f04s00-0083-context.jpg",
+      "center_mean": [
+        0.562890625,
+        0.46041666666666664
+      ],
+      "datasets": [
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "01022-f04s00-0083"
+      ]
+    },
+    {
+      "rank": 107,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f04s00-29cc6d692009",
+      "representative_context": "output/ground_litter_audit_holdout_20260918/assets/01022-f04s00-29cc6d692009-context.jpg",
+      "center_mean": [
+        0.53671875,
+        0.478125
+      ],
+      "datasets": [
+        "holdout_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01022-f04s00-29cc6d692009"
+      ]
+    },
+    {
+      "rank": 108,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f04s00-3dd7f141b614",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01022-f04s00-3dd7f141b614-context.jpg",
+      "center_mean": [
+        0.530859375,
+        0.6333333333333333
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01022-f04s00-3dd7f141b614"
+      ]
+    },
+    {
+      "rank": 109,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f04s00-8251e35bfc3b",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01022-f04s00-8251e35bfc3b-context.jpg",
+      "center_mean": [
+        0.55546875,
+        0.44756944444444446
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01022-f04s00-8251e35bfc3b"
+      ]
+    },
+    {
+      "rank": 110,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f04s01-0055",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001022/review/assets/f04s01-0055-context.jpg",
+      "center_mean": [
+        0.6810546875,
+        0.8527777777777777
+      ],
+      "datasets": [
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "01022-f04s01-0055"
+      ]
+    },
+    {
+      "rank": 111,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f04s02-6969b707c5e6",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01022-f04s02-6969b707c5e6-context.jpg",
+      "center_mean": [
+        0.5017578125,
+        0.79375
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01022-f04s02-6969b707c5e6"
+      ]
+    },
+    {
+      "rank": 112,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f05s00-0013",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001022/review/assets/f05s00-0013-context.jpg",
+      "center_mean": [
+        0.6720703125,
+        0.9267361111111111
+      ],
+      "datasets": [
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "01022-f05s00-0013"
+      ]
+    },
+    {
+      "rank": 113,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f05s00-0096",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001022/review/assets/f05s00-0096-context.jpg",
+      "center_mean": [
+        0.592578125,
+        0.7965277777777777
+      ],
+      "datasets": [
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "01022-f05s00-0096"
+      ]
+    },
+    {
+      "rank": 114,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f05s00-7e6f405a0210",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01022-f05s00-7e6f405a0210-context.jpg",
+      "center_mean": [
+        0.5876953125,
+        0.940625
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01022-f05s00-7e6f405a0210"
+      ]
+    },
+    {
+      "rank": 115,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f05s00-94dc089082ca",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01022-f05s00-94dc089082ca-context.jpg",
+      "center_mean": [
+        0.6091796875,
+        0.8145833333333333
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01022-f05s00-94dc089082ca"
+      ]
+    },
+    {
+      "rank": 116,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f05s00-9b9d482e384f",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01022-f05s00-9b9d482e384f-context.jpg",
+      "center_mean": [
+        0.5787109375,
+        0.7510416666666667
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01022-f05s00-9b9d482e384f"
+      ]
+    },
+    {
+      "rank": 117,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f05s00-a14cba51a47f",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01022-f05s00-a14cba51a47f-context.jpg",
+      "center_mean": [
+        0.584765625,
+        0.6934027777777778
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01022-f05s00-a14cba51a47f"
+      ]
+    },
+    {
+      "rank": 118,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f05s00-efae4d1e9b7d",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01022-f05s00-efae4d1e9b7d-context.jpg",
+      "center_mean": [
+        0.57578125,
+        0.9791666666666666
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01022-f05s00-efae4d1e9b7d"
+      ]
+    },
+    {
+      "rank": 119,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f05s00-f61dd8c52d5b",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01022-f05s00-f61dd8c52d5b-context.jpg",
+      "center_mean": [
+        0.50546875,
+        0.3729166666666667
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01022-f05s00-f61dd8c52d5b"
+      ]
+    },
+    {
+      "rank": 120,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f05s01-0007",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001022/review/assets/f05s01-0007-context.jpg",
+      "center_mean": [
+        0.5689453125,
+        0.5236111111111111
+      ],
+      "datasets": [
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "01022-f05s01-0007"
+      ]
+    },
+    {
+      "rank": 121,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f05s01-0089",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001022/review/assets/f05s01-0089-context.jpg",
+      "center_mean": [
+        0.5623046875,
+        0.6069444444444444
+      ],
+      "datasets": [
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "01022-f05s01-0089"
+      ]
+    },
+    {
+      "rank": 122,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f05s02-0046",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001022/review/assets/f05s02-0046-context.jpg",
+      "center_mean": [
+        0.7046875,
+        0.8548611111111111
+      ],
+      "datasets": [
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "01022-f05s02-0046"
+      ]
+    },
+    {
+      "rank": 123,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f05s02-0158",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001022/review/assets/f05s02-0158-context.jpg",
+      "center_mean": [
+        0.603125,
+        0.7145833333333333
+      ],
+      "datasets": [
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "01022-f05s02-0158"
+      ]
+    },
+    {
+      "rank": 124,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f05s02-914bc4d38037",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01022-f05s02-914bc4d38037-context.jpg",
+      "center_mean": [
+        0.53203125,
+        0.5545138888888889
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01022-f05s02-914bc4d38037"
+      ]
+    },
+    {
+      "rank": 125,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f05s02-fa2eac940156",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01022-f05s02-fa2eac940156-context.jpg",
+      "center_mean": [
+        0.469921875,
+        0.3927083333333333
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01022-f05s02-fa2eac940156"
+      ]
+    },
+    {
+      "rank": 126,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f06s00-0036",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001022/review/assets/f06s00-0036-context.jpg",
+      "center_mean": [
+        0.530078125,
+        0.44375
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01022-f06s00-0036"
+      ]
+    },
+    {
+      "rank": 127,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f06s00-da2aea628392",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01022-f06s00-da2aea628392-context.jpg",
+      "center_mean": [
+        0.6708984375,
+        0.7809027777777777
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01022-f06s00-da2aea628392"
+      ]
+    },
+    {
+      "rank": 128,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f06s01-0017",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001022/review/assets/f06s01-0017-context.jpg",
+      "center_mean": [
+        0.690625,
+        0.8704861111111111
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01022-f06s01-0017"
+      ]
+    },
+    {
+      "rank": 129,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f06s01-0075",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001022/review/assets/f06s01-0075-context.jpg",
+      "center_mean": [
+        0.7134765625,
+        0.9572916666666667
+      ],
+      "datasets": [
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "01022-f06s01-0075"
+      ]
+    },
+    {
+      "rank": 130,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f06s01-4b416d9ec5b3",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01022-f06s01-4b416d9ec5b3-context.jpg",
+      "center_mean": [
+        0.7244140625,
+        0.9711805555555556
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01022-f06s01-4b416d9ec5b3"
+      ]
+    },
+    {
+      "rank": 131,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f06s02-0009",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001022/review/assets/f06s02-0009-context.jpg",
+      "center_mean": [
+        0.6916015625,
+        0.8565972222222222
+      ],
+      "datasets": [
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "01022-f06s02-0009"
+      ]
+    },
+    {
+      "rank": 132,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f07s00-0024",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001022/review/assets/f07s00-0024-context.jpg",
+      "center_mean": [
+        0.732421875,
+        0.9086805555555556
+      ],
+      "datasets": [
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "01022-f07s00-0024"
+      ]
+    },
+    {
+      "rank": 133,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f07s00-0047",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001022/review/assets/f07s00-0047-context.jpg",
+      "center_mean": [
+        0.4853515625,
+        0.40069444444444446
+      ],
+      "datasets": [
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "01022-f07s00-0047"
+      ]
+    },
+    {
+      "rank": 134,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f07s00-0118",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001022/review/assets/f07s00-0118-context.jpg",
+      "center_mean": [
+        0.537109375,
+        0.42986111111111114
+      ],
+      "datasets": [
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "01022-f07s00-0118"
+      ]
+    },
+    {
+      "rank": 135,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f07s00-0125",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001022/review/assets/f07s00-0125-context.jpg",
+      "center_mean": [
+        0.537109375,
+        0.42986111111111114
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01022-f07s00-0125"
+      ]
+    },
+    {
+      "rank": 136,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f07s00-ac6ae40f03dc",
+      "representative_context": "output/ground_litter_audit_holdout_20260918/assets/01022-f07s00-ac6ae40f03dc-context.jpg",
+      "center_mean": [
+        0.57109375,
+        0.4583333333333333
+      ],
+      "datasets": [
+        "holdout_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01022-f07s00-ac6ae40f03dc"
+      ]
+    },
+    {
+      "rank": 137,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f07s00-bd10be45da58",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01022-f07s00-bd10be45da58-context.jpg",
+      "center_mean": [
+        0.548046875,
+        0.3993055555555556
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01022-f07s00-bd10be45da58"
+      ]
+    },
+    {
+      "rank": 138,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f07s01-0005",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001022/review/assets/f07s01-0005-context.jpg",
+      "center_mean": [
+        0.694140625,
+        0.8128472222222223
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01022-f07s01-0005"
+      ]
+    },
+    {
+      "rank": 139,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f07s01-0070",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001022/review/assets/f07s01-0070-context.jpg",
+      "center_mean": [
+        0.4671875,
+        0.42951388888888886
+      ],
+      "datasets": [
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "01022-f07s01-0070"
+      ]
+    },
+    {
+      "rank": 140,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f07s02-0790d62d5450",
+      "representative_context": "output/ground_litter_audit_holdout_20260918/assets/01022-f07s02-0790d62d5450-context.jpg",
+      "center_mean": [
+        0.6896484375,
+        0.8288194444444444
+      ],
+      "datasets": [
+        "holdout_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01022-f07s02-0790d62d5450"
+      ]
+    },
+    {
+      "rank": 141,
+      "size": 1,
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "representative_review_id": "01022-f07s02-415460bcc130",
+      "representative_context": "output/ground_litter_audit_holdout_20260918/assets/01022-f07s02-415460bcc130-context.jpg",
+      "center_mean": [
+        0.703515625,
+        0.9784722222222222
+      ],
+      "datasets": [
+        "holdout_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01022-f07s02-415460bcc130"
+      ]
+    },
+    {
+      "rank": 142,
+      "size": 1,
+      "camera_id": "01027",
+      "device_code": "44180209031322001027",
+      "representative_review_id": "01027-f02s02-0056",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001027/review/assets/f02s02-0056-context.jpg",
+      "center_mean": [
+        0.9728515625,
+        0.5493055555555556
+      ],
+      "datasets": [
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "01027-f02s02-0056"
+      ]
+    },
+    {
+      "rank": 143,
+      "size": 1,
+      "camera_id": "01027",
+      "device_code": "44180209031322001027",
+      "representative_review_id": "01027-f02s02-5eb7f8020ad8",
+      "representative_context": "output/ground_litter_audit_holdout_20260918/assets/01027-f02s02-5eb7f8020ad8-context.jpg",
+      "center_mean": [
+        0.9658203125,
+        0.5194444444444445
+      ],
+      "datasets": [
+        "holdout_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01027-f02s02-5eb7f8020ad8"
+      ]
+    },
+    {
+      "rank": 144,
+      "size": 1,
+      "camera_id": "01027",
+      "device_code": "44180209031322001027",
+      "representative_review_id": "01027-f02s02-b7ae4b49e4d1",
+      "representative_context": "output/ground_litter_audit_holdout_20260918/assets/01027-f02s02-b7ae4b49e4d1-context.jpg",
+      "center_mean": [
+        0.9634765625,
+        0.5756944444444444
+      ],
+      "datasets": [
+        "holdout_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01027-f02s02-b7ae4b49e4d1"
+      ]
+    },
+    {
+      "rank": 145,
+      "size": 1,
+      "camera_id": "01028",
+      "device_code": "44180209031322001028",
+      "representative_review_id": "01028-f01s00-8dabf20b8d4f",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01028-f01s00-8dabf20b8d4f-context.jpg",
+      "center_mean": [
+        0.68203125,
+        0.5083333333333333
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01028-f01s00-8dabf20b8d4f"
+      ]
+    },
+    {
+      "rank": 146,
+      "size": 1,
+      "camera_id": "01028",
+      "device_code": "44180209031322001028",
+      "representative_review_id": "01028-f02s01-0089",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001028/review/assets/f02s01-0089-context.jpg",
+      "center_mean": [
+        0.7669921875,
+        0.7729166666666667
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01028-f02s01-0089"
+      ]
+    },
+    {
+      "rank": 147,
+      "size": 1,
+      "camera_id": "01028",
+      "device_code": "44180209031322001028",
+      "representative_review_id": "01028-f03s00-e3212746bb47",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01028-f03s00-e3212746bb47-context.jpg",
+      "center_mean": [
+        0.7615234375,
+        0.7972222222222223
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01028-f03s00-e3212746bb47"
+      ]
+    },
+    {
+      "rank": 148,
+      "size": 1,
+      "camera_id": "01028",
+      "device_code": "44180209031322001028",
+      "representative_review_id": "01028-f04s00-0029",
+      "representative_context": "output/ground_litter_audit_formal_day1/devices/44180209031322001028/review/assets/f04s00-0029-context.jpg",
+      "center_mean": [
+        0.7134765625,
+        0.6753472222222222
+      ],
+      "datasets": [
+        "formal_four_cameras_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "01028-f04s00-0029"
+      ]
+    },
+    {
+      "rank": 149,
+      "size": 1,
+      "camera_id": "01028",
+      "device_code": "44180209031322001028",
+      "representative_review_id": "01028-f05s00-82df807cb315",
+      "representative_context": "output/ground_litter_audit_holdout_20260918/assets/01028-f05s00-82df807cb315-context.jpg",
+      "center_mean": [
+        0.7490234375,
+        0.6305555555555555
+      ],
+      "datasets": [
+        "holdout_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01028-f05s00-82df807cb315"
+      ]
+    },
+    {
+      "rank": 150,
+      "size": 1,
+      "camera_id": "01028",
+      "device_code": "44180209031322001028",
+      "representative_review_id": "01028-f06s00-707c007f7c9e",
+      "representative_context": "output/ground_litter_audit_holdout_20260918/assets/01028-f06s00-707c007f7c9e-context.jpg",
+      "center_mean": [
+        0.708203125,
+        0.6131944444444445
+      ],
+      "datasets": [
+        "holdout_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01028-f06s00-707c007f7c9e"
+      ]
+    },
+    {
+      "rank": 151,
+      "size": 1,
+      "camera_id": "01028",
+      "device_code": "44180209031322001028",
+      "representative_review_id": "01028-f06s00-8623bd1fdae4",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01028-f06s00-8623bd1fdae4-context.jpg",
+      "center_mean": [
+        0.7205078125,
+        0.5666666666666667
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01028-f06s00-8623bd1fdae4"
+      ]
+    },
+    {
+      "rank": 152,
+      "size": 1,
+      "camera_id": "01028",
+      "device_code": "44180209031322001028",
+      "representative_review_id": "01028-f06s01-0043",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001028/review/assets/f06s01-0043-context.jpg",
+      "center_mean": [
+        0.7591796875,
+        0.5583333333333333
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01028-f06s01-0043"
+      ]
+    },
+    {
+      "rank": 153,
+      "size": 1,
+      "camera_id": "01028",
+      "device_code": "44180209031322001028",
+      "representative_review_id": "01028-f06s01-a6e0cb6a7939",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01028-f06s01-a6e0cb6a7939-context.jpg",
+      "center_mean": [
+        0.729296875,
+        0.5357638888888889
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01028-f06s01-a6e0cb6a7939"
+      ]
+    },
+    {
+      "rank": 154,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f00s00-0123",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f00s00-0123-context.jpg",
+      "center_mean": [
+        0.501171875,
+        0.5125
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f00s00-0123"
+      ]
+    },
+    {
+      "rank": 155,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f00s00-53c06b965a6a",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01030-f00s00-53c06b965a6a-context.jpg",
+      "center_mean": [
+        0.7251953125,
+        0.6239583333333333
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01030-f00s00-53c06b965a6a"
+      ]
+    },
+    {
+      "rank": 156,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f00s00-5d60913f31ad",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01030-f00s00-5d60913f31ad-context.jpg",
+      "center_mean": [
+        0.6568359375,
+        0.725
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01030-f00s00-5d60913f31ad"
+      ]
+    },
+    {
+      "rank": 157,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f00s00-74cbf0089f1c",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01030-f00s00-74cbf0089f1c-context.jpg",
+      "center_mean": [
+        0.7380859375,
+        0.9142361111111111
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01030-f00s00-74cbf0089f1c"
+      ]
+    },
+    {
+      "rank": 158,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f00s00-d826601a6996",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01030-f00s00-d826601a6996-context.jpg",
+      "center_mean": [
+        0.751171875,
+        0.6510416666666666
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01030-f00s00-d826601a6996"
+      ]
+    },
+    {
+      "rank": 159,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f00s01-ccd4a1162ba2",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01030-f00s01-ccd4a1162ba2-context.jpg",
+      "center_mean": [
+        0.71796875,
+        0.9666666666666667
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01030-f00s01-ccd4a1162ba2"
+      ]
+    },
+    {
+      "rank": 160,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f00s01-e3d2ede083b4",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01030-f00s01-e3d2ede083b4-context.jpg",
+      "center_mean": [
+        0.716796875,
+        0.6239583333333333
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01030-f00s01-e3d2ede083b4"
+      ]
+    },
+    {
+      "rank": 161,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f00s02-0139",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f00s02-0139-context.jpg",
+      "center_mean": [
+        0.542578125,
+        0.7270833333333333
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f00s02-0139"
+      ]
+    },
+    {
+      "rank": 162,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f00s02-1270efa68ed9",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01030-f00s02-1270efa68ed9-context.jpg",
+      "center_mean": [
+        0.58671875,
+        0.38055555555555554
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01030-f00s02-1270efa68ed9"
+      ]
+    },
+    {
+      "rank": 163,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f00s02-2c80793c6663",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01030-f00s02-2c80793c6663-context.jpg",
+      "center_mean": [
+        0.734765625,
+        0.5618055555555556
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01030-f00s02-2c80793c6663"
+      ]
+    },
+    {
+      "rank": 164,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f00s02-375f0082380e",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01030-f00s02-375f0082380e-context.jpg",
+      "center_mean": [
+        0.691015625,
+        0.3333333333333333
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01030-f00s02-375f0082380e"
+      ]
+    },
+    {
+      "rank": 165,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f01s00-0008",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f01s00-0008-context.jpg",
+      "center_mean": [
+        0.6130859375,
+        0.48506944444444444
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f01s00-0008"
+      ]
+    },
+    {
+      "rank": 166,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f01s00-0018",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f01s00-0018-context.jpg",
+      "center_mean": [
+        0.613671875,
+        0.5649305555555556
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f01s00-0018"
+      ]
+    },
+    {
+      "rank": 167,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f01s00-0025",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f01s00-0025-context.jpg",
+      "center_mean": [
+        0.6158203125,
+        0.42743055555555554
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f01s00-0025"
+      ]
+    },
+    {
+      "rank": 168,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f01s02-0085",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f01s02-0085-context.jpg",
+      "center_mean": [
+        0.749609375,
+        0.5996527777777778
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f01s02-0085"
+      ]
+    },
+    {
+      "rank": 169,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f01s02-0119",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f01s02-0119-context.jpg",
+      "center_mean": [
+        0.736328125,
+        0.9208333333333333
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f01s02-0119"
+      ]
+    },
+    {
+      "rank": 170,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f01s02-0120",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f01s02-0120-context.jpg",
+      "center_mean": [
+        0.484375,
+        0.5631944444444444
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f01s02-0120"
+      ]
+    },
+    {
+      "rank": 171,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f01s02-4ceae68b596b",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01030-f01s02-4ceae68b596b-context.jpg",
+      "center_mean": [
+        0.697265625,
+        0.9104166666666667
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01030-f01s02-4ceae68b596b"
+      ]
+    },
+    {
+      "rank": 172,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f01s02-e6465f2c855a",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01030-f01s02-e6465f2c855a-context.jpg",
+      "center_mean": [
+        0.7388671875,
+        0.5454861111111111
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01030-f01s02-e6465f2c855a"
+      ]
+    },
+    {
+      "rank": 173,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f02s00-0106",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f02s00-0106-context.jpg",
+      "center_mean": [
+        0.720703125,
+        0.7125
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f02s00-0106"
+      ]
+    },
+    {
+      "rank": 174,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f02s00-0142",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f02s00-0142-context.jpg",
+      "center_mean": [
+        0.6984375,
+        0.8645833333333334
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f02s00-0142"
+      ]
+    },
+    {
+      "rank": 175,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f02s00-39d08bc962c0",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01030-f02s00-39d08bc962c0-context.jpg",
+      "center_mean": [
+        0.6724609375,
+        0.23472222222222222
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01030-f02s00-39d08bc962c0"
+      ]
+    },
+    {
+      "rank": 176,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f02s00-a5a19c1a53d1",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01030-f02s00-a5a19c1a53d1-context.jpg",
+      "center_mean": [
+        0.6994140625,
+        0.6534722222222222
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01030-f02s00-a5a19c1a53d1"
+      ]
+    },
+    {
+      "rank": 177,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f02s00-ca0d7a52e5e7",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01030-f02s00-ca0d7a52e5e7-context.jpg",
+      "center_mean": [
+        0.545703125,
+        0.37569444444444444
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01030-f02s00-ca0d7a52e5e7"
+      ]
+    },
+    {
+      "rank": 178,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f02s01-0131",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f02s01-0131-context.jpg",
+      "center_mean": [
+        0.6046875,
+        0.27291666666666664
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f02s01-0131"
+      ]
+    },
+    {
+      "rank": 179,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f02s01-0159",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f02s01-0159-context.jpg",
+      "center_mean": [
+        0.7505859375,
+        0.9121527777777778
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f02s01-0159"
+      ]
+    },
+    {
+      "rank": 180,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f02s01-0c153509bc61",
+      "representative_context": "output/ground_litter_audit_holdout_20260918/assets/01030-f02s01-0c153509bc61-context.jpg",
+      "center_mean": [
+        0.581640625,
+        0.47152777777777777
+      ],
+      "datasets": [
+        "holdout_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01030-f02s01-0c153509bc61"
+      ]
+    },
+    {
+      "rank": 181,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f02s01-3ff388094b00",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01030-f02s01-3ff388094b00-context.jpg",
+      "center_mean": [
+        0.51015625,
+        0.7638888888888888
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01030-f02s01-3ff388094b00"
+      ]
+    },
+    {
+      "rank": 182,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f02s01-b893a63df106",
+      "representative_context": "output/ground_litter_audit_holdout_20260918/assets/01030-f02s01-b893a63df106-context.jpg",
+      "center_mean": [
+        0.5220703125,
+        0.2920138888888889
+      ],
+      "datasets": [
+        "holdout_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01030-f02s01-b893a63df106"
+      ]
+    },
+    {
+      "rank": 183,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f02s02-0006",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f02s02-0006-context.jpg",
+      "center_mean": [
+        0.7275390625,
+        0.5118055555555555
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f02s02-0006"
+      ]
+    },
+    {
+      "rank": 184,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f02s02-0009",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f02s02-0009-context.jpg",
+      "center_mean": [
+        0.5833984375,
+        0.27881944444444445
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f02s02-0009"
+      ]
+    },
+    {
+      "rank": 185,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f02s02-0013",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f02s02-0013-context.jpg",
+      "center_mean": [
+        0.5810546875,
+        0.33541666666666664
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f02s02-0013"
+      ]
+    },
+    {
+      "rank": 186,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f02s02-0099",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f02s02-0099-context.jpg",
+      "center_mean": [
+        0.61875,
+        0.25
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f02s02-0099"
+      ]
+    },
+    {
+      "rank": 187,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f02s02-0100",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f02s02-0100-context.jpg",
+      "center_mean": [
+        0.515625,
+        0.9666666666666667
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f02s02-0100"
+      ]
+    },
+    {
+      "rank": 188,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f02s02-0133",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f02s02-0133-context.jpg",
+      "center_mean": [
+        0.653515625,
+        0.30694444444444446
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f02s02-0133"
+      ]
+    },
+    {
+      "rank": 189,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f02s02-dcd50265cbbc",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01030-f02s02-dcd50265cbbc-context.jpg",
+      "center_mean": [
+        0.68671875,
+        0.4552083333333333
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01030-f02s02-dcd50265cbbc"
+      ]
+    },
+    {
+      "rank": 190,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f02s02-e82ffc2744da",
+      "representative_context": "output/ground_litter_audit_holdout_20260918/assets/01030-f02s02-e82ffc2744da-context.jpg",
+      "center_mean": [
+        0.7203125,
+        0.5802083333333333
+      ],
+      "datasets": [
+        "holdout_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01030-f02s02-e82ffc2744da"
+      ]
+    },
+    {
+      "rank": 191,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f03s00-0005",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f03s00-0005-context.jpg",
+      "center_mean": [
+        0.7267578125,
+        0.5652777777777778
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f03s00-0005"
+      ]
+    },
+    {
+      "rank": 192,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f03s00-0138",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f03s00-0138-context.jpg",
+      "center_mean": [
+        0.5203125,
+        0.7493055555555556
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f03s00-0138"
+      ]
+    },
+    {
+      "rank": 193,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f03s00-0152",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f03s00-0152-context.jpg",
+      "center_mean": [
+        0.745703125,
+        0.5958333333333333
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f03s00-0152"
+      ]
+    },
+    {
+      "rank": 194,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f03s00-28e4d29e4e08",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01030-f03s00-28e4d29e4e08-context.jpg",
+      "center_mean": [
+        0.551953125,
+        0.6069444444444444
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01030-f03s00-28e4d29e4e08"
+      ]
+    },
+    {
+      "rank": 195,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f03s00-bccfce215592",
+      "representative_context": "output/ground_litter_audit_holdout_20260918/assets/01030-f03s00-bccfce215592-context.jpg",
+      "center_mean": [
+        0.6337890625,
+        0.33819444444444446
+      ],
+      "datasets": [
+        "holdout_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01030-f03s00-bccfce215592"
+      ]
+    },
+    {
+      "rank": 196,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f03s00-c6bf9fd28a80",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01030-f03s00-c6bf9fd28a80-context.jpg",
+      "center_mean": [
+        0.586328125,
+        0.8458333333333333
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01030-f03s00-c6bf9fd28a80"
+      ]
+    },
+    {
+      "rank": 197,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f03s00-c709247606cd",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01030-f03s00-c709247606cd-context.jpg",
+      "center_mean": [
+        0.7068359375,
+        0.6465277777777778
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01030-f03s00-c709247606cd"
+      ]
+    },
+    {
+      "rank": 198,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f03s00-e55f672d7fb2",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01030-f03s00-e55f672d7fb2-context.jpg",
+      "center_mean": [
+        0.71015625,
+        0.6826388888888889
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01030-f03s00-e55f672d7fb2"
+      ]
+    },
+    {
+      "rank": 199,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f03s01-0089",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f03s01-0089-context.jpg",
+      "center_mean": [
+        0.7521484375,
+        0.5958333333333333
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f03s01-0089"
+      ]
+    },
+    {
+      "rank": 200,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f03s01-0125",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f03s01-0125-context.jpg",
+      "center_mean": [
+        0.60390625,
+        0.8472222222222222
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f03s01-0125"
+      ]
+    },
+    {
+      "rank": 201,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f03s01-2bc8db3b6cc7",
+      "representative_context": "output/ground_litter_audit_holdout_20260918/assets/01030-f03s01-2bc8db3b6cc7-context.jpg",
+      "center_mean": [
+        0.6744140625,
+        0.36006944444444444
+      ],
+      "datasets": [
+        "holdout_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01030-f03s01-2bc8db3b6cc7"
+      ]
+    },
+    {
+      "rank": 202,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f03s01-39764d489052",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01030-f03s01-39764d489052-context.jpg",
+      "center_mean": [
+        0.66328125,
+        0.403125
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01030-f03s01-39764d489052"
+      ]
+    },
+    {
+      "rank": 203,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f03s01-6c238db18123",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01030-f03s01-6c238db18123-context.jpg",
+      "center_mean": [
+        0.66953125,
+        0.5930555555555556
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01030-f03s01-6c238db18123"
+      ]
+    },
+    {
+      "rank": 204,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f03s01-8941c3f4d90e",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01030-f03s01-8941c3f4d90e-context.jpg",
+      "center_mean": [
+        0.694140625,
+        0.6288194444444445
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01030-f03s01-8941c3f4d90e"
+      ]
+    },
+    {
+      "rank": 205,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f03s01-98224fdf920f",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01030-f03s01-98224fdf920f-context.jpg",
+      "center_mean": [
+        0.5671875,
+        0.5784722222222223
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01030-f03s01-98224fdf920f"
+      ]
+    },
+    {
+      "rank": 206,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f03s01-bbfb0440cda0",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01030-f03s01-bbfb0440cda0-context.jpg",
+      "center_mean": [
+        0.67890625,
+        0.4149305555555556
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01030-f03s01-bbfb0440cda0"
+      ]
+    },
+    {
+      "rank": 207,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f03s02-0007",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f03s02-0007-context.jpg",
+      "center_mean": [
+        0.520703125,
+        0.3954861111111111
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f03s02-0007"
+      ]
+    },
+    {
+      "rank": 208,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f03s02-0011",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f03s02-0011-context.jpg",
+      "center_mean": [
+        0.7140625,
+        0.5381944444444444
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f03s02-0011"
+      ]
+    },
+    {
+      "rank": 209,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f03s02-0028",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f03s02-0028-context.jpg",
+      "center_mean": [
+        0.744140625,
+        0.9121527777777778
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f03s02-0028"
+      ]
+    },
+    {
+      "rank": 210,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f03s02-0054",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f03s02-0054-context.jpg",
+      "center_mean": [
+        0.5267578125,
+        0.38680555555555557
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f03s02-0054"
+      ]
+    },
+    {
+      "rank": 211,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f03s02-0075",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f03s02-0075-context.jpg",
+      "center_mean": [
+        0.5638671875,
+        0.30625
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f03s02-0075"
+      ]
+    },
+    {
+      "rank": 212,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f03s02-0086",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f03s02-0086-context.jpg",
+      "center_mean": [
+        0.6212890625,
+        0.26666666666666666
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f03s02-0086"
+      ]
+    },
+    {
+      "rank": 213,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f03s02-0095",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f03s02-0095-context.jpg",
+      "center_mean": [
+        0.5365234375,
+        0.3486111111111111
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f03s02-0095"
+      ]
+    },
+    {
+      "rank": 214,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f03s02-44f53c589658",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01030-f03s02-44f53c589658-context.jpg",
+      "center_mean": [
+        0.582421875,
+        0.3527777777777778
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01030-f03s02-44f53c589658"
+      ]
+    },
+    {
+      "rank": 215,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f03s02-6cd9d5ed78f2",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01030-f03s02-6cd9d5ed78f2-context.jpg",
+      "center_mean": [
+        0.7076171875,
+        0.6288194444444445
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01030-f03s02-6cd9d5ed78f2"
+      ]
+    },
+    {
+      "rank": 216,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f03s02-f757545d0606",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01030-f03s02-f757545d0606-context.jpg",
+      "center_mean": [
+        0.6302734375,
+        0.4461805555555556
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01030-f03s02-f757545d0606"
+      ]
+    },
+    {
+      "rank": 217,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f04s01-0004",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f04s01-0004-context.jpg",
+      "center_mean": [
+        0.737890625,
+        0.9086805555555556
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f04s01-0004"
+      ]
+    },
+    {
+      "rank": 218,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f04s01-0019",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f04s01-0019-context.jpg",
+      "center_mean": [
+        0.7662109375,
+        0.909375
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f04s01-0019"
+      ]
+    },
+    {
+      "rank": 219,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f04s01-0156",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f04s01-0156-context.jpg",
+      "center_mean": [
+        0.6732421875,
+        0.2309027777777778
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f04s01-0156"
+      ]
+    },
+    {
+      "rank": 220,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f04s01-04217b7992c9",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01030-f04s01-04217b7992c9-context.jpg",
+      "center_mean": [
+        0.567578125,
+        0.7201388888888889
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01030-f04s01-04217b7992c9"
+      ]
+    },
+    {
+      "rank": 221,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f04s01-599fc0b6ec27",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01030-f04s01-599fc0b6ec27-context.jpg",
+      "center_mean": [
+        0.6697265625,
+        0.44895833333333335
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01030-f04s01-599fc0b6ec27"
+      ]
+    },
+    {
+      "rank": 222,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f04s01-739a98caa31b",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01030-f04s01-739a98caa31b-context.jpg",
+      "center_mean": [
+        0.6,
+        0.42777777777777776
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01030-f04s01-739a98caa31b"
+      ]
+    },
+    {
+      "rank": 223,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f04s01-78dbfbc48f08",
+      "representative_context": "output/ground_litter_audit_holdout_20260918/assets/01030-f04s01-78dbfbc48f08-context.jpg",
+      "center_mean": [
+        0.6337890625,
+        0.41423611111111114
+      ],
+      "datasets": [
+        "holdout_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01030-f04s01-78dbfbc48f08"
+      ]
+    },
+    {
+      "rank": 224,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f04s01-8444fa827153",
+      "representative_context": "output/ground_litter_audit_holdout_20260918/assets/01030-f04s01-8444fa827153-context.jpg",
+      "center_mean": [
+        0.6279296875,
+        0.47465277777777776
+      ],
+      "datasets": [
+        "holdout_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01030-f04s01-8444fa827153"
+      ]
+    },
+    {
+      "rank": 225,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f04s01-84c9155f3037",
+      "representative_context": "output/ground_litter_audit_holdout_20260918/assets/01030-f04s01-84c9155f3037-context.jpg",
+      "center_mean": [
+        0.565625,
+        0.5982638888888889
+      ],
+      "datasets": [
+        "holdout_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01030-f04s01-84c9155f3037"
+      ]
+    },
+    {
+      "rank": 226,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f04s02-a361fdb72182",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01030-f04s02-a361fdb72182-context.jpg",
+      "center_mean": [
+        0.6421875,
+        0.3486111111111111
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01030-f04s02-a361fdb72182"
+      ]
+    },
+    {
+      "rank": 227,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f05s00-1a2ce9b9a135",
+      "representative_context": "output/ground_litter_audit_holdout_20260918/assets/01030-f05s00-1a2ce9b9a135-context.jpg",
+      "center_mean": [
+        0.5783203125,
+        0.5197916666666667
+      ],
+      "datasets": [
+        "holdout_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01030-f05s00-1a2ce9b9a135"
+      ]
+    },
+    {
+      "rank": 228,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f05s00-40a7f52b60f7",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01030-f05s00-40a7f52b60f7-context.jpg",
+      "center_mean": [
+        0.741796875,
+        0.703125
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01030-f05s00-40a7f52b60f7"
+      ]
+    },
+    {
+      "rank": 229,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f05s00-5d02600c0663",
+      "representative_context": "output/ground_litter_audit_holdout_20260918/assets/01030-f05s00-5d02600c0663-context.jpg",
+      "center_mean": [
+        0.5716796875,
+        0.5833333333333334
+      ],
+      "datasets": [
+        "holdout_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01030-f05s00-5d02600c0663"
+      ]
+    },
+    {
+      "rank": 230,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f05s00-8373e93586f6",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01030-f05s00-8373e93586f6-context.jpg",
+      "center_mean": [
+        0.634765625,
+        0.3211805555555556
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01030-f05s00-8373e93586f6"
+      ]
+    },
+    {
+      "rank": 231,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f05s01-0022",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f05s01-0022-context.jpg",
+      "center_mean": [
+        0.67109375,
+        0.3729166666666667
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f05s01-0022"
+      ]
+    },
+    {
+      "rank": 232,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f05s01-0038",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f05s01-0038-context.jpg",
+      "center_mean": [
+        0.656640625,
+        0.3503472222222222
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f05s01-0038"
+      ]
+    },
+    {
+      "rank": 233,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f05s01-0094",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f05s01-0094-context.jpg",
+      "center_mean": [
+        0.6724609375,
+        0.3996527777777778
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f05s01-0094"
+      ]
+    },
+    {
+      "rank": 234,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f05s01-0098",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f05s01-0098-context.jpg",
+      "center_mean": [
+        0.6533203125,
+        0.39131944444444444
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f05s01-0098"
+      ]
+    },
+    {
+      "rank": 235,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f05s01-0129",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f05s01-0129-context.jpg",
+      "center_mean": [
+        0.575,
+        0.4861111111111111
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f05s01-0129"
+      ]
+    },
+    {
+      "rank": 236,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f06s00-6d427f68eccb",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01030-f06s00-6d427f68eccb-context.jpg",
+      "center_mean": [
+        0.626171875,
+        0.29791666666666666
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01030-f06s00-6d427f68eccb"
+      ]
+    },
+    {
+      "rank": 237,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f06s00-917bb6b73a45",
+      "representative_context": "output/ground_litter_audit_holdout_20260918/assets/01030-f06s00-917bb6b73a45-context.jpg",
+      "center_mean": [
+        0.533203125,
+        0.290625
+      ],
+      "datasets": [
+        "holdout_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01030-f06s00-917bb6b73a45"
+      ]
+    },
+    {
+      "rank": 238,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f06s00-af0cde7d5a0f",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01030-f06s00-af0cde7d5a0f-context.jpg",
+      "center_mean": [
+        0.7142578125,
+        0.41770833333333335
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01030-f06s00-af0cde7d5a0f"
+      ]
+    },
+    {
+      "rank": 239,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f06s02-0107",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f06s02-0107-context.jpg",
+      "center_mean": [
+        0.703515625,
+        0.42916666666666664
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f06s02-0107"
+      ]
+    },
+    {
+      "rank": 240,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f06s02-0141",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f06s02-0141-context.jpg",
+      "center_mean": [
+        0.785546875,
+        0.9131944444444444
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f06s02-0141"
+      ]
+    },
+    {
+      "rank": 241,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f06s02-0145",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f06s02-0145-context.jpg",
+      "center_mean": [
+        0.7943359375,
+        0.9121527777777778
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f06s02-0145"
+      ]
+    },
+    {
+      "rank": 242,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f07s00-0110",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f07s00-0110-context.jpg",
+      "center_mean": [
+        0.537109375,
+        0.42986111111111114
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f07s00-0110"
+      ]
+    },
+    {
+      "rank": 243,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f07s00-0113",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f07s00-0113-context.jpg",
+      "center_mean": [
+        0.713671875,
+        0.8944444444444445
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f07s00-0113"
+      ]
+    },
+    {
+      "rank": 244,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f07s00-0140",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f07s00-0140-context.jpg",
+      "center_mean": [
+        0.659375,
+        0.8409722222222222
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f07s00-0140"
+      ]
+    },
+    {
+      "rank": 245,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f07s00-0150",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f07s00-0150-context.jpg",
+      "center_mean": [
+        0.74375,
+        0.9569444444444445
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f07s00-0150"
+      ]
+    },
+    {
+      "rank": 246,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f07s00-d0451fc09143",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01030-f07s00-d0451fc09143-context.jpg",
+      "center_mean": [
+        0.4837890625,
+        0.6364583333333333
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01030-f07s00-d0451fc09143"
+      ]
+    },
+    {
+      "rank": 247,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f07s00-fcee0fc6021f",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01030-f07s00-fcee0fc6021f-context.jpg",
+      "center_mean": [
+        0.626953125,
+        0.5479166666666667
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01030-f07s00-fcee0fc6021f"
+      ]
+    },
+    {
+      "rank": 248,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f07s01-0033",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f07s01-0033-context.jpg",
+      "center_mean": [
+        0.6794921875,
+        0.9659722222222222
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f07s01-0033"
+      ]
+    },
+    {
+      "rank": 249,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f07s01-0073",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f07s01-0073-context.jpg",
+      "center_mean": [
+        0.576953125,
+        0.24618055555555557
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f07s01-0073"
+      ]
+    },
+    {
+      "rank": 250,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f07s01-0096",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f07s01-0096-context.jpg",
+      "center_mean": [
+        0.7693359375,
+        0.9125
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f07s01-0096"
+      ]
+    },
+    {
+      "rank": 251,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f07s01-0097",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f07s01-0097-context.jpg",
+      "center_mean": [
+        0.5669921875,
+        0.22916666666666666
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f07s01-0097"
+      ]
+    },
+    {
+      "rank": 252,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f07s01-0109",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f07s01-0109-context.jpg",
+      "center_mean": [
+        0.748828125,
+        0.6638888888888889
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f07s01-0109"
+      ]
+    },
+    {
+      "rank": 253,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f07s01-0111",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f07s01-0111-context.jpg",
+      "center_mean": [
+        0.55,
+        0.21319444444444444
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f07s01-0111"
+      ]
+    },
+    {
+      "rank": 254,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f07s01-38c8c6ac92c2",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01030-f07s01-38c8c6ac92c2-context.jpg",
+      "center_mean": [
+        0.61796875,
+        0.5541666666666667
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01030-f07s01-38c8c6ac92c2"
+      ]
+    },
+    {
+      "rank": 255,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f07s01-6d4ddce153f4",
+      "representative_context": "output/ground_litter_audit_holdout_20260918/assets/01030-f07s01-6d4ddce153f4-context.jpg",
+      "center_mean": [
+        0.547265625,
+        0.21770833333333334
+      ],
+      "datasets": [
+        "holdout_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01030-f07s01-6d4ddce153f4"
+      ]
+    },
+    {
+      "rank": 256,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f07s01-80df5b70f700",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01030-f07s01-80df5b70f700-context.jpg",
+      "center_mean": [
+        0.5708984375,
+        0.4079861111111111
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01030-f07s01-80df5b70f700"
+      ]
+    },
+    {
+      "rank": 257,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f07s01-d3bb6bd93e3a",
+      "representative_context": "output/ground_litter_audit_holdout_20260918/assets/01030-f07s01-d3bb6bd93e3a-context.jpg",
+      "center_mean": [
+        0.4955078125,
+        0.7284722222222222
+      ],
+      "datasets": [
+        "holdout_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01030-f07s01-d3bb6bd93e3a"
+      ]
+    },
+    {
+      "rank": 258,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f07s01-dd5844ad78ea",
+      "representative_context": "output/ground_litter_audit_holdout_20260918/assets/01030-f07s01-dd5844ad78ea-context.jpg",
+      "center_mean": [
+        0.501171875,
+        0.5697916666666667
+      ],
+      "datasets": [
+        "holdout_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01030-f07s01-dd5844ad78ea"
+      ]
+    },
+    {
+      "rank": 259,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f07s01-ee84d40d0451",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01030-f07s01-ee84d40d0451-context.jpg",
+      "center_mean": [
+        0.5650390625,
+        0.48993055555555554
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01030-f07s01-ee84d40d0451"
+      ]
+    },
+    {
+      "rank": 260,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f07s02-0015",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f07s02-0015-context.jpg",
+      "center_mean": [
+        0.7064453125,
+        0.8722222222222222
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f07s02-0015"
+      ]
+    },
+    {
+      "rank": 261,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f07s02-0035",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f07s02-0035-context.jpg",
+      "center_mean": [
+        0.558203125,
+        0.37256944444444445
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f07s02-0035"
+      ]
+    },
+    {
+      "rank": 262,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f07s02-0090",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f07s02-0090-context.jpg",
+      "center_mean": [
+        0.5552734375,
+        0.3173611111111111
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f07s02-0090"
+      ]
+    },
+    {
+      "rank": 263,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f07s02-0093",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f07s02-0093-context.jpg",
+      "center_mean": [
+        0.54375,
+        0.20625
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f07s02-0093"
+      ]
+    },
+    {
+      "rank": 264,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f07s02-0127",
+      "representative_context": "output/ground_litter_audit_formal_day2/devices/44180209031322001030/review/assets/f07s02-0127-context.jpg",
+      "center_mean": [
+        0.737109375,
+        0.6895833333333333
+      ],
+      "datasets": [
+        "formal_five_cameras_20260919"
+      ],
+      "dates": [
+        "2026-09-19"
+      ],
+      "members": [
+        "01030-f07s02-0127"
+      ]
+    },
+    {
+      "rank": 265,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f07s02-151682044437",
+      "representative_context": "output/ground_litter_candidate_filter_shadow_20260921/review/assets/01030-f07s02-151682044437-context.jpg",
+      "center_mean": [
+        0.545703125,
+        0.5180555555555556
+      ],
+      "datasets": [
+        "ground-litter-new-date-shadow-20260921"
+      ],
+      "dates": [
+        "2026-09-21"
+      ],
+      "members": [
+        "01030-f07s02-151682044437"
+      ]
+    },
+    {
+      "rank": 266,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "01030-f07s02-1880646f019f",
+      "representative_context": "output/ground_litter_audit_active_day3_20260918/review/assets/01030-f07s02-1880646f019f-context.jpg",
+      "center_mean": [
+        0.7080078125,
+        0.6319444444444444
+      ],
+      "datasets": [
+        "active_five_cameras_20260918"
+      ],
+      "dates": [
+        "2026-09-18"
+      ],
+      "members": [
+        "01030-f07s02-1880646f019f"
+      ]
+    },
+    {
+      "rank": 267,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f01s02-0193",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f01s02-0193-context.jpg",
+      "center_mean": [
+        0.736328125,
+        0.9208333333333333
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f01s02-0193"
+      ]
+    },
+    {
+      "rank": 268,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f01s02-0194",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f01s02-0194-context.jpg",
+      "center_mean": [
+        0.484375,
+        0.5631944444444444
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f01s02-0194"
+      ]
+    },
+    {
+      "rank": 269,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f02s00-0174",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f02s00-0174-context.jpg",
+      "center_mean": [
+        0.720703125,
+        0.7125
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f02s00-0174"
+      ]
+    },
+    {
+      "rank": 270,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f02s01-0043",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f02s01-0043-context.jpg",
+      "center_mean": [
+        0.7126953125,
+        0.4982638888888889
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f02s01-0043"
+      ]
+    },
+    {
+      "rank": 271,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f03s00-0149",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f03s00-0149-context.jpg",
+      "center_mean": [
+        0.646875,
+        0.85
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f03s00-0149"
+      ]
+    },
+    {
+      "rank": 272,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f03s00-0151",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f03s00-0151-context.jpg",
+      "center_mean": [
+        0.65625,
+        0.8
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f03s00-0151"
+      ]
+    },
+    {
+      "rank": 273,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f03s01-0066",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f03s01-0066-context.jpg",
+      "center_mean": [
+        0.615234375,
+        0.6225694444444444
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f03s01-0066"
+      ]
+    },
+    {
+      "rank": 274,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f03s01-0069",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f03s01-0069-context.jpg",
+      "center_mean": [
+        0.615625,
+        0.7152777777777778
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f03s01-0069"
+      ]
+    },
+    {
+      "rank": 275,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f03s01-0096",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f03s01-0096-context.jpg",
+      "center_mean": [
+        0.7380859375,
+        0.6284722222222222
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f03s01-0096"
+      ]
+    },
+    {
+      "rank": 276,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f03s01-0131",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f03s01-0131-context.jpg",
+      "center_mean": [
+        0.646875,
+        0.8333333333333334
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f03s01-0131"
+      ]
+    },
+    {
+      "rank": 277,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f03s01-0201",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f03s01-0201-context.jpg",
+      "center_mean": [
+        0.60390625,
+        0.8472222222222222
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f03s01-0201"
+      ]
+    },
+    {
+      "rank": 278,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f03s02-0012",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f03s02-0012-context.jpg",
+      "center_mean": [
+        0.527734375,
+        0.3267361111111111
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f03s02-0012"
+      ]
+    },
+    {
+      "rank": 279,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f03s02-0074",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f03s02-0074-context.jpg",
+      "center_mean": [
+        0.529296875,
+        0.4267361111111111
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f03s02-0074"
+      ]
+    },
+    {
+      "rank": 280,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f03s02-0098",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f03s02-0098-context.jpg",
+      "center_mean": [
+        0.6560546875,
+        0.21145833333333333
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f03s02-0098"
+      ]
+    },
+    {
+      "rank": 281,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f03s02-0152",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f03s02-0152-context.jpg",
+      "center_mean": [
+        0.6375,
+        0.8833333333333333
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f03s02-0152"
+      ]
+    },
+    {
+      "rank": 282,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f03s02-0155",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f03s02-0155-context.jpg",
+      "center_mean": [
+        0.646875,
+        0.9
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f03s02-0155"
+      ]
+    },
+    {
+      "rank": 283,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f04s00-0116",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f04s00-0116-context.jpg",
+      "center_mean": [
+        0.666015625,
+        0.21319444444444444
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f04s00-0116"
+      ]
+    },
+    {
+      "rank": 284,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f04s01-0140",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f04s01-0140-context.jpg",
+      "center_mean": [
+        0.609375,
+        0.25
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f04s01-0140"
+      ]
+    },
+    {
+      "rank": 285,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f04s02-0113",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f04s02-0113-context.jpg",
+      "center_mean": [
+        0.79609375,
+        0.9305555555555556
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f04s02-0113"
+      ]
+    },
+    {
+      "rank": 286,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f04s02-0121",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f04s02-0121-context.jpg",
+      "center_mean": [
+        0.67734375,
+        0.2454861111111111
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f04s02-0121"
+      ]
+    },
+    {
+      "rank": 287,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f05s00-0023",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f05s00-0023-context.jpg",
+      "center_mean": [
+        0.6326171875,
+        0.3486111111111111
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f05s00-0023"
+      ]
+    },
+    {
+      "rank": 288,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f05s00-0080",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f05s00-0080-context.jpg",
+      "center_mean": [
+        0.733203125,
+        0.7444444444444445
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f05s00-0080"
+      ]
+    },
+    {
+      "rank": 289,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f05s00-0100",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f05s00-0100-context.jpg",
+      "center_mean": [
+        0.7349609375,
+        0.7875
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f05s00-0100"
+      ]
+    },
+    {
+      "rank": 290,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f05s01-0056",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f05s01-0056-context.jpg",
+      "center_mean": [
+        0.553125,
+        0.4097222222222222
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f05s01-0056"
+      ]
+    },
+    {
+      "rank": 291,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f05s01-0064",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f05s01-0064-context.jpg",
+      "center_mean": [
+        0.5740234375,
+        0.3684027777777778
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f05s01-0064"
+      ]
+    },
+    {
+      "rank": 292,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f05s01-0205",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f05s01-0205-context.jpg",
+      "center_mean": [
+        0.575,
+        0.4861111111111111
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f05s01-0205"
+      ]
+    },
+    {
+      "rank": 293,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f06s00-0148",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f06s00-0148-context.jpg",
+      "center_mean": [
+        0.5203125,
+        0.95
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f06s00-0148"
+      ]
+    },
+    {
+      "rank": 294,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f06s02-0176",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f06s02-0176-context.jpg",
+      "center_mean": [
+        0.703515625,
+        0.42916666666666664
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f06s02-0176"
+      ]
+    },
+    {
+      "rank": 295,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f07s00-0102",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f07s00-0102-context.jpg",
+      "center_mean": [
+        0.6892578125,
+        0.9104166666666667
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f07s00-0102"
+      ]
+    },
+    {
+      "rank": 296,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f07s00-0180",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f07s00-0180-context.jpg",
+      "center_mean": [
+        0.537109375,
+        0.42986111111111114
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f07s00-0180"
+      ]
+    },
+    {
+      "rank": 297,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f07s00-0184",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f07s00-0184-context.jpg",
+      "center_mean": [
+        0.713671875,
+        0.8944444444444445
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f07s00-0184"
+      ]
+    },
+    {
+      "rank": 298,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f07s01-0179",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f07s01-0179-context.jpg",
+      "center_mean": [
+        0.748828125,
+        0.6638888888888889
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f07s01-0179"
+      ]
+    },
+    {
+      "rank": 299,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f07s01-0182",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f07s01-0182-context.jpg",
+      "center_mean": [
+        0.55,
+        0.21319444444444444
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f07s01-0182"
+      ]
+    },
+    {
+      "rank": 300,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f07s02-0203",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f07s02-0203-context.jpg",
+      "center_mean": [
+        0.737109375,
+        0.6895833333333333
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f07s02-0203"
+      ]
+    },
+    {
+      "rank": 301,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f08s00-0090",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f08s00-0090-context.jpg",
+      "center_mean": [
+        0.5537109375,
+        0.37430555555555556
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f08s00-0090"
+      ]
+    },
+    {
+      "rank": 302,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f08s01-0161",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f08s01-0161-context.jpg",
+      "center_mean": [
+        0.515625,
+        0.48333333333333334
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f08s01-0161"
+      ]
+    },
+    {
+      "rank": 303,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f08s01-0177",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f08s01-0177-context.jpg",
+      "center_mean": [
+        0.512890625,
+        0.7222222222222222
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f08s01-0177"
+      ]
+    },
+    {
+      "rank": 304,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f08s01-0190",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f08s01-0190-context.jpg",
+      "center_mean": [
+        0.7203125,
+        0.8513888888888889
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f08s01-0190"
+      ]
+    },
+    {
+      "rank": 305,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f08s01-0211",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f08s01-0211-context.jpg",
+      "center_mean": [
+        0.542578125,
+        0.23541666666666666
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f08s01-0211"
+      ]
+    },
+    {
+      "rank": 306,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f08s02-0181",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f08s02-0181-context.jpg",
+      "center_mean": [
+        0.774609375,
+        0.7208333333333333
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f08s02-0181"
+      ]
+    },
+    {
+      "rank": 307,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f08s02-0215",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f08s02-0215-context.jpg",
+      "center_mean": [
+        0.56796875,
+        0.325
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f08s02-0215"
+      ]
+    },
+    {
+      "rank": 308,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f09s00-0083",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f09s00-0083-context.jpg",
+      "center_mean": [
+        0.6404296875,
+        0.5628472222222223
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f09s00-0083"
+      ]
+    },
+    {
+      "rank": 309,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f09s00-0122",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f09s00-0122-context.jpg",
+      "center_mean": [
+        0.648828125,
+        0.5743055555555555
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f09s00-0122"
+      ]
+    },
+    {
+      "rank": 310,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f09s00-0209",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f09s00-0209-context.jpg",
+      "center_mean": [
+        0.73984375,
+        0.6486111111111111
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f09s00-0209"
+      ]
+    },
+    {
+      "rank": 311,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f09s00-0217",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f09s00-0217-context.jpg",
+      "center_mean": [
+        0.556640625,
+        0.6680555555555555
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f09s00-0217"
+      ]
+    },
+    {
+      "rank": 312,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f09s01-0005",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f09s01-0005-context.jpg",
+      "center_mean": [
+        0.525390625,
+        0.8239583333333333
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f09s01-0005"
+      ]
+    },
+    {
+      "rank": 313,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f09s01-0006",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f09s01-0006-context.jpg",
+      "center_mean": [
+        0.4669921875,
+        0.7510416666666667
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f09s01-0006"
+      ]
+    },
+    {
+      "rank": 314,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f09s01-0010",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f09s01-0010-context.jpg",
+      "center_mean": [
+        0.496875,
+        0.6986111111111111
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f09s01-0010"
+      ]
+    },
+    {
+      "rank": 315,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f09s01-0117",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f09s01-0117-context.jpg",
+      "center_mean": [
+        0.484375,
+        0.7111111111111111
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f09s01-0117"
+      ]
+    },
+    {
+      "rank": 316,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f09s02-0175",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f09s02-0175-context.jpg",
+      "center_mean": [
+        0.5953125,
+        0.7465277777777778
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f09s02-0175"
+      ]
+    },
+    {
+      "rank": 317,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f10s00-0052",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f10s00-0052-context.jpg",
+      "center_mean": [
+        0.7380859375,
+        0.9090277777777778
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f10s00-0052"
+      ]
+    },
+    {
+      "rank": 318,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f10s00-0173",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f10s00-0173-context.jpg",
+      "center_mean": [
+        0.528125,
+        0.6576388888888889
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f10s00-0173"
+      ]
+    },
+    {
+      "rank": 319,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f10s01-0200",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f10s01-0200-context.jpg",
+      "center_mean": [
+        0.527734375,
+        0.35347222222222224
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f10s01-0200"
+      ]
+    },
+    {
+      "rank": 320,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f10s02-0057",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f10s02-0057-context.jpg",
+      "center_mean": [
+        0.7380859375,
+        0.9086805555555556
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f10s02-0057"
+      ]
+    },
+    {
+      "rank": 321,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f11s00-0004",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f11s00-0004-context.jpg",
+      "center_mean": [
+        0.5744140625,
+        0.30277777777777776
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f11s00-0004"
+      ]
+    },
+    {
+      "rank": 322,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f11s00-0087",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f11s00-0087-context.jpg",
+      "center_mean": [
+        0.559765625,
+        0.284375
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f11s00-0087"
+      ]
+    },
+    {
+      "rank": 323,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f11s00-0094",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f11s00-0094-context.jpg",
+      "center_mean": [
+        0.5576171875,
+        0.2982638888888889
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f11s00-0094"
+      ]
+    },
+    {
+      "rank": 324,
+      "size": 1,
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "representative_review_id": "f11s00-0213",
+      "representative_context": "output/ground_litter_audit_pilot_01030_20260920/review/assets/f11s00-0213-context.jpg",
+      "center_mean": [
+        0.78984375,
+        0.8770833333333333
+      ],
+      "datasets": [
+        "pilot_01030_20260920"
+      ],
+      "dates": [
+        "2026-09-20"
+      ],
+      "members": [
+        "f11s00-0213"
+      ]
+    }
+  ]
+}

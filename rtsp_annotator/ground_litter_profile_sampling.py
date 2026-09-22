@@ -511,11 +511,157 @@ def parse_seconds(value: str) -> float:
     return instant.timestamp()
 
 
+@dataclass(frozen=True, slots=True)
+class EligibleWindow:
+    """一个录像文件在任务半开区间 ``[start_time, end_time)`` 内的可用窗口。
+
+    文件身份保留（fileId 不变），但只有与任务区间相交的那一段允许被采样。
+    例如 09-13 23:58~09-14 00:03 的文件在任务从 09-14 00:00 开始时，
+    只有后 3 分钟可用，且这些帧属于 09-14。
+    """
+
+    file_id: str
+    record_start: str
+    record_end: str
+    eligible_start_seconds: float
+    eligible_end_seconds: float
+    effective_start_time: str
+    effective_end_time: str
+    intersection_seconds: float
+    exclusion_reason: str | None = None
+
+    @property
+    def usable(self) -> bool:
+        return (
+            self.exclusion_reason is None
+            and self.intersection_seconds > 0
+            and self.eligible_end_seconds > self.eligible_start_seconds
+        )
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "file_id": self.file_id,
+            "record_start": self.record_start,
+            "record_end": self.record_end,
+            "eligible_start_offset": round(self.eligible_start_seconds, 3),
+            "eligible_end_offset": round(self.eligible_end_seconds, 3),
+            "effective_start_time": self.effective_start_time,
+            "effective_end_time": self.effective_end_time,
+            "intersection_seconds": round(self.intersection_seconds, 3),
+            "usable": bool(self.usable),
+            "exclusion_reason": self.exclusion_reason,
+        }
+
+
+def format_seconds(value: float) -> str:
+    return datetime.fromtimestamp(value).strftime("%Y-%m-%d %H:%M:%S")
+
+
+def eligible_window(
+    item: RecordingFile, *, range_start: float, range_end: float,
+) -> EligibleWindow:
+    """计算文件与任务半开区间的交集窗口（绝对时间用同一挂钟约定）。"""
+    try:
+        file_start = parse_seconds(item.record_start)
+        file_end = parse_seconds(item.record_end)
+    except (BankError, TypeError, ValueError, AttributeError):
+        return EligibleWindow(
+            file_id=item.file_id, record_start=item.record_start,
+            record_end=item.record_end,
+            eligible_start_seconds=0.0, eligible_end_seconds=0.0,
+            effective_start_time=item.record_start,
+            effective_end_time=item.record_end,
+            intersection_seconds=0.0,
+            exclusion_reason="unparsable_time",
+        )
+    if file_end <= file_start:
+        return EligibleWindow(
+            file_id=item.file_id, record_start=item.record_start,
+            record_end=item.record_end,
+            eligible_start_seconds=0.0, eligible_end_seconds=0.0,
+            effective_start_time=item.record_start,
+            effective_end_time=item.record_end,
+            intersection_seconds=0.0,
+            exclusion_reason="zero_length",
+        )
+    if file_end <= range_start:
+        reason = "before_range"
+    elif file_start >= range_end:
+        reason = "after_range"
+    else:
+        reason = None
+    start = max(file_start, range_start)
+    end = min(file_end, range_end)
+    intersection = max(0.0, end - start)
+    if reason is None and intersection <= 0:
+        reason = "zero_length"
+    return EligibleWindow(
+        file_id=item.file_id, record_start=item.record_start,
+        record_end=item.record_end,
+        eligible_start_seconds=max(0.0, start - file_start),
+        eligible_end_seconds=max(0.0, end - file_start),
+        effective_start_time=format_seconds(start),
+        effective_end_time=format_seconds(end),
+        intersection_seconds=intersection,
+        exclusion_reason=reason,
+    )
+
+
+def full_file_window(item: RecordingFile) -> EligibleWindow:
+    """本地素材的整文件窗口：没有远程查询区间，整段都可用。"""
+    duration = 0.0
+    try:
+        duration = max(
+            0.0, parse_seconds(item.record_end) - parse_seconds(item.record_start),
+        )
+    except (BankError, TypeError, ValueError, AttributeError):
+        duration = 0.0
+    if duration <= 0:
+        # 本地弱索引（mtime）没有时长信息：用声明大小外推，至少保持可用。
+        duration = max(30.0, float(item.file_size or 0) / 250_000.0)
+    return EligibleWindow(
+        file_id=item.file_id, record_start=item.record_start,
+        record_end=item.record_end,
+        eligible_start_seconds=0.0, eligible_end_seconds=duration,
+        effective_start_time=item.record_start,
+        effective_end_time=item.record_end,
+        intersection_seconds=duration,
+        exclusion_reason=None,
+    )
+
+
+def filter_eligible_files(
+    files: Sequence[RecordingFile], *, range_start: float, range_end: float,
+) -> tuple[list[RecordingFile], list[EligibleWindow], list[EligibleWindow]]:
+    """按任务区间过滤文件。
+
+    返回 ``(保留的文件, 全部窗口, 剔除的窗口)``；剔除的窗口带明确原因，
+    调用方必须把它们记进报告，而不是静默丢弃。
+    """
+    windows: list[EligibleWindow] = []
+    kept: list[RecordingFile] = []
+    dropped: list[EligibleWindow] = []
+    for item in files:
+        window = eligible_window(
+            item, range_start=range_start, range_end=range_end,
+        )
+        windows.append(window)
+        if window.usable:
+            kept.append(item)
+        else:
+            dropped.append(window)
+    return kept, windows, dropped
+
+
 def partition_recordings(
     files: Sequence[RecordingFile], *, build_days: Sequence[str],
     calibration_day: str, blind_day: str,
+    day_of: Callable[[RecordingFile], str] | None = None,
 ) -> dict[str, list[RecordingFile]]:
     """按记录**起始日**划分，跨日文件按真实时间归属，绝不整文件随机分配。
+
+    ``day_of`` 可覆盖日期判定：调用方在任务半开区间下应传入"可用窗口起始日"，
+    否则跨界文件会把查询起点之前的日期带进构建集（v5 的 09-13 问题）。
 
     集合外的文件进入 ``outside``：既不参与构建也不参与校准/盲测。
     """
@@ -524,8 +670,12 @@ def partition_recordings(
         "build": [], "calibration": [], "blind": [], "outside": [],
     }
     for item in files:
-        start_day = parse_day(item.record_start)
-        end_day = parse_day(item.record_end)
+        if day_of is not None:
+            start_day = str(day_of(item))
+            end_day = parse_day(item.record_end)
+        else:
+            start_day = parse_day(item.record_start)
+            end_day = parse_day(item.record_end)
         if start_day in build_set and end_day in build_set:
             result["build"].append(item)
         elif start_day == calibration_day and end_day == calibration_day:
@@ -744,6 +894,9 @@ class BoundedPreviewSampler:
     def sample_file(
         self, device_code: str, lease: Lease, *,
         probe: ProbeResult | None = None, densify_step_seconds: float | None = None,
+        eligible_start_offset: float = 0.0,
+        eligible_end_offset: float | None = None,
+        planned_offsets: Sequence[float] | None = None,
     ) -> dict[str, Any]:
         """采样一个已租约文件，产出 ``AppearanceSample`` 列表 + 高清需求清单。"""
         file = lease.entry.file
@@ -758,11 +911,31 @@ class BoundedPreviewSampler:
         if duration <= 0:
             # 容器没给时长：用声明大小与解码时间的外推只作兜底，并记录不确定性。
             duration = max(30.0, float(file.file_size or 0) / 250_000.0)
-        offsets = coarse_sample_offsets(
-            duration, seed=self.seed, fractions=COARSE_FRACTIONS,
+        # 只允许在 eligible 窗口内取帧：跨日/跨界文件的其余部分不属于本任务。
+        window_end = (
+            duration if eligible_end_offset is None
+            else min(duration, max(0.0, float(eligible_end_offset)))
         )
+        window_start = max(0.0, min(float(eligible_start_offset), window_end))
+        window_seconds = max(0.0, window_end - window_start)
+        if planned_offsets:
+            # input manifest 已冻结采样偏移：不重新选择，只把窗口内相对偏移
+            # 映射到当前时长，保证同一 manifest 的采样点稳定。
+            span = max(0.0, window_seconds)
+            offsets = sorted({
+                round(window_start + min(max(float(value), 0.0), span), 3)
+                for value in planned_offsets
+            })
+        else:
+            offsets = coarse_sample_offsets(
+                window_seconds, seed=self.seed, fractions=COARSE_FRACTIONS,
+            )
+            offsets = [round(window_start + value, 3) for value in offsets]
         if densify_step_seconds:
-            offsets = densify_offsets(duration, offsets, step_seconds=densify_step_seconds)
+            offsets = densify_offsets(
+                window_end, offsets, step_seconds=densify_step_seconds,
+            )
+            offsets = [value for value in offsets if value >= window_start]
         reader = SequentialFrameReader(lease.path)
         if self.use_seek:
             # seek 取帧的时间偏差实测 <0.02s；留 1s 容差防止个别关键帧边界失败。

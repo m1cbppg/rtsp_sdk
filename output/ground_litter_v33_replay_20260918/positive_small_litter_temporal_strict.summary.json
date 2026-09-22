@@ -1,0 +1,53 @@
+{
+  "label": "positive_small_litter_temporal_strict",
+  "totals": {
+    "ticks": 71,
+    "span_seconds": 141.0,
+    "semantic_only_displayed_events": 0,
+    "prior_only_displayed_events": 0,
+    "fused_displayed_events": 0,
+    "merged_displayed_events": 0,
+    "semantic_only_events_per_hour": 0.0,
+    "prior_only_events_per_hour": 0.0,
+    "fused_events_per_hour": 0.0,
+    "merged_events_per_hour": 0.0,
+    "single_frame_flashes": 0,
+    "flashes_by_source": {},
+    "prior_candidates_proposed": 0,
+    "prior_candidates_retained": 0,
+    "prior_rejected_by_geometry": 0,
+    "semantic_raw_candidates": 100,
+    "semantic_retained_candidates": 22,
+    "semantic_crop_raw": 0,
+    "semantic_crop_unmatched_rejected": 0,
+    "environment_not_normal_ticks": 71,
+    "occluded_ticks": 0,
+    "degraded_ticks": 0,
+    "model_runs_full": 40,
+    "model_runs_crop": 0,
+    "cross_source_merges": 0
+  },
+  "stage_ms": {
+    "prior_ms": {
+      "p50": 562.2,
+      "p95": 647.9,
+      "max": 676.9
+    },
+    "full_scan_ms": {
+      "p50": 1462.8,
+      "p95": 2043.5,
+      "max": 2083.0
+    },
+    "crop_ms": {},
+    "total_ms": {
+      "p50": 1873.2,
+      "p95": 2553.1,
+      "max": 2749.5
+    },
+    "wall_ms": {
+      "p50": 1874.1,
+      "p95": 2554.2,
+      "max": 2750.7
+    }
+  }
+}

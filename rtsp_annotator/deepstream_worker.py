@@ -46,6 +46,7 @@ from .gas_cylinder_process import (
     GasCylinderProcessConfig,
 )
 from .ground_litter_detection import (
+    HYBRID_LITTER_METRIC_FIELDS,
     GroundLitterDetectionOptions,
     GroundLitterResultCache,
     GroundLitterSnapshot,
@@ -729,11 +730,21 @@ class MetricsState:
         last_inference_ms: float,
         analyzed_frames: int,
         tile_count: int,
+        raw_candidates: int = 0,
+        active_events: int = 0,
+        confirmed_events: int = 0,
+        cleared_events: int = 0,
+        environment_state: str = "",
         message: str = "",
+        extra: dict[str, Any] | None = None,
     ) -> None:
-        """Keep the newest side-process snapshot for `/v1/streams/{id}`."""
+        """Keep the newest side-process snapshot for `/v1/streams/{id}`.
+
+        ``extra`` carries the hybrid_v33 dual-channel telemetry without growing
+        this signature with twenty more keyword arguments.
+        """
         with self._lock:
-            self._ground_litter[stream_id] = {
+            entry = {
                 "state": str(state),
                 "count": int(count),
                 "result_version": int(result_version),
@@ -741,8 +752,16 @@ class MetricsState:
                 "last_inference_ms": float(last_inference_ms),
                 "analyzed_frames": int(analyzed_frames),
                 "tile_count": int(tile_count),
+                "raw_candidates": int(raw_candidates),
+                "active_events": int(active_events),
+                "confirmed_events": int(confirmed_events),
+                "cleared_events": int(cleared_events),
+                "environment_state": str(environment_state),
                 "message": str(message),
             }
+            if extra:
+                entry.update(extra)
+            self._ground_litter[stream_id] = entry
 
     def observe_publish(self, stream_id: str) -> None:
         with self._lock:
@@ -938,9 +957,29 @@ class MetricsState:
                 "ground_litter_tile_count": int(
                     litter_entry.get("tile_count", 0)
                 ),
+                "ground_litter_raw_candidates": int(
+                    litter_entry.get("raw_candidates", 0)
+                ),
+                "ground_litter_active_events": int(
+                    litter_entry.get("active_events", 0)
+                ),
+                "ground_litter_confirmed_events": int(
+                    litter_entry.get("confirmed_events", 0)
+                ),
+                "ground_litter_cleared_events": int(
+                    litter_entry.get("cleared_events", 0)
+                ),
+                "ground_litter_environment_state": str(
+                    litter_entry.get("environment_state", "")
+                ),
                 "ground_litter_last_inference_ms": float(
                     litter_entry.get("last_inference_ms", 0.0)
                 ),
+                "ground_litter_hybrid": {
+                    name: litter_entry[name]
+                    for name in HYBRID_LITTER_METRIC_FIELDS
+                    if name in litter_entry
+                },
                 "fishing_risk_enabled": bool(
                     self._fishing_risk_enabled.get(stream_id, False)
                 ),
@@ -1827,11 +1866,53 @@ class OverlayProcessor:
                 last_inference_ms=snapshot.last_inference_ms,
                 analyzed_frames=snapshot.analyzed_frames,
                 tile_count=snapshot.tile_count,
+                raw_candidates=snapshot.raw_candidates,
+                active_events=snapshot.active_events,
+                confirmed_events=snapshot.confirmed_events,
+                cleared_events=snapshot.cleared_events,
+                environment_state=snapshot.environment_state,
                 message=snapshot.message,
+                extra={
+                    "semantic_raw_candidates": snapshot.semantic_raw_candidates,
+                    "semantic_retained_candidates": (
+                        snapshot.semantic_retained_candidates
+                    ),
+                    "prior_raw_candidates": snapshot.prior_raw_candidates,
+                    "prior_retained_candidates": (
+                        snapshot.prior_retained_candidates
+                    ),
+                    "semantic_only_active": snapshot.semantic_only_active,
+                    "semantic_only_confirmed": snapshot.semantic_only_confirmed,
+                    "prior_only_active": snapshot.prior_only_active,
+                    "prior_only_confirmed": snapshot.prior_only_confirmed,
+                    "fused_active": snapshot.fused_active,
+                    "fused_confirmed": snapshot.fused_confirmed,
+                    "cross_source_merges": snapshot.cross_source_merges,
+                    "prior_environment_state": snapshot.prior_environment_state,
+                    "semantic_model_runs_full": snapshot.semantic_model_runs_full,
+                    "semantic_model_runs_crop": snapshot.semantic_model_runs_crop,
+                    "semantic_crop_raw_candidates": (
+                        snapshot.semantic_crop_raw_candidates
+                    ),
+                    "semantic_crop_unmatched_candidates": (
+                        snapshot.semantic_crop_unmatched_candidates
+                    ),
+                    "input_frame_age_ms": snapshot.input_frame_age_ms,
+                    "dropped_analysis_frames": snapshot.dropped_analysis_frames,
+                    "last_prior_ms": snapshot.last_prior_ms,
+                    "last_full_scan_ms": snapshot.last_full_scan_ms,
+                    "last_crop_batch_ms": snapshot.last_crop_batch_ms,
+                    "last_total_ms": snapshot.last_total_ms,
+                    "branch_state": snapshot.branch_state,
+                    "branch_message": snapshot.branch_message,
+                },
             )
         if snapshot.state == "error":
             color = osd.Color(1.0, 0.15, 0.1, 1.0)
             title = f"{options.label}识别异常"
+        elif snapshot.state == "abstaining":
+            color = osd.Color(1.0, 0.65, 0.0, 1.0)
+            title = f"{options.label}：环境变化，暂停判断"
         elif snapshot.state in {"starting", "disabled"}:
             color = osd.Color(1.0, 0.65, 0.0, 1.0)
             title = f"{options.label}识别启动中"
@@ -3017,6 +3098,16 @@ class VesselFrameProcessor:
                 )
 
 
+def _ground_litter_occluder_classes(
+    options: GroundLitterDetectionOptions,
+) -> tuple[int, ...]:
+    """Primary-metadata classes that can hide or mimic a litter target."""
+    return tuple(dict.fromkeys((
+        *options.actor_class_ids,
+        *options.context_class_ids,
+    )))
+
+
 class GroundLitterFrameProcessor:
     """Feed sampled native-resolution frames to the litter side process.
 
@@ -4071,6 +4162,11 @@ def run(config_path: Path) -> None:
                         else None
                     ),
                     options_by_pad=ground_litter_options_by_pad,
+                    profile_root=(
+                        Path(ground_litter_config["profile_root"])
+                        if ground_litter_config.get("profile_root")
+                        else None
+                    ),
                 ),
                 ground_litter_cache,
             )
@@ -4342,7 +4438,9 @@ def run(config_path: Path) -> None:
                     for pad_index, stream in enumerate(config["streams"])
                 },
                 actor_classes_by_pad={
-                    pad_index: policy.ground_litter.actor_class_ids
+                    pad_index: _ground_litter_occluder_classes(
+                        policy.ground_litter
+                    )
                     for pad_index, policy in policies.items()
                 },
             )

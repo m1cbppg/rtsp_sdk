@@ -1,0 +1,810 @@
+{
+  "kind": "ground_litter_v32_production_path_validation",
+  "passed": true,
+  "profile_id": "camera_01_v32",
+  "alignment": {
+    "matches": 1774,
+    "inliers": 1754,
+    "reprojection_median_px": 0.219,
+    "reprojection_p95_px": 0.809,
+    "inlier_hull_fraction": 0.8203
+  },
+  "frames": 65,
+  "elapsed_seconds": 98.199,
+  "events": [
+    {
+      "event_id": 1,
+      "first_seen": 10.0,
+      "confirmed_at": 20.0,
+      "closed_at": 35.0,
+      "closed_reason": "clean_confirmed",
+      "state": "CLEARED",
+      "anchor_box": [
+        1465.5,
+        1031.0,
+        1478.0,
+        1041.0
+      ],
+      "visible_observation_count": 12,
+      "state_history": [
+        {
+          "timestamp": 10.0,
+          "state": "VISIBLE_ANOMALY",
+          "reason": "candidate_visible"
+        },
+        {
+          "timestamp": 13.0,
+          "state": "OCCLUDED",
+          "reason": "actor_occluded"
+        },
+        {
+          "timestamp": 19.0,
+          "state": "VISIBLE_ANOMALY",
+          "reason": "candidate_visible"
+        },
+        {
+          "timestamp": 25.0,
+          "state": "ANOMALY_PENDING",
+          "reason": "residual_without_candidate"
+        },
+        {
+          "timestamp": 27.0,
+          "state": "VISIBLE_ANOMALY",
+          "reason": "candidate_visible"
+        },
+        {
+          "timestamp": 30.0,
+          "state": "ANOMALY_PENDING",
+          "reason": "residual_without_candidate"
+        },
+        {
+          "timestamp": 31.0,
+          "state": "CLEAN_PENDING",
+          "reason": "clean_reference_match"
+        },
+        {
+          "timestamp": 35.0,
+          "state": "CLEARED",
+          "reason": "clean_confirmed"
+        }
+      ]
+    },
+    {
+      "event_id": 2,
+      "first_seen": 21.0,
+      "confirmed_at": null,
+      "closed_at": 34.0,
+      "closed_reason": "clean_confirmed",
+      "state": "CLEARED",
+      "anchor_box": [
+        1775.0,
+        595.0,
+        1784.0,
+        604.0
+      ],
+      "visible_observation_count": 1,
+      "state_history": [
+        {
+          "timestamp": 21.0,
+          "state": "VISIBLE_ANOMALY",
+          "reason": "candidate_visible"
+        },
+        {
+          "timestamp": 22.0,
+          "state": "ANOMALY_PENDING",
+          "reason": "residual_without_candidate"
+        },
+        {
+          "timestamp": 30.0,
+          "state": "CLEAN_PENDING",
+          "reason": "clean_reference_match"
+        },
+        {
+          "timestamp": 34.0,
+          "state": "CLEARED",
+          "reason": "clean_confirmed"
+        }
+      ]
+    },
+    {
+      "event_id": 3,
+      "first_seen": 26.0,
+      "confirmed_at": null,
+      "closed_at": 34.0,
+      "closed_reason": "clean_confirmed",
+      "state": "CLEARED",
+      "anchor_box": [
+        1509.0,
+        1033.0,
+        1520.0,
+        1043.0
+      ],
+      "visible_observation_count": 4,
+      "state_history": [
+        {
+          "timestamp": 26.0,
+          "state": "VISIBLE_ANOMALY",
+          "reason": "candidate_visible"
+        },
+        {
+          "timestamp": 30.0,
+          "state": "CLEAN_PENDING",
+          "reason": "clean_reference_match"
+        },
+        {
+          "timestamp": 34.0,
+          "state": "CLEARED",
+          "reason": "clean_confirmed"
+        }
+      ]
+    },
+    {
+      "event_id": 4,
+      "first_seen": 28.0,
+      "confirmed_at": null,
+      "closed_at": 34.0,
+      "closed_reason": "clean_confirmed",
+      "state": "CLEARED",
+      "anchor_box": [
+        1288.0,
+        367.0,
+        1296.0,
+        378.0
+      ],
+      "visible_observation_count": 2,
+      "state_history": [
+        {
+          "timestamp": 28.0,
+          "state": "VISIBLE_ANOMALY",
+          "reason": "candidate_visible"
+        },
+        {
+          "timestamp": 30.0,
+          "state": "CLEAN_PENDING",
+          "reason": "clean_reference_match"
+        },
+        {
+          "timestamp": 34.0,
+          "state": "CLEARED",
+          "reason": "clean_confirmed"
+        }
+      ]
+    },
+    {
+      "event_id": 5,
+      "first_seen": 46.0,
+      "confirmed_at": 50.0,
+      "closed_at": null,
+      "closed_reason": null,
+      "state": "VISIBLE_ANOMALY",
+      "anchor_box": [
+        1496.0,
+        1031.0,
+        1506.0,
+        1042.0
+      ],
+      "visible_observation_count": 19,
+      "state_history": [
+        {
+          "timestamp": 46.0,
+          "state": "VISIBLE_ANOMALY",
+          "reason": "candidate_visible"
+        },
+        {
+          "timestamp": 53.0,
+          "state": "ANOMALY_PENDING",
+          "reason": "residual_without_candidate"
+        },
+        {
+          "timestamp": 54.0,
+          "state": "VISIBLE_ANOMALY",
+          "reason": "candidate_visible"
+        },
+        {
+          "timestamp": 55.0,
+          "state": "ANOMALY_PENDING",
+          "reason": "residual_without_candidate"
+        },
+        {
+          "timestamp": 56.0,
+          "state": "VISIBLE_ANOMALY",
+          "reason": "candidate_visible"
+        }
+      ]
+    },
+    {
+      "event_id": 6,
+      "first_seen": 53.0,
+      "confirmed_at": 57.0,
+      "closed_at": 61.0,
+      "closed_reason": "merged_into:5",
+      "state": "MERGED",
+      "anchor_box": [
+        1509.0,
+        1033.0,
+        1520.0,
+        1043.0
+      ],
+      "visible_observation_count": 9,
+      "state_history": [
+        {
+          "timestamp": 53.0,
+          "state": "VISIBLE_ANOMALY",
+          "reason": "candidate_visible"
+        },
+        {
+          "timestamp": 61.0,
+          "state": "MERGED",
+          "reason": "merged_into:5"
+        }
+      ]
+    },
+    {
+      "event_id": 7,
+      "first_seen": 54.0,
+      "confirmed_at": null,
+      "closed_at": null,
+      "closed_reason": null,
+      "state": "ANOMALY_PENDING",
+      "anchor_box": [
+        1288.0,
+        367.0,
+        1296.0,
+        378.0
+      ],
+      "visible_observation_count": 4,
+      "state_history": [
+        {
+          "timestamp": 54.0,
+          "state": "VISIBLE_ANOMALY",
+          "reason": "candidate_visible"
+        },
+        {
+          "timestamp": 58.0,
+          "state": "ANOMALY_PENDING",
+          "reason": "residual_without_candidate"
+        }
+      ]
+    },
+    {
+      "event_id": 8,
+      "first_seen": 60.0,
+      "confirmed_at": null,
+      "closed_at": null,
+      "closed_reason": null,
+      "state": "ANOMALY_PENDING",
+      "anchor_box": [
+        1775.0,
+        593.5,
+        1784.5,
+        604.0
+      ],
+      "visible_observation_count": 2,
+      "state_history": [
+        {
+          "timestamp": 60.0,
+          "state": "VISIBLE_ANOMALY",
+          "reason": "candidate_visible"
+        },
+        {
+          "timestamp": 62.0,
+          "state": "ANOMALY_PENDING",
+          "reason": "residual_without_candidate"
+        }
+      ]
+    }
+  ],
+  "timeline": [
+    {
+      "timestamp": 0.0,
+      "state": "running",
+      "raw_candidates": 0,
+      "displayed_event_ids": [],
+      "actors": 10
+    },
+    {
+      "timestamp": 1.0,
+      "state": "running",
+      "raw_candidates": 0,
+      "displayed_event_ids": [],
+      "actors": 12
+    },
+    {
+      "timestamp": 2.0,
+      "state": "running",
+      "raw_candidates": 0,
+      "displayed_event_ids": [],
+      "actors": 9
+    },
+    {
+      "timestamp": 3.0,
+      "state": "running",
+      "raw_candidates": 0,
+      "displayed_event_ids": [],
+      "actors": 12
+    },
+    {
+      "timestamp": 4.0,
+      "state": "running",
+      "raw_candidates": 0,
+      "displayed_event_ids": [],
+      "actors": 12
+    },
+    {
+      "timestamp": 5.0,
+      "state": "running",
+      "raw_candidates": 0,
+      "displayed_event_ids": [],
+      "actors": 13
+    },
+    {
+      "timestamp": 6.0,
+      "state": "running",
+      "raw_candidates": 0,
+      "displayed_event_ids": [],
+      "actors": 10
+    },
+    {
+      "timestamp": 7.0,
+      "state": "running",
+      "raw_candidates": 0,
+      "displayed_event_ids": [],
+      "actors": 10
+    },
+    {
+      "timestamp": 8.0,
+      "state": "running",
+      "raw_candidates": 0,
+      "displayed_event_ids": [],
+      "actors": 13
+    },
+    {
+      "timestamp": 9.0,
+      "state": "running",
+      "raw_candidates": 0,
+      "displayed_event_ids": [],
+      "actors": 11
+    },
+    {
+      "timestamp": 10.0,
+      "state": "running",
+      "raw_candidates": 5,
+      "displayed_event_ids": [],
+      "actors": 17
+    },
+    {
+      "timestamp": 11.0,
+      "state": "running",
+      "raw_candidates": 3,
+      "displayed_event_ids": [],
+      "actors": 19
+    },
+    {
+      "timestamp": 12.0,
+      "state": "running",
+      "raw_candidates": 3,
+      "displayed_event_ids": [],
+      "actors": 18
+    },
+    {
+      "timestamp": 13.0,
+      "state": "running",
+      "raw_candidates": 6,
+      "displayed_event_ids": [],
+      "actors": 17
+    },
+    {
+      "timestamp": 14.0,
+      "state": "running",
+      "raw_candidates": 5,
+      "displayed_event_ids": [],
+      "actors": 17
+    },
+    {
+      "timestamp": 15.0,
+      "state": "running",
+      "raw_candidates": 5,
+      "displayed_event_ids": [],
+      "actors": 16
+    },
+    {
+      "timestamp": 16.0,
+      "state": "running",
+      "raw_candidates": 7,
+      "displayed_event_ids": [],
+      "actors": 16
+    },
+    {
+      "timestamp": 17.0,
+      "state": "running",
+      "raw_candidates": 2,
+      "displayed_event_ids": [],
+      "actors": 15
+    },
+    {
+      "timestamp": 18.0,
+      "state": "running",
+      "raw_candidates": 5,
+      "displayed_event_ids": [],
+      "actors": 15
+    },
+    {
+      "timestamp": 19.0,
+      "state": "running",
+      "raw_candidates": 2,
+      "displayed_event_ids": [],
+      "actors": 14
+    },
+    {
+      "timestamp": 20.0,
+      "state": "running",
+      "raw_candidates": 4,
+      "displayed_event_ids": [
+        1
+      ],
+      "actors": 14
+    },
+    {
+      "timestamp": 21.0,
+      "state": "running",
+      "raw_candidates": 3,
+      "displayed_event_ids": [
+        1
+      ],
+      "actors": 17
+    },
+    {
+      "timestamp": 22.0,
+      "state": "running",
+      "raw_candidates": 3,
+      "displayed_event_ids": [
+        1
+      ],
+      "actors": 15
+    },
+    {
+      "timestamp": 23.0,
+      "state": "running",
+      "raw_candidates": 2,
+      "displayed_event_ids": [
+        1
+      ],
+      "actors": 12
+    },
+    {
+      "timestamp": 24.0,
+      "state": "running",
+      "raw_candidates": 2,
+      "displayed_event_ids": [
+        1
+      ],
+      "actors": 15
+    },
+    {
+      "timestamp": 25.0,
+      "state": "running",
+      "raw_candidates": 3,
+      "displayed_event_ids": [
+        1
+      ],
+      "actors": 15
+    },
+    {
+      "timestamp": 26.0,
+      "state": "running",
+      "raw_candidates": 2,
+      "displayed_event_ids": [
+        1
+      ],
+      "actors": 14
+    },
+    {
+      "timestamp": 27.0,
+      "state": "running",
+      "raw_candidates": 5,
+      "displayed_event_ids": [
+        1
+      ],
+      "actors": 18
+    },
+    {
+      "timestamp": 28.0,
+      "state": "running",
+      "raw_candidates": 5,
+      "displayed_event_ids": [
+        1
+      ],
+      "actors": 15
+    },
+    {
+      "timestamp": 29.0,
+      "state": "running",
+      "raw_candidates": 6,
+      "displayed_event_ids": [
+        1
+      ],
+      "actors": 15
+    },
+    {
+      "timestamp": 30.0,
+      "state": "running",
+      "raw_candidates": 0,
+      "displayed_event_ids": [
+        1
+      ],
+      "actors": 9
+    },
+    {
+      "timestamp": 31.0,
+      "state": "running",
+      "raw_candidates": 0,
+      "displayed_event_ids": [],
+      "actors": 12
+    },
+    {
+      "timestamp": 32.0,
+      "state": "running",
+      "raw_candidates": 0,
+      "displayed_event_ids": [],
+      "actors": 9
+    },
+    {
+      "timestamp": 33.0,
+      "state": "running",
+      "raw_candidates": 0,
+      "displayed_event_ids": [],
+      "actors": 13
+    },
+    {
+      "timestamp": 34.0,
+      "state": "running",
+      "raw_candidates": 0,
+      "displayed_event_ids": [],
+      "actors": 11
+    },
+    {
+      "timestamp": 35.0,
+      "state": "running",
+      "raw_candidates": 0,
+      "displayed_event_ids": [],
+      "actors": 11
+    },
+    {
+      "timestamp": 36.0,
+      "state": "running",
+      "raw_candidates": 0,
+      "displayed_event_ids": [],
+      "actors": 11
+    },
+    {
+      "timestamp": 37.0,
+      "state": "running",
+      "raw_candidates": 0,
+      "displayed_event_ids": [],
+      "actors": 11
+    },
+    {
+      "timestamp": 38.0,
+      "state": "running",
+      "raw_candidates": 0,
+      "displayed_event_ids": [],
+      "actors": 13
+    },
+    {
+      "timestamp": 39.0,
+      "state": "running",
+      "raw_candidates": 0,
+      "displayed_event_ids": [],
+      "actors": 10
+    },
+    {
+      "timestamp": 40.0,
+      "state": "running",
+      "raw_candidates": 0,
+      "displayed_event_ids": [],
+      "actors": 10
+    },
+    {
+      "timestamp": 41.0,
+      "state": "running",
+      "raw_candidates": 0,
+      "displayed_event_ids": [],
+      "actors": 11
+    },
+    {
+      "timestamp": 42.0,
+      "state": "running",
+      "raw_candidates": 0,
+      "displayed_event_ids": [],
+      "actors": 9
+    },
+    {
+      "timestamp": 43.0,
+      "state": "running",
+      "raw_candidates": 0,
+      "displayed_event_ids": [],
+      "actors": 9
+    },
+    {
+      "timestamp": 44.0,
+      "state": "running",
+      "raw_candidates": 0,
+      "displayed_event_ids": [],
+      "actors": 10
+    },
+    {
+      "timestamp": 45.0,
+      "state": "running",
+      "raw_candidates": 5,
+      "displayed_event_ids": [],
+      "actors": 15
+    },
+    {
+      "timestamp": 46.0,
+      "state": "running",
+      "raw_candidates": 3,
+      "displayed_event_ids": [],
+      "actors": 15
+    },
+    {
+      "timestamp": 47.0,
+      "state": "running",
+      "raw_candidates": 2,
+      "displayed_event_ids": [],
+      "actors": 14
+    },
+    {
+      "timestamp": 48.0,
+      "state": "running",
+      "raw_candidates": 2,
+      "displayed_event_ids": [],
+      "actors": 17
+    },
+    {
+      "timestamp": 49.0,
+      "state": "running",
+      "raw_candidates": 2,
+      "displayed_event_ids": [],
+      "actors": 13
+    },
+    {
+      "timestamp": 50.0,
+      "state": "running",
+      "raw_candidates": 1,
+      "displayed_event_ids": [
+        5
+      ],
+      "actors": 13
+    },
+    {
+      "timestamp": 51.0,
+      "state": "running",
+      "raw_candidates": 2,
+      "displayed_event_ids": [
+        5
+      ],
+      "actors": 15
+    },
+    {
+      "timestamp": 52.0,
+      "state": "running",
+      "raw_candidates": 3,
+      "displayed_event_ids": [
+        5
+      ],
+      "actors": 17
+    },
+    {
+      "timestamp": 53.0,
+      "state": "running",
+      "raw_candidates": 2,
+      "displayed_event_ids": [
+        5
+      ],
+      "actors": 15
+    },
+    {
+      "timestamp": 54.0,
+      "state": "running",
+      "raw_candidates": 6,
+      "displayed_event_ids": [
+        5
+      ],
+      "actors": 17
+    },
+    {
+      "timestamp": 55.0,
+      "state": "running",
+      "raw_candidates": 4,
+      "displayed_event_ids": [
+        5
+      ],
+      "actors": 14
+    },
+    {
+      "timestamp": 56.0,
+      "state": "running",
+      "raw_candidates": 6,
+      "displayed_event_ids": [
+        5
+      ],
+      "actors": 16
+    },
+    {
+      "timestamp": 57.0,
+      "state": "running",
+      "raw_candidates": 5,
+      "displayed_event_ids": [
+        6,
+        5
+      ],
+      "actors": 15
+    },
+    {
+      "timestamp": 58.0,
+      "state": "running",
+      "raw_candidates": 6,
+      "displayed_event_ids": [
+        6,
+        5
+      ],
+      "actors": 17
+    },
+    {
+      "timestamp": 59.0,
+      "state": "running",
+      "raw_candidates": 5,
+      "displayed_event_ids": [
+        6,
+        5
+      ],
+      "actors": 17
+    },
+    {
+      "timestamp": 60.0,
+      "state": "running",
+      "raw_candidates": 4,
+      "displayed_event_ids": [
+        6,
+        5
+      ],
+      "actors": 18
+    },
+    {
+      "timestamp": 61.0,
+      "state": "running",
+      "raw_candidates": 4,
+      "displayed_event_ids": [
+        5
+      ],
+      "actors": 17
+    },
+    {
+      "timestamp": 62.0,
+      "state": "running",
+      "raw_candidates": 3,
+      "displayed_event_ids": [
+        5
+      ],
+      "actors": 20
+    },
+    {
+      "timestamp": 63.0,
+      "state": "running",
+      "raw_candidates": 3,
+      "displayed_event_ids": [
+        5
+      ],
+      "actors": 20
+    },
+    {
+      "timestamp": 64.0,
+      "state": "running",
+      "raw_candidates": 6,
+      "displayed_event_ids": [
+        5
+      ],
+      "actors": 17
+    }
+  ]
+}

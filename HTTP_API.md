@@ -267,6 +267,13 @@ YOLO、夜间模式和车牌识别同时配置，完整请求、事件接口、W
 同一条输出流上得到"地面识别区域轮廓 + 疑似垃圾框"，不需要另建脚本或第二路流。
 只想要区域和垃圾框、不要人/车框时，加`"display_detections": false`：
 
+固定机位 Clean Reference V3.2 使用
+`"mode":"clean_reference_v32"`和已审核的`profile_id`。该模式只绘制达到确认时长、
+当前仍有异常支撑的事件；原始变化组件和待确认事件不会进入 OSD。当前 Camera 01
+验收请求、状态字段和保守 ROI 见`GROUND_LITTER_V32_PRODUCTION.md`及
+`config/ground_litter_v32_stream_request.example.json`。未传`mode`时保持下面的原有
+YOLO 显示层行为。
+
 ```bash
 curl --location 'http://14.21.88.97:38080/v1/streams' \
   --header 'X-API-Key: API密钥' \

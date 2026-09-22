@@ -1,0 +1,5113 @@
+{
+  "dataset": "active_five_cameras_20260918",
+  "fingerprint": "6a61857d911412feb6a7781788c4fc60e556ffd140aaeeb14f25c13d9a284bad",
+  "count": 300,
+  "labels": [
+    "LITTER",
+    "NON_LITTER",
+    "BOX_WRONG",
+    "UNCERTAIN"
+  ],
+  "items": [
+    {
+      "review_id": "01021-f06s00-8edefb025702",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 19:31:42",
+      "frame_id": "f06s00",
+      "bbox": [
+        1817,
+        403,
+        1858,
+        424
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01021-f06s00-8edefb025702-context.jpg",
+      "crop_image": "assets/01021-f06s00-8edefb025702-crop.jpg",
+      "before_image": "assets/01021-f06s00-8edefb025702-before.jpg",
+      "after_image": "assets/01021-f06s00-8edefb025702-after.jpg"
+    },
+    {
+      "review_id": "01028-f05s01-d911df3914cd",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 16:30:12",
+      "frame_id": "f05s01",
+      "bbox": [
+        2,
+        1246,
+        56,
+        1343
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01028-f05s01-d911df3914cd-context.jpg",
+      "crop_image": "assets/01028-f05s01-d911df3914cd-crop.jpg",
+      "before_image": "assets/01028-f05s01-d911df3914cd-before.jpg",
+      "after_image": "assets/01028-f05s01-d911df3914cd-after.jpg"
+    },
+    {
+      "review_id": "01027-f06s00-91343b0eed5c",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 19:26:00",
+      "frame_id": "f06s00",
+      "bbox": [
+        1486,
+        1175,
+        1504,
+        1189
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01027-f06s00-91343b0eed5c-context.jpg",
+      "crop_image": "assets/01027-f06s00-91343b0eed5c-crop.jpg",
+      "before_image": "assets/01027-f06s00-91343b0eed5c-before.jpg",
+      "after_image": "assets/01027-f06s00-91343b0eed5c-after.jpg"
+    },
+    {
+      "review_id": "01022-f04s02-f232d89443ab",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 13:30:39",
+      "frame_id": "f04s02",
+      "bbox": [
+        1037,
+        800,
+        1111,
+        844
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01022-f04s02-f232d89443ab-context.jpg",
+      "crop_image": "assets/01022-f04s02-f232d89443ab-crop.jpg",
+      "before_image": "assets/01022-f04s02-f232d89443ab-before.jpg",
+      "after_image": "assets/01022-f04s02-f232d89443ab-after.jpg"
+    },
+    {
+      "review_id": "01030-f01s00-cfa37536b79e",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 04:29:22",
+      "frame_id": "f01s00",
+      "bbox": [
+        1031,
+        829,
+        1047,
+        851
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01030-f01s00-cfa37536b79e-context.jpg",
+      "crop_image": "assets/01030-f01s00-cfa37536b79e-crop.jpg",
+      "before_image": "assets/01030-f01s00-cfa37536b79e-before.jpg",
+      "after_image": "assets/01030-f01s00-cfa37536b79e-after.jpg"
+    },
+    {
+      "review_id": "01021-f03s00-06da99be3357",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 10:29:54",
+      "frame_id": "f03s00",
+      "bbox": [
+        2533,
+        808,
+        2559,
+        858
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01021-f03s00-06da99be3357-context.jpg",
+      "crop_image": "assets/01021-f03s00-06da99be3357-crop.jpg",
+      "before_image": "assets/01021-f03s00-06da99be3357-before.jpg",
+      "after_image": "assets/01021-f03s00-06da99be3357-after.jpg"
+    },
+    {
+      "review_id": "01027-f02s00-fbdeff2c85f1",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 07:31:26",
+      "frame_id": "f02s00",
+      "bbox": [
+        1240,
+        257,
+        1263,
+        284
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01027-f02s00-fbdeff2c85f1-context.jpg",
+      "crop_image": "assets/01027-f02s00-fbdeff2c85f1-crop.jpg",
+      "before_image": "assets/01027-f02s00-fbdeff2c85f1-before.jpg",
+      "after_image": "assets/01027-f02s00-fbdeff2c85f1-after.jpg"
+    },
+    {
+      "review_id": "01021-f06s00-c8f7def68248",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 19:31:42",
+      "frame_id": "f06s00",
+      "bbox": [
+        2365,
+        1159,
+        2377,
+        1165
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01021-f06s00-c8f7def68248-context.jpg",
+      "crop_image": "assets/01021-f06s00-c8f7def68248-crop.jpg",
+      "before_image": "assets/01021-f06s00-c8f7def68248-before.jpg",
+      "after_image": "assets/01021-f06s00-c8f7def68248-after.jpg"
+    },
+    {
+      "review_id": "01021-f06s01-3a1931f6a014",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 19:32:58",
+      "frame_id": "f06s01",
+      "bbox": [
+        2348,
+        860,
+        2422,
+        932
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01021-f06s01-3a1931f6a014-context.jpg",
+      "crop_image": "assets/01021-f06s01-3a1931f6a014-crop.jpg",
+      "before_image": "assets/01021-f06s01-3a1931f6a014-before.jpg",
+      "after_image": "assets/01021-f06s01-3a1931f6a014-after.jpg"
+    },
+    {
+      "review_id": "01030-f05s00-262d6a48840d",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 16:28:41",
+      "frame_id": "f05s00",
+      "bbox": [
+        1169,
+        816,
+        1220,
+        841
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01030-f05s00-262d6a48840d-context.jpg",
+      "crop_image": "assets/01030-f05s00-262d6a48840d-crop.jpg",
+      "before_image": "assets/01030-f05s00-262d6a48840d-before.jpg",
+      "after_image": "assets/01030-f05s00-262d6a48840d-after.jpg"
+    },
+    {
+      "review_id": "01027-f05s02-65016aed953d",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 16:31:17",
+      "frame_id": "f05s02",
+      "bbox": [
+        1734,
+        202,
+        1765,
+        232
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01027-f05s02-65016aed953d-context.jpg",
+      "crop_image": "assets/01027-f05s02-65016aed953d-crop.jpg",
+      "before_image": "assets/01027-f05s02-65016aed953d-before.jpg",
+      "after_image": "assets/01027-f05s02-65016aed953d-after.jpg"
+    },
+    {
+      "review_id": "01022-f01s02-a3674313606b",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 04:28:49",
+      "frame_id": "f01s02",
+      "bbox": [
+        758,
+        251,
+        798,
+        266
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01022-f01s02-a3674313606b-context.jpg",
+      "crop_image": "assets/01022-f01s02-a3674313606b-crop.jpg",
+      "before_image": "assets/01022-f01s02-a3674313606b-before.jpg",
+      "after_image": "assets/01022-f01s02-a3674313606b-after.jpg"
+    },
+    {
+      "review_id": "01030-f04s01-0a699fab5889",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 13:27:44",
+      "frame_id": "f04s01",
+      "bbox": [
+        1158,
+        546,
+        1173,
+        587
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01030-f04s01-0a699fab5889-context.jpg",
+      "crop_image": "assets/01030-f04s01-0a699fab5889-crop.jpg",
+      "before_image": "assets/01030-f04s01-0a699fab5889-before.jpg",
+      "after_image": "assets/01030-f04s01-0a699fab5889-after.jpg"
+    },
+    {
+      "review_id": "01027-f04s01-baf06fba1505",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 13:27:44.500000",
+      "frame_id": "f04s01",
+      "bbox": [
+        310,
+        525,
+        357,
+        593
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01027-f04s01-baf06fba1505-context.jpg",
+      "crop_image": "assets/01027-f04s01-baf06fba1505-crop.jpg",
+      "before_image": "assets/01027-f04s01-baf06fba1505-before.jpg",
+      "after_image": "assets/01027-f04s01-baf06fba1505-after.jpg"
+    },
+    {
+      "review_id": "01022-f03s01-bbc6c58d3dfd",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 10:32:08",
+      "frame_id": "f03s01",
+      "bbox": [
+        1116,
+        767,
+        1141,
+        775
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f03s01-bbc6c58d3dfd-context.jpg",
+      "crop_image": "assets/01022-f03s01-bbc6c58d3dfd-crop.jpg",
+      "before_image": "assets/01022-f03s01-bbc6c58d3dfd-before.jpg",
+      "after_image": "assets/01022-f03s01-bbc6c58d3dfd-after.jpg"
+    },
+    {
+      "review_id": "01022-f05s02-fa2eac940156",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 16:32:57",
+      "frame_id": "f05s02",
+      "bbox": [
+        1182,
+        531,
+        1224,
+        600
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01022-f05s02-fa2eac940156-context.jpg",
+      "crop_image": "assets/01022-f05s02-fa2eac940156-crop.jpg",
+      "before_image": "assets/01022-f05s02-fa2eac940156-before.jpg",
+      "after_image": "assets/01022-f05s02-fa2eac940156-after.jpg"
+    },
+    {
+      "review_id": "01021-f02s02-dfa2f85bc59d",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 07:30:08",
+      "frame_id": "f02s02",
+      "bbox": [
+        1874,
+        1208,
+        2018,
+        1352
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01021-f02s02-dfa2f85bc59d-context.jpg",
+      "crop_image": "assets/01021-f02s02-dfa2f85bc59d-crop.jpg",
+      "before_image": "assets/01021-f02s02-dfa2f85bc59d-before.jpg",
+      "after_image": "assets/01021-f02s02-dfa2f85bc59d-after.jpg"
+    },
+    {
+      "review_id": "01022-f06s00-f55d3920affe",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 19:32:43.750000",
+      "frame_id": "f06s00",
+      "bbox": [
+        1026,
+        673,
+        1046,
+        703
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f06s00-f55d3920affe-context.jpg",
+      "crop_image": "assets/01022-f06s00-f55d3920affe-crop.jpg",
+      "before_image": "assets/01022-f06s00-f55d3920affe-before.jpg",
+      "after_image": "assets/01022-f06s00-f55d3920affe-after.jpg"
+    },
+    {
+      "review_id": "01022-f00s00-69f41f6bc913",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 01:29:02",
+      "frame_id": "f00s00",
+      "bbox": [
+        1099,
+        727,
+        1112,
+        733
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f00s00-69f41f6bc913-context.jpg",
+      "crop_image": "assets/01022-f00s00-69f41f6bc913-crop.jpg",
+      "before_image": "assets/01022-f00s00-69f41f6bc913-before.jpg",
+      "after_image": "assets/01022-f00s00-69f41f6bc913-after.jpg"
+    },
+    {
+      "review_id": "01028-f01s02-1fca63f65cfc",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 04:31:48",
+      "frame_id": "f01s02",
+      "bbox": [
+        2149,
+        978,
+        2185,
+        1023
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01028-f01s02-1fca63f65cfc-context.jpg",
+      "crop_image": "assets/01028-f01s02-1fca63f65cfc-crop.jpg",
+      "before_image": "assets/01028-f01s02-1fca63f65cfc-before.jpg",
+      "after_image": "assets/01028-f01s02-1fca63f65cfc-after.jpg"
+    },
+    {
+      "review_id": "01022-f02s02-c788fb615279",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 07:31:08",
+      "frame_id": "f02s02",
+      "bbox": [
+        1356,
+        1379,
+        1365,
+        1384
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f02s02-c788fb615279-context.jpg",
+      "crop_image": "assets/01022-f02s02-c788fb615279-crop.jpg",
+      "before_image": "assets/01022-f02s02-c788fb615279-before.jpg",
+      "after_image": "assets/01022-f02s02-c788fb615279-after.jpg"
+    },
+    {
+      "review_id": "01022-f05s00-94dc089082ca",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 16:30:25",
+      "frame_id": "f05s00",
+      "bbox": [
+        1542,
+        1118,
+        1577,
+        1228
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f05s00-94dc089082ca-context.jpg",
+      "crop_image": "assets/01022-f05s00-94dc089082ca-crop.jpg",
+      "before_image": "assets/01022-f05s00-94dc089082ca-before.jpg",
+      "after_image": "assets/01022-f05s00-94dc089082ca-after.jpg"
+    },
+    {
+      "review_id": "01021-f00s02-3230061a7f08",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 01:30:34.250000",
+      "frame_id": "f00s02",
+      "bbox": [
+        2087,
+        249,
+        2108,
+        272
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01021-f00s02-3230061a7f08-context.jpg",
+      "crop_image": "assets/01021-f00s02-3230061a7f08-crop.jpg",
+      "before_image": "assets/01021-f00s02-3230061a7f08-before.jpg",
+      "after_image": "assets/01021-f00s02-3230061a7f08-after.jpg"
+    },
+    {
+      "review_id": "01022-f07s02-145c0d30aa05",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 22:32:30.250000",
+      "frame_id": "f07s02",
+      "bbox": [
+        264,
+        293,
+        329,
+        426
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01022-f07s02-145c0d30aa05-context.jpg",
+      "crop_image": "assets/01022-f07s02-145c0d30aa05-crop.jpg",
+      "before_image": "assets/01022-f07s02-145c0d30aa05-before.jpg",
+      "after_image": "assets/01022-f07s02-145c0d30aa05-after.jpg"
+    },
+    {
+      "review_id": "01021-f00s02-04f840cfa88b",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 01:30:34.250000",
+      "frame_id": "f00s02",
+      "bbox": [
+        940,
+        688,
+        957,
+        694
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01021-f00s02-04f840cfa88b-context.jpg",
+      "crop_image": "assets/01021-f00s02-04f840cfa88b-crop.jpg",
+      "before_image": "assets/01021-f00s02-04f840cfa88b-before.jpg",
+      "after_image": "assets/01021-f00s02-04f840cfa88b-after.jpg"
+    },
+    {
+      "review_id": "01022-f02s00-9c2934e1b784",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 07:28:36",
+      "frame_id": "f02s00",
+      "bbox": [
+        449,
+        37,
+        513,
+        101
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01022-f02s00-9c2934e1b784-context.jpg",
+      "crop_image": "assets/01022-f02s00-9c2934e1b784-crop.jpg",
+      "before_image": "assets/01022-f02s00-9c2934e1b784-before.jpg",
+      "after_image": "assets/01022-f02s00-9c2934e1b784-after.jpg"
+    },
+    {
+      "review_id": "01022-f00s01-8ff4d4a7d4d3",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 01:30:18",
+      "frame_id": "f00s01",
+      "bbox": [
+        803,
+        828,
+        823,
+        840
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f00s01-8ff4d4a7d4d3-context.jpg",
+      "crop_image": "assets/01022-f00s01-8ff4d4a7d4d3-crop.jpg",
+      "before_image": "assets/01022-f00s01-8ff4d4a7d4d3-before.jpg",
+      "after_image": "assets/01022-f00s01-8ff4d4a7d4d3-after.jpg"
+    },
+    {
+      "review_id": "01021-f02s00-b35853549d7b",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 07:27:36",
+      "frame_id": "f02s00",
+      "bbox": [
+        1658,
+        647,
+        1705,
+        727
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01021-f02s00-b35853549d7b-context.jpg",
+      "crop_image": "assets/01021-f02s00-b35853549d7b-crop.jpg",
+      "before_image": "assets/01021-f02s00-b35853549d7b-before.jpg",
+      "after_image": "assets/01021-f02s00-b35853549d7b-after.jpg"
+    },
+    {
+      "review_id": "01030-f07s02-1880646f019f",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 22:28:31.250000",
+      "frame_id": "f07s02",
+      "bbox": [
+        1801,
+        873,
+        1824,
+        947
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01030-f07s02-1880646f019f-context.jpg",
+      "crop_image": "assets/01030-f07s02-1880646f019f-crop.jpg",
+      "before_image": "assets/01030-f07s02-1880646f019f-before.jpg",
+      "after_image": "assets/01030-f07s02-1880646f019f-after.jpg"
+    },
+    {
+      "review_id": "01021-f07s00-86e3473d6a89",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 22:28:57",
+      "frame_id": "f07s00",
+      "bbox": [
+        458,
+        537,
+        497,
+        602
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01021-f07s00-86e3473d6a89-context.jpg",
+      "crop_image": "assets/01021-f07s00-86e3473d6a89-crop.jpg",
+      "before_image": "assets/01021-f07s00-86e3473d6a89-before.jpg",
+      "after_image": "assets/01021-f07s00-86e3473d6a89-after.jpg"
+    },
+    {
+      "review_id": "01022-f02s01-8b34a08b1164",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 07:29:52",
+      "frame_id": "f02s01",
+      "bbox": [
+        1445,
+        1001,
+        1505,
+        1056
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01022-f02s01-8b34a08b1164-context.jpg",
+      "crop_image": "assets/01022-f02s01-8b34a08b1164-crop.jpg",
+      "before_image": "assets/01022-f02s01-8b34a08b1164-before.jpg",
+      "after_image": "assets/01022-f02s01-8b34a08b1164-after.jpg"
+    },
+    {
+      "review_id": "01022-f07s02-bbbba4f6466f",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 22:32:30.250000",
+      "frame_id": "f07s02",
+      "bbox": [
+        1436,
+        352,
+        1644,
+        560
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01022-f07s02-bbbba4f6466f-context.jpg",
+      "crop_image": "assets/01022-f07s02-bbbba4f6466f-crop.jpg",
+      "before_image": "assets/01022-f07s02-bbbba4f6466f-before.jpg",
+      "after_image": "assets/01022-f07s02-bbbba4f6466f-after.jpg"
+    },
+    {
+      "review_id": "01028-f05s01-aeaa086a2129",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 16:30:12",
+      "frame_id": "f05s01",
+      "bbox": [
+        409,
+        977,
+        477,
+        1028
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01028-f05s01-aeaa086a2129-context.jpg",
+      "crop_image": "assets/01028-f05s01-aeaa086a2129-crop.jpg",
+      "before_image": "assets/01028-f05s01-aeaa086a2129-before.jpg",
+      "after_image": "assets/01028-f05s01-aeaa086a2129-after.jpg"
+    },
+    {
+      "review_id": "01030-f01s00-cb5defcae4f5",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 04:29:22",
+      "frame_id": "f01s00",
+      "bbox": [
+        1060,
+        1043,
+        1078,
+        1152
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01030-f01s00-cb5defcae4f5-context.jpg",
+      "crop_image": "assets/01030-f01s00-cb5defcae4f5-crop.jpg",
+      "before_image": "assets/01030-f01s00-cb5defcae4f5-before.jpg",
+      "after_image": "assets/01030-f01s00-cb5defcae4f5-after.jpg"
+    },
+    {
+      "review_id": "01028-f06s00-6ec75499fddd",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 19:26:11",
+      "frame_id": "f06s00",
+      "bbox": [
+        1577,
+        1394,
+        1597,
+        1401
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01028-f06s00-6ec75499fddd-context.jpg",
+      "crop_image": "assets/01028-f06s00-6ec75499fddd-crop.jpg",
+      "before_image": "assets/01028-f06s00-6ec75499fddd-before.jpg",
+      "after_image": "assets/01028-f06s00-6ec75499fddd-after.jpg"
+    },
+    {
+      "review_id": "01027-f07s02-07fa3d9a40aa",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 22:28:33",
+      "frame_id": "f07s02",
+      "bbox": [
+        1530,
+        714,
+        1544,
+        720
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01027-f07s02-07fa3d9a40aa-context.jpg",
+      "crop_image": "assets/01027-f07s02-07fa3d9a40aa-crop.jpg",
+      "before_image": "assets/01027-f07s02-07fa3d9a40aa-before.jpg",
+      "after_image": "assets/01027-f07s02-07fa3d9a40aa-after.jpg"
+    },
+    {
+      "review_id": "01028-f05s01-f2a69d492663",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 16:30:12",
+      "frame_id": "f05s01",
+      "bbox": [
+        1190,
+        840,
+        1263,
+        893
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01028-f05s01-f2a69d492663-context.jpg",
+      "crop_image": "assets/01028-f05s01-f2a69d492663-crop.jpg",
+      "before_image": "assets/01028-f05s01-f2a69d492663-before.jpg",
+      "after_image": "assets/01028-f05s01-f2a69d492663-after.jpg"
+    },
+    {
+      "review_id": "01028-f05s01-97fd53a845c4",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 16:30:12",
+      "frame_id": "f05s01",
+      "bbox": [
+        323,
+        907,
+        386,
+        971
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01028-f05s01-97fd53a845c4-context.jpg",
+      "crop_image": "assets/01028-f05s01-97fd53a845c4-crop.jpg",
+      "before_image": "assets/01028-f05s01-97fd53a845c4-before.jpg",
+      "after_image": "assets/01028-f05s01-97fd53a845c4-after.jpg"
+    },
+    {
+      "review_id": "01030-f01s02-b9b1f9fea970",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 04:31:54",
+      "frame_id": "f01s02",
+      "bbox": [
+        1036,
+        1112,
+        1046,
+        1125
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01030-f01s02-b9b1f9fea970-context.jpg",
+      "crop_image": "assets/01030-f01s02-b9b1f9fea970-crop.jpg",
+      "before_image": "assets/01030-f01s02-b9b1f9fea970-before.jpg",
+      "after_image": "assets/01030-f01s02-b9b1f9fea970-after.jpg"
+    },
+    {
+      "review_id": "01022-f00s00-8a79c7153074",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 01:29:02",
+      "frame_id": "f00s00",
+      "bbox": [
+        1185,
+        1408,
+        1266,
+        1440
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f00s00-8a79c7153074-context.jpg",
+      "crop_image": "assets/01022-f00s00-8a79c7153074-crop.jpg",
+      "before_image": "assets/01022-f00s00-8a79c7153074-before.jpg",
+      "after_image": "assets/01022-f00s00-8a79c7153074-after.jpg"
+    },
+    {
+      "review_id": "01022-f05s00-7e6f405a0210",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 16:30:25",
+      "frame_id": "f05s00",
+      "bbox": [
+        1496,
+        1344,
+        1513,
+        1365
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f05s00-7e6f405a0210-context.jpg",
+      "crop_image": "assets/01022-f05s00-7e6f405a0210-crop.jpg",
+      "before_image": "assets/01022-f05s00-7e6f405a0210-before.jpg",
+      "after_image": "assets/01022-f05s00-7e6f405a0210-after.jpg"
+    },
+    {
+      "review_id": "01027-f06s01-c6f7a6fa2191",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 19:27:16",
+      "frame_id": "f06s01",
+      "bbox": [
+        1487,
+        1274,
+        1650,
+        1438
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01027-f06s01-c6f7a6fa2191-context.jpg",
+      "crop_image": "assets/01027-f06s01-c6f7a6fa2191-crop.jpg",
+      "before_image": "assets/01027-f06s01-c6f7a6fa2191-before.jpg",
+      "after_image": "assets/01027-f06s01-c6f7a6fa2191-after.jpg"
+    },
+    {
+      "review_id": "01021-f00s01-49f713419faa",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 01:29:18.500000",
+      "frame_id": "f00s01",
+      "bbox": [
+        2229,
+        704,
+        2274,
+        722
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01021-f00s01-49f713419faa-context.jpg",
+      "crop_image": "assets/01021-f00s01-49f713419faa-crop.jpg",
+      "before_image": "assets/01021-f00s01-49f713419faa-before.jpg",
+      "after_image": "assets/01021-f00s01-49f713419faa-after.jpg"
+    },
+    {
+      "review_id": "01030-f00s01-50488446e99c",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 01:33:23",
+      "frame_id": "f00s01",
+      "bbox": [
+        1480,
+        1208,
+        1486,
+        1216
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01030-f00s01-50488446e99c-context.jpg",
+      "crop_image": "assets/01030-f00s01-50488446e99c-crop.jpg",
+      "before_image": "assets/01030-f00s01-50488446e99c-before.jpg",
+      "after_image": "assets/01030-f00s01-50488446e99c-after.jpg"
+    },
+    {
+      "review_id": "01028-f07s01-9fb585de4905",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 22:27:20",
+      "frame_id": "f07s01",
+      "bbox": [
+        1494,
+        355,
+        1602,
+        417
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01028-f07s01-9fb585de4905-context.jpg",
+      "crop_image": "assets/01028-f07s01-9fb585de4905-crop.jpg",
+      "before_image": "assets/01028-f07s01-9fb585de4905-before.jpg",
+      "after_image": "assets/01028-f07s01-9fb585de4905-after.jpg"
+    },
+    {
+      "review_id": "01027-f01s02-df0e19f45b43",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 04:31:39",
+      "frame_id": "f01s02",
+      "bbox": [
+        1792,
+        1334,
+        1800,
+        1342
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01027-f01s02-df0e19f45b43-context.jpg",
+      "crop_image": "assets/01027-f01s02-df0e19f45b43-crop.jpg",
+      "before_image": "assets/01027-f01s02-df0e19f45b43-before.jpg",
+      "after_image": "assets/01027-f01s02-df0e19f45b43-after.jpg"
+    },
+    {
+      "review_id": "01027-f07s02-ecf5ab38061e",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 22:28:33",
+      "frame_id": "f07s02",
+      "bbox": [
+        1640,
+        1063,
+        1674,
+        1115
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01027-f07s02-ecf5ab38061e-context.jpg",
+      "crop_image": "assets/01027-f07s02-ecf5ab38061e-crop.jpg",
+      "before_image": "assets/01027-f07s02-ecf5ab38061e-before.jpg",
+      "after_image": "assets/01027-f07s02-ecf5ab38061e-after.jpg"
+    },
+    {
+      "review_id": "01028-f07s01-97428f517ae4",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 22:27:20",
+      "frame_id": "f07s01",
+      "bbox": [
+        1357,
+        860,
+        1501,
+        1004
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01028-f07s01-97428f517ae4-context.jpg",
+      "crop_image": "assets/01028-f07s01-97428f517ae4-crop.jpg",
+      "before_image": "assets/01028-f07s01-97428f517ae4-before.jpg",
+      "after_image": "assets/01028-f07s01-97428f517ae4-after.jpg"
+    },
+    {
+      "review_id": "01022-f00s02-49673da6bbf6",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 01:31:34",
+      "frame_id": "f00s02",
+      "bbox": [
+        1180,
+        1379,
+        1205,
+        1398
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f00s02-49673da6bbf6-context.jpg",
+      "crop_image": "assets/01022-f00s02-49673da6bbf6-crop.jpg",
+      "before_image": "assets/01022-f00s02-49673da6bbf6-before.jpg",
+      "after_image": "assets/01022-f00s02-49673da6bbf6-after.jpg"
+    },
+    {
+      "review_id": "01030-f00s00-53c06b965a6a",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 01:32:07",
+      "frame_id": "f00s00",
+      "bbox": [
+        1818,
+        883,
+        1895,
+        914
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01030-f00s00-53c06b965a6a-context.jpg",
+      "crop_image": "assets/01030-f00s00-53c06b965a6a-crop.jpg",
+      "before_image": "assets/01030-f00s00-53c06b965a6a-before.jpg",
+      "after_image": "assets/01030-f00s00-53c06b965a6a-after.jpg"
+    },
+    {
+      "review_id": "01022-f06s02-15202abe6230",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 19:35:15.250000",
+      "frame_id": "f06s02",
+      "bbox": [
+        2243,
+        1423,
+        2271,
+        1439
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f06s02-15202abe6230-context.jpg",
+      "crop_image": "assets/01022-f06s02-15202abe6230-crop.jpg",
+      "before_image": "assets/01022-f06s02-15202abe6230-before.jpg",
+      "after_image": "assets/01022-f06s02-15202abe6230-after.jpg"
+    },
+    {
+      "review_id": "01027-f06s00-2b2f1c726b27",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 19:26:00",
+      "frame_id": "f06s00",
+      "bbox": [
+        1860,
+        1372,
+        2045,
+        1439
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01027-f06s00-2b2f1c726b27-context.jpg",
+      "crop_image": "assets/01027-f06s00-2b2f1c726b27-crop.jpg",
+      "before_image": "assets/01027-f06s00-2b2f1c726b27-before.jpg",
+      "after_image": "assets/01027-f06s00-2b2f1c726b27-after.jpg"
+    },
+    {
+      "review_id": "01022-f06s01-c38babd579ac",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 19:33:59.500000",
+      "frame_id": "f06s01",
+      "bbox": [
+        1691,
+        917,
+        1835,
+        1061
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01022-f06s01-c38babd579ac-context.jpg",
+      "crop_image": "assets/01022-f06s01-c38babd579ac-crop.jpg",
+      "before_image": "assets/01022-f06s01-c38babd579ac-before.jpg",
+      "after_image": "assets/01022-f06s01-c38babd579ac-after.jpg"
+    },
+    {
+      "review_id": "01022-f02s01-cb488923d002",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 07:29:52",
+      "frame_id": "f02s01",
+      "bbox": [
+        1331,
+        465,
+        1344,
+        517
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f02s01-cb488923d002-context.jpg",
+      "crop_image": "assets/01022-f02s01-cb488923d002-crop.jpg",
+      "before_image": "assets/01022-f02s01-cb488923d002-before.jpg",
+      "after_image": "assets/01022-f02s01-cb488923d002-after.jpg"
+    },
+    {
+      "review_id": "01030-f03s01-39764d489052",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 10:30:33",
+      "frame_id": "f03s01",
+      "bbox": [
+        1690,
+        576,
+        1706,
+        585
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01030-f03s01-39764d489052-context.jpg",
+      "crop_image": "assets/01030-f03s01-39764d489052-crop.jpg",
+      "before_image": "assets/01030-f03s01-39764d489052-before.jpg",
+      "after_image": "assets/01030-f03s01-39764d489052-after.jpg"
+    },
+    {
+      "review_id": "01030-f00s02-1270efa68ed9",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 01:34:39",
+      "frame_id": "f00s02",
+      "bbox": [
+        1454,
+        500,
+        1550,
+        596
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01030-f00s02-1270efa68ed9-context.jpg",
+      "crop_image": "assets/01030-f00s02-1270efa68ed9-crop.jpg",
+      "before_image": "assets/01030-f00s02-1270efa68ed9-before.jpg",
+      "after_image": "assets/01030-f00s02-1270efa68ed9-after.jpg"
+    },
+    {
+      "review_id": "01030-f02s01-504e9095bd63",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 07:32:57",
+      "frame_id": "f02s01",
+      "bbox": [
+        1089,
+        731,
+        1108,
+        747
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01030-f02s01-504e9095bd63-context.jpg",
+      "crop_image": "assets/01030-f02s01-504e9095bd63-crop.jpg",
+      "before_image": "assets/01030-f02s01-504e9095bd63-before.jpg",
+      "after_image": "assets/01030-f02s01-504e9095bd63-after.jpg"
+    },
+    {
+      "review_id": "01021-f01s02-313016b4e6e3",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 04:27:49.250000",
+      "frame_id": "f01s02",
+      "bbox": [
+        765,
+        1240,
+        774,
+        1246
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01021-f01s02-313016b4e6e3-context.jpg",
+      "crop_image": "assets/01021-f01s02-313016b4e6e3-crop.jpg",
+      "before_image": "assets/01021-f01s02-313016b4e6e3-before.jpg",
+      "after_image": "assets/01021-f01s02-313016b4e6e3-after.jpg"
+    },
+    {
+      "review_id": "01028-f07s00-3ff7d1a0f50a",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 22:26:04",
+      "frame_id": "f07s00",
+      "bbox": [
+        1718,
+        227,
+        1729,
+        233
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01028-f07s00-3ff7d1a0f50a-context.jpg",
+      "crop_image": "assets/01028-f07s00-3ff7d1a0f50a-crop.jpg",
+      "before_image": "assets/01028-f07s00-3ff7d1a0f50a-before.jpg",
+      "after_image": "assets/01028-f07s00-3ff7d1a0f50a-after.jpg"
+    },
+    {
+      "review_id": "01022-f05s00-f61dd8c52d5b",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 16:30:25",
+      "frame_id": "f05s00",
+      "bbox": [
+        1190,
+        433,
+        1398,
+        641
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01022-f05s00-f61dd8c52d5b-context.jpg",
+      "crop_image": "assets/01022-f05s00-f61dd8c52d5b-crop.jpg",
+      "before_image": "assets/01022-f05s00-f61dd8c52d5b-before.jpg",
+      "after_image": "assets/01022-f05s00-f61dd8c52d5b-after.jpg"
+    },
+    {
+      "review_id": "01030-f00s01-1d2cbbef8224",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 01:33:23",
+      "frame_id": "f00s01",
+      "bbox": [
+        1118,
+        867,
+        1137,
+        883
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01030-f00s01-1d2cbbef8224-context.jpg",
+      "crop_image": "assets/01030-f00s01-1d2cbbef8224-crop.jpg",
+      "before_image": "assets/01030-f00s01-1d2cbbef8224-before.jpg",
+      "after_image": "assets/01030-f00s01-1d2cbbef8224-after.jpg"
+    },
+    {
+      "review_id": "01021-f07s02-57f88a0e9772",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 22:31:29",
+      "frame_id": "f07s02",
+      "bbox": [
+        1826,
+        1208,
+        2034,
+        1416
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01021-f07s02-57f88a0e9772-context.jpg",
+      "crop_image": "assets/01021-f07s02-57f88a0e9772-crop.jpg",
+      "before_image": "assets/01021-f07s02-57f88a0e9772-before.jpg",
+      "after_image": "assets/01021-f07s02-57f88a0e9772-after.jpg"
+    },
+    {
+      "review_id": "01027-f05s02-b3f49cb36818",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 16:31:17",
+      "frame_id": "f05s02",
+      "bbox": [
+        1893,
+        325,
+        1925,
+        374
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01027-f05s02-b3f49cb36818-context.jpg",
+      "crop_image": "assets/01027-f05s02-b3f49cb36818-crop.jpg",
+      "before_image": "assets/01027-f05s02-b3f49cb36818-before.jpg",
+      "after_image": "assets/01027-f05s02-b3f49cb36818-after.jpg"
+    },
+    {
+      "review_id": "01027-f04s01-5f446540c088",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 13:27:44.500000",
+      "frame_id": "f04s01",
+      "bbox": [
+        879,
+        1174,
+        943,
+        1238
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01027-f04s01-5f446540c088-context.jpg",
+      "crop_image": "assets/01027-f04s01-5f446540c088-crop.jpg",
+      "before_image": "assets/01027-f04s01-5f446540c088-before.jpg",
+      "after_image": "assets/01027-f04s01-5f446540c088-after.jpg"
+    },
+    {
+      "review_id": "01021-f05s02-f245fa57b217",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 16:31:55.250000",
+      "frame_id": "f05s02",
+      "bbox": [
+        1418,
+        257,
+        1462,
+        393
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01021-f05s02-f245fa57b217-context.jpg",
+      "crop_image": "assets/01021-f05s02-f245fa57b217-crop.jpg",
+      "before_image": "assets/01021-f05s02-f245fa57b217-before.jpg",
+      "after_image": "assets/01021-f05s02-f245fa57b217-after.jpg"
+    },
+    {
+      "review_id": "01021-f05s00-b823e2487118",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 16:29:23.750000",
+      "frame_id": "f05s00",
+      "bbox": [
+        795,
+        800,
+        818,
+        813
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01021-f05s00-b823e2487118-context.jpg",
+      "crop_image": "assets/01021-f05s00-b823e2487118-crop.jpg",
+      "before_image": "assets/01021-f05s00-b823e2487118-before.jpg",
+      "after_image": "assets/01021-f05s00-b823e2487118-after.jpg"
+    },
+    {
+      "review_id": "01028-f01s00-0c460664353b",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 04:29:16",
+      "frame_id": "f01s00",
+      "bbox": [
+        1117,
+        1122,
+        1181,
+        1186
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01028-f01s00-0c460664353b-context.jpg",
+      "crop_image": "assets/01028-f01s00-0c460664353b-crop.jpg",
+      "before_image": "assets/01028-f01s00-0c460664353b-before.jpg",
+      "after_image": "assets/01028-f01s00-0c460664353b-after.jpg"
+    },
+    {
+      "review_id": "01027-f00s02-45afc7625280",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 01:34:24",
+      "frame_id": "f00s02",
+      "bbox": [
+        2100,
+        453,
+        2131,
+        521
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01027-f00s02-45afc7625280-context.jpg",
+      "crop_image": "assets/01027-f00s02-45afc7625280-crop.jpg",
+      "before_image": "assets/01027-f00s02-45afc7625280-before.jpg",
+      "after_image": "assets/01027-f00s02-45afc7625280-after.jpg"
+    },
+    {
+      "review_id": "01022-f05s00-c40316dc7a4a",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 16:30:25",
+      "frame_id": "f05s00",
+      "bbox": [
+        846,
+        24,
+        923,
+        96
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01022-f05s00-c40316dc7a4a-context.jpg",
+      "crop_image": "assets/01022-f05s00-c40316dc7a4a-crop.jpg",
+      "before_image": "assets/01022-f05s00-c40316dc7a4a-before.jpg",
+      "after_image": "assets/01022-f05s00-c40316dc7a4a-after.jpg"
+    },
+    {
+      "review_id": "01028-f07s00-df7643a550a4",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 22:26:04",
+      "frame_id": "f07s00",
+      "bbox": [
+        1567,
+        1387,
+        1581,
+        1391
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01028-f07s00-df7643a550a4-context.jpg",
+      "crop_image": "assets/01028-f07s00-df7643a550a4-crop.jpg",
+      "before_image": "assets/01028-f07s00-df7643a550a4-before.jpg",
+      "after_image": "assets/01028-f07s00-df7643a550a4-after.jpg"
+    },
+    {
+      "review_id": "01028-f02s01-9ffa61d36e12",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 07:32:51",
+      "frame_id": "f02s01",
+      "bbox": [
+        2116,
+        1287,
+        2144,
+        1328
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01028-f02s01-9ffa61d36e12-context.jpg",
+      "crop_image": "assets/01028-f02s01-9ffa61d36e12-crop.jpg",
+      "before_image": "assets/01028-f02s01-9ffa61d36e12-before.jpg",
+      "after_image": "assets/01028-f02s01-9ffa61d36e12-after.jpg"
+    },
+    {
+      "review_id": "01022-f05s00-9b9d482e384f",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 16:30:25",
+      "frame_id": "f05s00",
+      "bbox": [
+        1404,
+        1039,
+        1559,
+        1124
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f05s00-9b9d482e384f-context.jpg",
+      "crop_image": "assets/01022-f05s00-9b9d482e384f-crop.jpg",
+      "before_image": "assets/01022-f05s00-9b9d482e384f-before.jpg",
+      "after_image": "assets/01022-f05s00-9b9d482e384f-after.jpg"
+    },
+    {
+      "review_id": "01030-f04s01-599fc0b6ec27",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 13:27:44",
+      "frame_id": "f04s01",
+      "bbox": [
+        1678,
+        622,
+        1751,
+        671
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01030-f04s01-599fc0b6ec27-context.jpg",
+      "crop_image": "assets/01030-f04s01-599fc0b6ec27-crop.jpg",
+      "before_image": "assets/01030-f04s01-599fc0b6ec27-before.jpg",
+      "after_image": "assets/01030-f04s01-599fc0b6ec27-after.jpg"
+    },
+    {
+      "review_id": "01022-f06s02-1ec87ee88643",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 19:35:15.250000",
+      "frame_id": "f06s02",
+      "bbox": [
+        684,
+        315,
+        828,
+        459
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01022-f06s02-1ec87ee88643-context.jpg",
+      "crop_image": "assets/01022-f06s02-1ec87ee88643-crop.jpg",
+      "before_image": "assets/01022-f06s02-1ec87ee88643-before.jpg",
+      "after_image": "assets/01022-f06s02-1ec87ee88643-after.jpg"
+    },
+    {
+      "review_id": "01022-f02s01-40730910ca0b",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 07:29:52",
+      "frame_id": "f02s01",
+      "bbox": [
+        280,
+        825,
+        376,
+        921
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01022-f02s01-40730910ca0b-context.jpg",
+      "crop_image": "assets/01022-f02s01-40730910ca0b-crop.jpg",
+      "before_image": "assets/01022-f02s01-40730910ca0b-before.jpg",
+      "after_image": "assets/01022-f02s01-40730910ca0b-after.jpg"
+    },
+    {
+      "review_id": "01022-f01s02-43059ee7a298",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 04:28:49",
+      "frame_id": "f01s02",
+      "bbox": [
+        1850,
+        718,
+        1884,
+        786
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f01s02-43059ee7a298-context.jpg",
+      "crop_image": "assets/01022-f01s02-43059ee7a298-crop.jpg",
+      "before_image": "assets/01022-f01s02-43059ee7a298-before.jpg",
+      "after_image": "assets/01022-f01s02-43059ee7a298-after.jpg"
+    },
+    {
+      "review_id": "01028-f03s02-28fa2204f0b1",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 10:31:54",
+      "frame_id": "f03s02",
+      "bbox": [
+        2183,
+        1115,
+        2250,
+        1196
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01028-f03s02-28fa2204f0b1-context.jpg",
+      "crop_image": "assets/01028-f03s02-28fa2204f0b1-crop.jpg",
+      "before_image": "assets/01028-f03s02-28fa2204f0b1-before.jpg",
+      "after_image": "assets/01028-f03s02-28fa2204f0b1-after.jpg"
+    },
+    {
+      "review_id": "01022-f05s02-7739d81487cd",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 16:32:57",
+      "frame_id": "f05s02",
+      "bbox": [
+        546,
+        1211,
+        754,
+        1419
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01022-f05s02-7739d81487cd-context.jpg",
+      "crop_image": "assets/01022-f05s02-7739d81487cd-crop.jpg",
+      "before_image": "assets/01022-f05s02-7739d81487cd-before.jpg",
+      "after_image": "assets/01022-f05s02-7739d81487cd-after.jpg"
+    },
+    {
+      "review_id": "01022-f07s02-e425cc5d1368",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 22:32:30.250000",
+      "frame_id": "f07s02",
+      "bbox": [
+        1099,
+        624,
+        1130,
+        684
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01022-f07s02-e425cc5d1368-context.jpg",
+      "crop_image": "assets/01022-f07s02-e425cc5d1368-crop.jpg",
+      "before_image": "assets/01022-f07s02-e425cc5d1368-before.jpg",
+      "after_image": "assets/01022-f07s02-e425cc5d1368-after.jpg"
+    },
+    {
+      "review_id": "01028-f05s01-59d31461b9ee",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 16:30:12",
+      "frame_id": "f05s01",
+      "bbox": [
+        0,
+        1123,
+        47,
+        1174
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01028-f05s01-59d31461b9ee-context.jpg",
+      "crop_image": "assets/01028-f05s01-59d31461b9ee-crop.jpg",
+      "before_image": "assets/01028-f05s01-59d31461b9ee-before.jpg",
+      "after_image": "assets/01028-f05s01-59d31461b9ee-after.jpg"
+    },
+    {
+      "review_id": "01027-f01s00-8a6dd22d9be6",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 04:29:07",
+      "frame_id": "f01s00",
+      "bbox": [
+        1373,
+        279,
+        1391,
+        288
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01027-f01s00-8a6dd22d9be6-context.jpg",
+      "crop_image": "assets/01027-f01s00-8a6dd22d9be6-crop.jpg",
+      "before_image": "assets/01027-f01s00-8a6dd22d9be6-before.jpg",
+      "after_image": "assets/01027-f01s00-8a6dd22d9be6-after.jpg"
+    },
+    {
+      "review_id": "01022-f02s01-cacd61db06d2",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 07:29:52",
+      "frame_id": "f02s01",
+      "bbox": [
+        1377,
+        1052,
+        1422,
+        1119
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01022-f02s01-cacd61db06d2-context.jpg",
+      "crop_image": "assets/01022-f02s01-cacd61db06d2-crop.jpg",
+      "before_image": "assets/01022-f02s01-cacd61db06d2-before.jpg",
+      "after_image": "assets/01022-f02s01-cacd61db06d2-after.jpg"
+    },
+    {
+      "review_id": "01030-f01s02-e6465f2c855a",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 04:31:54",
+      "frame_id": "f01s02",
+      "bbox": [
+        1859,
+        772,
+        1924,
+        799
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01030-f01s02-e6465f2c855a-context.jpg",
+      "crop_image": "assets/01030-f01s02-e6465f2c855a-crop.jpg",
+      "before_image": "assets/01030-f01s02-e6465f2c855a-before.jpg",
+      "after_image": "assets/01030-f01s02-e6465f2c855a-after.jpg"
+    },
+    {
+      "review_id": "01022-f07s02-f4b89e94e81f",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 22:32:30.250000",
+      "frame_id": "f07s02",
+      "bbox": [
+        1098,
+        625,
+        1125,
+        654
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01022-f07s02-f4b89e94e81f-context.jpg",
+      "crop_image": "assets/01022-f07s02-f4b89e94e81f-crop.jpg",
+      "before_image": "assets/01022-f07s02-f4b89e94e81f-before.jpg",
+      "after_image": "assets/01022-f07s02-f4b89e94e81f-after.jpg"
+    },
+    {
+      "review_id": "01022-f02s01-482b494e42dd",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 07:29:52",
+      "frame_id": "f02s01",
+      "bbox": [
+        1429,
+        995,
+        1493,
+        1039
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01022-f02s01-482b494e42dd-context.jpg",
+      "crop_image": "assets/01022-f02s01-482b494e42dd-crop.jpg",
+      "before_image": "assets/01022-f02s01-482b494e42dd-before.jpg",
+      "after_image": "assets/01022-f02s01-482b494e42dd-after.jpg"
+    },
+    {
+      "review_id": "01030-f03s01-625a44d625b1",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 10:30:33",
+      "frame_id": "f03s01",
+      "bbox": [
+        2069,
+        1298,
+        2083,
+        1367
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01030-f03s01-625a44d625b1-context.jpg",
+      "crop_image": "assets/01030-f03s01-625a44d625b1-crop.jpg",
+      "before_image": "assets/01030-f03s01-625a44d625b1-before.jpg",
+      "after_image": "assets/01030-f03s01-625a44d625b1-after.jpg"
+    },
+    {
+      "review_id": "01030-f00s02-7abc1e88361d",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 01:34:39",
+      "frame_id": "f00s02",
+      "bbox": [
+        1473,
+        102,
+        1681,
+        310
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01030-f00s02-7abc1e88361d-context.jpg",
+      "crop_image": "assets/01030-f00s02-7abc1e88361d-crop.jpg",
+      "before_image": "assets/01030-f00s02-7abc1e88361d-before.jpg",
+      "after_image": "assets/01030-f00s02-7abc1e88361d-after.jpg"
+    },
+    {
+      "review_id": "01022-f05s02-914bc4d38037",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 16:32:57",
+      "frame_id": "f05s02",
+      "bbox": [
+        1344,
+        732,
+        1380,
+        865
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01022-f05s02-914bc4d38037-context.jpg",
+      "crop_image": "assets/01022-f05s02-914bc4d38037-crop.jpg",
+      "before_image": "assets/01022-f05s02-914bc4d38037-before.jpg",
+      "after_image": "assets/01022-f05s02-914bc4d38037-after.jpg"
+    },
+    {
+      "review_id": "01022-f04s00-3dd7f141b614",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 13:28:07",
+      "frame_id": "f04s00",
+      "bbox": [
+        1341,
+        893,
+        1377,
+        931
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f04s00-3dd7f141b614-context.jpg",
+      "crop_image": "assets/01022-f04s00-3dd7f141b614-crop.jpg",
+      "before_image": "assets/01022-f04s00-3dd7f141b614-before.jpg",
+      "after_image": "assets/01022-f04s00-3dd7f141b614-after.jpg"
+    },
+    {
+      "review_id": "01028-f05s00-88348b0b217a",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 16:28:56",
+      "frame_id": "f05s00",
+      "bbox": [
+        331,
+        1216,
+        370,
+        1253
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01028-f05s00-88348b0b217a-context.jpg",
+      "crop_image": "assets/01028-f05s00-88348b0b217a-crop.jpg",
+      "before_image": "assets/01028-f05s00-88348b0b217a-before.jpg",
+      "after_image": "assets/01028-f05s00-88348b0b217a-after.jpg"
+    },
+    {
+      "review_id": "01027-f04s02-b3d65b8b2d08",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 13:29:00.250000",
+      "frame_id": "f04s02",
+      "bbox": [
+        1581,
+        202,
+        1607,
+        233
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01027-f04s02-b3d65b8b2d08-context.jpg",
+      "crop_image": "assets/01027-f04s02-b3d65b8b2d08-crop.jpg",
+      "before_image": "assets/01027-f04s02-b3d65b8b2d08-before.jpg",
+      "after_image": "assets/01027-f04s02-b3d65b8b2d08-after.jpg"
+    },
+    {
+      "review_id": "01030-f06s00-18dc97b5ffe7",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 19:25:54",
+      "frame_id": "f06s00",
+      "bbox": [
+        1543,
+        163,
+        1592,
+        241
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01030-f06s00-18dc97b5ffe7-context.jpg",
+      "crop_image": "assets/01030-f06s00-18dc97b5ffe7-crop.jpg",
+      "before_image": "assets/01030-f06s00-18dc97b5ffe7-before.jpg",
+      "after_image": "assets/01030-f06s00-18dc97b5ffe7-after.jpg"
+    },
+    {
+      "review_id": "01022-f07s01-bbe954fdc7a0",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 22:31:14.500000",
+      "frame_id": "f07s01",
+      "bbox": [
+        958,
+        454,
+        1006,
+        476
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01022-f07s01-bbe954fdc7a0-context.jpg",
+      "crop_image": "assets/01022-f07s01-bbe954fdc7a0-crop.jpg",
+      "before_image": "assets/01022-f07s01-bbe954fdc7a0-before.jpg",
+      "after_image": "assets/01022-f07s01-bbe954fdc7a0-after.jpg"
+    },
+    {
+      "review_id": "01022-f01s00-e199fd2c35b9",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 04:26:17",
+      "frame_id": "f01s00",
+      "bbox": [
+        2259,
+        1425,
+        2271,
+        1439
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f01s00-e199fd2c35b9-context.jpg",
+      "crop_image": "assets/01022-f01s00-e199fd2c35b9-crop.jpg",
+      "before_image": "assets/01022-f01s00-e199fd2c35b9-before.jpg",
+      "after_image": "assets/01022-f01s00-e199fd2c35b9-after.jpg"
+    },
+    {
+      "review_id": "01027-f06s00-3bd57a871408",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 19:26:00",
+      "frame_id": "f06s00",
+      "bbox": [
+        1218,
+        1225,
+        1232,
+        1230
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01027-f06s00-3bd57a871408-context.jpg",
+      "crop_image": "assets/01027-f06s00-3bd57a871408-crop.jpg",
+      "before_image": "assets/01027-f06s00-3bd57a871408-before.jpg",
+      "after_image": "assets/01027-f06s00-3bd57a871408-after.jpg"
+    },
+    {
+      "review_id": "01028-f00s01-42c8fa2a2df2",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 01:33:17",
+      "frame_id": "f00s01",
+      "bbox": [
+        466,
+        1262,
+        478,
+        1268
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01028-f00s01-42c8fa2a2df2-context.jpg",
+      "crop_image": "assets/01028-f00s01-42c8fa2a2df2-crop.jpg",
+      "before_image": "assets/01028-f00s01-42c8fa2a2df2-before.jpg",
+      "after_image": "assets/01028-f00s01-42c8fa2a2df2-after.jpg"
+    },
+    {
+      "review_id": "01027-f01s01-b1c4dd002192",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 04:30:23",
+      "frame_id": "f01s01",
+      "bbox": [
+        688,
+        466,
+        707,
+        482
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01027-f01s01-b1c4dd002192-context.jpg",
+      "crop_image": "assets/01027-f01s01-b1c4dd002192-crop.jpg",
+      "before_image": "assets/01027-f01s01-b1c4dd002192-before.jpg",
+      "after_image": "assets/01027-f01s01-b1c4dd002192-after.jpg"
+    },
+    {
+      "review_id": "01028-f01s01-3646221ced65",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 04:30:32",
+      "frame_id": "f01s01",
+      "bbox": [
+        136,
+        1008,
+        189,
+        1057
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01028-f01s01-3646221ced65-context.jpg",
+      "crop_image": "assets/01028-f01s01-3646221ced65-crop.jpg",
+      "before_image": "assets/01028-f01s01-3646221ced65-before.jpg",
+      "after_image": "assets/01028-f01s01-3646221ced65-after.jpg"
+    },
+    {
+      "review_id": "01022-f01s02-c72e58eab8cf",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 04:28:49",
+      "frame_id": "f01s02",
+      "bbox": [
+        1708,
+        294,
+        1776,
+        477
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f01s02-c72e58eab8cf-context.jpg",
+      "crop_image": "assets/01022-f01s02-c72e58eab8cf-crop.jpg",
+      "before_image": "assets/01022-f01s02-c72e58eab8cf-before.jpg",
+      "after_image": "assets/01022-f01s02-c72e58eab8cf-after.jpg"
+    },
+    {
+      "review_id": "01030-f03s00-ced4f43a16d4",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 10:29:17",
+      "frame_id": "f03s00",
+      "bbox": [
+        1609,
+        189,
+        1638,
+        266
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01030-f03s00-ced4f43a16d4-context.jpg",
+      "crop_image": "assets/01030-f03s00-ced4f43a16d4-crop.jpg",
+      "before_image": "assets/01030-f03s00-ced4f43a16d4-before.jpg",
+      "after_image": "assets/01030-f03s00-ced4f43a16d4-after.jpg"
+    },
+    {
+      "review_id": "01022-f07s01-0527c9fb22d0",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 22:31:14.500000",
+      "frame_id": "f07s01",
+      "bbox": [
+        1117,
+        457,
+        1139,
+        486
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f07s01-0527c9fb22d0-context.jpg",
+      "crop_image": "assets/01022-f07s01-0527c9fb22d0-crop.jpg",
+      "before_image": "assets/01022-f07s01-0527c9fb22d0-before.jpg",
+      "after_image": "assets/01022-f07s01-0527c9fb22d0-after.jpg"
+    },
+    {
+      "review_id": "01028-f03s00-ff3c70a795f7",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 10:29:22",
+      "frame_id": "f03s00",
+      "bbox": [
+        192,
+        921,
+        213,
+        929
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01028-f03s00-ff3c70a795f7-context.jpg",
+      "crop_image": "assets/01028-f03s00-ff3c70a795f7-crop.jpg",
+      "before_image": "assets/01028-f03s00-ff3c70a795f7-before.jpg",
+      "after_image": "assets/01028-f03s00-ff3c70a795f7-after.jpg"
+    },
+    {
+      "review_id": "01021-f00s01-78221451c550",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 01:29:18.500000",
+      "frame_id": "f00s01",
+      "bbox": [
+        2412,
+        904,
+        2422,
+        910
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01021-f00s01-78221451c550-context.jpg",
+      "crop_image": "assets/01021-f00s01-78221451c550-crop.jpg",
+      "before_image": "assets/01021-f00s01-78221451c550-before.jpg",
+      "after_image": "assets/01021-f00s01-78221451c550-after.jpg"
+    },
+    {
+      "review_id": "01022-f05s00-a14cba51a47f",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 16:30:25",
+      "frame_id": "f05s00",
+      "bbox": [
+        1462,
+        959,
+        1532,
+        1038
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01022-f05s00-a14cba51a47f-context.jpg",
+      "crop_image": "assets/01022-f05s00-a14cba51a47f-crop.jpg",
+      "before_image": "assets/01022-f05s00-a14cba51a47f-before.jpg",
+      "after_image": "assets/01022-f05s00-a14cba51a47f-after.jpg"
+    },
+    {
+      "review_id": "01027-f01s00-4aa9788369a0",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 04:29:07",
+      "frame_id": "f01s00",
+      "bbox": [
+        600,
+        528,
+        629,
+        551
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01027-f01s00-4aa9788369a0-context.jpg",
+      "crop_image": "assets/01027-f01s00-4aa9788369a0-crop.jpg",
+      "before_image": "assets/01027-f01s00-4aa9788369a0-before.jpg",
+      "after_image": "assets/01027-f01s00-4aa9788369a0-after.jpg"
+    },
+    {
+      "review_id": "01022-f03s00-a35efe36dd7b",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 10:30:52",
+      "frame_id": "f03s00",
+      "bbox": [
+        803,
+        446,
+        838,
+        485
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01022-f03s00-a35efe36dd7b-context.jpg",
+      "crop_image": "assets/01022-f03s00-a35efe36dd7b-crop.jpg",
+      "before_image": "assets/01022-f03s00-a35efe36dd7b-before.jpg",
+      "after_image": "assets/01022-f03s00-a35efe36dd7b-after.jpg"
+    },
+    {
+      "review_id": "01028-f00s02-cbd606cf918e",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 01:34:33",
+      "frame_id": "f00s02",
+      "bbox": [
+        1711,
+        264,
+        1720,
+        269
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01028-f00s02-cbd606cf918e-context.jpg",
+      "crop_image": "assets/01028-f00s02-cbd606cf918e-crop.jpg",
+      "before_image": "assets/01028-f00s02-cbd606cf918e-before.jpg",
+      "after_image": "assets/01028-f00s02-cbd606cf918e-after.jpg"
+    },
+    {
+      "review_id": "01022-f06s00-da2aea628392",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 19:32:43.750000",
+      "frame_id": "f06s00",
+      "bbox": [
+        1699,
+        1097,
+        1736,
+        1152
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f06s00-da2aea628392-context.jpg",
+      "crop_image": "assets/01022-f06s00-da2aea628392-crop.jpg",
+      "before_image": "assets/01022-f06s00-da2aea628392-before.jpg",
+      "after_image": "assets/01022-f06s00-da2aea628392-after.jpg"
+    },
+    {
+      "review_id": "01022-f01s01-cd413fbc07de",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 04:27:33",
+      "frame_id": "f01s01",
+      "bbox": [
+        771,
+        571,
+        828,
+        602
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f01s01-cd413fbc07de-context.jpg",
+      "crop_image": "assets/01022-f01s01-cd413fbc07de-crop.jpg",
+      "before_image": "assets/01022-f01s01-cd413fbc07de-before.jpg",
+      "after_image": "assets/01022-f01s01-cd413fbc07de-after.jpg"
+    },
+    {
+      "review_id": "01030-f03s02-44f53c589658",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 10:31:49",
+      "frame_id": "f03s02",
+      "bbox": [
+        1419,
+        436,
+        1563,
+        580
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01030-f03s02-44f53c589658-context.jpg",
+      "crop_image": "assets/01030-f03s02-44f53c589658-crop.jpg",
+      "before_image": "assets/01030-f03s02-44f53c589658-before.jpg",
+      "after_image": "assets/01030-f03s02-44f53c589658-after.jpg"
+    },
+    {
+      "review_id": "01022-f05s00-4aa941e96e0b",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 16:30:25",
+      "frame_id": "f05s00",
+      "bbox": [
+        984,
+        59,
+        1048,
+        123
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01022-f05s00-4aa941e96e0b-context.jpg",
+      "crop_image": "assets/01022-f05s00-4aa941e96e0b-crop.jpg",
+      "before_image": "assets/01022-f05s00-4aa941e96e0b-before.jpg",
+      "after_image": "assets/01022-f05s00-4aa941e96e0b-after.jpg"
+    },
+    {
+      "review_id": "01021-f04s02-4c3cecd76da4",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 13:29:41",
+      "frame_id": "f04s02",
+      "bbox": [
+        1635,
+        1051,
+        1779,
+        1195
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01021-f04s02-4c3cecd76da4-context.jpg",
+      "crop_image": "assets/01021-f04s02-4c3cecd76da4-crop.jpg",
+      "before_image": "assets/01021-f04s02-4c3cecd76da4-before.jpg",
+      "after_image": "assets/01021-f04s02-4c3cecd76da4-after.jpg"
+    },
+    {
+      "review_id": "01021-f03s00-4e8c9b462e35",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 10:29:54",
+      "frame_id": "f03s00",
+      "bbox": [
+        2291,
+        916,
+        2391,
+        946
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01021-f03s00-4e8c9b462e35-context.jpg",
+      "crop_image": "assets/01021-f03s00-4e8c9b462e35-crop.jpg",
+      "before_image": "assets/01021-f03s00-4e8c9b462e35-before.jpg",
+      "after_image": "assets/01021-f03s00-4e8c9b462e35-after.jpg"
+    },
+    {
+      "review_id": "01027-f05s01-26b29961c108",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 16:30:01",
+      "frame_id": "f05s01",
+      "bbox": [
+        1481,
+        157,
+        1516,
+        246
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01027-f05s01-26b29961c108-context.jpg",
+      "crop_image": "assets/01027-f05s01-26b29961c108-crop.jpg",
+      "before_image": "assets/01027-f05s01-26b29961c108-before.jpg",
+      "after_image": "assets/01027-f05s01-26b29961c108-after.jpg"
+    },
+    {
+      "review_id": "01022-f01s02-a41a6ca80339",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 04:28:49",
+      "frame_id": "f01s02",
+      "bbox": [
+        1142,
+        1270,
+        1153,
+        1313
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f01s02-a41a6ca80339-context.jpg",
+      "crop_image": "assets/01022-f01s02-a41a6ca80339-crop.jpg",
+      "before_image": "assets/01022-f01s02-a41a6ca80339-before.jpg",
+      "after_image": "assets/01022-f01s02-a41a6ca80339-after.jpg"
+    },
+    {
+      "review_id": "01030-f07s01-38c8c6ac92c2",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 22:27:15.500000",
+      "frame_id": "f07s01",
+      "bbox": [
+        1534,
+        750,
+        1630,
+        846
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01030-f07s01-38c8c6ac92c2-context.jpg",
+      "crop_image": "assets/01030-f07s01-38c8c6ac92c2-crop.jpg",
+      "before_image": "assets/01030-f07s01-38c8c6ac92c2-before.jpg",
+      "after_image": "assets/01030-f07s01-38c8c6ac92c2-after.jpg"
+    },
+    {
+      "review_id": "01022-f04s02-6969b707c5e6",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 13:30:39",
+      "frame_id": "f04s02",
+      "bbox": [
+        1281,
+        1133,
+        1288,
+        1153
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f04s02-6969b707c5e6-context.jpg",
+      "crop_image": "assets/01022-f04s02-6969b707c5e6-crop.jpg",
+      "before_image": "assets/01022-f04s02-6969b707c5e6-before.jpg",
+      "after_image": "assets/01022-f04s02-6969b707c5e6-after.jpg"
+    },
+    {
+      "review_id": "01028-f05s00-7fd6b618713f",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 16:28:56",
+      "frame_id": "f05s00",
+      "bbox": [
+        2112,
+        1403,
+        2141,
+        1432
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01028-f05s00-7fd6b618713f-context.jpg",
+      "crop_image": "assets/01028-f05s00-7fd6b618713f-crop.jpg",
+      "before_image": "assets/01028-f05s00-7fd6b618713f-before.jpg",
+      "after_image": "assets/01028-f05s00-7fd6b618713f-after.jpg"
+    },
+    {
+      "review_id": "01022-f01s01-d4f4e8b85f07",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 04:27:33",
+      "frame_id": "f01s01",
+      "bbox": [
+        1262,
+        395,
+        1275,
+        400
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f01s01-d4f4e8b85f07-context.jpg",
+      "crop_image": "assets/01022-f01s01-d4f4e8b85f07-crop.jpg",
+      "before_image": "assets/01022-f01s01-d4f4e8b85f07-before.jpg",
+      "after_image": "assets/01022-f01s01-d4f4e8b85f07-after.jpg"
+    },
+    {
+      "review_id": "01028-f04s02-bd853c268e0c",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 13:29:09",
+      "frame_id": "f04s02",
+      "bbox": [
+        361,
+        716,
+        379,
+        773
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01028-f04s02-bd853c268e0c-context.jpg",
+      "crop_image": "assets/01028-f04s02-bd853c268e0c-crop.jpg",
+      "before_image": "assets/01028-f04s02-bd853c268e0c-before.jpg",
+      "after_image": "assets/01028-f04s02-bd853c268e0c-after.jpg"
+    },
+    {
+      "review_id": "01028-f00s01-ed66fc4b1e7c",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 01:33:17",
+      "frame_id": "f00s01",
+      "bbox": [
+        1682,
+        314,
+        1920,
+        482
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01028-f00s01-ed66fc4b1e7c-context.jpg",
+      "crop_image": "assets/01028-f00s01-ed66fc4b1e7c-crop.jpg",
+      "before_image": "assets/01028-f00s01-ed66fc4b1e7c-before.jpg",
+      "after_image": "assets/01028-f00s01-ed66fc4b1e7c-after.jpg"
+    },
+    {
+      "review_id": "01027-f01s00-b8b79047866f",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 04:29:07",
+      "frame_id": "f01s00",
+      "bbox": [
+        1462,
+        345,
+        1490,
+        358
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01027-f01s00-b8b79047866f-context.jpg",
+      "crop_image": "assets/01027-f01s00-b8b79047866f-crop.jpg",
+      "before_image": "assets/01027-f01s00-b8b79047866f-before.jpg",
+      "after_image": "assets/01027-f01s00-b8b79047866f-after.jpg"
+    },
+    {
+      "review_id": "01030-f03s01-bbfb0440cda0",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 10:30:33",
+      "frame_id": "f03s01",
+      "bbox": [
+        1723,
+        590,
+        1753,
+        605
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01030-f03s01-bbfb0440cda0-context.jpg",
+      "crop_image": "assets/01030-f03s01-bbfb0440cda0-crop.jpg",
+      "before_image": "assets/01030-f03s01-bbfb0440cda0-before.jpg",
+      "after_image": "assets/01030-f03s01-bbfb0440cda0-after.jpg"
+    },
+    {
+      "review_id": "01028-f01s00-8dabf20b8d4f",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 04:29:16",
+      "frame_id": "f01s00",
+      "bbox": [
+        1642,
+        628,
+        1850,
+        836
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01028-f01s00-8dabf20b8d4f-context.jpg",
+      "crop_image": "assets/01028-f01s00-8dabf20b8d4f-crop.jpg",
+      "before_image": "assets/01028-f01s00-8dabf20b8d4f-before.jpg",
+      "after_image": "assets/01028-f01s00-8dabf20b8d4f-after.jpg"
+    },
+    {
+      "review_id": "01022-f02s00-a862dd5eda3b",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 07:28:36",
+      "frame_id": "f02s00",
+      "bbox": [
+        1331,
+        467,
+        1378,
+        520
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f02s00-a862dd5eda3b-context.jpg",
+      "crop_image": "assets/01022-f02s00-a862dd5eda3b-crop.jpg",
+      "before_image": "assets/01022-f02s00-a862dd5eda3b-before.jpg",
+      "after_image": "assets/01022-f02s00-a862dd5eda3b-after.jpg"
+    },
+    {
+      "review_id": "01027-f04s01-dce1dd609d9a",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 13:27:44.500000",
+      "frame_id": "f04s01",
+      "bbox": [
+        590,
+        432,
+        628,
+        505
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01027-f04s01-dce1dd609d9a-context.jpg",
+      "crop_image": "assets/01027-f04s01-dce1dd609d9a-crop.jpg",
+      "before_image": "assets/01027-f04s01-dce1dd609d9a-before.jpg",
+      "after_image": "assets/01027-f04s01-dce1dd609d9a-after.jpg"
+    },
+    {
+      "review_id": "01027-f03s00-b4036dcc4259",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 10:29:14",
+      "frame_id": "f03s00",
+      "bbox": [
+        1124,
+        252,
+        1143,
+        262
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01027-f03s00-b4036dcc4259-context.jpg",
+      "crop_image": "assets/01027-f03s00-b4036dcc4259-crop.jpg",
+      "before_image": "assets/01027-f03s00-b4036dcc4259-before.jpg",
+      "after_image": "assets/01027-f03s00-b4036dcc4259-after.jpg"
+    },
+    {
+      "review_id": "01028-f04s02-c7e0cbe2f564",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 13:29:09",
+      "frame_id": "f04s02",
+      "bbox": [
+        1432,
+        957,
+        1528,
+        1053
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01028-f04s02-c7e0cbe2f564-context.jpg",
+      "crop_image": "assets/01028-f04s02-c7e0cbe2f564-crop.jpg",
+      "before_image": "assets/01028-f04s02-c7e0cbe2f564-before.jpg",
+      "after_image": "assets/01028-f04s02-c7e0cbe2f564-after.jpg"
+    },
+    {
+      "review_id": "01028-f04s01-6d2d190a3239",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 13:27:53",
+      "frame_id": "f04s01",
+      "bbox": [
+        1502,
+        1376,
+        1579,
+        1399
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01028-f04s01-6d2d190a3239-context.jpg",
+      "crop_image": "assets/01028-f04s01-6d2d190a3239-crop.jpg",
+      "before_image": "assets/01028-f04s01-6d2d190a3239-before.jpg",
+      "after_image": "assets/01028-f04s01-6d2d190a3239-after.jpg"
+    },
+    {
+      "review_id": "01027-f03s00-3073c15b24ca",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 10:29:14",
+      "frame_id": "f03s00",
+      "bbox": [
+        1011,
+        707,
+        1075,
+        771
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01027-f03s00-3073c15b24ca-context.jpg",
+      "crop_image": "assets/01027-f03s00-3073c15b24ca-crop.jpg",
+      "before_image": "assets/01027-f03s00-3073c15b24ca-before.jpg",
+      "after_image": "assets/01027-f03s00-3073c15b24ca-after.jpg"
+    },
+    {
+      "review_id": "01027-f01s00-587db93e754f",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 04:29:07",
+      "frame_id": "f01s00",
+      "bbox": [
+        617,
+        559,
+        633,
+        570
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01027-f01s00-587db93e754f-context.jpg",
+      "crop_image": "assets/01027-f01s00-587db93e754f-crop.jpg",
+      "before_image": "assets/01027-f01s00-587db93e754f-before.jpg",
+      "after_image": "assets/01027-f01s00-587db93e754f-after.jpg"
+    },
+    {
+      "review_id": "01030-f07s00-d0451fc09143",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 22:25:59.750000",
+      "frame_id": "f07s00",
+      "bbox": [
+        1221,
+        912,
+        1256,
+        921
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01030-f07s00-d0451fc09143-context.jpg",
+      "crop_image": "assets/01030-f07s00-d0451fc09143-crop.jpg",
+      "before_image": "assets/01030-f07s00-d0451fc09143-before.jpg",
+      "after_image": "assets/01030-f07s00-d0451fc09143-after.jpg"
+    },
+    {
+      "review_id": "01021-f02s00-bd5179012bc5",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 07:27:36",
+      "frame_id": "f02s00",
+      "bbox": [
+        1753,
+        806,
+        1806,
+        853
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01021-f02s00-bd5179012bc5-context.jpg",
+      "crop_image": "assets/01021-f02s00-bd5179012bc5-crop.jpg",
+      "before_image": "assets/01021-f02s00-bd5179012bc5-before.jpg",
+      "after_image": "assets/01021-f02s00-bd5179012bc5-after.jpg"
+    },
+    {
+      "review_id": "01027-f07s00-96e60d30e851",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 22:26:01",
+      "frame_id": "f07s00",
+      "bbox": [
+        1936,
+        394,
+        1960,
+        416
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01027-f07s00-96e60d30e851-context.jpg",
+      "crop_image": "assets/01027-f07s00-96e60d30e851-crop.jpg",
+      "before_image": "assets/01027-f07s00-96e60d30e851-before.jpg",
+      "after_image": "assets/01027-f07s00-96e60d30e851-after.jpg"
+    },
+    {
+      "review_id": "01022-f05s01-55d046fd2419",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 16:31:41",
+      "frame_id": "f05s01",
+      "bbox": [
+        498,
+        714,
+        706,
+        922
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01022-f05s01-55d046fd2419-context.jpg",
+      "crop_image": "assets/01022-f05s01-55d046fd2419-crop.jpg",
+      "before_image": "assets/01022-f05s01-55d046fd2419-before.jpg",
+      "after_image": "assets/01022-f05s01-55d046fd2419-after.jpg"
+    },
+    {
+      "review_id": "01022-f01s00-67c98f34a9ce",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 04:26:17",
+      "frame_id": "f01s00",
+      "bbox": [
+        1713,
+        1263,
+        1719,
+        1273
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f01s00-67c98f34a9ce-context.jpg",
+      "crop_image": "assets/01022-f01s00-67c98f34a9ce-crop.jpg",
+      "before_image": "assets/01022-f01s00-67c98f34a9ce-before.jpg",
+      "after_image": "assets/01022-f01s00-67c98f34a9ce-after.jpg"
+    },
+    {
+      "review_id": "01021-f03s02-d85036819e1d",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 10:32:26",
+      "frame_id": "f03s02",
+      "bbox": [
+        246,
+        1313,
+        342,
+        1409
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01021-f03s02-d85036819e1d-context.jpg",
+      "crop_image": "assets/01021-f03s02-d85036819e1d-crop.jpg",
+      "before_image": "assets/01021-f03s02-d85036819e1d-before.jpg",
+      "after_image": "assets/01021-f03s02-d85036819e1d-after.jpg"
+    },
+    {
+      "review_id": "01021-f01s00-1515a1fab08f",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 04:25:17.750000",
+      "frame_id": "f01s00",
+      "bbox": [
+        874,
+        774,
+        896,
+        787
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01021-f01s00-1515a1fab08f-context.jpg",
+      "crop_image": "assets/01021-f01s00-1515a1fab08f-crop.jpg",
+      "before_image": "assets/01021-f01s00-1515a1fab08f-before.jpg",
+      "after_image": "assets/01021-f01s00-1515a1fab08f-after.jpg"
+    },
+    {
+      "review_id": "01021-f00s00-e167b02c0b23",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 01:28:02.750000",
+      "frame_id": "f00s00",
+      "bbox": [
+        2083,
+        38,
+        2227,
+        182
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01021-f00s00-e167b02c0b23-context.jpg",
+      "crop_image": "assets/01021-f00s00-e167b02c0b23-crop.jpg",
+      "before_image": "assets/01021-f00s00-e167b02c0b23-before.jpg",
+      "after_image": "assets/01021-f00s00-e167b02c0b23-after.jpg"
+    },
+    {
+      "review_id": "01030-f05s02-15a6ef91eaba",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 16:31:13",
+      "frame_id": "f05s02",
+      "bbox": [
+        1094,
+        743,
+        1160,
+        822
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01030-f05s02-15a6ef91eaba-context.jpg",
+      "crop_image": "assets/01030-f05s02-15a6ef91eaba-crop.jpg",
+      "before_image": "assets/01030-f05s02-15a6ef91eaba-before.jpg",
+      "after_image": "assets/01030-f05s02-15a6ef91eaba-after.jpg"
+    },
+    {
+      "review_id": "01030-f00s01-e3d2ede083b4",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 01:33:23",
+      "frame_id": "f00s01",
+      "bbox": [
+        1816,
+        884,
+        1854,
+        913
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01030-f00s01-e3d2ede083b4-context.jpg",
+      "crop_image": "assets/01030-f00s01-e3d2ede083b4-crop.jpg",
+      "before_image": "assets/01030-f00s01-e3d2ede083b4-before.jpg",
+      "after_image": "assets/01030-f00s01-e3d2ede083b4-after.jpg"
+    },
+    {
+      "review_id": "01028-f07s02-3bd63b78639a",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 22:28:36",
+      "frame_id": "f07s02",
+      "bbox": [
+        356,
+        680,
+        404,
+        768
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01028-f07s02-3bd63b78639a-context.jpg",
+      "crop_image": "assets/01028-f07s02-3bd63b78639a-crop.jpg",
+      "before_image": "assets/01028-f07s02-3bd63b78639a-before.jpg",
+      "after_image": "assets/01028-f07s02-3bd63b78639a-after.jpg"
+    },
+    {
+      "review_id": "01022-f05s00-b3e6c8c2f2ff",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 16:30:25",
+      "frame_id": "f05s00",
+      "bbox": [
+        1087,
+        273,
+        1127,
+        327
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01022-f05s00-b3e6c8c2f2ff-context.jpg",
+      "crop_image": "assets/01022-f05s00-b3e6c8c2f2ff-crop.jpg",
+      "before_image": "assets/01022-f05s00-b3e6c8c2f2ff-before.jpg",
+      "after_image": "assets/01022-f05s00-b3e6c8c2f2ff-after.jpg"
+    },
+    {
+      "review_id": "01021-f05s02-a7f77c0c1284",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 16:31:55.250000",
+      "frame_id": "f05s02",
+      "bbox": [
+        357,
+        641,
+        489,
+        773
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01021-f05s02-a7f77c0c1284-context.jpg",
+      "crop_image": "assets/01021-f05s02-a7f77c0c1284-crop.jpg",
+      "before_image": "assets/01021-f05s02-a7f77c0c1284-before.jpg",
+      "after_image": "assets/01021-f05s02-a7f77c0c1284-after.jpg"
+    },
+    {
+      "review_id": "01022-f07s01-2f226db45b6c",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 22:31:14.500000",
+      "frame_id": "f07s01",
+      "bbox": [
+        996,
+        326,
+        1017,
+        397
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01022-f07s01-2f226db45b6c-context.jpg",
+      "crop_image": "assets/01022-f07s01-2f226db45b6c-crop.jpg",
+      "before_image": "assets/01022-f07s01-2f226db45b6c-before.jpg",
+      "after_image": "assets/01022-f07s01-2f226db45b6c-after.jpg"
+    },
+    {
+      "review_id": "01028-f00s01-2f78f0486cee",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 01:33:17",
+      "frame_id": "f00s01",
+      "bbox": [
+        1217,
+        747,
+        1425,
+        955
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01028-f00s01-2f78f0486cee-context.jpg",
+      "crop_image": "assets/01028-f00s01-2f78f0486cee-crop.jpg",
+      "before_image": "assets/01028-f00s01-2f78f0486cee-before.jpg",
+      "after_image": "assets/01028-f00s01-2f78f0486cee-after.jpg"
+    },
+    {
+      "review_id": "01027-f03s01-0d27cdb60a97",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 10:30:30",
+      "frame_id": "f03s01",
+      "bbox": [
+        1418,
+        758,
+        1484,
+        780
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01027-f03s01-0d27cdb60a97-context.jpg",
+      "crop_image": "assets/01027-f03s01-0d27cdb60a97-crop.jpg",
+      "before_image": "assets/01027-f03s01-0d27cdb60a97-before.jpg",
+      "after_image": "assets/01027-f03s01-0d27cdb60a97-after.jpg"
+    },
+    {
+      "review_id": "01021-f01s01-90e3f07413e1",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 04:26:33.500000",
+      "frame_id": "f01s01",
+      "bbox": [
+        1816,
+        337,
+        1832,
+        341
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01021-f01s01-90e3f07413e1-context.jpg",
+      "crop_image": "assets/01021-f01s01-90e3f07413e1-crop.jpg",
+      "before_image": "assets/01021-f01s01-90e3f07413e1-before.jpg",
+      "after_image": "assets/01021-f01s01-90e3f07413e1-after.jpg"
+    },
+    {
+      "review_id": "01027-f07s00-64906e4901e0",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 22:26:01",
+      "frame_id": "f07s00",
+      "bbox": [
+        1538,
+        1172,
+        1549,
+        1179
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01027-f07s00-64906e4901e0-context.jpg",
+      "crop_image": "assets/01027-f07s00-64906e4901e0-crop.jpg",
+      "before_image": "assets/01027-f07s00-64906e4901e0-before.jpg",
+      "after_image": "assets/01027-f07s00-64906e4901e0-after.jpg"
+    },
+    {
+      "review_id": "01022-f05s00-5e069be476bc",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 16:30:25",
+      "frame_id": "f05s00",
+      "bbox": [
+        398,
+        192,
+        462,
+        318
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01022-f05s00-5e069be476bc-context.jpg",
+      "crop_image": "assets/01022-f05s00-5e069be476bc-crop.jpg",
+      "before_image": "assets/01022-f05s00-5e069be476bc-before.jpg",
+      "after_image": "assets/01022-f05s00-5e069be476bc-after.jpg"
+    },
+    {
+      "review_id": "01022-f00s00-6771c80e88fd",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 01:29:02",
+      "frame_id": "f00s00",
+      "bbox": [
+        1537,
+        608,
+        1633,
+        704
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01022-f00s00-6771c80e88fd-context.jpg",
+      "crop_image": "assets/01022-f00s00-6771c80e88fd-crop.jpg",
+      "before_image": "assets/01022-f00s00-6771c80e88fd-before.jpg",
+      "after_image": "assets/01022-f00s00-6771c80e88fd-after.jpg"
+    },
+    {
+      "review_id": "01021-f05s02-92f0f59cdb22",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 16:31:55.250000",
+      "frame_id": "f05s02",
+      "bbox": [
+        1128,
+        64,
+        1161,
+        103
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01021-f05s02-92f0f59cdb22-context.jpg",
+      "crop_image": "assets/01021-f05s02-92f0f59cdb22-crop.jpg",
+      "before_image": "assets/01021-f05s02-92f0f59cdb22-before.jpg",
+      "after_image": "assets/01021-f05s02-92f0f59cdb22-after.jpg"
+    },
+    {
+      "review_id": "01030-f06s00-af0cde7d5a0f",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 19:25:54",
+      "frame_id": "f06s00",
+      "bbox": [
+        1794,
+        576,
+        1863,
+        627
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01030-f06s00-af0cde7d5a0f-context.jpg",
+      "crop_image": "assets/01030-f06s00-af0cde7d5a0f-crop.jpg",
+      "before_image": "assets/01030-f06s00-af0cde7d5a0f-before.jpg",
+      "after_image": "assets/01030-f06s00-af0cde7d5a0f-after.jpg"
+    },
+    {
+      "review_id": "01027-f03s01-22b5f3dcaa6c",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 10:30:30",
+      "frame_id": "f03s01",
+      "bbox": [
+        525,
+        1055,
+        589,
+        1119
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01027-f03s01-22b5f3dcaa6c-context.jpg",
+      "crop_image": "assets/01027-f03s01-22b5f3dcaa6c-crop.jpg",
+      "before_image": "assets/01027-f03s01-22b5f3dcaa6c-before.jpg",
+      "after_image": "assets/01027-f03s01-22b5f3dcaa6c-after.jpg"
+    },
+    {
+      "review_id": "01022-f01s01-7bf745202ec8",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 04:27:33",
+      "frame_id": "f01s01",
+      "bbox": [
+        1046,
+        555,
+        1062,
+        560
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f01s01-7bf745202ec8-context.jpg",
+      "crop_image": "assets/01022-f01s01-7bf745202ec8-crop.jpg",
+      "before_image": "assets/01022-f01s01-7bf745202ec8-before.jpg",
+      "after_image": "assets/01022-f01s01-7bf745202ec8-after.jpg"
+    },
+    {
+      "review_id": "01027-f00s01-9b08c7399553",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 01:33:08",
+      "frame_id": "f00s01",
+      "bbox": [
+        240,
+        290,
+        384,
+        434
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01027-f00s01-9b08c7399553-context.jpg",
+      "crop_image": "assets/01027-f00s01-9b08c7399553-crop.jpg",
+      "before_image": "assets/01027-f00s01-9b08c7399553-before.jpg",
+      "after_image": "assets/01027-f00s01-9b08c7399553-after.jpg"
+    },
+    {
+      "review_id": "01021-f06s00-a576cc718477",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 19:31:42",
+      "frame_id": "f06s00",
+      "bbox": [
+        2531,
+        918,
+        2553,
+        977
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01021-f06s00-a576cc718477-context.jpg",
+      "crop_image": "assets/01021-f06s00-a576cc718477-crop.jpg",
+      "before_image": "assets/01021-f06s00-a576cc718477-before.jpg",
+      "after_image": "assets/01021-f06s00-a576cc718477-after.jpg"
+    },
+    {
+      "review_id": "01030-f01s02-e36aaf92271c",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 04:31:54",
+      "frame_id": "f01s02",
+      "bbox": [
+        1408,
+        1386,
+        1423,
+        1396
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01030-f01s02-e36aaf92271c-context.jpg",
+      "crop_image": "assets/01030-f01s02-e36aaf92271c-crop.jpg",
+      "before_image": "assets/01030-f01s02-e36aaf92271c-before.jpg",
+      "after_image": "assets/01030-f01s02-e36aaf92271c-after.jpg"
+    },
+    {
+      "review_id": "01027-f01s02-779fafda9ec7",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 04:31:39",
+      "frame_id": "f01s02",
+      "bbox": [
+        1863,
+        25,
+        2071,
+        233
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01027-f01s02-779fafda9ec7-context.jpg",
+      "crop_image": "assets/01027-f01s02-779fafda9ec7-crop.jpg",
+      "before_image": "assets/01027-f01s02-779fafda9ec7-before.jpg",
+      "after_image": "assets/01027-f01s02-779fafda9ec7-after.jpg"
+    },
+    {
+      "review_id": "01027-f01s02-287232f14f3b",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 04:31:39",
+      "frame_id": "f01s02",
+      "bbox": [
+        1357,
+        1417,
+        1372,
+        1421
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01027-f01s02-287232f14f3b-context.jpg",
+      "crop_image": "assets/01027-f01s02-287232f14f3b-crop.jpg",
+      "before_image": "assets/01027-f01s02-287232f14f3b-before.jpg",
+      "after_image": "assets/01027-f01s02-287232f14f3b-after.jpg"
+    },
+    {
+      "review_id": "01022-f01s02-182c331e3ba7",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 04:28:49",
+      "frame_id": "f01s02",
+      "bbox": [
+        1398,
+        757,
+        1414,
+        790
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f01s02-182c331e3ba7-context.jpg",
+      "crop_image": "assets/01022-f01s02-182c331e3ba7-crop.jpg",
+      "before_image": "assets/01022-f01s02-182c331e3ba7-before.jpg",
+      "after_image": "assets/01022-f01s02-182c331e3ba7-after.jpg"
+    },
+    {
+      "review_id": "01022-f07s01-a3c18cc7ede6",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 22:31:14.500000",
+      "frame_id": "f07s01",
+      "bbox": [
+        1114,
+        1019,
+        1154,
+        1081
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f07s01-a3c18cc7ede6-context.jpg",
+      "crop_image": "assets/01022-f07s01-a3c18cc7ede6-crop.jpg",
+      "before_image": "assets/01022-f07s01-a3c18cc7ede6-before.jpg",
+      "after_image": "assets/01022-f07s01-a3c18cc7ede6-after.jpg"
+    },
+    {
+      "review_id": "01021-f04s02-8da1cef7e2bb",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 13:29:41",
+      "frame_id": "f04s02",
+      "bbox": [
+        456,
+        556,
+        531,
+        657
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01021-f04s02-8da1cef7e2bb-context.jpg",
+      "crop_image": "assets/01021-f04s02-8da1cef7e2bb-crop.jpg",
+      "before_image": "assets/01021-f04s02-8da1cef7e2bb-before.jpg",
+      "after_image": "assets/01021-f04s02-8da1cef7e2bb-after.jpg"
+    },
+    {
+      "review_id": "01028-f06s01-d2dfbb4f0ae5",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 19:27:27",
+      "frame_id": "f06s01",
+      "bbox": [
+        722,
+        228,
+        821,
+        300
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01028-f06s01-d2dfbb4f0ae5-context.jpg",
+      "crop_image": "assets/01028-f06s01-d2dfbb4f0ae5-crop.jpg",
+      "before_image": "assets/01028-f06s01-d2dfbb4f0ae5-before.jpg",
+      "after_image": "assets/01028-f06s01-d2dfbb4f0ae5-after.jpg"
+    },
+    {
+      "review_id": "01028-f04s01-9944c09e0672",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 13:27:53",
+      "frame_id": "f04s01",
+      "bbox": [
+        2236,
+        805,
+        2300,
+        869
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01028-f04s01-9944c09e0672-context.jpg",
+      "crop_image": "assets/01028-f04s01-9944c09e0672-crop.jpg",
+      "before_image": "assets/01028-f04s01-9944c09e0672-before.jpg",
+      "after_image": "assets/01028-f04s01-9944c09e0672-after.jpg"
+    },
+    {
+      "review_id": "01027-f02s01-3f1ec5db20f0",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 07:32:42",
+      "frame_id": "f02s01",
+      "bbox": [
+        599,
+        520,
+        629,
+        538
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01027-f02s01-3f1ec5db20f0-context.jpg",
+      "crop_image": "assets/01027-f02s01-3f1ec5db20f0-crop.jpg",
+      "before_image": "assets/01027-f02s01-3f1ec5db20f0-before.jpg",
+      "after_image": "assets/01027-f02s01-3f1ec5db20f0-after.jpg"
+    },
+    {
+      "review_id": "01027-f05s02-41811187be65",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 16:31:17",
+      "frame_id": "f05s02",
+      "bbox": [
+        1340,
+        270,
+        1363,
+        292
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01027-f05s02-41811187be65-context.jpg",
+      "crop_image": "assets/01027-f05s02-41811187be65-crop.jpg",
+      "before_image": "assets/01027-f05s02-41811187be65-before.jpg",
+      "after_image": "assets/01027-f05s02-41811187be65-after.jpg"
+    },
+    {
+      "review_id": "01030-f05s00-f60b1ea48172",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 16:28:41",
+      "frame_id": "f05s00",
+      "bbox": [
+        1067,
+        728,
+        1083,
+        762
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01030-f05s00-f60b1ea48172-context.jpg",
+      "crop_image": "assets/01030-f05s00-f60b1ea48172-crop.jpg",
+      "before_image": "assets/01030-f05s00-f60b1ea48172-before.jpg",
+      "after_image": "assets/01030-f05s00-f60b1ea48172-after.jpg"
+    },
+    {
+      "review_id": "01027-f00s02-6a528055025e",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 01:34:24",
+      "frame_id": "f00s02",
+      "bbox": [
+        1680,
+        977,
+        1692,
+        983
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01027-f00s02-6a528055025e-context.jpg",
+      "crop_image": "assets/01027-f00s02-6a528055025e-crop.jpg",
+      "before_image": "assets/01027-f00s02-6a528055025e-before.jpg",
+      "after_image": "assets/01027-f00s02-6a528055025e-after.jpg"
+    },
+    {
+      "review_id": "01021-f00s00-bff90f62ef82",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 01:28:02.750000",
+      "frame_id": "f00s00",
+      "bbox": [
+        1426,
+        1286,
+        1443,
+        1293
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01021-f00s00-bff90f62ef82-context.jpg",
+      "crop_image": "assets/01021-f00s00-bff90f62ef82-crop.jpg",
+      "before_image": "assets/01021-f00s00-bff90f62ef82-before.jpg",
+      "after_image": "assets/01021-f00s00-bff90f62ef82-after.jpg"
+    },
+    {
+      "review_id": "01030-f07s00-fcee0fc6021f",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 22:25:59.750000",
+      "frame_id": "f07s00",
+      "bbox": [
+        1533,
+        717,
+        1677,
+        861
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01030-f07s00-fcee0fc6021f-context.jpg",
+      "crop_image": "assets/01030-f07s00-fcee0fc6021f-crop.jpg",
+      "before_image": "assets/01030-f07s00-fcee0fc6021f-before.jpg",
+      "after_image": "assets/01030-f07s00-fcee0fc6021f-after.jpg"
+    },
+    {
+      "review_id": "01022-f05s01-e002dc50a63b",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 16:31:41",
+      "frame_id": "f05s01",
+      "bbox": [
+        1469,
+        579,
+        1677,
+        787
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01022-f05s01-e002dc50a63b-context.jpg",
+      "crop_image": "assets/01022-f05s01-e002dc50a63b-crop.jpg",
+      "before_image": "assets/01022-f05s01-e002dc50a63b-before.jpg",
+      "after_image": "assets/01022-f05s01-e002dc50a63b-after.jpg"
+    },
+    {
+      "review_id": "01028-f07s00-89254132f669",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 22:26:04",
+      "frame_id": "f07s00",
+      "bbox": [
+        1170,
+        442,
+        1186,
+        479
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01028-f07s00-89254132f669-context.jpg",
+      "crop_image": "assets/01028-f07s00-89254132f669-crop.jpg",
+      "before_image": "assets/01028-f07s00-89254132f669-before.jpg",
+      "after_image": "assets/01028-f07s00-89254132f669-after.jpg"
+    },
+    {
+      "review_id": "01030-f00s00-5d60913f31ad",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 01:32:07",
+      "frame_id": "f00s00",
+      "bbox": [
+        1673,
+        1028,
+        1690,
+        1060
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01030-f00s00-5d60913f31ad-context.jpg",
+      "crop_image": "assets/01030-f00s00-5d60913f31ad-crop.jpg",
+      "before_image": "assets/01030-f00s00-5d60913f31ad-before.jpg",
+      "after_image": "assets/01030-f00s00-5d60913f31ad-after.jpg"
+    },
+    {
+      "review_id": "01022-f01s00-db0a3c45dc29",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 04:26:17",
+      "frame_id": "f01s00",
+      "bbox": [
+        1117,
+        1122,
+        1181,
+        1186
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01022-f01s00-db0a3c45dc29-context.jpg",
+      "crop_image": "assets/01022-f01s00-db0a3c45dc29-crop.jpg",
+      "before_image": "assets/01022-f01s00-db0a3c45dc29-before.jpg",
+      "after_image": "assets/01022-f01s00-db0a3c45dc29-after.jpg"
+    },
+    {
+      "review_id": "01022-f06s00-d650c9d21d24",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 19:32:43.750000",
+      "frame_id": "f06s00",
+      "bbox": [
+        1881,
+        596,
+        1986,
+        980
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f06s00-d650c9d21d24-context.jpg",
+      "crop_image": "assets/01022-f06s00-d650c9d21d24-crop.jpg",
+      "before_image": "assets/01022-f06s00-d650c9d21d24-before.jpg",
+      "after_image": "assets/01022-f06s00-d650c9d21d24-after.jpg"
+    },
+    {
+      "review_id": "01028-f00s01-5deb98114782",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 01:33:17",
+      "frame_id": "f00s01",
+      "bbox": [
+        2184,
+        1024,
+        2220,
+        1040
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01028-f00s01-5deb98114782-context.jpg",
+      "crop_image": "assets/01028-f00s01-5deb98114782-crop.jpg",
+      "before_image": "assets/01028-f00s01-5deb98114782-before.jpg",
+      "after_image": "assets/01028-f00s01-5deb98114782-after.jpg"
+    },
+    {
+      "review_id": "01027-f04s02-5d6427496bc0",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 13:29:00.250000",
+      "frame_id": "f04s02",
+      "bbox": [
+        803,
+        268,
+        847,
+        289
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01027-f04s02-5d6427496bc0-context.jpg",
+      "crop_image": "assets/01027-f04s02-5d6427496bc0-crop.jpg",
+      "before_image": "assets/01027-f04s02-5d6427496bc0-before.jpg",
+      "after_image": "assets/01027-f04s02-5d6427496bc0-after.jpg"
+    },
+    {
+      "review_id": "01027-f03s02-d68f9921803d",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 10:31:46",
+      "frame_id": "f03s02",
+      "bbox": [
+        105,
+        784,
+        138,
+        841
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01027-f03s02-d68f9921803d-context.jpg",
+      "crop_image": "assets/01027-f03s02-d68f9921803d-crop.jpg",
+      "before_image": "assets/01027-f03s02-d68f9921803d-before.jpg",
+      "after_image": "assets/01027-f03s02-d68f9921803d-after.jpg"
+    },
+    {
+      "review_id": "01028-f01s01-331036b9b397",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 04:30:32",
+      "frame_id": "f01s01",
+      "bbox": [
+        704,
+        87,
+        732,
+        128
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01028-f01s01-331036b9b397-context.jpg",
+      "crop_image": "assets/01028-f01s01-331036b9b397-crop.jpg",
+      "before_image": "assets/01028-f01s01-331036b9b397-before.jpg",
+      "after_image": "assets/01028-f01s01-331036b9b397-after.jpg"
+    },
+    {
+      "review_id": "01022-f06s01-09492582ed94",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 19:33:59.500000",
+      "frame_id": "f06s01",
+      "bbox": [
+        435,
+        143,
+        466,
+        182
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f06s01-09492582ed94-context.jpg",
+      "crop_image": "assets/01022-f06s01-09492582ed94-crop.jpg",
+      "before_image": "assets/01022-f06s01-09492582ed94-before.jpg",
+      "after_image": "assets/01022-f06s01-09492582ed94-after.jpg"
+    },
+    {
+      "review_id": "01027-f05s00-6cb3a543da92",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 16:28:45",
+      "frame_id": "f05s00",
+      "bbox": [
+        1377,
+        343,
+        1388,
+        359
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01027-f05s00-6cb3a543da92-context.jpg",
+      "crop_image": "assets/01027-f05s00-6cb3a543da92-crop.jpg",
+      "before_image": "assets/01027-f05s00-6cb3a543da92-before.jpg",
+      "after_image": "assets/01027-f05s00-6cb3a543da92-after.jpg"
+    },
+    {
+      "review_id": "01022-f03s02-86c37445b6d4",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 10:33:24",
+      "frame_id": "f03s02",
+      "bbox": [
+        1081,
+        752,
+        1113,
+        768
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f03s02-86c37445b6d4-context.jpg",
+      "crop_image": "assets/01022-f03s02-86c37445b6d4-crop.jpg",
+      "before_image": "assets/01022-f03s02-86c37445b6d4-before.jpg",
+      "after_image": "assets/01022-f03s02-86c37445b6d4-after.jpg"
+    },
+    {
+      "review_id": "01021-f00s00-8deda5ca4039",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 01:28:02.750000",
+      "frame_id": "f00s00",
+      "bbox": [
+        773,
+        110,
+        917,
+        254
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01021-f00s00-8deda5ca4039-context.jpg",
+      "crop_image": "assets/01021-f00s00-8deda5ca4039-crop.jpg",
+      "before_image": "assets/01021-f00s00-8deda5ca4039-before.jpg",
+      "after_image": "assets/01021-f00s00-8deda5ca4039-after.jpg"
+    },
+    {
+      "review_id": "01030-f00s00-5e906aaf5b18",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 01:32:07",
+      "frame_id": "f00s00",
+      "bbox": [
+        1153,
+        735,
+        1165,
+        777
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01030-f00s00-5e906aaf5b18-context.jpg",
+      "crop_image": "assets/01030-f00s00-5e906aaf5b18-crop.jpg",
+      "before_image": "assets/01030-f00s00-5e906aaf5b18-before.jpg",
+      "after_image": "assets/01030-f00s00-5e906aaf5b18-after.jpg"
+    },
+    {
+      "review_id": "01022-f06s00-ad5a8e4bd668",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 19:32:43.750000",
+      "frame_id": "f06s00",
+      "bbox": [
+        301,
+        235,
+        509,
+        443
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01022-f06s00-ad5a8e4bd668-context.jpg",
+      "crop_image": "assets/01022-f06s00-ad5a8e4bd668-crop.jpg",
+      "before_image": "assets/01022-f06s00-ad5a8e4bd668-before.jpg",
+      "after_image": "assets/01022-f06s00-ad5a8e4bd668-after.jpg"
+    },
+    {
+      "review_id": "01027-f07s01-a6586d8b21ce",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 22:27:17",
+      "frame_id": "f07s01",
+      "bbox": [
+        535,
+        80,
+        743,
+        288
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01027-f07s01-a6586d8b21ce-context.jpg",
+      "crop_image": "assets/01027-f07s01-a6586d8b21ce-crop.jpg",
+      "before_image": "assets/01027-f07s01-a6586d8b21ce-before.jpg",
+      "after_image": "assets/01027-f07s01-a6586d8b21ce-after.jpg"
+    },
+    {
+      "review_id": "01022-f05s01-e902abb619c8",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 16:31:41",
+      "frame_id": "f05s01",
+      "bbox": [
+        864,
+        937,
+        906,
+        947
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f05s01-e902abb619c8-context.jpg",
+      "crop_image": "assets/01022-f05s01-e902abb619c8-crop.jpg",
+      "before_image": "assets/01022-f05s01-e902abb619c8-before.jpg",
+      "after_image": "assets/01022-f05s01-e902abb619c8-after.jpg"
+    },
+    {
+      "review_id": "01030-f01s02-93462d75fc2e",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 04:31:54",
+      "frame_id": "f01s02",
+      "bbox": [
+        1931,
+        905,
+        1973,
+        960
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01030-f01s02-93462d75fc2e-context.jpg",
+      "crop_image": "assets/01030-f01s02-93462d75fc2e-crop.jpg",
+      "before_image": "assets/01030-f01s02-93462d75fc2e-before.jpg",
+      "after_image": "assets/01030-f01s02-93462d75fc2e-after.jpg"
+    },
+    {
+      "review_id": "01021-f04s02-2423ed0c4762",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 13:29:41",
+      "frame_id": "f04s02",
+      "bbox": [
+        80,
+        250,
+        176,
+        346
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01021-f04s02-2423ed0c4762-context.jpg",
+      "crop_image": "assets/01021-f04s02-2423ed0c4762-crop.jpg",
+      "before_image": "assets/01021-f04s02-2423ed0c4762-before.jpg",
+      "after_image": "assets/01021-f04s02-2423ed0c4762-after.jpg"
+    },
+    {
+      "review_id": "01030-f02s00-9054c395ef3a",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 07:31:41",
+      "frame_id": "f02s00",
+      "bbox": [
+        1108,
+        780,
+        1138,
+        830
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01030-f02s00-9054c395ef3a-context.jpg",
+      "crop_image": "assets/01030-f02s00-9054c395ef3a-crop.jpg",
+      "before_image": "assets/01030-f02s00-9054c395ef3a-before.jpg",
+      "after_image": "assets/01030-f02s00-9054c395ef3a-after.jpg"
+    },
+    {
+      "review_id": "01030-f07s02-e0d03aadf472",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 22:28:31.250000",
+      "frame_id": "f07s02",
+      "bbox": [
+        1383,
+        129,
+        1415,
+        166
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01030-f07s02-e0d03aadf472-context.jpg",
+      "crop_image": "assets/01030-f07s02-e0d03aadf472-crop.jpg",
+      "before_image": "assets/01030-f07s02-e0d03aadf472-before.jpg",
+      "after_image": "assets/01030-f07s02-e0d03aadf472-after.jpg"
+    },
+    {
+      "review_id": "01028-f06s00-8f662304b604",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 19:26:11",
+      "frame_id": "f06s00",
+      "bbox": [
+        1451,
+        1403,
+        1462,
+        1408
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01028-f06s00-8f662304b604-context.jpg",
+      "crop_image": "assets/01028-f06s00-8f662304b604-crop.jpg",
+      "before_image": "assets/01028-f06s00-8f662304b604-before.jpg",
+      "after_image": "assets/01028-f06s00-8f662304b604-after.jpg"
+    },
+    {
+      "review_id": "01021-f05s01-8fa78ac581c1",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 16:30:39.500000",
+      "frame_id": "f05s01",
+      "bbox": [
+        905,
+        848,
+        955,
+        895
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01021-f05s01-8fa78ac581c1-context.jpg",
+      "crop_image": "assets/01021-f05s01-8fa78ac581c1-crop.jpg",
+      "before_image": "assets/01021-f05s01-8fa78ac581c1-before.jpg",
+      "after_image": "assets/01021-f05s01-8fa78ac581c1-after.jpg"
+    },
+    {
+      "review_id": "01027-f02s01-a1e5265946d2",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 07:32:42",
+      "frame_id": "f02s01",
+      "bbox": [
+        682,
+        433,
+        729,
+        489
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01027-f02s01-a1e5265946d2-context.jpg",
+      "crop_image": "assets/01027-f02s01-a1e5265946d2-crop.jpg",
+      "before_image": "assets/01027-f02s01-a1e5265946d2-before.jpg",
+      "after_image": "assets/01027-f02s01-a1e5265946d2-after.jpg"
+    },
+    {
+      "review_id": "01022-f06s00-5b9d1004e6e5",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 19:32:43.750000",
+      "frame_id": "f06s00",
+      "bbox": [
+        1321,
+        967,
+        1361,
+        977
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f06s00-5b9d1004e6e5-context.jpg",
+      "crop_image": "assets/01022-f06s00-5b9d1004e6e5-crop.jpg",
+      "before_image": "assets/01022-f06s00-5b9d1004e6e5-before.jpg",
+      "after_image": "assets/01022-f06s00-5b9d1004e6e5-after.jpg"
+    },
+    {
+      "review_id": "01022-f07s02-9a6b8deb646c",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 22:32:30.250000",
+      "frame_id": "f07s02",
+      "bbox": [
+        1008,
+        555,
+        1034,
+        587
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f07s02-9a6b8deb646c-context.jpg",
+      "crop_image": "assets/01022-f07s02-9a6b8deb646c-crop.jpg",
+      "before_image": "assets/01022-f07s02-9a6b8deb646c-before.jpg",
+      "after_image": "assets/01022-f07s02-9a6b8deb646c-after.jpg"
+    },
+    {
+      "review_id": "01030-f03s01-7233e1c637b3",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 10:30:33",
+      "frame_id": "f03s01",
+      "bbox": [
+        895,
+        974,
+        1103,
+        1182
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01030-f03s01-7233e1c637b3-context.jpg",
+      "crop_image": "assets/01030-f03s01-7233e1c637b3-crop.jpg",
+      "before_image": "assets/01030-f03s01-7233e1c637b3-before.jpg",
+      "after_image": "assets/01030-f03s01-7233e1c637b3-after.jpg"
+    },
+    {
+      "review_id": "01022-f02s01-221df18bf5ba",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 07:29:52",
+      "frame_id": "f02s01",
+      "bbox": [
+        463,
+        1163,
+        527,
+        1227
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01022-f02s01-221df18bf5ba-context.jpg",
+      "crop_image": "assets/01022-f02s01-221df18bf5ba-crop.jpg",
+      "before_image": "assets/01022-f02s01-221df18bf5ba-before.jpg",
+      "after_image": "assets/01022-f02s01-221df18bf5ba-after.jpg"
+    },
+    {
+      "review_id": "01027-f04s01-043986bd20cc",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 13:27:44.500000",
+      "frame_id": "f04s01",
+      "bbox": [
+        390,
+        60,
+        486,
+        156
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01027-f04s01-043986bd20cc-context.jpg",
+      "crop_image": "assets/01027-f04s01-043986bd20cc-crop.jpg",
+      "before_image": "assets/01027-f04s01-043986bd20cc-before.jpg",
+      "after_image": "assets/01027-f04s01-043986bd20cc-after.jpg"
+    },
+    {
+      "review_id": "01028-f03s01-8c5fc2bd8eae",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 10:30:38",
+      "frame_id": "f03s01",
+      "bbox": [
+        2013,
+        258,
+        2077,
+        322
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01028-f03s01-8c5fc2bd8eae-context.jpg",
+      "crop_image": "assets/01028-f03s01-8c5fc2bd8eae-crop.jpg",
+      "before_image": "assets/01028-f03s01-8c5fc2bd8eae-before.jpg",
+      "after_image": "assets/01028-f03s01-8c5fc2bd8eae-after.jpg"
+    },
+    {
+      "review_id": "01028-f01s01-183e51210211",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 04:30:32",
+      "frame_id": "f01s01",
+      "bbox": [
+        298,
+        717,
+        408,
+        774
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01028-f01s01-183e51210211-context.jpg",
+      "crop_image": "assets/01028-f01s01-183e51210211-crop.jpg",
+      "before_image": "assets/01028-f01s01-183e51210211-before.jpg",
+      "after_image": "assets/01028-f01s01-183e51210211-after.jpg"
+    },
+    {
+      "review_id": "01021-f02s00-7d95170ccf27",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 07:27:36",
+      "frame_id": "f02s00",
+      "bbox": [
+        1678,
+        816,
+        1724,
+        907
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01021-f02s00-7d95170ccf27-context.jpg",
+      "crop_image": "assets/01021-f02s00-7d95170ccf27-crop.jpg",
+      "before_image": "assets/01021-f02s00-7d95170ccf27-before.jpg",
+      "after_image": "assets/01021-f02s00-7d95170ccf27-after.jpg"
+    },
+    {
+      "review_id": "01022-f04s02-b290536f3eec",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 13:30:39",
+      "frame_id": "f04s02",
+      "bbox": [
+        1411,
+        954,
+        1420,
+        961
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f04s02-b290536f3eec-context.jpg",
+      "crop_image": "assets/01022-f04s02-b290536f3eec-crop.jpg",
+      "before_image": "assets/01022-f04s02-b290536f3eec-before.jpg",
+      "after_image": "assets/01022-f04s02-b290536f3eec-after.jpg"
+    },
+    {
+      "review_id": "01021-f00s00-a4d63638ce2f",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 01:28:02.750000",
+      "frame_id": "f00s00",
+      "bbox": [
+        2071,
+        334,
+        2132,
+        379
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01021-f00s00-a4d63638ce2f-context.jpg",
+      "crop_image": "assets/01021-f00s00-a4d63638ce2f-crop.jpg",
+      "before_image": "assets/01021-f00s00-a4d63638ce2f-before.jpg",
+      "after_image": "assets/01021-f00s00-a4d63638ce2f-after.jpg"
+    },
+    {
+      "review_id": "01022-f00s00-fdc29288bb0c",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 01:29:02",
+      "frame_id": "f00s00",
+      "bbox": [
+        656,
+        573,
+        720,
+        637
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01022-f00s00-fdc29288bb0c-context.jpg",
+      "crop_image": "assets/01022-f00s00-fdc29288bb0c-crop.jpg",
+      "before_image": "assets/01022-f00s00-fdc29288bb0c-before.jpg",
+      "after_image": "assets/01022-f00s00-fdc29288bb0c-after.jpg"
+    },
+    {
+      "review_id": "01021-f05s00-7a9ebfe2ac7b",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 16:29:23.750000",
+      "frame_id": "f05s00",
+      "bbox": [
+        2205,
+        1018,
+        2227,
+        1048
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01021-f05s00-7a9ebfe2ac7b-context.jpg",
+      "crop_image": "assets/01021-f05s00-7a9ebfe2ac7b-crop.jpg",
+      "before_image": "assets/01021-f05s00-7a9ebfe2ac7b-before.jpg",
+      "after_image": "assets/01021-f05s00-7a9ebfe2ac7b-after.jpg"
+    },
+    {
+      "review_id": "01022-f03s00-073d060f8876",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 10:30:52",
+      "frame_id": "f03s00",
+      "bbox": [
+        942,
+        1299,
+        1006,
+        1363
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01022-f03s00-073d060f8876-context.jpg",
+      "crop_image": "assets/01022-f03s00-073d060f8876-crop.jpg",
+      "before_image": "assets/01022-f03s00-073d060f8876-before.jpg",
+      "after_image": "assets/01022-f03s00-073d060f8876-after.jpg"
+    },
+    {
+      "review_id": "01022-f02s01-069c52a57bfe",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 07:29:52",
+      "frame_id": "f02s01",
+      "bbox": [
+        1428,
+        1038,
+        1513,
+        1106
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01022-f02s01-069c52a57bfe-context.jpg",
+      "crop_image": "assets/01022-f02s01-069c52a57bfe-crop.jpg",
+      "before_image": "assets/01022-f02s01-069c52a57bfe-before.jpg",
+      "after_image": "assets/01022-f02s01-069c52a57bfe-after.jpg"
+    },
+    {
+      "review_id": "01021-f01s00-c14dff27ac5d",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 04:25:17.750000",
+      "frame_id": "f01s00",
+      "bbox": [
+        1348,
+        314,
+        1410,
+        323
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01021-f01s00-c14dff27ac5d-context.jpg",
+      "crop_image": "assets/01021-f01s00-c14dff27ac5d-crop.jpg",
+      "before_image": "assets/01021-f01s00-c14dff27ac5d-before.jpg",
+      "after_image": "assets/01021-f01s00-c14dff27ac5d-after.jpg"
+    },
+    {
+      "review_id": "01027-f06s02-b2929a46269d",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 19:28:32",
+      "frame_id": "f06s02",
+      "bbox": [
+        1496,
+        419,
+        1518,
+        436
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01027-f06s02-b2929a46269d-context.jpg",
+      "crop_image": "assets/01027-f06s02-b2929a46269d-crop.jpg",
+      "before_image": "assets/01027-f06s02-b2929a46269d-before.jpg",
+      "after_image": "assets/01027-f06s02-b2929a46269d-after.jpg"
+    },
+    {
+      "review_id": "01021-f01s00-295c9f98625f",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 04:25:17.750000",
+      "frame_id": "f01s00",
+      "bbox": [
+        664,
+        1174,
+        692,
+        1183
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01021-f01s00-295c9f98625f-context.jpg",
+      "crop_image": "assets/01021-f01s00-295c9f98625f-crop.jpg",
+      "before_image": "assets/01021-f01s00-295c9f98625f-before.jpg",
+      "after_image": "assets/01021-f01s00-295c9f98625f-after.jpg"
+    },
+    {
+      "review_id": "01027-f03s01-735df6b5e382",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 10:30:30",
+      "frame_id": "f03s01",
+      "bbox": [
+        1323,
+        753,
+        1376,
+        813
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01027-f03s01-735df6b5e382-context.jpg",
+      "crop_image": "assets/01027-f03s01-735df6b5e382-crop.jpg",
+      "before_image": "assets/01027-f03s01-735df6b5e382-before.jpg",
+      "after_image": "assets/01027-f03s01-735df6b5e382-after.jpg"
+    },
+    {
+      "review_id": "01022-f04s01-708bf74804cd",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 13:29:23",
+      "frame_id": "f04s01",
+      "bbox": [
+        1005,
+        609,
+        1027,
+        630
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01022-f04s01-708bf74804cd-context.jpg",
+      "crop_image": "assets/01022-f04s01-708bf74804cd-crop.jpg",
+      "before_image": "assets/01022-f04s01-708bf74804cd-before.jpg",
+      "after_image": "assets/01022-f04s01-708bf74804cd-after.jpg"
+    },
+    {
+      "review_id": "01027-f02s02-d20eb67ab86d",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 07:33:58",
+      "frame_id": "f02s02",
+      "bbox": [
+        472,
+        574,
+        489,
+        614
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01027-f02s02-d20eb67ab86d-context.jpg",
+      "crop_image": "assets/01027-f02s02-d20eb67ab86d-crop.jpg",
+      "before_image": "assets/01027-f02s02-d20eb67ab86d-before.jpg",
+      "after_image": "assets/01027-f02s02-d20eb67ab86d-after.jpg"
+    },
+    {
+      "review_id": "01022-f01s02-6ffeaf52db40",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 04:28:49",
+      "frame_id": "f01s02",
+      "bbox": [
+        1501,
+        954,
+        1544,
+        1021
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01022-f01s02-6ffeaf52db40-context.jpg",
+      "crop_image": "assets/01022-f01s02-6ffeaf52db40-crop.jpg",
+      "before_image": "assets/01022-f01s02-6ffeaf52db40-before.jpg",
+      "after_image": "assets/01022-f01s02-6ffeaf52db40-after.jpg"
+    },
+    {
+      "review_id": "01028-f01s00-fcbd74d72196",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 04:29:16",
+      "frame_id": "f01s00",
+      "bbox": [
+        90,
+        1003,
+        191,
+        1061
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01028-f01s00-fcbd74d72196-context.jpg",
+      "crop_image": "assets/01028-f01s00-fcbd74d72196-crop.jpg",
+      "before_image": "assets/01028-f01s00-fcbd74d72196-before.jpg",
+      "after_image": "assets/01028-f01s00-fcbd74d72196-after.jpg"
+    },
+    {
+      "review_id": "01030-f01s01-b8248b2e1d4a",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 04:30:38",
+      "frame_id": "f01s01",
+      "bbox": [
+        1792,
+        1398,
+        1824,
+        1417
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01030-f01s01-b8248b2e1d4a-context.jpg",
+      "crop_image": "assets/01030-f01s01-b8248b2e1d4a-crop.jpg",
+      "before_image": "assets/01030-f01s01-b8248b2e1d4a-before.jpg",
+      "after_image": "assets/01030-f01s01-b8248b2e1d4a-after.jpg"
+    },
+    {
+      "review_id": "01030-f00s01-15ea2398cd88",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 01:33:23",
+      "frame_id": "f00s01",
+      "bbox": [
+        1160,
+        736,
+        1183,
+        778
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01030-f00s01-15ea2398cd88-context.jpg",
+      "crop_image": "assets/01030-f00s01-15ea2398cd88-crop.jpg",
+      "before_image": "assets/01030-f00s01-15ea2398cd88-before.jpg",
+      "after_image": "assets/01030-f00s01-15ea2398cd88-after.jpg"
+    },
+    {
+      "review_id": "01022-f07s02-faa601ae5fcc",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 22:32:30.250000",
+      "frame_id": "f07s02",
+      "bbox": [
+        934,
+        435,
+        966,
+        457
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f07s02-faa601ae5fcc-context.jpg",
+      "crop_image": "assets/01022-f07s02-faa601ae5fcc-crop.jpg",
+      "before_image": "assets/01022-f07s02-faa601ae5fcc-before.jpg",
+      "after_image": "assets/01022-f07s02-faa601ae5fcc-after.jpg"
+    },
+    {
+      "review_id": "01022-f06s00-20b0f163bf91",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 19:32:43.750000",
+      "frame_id": "f06s00",
+      "bbox": [
+        985,
+        441,
+        1022,
+        485
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f06s00-20b0f163bf91-context.jpg",
+      "crop_image": "assets/01022-f06s00-20b0f163bf91-crop.jpg",
+      "before_image": "assets/01022-f06s00-20b0f163bf91-before.jpg",
+      "after_image": "assets/01022-f06s00-20b0f163bf91-after.jpg"
+    },
+    {
+      "review_id": "01021-f00s00-29a3260d4c13",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 01:28:02.750000",
+      "frame_id": "f00s00",
+      "bbox": [
+        2444,
+        846,
+        2462,
+        853
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01021-f00s00-29a3260d4c13-context.jpg",
+      "crop_image": "assets/01021-f00s00-29a3260d4c13-crop.jpg",
+      "before_image": "assets/01021-f00s00-29a3260d4c13-before.jpg",
+      "after_image": "assets/01021-f00s00-29a3260d4c13-after.jpg"
+    },
+    {
+      "review_id": "01022-f04s01-ae28fdff7f44",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 13:29:23",
+      "frame_id": "f04s01",
+      "bbox": [
+        1152,
+        804,
+        1172,
+        846
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f04s01-ae28fdff7f44-context.jpg",
+      "crop_image": "assets/01022-f04s01-ae28fdff7f44-crop.jpg",
+      "before_image": "assets/01022-f04s01-ae28fdff7f44-before.jpg",
+      "after_image": "assets/01022-f04s01-ae28fdff7f44-after.jpg"
+    },
+    {
+      "review_id": "01027-f07s01-63a43b1d0fa6",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 22:27:17",
+      "frame_id": "f07s01",
+      "bbox": [
+        2282,
+        715,
+        2490,
+        923
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01027-f07s01-63a43b1d0fa6-context.jpg",
+      "crop_image": "assets/01027-f07s01-63a43b1d0fa6-crop.jpg",
+      "before_image": "assets/01027-f07s01-63a43b1d0fa6-before.jpg",
+      "after_image": "assets/01027-f07s01-63a43b1d0fa6-after.jpg"
+    },
+    {
+      "review_id": "01028-f04s01-62f8492374d9",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 13:27:53",
+      "frame_id": "f04s01",
+      "bbox": [
+        1541,
+        434,
+        1581,
+        457
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01028-f04s01-62f8492374d9-context.jpg",
+      "crop_image": "assets/01028-f04s01-62f8492374d9-crop.jpg",
+      "before_image": "assets/01028-f04s01-62f8492374d9-before.jpg",
+      "after_image": "assets/01028-f04s01-62f8492374d9-after.jpg"
+    },
+    {
+      "review_id": "01028-f06s01-096e9f35ce06",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 19:27:27",
+      "frame_id": "f06s01",
+      "bbox": [
+        1253,
+        821,
+        1276,
+        888
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01028-f06s01-096e9f35ce06-context.jpg",
+      "crop_image": "assets/01028-f06s01-096e9f35ce06-crop.jpg",
+      "before_image": "assets/01028-f06s01-096e9f35ce06-before.jpg",
+      "after_image": "assets/01028-f06s01-096e9f35ce06-after.jpg"
+    },
+    {
+      "review_id": "01030-f02s00-ca0d7a52e5e7",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 07:31:41",
+      "frame_id": "f02s00",
+      "bbox": [
+        1325,
+        469,
+        1469,
+        613
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01030-f02s00-ca0d7a52e5e7-context.jpg",
+      "crop_image": "assets/01030-f02s00-ca0d7a52e5e7-crop.jpg",
+      "before_image": "assets/01030-f02s00-ca0d7a52e5e7-before.jpg",
+      "after_image": "assets/01030-f02s00-ca0d7a52e5e7-after.jpg"
+    },
+    {
+      "review_id": "01027-f04s01-bc3652ba0267",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 13:27:44.500000",
+      "frame_id": "f04s01",
+      "bbox": [
+        2255,
+        321,
+        2291,
+        350
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01027-f04s01-bc3652ba0267-context.jpg",
+      "crop_image": "assets/01027-f04s01-bc3652ba0267-crop.jpg",
+      "before_image": "assets/01027-f04s01-bc3652ba0267-before.jpg",
+      "after_image": "assets/01027-f04s01-bc3652ba0267-after.jpg"
+    },
+    {
+      "review_id": "01027-f02s01-633d9d6deaca",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 07:32:42",
+      "frame_id": "f02s01",
+      "bbox": [
+        1502,
+        1147,
+        1646,
+        1291
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01027-f02s01-633d9d6deaca-context.jpg",
+      "crop_image": "assets/01027-f02s01-633d9d6deaca-crop.jpg",
+      "before_image": "assets/01027-f02s01-633d9d6deaca-before.jpg",
+      "after_image": "assets/01027-f02s01-633d9d6deaca-after.jpg"
+    },
+    {
+      "review_id": "01027-f04s02-b3524f1a3023",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 13:29:00.250000",
+      "frame_id": "f04s02",
+      "bbox": [
+        576,
+        473,
+        601,
+        492
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01027-f04s02-b3524f1a3023-context.jpg",
+      "crop_image": "assets/01027-f04s02-b3524f1a3023-crop.jpg",
+      "before_image": "assets/01027-f04s02-b3524f1a3023-before.jpg",
+      "after_image": "assets/01027-f04s02-b3524f1a3023-after.jpg"
+    },
+    {
+      "review_id": "01028-f06s01-9a1c72d77cef",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 19:27:27",
+      "frame_id": "f06s01",
+      "bbox": [
+        1506,
+        1283,
+        1517,
+        1290
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01028-f06s01-9a1c72d77cef-context.jpg",
+      "crop_image": "assets/01028-f06s01-9a1c72d77cef-crop.jpg",
+      "before_image": "assets/01028-f06s01-9a1c72d77cef-before.jpg",
+      "after_image": "assets/01028-f06s01-9a1c72d77cef-after.jpg"
+    },
+    {
+      "review_id": "01028-f06s02-d0a603c4a1ae",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 19:28:43",
+      "frame_id": "f06s02",
+      "bbox": [
+        720,
+        235,
+        765,
+        301
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01028-f06s02-d0a603c4a1ae-context.jpg",
+      "crop_image": "assets/01028-f06s02-d0a603c4a1ae-crop.jpg",
+      "before_image": "assets/01028-f06s02-d0a603c4a1ae-before.jpg",
+      "after_image": "assets/01028-f06s02-d0a603c4a1ae-after.jpg"
+    },
+    {
+      "review_id": "01021-f02s02-7538a947b945",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 07:30:08",
+      "frame_id": "f02s02",
+      "bbox": [
+        1443,
+        300,
+        1498,
+        339
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01021-f02s02-7538a947b945-context.jpg",
+      "crop_image": "assets/01021-f02s02-7538a947b945-crop.jpg",
+      "before_image": "assets/01021-f02s02-7538a947b945-before.jpg",
+      "after_image": "assets/01021-f02s02-7538a947b945-after.jpg"
+    },
+    {
+      "review_id": "01022-f00s00-e0cae7230073",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 01:29:02",
+      "frame_id": "f00s00",
+      "bbox": [
+        1709,
+        1111,
+        1742,
+        1171
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f00s00-e0cae7230073-context.jpg",
+      "crop_image": "assets/01022-f00s00-e0cae7230073-crop.jpg",
+      "before_image": "assets/01022-f00s00-e0cae7230073-before.jpg",
+      "after_image": "assets/01022-f00s00-e0cae7230073-after.jpg"
+    },
+    {
+      "review_id": "01028-f05s00-afab7bc9698d",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 16:28:56",
+      "frame_id": "f05s00",
+      "bbox": [
+        421,
+        1127,
+        487,
+        1274
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01028-f05s00-afab7bc9698d-context.jpg",
+      "crop_image": "assets/01028-f05s00-afab7bc9698d-crop.jpg",
+      "before_image": "assets/01028-f05s00-afab7bc9698d-before.jpg",
+      "after_image": "assets/01028-f05s00-afab7bc9698d-after.jpg"
+    },
+    {
+      "review_id": "01022-f02s00-7d8520c83f2b",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 07:28:36",
+      "frame_id": "f02s00",
+      "bbox": [
+        1152,
+        532,
+        1166,
+        583
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f02s00-7d8520c83f2b-context.jpg",
+      "crop_image": "assets/01022-f02s00-7d8520c83f2b-crop.jpg",
+      "before_image": "assets/01022-f02s00-7d8520c83f2b-before.jpg",
+      "after_image": "assets/01022-f02s00-7d8520c83f2b-after.jpg"
+    },
+    {
+      "review_id": "01030-f00s01-ccd4a1162ba2",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 01:33:23",
+      "frame_id": "f00s01",
+      "bbox": [
+        1806,
+        1360,
+        1870,
+        1424
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01030-f00s01-ccd4a1162ba2-context.jpg",
+      "crop_image": "assets/01030-f00s01-ccd4a1162ba2-crop.jpg",
+      "before_image": "assets/01030-f00s01-ccd4a1162ba2-before.jpg",
+      "after_image": "assets/01030-f00s01-ccd4a1162ba2-after.jpg"
+    },
+    {
+      "review_id": "01021-f02s01-d00662ba7abb",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 07:28:52",
+      "frame_id": "f02s01",
+      "bbox": [
+        562,
+        510,
+        602,
+        572
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01021-f02s01-d00662ba7abb-context.jpg",
+      "crop_image": "assets/01021-f02s01-d00662ba7abb-crop.jpg",
+      "before_image": "assets/01021-f02s01-d00662ba7abb-before.jpg",
+      "after_image": "assets/01021-f02s01-d00662ba7abb-after.jpg"
+    },
+    {
+      "review_id": "01021-f04s02-99686cc6bceb",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 13:29:41",
+      "frame_id": "f04s02",
+      "bbox": [
+        945,
+        677,
+        995,
+        716
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01021-f04s02-99686cc6bceb-context.jpg",
+      "crop_image": "assets/01021-f04s02-99686cc6bceb-crop.jpg",
+      "before_image": "assets/01021-f04s02-99686cc6bceb-before.jpg",
+      "after_image": "assets/01021-f04s02-99686cc6bceb-after.jpg"
+    },
+    {
+      "review_id": "01022-f07s01-b37e1b87e76f",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 22:31:14.500000",
+      "frame_id": "f07s01",
+      "bbox": [
+        765,
+        767,
+        909,
+        911
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01022-f07s01-b37e1b87e76f-context.jpg",
+      "crop_image": "assets/01022-f07s01-b37e1b87e76f-crop.jpg",
+      "before_image": "assets/01022-f07s01-b37e1b87e76f-before.jpg",
+      "after_image": "assets/01022-f07s01-b37e1b87e76f-after.jpg"
+    },
+    {
+      "review_id": "01021-f02s02-8350e76d0c7d",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 07:30:08",
+      "frame_id": "f02s02",
+      "bbox": [
+        1497,
+        314,
+        1521,
+        360
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01021-f02s02-8350e76d0c7d-context.jpg",
+      "crop_image": "assets/01021-f02s02-8350e76d0c7d-crop.jpg",
+      "before_image": "assets/01021-f02s02-8350e76d0c7d-before.jpg",
+      "after_image": "assets/01021-f02s02-8350e76d0c7d-after.jpg"
+    },
+    {
+      "review_id": "01021-f06s00-7de5ed2ad0a8",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 19:31:42",
+      "frame_id": "f06s00",
+      "bbox": [
+        1169,
+        578,
+        1185,
+        585
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01021-f06s00-7de5ed2ad0a8-context.jpg",
+      "crop_image": "assets/01021-f06s00-7de5ed2ad0a8-crop.jpg",
+      "before_image": "assets/01021-f06s00-7de5ed2ad0a8-before.jpg",
+      "after_image": "assets/01021-f06s00-7de5ed2ad0a8-after.jpg"
+    },
+    {
+      "review_id": "01022-f07s02-7bae1bf63fd3",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 22:32:30.250000",
+      "frame_id": "f07s02",
+      "bbox": [
+        915,
+        452,
+        937,
+        485
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f07s02-7bae1bf63fd3-context.jpg",
+      "crop_image": "assets/01022-f07s02-7bae1bf63fd3-crop.jpg",
+      "before_image": "assets/01022-f07s02-7bae1bf63fd3-before.jpg",
+      "after_image": "assets/01022-f07s02-7bae1bf63fd3-after.jpg"
+    },
+    {
+      "review_id": "01021-f02s00-0ef568b03d17",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 07:27:36",
+      "frame_id": "f02s00",
+      "bbox": [
+        1504,
+        305,
+        1533,
+        341
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01021-f02s00-0ef568b03d17-context.jpg",
+      "crop_image": "assets/01021-f02s00-0ef568b03d17-crop.jpg",
+      "before_image": "assets/01021-f02s00-0ef568b03d17-before.jpg",
+      "after_image": "assets/01021-f02s00-0ef568b03d17-after.jpg"
+    },
+    {
+      "review_id": "01021-f01s01-1264c75245a8",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 04:26:33.500000",
+      "frame_id": "f01s01",
+      "bbox": [
+        959,
+        1319,
+        975,
+        1327
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01021-f01s01-1264c75245a8-context.jpg",
+      "crop_image": "assets/01021-f01s01-1264c75245a8-crop.jpg",
+      "before_image": "assets/01021-f01s01-1264c75245a8-before.jpg",
+      "after_image": "assets/01021-f01s01-1264c75245a8-after.jpg"
+    },
+    {
+      "review_id": "01028-f02s01-1ff5ce96d692",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 07:32:51",
+      "frame_id": "f02s01",
+      "bbox": [
+        993,
+        15,
+        1137,
+        159
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01028-f02s01-1ff5ce96d692-context.jpg",
+      "crop_image": "assets/01028-f02s01-1ff5ce96d692-crop.jpg",
+      "before_image": "assets/01028-f02s01-1ff5ce96d692-before.jpg",
+      "after_image": "assets/01028-f02s01-1ff5ce96d692-after.jpg"
+    },
+    {
+      "review_id": "01030-f00s02-10bd829f467f",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 01:34:39",
+      "frame_id": "f00s02",
+      "bbox": [
+        1834,
+        899,
+        1839,
+        904
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01030-f00s02-10bd829f467f-context.jpg",
+      "crop_image": "assets/01030-f00s02-10bd829f467f-crop.jpg",
+      "before_image": "assets/01030-f00s02-10bd829f467f-before.jpg",
+      "after_image": "assets/01030-f00s02-10bd829f467f-after.jpg"
+    },
+    {
+      "review_id": "01030-f05s00-7650c9e7c7b0",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 16:28:41",
+      "frame_id": "f05s00",
+      "bbox": [
+        1152,
+        746,
+        1160,
+        765
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01030-f05s00-7650c9e7c7b0-context.jpg",
+      "crop_image": "assets/01030-f05s00-7650c9e7c7b0-crop.jpg",
+      "before_image": "assets/01030-f05s00-7650c9e7c7b0-before.jpg",
+      "after_image": "assets/01030-f05s00-7650c9e7c7b0-after.jpg"
+    },
+    {
+      "review_id": "01022-f07s01-e0f100926ae2",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 22:31:14.500000",
+      "frame_id": "f07s01",
+      "bbox": [
+        1115,
+        943,
+        1147,
+        1021
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f07s01-e0f100926ae2-context.jpg",
+      "crop_image": "assets/01022-f07s01-e0f100926ae2-crop.jpg",
+      "before_image": "assets/01022-f07s01-e0f100926ae2-before.jpg",
+      "after_image": "assets/01022-f07s01-e0f100926ae2-after.jpg"
+    },
+    {
+      "review_id": "01021-f07s00-bd5fc41709fb",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 22:28:57",
+      "frame_id": "f07s00",
+      "bbox": [
+        517,
+        538,
+        547,
+        578
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01021-f07s00-bd5fc41709fb-context.jpg",
+      "crop_image": "assets/01021-f07s00-bd5fc41709fb-crop.jpg",
+      "before_image": "assets/01021-f07s00-bd5fc41709fb-before.jpg",
+      "after_image": "assets/01021-f07s00-bd5fc41709fb-after.jpg"
+    },
+    {
+      "review_id": "01030-f00s01-d8d19b13747a",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 01:33:23",
+      "frame_id": "f00s01",
+      "bbox": [
+        1404,
+        1289,
+        1419,
+        1297
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01030-f00s01-d8d19b13747a-context.jpg",
+      "crop_image": "assets/01030-f00s01-d8d19b13747a-crop.jpg",
+      "before_image": "assets/01030-f00s01-d8d19b13747a-before.jpg",
+      "after_image": "assets/01030-f00s01-d8d19b13747a-after.jpg"
+    },
+    {
+      "review_id": "01027-f04s00-ca1e1a98cf6c",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 13:26:28.750000",
+      "frame_id": "f04s00",
+      "bbox": [
+        689,
+        397,
+        721,
+        411
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01027-f04s00-ca1e1a98cf6c-context.jpg",
+      "crop_image": "assets/01027-f04s00-ca1e1a98cf6c-crop.jpg",
+      "before_image": "assets/01027-f04s00-ca1e1a98cf6c-before.jpg",
+      "after_image": "assets/01027-f04s00-ca1e1a98cf6c-after.jpg"
+    },
+    {
+      "review_id": "01027-f01s01-b5d2f688ee56",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 04:30:23",
+      "frame_id": "f01s01",
+      "bbox": [
+        1877,
+        244,
+        1973,
+        340
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01027-f01s01-b5d2f688ee56-context.jpg",
+      "crop_image": "assets/01027-f01s01-b5d2f688ee56-crop.jpg",
+      "before_image": "assets/01027-f01s01-b5d2f688ee56-before.jpg",
+      "after_image": "assets/01027-f01s01-b5d2f688ee56-after.jpg"
+    },
+    {
+      "review_id": "01030-f02s00-a5a19c1a53d1",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 07:31:41",
+      "frame_id": "f02s00",
+      "bbox": [
+        1767,
+        928,
+        1814,
+        954
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01030-f02s00-a5a19c1a53d1-context.jpg",
+      "crop_image": "assets/01030-f02s00-a5a19c1a53d1-crop.jpg",
+      "before_image": "assets/01030-f02s00-a5a19c1a53d1-before.jpg",
+      "after_image": "assets/01030-f02s00-a5a19c1a53d1-after.jpg"
+    },
+    {
+      "review_id": "01022-f04s02-10dc00e86a64",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 13:30:39",
+      "frame_id": "f04s02",
+      "bbox": [
+        823,
+        902,
+        908,
+        952
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01022-f04s02-10dc00e86a64-context.jpg",
+      "crop_image": "assets/01022-f04s02-10dc00e86a64-crop.jpg",
+      "before_image": "assets/01022-f04s02-10dc00e86a64-before.jpg",
+      "after_image": "assets/01022-f04s02-10dc00e86a64-after.jpg"
+    },
+    {
+      "review_id": "01027-f01s00-6c8c054d7f5e",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 04:29:07",
+      "frame_id": "f01s00",
+      "bbox": [
+        579,
+        487,
+        608,
+        514
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01027-f01s00-6c8c054d7f5e-context.jpg",
+      "crop_image": "assets/01027-f01s00-6c8c054d7f5e-crop.jpg",
+      "before_image": "assets/01027-f01s00-6c8c054d7f5e-before.jpg",
+      "after_image": "assets/01027-f01s00-6c8c054d7f5e-after.jpg"
+    },
+    {
+      "review_id": "01028-f06s01-f113a0316252",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 19:27:27",
+      "frame_id": "f06s01",
+      "bbox": [
+        1385,
+        1384,
+        1397,
+        1389
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01028-f06s01-f113a0316252-context.jpg",
+      "crop_image": "assets/01028-f06s01-f113a0316252-crop.jpg",
+      "before_image": "assets/01028-f06s01-f113a0316252-before.jpg",
+      "after_image": "assets/01028-f06s01-f113a0316252-after.jpg"
+    },
+    {
+      "review_id": "01027-f01s02-511560c2178a",
+      "device_code": "44180209031322001027",
+      "timestamp": "2026-09-18 04:31:39",
+      "frame_id": "f01s02",
+      "bbox": [
+        1466,
+        400,
+        1472,
+        406
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01027-f01s02-511560c2178a-context.jpg",
+      "crop_image": "assets/01027-f01s02-511560c2178a-crop.jpg",
+      "before_image": "assets/01027-f01s02-511560c2178a-before.jpg",
+      "after_image": "assets/01027-f01s02-511560c2178a-after.jpg"
+    },
+    {
+      "review_id": "01022-f00s01-2f19c19b5085",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 01:30:18",
+      "frame_id": "f00s01",
+      "bbox": [
+        1709,
+        1112,
+        1738,
+        1127
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f00s01-2f19c19b5085-context.jpg",
+      "crop_image": "assets/01022-f00s01-2f19c19b5085-crop.jpg",
+      "before_image": "assets/01022-f00s01-2f19c19b5085-before.jpg",
+      "after_image": "assets/01022-f00s01-2f19c19b5085-after.jpg"
+    },
+    {
+      "review_id": "01028-f01s02-2a0bc35a3817",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 04:31:48",
+      "frame_id": "f01s02",
+      "bbox": [
+        590,
+        681,
+        606,
+        695
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01028-f01s02-2a0bc35a3817-context.jpg",
+      "crop_image": "assets/01028-f01s02-2a0bc35a3817-crop.jpg",
+      "before_image": "assets/01028-f01s02-2a0bc35a3817-before.jpg",
+      "after_image": "assets/01028-f01s02-2a0bc35a3817-after.jpg"
+    },
+    {
+      "review_id": "01030-f04s01-04217b7992c9",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 13:27:44",
+      "frame_id": "f04s01",
+      "bbox": [
+        1381,
+        965,
+        1525,
+        1109
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01030-f04s01-04217b7992c9-context.jpg",
+      "crop_image": "assets/01030-f04s01-04217b7992c9-crop.jpg",
+      "before_image": "assets/01030-f04s01-04217b7992c9-before.jpg",
+      "after_image": "assets/01030-f04s01-04217b7992c9-after.jpg"
+    },
+    {
+      "review_id": "01022-f02s01-a8eda632bb30",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 07:29:52",
+      "frame_id": "f02s01",
+      "bbox": [
+        1367,
+        780,
+        1410,
+        821
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01022-f02s01-a8eda632bb30-context.jpg",
+      "crop_image": "assets/01022-f02s01-a8eda632bb30-crop.jpg",
+      "before_image": "assets/01022-f02s01-a8eda632bb30-before.jpg",
+      "after_image": "assets/01022-f02s01-a8eda632bb30-after.jpg"
+    },
+    {
+      "review_id": "01030-f05s00-426fa2736a15",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 16:28:41",
+      "frame_id": "f05s00",
+      "bbox": [
+        1261,
+        480,
+        1325,
+        544
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01030-f05s00-426fa2736a15-context.jpg",
+      "crop_image": "assets/01030-f05s00-426fa2736a15-crop.jpg",
+      "before_image": "assets/01030-f05s00-426fa2736a15-before.jpg",
+      "after_image": "assets/01030-f05s00-426fa2736a15-after.jpg"
+    },
+    {
+      "review_id": "01022-f03s01-4fd1511ed44c",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 10:32:08",
+      "frame_id": "f03s01",
+      "bbox": [
+        847,
+        858,
+        861,
+        869
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f03s01-4fd1511ed44c-context.jpg",
+      "crop_image": "assets/01022-f03s01-4fd1511ed44c-crop.jpg",
+      "before_image": "assets/01022-f03s01-4fd1511ed44c-before.jpg",
+      "after_image": "assets/01022-f03s01-4fd1511ed44c-after.jpg"
+    },
+    {
+      "review_id": "01022-f01s02-3bd3260ef21a",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 04:28:49",
+      "frame_id": "f01s02",
+      "bbox": [
+        535,
+        1231,
+        743,
+        1439
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01022-f01s02-3bd3260ef21a-context.jpg",
+      "crop_image": "assets/01022-f01s02-3bd3260ef21a-crop.jpg",
+      "before_image": "assets/01022-f01s02-3bd3260ef21a-before.jpg",
+      "after_image": "assets/01022-f01s02-3bd3260ef21a-after.jpg"
+    },
+    {
+      "review_id": "01030-f04s01-739a98caa31b",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 13:27:44",
+      "frame_id": "f04s01",
+      "bbox": [
+        1509,
+        587,
+        1563,
+        645
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01030-f04s01-739a98caa31b-context.jpg",
+      "crop_image": "assets/01030-f04s01-739a98caa31b-crop.jpg",
+      "before_image": "assets/01030-f04s01-739a98caa31b-before.jpg",
+      "after_image": "assets/01030-f04s01-739a98caa31b-after.jpg"
+    },
+    {
+      "review_id": "01022-f07s01-07e0fe4b3f33",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 22:31:14.500000",
+      "frame_id": "f07s01",
+      "bbox": [
+        1059,
+        686,
+        1138,
+        717
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01022-f07s01-07e0fe4b3f33-context.jpg",
+      "crop_image": "assets/01022-f07s01-07e0fe4b3f33-crop.jpg",
+      "before_image": "assets/01022-f07s01-07e0fe4b3f33-before.jpg",
+      "after_image": "assets/01022-f07s01-07e0fe4b3f33-after.jpg"
+    },
+    {
+      "review_id": "01022-f05s02-1e2023f7b0ff",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 16:32:57",
+      "frame_id": "f05s02",
+      "bbox": [
+        1134,
+        520,
+        1187,
+        554
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01022-f05s02-1e2023f7b0ff-context.jpg",
+      "crop_image": "assets/01022-f05s02-1e2023f7b0ff-crop.jpg",
+      "before_image": "assets/01022-f05s02-1e2023f7b0ff-before.jpg",
+      "after_image": "assets/01022-f05s02-1e2023f7b0ff-after.jpg"
+    },
+    {
+      "review_id": "01028-f07s01-fd3451948753",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 22:27:20",
+      "frame_id": "f07s01",
+      "bbox": [
+        1347,
+        1360,
+        1359,
+        1365
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01028-f07s01-fd3451948753-context.jpg",
+      "crop_image": "assets/01028-f07s01-fd3451948753-crop.jpg",
+      "before_image": "assets/01028-f07s01-fd3451948753-before.jpg",
+      "after_image": "assets/01028-f07s01-fd3451948753-after.jpg"
+    },
+    {
+      "review_id": "01022-f05s02-7fa2bf7f8819",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 16:32:57",
+      "frame_id": "f05s02",
+      "bbox": [
+        996,
+        571,
+        1053,
+        608
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01022-f05s02-7fa2bf7f8819-context.jpg",
+      "crop_image": "assets/01022-f05s02-7fa2bf7f8819-crop.jpg",
+      "before_image": "assets/01022-f05s02-7fa2bf7f8819-before.jpg",
+      "after_image": "assets/01022-f05s02-7fa2bf7f8819-after.jpg"
+    },
+    {
+      "review_id": "01028-f07s00-eb4dd93afd85",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 22:26:04",
+      "frame_id": "f07s00",
+      "bbox": [
+        2349,
+        1113,
+        2383,
+        1125
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01028-f07s00-eb4dd93afd85-context.jpg",
+      "crop_image": "assets/01028-f07s00-eb4dd93afd85-crop.jpg",
+      "before_image": "assets/01028-f07s00-eb4dd93afd85-before.jpg",
+      "after_image": "assets/01028-f07s00-eb4dd93afd85-after.jpg"
+    },
+    {
+      "review_id": "01030-f01s02-39fb6d09b449",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 04:31:54",
+      "frame_id": "f01s02",
+      "bbox": [
+        1732,
+        1102,
+        1745,
+        1108
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01030-f01s02-39fb6d09b449-context.jpg",
+      "crop_image": "assets/01030-f01s02-39fb6d09b449-crop.jpg",
+      "before_image": "assets/01030-f01s02-39fb6d09b449-before.jpg",
+      "after_image": "assets/01030-f01s02-39fb6d09b449-after.jpg"
+    },
+    {
+      "review_id": "01022-f00s01-c05dbb313b42",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 01:30:18",
+      "frame_id": "f00s01",
+      "bbox": [
+        378,
+        360,
+        522,
+        504
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01022-f00s01-c05dbb313b42-context.jpg",
+      "crop_image": "assets/01022-f00s01-c05dbb313b42-crop.jpg",
+      "before_image": "assets/01022-f00s01-c05dbb313b42-before.jpg",
+      "after_image": "assets/01022-f00s01-c05dbb313b42-after.jpg"
+    },
+    {
+      "review_id": "01022-f05s00-6189331bb98a",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 16:30:25",
+      "frame_id": "f05s00",
+      "bbox": [
+        2234,
+        1331,
+        2258,
+        1424
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f05s00-6189331bb98a-context.jpg",
+      "crop_image": "assets/01022-f05s00-6189331bb98a-crop.jpg",
+      "before_image": "assets/01022-f05s00-6189331bb98a-before.jpg",
+      "after_image": "assets/01022-f05s00-6189331bb98a-after.jpg"
+    },
+    {
+      "review_id": "01030-f01s01-485d8d42e666",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 04:30:38",
+      "frame_id": "f01s01",
+      "bbox": [
+        1415,
+        1394,
+        1427,
+        1398
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01030-f01s01-485d8d42e666-context.jpg",
+      "crop_image": "assets/01030-f01s01-485d8d42e666-crop.jpg",
+      "before_image": "assets/01030-f01s01-485d8d42e666-before.jpg",
+      "after_image": "assets/01030-f01s01-485d8d42e666-after.jpg"
+    },
+    {
+      "review_id": "01021-f01s00-029fa4a442a4",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 04:25:17.750000",
+      "frame_id": "f01s00",
+      "bbox": [
+        1730,
+        936,
+        1826,
+        1032
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01021-f01s00-029fa4a442a4-context.jpg",
+      "crop_image": "assets/01021-f01s00-029fa4a442a4-crop.jpg",
+      "before_image": "assets/01021-f01s00-029fa4a442a4-before.jpg",
+      "after_image": "assets/01021-f01s00-029fa4a442a4-after.jpg"
+    },
+    {
+      "review_id": "01030-f03s02-d0acc4af06d9",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 10:31:49",
+      "frame_id": "f03s02",
+      "bbox": [
+        964,
+        982,
+        1046,
+        1096
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01030-f03s02-d0acc4af06d9-context.jpg",
+      "crop_image": "assets/01030-f03s02-d0acc4af06d9-crop.jpg",
+      "before_image": "assets/01030-f03s02-d0acc4af06d9-before.jpg",
+      "after_image": "assets/01030-f03s02-d0acc4af06d9-after.jpg"
+    },
+    {
+      "review_id": "01030-f04s02-5c991303f73c",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 13:29:00",
+      "frame_id": "f04s02",
+      "bbox": [
+        2089,
+        1320,
+        2130,
+        1440
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01030-f04s02-5c991303f73c-context.jpg",
+      "crop_image": "assets/01030-f04s02-5c991303f73c-crop.jpg",
+      "before_image": "assets/01030-f04s02-5c991303f73c-before.jpg",
+      "after_image": "assets/01030-f04s02-5c991303f73c-after.jpg"
+    },
+    {
+      "review_id": "01028-f02s02-65b51098c212",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 07:34:07",
+      "frame_id": "f02s02",
+      "bbox": [
+        1874,
+        1208,
+        2018,
+        1352
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01028-f02s02-65b51098c212-context.jpg",
+      "crop_image": "assets/01028-f02s02-65b51098c212-crop.jpg",
+      "before_image": "assets/01028-f02s02-65b51098c212-before.jpg",
+      "after_image": "assets/01028-f02s02-65b51098c212-after.jpg"
+    },
+    {
+      "review_id": "01022-f05s02-013c0a356948",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 16:32:57",
+      "frame_id": "f05s02",
+      "bbox": [
+        1087,
+        768,
+        1133,
+        775
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f05s02-013c0a356948-context.jpg",
+      "crop_image": "assets/01022-f05s02-013c0a356948-crop.jpg",
+      "before_image": "assets/01022-f05s02-013c0a356948-before.jpg",
+      "after_image": "assets/01022-f05s02-013c0a356948-after.jpg"
+    },
+    {
+      "review_id": "01022-f02s01-2a33a5006ac1",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 07:29:52",
+      "frame_id": "f02s01",
+      "bbox": [
+        1313,
+        899,
+        1344,
+        1004
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f02s01-2a33a5006ac1-context.jpg",
+      "crop_image": "assets/01022-f02s01-2a33a5006ac1-crop.jpg",
+      "before_image": "assets/01022-f02s01-2a33a5006ac1-before.jpg",
+      "after_image": "assets/01022-f02s01-2a33a5006ac1-after.jpg"
+    },
+    {
+      "review_id": "01028-f07s02-b11e43bb5261",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 22:28:36",
+      "frame_id": "f07s02",
+      "bbox": [
+        1845,
+        522,
+        2053,
+        730
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01028-f07s02-b11e43bb5261-context.jpg",
+      "crop_image": "assets/01028-f07s02-b11e43bb5261-crop.jpg",
+      "before_image": "assets/01028-f07s02-b11e43bb5261-before.jpg",
+      "after_image": "assets/01028-f07s02-b11e43bb5261-after.jpg"
+    },
+    {
+      "review_id": "01022-f01s00-319bb373043c",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 04:26:17",
+      "frame_id": "f01s00",
+      "bbox": [
+        1304,
+        1406,
+        1396,
+        1440
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f01s00-319bb373043c-context.jpg",
+      "crop_image": "assets/01022-f01s00-319bb373043c-crop.jpg",
+      "before_image": "assets/01022-f01s00-319bb373043c-before.jpg",
+      "after_image": "assets/01022-f01s00-319bb373043c-after.jpg"
+    },
+    {
+      "review_id": "01021-f05s00-b426498113a9",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 16:29:23.750000",
+      "frame_id": "f05s00",
+      "bbox": [
+        2356,
+        979,
+        2432,
+        1032
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01021-f05s00-b426498113a9-context.jpg",
+      "crop_image": "assets/01021-f05s00-b426498113a9-crop.jpg",
+      "before_image": "assets/01021-f05s00-b426498113a9-before.jpg",
+      "after_image": "assets/01021-f05s00-b426498113a9-after.jpg"
+    },
+    {
+      "review_id": "01022-f03s00-52bf0c5ef998",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 10:30:52",
+      "frame_id": "f03s00",
+      "bbox": [
+        794,
+        284,
+        848,
+        337
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01022-f03s00-52bf0c5ef998-context.jpg",
+      "crop_image": "assets/01022-f03s00-52bf0c5ef998-crop.jpg",
+      "before_image": "assets/01022-f03s00-52bf0c5ef998-before.jpg",
+      "after_image": "assets/01022-f03s00-52bf0c5ef998-after.jpg"
+    },
+    {
+      "review_id": "01022-f06s02-91965ddc2958",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 19:35:15.250000",
+      "frame_id": "f06s02",
+      "bbox": [
+        1066,
+        577,
+        1090,
+        583
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f06s02-91965ddc2958-context.jpg",
+      "crop_image": "assets/01022-f06s02-91965ddc2958-crop.jpg",
+      "before_image": "assets/01022-f06s02-91965ddc2958-before.jpg",
+      "after_image": "assets/01022-f06s02-91965ddc2958-after.jpg"
+    },
+    {
+      "review_id": "01021-f01s01-e3b503140bbc",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 04:26:33.500000",
+      "frame_id": "f01s01",
+      "bbox": [
+        210,
+        943,
+        225,
+        972
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01021-f01s01-e3b503140bbc-context.jpg",
+      "crop_image": "assets/01021-f01s01-e3b503140bbc-crop.jpg",
+      "before_image": "assets/01021-f01s01-e3b503140bbc-before.jpg",
+      "after_image": "assets/01021-f01s01-e3b503140bbc-after.jpg"
+    },
+    {
+      "review_id": "01022-f05s00-efae4d1e9b7d",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 16:30:25",
+      "frame_id": "f05s00",
+      "bbox": [
+        1459,
+        1394,
+        1489,
+        1426
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f05s00-efae4d1e9b7d-context.jpg",
+      "crop_image": "assets/01022-f05s00-efae4d1e9b7d-crop.jpg",
+      "before_image": "assets/01022-f05s00-efae4d1e9b7d-before.jpg",
+      "after_image": "assets/01022-f05s00-efae4d1e9b7d-after.jpg"
+    },
+    {
+      "review_id": "01028-f03s00-e3212746bb47",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 10:29:22",
+      "frame_id": "f03s00",
+      "bbox": [
+        1925,
+        1121,
+        1974,
+        1175
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01028-f03s00-e3212746bb47-context.jpg",
+      "crop_image": "assets/01028-f03s00-e3212746bb47-crop.jpg",
+      "before_image": "assets/01028-f03s00-e3212746bb47-before.jpg",
+      "after_image": "assets/01028-f03s00-e3212746bb47-after.jpg"
+    },
+    {
+      "review_id": "01022-f01s00-b81b50c59a52",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 04:26:17",
+      "frame_id": "f01s00",
+      "bbox": [
+        1178,
+        1049,
+        1221,
+        1069
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f01s00-b81b50c59a52-context.jpg",
+      "crop_image": "assets/01022-f01s00-b81b50c59a52-crop.jpg",
+      "before_image": "assets/01022-f01s00-b81b50c59a52-before.jpg",
+      "after_image": "assets/01022-f01s00-b81b50c59a52-after.jpg"
+    },
+    {
+      "review_id": "01022-f02s01-7e4445ea4714",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 07:29:52",
+      "frame_id": "f02s01",
+      "bbox": [
+        1357,
+        1103,
+        1424,
+        1129
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f02s01-7e4445ea4714-context.jpg",
+      "crop_image": "assets/01022-f02s01-7e4445ea4714-crop.jpg",
+      "before_image": "assets/01022-f02s01-7e4445ea4714-before.jpg",
+      "after_image": "assets/01022-f02s01-7e4445ea4714-after.jpg"
+    },
+    {
+      "review_id": "01021-f05s01-525fb51a0516",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 16:30:39.500000",
+      "frame_id": "f05s01",
+      "bbox": [
+        2274,
+        910,
+        2326,
+        932
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01021-f05s01-525fb51a0516-context.jpg",
+      "crop_image": "assets/01021-f05s01-525fb51a0516-crop.jpg",
+      "before_image": "assets/01021-f05s01-525fb51a0516-before.jpg",
+      "after_image": "assets/01021-f05s01-525fb51a0516-after.jpg"
+    },
+    {
+      "review_id": "01022-f02s01-58c6fc80bcd3",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 07:29:52",
+      "frame_id": "f02s01",
+      "bbox": [
+        909,
+        951,
+        925,
+        961
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01022-f02s01-58c6fc80bcd3-context.jpg",
+      "crop_image": "assets/01022-f02s01-58c6fc80bcd3-crop.jpg",
+      "before_image": "assets/01022-f02s01-58c6fc80bcd3-before.jpg",
+      "after_image": "assets/01022-f02s01-58c6fc80bcd3-after.jpg"
+    },
+    {
+      "review_id": "01028-f01s02-7d2b8d4a57ae",
+      "device_code": "44180209031322001028",
+      "timestamp": "2026-09-18 04:31:48",
+      "frame_id": "f01s02",
+      "bbox": [
+        1394,
+        285,
+        1406,
+        301
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01028-f01s02-7d2b8d4a57ae-context.jpg",
+      "crop_image": "assets/01028-f01s02-7d2b8d4a57ae-crop.jpg",
+      "before_image": "assets/01028-f01s02-7d2b8d4a57ae-before.jpg",
+      "after_image": "assets/01028-f01s02-7d2b8d4a57ae-after.jpg"
+    },
+    {
+      "review_id": "01022-f07s01-a717a914fc93",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 22:31:14.500000",
+      "frame_id": "f07s01",
+      "bbox": [
+        1034,
+        565,
+        1089,
+        608
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01022-f07s01-a717a914fc93-context.jpg",
+      "crop_image": "assets/01022-f07s01-a717a914fc93-crop.jpg",
+      "before_image": "assets/01022-f07s01-a717a914fc93-before.jpg",
+      "after_image": "assets/01022-f07s01-a717a914fc93-after.jpg"
+    },
+    {
+      "review_id": "01021-f07s01-132bb0867fc8",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 22:30:13",
+      "frame_id": "f07s01",
+      "bbox": [
+        98,
+        173,
+        194,
+        269
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01021-f07s01-132bb0867fc8-context.jpg",
+      "crop_image": "assets/01021-f07s01-132bb0867fc8-crop.jpg",
+      "before_image": "assets/01021-f07s01-132bb0867fc8-before.jpg",
+      "after_image": "assets/01021-f07s01-132bb0867fc8-after.jpg"
+    },
+    {
+      "review_id": "01022-f01s02-4d0326879b2b",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 04:28:49",
+      "frame_id": "f01s02",
+      "bbox": [
+        895,
+        354,
+        956,
+        377
+      ],
+      "source": "semantic_full",
+      "context_image": "assets/01022-f01s02-4d0326879b2b-context.jpg",
+      "crop_image": "assets/01022-f01s02-4d0326879b2b-crop.jpg",
+      "before_image": "assets/01022-f01s02-4d0326879b2b-before.jpg",
+      "after_image": "assets/01022-f01s02-4d0326879b2b-after.jpg"
+    },
+    {
+      "review_id": "01021-f03s01-9c9ed1257e24",
+      "device_code": "44180209031322001021",
+      "timestamp": "2026-09-18 10:31:10",
+      "frame_id": "f03s01",
+      "bbox": [
+        525,
+        1055,
+        589,
+        1119
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01021-f03s01-9c9ed1257e24-context.jpg",
+      "crop_image": "assets/01021-f03s01-9c9ed1257e24-crop.jpg",
+      "before_image": "assets/01021-f03s01-9c9ed1257e24-before.jpg",
+      "after_image": "assets/01021-f03s01-9c9ed1257e24-after.jpg"
+    },
+    {
+      "review_id": "01030-f02s01-20f206bd2de3",
+      "device_code": "44180209031322001030",
+      "timestamp": "2026-09-18 07:32:57",
+      "frame_id": "f02s01",
+      "bbox": [
+        1484,
+        253,
+        1497,
+        265
+      ],
+      "source": "semantic_tile",
+      "context_image": "assets/01030-f02s01-20f206bd2de3-context.jpg",
+      "crop_image": "assets/01030-f02s01-20f206bd2de3-crop.jpg",
+      "before_image": "assets/01030-f02s01-20f206bd2de3-before.jpg",
+      "after_image": "assets/01030-f02s01-20f206bd2de3-after.jpg"
+    },
+    {
+      "review_id": "01022-f02s02-e8a940689d4b",
+      "device_code": "44180209031322001022",
+      "timestamp": "2026-09-18 07:31:08",
+      "frame_id": "f02s02",
+      "bbox": [
+        1621,
+        549,
+        1765,
+        693
+      ],
+      "source": "random_grid",
+      "context_image": "assets/01022-f02s02-e8a940689d4b-context.jpg",
+      "crop_image": "assets/01022-f02s02-e8a940689d4b-crop.jpg",
+      "before_image": "assets/01022-f02s02-e8a940689d4b-before.jpg",
+      "after_image": "assets/01022-f02s02-e8a940689d4b-after.jpg"
+    }
+  ]
+}

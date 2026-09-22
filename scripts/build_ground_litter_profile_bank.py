@@ -69,7 +69,9 @@ from rtsp_annotator.ground_litter_profile_match import (  # noqa: E402
 
 from rtsp_annotator.ground_litter_profile_sampling import (  # noqa: E402
     BoundedPreviewSampler, CanvasRegistrar, SequentialFrameReader,
-    build_hd_plan, coarse_sample_offsets, cross_day_files, frame_quality,
+    COARSE_FRACTIONS, build_hd_plan, coarse_sample_offsets, cross_day_files,
+    eligible_window, filter_eligible_files, format_seconds, frame_quality,
+    full_file_window, parse_seconds,
     partition_recordings, preview_image, probe_recording, parse_day,
     summarise_sampling_quality, write_canvas_reference,
 )
@@ -169,8 +171,39 @@ def _state_path(work_dir: Path) -> Path:
     return work_dir / "factory_state.json"
 
 
-def inventory_cache_path(work_dir: Path, start: str, end: str) -> Path:
-    key = sha256_bytes(f"{start}|{end}".encode())[:16]
+INVENTORY_CACHE_SCHEMA = 2
+SOURCE_ENDPOINT_IDENTITY = "ctseelink-file-urls"
+
+
+def inventory_cache_identity(
+    *, device_code: str, start: str, end: str, timezone_name: str,
+    endpoint: str = SOURCE_ENDPOINT_IDENTITY,
+) -> dict[str, Any]:
+    """清单缓存的完整身份：deviceCode + 半开区间 + 来源 + 时区 + schema。
+
+    缺少任何一项都可能把别的工作目录/别的时间范围的清单当成本轮输入，
+    因此这里逐字段比对，不一致就拒绝复用。
+    """
+    return {
+        "schema": INVENTORY_CACHE_SCHEMA,
+        "device_code": str(device_code),
+        "start_time": str(start),
+        "end_time": str(end),
+        "timezone": str(timezone_name),
+        "endpoint": str(endpoint),
+    }
+
+
+def inventory_cache_path(
+    work_dir: Path, start: str, end: str, *,
+    device_code: str = "", timezone_name: str = "",
+    endpoint: str = SOURCE_ENDPOINT_IDENTITY,
+) -> Path:
+    identity = inventory_cache_identity(
+        device_code=device_code, start=start, end=end,
+        timezone_name=timezone_name, endpoint=endpoint,
+    )
+    key = sha256_bytes(canonical_json(identity).encode())[:16]
     return work_dir / f"inventory_{key}.json"
 
 
@@ -267,9 +300,146 @@ def robust_query(
     raise last
 
 
+def _file_start_seconds(item: RecordingFile) -> float:
+    try:
+        return parse_seconds(item.record_start)
+    except BankError:
+        try:
+            return Path(item.file_name).stat().st_mtime
+        except OSError:
+            return 0.0
+
+
+def _file_end_seconds(item: RecordingFile) -> float:
+    try:
+        return parse_seconds(item.record_end)
+    except BankError:
+        return _file_start_seconds(item) + 1.0
+
+
+INPUT_MANIFEST_KIND = "profile_factory_input_manifest"
+INPUT_MANIFEST_SCHEMA = 1
+
+
+def _manifest_digest(payload: Mapping[str, Any]) -> str:
+    body = {key: value for key, value in payload.items() if key != "manifest_sha256"}
+    return sha256_bytes(canonical_json(body).encode())
+
+
+def build_input_manifest(
+    config: "FactoryConfig", *, files: Sequence[RecordingFile],
+    windows: Mapping[str, Any], roles: Mapping[str, str],
+    planned_offsets: Mapping[str, Sequence[float]],
+    sampling: Mapping[str, Any],
+) -> dict[str, Any]:
+    """构造不可变输入清单（v6 契约）。
+
+    一旦写出，后续重跑不再重新选择文件与偏移：只能刷新临时下载 URL，
+    文件不可获取就明确失败，不允许静默换成别的文件。
+    """
+    entries = []
+    for item in sorted(files, key=lambda row: (row.record_start, row.file_id)):
+        window = windows.get(item.file_id)
+        entries.append({
+            "file_id": item.file_id,
+            "file_name": item.file_name,
+            "record_start": item.record_start,
+            "record_end": item.record_end,
+            "file_size": item.file_size,
+            "file_type": item.file_type,
+            "role": roles.get(item.file_id, "outside"),
+            "eligible": None if window is None else window.as_dict(),
+            "planned_offsets": [round(float(v), 3)
+                                for v in planned_offsets.get(item.file_id, [])],
+            "source_sha256": None,
+        })
+    payload = {
+        "kind": INPUT_MANIFEST_KIND,
+        "schema": INPUT_MANIFEST_SCHEMA,
+        "created_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "algorithm_version": ALGORITHM_VERSION,
+        "device_code": config.device_code,
+        "camera_id": config.camera_id,
+        "timezone": config.timezone,
+        "request_range": [config.start_time, config.end_time],
+        "interval": "half_open_[start,end)",
+        "sampling": dict(sampling),
+        "config_hash": sha256_bytes(canonical_json({
+            "seed": config.seed, "preview_width": config.preview_width,
+            "per_day_hours": config.per_day_hours,
+            "max_files": config.max_files, "use_seek": config.use_seek,
+        }).encode()),
+        "files": entries,
+    }
+    payload["manifest_sha256"] = _manifest_digest(payload)
+    return payload
+
+
+def load_input_manifest(
+    path: Path, config: "FactoryConfig",
+) -> tuple[list[RecordingFile], dict[str, Any], dict[str, Any], dict[str, str], dict[str, list[float]]]:
+    """读取并校验 input manifest；返回 (文件, 窗口, manifest, 角色, 计划偏移)。"""
+    payload = json.loads(Path(path).read_text(encoding="utf-8"))
+    if payload.get("kind") != INPUT_MANIFEST_KIND:
+        raise SystemExit(f"{path} 不是 input manifest")
+    digest = _manifest_digest(payload)
+    if digest != payload.get("manifest_sha256"):
+        raise SystemExit(f"{path} manifest_sha256 不匹配，拒绝使用")
+    identity = (
+        str(payload.get("device_code")), str(payload.get("camera_id")),
+        str(payload.get("timezone")),
+    )
+    expected = (config.device_code, config.camera_id, config.timezone)
+    if identity != expected:
+        raise SystemExit(
+            f"input manifest 身份不一致: {identity} != {expected}；"
+            "不允许跨设备/机位/时区复用清单"
+        )
+    request_range = payload.get("request_range") or ["", ""]
+    if (config.start_time and config.end_time
+            and list(request_range) != [config.start_time, config.end_time]):
+        raise SystemExit(
+            f"input manifest 请求区间 {request_range} 与本次 "
+            f"[{config.start_time}, {config.end_time}) 不一致"
+        )
+    files: list[RecordingFile] = []
+    windows: dict[str, Any] = {}
+    roles: dict[str, str] = {}
+    planned: dict[str, list[float]] = {}
+    for row in payload.get("files", []):
+        item = RecordingFile(
+            file_id=str(row["file_id"]),
+            file_name=str(row.get("file_name") or ""),
+            record_start=str(row.get("record_start") or ""),
+            record_end=str(row.get("record_end") or ""),
+            file_size=row.get("file_size"),
+            file_type=str(row.get("file_type") or ""),
+        )
+        files.append(item)
+        eligible = row.get("eligible") or {}
+        if eligible.get("usable"):
+            windows[item.file_id] = EligibleWindow(
+                file_id=item.file_id,
+                record_start=item.record_start,
+                record_end=item.record_end,
+                eligible_start_seconds=float(eligible["eligible_start_offset"]),
+                eligible_end_seconds=float(eligible["eligible_end_offset"]),
+                effective_start_time=str(eligible["effective_start_time"]),
+                effective_end_time=str(eligible["effective_end_time"]),
+                intersection_seconds=float(eligible.get("intersection_seconds") or 0.0),
+                exclusion_reason=eligible.get("exclusion_reason"),
+            )
+        roles[item.file_id] = str(row.get("role") or "outside")
+        planned[item.file_id] = [
+            float(v) for v in (row.get("planned_offsets") or [])
+        ]
+    return files, windows, payload, roles, planned
+
+
 def select_files_by_day_hours(
     files: Sequence[RecordingFile], *, per_day_hours: int,
     min_gap_minutes: int = 5, max_files: int = 400,
+    day_of: Any = None,
 ) -> list[RecordingFile]:
     """按「天 × 小时」均匀抽样，保证覆盖一天内的光照变化（含夜间）。
 
@@ -278,8 +448,12 @@ def select_files_by_day_hours(
     """
     grouped: dict[str, dict[str, RecordingFile]] = {}
     for item in sorted(files, key=lambda entry: (entry.record_start, entry.file_id)):
-        day = parse_day(item.record_start)
-        hour = _hour_slot(item.record_start)
+        # 分日必须用**可用窗口**的日期：跨界文件（如 09-13 23:58 开始）
+        # 不能因为 record_start 把 09-13 算进构建集。
+        day = str(day_of(item)) if day_of is not None else parse_day(item.record_start)
+        hour = _hour_slot(
+            item.record_start if day_of is None else day + item.record_start[10:]
+        )
         grouped.setdefault(day, {}).setdefault(hour, item)
     chosen: list[RecordingFile] = []
     for day in sorted(grouped):
@@ -380,6 +554,8 @@ def stream_materialize_and_sample(
     files: Sequence[RecordingFile], geometry: dict[str, Any],
     report: dict[str, Any], *,
     prefetch_slots: int = 2, wait_timeout: float = 900.0,
+    eligible_windows: Mapping[str, Any] | None = None,
+    planned_offsets: Mapping[str, Sequence[float]] | None = None,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]], dict[str, Any], dict[str, Any]]:
     """有界「拉取→处理→提交→释放」流水线（R5）。
 
@@ -408,6 +584,8 @@ def stream_materialize_and_sample(
     hd_plan: dict[str, Any] = {"files": {}}
     final_states: list[dict[str, Any]] = []
     policy = UrlRefreshPolicy()
+    eligible_windows = dict(eligible_windows or {})
+    planned_offsets = dict(planned_offsets or {})
     pipeline: dict[str, Any] = {
         "planned": len(files), "prefetch_slots": prefetch_slots,
         "waited_seconds": 0.0, "wait_events": [], "truncated_plan": False,
@@ -576,7 +754,17 @@ def stream_materialize_and_sample(
                     canvas_reference=canvas_reference,
                     overlay_exclude_zones=overlay,
                 )
-                result = sampler.sample_file(config.device_code, lease)
+                window = eligible_windows.get(item.file_id)
+                result = sampler.sample_file(
+                    config.device_code, lease,
+                    eligible_start_offset=(
+                        0.0 if window is None else window.eligible_start_seconds
+                    ),
+                    eligible_end_offset=(
+                        None if window is None else window.eligible_end_seconds
+                    ),
+                    planned_offsets=planned_offsets.get(item.file_id),
+                )
                 file_id = item.file_id
         except Exception as exc:
             details.append({"file_id": item.file_id, "error": str(exc)[:160]})
@@ -1843,6 +2031,9 @@ def prune_profiles_conservatively(
     capability_all = sorted(
         str(item["profile_id"]) for item in candidates
     )
+    capability_set = set(capability_ids)
+    # 候选阶段是否有任何 prior 能力：这决定 prior 约束是否参与可行性判定。
+    initial_prior_capable = bool(capability_set)
 
     def timeline(subset: Sequence[str]) -> dict[str, Any]:
         # 能力集合按子集过滤：Selector 只接受属于本子集的 Profile。
@@ -1888,12 +2079,18 @@ def prune_profiles_conservatively(
                 prior["prior_pause_max"] - current_prior["prior_pause_max"]
             )
             prior_kept = [
-                pid for pid in subset
-                if pid in set(prior_suitable_ids_of(
-                    [entry for entry in remaining
-                     if entry["profile_id"] in set(subset)]
-                ))
+                pid for pid in subset if pid in capability_set
             ]
+            feasible = (
+                coverage_delta <= min_coverage_delta
+                and pause_delta <= max_pause_delta
+            )
+            if initial_prior_capable:
+                feasible = feasible and (
+                    prior_cov_delta <= min_prior_coverage_delta
+                    and prior_pause_delta <= max_prior_pause_delta
+                    and bool(prior_kept)
+                )
             evaluations.append({
                 "profile_id": item["profile_id"],
                 "effective_fraction_delta": round(coverage_delta, 5),
@@ -1911,23 +2108,29 @@ def prune_profiles_conservatively(
                 "semantic_only_seconds_without":
                     prior["semantic_only_seconds"],
                 "prior_suitable_kept": prior_kept,
-                "prior_would_be_empty": not prior_kept,
+                "prior_would_be_empty": (
+                    initial_prior_capable and not prior_kept
+                ),
+                "feasible": bool(feasible),
             })
         evaluations.sort(key=lambda row: (
             row["effective_fraction_delta"], row["pause_max_delta"],
             row["prior_coverage_delta"], row["prior_pause_delta"],
             row["profile_id"],
         ))
-        best = evaluations[0]
-        prior_blocked = (
-            best["prior_coverage_delta"] > min_prior_coverage_delta
-            or best["prior_pause_delta"] > max_prior_pause_delta
-            or best["prior_would_be_empty"]
-        )
-        if (best["effective_fraction_delta"] > min_coverage_delta
-                or best["pause_max_delta"] > max_pause_delta
-                or prior_blocked):
+        # 只在**可行**的删除方案里取代价最低者；只看排序第一名会在
+        # "第一名被 prior 约束挡住"时错误地整体停止，漏掉后面可删的候选。
+        feasible_rows = [row for row in evaluations if row["feasible"]]
+        if not feasible_rows:
+            report.setdefault("pruning_stop", []).append({
+                "round": len(deletion_order) + 1,
+                "reason": "NO_FEASIBLE_DELETION",
+                "remaining": list(current_ids),
+                "evaluated": evaluations,
+                "initial_prior_capable": initial_prior_capable,
+            })
             break
+        best = feasible_rows[0]
         victim = next(item for item in remaining
                       if item["profile_id"] == best["profile_id"])
         # 删除后必须重新复核剩余集合：既写入本轮证据，也作为下一轮的基线。
@@ -1955,7 +2158,7 @@ def prune_profiles_conservatively(
             "round": removal["round"],
             "removed": victim["profile_id"],
             "candidates_evaluated": [row["profile_id"] for row in evaluations],
-            "chosen_reason": "min_loo_cost_below_threshold",
+            "chosen_reason": "lowest_cost_feasible_deletion",
             "loo_cost": best,
             "metrics_before": {
                 "match_coverage": current_summary.get("effective_fraction"),
@@ -1985,6 +2188,10 @@ def prune_profiles_conservatively(
             config, keep, timeline, removed, report,
             budget_baseline=baseline, min_coverage_delta=min_coverage_delta,
             max_pause_delta=max_pause_delta,
+            capability_set=capability_set,
+            initial_prior_capable=initial_prior_capable,
+            min_prior_coverage_delta=min_prior_coverage_delta,
+            max_prior_pause_delta=max_prior_pause_delta,
         )
     final_prior = _prior_metrics(timeline([item["profile_id"] for item in keep]))
     kept_prior_ids = prior_suitable_ids_of(keep)
@@ -2038,32 +2245,83 @@ def _trim_to_resource_limit(
     removed: list[dict[str, Any]], report: dict[str, Any], *,
     budget_baseline: Mapping[str, Any], min_coverage_delta: float,
     max_pause_delta: float,
+    capability_set: set[str] | None = None,
+    initial_prior_capable: bool = False,
+    min_prior_coverage_delta: float = 0.0,
+    max_prior_pause_delta: float = 0.0,
 ) -> list[dict[str, Any]]:
-    """超过 ``max_profiles`` 时继续逐次删除，并保留终选复核证据。"""
+    """超过 ``max_profiles`` 时继续逐次删除，并保留终选复核证据。
+
+    使用与主剪枝**完全相同**的可行性规则；如果在这一组约束下无法满足
+    ``max_profiles``，如实报告 ``RESOURCE_LIMIT_UNSATISFIED``，
+    不偷偷违反覆盖约束、也不假装裁剪成功。
+    """
+    capability_set = set(capability_set or ())
     remaining = list(keep)
     current = dict(budget_baseline)
+    unsatisfied: dict[str, Any] | None = None
     while len(remaining) > config.max_profiles:
+        current_prior = _prior_metrics(current)
         evaluations: list[dict[str, Any]] = []
         for item in remaining:
             subset = [entry["profile_id"] for entry in remaining
                       if entry["profile_id"] != item["profile_id"]]
             summary = timeline(subset)
+            prior = _prior_metrics(summary)
+            coverage_delta = (
+                float(current.get("effective_fraction", 0.0))
+                - float(summary["effective_fraction"])
+            )
+            pause_delta = (
+                float(summary["pause_max"])
+                - float(current.get("pause_max", 0.0))
+            )
+            prior_cov_delta = (
+                current_prior["prior_effective_coverage"]
+                - prior["prior_effective_coverage"]
+            )
+            prior_pause_delta = (
+                prior["prior_pause_max"] - current_prior["prior_pause_max"]
+            )
+            prior_kept = [pid for pid in subset if pid in capability_set]
+            feasible = (
+                coverage_delta <= min_coverage_delta
+                and pause_delta <= max_pause_delta
+            )
+            if initial_prior_capable:
+                feasible = feasible and (
+                    prior_cov_delta <= min_prior_coverage_delta
+                    and prior_pause_delta <= max_prior_pause_delta
+                    and bool(prior_kept)
+                )
             evaluations.append({
                 "profile_id": item["profile_id"],
-                "effective_fraction_delta": round(
-                    float(current.get("effective_fraction", 0.0))
-                    - float(summary["effective_fraction"]), 5,
-                ),
-                "pause_max_delta": round(
-                    float(summary["pause_max"])
-                    - float(current.get("pause_max", 0.0)), 3,
-                ),
+                "effective_fraction_delta": round(coverage_delta, 5),
+                "pause_max_delta": round(pause_delta, 3),
                 "pause_max_without": summary["pause_max"],
+                "prior_coverage_delta": round(prior_cov_delta, 5),
+                "prior_pause_delta": round(prior_pause_delta, 4),
+                "prior_suitable_kept": prior_kept,
+                "feasible": bool(feasible),
             })
         evaluations.sort(key=lambda row: (
-            row["effective_fraction_delta"], row["pause_max_delta"], row["profile_id"],
+            row["effective_fraction_delta"], row["pause_max_delta"],
+            row["prior_coverage_delta"], row["prior_pause_delta"],
+            row["profile_id"],
         ))
-        victim_row = evaluations[0]
+        feasible_rows = [row for row in evaluations if row["feasible"]]
+        if not feasible_rows:
+            unsatisfied = {
+                "reason": "RESOURCE_LIMIT_UNSATISFIED",
+                "target_max_profiles": int(config.max_profiles),
+                "remaining": len(remaining),
+                "remaining_ids": [entry["profile_id"] for entry in remaining],
+                "evaluated": evaluations,
+                "note": ("在当前覆盖约束下无法继续删除；已保留全部集合，"
+                         "不违反业务约束"),
+            }
+            break
+        victim_row = feasible_rows[0]
         victim = next(item for item in remaining
                       if item["profile_id"] == victim_row["profile_id"])
         current = timeline([entry["profile_id"] for entry in remaining
@@ -2080,12 +2338,22 @@ def _trim_to_resource_limit(
                 "pause_max": current["pause_max"],
                 "switch_count": current["switch_count"],
             },
+            "prior_after": _prior_metrics(current),
         })
     report.setdefault("resource_trim", {})["final"] = {
         "effective_fraction": current.get("effective_fraction"),
         "pause_max": current.get("pause_max"),
         "switch_count": current.get("switch_count"),
+        "size": len(remaining),
+        "satisfied": len(remaining) <= int(config.max_profiles),
     }
+    if unsatisfied is not None:
+        report["resource_trim"]["unsatisfied"] = unsatisfied
+        report.setdefault("pruning_warnings", []).append(
+            "RESOURCE_LIMIT_UNSATISFIED: 在覆盖/prior 约束下无法把 Profile "
+            f"数量压到 {int(config.max_profiles)}；已保留 {len(remaining)} 个，"
+            "不违反业务约束。"
+        )
     return remaining
 
 
@@ -2208,7 +2476,45 @@ def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, An
     try:
         cache.recover()
         local_paths: dict[str, Path] = {}
-        if args.input is not None:
+        # 每个文件在任务半开区间内的可用窗口；两条输入路径都会填充。
+        eligible_by_id: dict[str, Any] = {}
+        planned_offsets: dict[str, list[float]] = {}
+        manifest_path = getattr(args, "input_manifest", None)
+        manifest_roles: dict[str, str] = {}
+        manifest_payload: dict[str, Any] | None = None
+        if manifest_path is not None:
+            # 冻结输入：不重新查询、不重新选择文件与偏移。文件身份一致，
+            # 只允许刷新临时下载 URL；不可获取就明确失败，不换文件。
+            files, eligible_by_id, manifest_payload, manifest_roles, planned_offsets = (
+                load_input_manifest(Path(manifest_path), config)
+            )
+            if not files:
+                raise SystemExit(f"input manifest 不含任何文件: {manifest_path}")
+            cache.register(config.device_code, files)
+            report["inventory"] = {
+                "mode": "input_manifest",
+                "path": str(manifest_path),
+                "manifest_sha256": manifest_payload.get("manifest_sha256"),
+                "files": len(files),
+            }
+            report["input_boundary"] = {
+                "range": manifest_payload.get("request_range"),
+                "interval": manifest_payload.get("interval"),
+                "inventory_files": len(files),
+                "eligible_files": len(eligible_by_id),
+                "dropped_files": sum(
+                    1 for row in manifest_payload.get("files", [])
+                    if not (row.get("eligible") or {}).get("usable")
+                ),
+                "windows": [
+                    (row.get("eligible") or {})
+                    for row in manifest_payload.get("files", [])
+                ],
+            }
+            local_paths = {}
+            downloader = RecordingDownloader()
+            client = RecordingListClient(headers=_auth_headers(args))
+        elif args.input is not None:
             root = Path(args.input).expanduser().resolve()
             files = scan_local_directory(root)
             if not files:
@@ -2226,14 +2532,42 @@ def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, An
                     int(item.file_size or 0) for item in files
                 ),
             }
+            # 本地素材没有远程查询区间：整段可用，但窗口口径保持一致
+            # （半开区间仅约束远程请求边界）。
+            local_windows = [full_file_window(item) for item in files]
+            eligible_by_id = {row.file_id: row for row in local_windows}
+            report["input_boundary"] = {
+                "range": None,
+                "interval": "local_full_file",
+                "inventory_files": len(local_windows),
+                "eligible_files": len(files),
+                "dropped_files": 0,
+                "dropped_reasons": {},
+                "dropped": [],
+                "windows": [row.as_dict() for row in local_windows],
+            }
         else:
+            # 清单缓存身份必须包含 deviceCode/范围/来源/时区/schema；
+            # 不一致就拒绝复用，绝不用别的工作目录或别的时间范围的清单。
+            cache_identity = inventory_cache_identity(
+                device_code=config.device_code, start=config.start_time,
+                end=config.end_time, timezone_name=config.timezone,
+            )
             cache_path = inventory_cache_path(
                 config.work_dir, config.start_time, config.end_time,
+                device_code=config.device_code,
+                timezone_name=config.timezone,
             )
             cached_inventory = None
             if args.resume and cache_path.is_file():
                 try:
                     cached = json.loads(cache_path.read_text(encoding="utf-8"))
+                    cached_identity = cached.get("identity") or {
+                        "start_time": cached.get("start_time"),
+                        "end_time": cached.get("end_time"),
+                    }
+                    if cached_identity != cache_identity:
+                        raise ValueError("inventory cache identity mismatch")
                     cached_inventory = [
                         RecordingFile(
                             file_id=row["file_id"], file_name=row.get("file_name", ""),
@@ -2256,28 +2590,109 @@ def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, An
             else:
                 files = stage_inventory_remote(config, client, cache, report)
                 atomic_write_json(cache_path, {
+                    "identity": cache_identity,
                     "summary": {k: v for k, v in report["inventory"].items()},
                     "files": [item.as_dict() for item in files],
                 })
             all_files = list(files)
+            # 半开区间边界：[start_time, end_time)。接口可能返回查询起点之前/
+            # 终点之后的跨界文件；保留身份但只允许使用交集窗口内的帧。
+            if config.start_time and config.end_time:
+                run_start = parse_seconds(config.start_time)
+                run_end = parse_seconds(config.end_time)
+            else:
+                # 没有显式区间（例如桩测试直接调 run_factory）：退化为
+                # "所有返回文件都可用"，但仍记录这一事实。
+                run_start = min(
+                    (_file_start_seconds(item) for item in files), default=0.0,
+                )
+                run_end = max(
+                    (_file_end_seconds(item) for item in files), default=0.0,
+                ) + 1.0
+                report["input_boundary_warning"] = (
+                    "未提供 start/end，按返回文件的自然区间处理"
+                )
+            files, eligible_windows, dropped_windows = filter_eligible_files(
+                files, range_start=run_start, range_end=run_end,
+            )
+            report["input_boundary"] = {
+                "range": [config.start_time, config.end_time],
+                "interval": "half_open_[start,end)",
+                "inventory_files": len(all_files),
+                "eligible_files": len(files),
+                "dropped_files": len(dropped_windows),
+                "dropped_reasons": {
+                    reason: sum(
+                        1 for row in dropped_windows
+                        if row.exclusion_reason == reason
+                    )
+                    for reason in sorted(
+                        {row.exclusion_reason for row in dropped_windows}
+                    )
+                },
+                "dropped": [row.as_dict() for row in dropped_windows],
+                "windows": [row.as_dict() for row in eligible_windows],
+            }
+            eligible_by_id = {row.file_id: row for row in eligible_windows}
             files = select_files_by_day_hours(
                 files, per_day_hours=config.per_day_hours,
                 max_files=config.max_files,
+                day_of=lambda item: parse_day(
+                    eligible_by_id[item.file_id].effective_start_time
+                ),
             )
             report["sampling_plan"] = {
                 "inventory_files": len(all_files),
+                "eligible_files": len(eligible_by_id),
                 "selected_files": len(files),
                 "per_day_hours": config.per_day_hours,
                 "per_day_selected": {
-                    day: sum(1 for item in files if parse_day(item.record_start) == day)
-                    for day in sorted({parse_day(item.record_start) for item in files})
+                    day: sum(
+                        1 for item in files
+                        if parse_day(
+                            eligible_by_id[item.file_id].effective_start_time
+                        ) == day
+                    )
+                    for day in sorted({
+                        parse_day(eligible_by_id[item.file_id].effective_start_time)
+                        for item in files
+                    })
                 },
             }
             # R5：不在这里整批下载；分区冻结后由有界流水线按需拉取。
             downloader = RecordingDownloader()
 
+        # 不可变输入清单：首次运行写出；使用 --input-manifest 重跑时只校验，
+        # 不重新选择文件与偏移。计划偏移在首次运行时由采样器的确定性公式推出。
+        if manifest_payload is None:
+            for item in files:
+                window = eligible_by_id.get(item.file_id)
+                start = 0.0 if window is None else window.eligible_start_seconds
+                end = None if window is None else window.eligible_end_seconds
+                span = (
+                    max(0.0, float(end) - float(start))
+                    if end is not None else 0.0
+                )
+                if span <= 0:
+                    planned_offsets[item.file_id] = []
+                    continue
+                planned_offsets[item.file_id] = [
+                    0.0 if end is None
+                    else round(min(max(value, 0.0), span), 3)
+                    for value in coarse_sample_offsets(
+                        span, seed=config.seed, fractions=COARSE_FRACTIONS,
+                    )
+                ]
         # 时间划分：前 N 天构建、第 N+1 天校准、第 N+2 天盲测。
-        days = sorted({parse_day(item.record_start) for item in files})
+        # 日期一律取**可用窗口**的起始日：跨界文件不能把查询起点之前的日期
+        # 带进构建集（v5 的 09-13 就是这样来的）。
+        def planned_day(item: RecordingFile) -> str:
+            window = eligible_by_id.get(item.file_id)
+            if window is not None:
+                return parse_day(window.effective_start_time)
+            return parse_day(item.record_start)
+
+        days = sorted({planned_day(item) for item in files})
         if len(days) < 3:
             report["time_partition"] = {
                 "days": days,
@@ -2307,22 +2722,26 @@ def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, An
             build_days = days[:build_count]
             calibration = days[build_count]
             blind = days[min(build_count + config.calibration_days, len(days) - 1)]
-        partition = partition_recordings(
+        planned_partition = partition_recordings(
             files, build_days=build_days, calibration_day=calibration,
-            blind_day=blind,
+            blind_day=blind, day_of=planned_day,
         )
+        partition = planned_partition
         report["time_partition"] = {
             "days": days,
             "build_days": build_days,
             "calibration_day": calibration,
             "blind_day": blind,
-            "counts": {key: len(value) for key, value in partition.items()},
+            "counts": {key: len(value) for key, value in planned_partition.items()},
             "cross_day": [
                 item.file_id for item in cross_day_files(files, build_days=build_days)
             ],
             "leakage_check": "盲测日文件不参与构建/校准",
+            "basis": "planned_effective_start_day",
         }
-        build_files = partition["build"] or partition["calibration"] or files
+        build_files = (
+            planned_partition["build"] or planned_partition["calibration"] or files
+        )
 
         # 分析尺寸先由几何配置或源文件探测确定；**不**要求文件已经下载完毕，
         # 因为拉取本身属于有界流水线（R5）。
@@ -2363,6 +2782,8 @@ def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, An
                     config, None, RecordingDownloader(), cache, build_files,
                     geometry, report,
                     prefetch_slots=int(getattr(args, "prefetch_slots", 2) or 2),
+                    eligible_windows=eligible_by_id,
+                    planned_offsets=planned_offsets,
                 )
             )
         else:
@@ -2371,6 +2792,8 @@ def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, An
                     config, client, downloader, cache, build_files,
                     geometry, report,
                     prefetch_slots=int(getattr(args, "prefetch_slots", 2) or 2),
+                    eligible_windows=eligible_by_id,
+                    planned_offsets=planned_offsets,
                 )
             )
         del sampling_details
@@ -2406,6 +2829,8 @@ def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, An
                         RecordingDownloader(), cache, calibration_files,
                         geometry, report,
                         prefetch_slots=int(getattr(args, "prefetch_slots", 2) or 2),
+                        eligible_windows=eligible_by_id,
+                        planned_offsets=planned_offsets,
                     )
                 )
             calibration_pipeline = report.get("pipeline")
@@ -2471,6 +2896,67 @@ def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, An
             local_paths=local_paths if args.input is not None else {},
         )
         report["material_plan"]["materializer"] = "per_file_consume_release"
+        # 采样完成：把真实消费到的源文件 SHA-256 补进不可变清单，并写出。
+        sampled_sha: dict[str, str] = {}
+        # 角色由**实际采样帧的绝对时间**决定，而不是文件 record_start。
+        build_day_set = set(build_days)
+        observed_roles: dict[str, str] = {}
+        for row in samples:
+            file_id = str(row.get("file_id") or "")
+            if not file_id:
+                continue
+            frame_day = parse_day(
+                format_seconds(
+                    float(row.get("source_time") or 0.0)
+                )
+            )
+            if frame_day in build_day_set:
+                role = "build"
+            elif frame_day == calibration:
+                role = "calibration"
+            elif frame_day == blind:
+                role = "blind"
+            else:
+                role = "outside"
+            existing = observed_roles.get(file_id)
+            if existing is None or role == "build":
+                observed_roles[file_id] = role
+        observed_role_counts: dict[str, int] = {}
+        for role in observed_roles.values():
+            observed_role_counts[role] = observed_role_counts.get(role, 0) + 1
+        for file_id in {str(row.get("file_id")) for row in samples if row.get("file_id")}:
+            entry = cache.entry(config.device_code, file_id)
+            if entry is not None and getattr(entry, "sha256", None):
+                sampled_sha[file_id] = str(entry.sha256)
+        if manifest_payload is None:
+            manifest_payload = build_input_manifest(
+                config, files=files, windows=eligible_by_id,
+                roles=observed_roles, planned_offsets=planned_offsets,
+                sampling={
+                    "mode": "seek" if config.use_seek else "sequential",
+                    "seed": config.seed,
+                    "per_day_hours": config.per_day_hours,
+                    "max_files": config.max_files,
+                    "preview_width": config.preview_width,
+                },
+            )
+        for row in manifest_payload.get("files", []):
+            digest = sampled_sha.get(str(row.get("file_id")))
+            if digest:
+                row["source_sha256"] = digest
+        manifest_payload["sampled_sha256_count"] = len(sampled_sha)
+        manifest_payload["manifest_sha256"] = _manifest_digest(manifest_payload)
+        manifest_out = getattr(args, "write_input_manifest", None) or (
+            config.work_dir / "input_manifest.json"
+        )
+        atomic_write_json(Path(manifest_out), manifest_payload)
+        report["input_manifest"] = {
+            "path": str(manifest_out),
+            "sha256": manifest_payload["manifest_sha256"],
+            "files": len(manifest_payload.get("files", [])),
+            "sampled_sha256_count": len(sampled_sha),
+            "roles": observed_role_counts,
+        }
         candidates = stage_composite_and_noise(
             config, cache, build_files, geometry, groups, samples, report,
             build_blocks=build_blocks, calibration_blocks=calibration_blocks,
@@ -2493,7 +2979,7 @@ def run_factory(config: FactoryConfig, args: argparse.Namespace) -> dict[str, An
             cache, config, build_files, geometry,
             frame_budget=int(getattr(args, "max_replay_frames", 180) or 180),
             args=args, local_paths=local_paths, report=report,
-            materializer=materializer,
+            materializer=materializer, eligible_windows=eligible_by_id,
         )
         print(f"[replay] collected {len(replay_frames)} frames "
               f"in {round(time.monotonic() - _rt0, 1)}s", flush=True)
@@ -3014,6 +3500,7 @@ def _collect_replay_frames(
     local_paths: Mapping[str, Path] | None = None,
     report: dict[str, Any] | None = None,
     materializer: "FileMaterializer | None" = None,
+    eligible_windows: Mapping[str, Any] | None = None,
 ) -> list[dict[str, Any]]:
     """按时间顺序收集连续回放帧，并保留**真实源时间**与帧指纹（R2）。
 
@@ -3068,8 +3555,19 @@ def _collect_replay_frames(
                 duration = 0.0
         if duration <= 0:
             duration = float(per_file)
+        # 只使用该文件的 eligible 窗口：跨界文件其余部分不属于本任务。
+        window = (eligible_windows or {}).get(item.file_id)
+        window_start = 0.0
+        window_end = duration
+        if window is not None:
+            window_start = max(0.0, min(float(window.eligible_start_seconds), duration))
+            window_end = max(
+                window_start + 0.01,
+                min(float(window.eligible_end_seconds), duration),
+            )
+        span = max(0.01, window_end - window_start)
         offsets = [
-            round(duration * (index + 0.5) / per_file, 3)
+            round(window_start + span * (index + 0.5) / per_file, 3)
             for index in range(per_file)
         ]
         reader = SequentialFrameReader(path)
@@ -3225,6 +3723,15 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--supersede", action="store_true",
                         help="允许把同名版本改名保留后重新发布")
     parser.add_argument("--resume", action="store_true")
+    parser.add_argument(
+        "--input-manifest", type=Path, default=None,
+        help=("冻结输入清单：重跑时不重新查询/选择文件与偏移，只允许刷新下载 URL；"
+              "文件不可获取就明确失败，不替换成别的文件"),
+    )
+    parser.add_argument(
+        "--write-input-manifest", type=Path, default=None,
+        help="把本次不可变输入清单写到该路径（默认写到 work-dir/input_manifest.json）",
+    )
     parser.add_argument("--auth-token", default=None)
     parser.add_argument("--api-key", default=None)
     parser.add_argument("--report", type=Path, default=None)

@@ -1,0 +1,28 @@
+{
+  "positive_reference": {
+    "raw_candidates": 2295,
+    "raw_per_minute": 1422.5206611570245,
+    "tracks_total": 296,
+    "tracks_at_least_seconds": {
+      "1": 296,
+      "3": 153,
+      "5": 82,
+      "10": 44,
+      "30": 22
+    },
+    "raw_to_5s_reduction": 0.9642701525054467
+  },
+  "negative_reference": {
+    "raw_candidates": 5732,
+    "raw_per_minute": 1410.30004551736,
+    "tracks_total": 638,
+    "tracks_at_least_seconds": {
+      "1": 638,
+      "3": 377,
+      "5": 216,
+      "10": 123,
+      "30": 34
+    },
+    "raw_to_5s_reduction": 0.9623168178646196
+  }
+}

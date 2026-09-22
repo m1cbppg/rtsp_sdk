@@ -1,0 +1,66 @@
+{
+  "name": "lifecycle_fixture",
+  "evaluation_start_seconds": 0.0,
+  "sample_fps": 1.0,
+  "alignment": {
+    "method": "SIFT + RANSAC homography",
+    "matches": 1774,
+    "inliers": 1754,
+    "inlier_fraction": 0.9887,
+    "reprojection_median_px": 0.219,
+    "reprojection_p95_px": 0.809,
+    "inlier_hull_fraction": 0.8203,
+    "matrix": [
+      [
+        0.9999872049591061,
+        3.020038314869015e-05,
+        0.003156998566069798
+      ],
+      [
+        -1.8123251208297293e-05,
+        1.0000418951810326,
+        -0.016388247905930603
+      ],
+      [
+        -9.818867861515165e-09,
+        3.9218093704985457e-08,
+        1.0
+      ]
+    ]
+  },
+  "v2": {
+    "raw_candidates": 834,
+    "raw_per_minute": 769.8461538461539,
+    "tracks_total": 132,
+    "tracks_at_least_seconds": {
+      "1": 132,
+      "3": 76,
+      "5": 48,
+      "10": 33,
+      "30": 0
+    },
+    "raw_to_5s_reduction": 0.9424460431654677
+  },
+  "v3": {
+    "raw_candidates": 164,
+    "raw_per_minute": 151.3846153846154,
+    "tracks_total": 68,
+    "tracks_at_least_seconds": {
+      "1": 68,
+      "3": 21,
+      "5": 9,
+      "10": 3,
+      "30": 0
+    },
+    "raw_to_5s_reduction": 0.9451219512195121
+  },
+  "t01_v2": null,
+  "t01_v3": null,
+  "mean_usable_fraction": 1.0,
+  "environment_state_counts": {
+    "NORMAL": 25,
+    "GLOBAL_LIGHT_CHANGE": 40
+  },
+  "sample_count": 65,
+  "elapsed_seconds": 86.41954516700935
+}

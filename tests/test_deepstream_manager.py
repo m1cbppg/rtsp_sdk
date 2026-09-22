@@ -1179,6 +1179,32 @@ class DeepStreamManagerTests(unittest.TestCase):
                     )
                 )
 
+    def test_clean_reference_v32_missing_profile_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            settings = make_settings(Path(directory))
+            models = settings.manager.model_root
+            (models / "model.pt").touch()
+            (models / "model.onnx").touch()
+            (models / "model.labels.txt").write_text("class_0\n", encoding="utf-8")
+            (models / "litter").mkdir()
+            (models / "litter" / "litter.pt").touch()
+            manager = DeepStreamStreamManager(settings, FakeProcess)
+            with self.assertRaisesRegex(ModelNotFoundError, "profile不存在"):
+                manager.create(StreamSpec(
+                    "rtsp://camera/walkway",
+                    model="model.pt",
+                    ground_litter=GroundLitterDetectionOptions(
+                        enabled=True,
+                        mode="clean_reference_v32",
+                        profile_id="missing",
+                        model="litter.pt",
+                        zones=(GroundLitterZone(
+                            region_id="z1",
+                            polygon=((0, 0), (1, 0), (1, 1)),
+                        ),),
+                    ),
+                ))
+
     def test_incompatible_ground_litter_tile_sizes_use_separate_groups(
         self,
     ) -> None:

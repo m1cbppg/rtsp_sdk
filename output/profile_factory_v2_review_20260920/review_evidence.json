@@ -1,0 +1,150 @@
+{
+  "duplicate_profile_loo": {
+    "4": {
+      "baseline": 0.89474,
+      "leave_one_out": {
+        "p1": {
+          "effective_fraction_without": 0.0,
+          "effective_fraction_delta": 0.89474,
+          "pause_max_without": 173.6,
+          "pause_max_delta": 86.8,
+          "switch_count_without": 0,
+          "scored_frames": 5
+        },
+        "p2": {
+          "effective_fraction_without": 0.0,
+          "effective_fraction_delta": 0.89474,
+          "pause_max_without": 173.6,
+          "pause_max_delta": 86.8,
+          "switch_count_without": 0,
+          "scored_frames": 5
+        }
+      }
+    },
+    "1": {
+      "baseline": 0.89474,
+      "leave_one_out": {
+        "p1": {
+          "effective_fraction_without": 0.89474,
+          "effective_fraction_delta": 0.0,
+          "pause_max_without": 86.8,
+          "pause_max_delta": 0.0,
+          "switch_count_without": 1,
+          "scored_frames": 20
+        },
+        "p2": {
+          "effective_fraction_without": 0.89474,
+          "effective_fraction_delta": 0.0,
+          "pause_max_without": 86.8,
+          "pause_max_delta": 0.0,
+          "switch_count_without": 1,
+          "scored_frames": 20
+        }
+      }
+    }
+  },
+  "hd_repull_exceeds_budget": {
+    "checked": 4,
+    "reused_local": 0,
+    "repulled": 1,
+    "failed": [
+      {
+        "file_id": "f1",
+        "reason": "raw_cache_budget"
+      },
+      {
+        "file_id": "f2",
+        "reason": "raw_cache_budget"
+      },
+      {
+        "file_id": "f3",
+        "reason": "raw_cache_budget"
+      }
+    ],
+    "bytes": 100,
+    "seconds": 0.0,
+    "refreshes": 0,
+    "remaining_raw_bytes": 100
+  },
+  "delivered_report_audit": {
+    "noise_source_notes": {
+      "g001": "low_support_used_all_blocks",
+      "g002": "low_support_used_all_blocks",
+      "g003": "low_support_used_all_blocks",
+      "g004": "low_support_used_all_blocks",
+      "g006": "low_support_used_all_blocks",
+      "g007": "low_support_used_all_blocks",
+      "g009": "low_support_used_all_blocks",
+      "g010": "low_support_used_all_blocks|valid_fallback_to_observation_mask",
+      "g011": "low_support_used_all_blocks|valid_fallback_to_observation_mask",
+      "g013": "low_support_used_all_blocks",
+      "g016": "low_support_used_all_blocks",
+      "g017": "low_support_used_all_blocks",
+      "g019": "low_support_used_all_blocks"
+    },
+    "noise_independent_flags": {
+      "g001": false,
+      "g002": false,
+      "g003": false,
+      "g004": false,
+      "g006": false,
+      "g007": false,
+      "g009": false,
+      "g010": false,
+      "g011": false,
+      "g013": false,
+      "g016": false,
+      "g017": false,
+      "g019": false
+    },
+    "hd_repull": {
+      "bytes": 1666452323,
+      "checked": 25,
+      "failed": [
+        {
+          "file_id": "318010_18081003969_44180209031322001030-1789315092000",
+          "reason": "下载字节数不符: 期望 59896042，实际 49243102"
+        },
+        {
+          "file_id": "318010_18081003969_44180209031322001030-1789344020000",
+          "reason": "下载字节数不符: 期望 82470629，实际 71979869"
+        }
+      ],
+      "refreshes": 25,
+      "repulled": 23,
+      "reused_local": 0,
+      "seconds": 70.889
+    },
+    "raw_budget": 8589934592,
+    "raw_peak": 1666452323,
+    "all_leave_one_out_coverages": {
+      "p0001": 0.0,
+      "p0002": 0.0,
+      "p0003": 0.0,
+      "p0004": 0.0,
+      "p0005": 0.0,
+      "p0006": 0.0,
+      "p0007": 0.0,
+      "p0008": 0.0,
+      "p0009": 0.0,
+      "p0010": 0.0,
+      "p0011": 0.0,
+      "p0012": 0.0,
+      "p0013": 0.0
+    },
+    "eval_v2indep.json": {
+      "targets": 10,
+      "reported_hits": 8,
+      "hits_when_prior_not_allowed": 4,
+      "baselines_with_any_candidate": 10,
+      "reported_baselines_with_candidates": 2
+    },
+    "eval_v2indep20.json": {
+      "targets": 12,
+      "reported_hits": 7,
+      "hits_when_prior_not_allowed": 2,
+      "baselines_with_any_candidate": 12,
+      "reported_baselines_with_candidates": 5
+    }
+  }
+}

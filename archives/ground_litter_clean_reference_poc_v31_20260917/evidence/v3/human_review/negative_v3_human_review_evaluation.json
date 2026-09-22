@@ -1,0 +1,319 @@
+{
+  "dataset": "ground_litter_negative_v3",
+  "fingerprint": "514d80c9ce601d5f",
+  "source_review_sha256": "ba2781a58bf4a957e94b7ab43558c72738625c19f0f6f34df20e976b4fc95ac7",
+  "reviewed_tracks": 38,
+  "label_counts": {
+    "LITTER_CONFIRMED": 16,
+    "CLEAR_NON_LITTER": 22
+  },
+  "candidate_precision_if_all_promoted_to_litter": 0.4211,
+  "confidence_counts": {
+    "medium": 38
+  },
+  "reason_counts": {},
+  "diagnostic_spatial_clustering": {
+    "distance_threshold_px": 20,
+    "litter_clusters": 5,
+    "non_litter_clusters": 11,
+    "clusters": [
+      {
+        "cluster_id": "spatial-01",
+        "label": "CLEAR_NON_LITTER",
+        "track_ids": [
+          3,
+          180,
+          190,
+          92,
+          184,
+          85,
+          94,
+          138,
+          193,
+          230,
+          199,
+          202
+        ],
+        "track_count": 12,
+        "mean_center": [
+          1593.6875,
+          483.5
+        ],
+        "note": "Diagnostic grouping by same-label center distance <=20px; not a human-confirmed object count."
+      },
+      {
+        "cluster_id": "spatial-02",
+        "label": "LITTER_CONFIRMED",
+        "track_ids": [
+          137,
+          87,
+          119,
+          68,
+          189,
+          203,
+          233,
+          182,
+          185,
+          200,
+          237,
+          225
+        ],
+        "track_count": 12,
+        "mean_center": [
+          1643.6041666666667,
+          1196.9375
+        ],
+        "note": "Diagnostic grouping by same-label center distance <=20px; not a human-confirmed object count."
+      },
+      {
+        "cluster_id": "spatial-03",
+        "label": "LITTER_CONFIRMED",
+        "track_ids": [
+          1
+        ],
+        "track_count": 1,
+        "mean_center": [
+          1779.5,
+          565.5
+        ],
+        "note": "Diagnostic grouping by same-label center distance <=20px; not a human-confirmed object count."
+      },
+      {
+        "cluster_id": "spatial-04",
+        "label": "LITTER_CONFIRMED",
+        "track_ids": [
+          2
+        ],
+        "track_count": 1,
+        "mean_center": [
+          1751.0,
+          479.5
+        ],
+        "note": "Diagnostic grouping by same-label center distance <=20px; not a human-confirmed object count."
+      },
+      {
+        "cluster_id": "spatial-05",
+        "label": "CLEAR_NON_LITTER",
+        "track_ids": [
+          4
+        ],
+        "track_count": 1,
+        "mean_center": [
+          1283.5,
+          592.5
+        ],
+        "note": "Diagnostic grouping by same-label center distance <=20px; not a human-confirmed object count."
+      },
+      {
+        "cluster_id": "spatial-06",
+        "label": "CLEAR_NON_LITTER",
+        "track_ids": [
+          5
+        ],
+        "track_count": 1,
+        "mean_center": [
+          1286.0,
+          696.5
+        ],
+        "note": "Diagnostic grouping by same-label center distance <=20px; not a human-confirmed object count."
+      },
+      {
+        "cluster_id": "spatial-07",
+        "label": "CLEAR_NON_LITTER",
+        "track_ids": [
+          6
+        ],
+        "track_count": 1,
+        "mean_center": [
+          1245.5,
+          719.5
+        ],
+        "note": "Diagnostic grouping by same-label center distance <=20px; not a human-confirmed object count."
+      },
+      {
+        "cluster_id": "spatial-08",
+        "label": "CLEAR_NON_LITTER",
+        "track_ids": [
+          7
+        ],
+        "track_count": 1,
+        "mean_center": [
+          1225.0,
+          548.0
+        ],
+        "note": "Diagnostic grouping by same-label center distance <=20px; not a human-confirmed object count."
+      },
+      {
+        "cluster_id": "spatial-09",
+        "label": "CLEAR_NON_LITTER",
+        "track_ids": [
+          65
+        ],
+        "track_count": 1,
+        "mean_center": [
+          1767.75,
+          983.5
+        ],
+        "note": "Diagnostic grouping by same-label center distance <=20px; not a human-confirmed object count."
+      },
+      {
+        "cluster_id": "spatial-10",
+        "label": "LITTER_CONFIRMED",
+        "track_ids": [
+          93
+        ],
+        "track_count": 1,
+        "mean_center": [
+          1736.0,
+          442.0
+        ],
+        "note": "Diagnostic grouping by same-label center distance <=20px; not a human-confirmed object count."
+      },
+      {
+        "cluster_id": "spatial-11",
+        "label": "LITTER_CONFIRMED",
+        "track_ids": [
+          95
+        ],
+        "track_count": 1,
+        "mean_center": [
+          1662.5,
+          397.0
+        ],
+        "note": "Diagnostic grouping by same-label center distance <=20px; not a human-confirmed object count."
+      },
+      {
+        "cluster_id": "spatial-12",
+        "label": "CLEAR_NON_LITTER",
+        "track_ids": [
+          123
+        ],
+        "track_count": 1,
+        "mean_center": [
+          1215.5,
+          386.0
+        ],
+        "note": "Diagnostic grouping by same-label center distance <=20px; not a human-confirmed object count."
+      },
+      {
+        "cluster_id": "spatial-13",
+        "label": "CLEAR_NON_LITTER",
+        "track_ids": [
+          186
+        ],
+        "track_count": 1,
+        "mean_center": [
+          1743.0,
+          367.0
+        ],
+        "note": "Diagnostic grouping by same-label center distance <=20px; not a human-confirmed object count."
+      },
+      {
+        "cluster_id": "spatial-14",
+        "label": "CLEAR_NON_LITTER",
+        "track_ids": [
+          196
+        ],
+        "track_count": 1,
+        "mean_center": [
+          1777.0,
+          364.75
+        ],
+        "note": "Diagnostic grouping by same-label center distance <=20px; not a human-confirmed object count."
+      },
+      {
+        "cluster_id": "spatial-15",
+        "label": "CLEAR_NON_LITTER",
+        "track_ids": [
+          221
+        ],
+        "track_count": 1,
+        "mean_center": [
+          1520.5,
+          513.0
+        ],
+        "note": "Diagnostic grouping by same-label center distance <=20px; not a human-confirmed object count."
+      },
+      {
+        "cluster_id": "spatial-16",
+        "label": "CLEAR_NON_LITTER",
+        "track_ids": [
+          226
+        ],
+        "track_count": 1,
+        "mean_center": [
+          1380.75,
+          345.25
+        ],
+        "note": "Diagnostic grouping by same-label center distance <=20px; not a human-confirmed object count."
+      }
+    ],
+    "warning": "Clusters are a diagnostic approximation, not ground-truth unique-object annotations."
+  },
+  "lifetime_threshold_analysis": [
+    {
+      "minimum_lifetime_seconds": 3,
+      "kept_tracks": 38,
+      "litter_tracks": 16,
+      "non_litter_tracks": 22,
+      "candidate_precision": 0.4211,
+      "litter_track_recall": 1.0
+    },
+    {
+      "minimum_lifetime_seconds": 4,
+      "kept_tracks": 30,
+      "litter_tracks": 15,
+      "non_litter_tracks": 15,
+      "candidate_precision": 0.5,
+      "litter_track_recall": 0.9375
+    },
+    {
+      "minimum_lifetime_seconds": 5,
+      "kept_tracks": 19,
+      "litter_tracks": 10,
+      "non_litter_tracks": 9,
+      "candidate_precision": 0.5263,
+      "litter_track_recall": 0.625
+    },
+    {
+      "minimum_lifetime_seconds": 8,
+      "kept_tracks": 16,
+      "litter_tracks": 9,
+      "non_litter_tracks": 7,
+      "candidate_precision": 0.5625,
+      "litter_track_recall": 0.5625
+    },
+    {
+      "minimum_lifetime_seconds": 10,
+      "kept_tracks": 9,
+      "litter_tracks": 6,
+      "non_litter_tracks": 3,
+      "candidate_precision": 0.6667,
+      "litter_track_recall": 0.375
+    },
+    {
+      "minimum_lifetime_seconds": 15,
+      "kept_tracks": 6,
+      "litter_tracks": 5,
+      "non_litter_tracks": 1,
+      "candidate_precision": 0.8333,
+      "litter_track_recall": 0.3125
+    },
+    {
+      "minimum_lifetime_seconds": 30,
+      "kept_tracks": 4,
+      "litter_tracks": 4,
+      "non_litter_tracks": 0,
+      "candidate_precision": 1.0,
+      "litter_track_recall": 0.25
+    },
+    {
+      "minimum_lifetime_seconds": 60,
+      "kept_tracks": 3,
+      "litter_tracks": 3,
+      "non_litter_tracks": 0,
+      "candidate_precision": 1.0,
+      "litter_track_recall": 0.1875
+    }
+  ]
+}

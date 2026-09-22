@@ -1,0 +1,169 @@
+{
+  "schema": "ground_litter_final_roi_review_v1",
+  "created_at": "2026-09-22T07:20:42.607753+00:00",
+  "cameras": {
+    "01021": {
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "roi": [
+        [
+          0.275781,
+          0.246398
+        ],
+        [
+          0.360938,
+          0.250564
+        ],
+        [
+          0.335938,
+          0.451953
+        ],
+        [
+          0.315625,
+          0.628342
+        ],
+        [
+          0.239844,
+          0.640842
+        ],
+        [
+          0.167187,
+          0.972786
+        ],
+        [
+          0.050781,
+          0.932509
+        ]
+      ],
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "frame_path": "output/ground_litter_final_roi_20260922/frames/01021.jpg",
+      "frame_sha256": "b4c94371b6ce5ab8a5da1f0900d6e78d7d77dececaf7b5e06035b12cc2cbfb6b",
+      "saved_at": "2026-09-22T07:20:42.607821+00:00",
+      "purpose": "final_ground_litter_detection_roi"
+    },
+    "01022": {
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "roi": [
+        [
+          0.4375,
+          0.36862
+        ],
+        [
+          0.535937,
+          0.360286
+        ],
+        [
+          0.761719,
+          0.988064
+        ],
+        [
+          0.528125,
+          0.996398
+        ]
+      ],
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "frame_path": "output/ground_litter_final_roi_20260922/frames/01022.jpg",
+      "frame_sha256": "910b692f90568bfcf8537b0ff18e8de5d3c5a94a8c5fde91225871ba1dfcd856",
+      "saved_at": "2026-09-22T07:21:06.554657+00:00",
+      "purpose": "final_ground_litter_detection_roi"
+    },
+    "01027": {
+      "camera_id": "01027",
+      "device_code": "44180209031322001027",
+      "roi": [
+        [
+          0.889062,
+          0.489453
+        ],
+        [
+          0.924219,
+          0.460286
+        ],
+        [
+          0.996875,
+          0.540842
+        ],
+        [
+          0.989062,
+          0.649175
+        ]
+      ],
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "frame_path": "output/ground_litter_final_roi_20260922/frames/01027.jpg",
+      "frame_sha256": "65e011546ad87908315dd4fa5f3f8a8b526e30bcf3cf09de8a5b4b5221416e07",
+      "saved_at": "2026-09-22T07:21:30.449268+00:00",
+      "purpose": "final_ground_litter_detection_roi"
+    },
+    "01028": {
+      "camera_id": "01028",
+      "device_code": "44180209031322001028",
+      "roi": [
+        [
+          0.675781,
+          0.482509
+        ],
+        [
+          0.760156,
+          0.48112
+        ],
+        [
+          0.808594,
+          0.80612
+        ],
+        [
+          0.685156,
+          0.796398
+        ]
+      ],
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "frame_path": "output/ground_litter_final_roi_20260922/frames/01028.jpg",
+      "frame_sha256": "2436bc2393e94a97a621209567d6c2d02c9b4d1995643b53888e38448f54ad22",
+      "saved_at": "2026-09-22T07:21:46.405550+00:00",
+      "purpose": "final_ground_litter_detection_roi"
+    },
+    "01030": {
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "roi": [
+        [
+          0.532031,
+          0.204731
+        ],
+        [
+          0.692969,
+          0.20612
+        ],
+        [
+          0.816406,
+          0.979731
+        ],
+        [
+          0.409375,
+          0.982509
+        ]
+      ],
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "frame_path": "output/ground_litter_final_roi_20260922/frames/01030.jpg",
+      "frame_sha256": "69467117425d5d32d726ce9dc054925d21c87580f77d0a6b73ab568ad95442bd",
+      "saved_at": "2026-09-22T07:21:58.382129+00:00",
+      "purpose": "final_ground_litter_detection_roi"
+    }
+  },
+  "updated_at": "2026-09-22T07:21:58.382129+00:00"
+}

@@ -29,6 +29,9 @@ from tests.test_ground_litter_profile_repairs import (
 )
 
 
+_DELETE = object()
+
+
 def _candidates(count: int = 3, size: int = 160, *,
                 prior_suitable: bool = True) -> list[dict]:
     """测试候选默认带 prior 能力（v4 契约后剪枝会检查它）。"""
@@ -197,7 +200,7 @@ class C1FairComparisonTests(unittest.TestCase):
             self.assertLess(removal["set_size_after"], len(candidates))
         # 删除的候选必须是在**当时剩余集合**上代价最小的那个。
         for row in order:
-            self.assertEqual(row["chosen_reason"], "min_loo_cost_below_threshold")
+            self.assertEqual(row["chosen_reason"], "lowest_cost_feasible_deletion")
             self.assertIn(row["removed"], row["candidates_evaluated"])
 
     def test_final_and_trimmed_sets_are_reverified_on_shared_matrix(self):
@@ -230,6 +233,322 @@ class C1FairComparisonTests(unittest.TestCase):
         )
         self.assertLessEqual(len(verification["resource_trimmed_ids"]), 2)
         self.assertIn("coverage_delta_vs_baseline", verification["final_set"])
+
+
+def _synthetic_matrix(
+    pattern: dict[str, list[bool]], *, frames: int = 24,
+    tick_seconds: float = 10.0,
+) -> tuple:
+    """构造可控评分矩阵：`pattern[pid][i]` 决定该候选在第 i 帧能否进入。
+
+    用于精确测试剪枝可行性规则（不依赖轨迹打分器的动态）。
+    返回 `(matrix, candidates, replay)`。
+    """
+    from scripts import build_ground_litter_profile_bank as build
+
+    profile_ids = tuple(pattern)
+    scores: list[dict[str, dict[str, Any]]] = []
+    frames_rows = []
+    for index in range(frames):
+        per_frame: dict[str, dict[str, Any]] = {}
+        for pid in profile_ids:
+            eligible = bool(pattern[pid][index % len(pattern[pid])])
+            per_frame[pid] = {
+                "score": 0.0 if eligible else 500.0,
+                "enter_eligible": eligible,
+                "hold_eligible": eligible,
+            }
+        scores.append(per_frame)
+        frames_rows.append({
+            "replay_time": index * tick_seconds,
+            "source_time": 1_000_000.0 + index * tick_seconds,
+            "tick_interval_seconds": tick_seconds,
+            "frame_sha256": f"sha{index}",
+        })
+    matrix = build.ReplayScoreMatrix(
+        profile_ids=profile_ids, frames=tuple(frames_rows), scores=scores,
+        frame_digests=tuple(row["frame_sha256"] for row in frames_rows),
+        frame_count=frames,
+    )
+    candidates = [
+        {
+            "profile_id": pid, "group_id": pid,
+            "noise_calibration": {
+                "prior_suitable": False, "calibration_sufficient": False,
+                "source": "reference_self",
+            },
+        }
+        for pid in profile_ids
+    ]
+    replay = {
+        "score_matrix": matrix,
+        "selector_config": {
+            "tick_interval_seconds": tick_seconds,
+            "result_validity_seconds": max(tick_seconds, 4.0),
+            "max_observation_gap_seconds": max(4.0, 2.0 * tick_seconds),
+            "join_gap_seconds": 300.0,
+        },
+        "nominal_tick_seconds": tick_seconds,
+        "view_id": "view_0",
+        "baseline": {},
+    }
+    return matrix, candidates, replay
+
+
+class CapabilityContractRejectionTests(unittest.TestCase):
+    """v6：四个能力字段必须存在且自洽，非法组合一律拒绝加载。"""
+
+    def _bank_at(self, mutations: dict) -> Path:
+        import json as _json
+        import tempfile as _tempfile
+
+        from tests.profile_bank_fixtures import build_synthetic_bank
+
+        root = Path(_tempfile.mkdtemp()) / "banks"
+        build_synthetic_bank(root, "cam_cap", "v1", profiles=1)
+        path = root / "cam_cap" / "v1" / "profiles" / "p0001" / "profile.json"
+        payload = _json.loads(path.read_text(encoding="utf-8"))
+        for key, value in mutations.items():
+            if value is _DELETE:
+                payload.pop(key, None)
+            else:
+                payload[key] = value
+        path.write_text(_json.dumps(payload), encoding="utf-8")
+        return root
+
+    def _load(self, root: Path):
+        from rtsp_annotator.ground_litter_profile_bank import load_bank
+        return load_bank(root, "cam_cap", "v1", verify=False)
+
+    def test_missing_match_eligible_is_rejected(self):
+        from rtsp_annotator.ground_litter_profile_bank import BankError
+        root = self._bank_at({"match_eligible": _DELETE})
+        with self.assertRaises(BankError) as ctx:
+            self._load(root)
+        self.assertIn("match_eligible", str(ctx.exception))
+
+    def test_missing_degradation_reason_is_rejected(self):
+        from rtsp_annotator.ground_litter_profile_bank import BankError
+        root = self._bank_at({
+            "prior_suitable": False,
+            "calibration_state": "reference_self_low_support",
+            "prior_degradation_reason": _DELETE,
+        })
+        with self.assertRaises(BankError) as ctx:
+            self._load(root)
+        self.assertIn("prior_degradation_reason", str(ctx.exception))
+
+    def test_independent_matched_without_prior_is_rejected(self):
+        from rtsp_annotator.ground_litter_profile_bank import BankError
+        root = self._bank_at({
+            "calibration_state": "independent_matched",
+            "prior_suitable": False,
+            "prior_degradation_reason": "x",
+        })
+        with self.assertRaises(BankError):
+            self._load(root)
+
+    def test_low_support_with_prior_true_is_rejected(self):
+        from rtsp_annotator.ground_litter_profile_bank import BankError
+        root = self._bank_at({
+            "calibration_state": "reference_self_low_support",
+            "prior_suitable": True,
+            "prior_degradation_reason": "x",
+        })
+        with self.assertRaises(BankError):
+            self._load(root)
+
+    def test_prior_true_without_match_eligible_is_rejected(self):
+        from rtsp_annotator.ground_litter_profile_bank import BankError
+        root = self._bank_at({
+            "calibration_state": "independent_matched",
+            "prior_suitable": True,
+            "prior_degradation_reason": None,
+            "match_eligible": False,
+        })
+        with self.assertRaises(BankError):
+            self._load(root)
+
+    def test_independent_matched_with_reason_is_rejected(self):
+        from rtsp_annotator.ground_litter_profile_bank import BankError
+        root = self._bank_at({
+            "calibration_state": "independent_matched",
+            "prior_suitable": True,
+            "prior_degradation_reason": "should_be_empty",
+        })
+        with self.assertRaises(BankError):
+            self._load(root)
+
+    def test_bank_exposes_eligibility_and_prior_subset(self):
+        import tempfile as _tempfile
+
+        from tests.profile_bank_fixtures import build_synthetic_bank
+
+        root = Path(_tempfile.mkdtemp()) / "banks"
+        build_synthetic_bank(root, "cam_cap", "v1", profiles=2)
+        bank = self._load(root)
+        self.assertEqual(bank.match_eligible_ids, ("p0001", "p0002"))
+        self.assertEqual(bank.prior_suitable_ids, ("p0001", "p0002"))
+        self.assertTrue(
+            set(bank.prior_suitable_ids) <= set(bank.match_eligible_ids)
+        )
+
+
+class PruningFeasibilityTests(unittest.TestCase):
+    """v6：剪枝必须逐方案判可行性，而不是只看排序第一名。"""
+
+    def test_semantic_only_candidates_can_still_be_pruned(self):
+        """全部 unsuitable 时，"prior 集合非空"不得阻断环境冗余剪枝。
+
+        p1 与 p2 在环境上完全等价（同一合格模式），p3 从不合格；三者都
+        `prior_suitable=false`。旧实现会因为 `prior_would_be_empty=True`
+        一个都不删（v5 的 10→10）。
+        """
+        from scripts import build_ground_litter_profile_bank as build
+
+        _, candidates, replay = _synthetic_matrix({
+            "p1": [True] * 8, "p2": [True] * 8, "p3": [False] * 8,
+        })
+        config = SimpleNamespace(bank_id="b", version="v", max_profiles=24)
+        report: dict = {}
+        kept = build.select_profiles_dynamically(config, candidates, replay, report)
+        kept_ids = {item["profile_id"] for item in kept}
+        # 冗余参考被裁掉，但不是全部删空。
+        self.assertEqual(len(kept), 1, kept_ids)
+        self.assertTrue(report["pruning"]["removed"])
+        self.assertTrue(report["semantic_only"])
+        self.assertFalse(report["prior_bank"]["available"])
+        self.assertEqual(
+            report["prior_bank"]["reason"], "NO_PRIOR_SUITABLE_CANDIDATE",
+        )
+        for row in report["pruning"]["deletion_order"]:
+            self.assertTrue(row["loo_cost"]["feasible"])
+            # prior 空集合没有被当作阻断条件。
+            self.assertFalse(row["loo_cost"]["prior_would_be_empty"])
+
+    def test_infeasible_top_candidate_does_not_stop_the_round(self):
+        """排序第一名不可删时，必须继续检查并删除其他可行候选。
+
+        p1 只在**后半段**合格（排序第一，覆盖率最高），删它会掉环境覆盖；
+        p2 与 p3 相同且只在**前半段**合格，删掉两个中的一个不掉覆盖。
+        """
+        from scripts import build_ground_litter_profile_bank as build
+
+        _, candidates, replay = _synthetic_matrix({
+            "p1": [False] * 12 + [True] * 12,
+            "p2": [True] * 12 + [False] * 12,
+            "p3": [True] * 12 + [False] * 12,
+        })
+        config = SimpleNamespace(bank_id="b", version="v", max_profiles=24)
+        report: dict = {}
+        kept = build.select_profiles_dynamically(config, candidates, replay, report)
+        kept_ids = {item["profile_id"] for item in kept}
+        self.assertIn("p1", kept_ids, kept_ids)
+        removed = {row["profile_id"] for row in report["pruning"]["removed"]}
+        self.assertTrue(removed & {"p2", "p3"}, removed)
+        self.assertLess(len(kept), 3)
+
+    def test_unique_prior_capable_is_never_emptied(self):
+        """唯一 prior-capable 永远不会被删空。"""
+        from scripts import build_ground_litter_profile_bank as build
+
+        _, candidates, replay = _synthetic_matrix({
+            "p1": [True] * 12 + [False] * 12,
+            "p2": [False] * 12 + [True] * 12,
+        })
+        candidates[0]["noise_calibration"].update({
+            "prior_suitable": True, "calibration_sufficient": True,
+            "source": "calibration_day",
+        })
+        config = SimpleNamespace(bank_id="b", version="v", max_profiles=24)
+        report: dict = {}
+        kept = build.select_profiles_dynamically(config, candidates, replay, report)
+        self.assertIn("p1", [item["profile_id"] for item in kept])
+        self.assertEqual(report["prior_bank"]["prior_suitable_profiles_kept"],
+                         ["p1"])
+        self.assertTrue(report["prior_bank"]["available"])
+
+    def test_two_redundant_prior_capable_delete_one(self):
+        from scripts import build_ground_litter_profile_bank as build
+
+        _, candidates, replay = _synthetic_matrix({
+            "p1": [True] * 8, "p2": [True] * 8,
+        })
+        for row in candidates:
+            row["noise_calibration"].update({
+                "prior_suitable": True, "calibration_sufficient": True,
+                "source": "calibration_day",
+            })
+        config = SimpleNamespace(bank_id="b", version="v", max_profiles=24)
+        report: dict = {}
+        kept = build.select_profiles_dynamically(config, candidates, replay, report)
+        self.assertEqual(len(kept), 1)
+        self.assertEqual(len(report["pruning"]["removed"]), 1)
+        self.assertTrue(report["prior_bank"]["available"])
+
+    def test_resource_trim_uses_same_feasibility_rules(self):
+        """直接调用资源裁剪入口（主循环停下的位置不同，这里只验证裁剪规则）。
+
+        p1 与 p2 完全相同（可删一个），p3 从不合格（可删）；
+        目标 max_profiles=1，裁剪必须逐步走完并满足约束。
+        """
+        from scripts import build_ground_litter_profile_bank as build
+
+        matrix, candidates, replay = _synthetic_matrix({
+            "p1": [True] * 8, "p2": [True] * 8, "p3": [False] * 8,
+        })
+        config = SimpleNamespace(bank_id="b", version="v", max_profiles=1)
+        report: dict = {}
+        removed: list[dict] = []
+
+        def timeline(subset):
+            return build.project_selection_timeline(
+                matrix, subset,
+                selector_config=replay["selector_config"],
+                bank_id="b", bank_version="v", view_id="view_0",
+                nominal_tick=replay["nominal_tick_seconds"],
+                join_gap_seconds=300.0,
+            )
+
+        baseline = timeline([item["profile_id"] for item in candidates])
+        kept = build._trim_to_resource_limit(
+            config, candidates, timeline, removed, report,
+            budget_baseline=baseline, min_coverage_delta=0.005,
+            max_pause_delta=5.0, capability_set=set(),
+            initial_prior_capable=False,
+        )
+        self.assertEqual(len(kept), 1)
+        self.assertTrue(removed)
+        self.assertTrue(
+            (report.get("resource_trim") or {}).get("final", {}).get("satisfied")
+        )
+        # 资源裁剪同样要过可行性筛选。
+        for row in removed:
+            self.assertTrue(row["leave_one_out"]["feasible"])
+
+    def test_unsatisfiable_resource_limit_is_reported_not_faked(self):
+        """无法在不破坏覆盖约束的前提下满足 max_profiles：必须明确报告。"""
+        from scripts import build_ground_litter_profile_bank as build
+
+        # 三段互不重叠：删任何一个都会掉约 1/3 覆盖。
+        _, candidates, replay = _synthetic_matrix({
+            "p1": [True] * 8 + [False] * 16,
+            "p2": [False] * 8 + [True] * 8 + [False] * 8,
+            "p3": [False] * 16 + [True] * 8,
+        })
+        config = SimpleNamespace(bank_id="b", version="v", max_profiles=1)
+        report: dict = {}
+        kept = build.select_profiles_dynamically(config, candidates, replay, report)
+        # 约束无法满足时保留全部，不得违反覆盖约束。
+        self.assertEqual(len(kept), 3)
+        unsatisfied = (report.get("resource_trim") or {}).get("unsatisfied")
+        self.assertIsNotNone(unsatisfied)
+        self.assertEqual(unsatisfied["reason"], "RESOURCE_LIMIT_UNSATISFIED")
+        self.assertEqual(unsatisfied["target_max_profiles"], 1)
+        self.assertTrue(any(
+            "RESOURCE_LIMIT_UNSATISFIED" in row
+            for row in report.get("pruning_warnings") or []
+        ))
 
 
 class PriorCapabilityContractTests(unittest.TestCase):
@@ -500,6 +819,275 @@ class LegacyBankCapabilityTests(unittest.TestCase):
         for record in bank.profiles:
             self.assertFalse(record.prior_suitable)
             self.assertEqual(record.capability_source, "legacy_conservative")
+
+
+class InputBoundaryTests(unittest.TestCase):
+    """v6：半开区间 [start,end)、跨界文件只取交集、越界剔除、分日按帧时间。"""
+
+    RANGE = ("2026-09-14 00:00:00", "2026-09-19 12:00:00")
+
+    def _windows(self, files):
+        from rtsp_annotator.ground_litter_profile_sampling import (
+            filter_eligible_files, parse_seconds,
+        )
+        return filter_eligible_files(
+            files, range_start=parse_seconds(self.RANGE[0]),
+            range_end=parse_seconds(self.RANGE[1]),
+        )
+
+    def _file(self, file_id, start, end):
+        from rtsp_annotator.ground_litter_recording_source import RecordingFile
+        return RecordingFile(file_id, f"{file_id}.ps", start, end, 1000)
+
+    def test_file_starting_before_range_uses_only_intersection(self):
+        """09-13 23:58~09-14 00:03 在 09-14 00:00 开始的任务里只允许后 3 分钟。"""
+        item = self._file("cross", "2026-09-13 23:58:12", "2026-09-14 00:03:12")
+        kept, windows, dropped = self._windows([item])
+        self.assertEqual([row.file_id for row in kept], ["cross"])
+        self.assertEqual(dropped, [])
+        window = windows[0]
+        self.assertAlmostEqual(window.eligible_start_seconds, 108.0, places=3)
+        self.assertAlmostEqual(window.eligible_end_seconds, 300.0, places=3)
+        self.assertEqual(window.effective_start_time, "2026-09-14 00:00:00")
+        self.assertEqual(window.effective_end_time, "2026-09-14 00:03:12")
+        # 帧的绝对时间落在 09-14，而不是 09-13。
+        from rtsp_annotator.ground_litter_profile_sampling import (
+            format_seconds, parse_day, parse_seconds,
+        )
+        absolute = parse_seconds(item.record_start) + window.eligible_start_seconds
+        self.assertEqual(parse_day(format_seconds(absolute)), "2026-09-14")
+
+    def test_file_ending_after_range_uses_only_intersection(self):
+        item = self._file("tail", "2026-09-19 11:58:00", "2026-09-19 13:00:00")
+        kept, windows, dropped = self._windows([item])
+        self.assertEqual([row.file_id for row in kept], ["tail"])
+        self.assertEqual(dropped, [])
+        window = windows[0]
+        self.assertEqual(window.effective_end_time, "2026-09-19 12:00:00")
+        self.assertAlmostEqual(window.intersection_seconds, 120.0, places=3)
+
+    def test_fully_outside_files_are_dropped_with_reason(self):
+        before = self._file("before", "2026-09-13 10:00:00", "2026-09-13 10:05:00")
+        after = self._file("after", "2026-09-20 10:00:00", "2026-09-20 10:05:00")
+        zero = self._file("zero", "2026-09-15 10:00:00", "2026-09-15 10:00:00")
+        kept, windows, dropped = self._windows([before, after, zero])
+        self.assertEqual(kept, [])
+        reasons = {row.file_id: row.exclusion_reason for row in dropped}
+        self.assertEqual(reasons["before"], "before_range")
+        self.assertEqual(reasons["after"], "after_range")
+        self.assertEqual(reasons["zero"], "zero_length")
+        self.assertEqual(len(dropped), 3)
+
+    def test_sampling_offsets_stay_inside_eligible_window(self):
+        from rtsp_annotator.ground_litter_profile_sampling import (
+            BoundedPreviewSampler, parse_seconds,
+        )
+        # 直接验证偏移生成：窗口起点 108s，长度 192s，采样点必须落在 [108, 300)。
+        from rtsp_annotator.ground_litter_profile_match import (
+            resolve_planned_offsets,
+        )
+        item = self._file("cross", "2026-09-13 23:58:12", "2026-09-14 00:03:12")
+        _, windows, _ = self._windows([item])
+        window = windows[0]
+        offsets = [
+            window.eligible_start_seconds
+            + value * (window.eligible_end_seconds - window.eligible_start_seconds)
+            for value in (0.02, 0.5, 0.98)
+        ]
+        for offset in offsets:
+            self.assertGreaterEqual(offset, window.eligible_start_seconds)
+            self.assertLess(offset, window.eligible_end_seconds)
+        # 冻结偏移必须可稳定映射回同一窗口。
+        planned = [round(value, 3) for value in offsets]
+        mapped = resolve_planned_offsets(
+            window.eligible_start_seconds, window.eligible_end_seconds,
+            [value - window.eligible_start_seconds for value in planned],
+        )
+        self.assertEqual(mapped, planned)
+
+    def test_partition_uses_effective_window_day(self):
+        """跨界文件必须落到可用窗口所属的日期，而不是 record_start 的日期。"""
+        from rtsp_annotator.ground_litter_profile_sampling import (
+            partition_recordings,
+        )
+        cross = self._file(
+            "cross", "2026-09-13 23:58:12", "2026-09-14 00:03:12",
+        )
+        plain = self._file(
+            "plain", "2026-09-15 10:00:00", "2026-09-15 10:05:00",
+        )
+        kept, windows, _ = self._windows([cross, plain])
+        by_id = {row.file_id: row for row in windows}
+        partition = partition_recordings(
+            kept, build_days=["2026-09-14"], calibration_day="2026-09-18",
+            blind_day="2026-09-19",
+            day_of=lambda item: by_id[item.file_id].effective_start_time[:10],
+        )
+        self.assertEqual(
+            [row.file_id for row in partition["build"]], ["cross"],
+        )
+        self.assertEqual(
+            [row.file_id for row in partition["outside"]], ["plain"],
+        )
+
+    def test_inventory_cache_identity_rejects_different_range_or_device(self):
+        import tempfile as _tempfile
+
+        from scripts import build_ground_litter_profile_bank as build
+
+        with _tempfile.TemporaryDirectory() as tmp:
+            work = Path(tmp)
+            a = build.inventory_cache_path(
+                work, "2026-09-14 00:00:00", "2026-09-19 12:00:00",
+                device_code="devA", timezone_name="Asia/Shanghai",
+            )
+            b = build.inventory_cache_path(
+                work, "2026-09-14 00:00:00", "2026-09-19 12:00:00",
+                device_code="devB", timezone_name="Asia/Shanghai",
+            )
+            c = build.inventory_cache_path(
+                work, "2026-09-15 00:00:00", "2026-09-19 12:00:00",
+                device_code="devA", timezone_name="Asia/Shanghai",
+            )
+            d = build.inventory_cache_path(
+                work, "2026-09-14 00:00:00", "2026-09-19 12:00:00",
+                device_code="devA", timezone_name="UTC",
+            )
+            self.assertEqual(len({a.name, b.name, c.name, d.name}), 4)
+            identity = build.inventory_cache_identity(
+                device_code="devA", start="2026-09-14 00:00:00",
+                end="2026-09-19 12:00:00", timezone_name="Asia/Shanghai",
+            )
+            self.assertEqual(identity["schema"], build.INVENTORY_CACHE_SCHEMA)
+            for key in ("device_code", "start_time", "end_time", "timezone",
+                        "endpoint", "schema"):
+                self.assertIn(key, identity)
+
+
+class InputManifestTests(unittest.TestCase):
+    """不可变 input manifest：冻结文件/偏移、身份校验、稳定复跑。"""
+
+    def _manifest(self, tmp: Path):
+        from scripts import build_ground_litter_profile_bank as build
+
+        files = [
+            RecordingFile(
+                file_id=f"f{index}", file_name=f"f{index}.ps",
+                record_start=start, record_end=end, file_size=1000,
+            )
+            for index, (start, end) in enumerate((
+                ("2026-09-14 10:00:00", "2026-09-14 10:05:00"),
+                ("2026-09-15 10:00:00", "2026-09-15 10:05:00"),
+            ))
+        ]
+        windows = {item.file_id: full_file_window(item) for item in files}
+        config = build.FactoryConfig(
+            camera_id="cam", bank_id="cam", version="v",
+            output_root=tmp / "banks", work_dir=tmp / "work",
+            geometry_path=None, analysis_size=None,
+            device_code="dev", timezone="Asia/Shanghai",
+        )
+        config.start_time = "2026-09-14 00:00:00"
+        config.end_time = "2026-09-19 12:00:00"
+        payload = build.build_input_manifest(
+            config, files=files, windows=windows,
+            roles={"f0": "build", "f1": "calibration"},
+            planned_offsets={"f0": [1.0, 2.5, 4.0], "f1": [0.5, 2.0]},
+            sampling={"mode": "seek", "seed": 1},
+        )
+        path = tmp / "input_manifest.json"
+        atomic_write_json(path, payload)
+        return config, path, payload
+
+    def test_manifest_is_digest_bound_and_reloads(self):
+        import tempfile as _tempfile
+
+        from rtsp_annotator.ground_litter_profile_bank import atomic_write_json
+
+        with _tempfile.TemporaryDirectory() as raw:
+            tmp = Path(raw)
+            config, path, payload = self._manifest(tmp)
+            files, windows, loaded, roles, planned = load_input_manifest(
+                path, config,
+            )
+            self.assertEqual(
+                loaded["manifest_sha256"], payload["manifest_sha256"],
+            )
+            self.assertEqual([item.file_id for item in files], ["f0", "f1"])
+            self.assertEqual(roles["f1"], "calibration")
+            self.assertEqual(planned["f0"], [1.0, 2.5, 4.0])
+            self.assertTrue(windows["f0"].usable)
+
+    def test_tampered_manifest_is_rejected(self):
+        import json as _json
+        import tempfile as _tempfile
+
+        from rtsp_annotator.ground_litter_profile_bank import atomic_write_json
+
+        with _tempfile.TemporaryDirectory() as raw:
+            tmp = Path(raw)
+            config, path, payload = self._manifest(tmp)
+            payload["files"][0]["record_start"] = "2026-09-13 23:00:00"
+            atomic_write_json(path, payload)
+            with self.assertRaises(SystemExit):
+                load_input_manifest(path, config)
+
+    def test_manifest_identity_mismatch_is_rejected(self):
+        import tempfile as _tempfile
+
+        from rtsp_annotator.ground_litter_profile_bank import atomic_write_json
+
+        with _tempfile.TemporaryDirectory() as raw:
+            tmp = Path(raw)
+            config, path, payload = self._manifest(tmp)
+            other = build_factory_like(config, device_code="other")
+            with self.assertRaises(SystemExit):
+                load_input_manifest(path, other)
+            other_range = build_factory_like(config)
+            other_range.start_time = "2026-09-15 00:00:00"
+            other_range.end_time = "2026-09-19 12:00:00"
+            with self.assertRaises(SystemExit):
+                load_input_manifest(path, other_range)
+
+    def test_same_manifest_yields_identical_sample_identity(self):
+        """同一 manifest 两次规划出的采样身份逐字节一致。"""
+        import tempfile as _tempfile
+
+        from rtsp_annotator.ground_litter_profile_bank import atomic_write_json
+
+        with _tempfile.TemporaryDirectory() as raw:
+            tmp = Path(raw)
+            config, path, payload = self._manifest(tmp)
+            snapshots = []
+            for _ in range(2):
+                files, windows, loaded, roles, planned = load_input_manifest(
+                    path, config,
+                )
+                snapshots.append(json.dumps({
+                    "files": [item.as_dict() for item in files],
+                    "roles": roles,
+                    "planned": {key: list(value) for key, value in planned.items()},
+                    "windows": {
+                        key: window.as_dict() for key, window in windows.items()
+                    },
+                    "sha": loaded["manifest_sha256"],
+                }, sort_keys=True, ensure_ascii=False))
+            self.assertEqual(snapshots[0], snapshots[1])
+
+
+def build_factory_like(config, **overrides):
+    from scripts import build_ground_litter_profile_bank as build
+    payload = dict(
+        camera_id=config.camera_id, bank_id=config.bank_id,
+        version=config.version, output_root=config.output_root,
+        work_dir=config.work_dir, geometry_path=None, analysis_size=None,
+        device_code=config.device_code, timezone=config.timezone,
+    )
+    payload.update(overrides)
+    clone = build.FactoryConfig(**payload)
+    clone.start_time = config.start_time
+    clone.end_time = config.end_time
+    return clone
 
 
 class C2BoundedPipelineTests(unittest.TestCase):
@@ -872,7 +1460,8 @@ class C2BoundedPipelineTests(unittest.TestCase):
             )
             args = SimpleNamespace(
                 input=None, source="ctseelink-file-urls",
-                device_code=config.device_code, start="", end="",
+                device_code=config.device_code, start="2026-09-13 00:00:00",
+                end="2026-09-20 00:00:00",
                 auth_token=None, api_key=None,
                 prefetch_slots=1, max_replay_frames=12, loo_stride=1,
                 resume=False, supersede=False, seed=config.seed,

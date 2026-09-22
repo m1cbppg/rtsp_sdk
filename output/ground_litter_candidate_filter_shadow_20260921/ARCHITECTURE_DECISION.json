@@ -1,0 +1,28 @@
+{
+  "schema": "ground_litter_candidate_filter_shadow_decision_v1",
+  "formal_result": "INSUFFICIENT_POSITIVES",
+  "hard_veto_decision": "NO_GO",
+  "candidate_generator_decision": "CONTINUE",
+  "next_experiment": "DEFERRED_TEMPORAL_RECOVERY",
+  "production_allowed": false,
+  "business_scope": {
+    "must_detect": "litter clearly visible when viewing the full surveillance frame at normal scale",
+    "allowed_miss": "point-like litter that requires zooming or guessing to identify",
+    "visibility_gate_status": "CALIBRATE_PER_CAMERA_ROI_DEPTH_BAND",
+    "universal_pixel_threshold_allowed": false
+  },
+  "visible_gate_sensitivity": {
+    "minimum_short_side_px": 12,
+    "sensitivity_only": true,
+    "positive_rows": 10,
+    "weighted_recall": 0.897811865553801,
+    "unweighted_recall": 0.7,
+    "weighted_negative_reduction": 0.3020860337705882
+  },
+  "visible_false_negatives": [
+    "01022-f06s00-98c73e3f9176",
+    "01028-f00s01-93958595eb5d",
+    "01030-f07s00-fda406304115"
+  ],
+  "reason": "The frozen head removes useful negatives but confidently rejects visible litter; it may contribute negative evidence but cannot delete a candidate by itself."
+}

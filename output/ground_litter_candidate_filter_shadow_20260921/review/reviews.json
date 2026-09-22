@@ -1,0 +1,4206 @@
+{
+  "dataset": "ground-litter-new-date-shadow-20260921",
+  "fingerprint": "948daa31d841e1a7b7d5a5db5818e820e7ee22d1a811e16b74d84adc29da3727",
+  "reviews": {
+    "01030-f00s01-0cfd63f8652f": {
+      "review_id": "01030-f00s01-0cfd63f8652f",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:06:30.267Z",
+      "source": "semantic_full",
+      "frame_id": "f00s01",
+      "bbox": [
+        858,
+        1186,
+        982,
+        1314
+      ]
+    },
+    "01022-f05s02-c4e641e22132": {
+      "review_id": "01022-f05s02-c4e641e22132",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:06:31.531Z",
+      "source": "semantic_tile",
+      "frame_id": "f05s02",
+      "bbox": [
+        1153,
+        1034,
+        1193,
+        1096
+      ]
+    },
+    "01022-f04s01-bf0dde7075f5": {
+      "review_id": "01022-f04s01-bf0dde7075f5",
+      "label": "UNCERTAIN",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:06:33.219Z",
+      "source": "semantic_tile",
+      "frame_id": "f04s01",
+      "bbox": [
+        1238,
+        751,
+        1250,
+        761
+      ]
+    },
+    "01021-f03s01-72a9b0dbde03": {
+      "review_id": "01021-f03s01-72a9b0dbde03",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:06:34.294Z",
+      "source": "random_grid",
+      "frame_id": "f03s01",
+      "bbox": [
+        1849,
+        388,
+        1993,
+        532
+      ]
+    },
+    "01021-f02s00-762f7b037c58": {
+      "review_id": "01021-f02s00-762f7b037c58",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:06:34.878Z",
+      "source": "random_grid",
+      "frame_id": "f02s00",
+      "bbox": [
+        684,
+        302,
+        828,
+        446
+      ]
+    },
+    "01021-f07s01-14e830efabd5": {
+      "review_id": "01021-f07s01-14e830efabd5",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:06:35.653Z",
+      "source": "semantic_full",
+      "frame_id": "f07s01",
+      "bbox": [
+        2253,
+        319,
+        2480,
+        422
+      ]
+    },
+    "01022-f00s02-f8c7883a7248": {
+      "review_id": "01022-f00s02-f8c7883a7248",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:06:36.601Z",
+      "source": "semantic_full",
+      "frame_id": "f00s02",
+      "bbox": [
+        961,
+        700,
+        1087,
+        862
+      ]
+    },
+    "01027-f03s00-c796d7ad87f0": {
+      "review_id": "01027-f03s00-c796d7ad87f0",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:06:37.638Z",
+      "source": "semantic_tile",
+      "frame_id": "f03s00",
+      "bbox": [
+        1091,
+        714,
+        1114,
+        778
+      ]
+    },
+    "01021-f05s02-1f4cfbf901b8": {
+      "review_id": "01021-f05s02-1f4cfbf901b8",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:06:38.496Z",
+      "source": "semantic_tile",
+      "frame_id": "f05s02",
+      "bbox": [
+        2322,
+        898,
+        2356,
+        911
+      ]
+    },
+    "01030-f00s02-2c80793c6663": {
+      "review_id": "01030-f00s02-2c80793c6663",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:06:39.264Z",
+      "source": "semantic_tile",
+      "frame_id": "f00s02",
+      "bbox": [
+        1849,
+        795,
+        1913,
+        823
+      ]
+    },
+    "01028-f03s02-8ba072e99299": {
+      "review_id": "01028-f03s02-8ba072e99299",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:06:39.932Z",
+      "source": "semantic_full",
+      "frame_id": "f03s02",
+      "bbox": [
+        419,
+        961,
+        488,
+        1029
+      ]
+    },
+    "01022-f01s00-b5d58f5682fb": {
+      "review_id": "01022-f01s00-b5d58f5682fb",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:06:40.746Z",
+      "source": "semantic_tile",
+      "frame_id": "f01s00",
+      "bbox": [
+        1448,
+        292,
+        1558,
+        625
+      ]
+    },
+    "01028-f06s02-2536887fba39": {
+      "review_id": "01028-f06s02-2536887fba39",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:06:41.547Z",
+      "source": "semantic_tile",
+      "frame_id": "f06s02",
+      "bbox": [
+        2338,
+        1138,
+        2476,
+        1274
+      ]
+    },
+    "01028-f02s00-05487a131777": {
+      "review_id": "01028-f02s00-05487a131777",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:06:42.510Z",
+      "source": "semantic_full",
+      "frame_id": "f02s00",
+      "bbox": [
+        334,
+        937,
+        407,
+        1004
+      ]
+    },
+    "01028-f06s01-888b99806c66": {
+      "review_id": "01028-f06s01-888b99806c66",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:06:43.214Z",
+      "source": "random_grid",
+      "frame_id": "f06s01",
+      "bbox": [
+        796,
+        1223,
+        892,
+        1319
+      ]
+    },
+    "01027-f05s01-2ee29f91f343": {
+      "review_id": "01027-f05s01-2ee29f91f343",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:06:43.844Z",
+      "source": "semantic_tile",
+      "frame_id": "f05s01",
+      "bbox": [
+        2187,
+        925,
+        2231,
+        974
+      ]
+    },
+    "01027-f01s02-3a489ce56c26": {
+      "review_id": "01027-f01s02-3a489ce56c26",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:06:46.850Z",
+      "source": "random_grid",
+      "frame_id": "f01s02",
+      "bbox": [
+        2218,
+        1335,
+        2282,
+        1399
+      ]
+    },
+    "01027-f03s00-721766213f8b": {
+      "review_id": "01027-f03s00-721766213f8b",
+      "label": "BOX_WRONG",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:06:52.298Z",
+      "source": "semantic_tile",
+      "frame_id": "f03s00",
+      "bbox": [
+        371,
+        615,
+        390,
+        633
+      ]
+    },
+    "01022-f03s01-656017b30a92": {
+      "review_id": "01022-f03s01-656017b30a92",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:06:53.314Z",
+      "source": "semantic_full",
+      "frame_id": "f03s01",
+      "bbox": [
+        1730,
+        1148,
+        1788,
+        1193
+      ]
+    },
+    "01021-f03s01-7b8bf2fd12c9": {
+      "review_id": "01021-f03s01-7b8bf2fd12c9",
+      "label": "BOX_WRONG",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:01.347Z",
+      "source": "semantic_tile",
+      "frame_id": "f03s01",
+      "bbox": [
+        2234,
+        507,
+        2286,
+        562
+      ]
+    },
+    "01030-f00s00-c64510b7f47f": {
+      "review_id": "01030-f00s00-c64510b7f47f",
+      "label": "LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:02.604Z",
+      "source": "semantic_tile",
+      "frame_id": "f00s00",
+      "bbox": [
+        1771,
+        1090,
+        1782,
+        1098
+      ]
+    },
+    "01021-f07s02-6b3fcecc4ae2": {
+      "review_id": "01021-f07s02-6b3fcecc4ae2",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:03.398Z",
+      "source": "semantic_tile",
+      "frame_id": "f07s02",
+      "bbox": [
+        370,
+        890,
+        458,
+        963
+      ]
+    },
+    "01030-f05s00-8373e93586f6": {
+      "review_id": "01030-f05s00-8373e93586f6",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:04.223Z",
+      "source": "semantic_full",
+      "frame_id": "f05s00",
+      "bbox": [
+        1611,
+        439,
+        1639,
+        486
+      ]
+    },
+    "01022-f07s01-854b80f484de": {
+      "review_id": "01022-f07s01-854b80f484de",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:05.958Z",
+      "source": "semantic_tile",
+      "frame_id": "f07s01",
+      "bbox": [
+        2006,
+        1224,
+        2039,
+        1284
+      ]
+    },
+    "01021-f02s02-5006acaa7edf": {
+      "review_id": "01021-f02s02-5006acaa7edf",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:06.579Z",
+      "source": "random_grid",
+      "frame_id": "f02s02",
+      "bbox": [
+        1621,
+        549,
+        1765,
+        693
+      ]
+    },
+    "01027-f02s00-cd3a2238717f": {
+      "review_id": "01027-f02s00-cd3a2238717f",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:07.193Z",
+      "source": "semantic_full",
+      "frame_id": "f02s00",
+      "bbox": [
+        575,
+        745,
+        700,
+        859
+      ]
+    },
+    "01022-f04s00-c6a728ce204e": {
+      "review_id": "01022-f04s00-c6a728ce204e",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:07.943Z",
+      "source": "semantic_tile",
+      "frame_id": "f04s00",
+      "bbox": [
+        420,
+        720,
+        441,
+        745
+      ]
+    },
+    "01027-f01s01-c2a3e5f0c622": {
+      "review_id": "01027-f01s01-c2a3e5f0c622",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:08.571Z",
+      "source": "semantic_tile",
+      "frame_id": "f01s01",
+      "bbox": [
+        695,
+        768,
+        718,
+        800
+      ]
+    },
+    "01021-f02s00-6d7b72bc5595": {
+      "review_id": "01021-f02s00-6d7b72bc5595",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:09.172Z",
+      "source": "semantic_full",
+      "frame_id": "f02s00",
+      "bbox": [
+        1164,
+        659,
+        1224,
+        719
+      ]
+    },
+    "01022-f05s02-66d59c0de129": {
+      "review_id": "01022-f05s02-66d59c0de129",
+      "label": "LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:13.498Z",
+      "source": "semantic_tile",
+      "frame_id": "f05s02",
+      "bbox": [
+        1466,
+        1345,
+        1473,
+        1352
+      ]
+    },
+    "01027-f01s00-d9fd25df0093": {
+      "review_id": "01027-f01s00-d9fd25df0093",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:14.375Z",
+      "source": "semantic_tile",
+      "frame_id": "f01s00",
+      "bbox": [
+        1893,
+        627,
+        1960,
+        725
+      ]
+    },
+    "01022-f06s00-7b684bda1e52": {
+      "review_id": "01022-f06s00-7b684bda1e52",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:15.056Z",
+      "source": "semantic_tile",
+      "frame_id": "f06s00",
+      "bbox": [
+        2116,
+        1287,
+        2146,
+        1329
+      ]
+    },
+    "01027-f02s02-427fc31b1565": {
+      "review_id": "01027-f02s02-427fc31b1565",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:15.797Z",
+      "source": "semantic_full",
+      "frame_id": "f02s02",
+      "bbox": [
+        1095,
+        574,
+        1115,
+        616
+      ]
+    },
+    "01028-f04s02-fbb2c98ea66e": {
+      "review_id": "01028-f04s02-fbb2c98ea66e",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:16.459Z",
+      "source": "random_grid",
+      "frame_id": "f04s02",
+      "bbox": [
+        1635,
+        1051,
+        1779,
+        1195
+      ]
+    },
+    "01021-f01s00-39a51928ab15": {
+      "review_id": "01021-f01s00-39a51928ab15",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:17.268Z",
+      "source": "semantic_tile",
+      "frame_id": "f01s00",
+      "bbox": [
+        2,
+        329,
+        383,
+        755
+      ]
+    },
+    "01028-f00s01-93958595eb5d": {
+      "review_id": "01028-f00s01-93958595eb5d",
+      "label": "LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:18.756Z",
+      "source": "semantic_tile",
+      "frame_id": "f00s01",
+      "bbox": [
+        1663,
+        988,
+        1693,
+        1004
+      ]
+    },
+    "01027-f07s02-063229a7e432": {
+      "review_id": "01027-f07s02-063229a7e432",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:19.539Z",
+      "source": "semantic_tile",
+      "frame_id": "f07s02",
+      "bbox": [
+        1597,
+        506,
+        1774,
+        609
+      ]
+    },
+    "01030-f01s02-4ceae68b596b": {
+      "review_id": "01030-f01s02-4ceae68b596b",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:20.237Z",
+      "source": "random_grid",
+      "frame_id": "f01s02",
+      "bbox": [
+        1737,
+        1263,
+        1833,
+        1359
+      ]
+    },
+    "01027-f07s00-ad2d08f28c48": {
+      "review_id": "01027-f07s00-ad2d08f28c48",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:20.970Z",
+      "source": "semantic_tile",
+      "frame_id": "f07s00",
+      "bbox": [
+        2451,
+        671,
+        2495,
+        735
+      ]
+    },
+    "01028-f02s02-98d4e18ee4a5": {
+      "review_id": "01028-f02s02-98d4e18ee4a5",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:21.614Z",
+      "source": "semantic_full",
+      "frame_id": "f02s02",
+      "bbox": [
+        1279,
+        397,
+        1311,
+        498
+      ]
+    },
+    "01028-f03s01-0903731963f9": {
+      "review_id": "01028-f03s01-0903731963f9",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:22.272Z",
+      "source": "random_grid",
+      "frame_id": "f03s01",
+      "bbox": [
+        2066,
+        941,
+        2162,
+        1037
+      ]
+    },
+    "01027-f04s00-5a0c70267bb2": {
+      "review_id": "01027-f04s00-5a0c70267bb2",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:23.312Z",
+      "source": "semantic_tile",
+      "frame_id": "f04s00",
+      "bbox": [
+        1020,
+        877,
+        1031,
+        892
+      ]
+    },
+    "01030-f02s01-41c2a8df0f2b": {
+      "review_id": "01030-f02s01-41c2a8df0f2b",
+      "label": "LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:25.067Z",
+      "source": "semantic_tile",
+      "frame_id": "f02s01",
+      "bbox": [
+        1757,
+        1327,
+        1765,
+        1337
+      ]
+    },
+    "01021-f05s01-d64f499aad44": {
+      "review_id": "01021-f05s01-d64f499aad44",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:25.816Z",
+      "source": "semantic_tile",
+      "frame_id": "f05s01",
+      "bbox": [
+        2110,
+        757,
+        2138,
+        763
+      ]
+    },
+    "01028-f00s00-b2e31c11ba49": {
+      "review_id": "01028-f00s00-b2e31c11ba49",
+      "label": "LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:27.091Z",
+      "source": "semantic_tile",
+      "frame_id": "f00s00",
+      "bbox": [
+        1663,
+        988,
+        1694,
+        1004
+      ]
+    },
+    "01022-f03s01-c407e4f53c1b": {
+      "review_id": "01022-f03s01-c407e4f53c1b",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:28.019Z",
+      "source": "semantic_tile",
+      "frame_id": "f03s01",
+      "bbox": [
+        1514,
+        1316,
+        1708,
+        1406
+      ]
+    },
+    "01030-f00s00-d826601a6996": {
+      "review_id": "01030-f00s00-d826601a6996",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:28.780Z",
+      "source": "semantic_tile",
+      "frame_id": "f00s00",
+      "bbox": [
+        1893,
+        896,
+        1953,
+        979
+      ]
+    },
+    "01027-f01s02-778878acd82c": {
+      "review_id": "01027-f01s02-778878acd82c",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:29.529Z",
+      "source": "semantic_tile",
+      "frame_id": "f01s02",
+      "bbox": [
+        929,
+        541,
+        972,
+        677
+      ]
+    },
+    "01022-f03s02-2583aec4d2bf": {
+      "review_id": "01022-f03s02-2583aec4d2bf",
+      "label": "UNCERTAIN",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:31.854Z",
+      "source": "semantic_tile",
+      "frame_id": "f03s02",
+      "bbox": [
+        1433,
+        1393,
+        1445,
+        1397
+      ]
+    },
+    "01027-f05s00-9740e5f64297": {
+      "review_id": "01027-f05s00-9740e5f64297",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:32.862Z",
+      "source": "semantic_full",
+      "frame_id": "f05s00",
+      "bbox": [
+        2328,
+        340,
+        2558,
+        751
+      ]
+    },
+    "01030-f06s00-22bce5811bb7": {
+      "review_id": "01030-f06s00-22bce5811bb7",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:33.607Z",
+      "source": "semantic_tile",
+      "frame_id": "f06s00",
+      "bbox": [
+        1152,
+        440,
+        1178,
+        565
+      ]
+    },
+    "01030-f03s01-6c238db18123": {
+      "review_id": "01030-f03s01-6c238db18123",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:34.446Z",
+      "source": "semantic_full",
+      "frame_id": "f03s01",
+      "bbox": [
+        1702,
+        843,
+        1726,
+        865
+      ]
+    },
+    "01021-f03s01-31a902d98621": {
+      "review_id": "01021-f03s01-31a902d98621",
+      "label": "LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:36.364Z",
+      "source": "semantic_tile",
+      "frame_id": "f03s01",
+      "bbox": [
+        585,
+        607,
+        606,
+        624
+      ]
+    },
+    "01021-f01s00-91164e8b5f5d": {
+      "review_id": "01021-f01s00-91164e8b5f5d",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:38.946Z",
+      "source": "semantic_tile",
+      "frame_id": "f01s00",
+      "bbox": [
+        1894,
+        493,
+        1920,
+        518
+      ]
+    },
+    "01022-f01s00-04943cee0287": {
+      "review_id": "01022-f01s00-04943cee0287",
+      "label": "UNCERTAIN",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:40.257Z",
+      "source": "semantic_tile",
+      "frame_id": "f01s00",
+      "bbox": [
+        1221,
+        592,
+        1229,
+        598
+      ]
+    },
+    "01028-f03s02-915c60b2a93f": {
+      "review_id": "01028-f03s02-915c60b2a93f",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:41.091Z",
+      "source": "random_grid",
+      "frame_id": "f03s02",
+      "bbox": [
+        1470,
+        824,
+        1534,
+        888
+      ]
+    },
+    "01022-f02s01-7229fa9ca85e": {
+      "review_id": "01022-f02s01-7229fa9ca85e",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:41.797Z",
+      "source": "semantic_full",
+      "frame_id": "f02s01",
+      "bbox": [
+        896,
+        717,
+        971,
+        779
+      ]
+    },
+    "01021-f07s00-c1454f563768": {
+      "review_id": "01021-f07s00-c1454f563768",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:42.642Z",
+      "source": "semantic_tile",
+      "frame_id": "f07s00",
+      "bbox": [
+        1226,
+        277,
+        1252,
+        300
+      ]
+    },
+    "01021-f02s00-d34bf5272549": {
+      "review_id": "01021-f02s00-d34bf5272549",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:43.297Z",
+      "source": "semantic_full",
+      "frame_id": "f02s00",
+      "bbox": [
+        1801,
+        348,
+        1843,
+        364
+      ]
+    },
+    "01028-f06s00-d624c962424f": {
+      "review_id": "01028-f06s00-d624c962424f",
+      "label": "UNCERTAIN",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:46.858Z",
+      "source": "semantic_tile",
+      "frame_id": "f06s00",
+      "bbox": [
+        1794,
+        569,
+        1805,
+        582
+      ]
+    },
+    "01021-f00s02-aa0163b4a51b": {
+      "review_id": "01021-f00s02-aa0163b4a51b",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:47.737Z",
+      "source": "semantic_tile",
+      "frame_id": "f00s02",
+      "bbox": [
+        413,
+        954,
+        434,
+        1006
+      ]
+    },
+    "01021-f07s01-0825d8a4d31c": {
+      "review_id": "01021-f07s01-0825d8a4d31c",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:48.972Z",
+      "source": "semantic_tile",
+      "frame_id": "f07s01",
+      "bbox": [
+        462,
+        920,
+        480,
+        956
+      ]
+    },
+    "01027-f00s00-6d556b607476": {
+      "review_id": "01027-f00s00-6d556b607476",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:49.716Z",
+      "source": "semantic_tile",
+      "frame_id": "f00s00",
+      "bbox": [
+        1760,
+        444,
+        1788,
+        457
+      ]
+    },
+    "01027-f06s00-92fd392ef322": {
+      "review_id": "01027-f06s00-92fd392ef322",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:50.287Z",
+      "source": "semantic_full",
+      "frame_id": "f06s00",
+      "bbox": [
+        1246,
+        401,
+        1307,
+        527
+      ]
+    },
+    "01030-f00s01-97cb0d69b345": {
+      "review_id": "01030-f00s01-97cb0d69b345",
+      "label": "UNCERTAIN",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:52.888Z",
+      "source": "semantic_tile",
+      "frame_id": "f00s01",
+      "bbox": [
+        1172,
+        468,
+        1183,
+        484
+      ]
+    },
+    "01021-f05s02-38a82594ffe5": {
+      "review_id": "01021-f05s02-38a82594ffe5",
+      "label": "UNCERTAIN",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:54.525Z",
+      "source": "semantic_tile",
+      "frame_id": "f05s02",
+      "bbox": [
+        2331,
+        1267,
+        2344,
+        1283
+      ]
+    },
+    "01027-f03s01-6400be501fb6": {
+      "review_id": "01027-f03s01-6400be501fb6",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:55.376Z",
+      "source": "random_grid",
+      "frame_id": "f03s01",
+      "bbox": [
+        1598,
+        693,
+        1694,
+        789
+      ]
+    },
+    "01030-f07s00-fda406304115": {
+      "review_id": "01030-f07s00-fda406304115",
+      "label": "LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:56.701Z",
+      "source": "semantic_tile",
+      "frame_id": "f07s00",
+      "bbox": [
+        1242,
+        436,
+        1269,
+        463
+      ]
+    },
+    "01021-f06s01-794163c3989d": {
+      "review_id": "01021-f06s01-794163c3989d",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:58.366Z",
+      "source": "semantic_full",
+      "frame_id": "f06s01",
+      "bbox": [
+        660,
+        376,
+        717,
+        496
+      ]
+    },
+    "01030-f06s02-01f73e5afa00": {
+      "review_id": "01030-f06s02-01f73e5afa00",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:59.259Z",
+      "source": "semantic_full",
+      "frame_id": "f06s02",
+      "bbox": [
+        1677,
+        230,
+        1729,
+        278
+      ]
+    },
+    "01022-f05s00-91ad35c42963": {
+      "review_id": "01022-f05s00-91ad35c42963",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:07:59.805Z",
+      "source": "semantic_tile",
+      "frame_id": "f05s00",
+      "bbox": [
+        1168,
+        350,
+        1252,
+        446
+      ]
+    },
+    "01021-f03s02-4c1180ab6e3d": {
+      "review_id": "01021-f03s02-4c1180ab6e3d",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:00.430Z",
+      "source": "random_grid",
+      "frame_id": "f03s02",
+      "bbox": [
+        1944,
+        959,
+        2152,
+        1167
+      ]
+    },
+    "01028-f03s00-a3b91b1035dc": {
+      "review_id": "01028-f03s00-a3b91b1035dc",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:01.001Z",
+      "source": "random_grid",
+      "frame_id": "f03s00",
+      "bbox": [
+        942,
+        1299,
+        1006,
+        1363
+      ]
+    },
+    "01028-f00s00-5a7292cb8882": {
+      "review_id": "01028-f00s00-5a7292cb8882",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:01.611Z",
+      "source": "semantic_tile",
+      "frame_id": "f00s00",
+      "bbox": [
+        1856,
+        1289,
+        1892,
+        1329
+      ]
+    },
+    "01022-f07s00-88e234ffdcc7": {
+      "review_id": "01022-f07s00-88e234ffdcc7",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:02.276Z",
+      "source": "random_grid",
+      "frame_id": "f07s00",
+      "bbox": [
+        897,
+        733,
+        961,
+        797
+      ]
+    },
+    "01021-f01s00-f5d455d7a7ee": {
+      "review_id": "01021-f01s00-f5d455d7a7ee",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:02.931Z",
+      "source": "random_grid",
+      "frame_id": "f01s00",
+      "bbox": [
+        773,
+        153,
+        837,
+        217
+      ]
+    },
+    "01028-f03s01-4e5d96657334": {
+      "review_id": "01028-f03s01-4e5d96657334",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:03.577Z",
+      "source": "semantic_full",
+      "frame_id": "f03s01",
+      "bbox": [
+        419,
+        960,
+        490,
+        1029
+      ]
+    },
+    "01022-f02s01-9b4a1b4bd463": {
+      "review_id": "01022-f02s01-9b4a1b4bd463",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:04.186Z",
+      "source": "random_grid",
+      "frame_id": "f02s01",
+      "bbox": [
+        993,
+        15,
+        1137,
+        159
+      ]
+    },
+    "01022-f04s02-8356e62bf0a6": {
+      "review_id": "01022-f04s02-8356e62bf0a6",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:04.764Z",
+      "source": "random_grid",
+      "frame_id": "f04s02",
+      "bbox": [
+        1604,
+        682,
+        1700,
+        778
+      ]
+    },
+    "01028-f05s02-5fb5fdff18c2": {
+      "review_id": "01028-f05s02-5fb5fdff18c2",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:05.374Z",
+      "source": "random_grid",
+      "frame_id": "f05s02",
+      "bbox": [
+        442,
+        1112,
+        650,
+        1320
+      ]
+    },
+    "01021-f00s01-80ca3ce85d62": {
+      "review_id": "01021-f00s01-80ca3ce85d62",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:06.284Z",
+      "source": "semantic_tile",
+      "frame_id": "f00s01",
+      "bbox": [
+        1096,
+        152,
+        1108,
+        169
+      ]
+    },
+    "01022-f03s02-44599ca2aef4": {
+      "review_id": "01022-f03s02-44599ca2aef4",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:06.888Z",
+      "source": "semantic_full",
+      "frame_id": "f03s02",
+      "bbox": [
+        895,
+        717,
+        989,
+        781
+      ]
+    },
+    "01021-f07s01-f2f40a2ff9bd": {
+      "review_id": "01021-f07s01-f2f40a2ff9bd",
+      "label": "LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:13.429Z",
+      "source": "semantic_tile",
+      "frame_id": "f07s01",
+      "bbox": [
+        1660,
+        1064,
+        1671,
+        1073
+      ]
+    },
+    "01021-f03s00-aad68e947df1": {
+      "review_id": "01021-f03s00-aad68e947df1",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:14.334Z",
+      "source": "semantic_tile",
+      "frame_id": "f03s00",
+      "bbox": [
+        1230,
+        805,
+        1328,
+        877
+      ]
+    },
+    "01022-f06s00-2842b063d633": {
+      "review_id": "01022-f06s00-2842b063d633",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:14.913Z",
+      "source": "semantic_tile",
+      "frame_id": "f06s00",
+      "bbox": [
+        1487,
+        755,
+        1579,
+        782
+      ]
+    },
+    "01027-f04s00-0aa5eb8c1c70": {
+      "review_id": "01027-f04s00-0aa5eb8c1c70",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:15.514Z",
+      "source": "semantic_full",
+      "frame_id": "f04s00",
+      "bbox": [
+        609,
+        750,
+        1231,
+        1257
+      ]
+    },
+    "01028-f02s01-0987e326d076": {
+      "review_id": "01028-f02s01-0987e326d076",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:16.125Z",
+      "source": "semantic_full",
+      "frame_id": "f02s01",
+      "bbox": [
+        1322,
+        432,
+        1352,
+        497
+      ]
+    },
+    "01022-f00s01-9461bc386c97": {
+      "review_id": "01022-f00s01-9461bc386c97",
+      "label": "BOX_WRONG",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:21.184Z",
+      "source": "semantic_tile",
+      "frame_id": "f00s01",
+      "bbox": [
+        972,
+        480,
+        993,
+        494
+      ]
+    },
+    "01028-f03s00-84cae4a57a3f": {
+      "review_id": "01028-f03s00-84cae4a57a3f",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:22.081Z",
+      "source": "semantic_full",
+      "frame_id": "f03s00",
+      "bbox": [
+        219,
+        1122,
+        258,
+        1151
+      ]
+    },
+    "01028-f05s00-74e1d0455feb": {
+      "review_id": "01028-f05s00-74e1d0455feb",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:22.794Z",
+      "source": "semantic_full",
+      "frame_id": "f05s00",
+      "bbox": [
+        2149,
+        1137,
+        2201,
+        1190
+      ]
+    },
+    "01028-f03s02-4a5083e67737": {
+      "review_id": "01028-f03s02-4a5083e67737",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:23.456Z",
+      "source": "semantic_full",
+      "frame_id": "f03s02",
+      "bbox": [
+        78,
+        1013,
+        95,
+        1076
+      ]
+    },
+    "01027-f05s00-b55606660659": {
+      "review_id": "01027-f05s00-b55606660659",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:24.118Z",
+      "source": "semantic_full",
+      "frame_id": "f05s00",
+      "bbox": [
+        1615,
+        505,
+        1770,
+        540
+      ]
+    },
+    "01030-f02s02-dcd50265cbbc": {
+      "review_id": "01030-f02s02-dcd50265cbbc",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:26.254Z",
+      "source": "semantic_tile",
+      "frame_id": "f02s02",
+      "bbox": [
+        1747,
+        643,
+        1769,
+        668
+      ]
+    },
+    "01030-f07s00-2c3f66880d53": {
+      "review_id": "01030-f07s00-2c3f66880d53",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:26.884Z",
+      "source": "semantic_tile",
+      "frame_id": "f07s00",
+      "bbox": [
+        1134,
+        578,
+        1218,
+        737
+      ]
+    },
+    "01022-f01s02-436cd91c666d": {
+      "review_id": "01022-f01s02-436cd91c666d",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:27.458Z",
+      "source": "random_grid",
+      "frame_id": "f01s02",
+      "bbox": [
+        873,
+        830,
+        969,
+        926
+      ]
+    },
+    "01021-f02s00-99e1bf8cea45": {
+      "review_id": "01021-f02s00-99e1bf8cea45",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:28.306Z",
+      "source": "semantic_tile",
+      "frame_id": "f02s00",
+      "bbox": [
+        247,
+        1006,
+        275,
+        1035
+      ]
+    },
+    "01027-f07s02-9af789da7b77": {
+      "review_id": "01027-f07s02-9af789da7b77",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:28.912Z",
+      "source": "semantic_tile",
+      "frame_id": "f07s02",
+      "bbox": [
+        1748,
+        529,
+        1919,
+        616
+      ]
+    },
+    "01021-f01s00-68f77772270d": {
+      "review_id": "01021-f01s00-68f77772270d",
+      "label": "LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:36.057Z",
+      "source": "semantic_tile",
+      "frame_id": "f01s00",
+      "bbox": [
+        2000,
+        563,
+        2022,
+        575
+      ]
+    },
+    "01022-f02s02-b52398ae2fdc": {
+      "review_id": "01022-f02s02-b52398ae2fdc",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:36.916Z",
+      "source": "random_grid",
+      "frame_id": "f02s02",
+      "bbox": [
+        940,
+        297,
+        1036,
+        393
+      ]
+    },
+    "01022-f03s02-c3c6c8e3a50e": {
+      "review_id": "01022-f03s02-c3c6c8e3a50e",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:37.813Z",
+      "source": "semantic_full",
+      "frame_id": "f03s02",
+      "bbox": [
+        1104,
+        1091,
+        1182,
+        1139
+      ]
+    },
+    "01021-f03s00-4dbd3c61baab": {
+      "review_id": "01021-f03s00-4dbd3c61baab",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:38.434Z",
+      "source": "random_grid",
+      "frame_id": "f03s00",
+      "bbox": [
+        1365,
+        826,
+        1461,
+        922
+      ]
+    },
+    "01022-f04s01-31e8dcfcfc7f": {
+      "review_id": "01022-f04s01-31e8dcfcfc7f",
+      "label": "UNCERTAIN",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:39.914Z",
+      "source": "semantic_tile",
+      "frame_id": "f04s01",
+      "bbox": [
+        1824,
+        1298,
+        1835,
+        1307
+      ]
+    },
+    "01030-f02s01-3ff388094b00": {
+      "review_id": "01030-f02s01-3ff388094b00",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:40.881Z",
+      "source": "random_grid",
+      "frame_id": "f02s01",
+      "bbox": [
+        1274,
+        1068,
+        1338,
+        1132
+      ]
+    },
+    "01028-f03s00-c0e6fa9a3e23": {
+      "review_id": "01028-f03s00-c0e6fa9a3e23",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:41.489Z",
+      "source": "semantic_full",
+      "frame_id": "f03s00",
+      "bbox": [
+        358,
+        864,
+        425,
+        914
+      ]
+    },
+    "01030-f01s01-9ebad0ebc7d2": {
+      "review_id": "01030-f01s01-9ebad0ebc7d2",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:42.094Z",
+      "source": "random_grid",
+      "frame_id": "f01s01",
+      "bbox": [
+        864,
+        1028,
+        1072,
+        1236
+      ]
+    },
+    "01028-f07s02-d00ed7fb72d5": {
+      "review_id": "01028-f07s02-d00ed7fb72d5",
+      "label": "LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:43.756Z",
+      "source": "semantic_tile",
+      "frame_id": "f07s02",
+      "bbox": [
+        1212,
+        518,
+        1232,
+        528
+      ]
+    },
+    "01021-f04s02-4c3cecd76da4": {
+      "review_id": "01021-f04s02-4c3cecd76da4",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:44.394Z",
+      "source": "random_grid",
+      "frame_id": "f04s02",
+      "bbox": [
+        1635,
+        1051,
+        1779,
+        1195
+      ]
+    },
+    "01028-f05s02-c92daeb6c04d": {
+      "review_id": "01028-f05s02-c92daeb6c04d",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:45.356Z",
+      "source": "semantic_tile",
+      "frame_id": "f05s02",
+      "bbox": [
+        576,
+        985,
+        619,
+        1028
+      ]
+    },
+    "01022-f04s01-dfb9c50c055d": {
+      "review_id": "01022-f04s01-dfb9c50c055d",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:46.053Z",
+      "source": "random_grid",
+      "frame_id": "f04s01",
+      "bbox": [
+        999,
+        74,
+        1207,
+        282
+      ]
+    },
+    "01030-f01s00-8051206ce24f": {
+      "review_id": "01030-f01s00-8051206ce24f",
+      "label": "UNCERTAIN",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:51.162Z",
+      "source": "semantic_tile",
+      "frame_id": "f01s00",
+      "bbox": [
+        1183,
+        637,
+        1197,
+        655
+      ]
+    },
+    "01027-f01s02-0cdbdc72207a": {
+      "review_id": "01027-f01s02-0cdbdc72207a",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:52.132Z",
+      "source": "semantic_tile",
+      "frame_id": "f01s02",
+      "bbox": [
+        1860,
+        1289,
+        1919,
+        1329
+      ]
+    },
+    "01027-f05s00-fec990aeae38": {
+      "review_id": "01027-f05s00-fec990aeae38",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:52.835Z",
+      "source": "semantic_tile",
+      "frame_id": "f05s00",
+      "bbox": [
+        618,
+        561,
+        634,
+        575
+      ]
+    },
+    "01027-f00s02-101116d28a90": {
+      "review_id": "01027-f00s02-101116d28a90",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:53.456Z",
+      "source": "semantic_full",
+      "frame_id": "f00s02",
+      "bbox": [
+        1596,
+        495,
+        1776,
+        607
+      ]
+    },
+    "01028-f02s00-99b9b2453f6e": {
+      "review_id": "01028-f02s00-99b9b2453f6e",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:54.034Z",
+      "source": "random_grid",
+      "frame_id": "f02s00",
+      "bbox": [
+        1388,
+        309,
+        1452,
+        373
+      ]
+    },
+    "01021-f04s00-db24e8752ea9": {
+      "review_id": "01021-f04s00-db24e8752ea9",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:54.682Z",
+      "source": "semantic_full",
+      "frame_id": "f04s00",
+      "bbox": [
+        660,
+        359,
+        689,
+        384
+      ]
+    },
+    "01022-f01s01-113932ad305d": {
+      "review_id": "01022-f01s01-113932ad305d",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:55.306Z",
+      "source": "semantic_tile",
+      "frame_id": "f01s01",
+      "bbox": [
+        1457,
+        288,
+        1558,
+        620
+      ]
+    },
+    "01021-f06s01-1da5451f07cd": {
+      "review_id": "01021-f06s01-1da5451f07cd",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:55.929Z",
+      "source": "semantic_full",
+      "frame_id": "f06s01",
+      "bbox": [
+        818,
+        326,
+        1216,
+        532
+      ]
+    },
+    "01028-f01s02-4cb974040915": {
+      "review_id": "01028-f01s02-4cb974040915",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:08:56.720Z",
+      "source": "random_grid",
+      "frame_id": "f01s02",
+      "bbox": [
+        2218,
+        1335,
+        2282,
+        1399
+      ]
+    },
+    "01027-f06s01-ddc82077c5ba": {
+      "review_id": "01027-f06s01-ddc82077c5ba",
+      "label": "UNCERTAIN",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:02.744Z",
+      "source": "semantic_tile",
+      "frame_id": "f06s01",
+      "bbox": [
+        1185,
+        1072,
+        1218,
+        1086
+      ]
+    },
+    "01022-f07s02-6c5b5efc3c7b": {
+      "review_id": "01022-f07s02-6c5b5efc3c7b",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:03.598Z",
+      "source": "semantic_full",
+      "frame_id": "f07s02",
+      "bbox": [
+        893,
+        358,
+        953,
+        380
+      ]
+    },
+    "01030-f03s01-8941c3f4d90e": {
+      "review_id": "01030-f03s01-8941c3f4d90e",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:04.235Z",
+      "source": "semantic_full",
+      "frame_id": "f03s01",
+      "bbox": [
+        1759,
+        892,
+        1795,
+        919
+      ]
+    },
+    "01027-f05s02-19935dfdb73d": {
+      "review_id": "01027-f05s02-19935dfdb73d",
+      "label": "UNCERTAIN",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:05.638Z",
+      "source": "semantic_tile",
+      "frame_id": "f05s02",
+      "bbox": [
+        2447,
+        1065,
+        2469,
+        1071
+      ]
+    },
+    "01030-f03s01-98224fdf920f": {
+      "review_id": "01030-f03s01-98224fdf920f",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:06.382Z",
+      "source": "random_grid",
+      "frame_id": "f03s01",
+      "bbox": [
+        1420,
+        801,
+        1484,
+        865
+      ]
+    },
+    "01022-f07s00-08a8cc5b29c6": {
+      "review_id": "01022-f07s00-08a8cc5b29c6",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:06.931Z",
+      "source": "semantic_full",
+      "frame_id": "f07s00",
+      "bbox": [
+        883,
+        431,
+        934,
+        453
+      ]
+    },
+    "01028-f05s00-80fe770f4517": {
+      "review_id": "01028-f05s00-80fe770f4517",
+      "label": "LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:15.777Z",
+      "source": "semantic_tile",
+      "frame_id": "f05s00",
+      "bbox": [
+        288,
+        1071,
+        313,
+        1109
+      ]
+    },
+    "01022-f07s00-f81998ea3a08": {
+      "review_id": "01022-f07s00-f81998ea3a08",
+      "label": "UNCERTAIN",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:17.259Z",
+      "source": "semantic_tile",
+      "frame_id": "f07s00",
+      "bbox": [
+        1554,
+        560,
+        1570,
+        571
+      ]
+    },
+    "01022-f03s02-dc59b448cd89": {
+      "review_id": "01022-f03s02-dc59b448cd89",
+      "label": "BOX_WRONG",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:19.910Z",
+      "source": "random_grid",
+      "frame_id": "f03s02",
+      "bbox": [
+        143,
+        1075,
+        351,
+        1283
+      ]
+    },
+    "01028-f06s02-ffe207826897": {
+      "review_id": "01028-f06s02-ffe207826897",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:20.892Z",
+      "source": "semantic_full",
+      "frame_id": "f06s02",
+      "bbox": [
+        1605,
+        1259,
+        1710,
+        1332
+      ]
+    },
+    "01021-f01s02-9556dfa59e7a": {
+      "review_id": "01021-f01s02-9556dfa59e7a",
+      "label": "LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:27.669Z",
+      "source": "semantic_tile",
+      "frame_id": "f01s02",
+      "bbox": [
+        1999,
+        564,
+        2023,
+        576
+      ]
+    },
+    "01027-f06s02-75c776303099": {
+      "review_id": "01027-f06s02-75c776303099",
+      "label": "UNCERTAIN",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:29.459Z",
+      "source": "semantic_tile",
+      "frame_id": "f06s02",
+      "bbox": [
+        472,
+        761,
+        490,
+        776
+      ]
+    },
+    "01021-f02s02-d0223c2c3807": {
+      "review_id": "01021-f02s02-d0223c2c3807",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:30.298Z",
+      "source": "semantic_tile",
+      "frame_id": "f02s02",
+      "bbox": [
+        1152,
+        991,
+        1265,
+        1120
+      ]
+    },
+    "01022-f06s02-4f560b071ae8": {
+      "review_id": "01022-f06s02-4f560b071ae8",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:30.914Z",
+      "source": "semantic_tile",
+      "frame_id": "f06s02",
+      "bbox": [
+        1493,
+        754,
+        1569,
+        768
+      ]
+    },
+    "01022-f04s01-a17cc8bd6818": {
+      "review_id": "01022-f04s01-a17cc8bd6818",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:31.596Z",
+      "source": "semantic_tile",
+      "frame_id": "f04s01",
+      "bbox": [
+        1891,
+        1299,
+        1919,
+        1329
+      ]
+    },
+    "01021-f04s00-13e8f511416a": {
+      "review_id": "01021-f04s00-13e8f511416a",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:32.506Z",
+      "source": "semantic_tile",
+      "frame_id": "f04s00",
+      "bbox": [
+        2402,
+        403,
+        2424,
+        445
+      ]
+    },
+    "01030-f03s00-28e4d29e4e08": {
+      "review_id": "01030-f03s00-28e4d29e4e08",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:33.221Z",
+      "source": "random_grid",
+      "frame_id": "f03s00",
+      "bbox": [
+        1365,
+        826,
+        1461,
+        922
+      ]
+    },
+    "01021-f07s00-1645d328165d": {
+      "review_id": "01021-f07s00-1645d328165d",
+      "label": "UNCERTAIN",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:34.733Z",
+      "source": "semantic_tile",
+      "frame_id": "f07s00",
+      "bbox": [
+        863,
+        745,
+        883,
+        765
+      ]
+    },
+    "01022-f07s01-5ac1a9c751e1": {
+      "review_id": "01022-f07s01-5ac1a9c751e1",
+      "label": "UNCERTAIN",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:35.944Z",
+      "source": "semantic_tile",
+      "frame_id": "f07s01",
+      "bbox": [
+        1013,
+        1201,
+        1023,
+        1205
+      ]
+    },
+    "01027-f05s02-ea638b38cc90": {
+      "review_id": "01027-f05s02-ea638b38cc90",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:36.919Z",
+      "source": "random_grid",
+      "frame_id": "f05s02",
+      "bbox": [
+        881,
+        888,
+        1025,
+        1032
+      ]
+    },
+    "01021-f04s02-abc00da99ac0": {
+      "review_id": "01021-f04s02-abc00da99ac0",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:38.548Z",
+      "source": "semantic_tile",
+      "frame_id": "f04s02",
+      "bbox": [
+        1801,
+        423,
+        1858,
+        508
+      ]
+    },
+    "01030-f00s01-5e95afafc894": {
+      "review_id": "01030-f00s01-5e95afafc894",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:39.762Z",
+      "source": "semantic_tile",
+      "frame_id": "f00s01",
+      "bbox": [
+        1167,
+        564,
+        1174,
+        596
+      ]
+    },
+    "01021-f01s01-7fab3bede3be": {
+      "review_id": "01021-f01s01-7fab3bede3be",
+      "label": "UNCERTAIN",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:41.009Z",
+      "source": "semantic_tile",
+      "frame_id": "f01s01",
+      "bbox": [
+        2025,
+        581,
+        2040,
+        589
+      ]
+    },
+    "01028-f07s02-81a33caa8147": {
+      "review_id": "01028-f07s02-81a33caa8147",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:41.825Z",
+      "source": "semantic_tile",
+      "frame_id": "f07s02",
+      "bbox": [
+        2084,
+        1288,
+        2114,
+        1328
+      ]
+    },
+    "01030-f06s00-3e8fcd0122d6": {
+      "review_id": "01030-f06s00-3e8fcd0122d6",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:42.361Z",
+      "source": "semantic_tile",
+      "frame_id": "f06s00",
+      "bbox": [
+        2084,
+        1290,
+        2112,
+        1327
+      ]
+    },
+    "01028-f00s02-b9a283b769b1": {
+      "review_id": "01028-f00s02-b9a283b769b1",
+      "label": "LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:45.279Z",
+      "source": "semantic_tile",
+      "frame_id": "f00s02",
+      "bbox": [
+        1799,
+        1230,
+        1862,
+        1248
+      ]
+    },
+    "01022-f02s00-a456f8ada74f": {
+      "review_id": "01022-f02s00-a456f8ada74f",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:46.102Z",
+      "source": "semantic_tile",
+      "frame_id": "f02s00",
+      "bbox": [
+        693,
+        255,
+        713,
+        283
+      ]
+    },
+    "01022-f03s01-d7b73ca1437f": {
+      "review_id": "01022-f03s01-d7b73ca1437f",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:46.980Z",
+      "source": "semantic_full",
+      "frame_id": "f03s01",
+      "bbox": [
+        1889,
+        956,
+        2014,
+        1131
+      ]
+    },
+    "01030-f02s01-039a1b7def46": {
+      "review_id": "01030-f02s01-039a1b7def46",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:47.685Z",
+      "source": "semantic_full",
+      "frame_id": "f02s01",
+      "bbox": [
+        862,
+        1187,
+        980,
+        1319
+      ]
+    },
+    "01021-f01s01-e3189db3ccd9": {
+      "review_id": "01021-f01s01-e3189db3ccd9",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:48.323Z",
+      "source": "semantic_tile",
+      "frame_id": "f01s01",
+      "bbox": [
+        438,
+        863,
+        464,
+        952
+      ]
+    },
+    "01027-f07s02-ca4ab5d082f6": {
+      "review_id": "01027-f07s02-ca4ab5d082f6",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:48.939Z",
+      "source": "semantic_tile",
+      "frame_id": "f07s02",
+      "bbox": [
+        1860,
+        1289,
+        1919,
+        1329
+      ]
+    },
+    "01027-f05s00-eebb30841392": {
+      "review_id": "01027-f05s00-eebb30841392",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:49.727Z",
+      "source": "semantic_tile",
+      "frame_id": "f05s00",
+      "bbox": [
+        393,
+        389,
+        455,
+        510
+      ]
+    },
+    "01022-f06s02-cb3f69da9966": {
+      "review_id": "01022-f06s02-cb3f69da9966",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:50.622Z",
+      "source": "semantic_tile",
+      "frame_id": "f06s02",
+      "bbox": [
+        818,
+        860,
+        850,
+        896
+      ]
+    },
+    "01021-f01s00-49ff37600d62": {
+      "review_id": "01021-f01s00-49ff37600d62",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:51.610Z",
+      "source": "random_grid",
+      "frame_id": "f01s00",
+      "bbox": [
+        1823,
+        419,
+        1887,
+        483
+      ]
+    },
+    "01027-f06s02-ee9d399eab59": {
+      "review_id": "01027-f06s02-ee9d399eab59",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:52.214Z",
+      "source": "random_grid",
+      "frame_id": "f06s02",
+      "bbox": [
+        1442,
+        951,
+        1586,
+        1095
+      ]
+    },
+    "01030-f01s01-84ca0550e292": {
+      "review_id": "01030-f01s01-84ca0550e292",
+      "label": "UNCERTAIN",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:53.556Z",
+      "source": "semantic_tile",
+      "frame_id": "f01s01",
+      "bbox": [
+        1464,
+        1246,
+        1479,
+        1253
+      ]
+    },
+    "01021-f05s00-e995e6932382": {
+      "review_id": "01021-f05s00-e995e6932382",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:54.500Z",
+      "source": "random_grid",
+      "frame_id": "f05s00",
+      "bbox": [
+        134,
+        103,
+        230,
+        199
+      ]
+    },
+    "01028-f00s00-47f11bb3e32e": {
+      "review_id": "01028-f00s00-47f11bb3e32e",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:55.806Z",
+      "source": "semantic_tile",
+      "frame_id": "f00s00",
+      "bbox": [
+        2117,
+        1286,
+        2144,
+        1328
+      ]
+    },
+    "01021-f01s00-a225c4903521": {
+      "review_id": "01021-f01s00-a225c4903521",
+      "label": "LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:57.373Z",
+      "source": "semantic_tile",
+      "frame_id": "f01s00",
+      "bbox": [
+        1248,
+        927,
+        1278,
+        935
+      ]
+    },
+    "01030-f03s02-f757545d0606": {
+      "review_id": "01030-f03s02-f757545d0606",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:58.501Z",
+      "source": "semantic_tile",
+      "frame_id": "f03s02",
+      "bbox": [
+        1595,
+        629,
+        1632,
+        656
+      ]
+    },
+    "01030-f06s01-70bbe3c0fe78": {
+      "review_id": "01030-f06s01-70bbe3c0fe78",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:59.394Z",
+      "source": "random_grid",
+      "frame_id": "f06s01",
+      "bbox": [
+        1031,
+        770,
+        1175,
+        914
+      ]
+    },
+    "01027-f01s01-b8c140efcfd6": {
+      "review_id": "01027-f01s01-b8c140efcfd6",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:09:59.998Z",
+      "source": "semantic_tile",
+      "frame_id": "f01s01",
+      "bbox": [
+        461,
+        904,
+        573,
+        952
+      ]
+    },
+    "01028-f02s02-95523ef13c03": {
+      "review_id": "01028-f02s02-95523ef13c03",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:00.756Z",
+      "source": "semantic_full",
+      "frame_id": "f02s02",
+      "bbox": [
+        2087,
+        1222,
+        2122,
+        1275
+      ]
+    },
+    "01027-f06s00-92ca3fc463be": {
+      "review_id": "01027-f06s00-92ca3fc463be",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:01.481Z",
+      "source": "random_grid",
+      "frame_id": "f06s00",
+      "bbox": [
+        1636,
+        429,
+        1844,
+        637
+      ]
+    },
+    "01030-f05s00-40a7f52b60f7": {
+      "review_id": "01030-f05s00-40a7f52b60f7",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:02.126Z",
+      "source": "semantic_tile",
+      "frame_id": "f05s00",
+      "bbox": [
+        1878,
+        970,
+        1920,
+        1055
+      ]
+    },
+    "01022-f06s01-4b416d9ec5b3": {
+      "review_id": "01022-f06s01-4b416d9ec5b3",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:03.014Z",
+      "source": "semantic_full",
+      "frame_id": "f06s01",
+      "bbox": [
+        1728,
+        1357,
+        1981,
+        1440
+      ]
+    },
+    "01027-f01s02-6231021ad06e": {
+      "review_id": "01027-f01s02-6231021ad06e",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:03.703Z",
+      "source": "semantic_tile",
+      "frame_id": "f01s02",
+      "bbox": [
+        1594,
+        475,
+        1792,
+        542
+      ]
+    },
+    "01028-f06s00-8623bd1fdae4": {
+      "review_id": "01028-f06s00-8623bd1fdae4",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:04.452Z",
+      "source": "semantic_tile",
+      "frame_id": "f06s00",
+      "bbox": [
+        1797,
+        808,
+        1892,
+        824
+      ]
+    },
+    "01030-f00s00-74cbf0089f1c": {
+      "review_id": "01030-f00s00-74cbf0089f1c",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:05.227Z",
+      "source": "semantic_tile",
+      "frame_id": "f00s00",
+      "bbox": [
+        1860,
+        1289,
+        1919,
+        1344
+      ]
+    },
+    "01030-f02s00-41a859e0ca0d": {
+      "review_id": "01030-f02s00-41a859e0ca0d",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:05.880Z",
+      "source": "semantic_tile",
+      "frame_id": "f02s00",
+      "bbox": [
+        2084,
+        1289,
+        2113,
+        1328
+      ]
+    },
+    "01027-f04s02-8f711b08aa67": {
+      "review_id": "01027-f04s02-8f711b08aa67",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:06.473Z",
+      "source": "semantic_tile",
+      "frame_id": "f04s02",
+      "bbox": [
+        1635,
+        691,
+        1688,
+        719
+      ]
+    },
+    "01030-f02s01-e8f1dc41fa95": {
+      "review_id": "01030-f02s01-e8f1dc41fa95",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:07.135Z",
+      "source": "semantic_tile",
+      "frame_id": "f02s01",
+      "bbox": [
+        874,
+        1398,
+        925,
+        1410
+      ]
+    },
+    "01028-f02s00-1caae7f48046": {
+      "review_id": "01028-f02s00-1caae7f48046",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:07.739Z",
+      "source": "semantic_tile",
+      "frame_id": "f02s00",
+      "bbox": [
+        438,
+        944,
+        509,
+        1022
+      ]
+    },
+    "01021-f03s01-4fe9ccd232e7": {
+      "review_id": "01021-f03s01-4fe9ccd232e7",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:08.308Z",
+      "source": "semantic_full",
+      "frame_id": "f03s01",
+      "bbox": [
+        841,
+        445,
+        904,
+        491
+      ]
+    },
+    "01022-f06s00-98c73e3f9176": {
+      "review_id": "01022-f06s00-98c73e3f9176",
+      "label": "LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:13.368Z",
+      "source": "semantic_full",
+      "frame_id": "f06s00",
+      "bbox": [
+        1280,
+        965,
+        1367,
+        988
+      ]
+    },
+    "01027-f06s02-b8d6b732baba": {
+      "review_id": "01027-f06s02-b8d6b732baba",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:14.193Z",
+      "source": "semantic_full",
+      "frame_id": "f06s02",
+      "bbox": [
+        1598,
+        503,
+        1780,
+        607
+      ]
+    },
+    "01030-f06s00-6d427f68eccb": {
+      "review_id": "01030-f06s00-6d427f68eccb",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:15.402Z",
+      "source": "random_grid",
+      "frame_id": "f06s00",
+      "bbox": [
+        1555,
+        381,
+        1651,
+        477
+      ]
+    },
+    "01022-f03s01-6070a814e454": {
+      "review_id": "01022-f03s01-6070a814e454",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:16.090Z",
+      "source": "semantic_tile",
+      "frame_id": "f03s01",
+      "bbox": [
+        1464,
+        550,
+        1515,
+        605
+      ]
+    },
+    "01028-f03s00-98ba61951770": {
+      "review_id": "01028-f03s00-98ba61951770",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:16.677Z",
+      "source": "semantic_full",
+      "frame_id": "f03s00",
+      "bbox": [
+        115,
+        1021,
+        158,
+        1107
+      ]
+    },
+    "01022-f00s02-0416e36f420e": {
+      "review_id": "01022-f00s02-0416e36f420e",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:17.246Z",
+      "source": "semantic_tile",
+      "frame_id": "f00s02",
+      "bbox": [
+        1915,
+        1148,
+        2043,
+        1309
+      ]
+    },
+    "01022-f07s02-08a1305f4cd6": {
+      "review_id": "01022-f07s02-08a1305f4cd6",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:17.950Z",
+      "source": "semantic_full",
+      "frame_id": "f07s02",
+      "bbox": [
+        1481,
+        728,
+        1575,
+        784
+      ]
+    },
+    "01027-f07s02-f63e6f1079ab": {
+      "review_id": "01027-f07s02-f63e6f1079ab",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:18.567Z",
+      "source": "semantic_tile",
+      "frame_id": "f07s02",
+      "bbox": [
+        2045,
+        904,
+        2126,
+        1032
+      ]
+    },
+    "01030-f00s00-4eeb845f966b": {
+      "review_id": "01030-f00s00-4eeb845f966b",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:19.239Z",
+      "source": "semantic_full",
+      "frame_id": "f00s00",
+      "bbox": [
+        839,
+        1186,
+        982,
+        1326
+      ]
+    },
+    "01021-f07s01-c4dadbd5b16d": {
+      "review_id": "01021-f07s01-c4dadbd5b16d",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:19.941Z",
+      "source": "random_grid",
+      "frame_id": "f07s01",
+      "bbox": [
+        1094,
+        1202,
+        1302,
+        1410
+      ]
+    },
+    "01021-f00s00-6e345c2f4e8d": {
+      "review_id": "01021-f00s00-6e345c2f4e8d",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:20.593Z",
+      "source": "semantic_tile",
+      "frame_id": "f00s00",
+      "bbox": [
+        1907,
+        471,
+        1983,
+        496
+      ]
+    },
+    "01028-f00s02-3613a76260f9": {
+      "review_id": "01028-f00s02-3613a76260f9",
+      "label": "UNCERTAIN",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:21.936Z",
+      "source": "semantic_tile",
+      "frame_id": "f00s02",
+      "bbox": [
+        861,
+        1267,
+        872,
+        1271
+      ]
+    },
+    "01027-f07s02-5b61f4ee799e": {
+      "review_id": "01027-f07s02-5b61f4ee799e",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:22.815Z",
+      "source": "semantic_full",
+      "frame_id": "f07s02",
+      "bbox": [
+        371,
+        798,
+        475,
+        882
+      ]
+    },
+    "01028-f06s01-a6e0cb6a7939": {
+      "review_id": "01028-f06s01-a6e0cb6a7939",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:23.411Z",
+      "source": "semantic_tile",
+      "frame_id": "f06s01",
+      "bbox": [
+        1792,
+        722,
+        1942,
+        821
+      ]
+    },
+    "01022-f00s00-fdc29288bb0c": {
+      "review_id": "01022-f00s00-fdc29288bb0c",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:24.070Z",
+      "source": "random_grid",
+      "frame_id": "f00s00",
+      "bbox": [
+        656,
+        573,
+        720,
+        637
+      ]
+    },
+    "01022-f05s00-45f15522f483": {
+      "review_id": "01022-f05s00-45f15522f483",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:24.658Z",
+      "source": "semantic_tile",
+      "frame_id": "f05s00",
+      "bbox": [
+        2118,
+        1288,
+        2145,
+        1329
+      ]
+    },
+    "01030-f00s00-73343f8d1229": {
+      "review_id": "01030-f00s00-73343f8d1229",
+      "label": "UNCERTAIN",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:26.770Z",
+      "source": "semantic_tile",
+      "frame_id": "f00s00",
+      "bbox": [
+        1183,
+        640,
+        1196,
+        651
+      ]
+    },
+    "01028-f03s01-0ca64479f71e": {
+      "review_id": "01028-f03s01-0ca64479f71e",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:27.585Z",
+      "source": "semantic_full",
+      "frame_id": "f03s01",
+      "bbox": [
+        507,
+        739,
+        594,
+        824
+      ]
+    },
+    "01027-f06s00-4b680101b3ff": {
+      "review_id": "01027-f06s00-4b680101b3ff",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:28.312Z",
+      "source": "semantic_full",
+      "frame_id": "f06s00",
+      "bbox": [
+        1748,
+        620,
+        2308,
+        1041
+      ]
+    },
+    "01030-f07s01-80df5b70f700": {
+      "review_id": "01030-f07s01-80df5b70f700",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:28.939Z",
+      "source": "semantic_tile",
+      "frame_id": "f07s01",
+      "bbox": [
+        1451,
+        567,
+        1472,
+        608
+      ]
+    },
+    "01027-f03s01-65b0a1167ecc": {
+      "review_id": "01027-f03s01-65b0a1167ecc",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:29.710Z",
+      "source": "random_grid",
+      "frame_id": "f03s01",
+      "bbox": [
+        1849,
+        388,
+        1993,
+        532
+      ]
+    },
+    "01021-f00s00-564c7f5da4b1": {
+      "review_id": "01021-f00s00-564c7f5da4b1",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:30.419Z",
+      "source": "semantic_full",
+      "frame_id": "f00s00",
+      "bbox": [
+        1894,
+        519,
+        1957,
+        563
+      ]
+    },
+    "01030-f07s01-ee84d40d0451": {
+      "review_id": "01030-f07s01-ee84d40d0451",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:31.055Z",
+      "source": "semantic_tile",
+      "frame_id": "f07s01",
+      "bbox": [
+        1426,
+        680,
+        1467,
+        731
+      ]
+    },
+    "01030-f06s00-8b3c3358122e": {
+      "review_id": "01030-f06s00-8b3c3358122e",
+      "label": "UNCERTAIN",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:32.398Z",
+      "source": "semantic_tile",
+      "frame_id": "f06s00",
+      "bbox": [
+        1187,
+        322,
+        1209,
+        336
+      ]
+    },
+    "01022-f07s02-e6a87751ff04": {
+      "review_id": "01022-f07s02-e6a87751ff04",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:33.319Z",
+      "source": "semantic_tile",
+      "frame_id": "f07s02",
+      "bbox": [
+        1729,
+        602,
+        1748,
+        657
+      ]
+    },
+    "01027-f03s02-1066dbc8a457": {
+      "review_id": "01027-f03s02-1066dbc8a457",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:33.964Z",
+      "source": "semantic_tile",
+      "frame_id": "f03s02",
+      "bbox": [
+        249,
+        564,
+        294,
+        594
+      ]
+    },
+    "01027-f05s02-a455418d47c3": {
+      "review_id": "01027-f05s02-a455418d47c3",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:34.682Z",
+      "source": "semantic_full",
+      "frame_id": "f05s02",
+      "bbox": [
+        2136,
+        602,
+        2246,
+        679
+      ]
+    },
+    "01022-f07s00-bd10be45da58": {
+      "review_id": "01022-f07s00-bd10be45da58",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:35.246Z",
+      "source": "semantic_tile",
+      "frame_id": "f07s00",
+      "bbox": [
+        1385,
+        542,
+        1421,
+        608
+      ]
+    },
+    "01027-f06s01-8d3f8b28bd03": {
+      "review_id": "01027-f06s01-8d3f8b28bd03",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:37.331Z",
+      "source": "semantic_tile",
+      "frame_id": "f06s01",
+      "bbox": [
+        314,
+        664,
+        336,
+        683
+      ]
+    },
+    "01030-f03s02-95047d41da98": {
+      "review_id": "01030-f03s02-95047d41da98",
+      "label": "UNCERTAIN",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:38.564Z",
+      "source": "semantic_tile",
+      "frame_id": "f03s02",
+      "bbox": [
+        1215,
+        343,
+        1230,
+        351
+      ]
+    },
+    "01030-f07s01-bb02f595c2e2": {
+      "review_id": "01030-f07s01-bb02f595c2e2",
+      "label": "BOX_WRONG",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:42.930Z",
+      "source": "semantic_full",
+      "frame_id": "f07s01",
+      "bbox": [
+        1102,
+        774,
+        1141,
+        863
+      ]
+    },
+    "01030-f04s02-a361fdb72182": {
+      "review_id": "01030-f04s02-a361fdb72182",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:43.869Z",
+      "source": "random_grid",
+      "frame_id": "f04s02",
+      "bbox": [
+        1540,
+        398,
+        1748,
+        606
+      ]
+    },
+    "01021-f06s02-6b78217dca69": {
+      "review_id": "01021-f06s02-6b78217dca69",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:45.177Z",
+      "source": "semantic_tile",
+      "frame_id": "f06s02",
+      "bbox": [
+        2403,
+        997,
+        2496,
+        1013
+      ]
+    },
+    "01022-f06s02-0441e71572d5": {
+      "review_id": "01022-f06s02-0441e71572d5",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:45.821Z",
+      "source": "semantic_full",
+      "frame_id": "f06s02",
+      "bbox": [
+        672,
+        84,
+        765,
+        129
+      ]
+    },
+    "01028-f06s02-9a9a91b77dc4": {
+      "review_id": "01028-f06s02-9a9a91b77dc4",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:46.419Z",
+      "source": "semantic_full",
+      "frame_id": "f06s02",
+      "bbox": [
+        123,
+        1052,
+        177,
+        1119
+      ]
+    },
+    "01030-f03s00-c709247606cd": {
+      "review_id": "01030-f03s00-c709247606cd",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:46.985Z",
+      "source": "semantic_full",
+      "frame_id": "f03s00",
+      "bbox": [
+        1783,
+        919,
+        1836,
+        943
+      ]
+    },
+    "01021-f03s01-9512f63469e0": {
+      "review_id": "01021-f03s01-9512f63469e0",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:47.890Z",
+      "source": "semantic_full",
+      "frame_id": "f03s01",
+      "bbox": [
+        2255,
+        528,
+        2286,
+        562
+      ]
+    },
+    "01030-f03s01-a27fd8790612": {
+      "review_id": "01030-f03s01-a27fd8790612",
+      "label": "UNCERTAIN",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:49.247Z",
+      "source": "semantic_tile",
+      "frame_id": "f03s01",
+      "bbox": [
+        1099,
+        832,
+        1114,
+        851
+      ]
+    },
+    "01030-f00s02-375f0082380e": {
+      "review_id": "01030-f00s02-375f0082380e",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:50.110Z",
+      "source": "random_grid",
+      "frame_id": "f00s02",
+      "bbox": [
+        1697,
+        408,
+        1841,
+        552
+      ]
+    },
+    "01027-f02s02-e15811516609": {
+      "review_id": "01027-f02s02-e15811516609",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:51.413Z",
+      "source": "semantic_full",
+      "frame_id": "f02s02",
+      "bbox": [
+        362,
+        649,
+        384,
+        680
+      ]
+    },
+    "01028-f04s02-96af376ef3b9": {
+      "review_id": "01028-f04s02-96af376ef3b9",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:52.023Z",
+      "source": "semantic_tile",
+      "frame_id": "f04s02",
+      "bbox": [
+        592,
+        678,
+        660,
+        742
+      ]
+    },
+    "01028-f05s02-cbe5040ce8a5": {
+      "review_id": "01028-f05s02-cbe5040ce8a5",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:52.636Z",
+      "source": "random_grid",
+      "frame_id": "f05s02",
+      "bbox": [
+        518,
+        921,
+        726,
+        1129
+      ]
+    },
+    "01030-f03s00-c6bf9fd28a80": {
+      "review_id": "01030-f03s00-c6bf9fd28a80",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:53.227Z",
+      "source": "random_grid",
+      "frame_id": "f03s00",
+      "bbox": [
+        1453,
+        1170,
+        1549,
+        1266
+      ]
+    },
+    "01027-f04s01-41750be861dc": {
+      "review_id": "01027-f04s01-41750be861dc",
+      "label": "UNCERTAIN",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:55.115Z",
+      "source": "semantic_tile",
+      "frame_id": "f04s01",
+      "bbox": [
+        431,
+        809,
+        449,
+        815
+      ]
+    },
+    "01022-f06s02-698763a371bc": {
+      "review_id": "01022-f06s02-698763a371bc",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:56.810Z",
+      "source": "semantic_tile",
+      "frame_id": "f06s02",
+      "bbox": [
+        1553,
+        559,
+        1570,
+        571
+      ]
+    },
+    "01028-f02s01-8c53aaea4396": {
+      "review_id": "01028-f02s01-8c53aaea4396",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:57.507Z",
+      "source": "semantic_tile",
+      "frame_id": "f02s01",
+      "bbox": [
+        1319,
+        447,
+        1344,
+        527
+      ]
+    },
+    "01027-f07s00-8c1520ec3979": {
+      "review_id": "01027-f07s00-8c1520ec3979",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:58.111Z",
+      "source": "random_grid",
+      "frame_id": "f07s00",
+      "bbox": [
+        1533,
+        717,
+        1677,
+        861
+      ]
+    },
+    "01027-f03s02-1f606eaef14d": {
+      "review_id": "01027-f03s02-1f606eaef14d",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:10:58.931Z",
+      "source": "semantic_full",
+      "frame_id": "f03s02",
+      "bbox": [
+        551,
+        564,
+        597,
+        591
+      ]
+    },
+    "01028-f05s02-de22f0ae943e": {
+      "review_id": "01028-f05s02-de22f0ae943e",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:00.473Z",
+      "source": "semantic_full",
+      "frame_id": "f05s02",
+      "bbox": [
+        2056,
+        808,
+        2091,
+        851
+      ]
+    },
+    "01027-f00s01-d0160d72f9ff": {
+      "review_id": "01027-f00s01-d0160d72f9ff",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:01.288Z",
+      "source": "semantic_full",
+      "frame_id": "f00s01",
+      "bbox": [
+        427,
+        720,
+        494,
+        748
+      ]
+    },
+    "01027-f07s00-dd8d925ae70e": {
+      "review_id": "01027-f07s00-dd8d925ae70e",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:02.002Z",
+      "source": "semantic_tile",
+      "frame_id": "f07s00",
+      "bbox": [
+        2275,
+        577,
+        2304,
+        608
+      ]
+    },
+    "01022-f03s01-387fbb2f6603": {
+      "review_id": "01022-f03s01-387fbb2f6603",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:02.720Z",
+      "source": "semantic_tile",
+      "frame_id": "f03s01",
+      "bbox": [
+        2019,
+        1300,
+        2047,
+        1328
+      ]
+    },
+    "01028-f01s00-99b6966a7ab7": {
+      "review_id": "01028-f01s00-99b6966a7ab7",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:03.511Z",
+      "source": "semantic_tile",
+      "frame_id": "f01s00",
+      "bbox": [
+        2139,
+        1086,
+        2162,
+        1102
+      ]
+    },
+    "01030-f01s01-2474184cdcde": {
+      "review_id": "01030-f01s01-2474184cdcde",
+      "label": "UNCERTAIN",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:04.744Z",
+      "source": "semantic_tile",
+      "frame_id": "f01s01",
+      "bbox": [
+        1687,
+        1136,
+        1694,
+        1144
+      ]
+    },
+    "01022-f05s02-fe88934d5623": {
+      "review_id": "01022-f05s02-fe88934d5623",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:05.682Z",
+      "source": "semantic_tile",
+      "frame_id": "f05s02",
+      "bbox": [
+        828,
+        995,
+        869,
+        1019
+      ]
+    },
+    "01030-f01s00-2d1ac254db53": {
+      "review_id": "01030-f01s00-2d1ac254db53",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:06.342Z",
+      "source": "semantic_full",
+      "frame_id": "f01s00",
+      "bbox": [
+        1106,
+        569,
+        1178,
+        743
+      ]
+    },
+    "01030-f02s02-a1801372b2c4": {
+      "review_id": "01030-f02s02-a1801372b2c4",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:07.038Z",
+      "source": "semantic_full",
+      "frame_id": "f02s02",
+      "bbox": [
+        761,
+        1345,
+        886,
+        1437
+      ]
+    },
+    "01028-f02s02-977edb6839e9": {
+      "review_id": "01028-f02s02-977edb6839e9",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:07.640Z",
+      "source": "semantic_full",
+      "frame_id": "f02s02",
+      "bbox": [
+        1623,
+        876,
+        1667,
+        911
+      ]
+    },
+    "01028-f04s00-9f3ef1a0fe92": {
+      "review_id": "01028-f04s00-9f3ef1a0fe92",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:08.271Z",
+      "source": "random_grid",
+      "frame_id": "f04s00",
+      "bbox": [
+        329,
+        608,
+        425,
+        704
+      ]
+    },
+    "01022-f02s00-d93ee1ab96fc": {
+      "review_id": "01022-f02s00-d93ee1ab96fc",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:08.918Z",
+      "source": "semantic_full",
+      "frame_id": "f02s00",
+      "bbox": [
+        730,
+        349,
+        1089,
+        691
+      ]
+    },
+    "01021-f02s01-b555e2987bb4": {
+      "review_id": "01021-f02s01-b555e2987bb4",
+      "label": "BOX_WRONG",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:12.580Z",
+      "source": "semantic_tile",
+      "frame_id": "f02s01",
+      "bbox": [
+        1181,
+        1377,
+        1246,
+        1440
+      ]
+    },
+    "01021-f05s02-e0e743f7324e": {
+      "review_id": "01021-f05s02-e0e743f7324e",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:13.600Z",
+      "source": "semantic_tile",
+      "frame_id": "f05s02",
+      "bbox": [
+        1759,
+        1370,
+        1837,
+        1440
+      ]
+    },
+    "01028-f02s02-5454a092ae84": {
+      "review_id": "01028-f02s02-5454a092ae84",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:14.220Z",
+      "source": "random_grid",
+      "frame_id": "f02s02",
+      "bbox": [
+        1522,
+        34,
+        1666,
+        178
+      ]
+    },
+    "01027-f07s01-2a6d2879eaea": {
+      "review_id": "01027-f07s01-2a6d2879eaea",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:15.277Z",
+      "source": "semantic_tile",
+      "frame_id": "f07s01",
+      "bbox": [
+        1790,
+        1191,
+        1859,
+        1216
+      ]
+    },
+    "01028-f02s01-e865dcb951f5": {
+      "review_id": "01028-f02s01-e865dcb951f5",
+      "label": "UNCERTAIN",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:18.560Z",
+      "source": "semantic_full",
+      "frame_id": "f02s01",
+      "bbox": [
+        2035,
+        969,
+        2053,
+        986
+      ]
+    },
+    "01027-f00s00-1b609d970fa5": {
+      "review_id": "01027-f00s00-1b609d970fa5",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:19.498Z",
+      "source": "random_grid",
+      "frame_id": "f00s00",
+      "bbox": [
+        1662,
+        860,
+        1870,
+        1068
+      ]
+    },
+    "01022-f03s01-23deee421342": {
+      "review_id": "01022-f03s01-23deee421342",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:20.072Z",
+      "source": "random_grid",
+      "frame_id": "f03s01",
+      "bbox": [
+        910,
+        396,
+        974,
+        460
+      ]
+    },
+    "01028-f02s00-895e76300fe0": {
+      "review_id": "01028-f02s00-895e76300fe0",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:20.702Z",
+      "source": "semantic_tile",
+      "frame_id": "f02s00",
+      "bbox": [
+        1860,
+        1289,
+        1891,
+        1328
+      ]
+    },
+    "01021-f01s02-9ba2432394ab": {
+      "review_id": "01021-f01s02-9ba2432394ab",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:21.295Z",
+      "source": "semantic_full",
+      "frame_id": "f01s02",
+      "bbox": [
+        1784,
+        513,
+        2080,
+        666
+      ]
+    },
+    "01022-f01s00-534e5fb83ec9": {
+      "review_id": "01022-f01s00-534e5fb83ec9",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:22.148Z",
+      "source": "random_grid",
+      "frame_id": "f01s00",
+      "bbox": [
+        1222,
+        494,
+        1286,
+        558
+      ]
+    },
+    "01027-f07s02-31b41f96ade9": {
+      "review_id": "01027-f07s02-31b41f96ade9",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:22.812Z",
+      "source": "semantic_full",
+      "frame_id": "f07s02",
+      "bbox": [
+        418,
+        753,
+        492,
+        784
+      ]
+    },
+    "01028-f04s02-74dc96cdbcfc": {
+      "review_id": "01028-f04s02-74dc96cdbcfc",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:23.956Z",
+      "source": "semantic_tile",
+      "frame_id": "f04s02",
+      "bbox": [
+        661,
+        582,
+        710,
+        606
+      ]
+    },
+    "01027-f04s01-933dfc24543b": {
+      "review_id": "01027-f04s01-933dfc24543b",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:24.569Z",
+      "source": "random_grid",
+      "frame_id": "f04s01",
+      "bbox": [
+        1088,
+        329,
+        1152,
+        393
+      ]
+    },
+    "01021-f01s00-9b89ca645953": {
+      "review_id": "01021-f01s00-9b89ca645953",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:25.281Z",
+      "source": "random_grid",
+      "frame_id": "f01s00",
+      "bbox": [
+        1117,
+        1122,
+        1181,
+        1186
+      ]
+    },
+    "01027-f01s01-b5d2f688ee56": {
+      "review_id": "01027-f01s01-b5d2f688ee56",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:25.876Z",
+      "source": "random_grid",
+      "frame_id": "f01s01",
+      "bbox": [
+        1877,
+        244,
+        1973,
+        340
+      ]
+    },
+    "01022-f05s01-564403a2fd73": {
+      "review_id": "01022-f05s01-564403a2fd73",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:27.348Z",
+      "source": "semantic_tile",
+      "frame_id": "f05s01",
+      "bbox": [
+        1058,
+        766,
+        1156,
+        781
+      ]
+    },
+    "01021-f03s01-407a73fe1bff": {
+      "review_id": "01021-f03s01-407a73fe1bff",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:29.106Z",
+      "source": "semantic_full",
+      "frame_id": "f03s01",
+      "bbox": [
+        1913,
+        830,
+        1930,
+        847
+      ]
+    },
+    "01022-f04s00-8251e35bfc3b": {
+      "review_id": "01022-f04s00-8251e35bfc3b",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:29.952Z",
+      "source": "semantic_full",
+      "frame_id": "f04s00",
+      "bbox": [
+        1388,
+        628,
+        1456,
+        661
+      ]
+    },
+    "01028-f06s01-d1338c5c15a1": {
+      "review_id": "01028-f06s01-d1338c5c15a1",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:30.682Z",
+      "source": "semantic_tile",
+      "frame_id": "f06s01",
+      "bbox": [
+        1142,
+        750,
+        1174,
+        768
+      ]
+    },
+    "01022-f00s00-3d6d936bff6e": {
+      "review_id": "01022-f00s00-3d6d936bff6e",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:31.362Z",
+      "source": "semantic_tile",
+      "frame_id": "f00s00",
+      "bbox": [
+        1276,
+        607,
+        1415,
+        669
+      ]
+    },
+    "01021-f01s00-caf8de1d307b": {
+      "review_id": "01021-f01s00-caf8de1d307b",
+      "label": "LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:33.111Z",
+      "source": "semantic_tile",
+      "frame_id": "f01s00",
+      "bbox": [
+        1038,
+        561,
+        1053,
+        570
+      ]
+    },
+    "01021-f06s01-e5e9328966ae": {
+      "review_id": "01021-f06s01-e5e9328966ae",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:33.678Z",
+      "source": "semantic_tile",
+      "frame_id": "f06s01",
+      "bbox": [
+        1,
+        337,
+        379,
+        759
+      ]
+    },
+    "01030-f07s00-f41950ad3201": {
+      "review_id": "01030-f07s00-f41950ad3201",
+      "label": "UNCERTAIN",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:34.998Z",
+      "source": "semantic_tile",
+      "frame_id": "f07s00",
+      "bbox": [
+        1194,
+        990,
+        1200,
+        998
+      ]
+    },
+    "01021-f01s01-63637542e7d9": {
+      "review_id": "01021-f01s01-63637542e7d9",
+      "label": "LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:36.469Z",
+      "source": "semantic_full",
+      "frame_id": "f01s01",
+      "bbox": [
+        1574,
+        1031,
+        1606,
+        1041
+      ]
+    },
+    "01027-f03s00-8b8e44402565": {
+      "review_id": "01027-f03s00-8b8e44402565",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:37.278Z",
+      "source": "semantic_tile",
+      "frame_id": "f03s00",
+      "bbox": [
+        321,
+        704,
+        691,
+        1088
+      ]
+    },
+    "01030-f03s00-3e32bdae999a": {
+      "review_id": "01030-f03s00-3e32bdae999a",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:37.915Z",
+      "source": "semantic_full",
+      "frame_id": "f03s00",
+      "bbox": [
+        1165,
+        206,
+        1247,
+        232
+      ]
+    },
+    "01021-f01s00-66bfeea6ab6a": {
+      "review_id": "01021-f01s00-66bfeea6ab6a",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:38.575Z",
+      "source": "semantic_tile",
+      "frame_id": "f01s00",
+      "bbox": [
+        1785,
+        512,
+        1918,
+        571
+      ]
+    },
+    "01030-f04s02-bf723c05504f": {
+      "review_id": "01030-f04s02-bf723c05504f",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:39.474Z",
+      "source": "semantic_tile",
+      "frame_id": "f04s02",
+      "bbox": [
+        2121,
+        1324,
+        2144,
+        1328
+      ]
+    },
+    "01030-f03s02-6cd9d5ed78f2": {
+      "review_id": "01030-f03s02-6cd9d5ed78f2",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:40.136Z",
+      "source": "semantic_tile",
+      "frame_id": "f03s02",
+      "bbox": [
+        1797,
+        892,
+        1826,
+        919
+      ]
+    },
+    "01022-f07s02-ec24a8d2a2ac": {
+      "review_id": "01022-f07s02-ec24a8d2a2ac",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:40.785Z",
+      "source": "random_grid",
+      "frame_id": "f07s02",
+      "bbox": [
+        321,
+        218,
+        529,
+        426
+      ]
+    },
+    "01028-f04s02-935ae1e3c162": {
+      "review_id": "01028-f04s02-935ae1e3c162",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:41.419Z",
+      "source": "semantic_tile",
+      "frame_id": "f04s02",
+      "bbox": [
+        1860,
+        1288,
+        1890,
+        1328
+      ]
+    },
+    "01022-f04s01-6db05da7e6d0": {
+      "review_id": "01022-f04s01-6db05da7e6d0",
+      "label": "LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:43.177Z",
+      "source": "semantic_tile",
+      "frame_id": "f04s01",
+      "bbox": [
+        1225,
+        1394,
+        1266,
+        1418
+      ]
+    },
+    "01021-f05s02-7bbdbafad5da": {
+      "review_id": "01021-f05s02-7bbdbafad5da",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:43.856Z",
+      "source": "semantic_full",
+      "frame_id": "f05s02",
+      "bbox": [
+        1454,
+        55,
+        1610,
+        105
+      ]
+    },
+    "01022-f04s01-286a23dcc941": {
+      "review_id": "01022-f04s01-286a23dcc941",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:44.518Z",
+      "source": "semantic_full",
+      "frame_id": "f04s01",
+      "bbox": [
+        1794,
+        1151,
+        1848,
+        1205
+      ]
+    },
+    "01030-f07s02-151682044437": {
+      "review_id": "01030-f07s02-151682044437",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:45.114Z",
+      "source": "semantic_tile",
+      "frame_id": "f07s02",
+      "bbox": [
+        1362,
+        724,
+        1432,
+        768
+      ]
+    },
+    "01030-f07s00-e7057d4fb1d4": {
+      "review_id": "01030-f07s00-e7057d4fb1d4",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:46.527Z",
+      "source": "semantic_full",
+      "frame_id": "f07s00",
+      "bbox": [
+        1102,
+        730,
+        1132,
+        756
+      ]
+    },
+    "01028-f02s01-44ce19cf0656": {
+      "review_id": "01028-f02s01-44ce19cf0656",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:47.310Z",
+      "source": "semantic_full",
+      "frame_id": "f02s01",
+      "bbox": [
+        2111,
+        1082,
+        2131,
+        1102
+      ]
+    },
+    "01028-f06s02-8082ff3853a4": {
+      "review_id": "01028-f06s02-8082ff3853a4",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:47.891Z",
+      "source": "semantic_full",
+      "frame_id": "f06s02",
+      "bbox": [
+        1473,
+        264,
+        1542,
+        290
+      ]
+    },
+    "01028-f03s01-cc89ac240ed8": {
+      "review_id": "01028-f03s01-cc89ac240ed8",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:48.445Z",
+      "source": "semantic_full",
+      "frame_id": "f03s01",
+      "bbox": [
+        1431,
+        387,
+        1469,
+        426
+      ]
+    },
+    "01027-f05s02-2eef7fd1bc22": {
+      "review_id": "01027-f05s02-2eef7fd1bc22",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:49.048Z",
+      "source": "semantic_tile",
+      "frame_id": "f05s02",
+      "bbox": [
+        448,
+        541,
+        485,
+        572
+      ]
+    },
+    "01021-f05s02-54fe77145acb": {
+      "review_id": "01021-f05s02-54fe77145acb",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:49.700Z",
+      "source": "random_grid",
+      "frame_id": "f05s02",
+      "bbox": [
+        2227,
+        357,
+        2435,
+        565
+      ]
+    },
+    "01030-f03s00-e55f672d7fb2": {
+      "review_id": "01030-f03s00-e55f672d7fb2",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:50.262Z",
+      "source": "random_grid",
+      "frame_id": "f03s00",
+      "bbox": [
+        1746,
+        911,
+        1890,
+        1055
+      ]
+    },
+    "01030-f06s00-f232f56d90f2": {
+      "review_id": "01030-f06s00-f232f56d90f2",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:50.848Z",
+      "source": "semantic_tile",
+      "frame_id": "f06s00",
+      "bbox": [
+        1860,
+        1288,
+        1890,
+        1328
+      ]
+    },
+    "01028-f03s01-40550ea40edc": {
+      "review_id": "01028-f03s01-40550ea40edc",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:51.390Z",
+      "source": "semantic_full",
+      "frame_id": "f03s01",
+      "bbox": [
+        119,
+        1039,
+        153,
+        1091
+      ]
+    },
+    "01030-f01s02-092a230b1044": {
+      "review_id": "01030-f01s02-092a230b1044",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:51.967Z",
+      "source": "semantic_full",
+      "frame_id": "f01s02",
+      "bbox": [
+        1128,
+        348,
+        1230,
+        462
+      ]
+    },
+    "01027-f02s00-91466051e21a": {
+      "review_id": "01027-f02s00-91466051e21a",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:52.542Z",
+      "source": "random_grid",
+      "frame_id": "f02s00",
+      "bbox": [
+        1388,
+        309,
+        1452,
+        373
+      ]
+    },
+    "01028-f06s00-af712e850906": {
+      "review_id": "01028-f06s00-af712e850906",
+      "label": "UNCERTAIN",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:53.833Z",
+      "source": "semantic_tile",
+      "frame_id": "f06s00",
+      "bbox": [
+        2355,
+        1132,
+        2368,
+        1147
+      ]
+    },
+    "01021-f01s00-c6c92e8b3a94": {
+      "review_id": "01021-f01s00-c6c92e8b3a94",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:54.642Z",
+      "source": "semantic_tile",
+      "frame_id": "f01s00",
+      "bbox": [
+        359,
+        1003,
+        422,
+        1101
+      ]
+    },
+    "01027-f02s02-14a84569d85e": {
+      "review_id": "01027-f02s02-14a84569d85e",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:56.079Z",
+      "source": "semantic_tile",
+      "frame_id": "f02s02",
+      "bbox": [
+        371,
+        614,
+        392,
+        632
+      ]
+    },
+    "01022-f00s01-4527bb7e9f0c": {
+      "review_id": "01022-f00s01-4527bb7e9f0c",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:56.625Z",
+      "source": "random_grid",
+      "frame_id": "f00s01",
+      "bbox": [
+        1533,
+        401,
+        1677,
+        545
+      ]
+    },
+    "01027-f06s02-e0924e4fe569": {
+      "review_id": "01027-f06s02-e0924e4fe569",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:57.434Z",
+      "source": "semantic_full",
+      "frame_id": "f06s02",
+      "bbox": [
+        28,
+        1362,
+        139,
+        1440
+      ]
+    },
+    "01021-f00s00-9b99aa0ec774": {
+      "review_id": "01021-f00s00-9b99aa0ec774",
+      "label": "UNCERTAIN",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:11:59.300Z",
+      "source": "semantic_tile",
+      "frame_id": "f00s00",
+      "bbox": [
+        596,
+        660,
+        616,
+        682
+      ]
+    },
+    "01021-f00s02-e651bdf81e6d": {
+      "review_id": "01021-f00s02-e651bdf81e6d",
+      "label": "UNCERTAIN",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:12:01.981Z",
+      "source": "semantic_tile",
+      "frame_id": "f00s02",
+      "bbox": [
+        2284,
+        767,
+        2306,
+        775
+      ]
+    },
+    "01030-f04s00-d45cfa0dc99b": {
+      "review_id": "01030-f04s00-d45cfa0dc99b",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:12:02.962Z",
+      "source": "random_grid",
+      "frame_id": "f04s00",
+      "bbox": [
+        1572,
+        188,
+        1780,
+        396
+      ]
+    },
+    "01022-f00s01-859ffd54c5b4": {
+      "review_id": "01022-f00s01-859ffd54c5b4",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:12:03.747Z",
+      "source": "semantic_tile",
+      "frame_id": "f00s01",
+      "bbox": [
+        870,
+        644,
+        937,
+        702
+      ]
+    },
+    "01030-f02s00-39d08bc962c0": {
+      "review_id": "01030-f02s00-39d08bc962c0",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:12:08.309Z",
+      "source": "semantic_full",
+      "frame_id": "f02s00",
+      "bbox": [
+        1716,
+        318,
+        1727,
+        358
+      ]
+    },
+    "01028-f00s02-2b0e9889ce69": {
+      "review_id": "01028-f00s02-2b0e9889ce69",
+      "label": "BOX_WRONG",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:12:10.150Z",
+      "source": "semantic_tile",
+      "frame_id": "f00s02",
+      "bbox": [
+        1924,
+        999,
+        1946,
+        1005
+      ]
+    },
+    "01030-f01s01-47b55aaa2f4c": {
+      "review_id": "01030-f01s01-47b55aaa2f4c",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:12:11.087Z",
+      "source": "semantic_tile",
+      "frame_id": "f01s01",
+      "bbox": [
+        1308,
+        90,
+        1344,
+        176
+      ]
+    },
+    "01030-f05s00-4300ab361bef": {
+      "review_id": "01030-f05s00-4300ab361bef",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:12:11.734Z",
+      "source": "semantic_full",
+      "frame_id": "f05s00",
+      "bbox": [
+        1160,
+        446,
+        1266,
+        488
+      ]
+    },
+    "01028-f06s01-c6b66fe4f126": {
+      "review_id": "01028-f06s01-c6b66fe4f126",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:12:12.400Z",
+      "source": "semantic_tile",
+      "frame_id": "f06s01",
+      "bbox": [
+        2084,
+        1288,
+        2112,
+        1327
+      ]
+    },
+    "01027-f02s01-94827640e884": {
+      "review_id": "01027-f02s01-94827640e884",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:12:12.984Z",
+      "source": "semantic_full",
+      "frame_id": "f02s01",
+      "bbox": [
+        1751,
+        689,
+        1924,
+        854
+      ]
+    },
+    "01027-f01s01-50d0e33f47d0": {
+      "review_id": "01027-f01s01-50d0e33f47d0",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:12:13.655Z",
+      "source": "random_grid",
+      "frame_id": "f01s01",
+      "bbox": [
+        883,
+        957,
+        1027,
+        1101
+      ]
+    },
+    "01027-f04s01-52c2914bfc35": {
+      "review_id": "01027-f04s01-52c2914bfc35",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:12:14.484Z",
+      "source": "semantic_full",
+      "frame_id": "f04s01",
+      "bbox": [
+        434,
+        664,
+        519,
+        722
+      ]
+    },
+    "01030-f01s02-02cc386c3b6e": {
+      "review_id": "01030-f01s02-02cc386c3b6e",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:12:15.197Z",
+      "source": "semantic_tile",
+      "frame_id": "f01s02",
+      "bbox": [
+        1117,
+        555,
+        1165,
+        587
+      ]
+    },
+    "01021-f00s02-de2ff8c5c772": {
+      "review_id": "01021-f00s02-de2ff8c5c772",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:12:15.785Z",
+      "source": "semantic_tile",
+      "frame_id": "f00s02",
+      "bbox": [
+        1895,
+        521,
+        1936,
+        551
+      ]
+    },
+    "01028-f01s02-63f625b1a52d": {
+      "review_id": "01028-f01s02-63f625b1a52d",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:12:17.068Z",
+      "source": "semantic_tile",
+      "frame_id": "f01s02",
+      "bbox": [
+        1992,
+        578,
+        2099,
+        878
+      ]
+    },
+    "01028-f06s02-0199dd9dba2e": {
+      "review_id": "01028-f06s02-0199dd9dba2e",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:12:17.773Z",
+      "source": "random_grid",
+      "frame_id": "f06s02",
+      "bbox": [
+        1442,
+        951,
+        1586,
+        1095
+      ]
+    },
+    "01028-f03s01-33c02175c097": {
+      "review_id": "01028-f03s01-33c02175c097",
+      "label": "NON_LITTER",
+      "note": "",
+      "reviewed_at": "2026-09-22T06:12:18.580Z",
+      "source": "semantic_full",
+      "frame_id": "f03s01",
+      "bbox": [
+        1423,
+        774,
+        1458,
+        838
+      ]
+    }
+  }
+}

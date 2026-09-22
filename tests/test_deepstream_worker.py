@@ -48,6 +48,7 @@ from rtsp_annotator.deepstream_worker import (
     VesselFrameProcessor,
     _add_pipeline_nodes,
     _buffer_quality_flags,
+    _ground_litter_occluder_classes,
     _merge_pile_detections,
     _load_policies,
     _point_in_polygon,
@@ -2557,6 +2558,16 @@ class DeepStreamWorkerTests(unittest.TestCase):
         self.assertEqual(submitted["pad"], 0)
         self.assertTrue(submitted["night"])
         self.assertEqual(submitted["actors"], [(0.1, 0.1, 0.2, 0.2)])
+
+    def test_ground_litter_occluders_include_actor_and_context_classes(self) -> None:
+        options = GroundLitterDetectionOptions(
+            actor_class_ids=(0, 2, 7),
+            context_class_ids=(7, 13, 56),
+        )
+        self.assertEqual(
+            _ground_litter_occluder_classes(options),
+            (0, 2, 7, 13, 56),
+        )
 
     def test_ground_litter_frame_processor_skips_disabled_pads(self) -> None:
         class FakeClient:

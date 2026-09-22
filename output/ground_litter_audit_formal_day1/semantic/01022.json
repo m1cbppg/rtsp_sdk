@@ -1,0 +1,5891 @@
+{
+  "model_names": {
+    "0": "Glass",
+    "1": "Metal",
+    "2": "Paper",
+    "3": "Plastic",
+    "4": "Waste"
+  },
+  "frames": [
+    {
+      "frame_id": "f00s00",
+      "proposals": [
+        {
+          "bbox": [
+            728,
+            604,
+            806,
+            665
+          ],
+          "score": 0.8757145404815674,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            834,
+            1185,
+            1015,
+            1277
+          ],
+          "score": 0.7756132483482361,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            414,
+            411,
+            689,
+            682
+          ],
+          "score": 0.7028993964195251,
+          "class_id": 4,
+          "class_name": "Waste",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1792,
+            1085,
+            1828,
+            1207
+          ],
+          "score": 0.7026460766792297,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2084,
+            1288,
+            2112,
+            1328
+          ],
+          "score": 0.6431460976600647,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            475,
+            1156,
+            499,
+            1178
+          ],
+          "score": 0.5726662874221802,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            925,
+            590,
+            973,
+            651
+          ],
+          "score": 0.5594258904457092,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1094,
+            1364,
+            1184,
+            1421
+          ],
+          "score": 0.5576663017272949,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2020,
+            1300,
+            2047,
+            1327
+          ],
+          "score": 0.5371111035346985,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2115,
+            1288,
+            2145,
+            1329
+          ],
+          "score": 0.48732292652130127,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1728,
+            597,
+            1750,
+            657
+          ],
+          "score": 0.47469282150268555,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            760,
+            1077,
+            855,
+            1138
+          ],
+          "score": 0.4428550899028778,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1750,
+            1036,
+            1787,
+            1078
+          ],
+          "score": 0.4029121398925781,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            762,
+            658,
+            969,
+            787
+          ],
+          "score": 0.3986685276031494,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            923,
+            673,
+            1018,
+            762
+          ],
+          "score": 0.3952356278896332,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1736,
+            475,
+            1777,
+            604
+          ],
+          "score": 0.3899248540401459,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            624,
+            960,
+            638,
+            969
+          ],
+          "score": 0.38577184081077576,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            871,
+            1102,
+            953,
+            1161
+          ],
+          "score": 0.38026168942451477,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            2109,
+            1135,
+            2149,
+            1229
+          ],
+          "score": 0.36233416199684143,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            805,
+            1024,
+            984,
+            1117
+          ],
+          "score": 0.3598739802837372,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        }
+      ]
+    },
+    {
+      "frame_id": "f00s01",
+      "proposals": [
+        {
+          "bbox": [
+            727,
+            604,
+            806,
+            663
+          ],
+          "score": 0.8491740822792053,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            834,
+            1185,
+            1015,
+            1277
+          ],
+          "score": 0.7746380567550659,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            411,
+            409,
+            693,
+            705
+          ],
+          "score": 0.6501737236976624,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2084,
+            1288,
+            2112,
+            1328
+          ],
+          "score": 0.6249109506607056,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            474,
+            1156,
+            500,
+            1178
+          ],
+          "score": 0.5513038635253906,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2115,
+            1288,
+            2145,
+            1328
+          ],
+          "score": 0.5196974873542786,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1096,
+            1365,
+            1185,
+            1418
+          ],
+          "score": 0.48232322931289673,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            926,
+            590,
+            973,
+            651
+          ],
+          "score": 0.4688374400138855,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            761,
+            656,
+            971,
+            790
+          ],
+          "score": 0.4640949070453644,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            798,
+            1026,
+            954,
+            1108
+          ],
+          "score": 0.4472370147705078,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            926,
+            656,
+            1017,
+            757
+          ],
+          "score": 0.4331703782081604,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            863,
+            1101,
+            953,
+            1161
+          ],
+          "score": 0.39868611097335815,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1086,
+            943,
+            1153,
+            1087
+          ],
+          "score": 0.3858170211315155,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            760,
+            1078,
+            854,
+            1138
+          ],
+          "score": 0.38424357771873474,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            624,
+            959,
+            637,
+            969
+          ],
+          "score": 0.3841955065727234,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2020,
+            1300,
+            2047,
+            1328
+          ],
+          "score": 0.3561205267906189,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1576,
+            800,
+            1620,
+            818
+          ],
+          "score": 0.3390001058578491,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1501,
+            1064,
+            1513,
+            1073
+          ],
+          "score": 0.3319460153579712,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1021,
+            1233,
+            1092,
+            1270
+          ],
+          "score": 0.32225099205970764,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            2109,
+            1133,
+            2146,
+            1230
+          ],
+          "score": 0.2954249083995819,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        }
+      ]
+    },
+    {
+      "frame_id": "f00s02",
+      "proposals": [
+        {
+          "bbox": [
+            728,
+            604,
+            806,
+            648
+          ],
+          "score": 0.8468438386917114,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            414,
+            411,
+            688,
+            699
+          ],
+          "score": 0.7425231337547302,
+          "class_id": 4,
+          "class_name": "Waste",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            834,
+            1185,
+            1015,
+            1277
+          ],
+          "score": 0.7305265069007874,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1749,
+            1035,
+            1786,
+            1078
+          ],
+          "score": 0.6834345459938049,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            475,
+            1156,
+            500,
+            1178
+          ],
+          "score": 0.6431257128715515,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1792,
+            1134,
+            1828,
+            1206
+          ],
+          "score": 0.6106246709823608,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2115,
+            1287,
+            2146,
+            1328
+          ],
+          "score": 0.5771311521530151,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1397,
+            732,
+            1691,
+            927
+          ],
+          "score": 0.5263084173202515,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1728,
+            1131,
+            1827,
+            1207
+          ],
+          "score": 0.5222571492195129,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1096,
+            1364,
+            1185,
+            1422
+          ],
+          "score": 0.5021430850028992,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2084,
+            1287,
+            2113,
+            1329
+          ],
+          "score": 0.494596928358078,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            924,
+            589,
+            972,
+            653
+          ],
+          "score": 0.4270053803920746,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2020,
+            1300,
+            2047,
+            1327
+          ],
+          "score": 0.4259624481201172,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            924,
+            673,
+            1016,
+            759
+          ],
+          "score": 0.4252017140388489,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1731,
+            473,
+            1777,
+            606
+          ],
+          "score": 0.42434605956077576,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            760,
+            1077,
+            854,
+            1138
+          ],
+          "score": 0.4096762239933014,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1021,
+            1234,
+            1091,
+            1270
+          ],
+          "score": 0.381669819355011,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            624,
+            960,
+            638,
+            969
+          ],
+          "score": 0.37669116258621216,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1500,
+            1064,
+            1512,
+            1073
+          ],
+          "score": 0.36087194085121155,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            880,
+            1102,
+            953,
+            1160
+          ],
+          "score": 0.35271763801574707,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        }
+      ]
+    },
+    {
+      "frame_id": "f01s00",
+      "proposals": [
+        {
+          "bbox": [
+            2084,
+            1289,
+            2112,
+            1328
+          ],
+          "score": 0.7307396531105042,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            888,
+            1101,
+            951,
+            1161
+          ],
+          "score": 0.7200288772583008,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            824,
+            1187,
+            1021,
+            1274
+          ],
+          "score": 0.5828295946121216,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            952,
+            759,
+            1028,
+            841
+          ],
+          "score": 0.5258352756500244,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            832,
+            1250,
+            968,
+            1335
+          ],
+          "score": 0.499117374420166,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1275,
+            608,
+            1468,
+            672
+          ],
+          "score": 0.4800015091896057,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1860,
+            1288,
+            1919,
+            1329
+          ],
+          "score": 0.46770212054252625,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            747,
+            656,
+            936,
+            788
+          ],
+          "score": 0.454072505235672,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1276,
+            611,
+            1344,
+            670
+          ],
+          "score": 0.42327627539634705,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2116,
+            1287,
+            2145,
+            1328
+          ],
+          "score": 0.4221577048301697,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1153,
+            1096,
+            1214,
+            1272
+          ],
+          "score": 0.41706928610801697,
+          "class_id": 4,
+          "class_name": "Waste",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            759,
+            1080,
+            861,
+            1176
+          ],
+          "score": 0.38804998993873596,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1589,
+            1121,
+            1612,
+            1132
+          ],
+          "score": 0.3617837131023407,
+          "class_id": 4,
+          "class_name": "Waste",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1854,
+            1297,
+            2049,
+            1343
+          ],
+          "score": 0.30606627464294434,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1500,
+            1064,
+            1513,
+            1074
+          ],
+          "score": 0.2976800501346588,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            643,
+            1259,
+            676,
+            1274
+          ],
+          "score": 0.27925994992256165,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1892,
+            1300,
+            1919,
+            1328
+          ],
+          "score": 0.27502894401550293,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1022,
+            1149,
+            1104,
+            1194
+          ],
+          "score": 0.27447250485420227,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1018,
+            1155,
+            1131,
+            1270
+          ],
+          "score": 0.2733455002307892,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            921,
+            590,
+            973,
+            653
+          ],
+          "score": 0.2648889422416687,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        }
+      ]
+    },
+    {
+      "frame_id": "f01s01",
+      "proposals": [
+        {
+          "bbox": [
+            2084,
+            1289,
+            2112,
+            1328
+          ],
+          "score": 0.7303495407104492,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            818,
+            1185,
+            1016,
+            1277
+          ],
+          "score": 0.6097275018692017,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1275,
+            607,
+            1429,
+            669
+          ],
+          "score": 0.49954915046691895,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1276,
+            611,
+            1344,
+            669
+          ],
+          "score": 0.4835774302482605,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1860,
+            1289,
+            1919,
+            1329
+          ],
+          "score": 0.4787635803222656,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2116,
+            1287,
+            2145,
+            1329
+          ],
+          "score": 0.4748813509941101,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            950,
+            758,
+            1028,
+            841
+          ],
+          "score": 0.468531996011734,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            832,
+            1253,
+            965,
+            1334
+          ],
+          "score": 0.4494438171386719,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            881,
+            1101,
+            952,
+            1153
+          ],
+          "score": 0.41258034110069275,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1153,
+            1096,
+            1214,
+            1271
+          ],
+          "score": 0.37208491563796997,
+          "class_id": 4,
+          "class_name": "Waste",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            848,
+            1102,
+            957,
+            1170
+          ],
+          "score": 0.3303929269313812,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            728,
+            608,
+            806,
+            667
+          ],
+          "score": 0.32867735624313354,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            849,
+            1102,
+            885,
+            1163
+          ],
+          "score": 0.31395500898361206,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1892,
+            1300,
+            1919,
+            1328
+          ],
+          "score": 0.31099939346313477,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            849,
+            1126,
+            878,
+            1161
+          ],
+          "score": 0.28914132714271545,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            746,
+            656,
+            938,
+            788
+          ],
+          "score": 0.2745789587497711,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1501,
+            1064,
+            1513,
+            1074
+          ],
+          "score": 0.2427789717912674,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            642,
+            1259,
+            675,
+            1273
+          ],
+          "score": 0.217749685049057,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            767,
+            997,
+            980,
+            1164
+          ],
+          "score": 0.21647211909294128,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            805,
+            1023,
+            954,
+            1113
+          ],
+          "score": 0.2163470983505249,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        }
+      ]
+    },
+    {
+      "frame_id": "f01s02",
+      "proposals": [
+        {
+          "bbox": [
+            2084,
+            1289,
+            2112,
+            1328
+          ],
+          "score": 0.7212144732475281,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            861,
+            1101,
+            951,
+            1161
+          ],
+          "score": 0.5499983429908752,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1275,
+            606,
+            1422,
+            669
+          ],
+          "score": 0.5209166407585144,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2116,
+            1286,
+            2145,
+            1329
+          ],
+          "score": 0.49087202548980713,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            823,
+            1187,
+            1022,
+            1276
+          ],
+          "score": 0.4861091077327728,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            952,
+            757,
+            1028,
+            841
+          ],
+          "score": 0.474641889333725,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1276,
+            611,
+            1344,
+            671
+          ],
+          "score": 0.471897691488266,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            832,
+            1251,
+            970,
+            1334
+          ],
+          "score": 0.4605192244052887,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1153,
+            1095,
+            1214,
+            1271
+          ],
+          "score": 0.43414172530174255,
+          "class_id": 4,
+          "class_name": "Waste",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            729,
+            608,
+            806,
+            664
+          ],
+          "score": 0.42658352851867676,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1863,
+            1289,
+            1889,
+            1328
+          ],
+          "score": 0.35701698064804077,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            746,
+            658,
+            936,
+            789
+          ],
+          "score": 0.35157832503318787,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1500,
+            1063,
+            1513,
+            1074
+          ],
+          "score": 0.3393855094909668,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1590,
+            1122,
+            1612,
+            1132
+          ],
+          "score": 0.3154512941837311,
+          "class_id": 4,
+          "class_name": "Waste",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            758,
+            1081,
+            860,
+            1176
+          ],
+          "score": 0.31288236379623413,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1891,
+            1300,
+            1919,
+            1328
+          ],
+          "score": 0.3016723692417145,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            849,
+            1137,
+            876,
+            1161
+          ],
+          "score": 0.2895183861255646,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1018,
+            1185,
+            1133,
+            1272
+          ],
+          "score": 0.2771996557712555,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1860,
+            1288,
+            1918,
+            1329
+          ],
+          "score": 0.2747759222984314,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1022,
+            1146,
+            1104,
+            1197
+          ],
+          "score": 0.2738378942012787,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        }
+      ]
+    },
+    {
+      "frame_id": "f02s00",
+      "proposals": [
+        {
+          "bbox": [
+            1515,
+            1315,
+            1707,
+            1405
+          ],
+          "score": 0.7976076006889343,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            488,
+            316,
+            730,
+            531
+          ],
+          "score": 0.7619414329528809,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            864,
+            1149,
+            929,
+            1187
+          ],
+          "score": 0.6589067578315735,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            303,
+            1364,
+            327,
+            1396
+          ],
+          "score": 0.5675888657569885,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1749,
+            1234,
+            1802,
+            1275
+          ],
+          "score": 0.514185905456543,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            288,
+            633,
+            376,
+            660
+          ],
+          "score": 0.5138071179389954,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            361,
+            292,
+            442,
+            460
+          ],
+          "score": 0.46429145336151123,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1767,
+            1298,
+            1945,
+            1387
+          ],
+          "score": 0.44963034987449646,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1879,
+            1021,
+            1920,
+            1107
+          ],
+          "score": 0.4420246183872223,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            641,
+            126,
+            686,
+            164
+          ],
+          "score": 0.4378199875354767,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1738,
+            1126,
+            1839,
+            1213
+          ],
+          "score": 0.435169517993927,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            224,
+            1087,
+            979,
+            1440
+          ],
+          "score": 0.43002158403396606,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            2084,
+            1288,
+            2112,
+            1328
+          ],
+          "score": 0.39686864614486694,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1045,
+            1078,
+            1131,
+            1122
+          ],
+          "score": 0.37656983733177185,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            645,
+            134,
+            686,
+            206
+          ],
+          "score": 0.36768123507499695,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1748,
+            1037,
+            1786,
+            1074
+          ],
+          "score": 0.36495503783226013,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            840,
+            1068,
+            917,
+            1107
+          ],
+          "score": 0.347426176071167,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            2112,
+            1135,
+            2145,
+            1225
+          ],
+          "score": 0.34412458539009094,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2119,
+            1288,
+            2145,
+            1329
+          ],
+          "score": 0.3402847945690155,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1730,
+            605,
+            1748,
+            656
+          ],
+          "score": 0.3384590148925781,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        }
+      ]
+    },
+    {
+      "frame_id": "f02s01",
+      "proposals": [
+        {
+          "bbox": [
+            303,
+            1363,
+            327,
+            1396
+          ],
+          "score": 0.651423990726471,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1738,
+            1126,
+            1839,
+            1213
+          ],
+          "score": 0.6455276608467102,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            488,
+            316,
+            730,
+            533
+          ],
+          "score": 0.6283971667289734,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1748,
+            1035,
+            1785,
+            1075
+          ],
+          "score": 0.6081068515777588,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1516,
+            1314,
+            1710,
+            1406
+          ],
+          "score": 0.5930013060569763,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            862,
+            1149,
+            930,
+            1187
+          ],
+          "score": 0.5627153515815735,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1749,
+            1234,
+            1801,
+            1276
+          ],
+          "score": 0.5260605812072754,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1767,
+            1299,
+            1945,
+            1387
+          ],
+          "score": 0.5203185677528381,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            2110,
+            1136,
+            2145,
+            1229
+          ],
+          "score": 0.4529600441455841,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1043,
+            1079,
+            1130,
+            1121
+          ],
+          "score": 0.4465493857860565,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            840,
+            1068,
+            916,
+            1108
+          ],
+          "score": 0.3670883774757385,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1729,
+            605,
+            1748,
+            655
+          ],
+          "score": 0.3597785532474518,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            972,
+            1019,
+            1046,
+            1081
+          ],
+          "score": 0.359292596578598,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            2084,
+            1288,
+            2113,
+            1328
+          ],
+          "score": 0.35779890418052673,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            426,
+            345,
+            466,
+            377
+          ],
+          "score": 0.3532087802886963,
+          "class_id": 4,
+          "class_name": "Waste",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1045,
+            1076,
+            1126,
+            1099
+          ],
+          "score": 0.3453670144081116,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1774,
+            1299,
+            1881,
+            1344
+          ],
+          "score": 0.3336952030658722,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            728,
+            607,
+            782,
+            668
+          ],
+          "score": 0.33090728521347046,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1398,
+            634,
+            1479,
+            687
+          ],
+          "score": 0.3288411796092987,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            931,
+            591,
+            971,
+            609
+          ],
+          "score": 0.3209027647972107,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        }
+      ]
+    },
+    {
+      "frame_id": "f02s02",
+      "proposals": [
+        {
+          "bbox": [
+            1516,
+            1314,
+            1707,
+            1406
+          ],
+          "score": 0.8318784236907959,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            303,
+            1364,
+            327,
+            1397
+          ],
+          "score": 0.6695243716239929,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            864,
+            1149,
+            930,
+            1188
+          ],
+          "score": 0.6193082928657532,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1730,
+            1127,
+            1839,
+            1221
+          ],
+          "score": 0.6046337485313416,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1748,
+            1036,
+            1788,
+            1077
+          ],
+          "score": 0.5995107889175415,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            488,
+            316,
+            730,
+            538
+          ],
+          "score": 0.5957974195480347,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1878,
+            1023,
+            1920,
+            1108
+          ],
+          "score": 0.526283323764801,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1767,
+            1299,
+            1944,
+            1387
+          ],
+          "score": 0.5079782009124756,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1152,
+            631,
+            1168,
+            660
+          ],
+          "score": 0.4600934684276581,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            287,
+            633,
+            376,
+            660
+          ],
+          "score": 0.44649139046669006,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1747,
+            1234,
+            1801,
+            1275
+          ],
+          "score": 0.43860575556755066,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2110,
+            1135,
+            2145,
+            1230
+          ],
+          "score": 0.435721218585968,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1044,
+            1078,
+            1129,
+            1121
+          ],
+          "score": 0.417322039604187,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            2084,
+            1288,
+            2112,
+            1328
+          ],
+          "score": 0.41654908657073975,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            971,
+            1024,
+            1046,
+            1080
+          ],
+          "score": 0.4071699380874634,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1130,
+            621,
+            1169,
+            660
+          ],
+          "score": 0.39337342977523804,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            426,
+            345,
+            466,
+            377
+          ],
+          "score": 0.3799583613872528,
+          "class_id": 4,
+          "class_name": "Waste",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2019,
+            1300,
+            2048,
+            1329
+          ],
+          "score": 0.37994059920310974,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1772,
+            1296,
+            1920,
+            1344
+          ],
+          "score": 0.354011595249176,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            840,
+            1068,
+            917,
+            1108
+          ],
+          "score": 0.33195099234580994,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        }
+      ]
+    },
+    {
+      "frame_id": "f03s00",
+      "proposals": [
+        {
+          "bbox": [
+            302,
+            1365,
+            327,
+            1397
+          ],
+          "score": 0.6068812012672424,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2084,
+            1288,
+            2113,
+            1328
+          ],
+          "score": 0.5932927131652832,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            224,
+            1087,
+            986,
+            1440
+          ],
+          "score": 0.5137947797775269,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            573,
+            279,
+            805,
+            469
+          ],
+          "score": 0.511737585067749,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            2118,
+            1287,
+            2145,
+            1329
+          ],
+          "score": 0.4474565386772156,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1390,
+            1141,
+            1418,
+            1153
+          ],
+          "score": 0.44165584444999695,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            529,
+            265,
+            552,
+            290
+          ],
+          "score": 0.43855929374694824,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1729,
+            609,
+            1748,
+            655
+          ],
+          "score": 0.4364287853240967,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            511,
+            326,
+            562,
+            354
+          ],
+          "score": 0.4336036443710327,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2019,
+            1300,
+            2048,
+            1329
+          ],
+          "score": 0.4299556612968445,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            515,
+            387,
+            536,
+            425
+          ],
+          "score": 0.34351828694343567,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1041,
+            516,
+            1072,
+            541
+          ],
+          "score": 0.33505332469940186,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1152,
+            632,
+            1168,
+            660
+          ],
+          "score": 0.33473673462867737,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1516,
+            1314,
+            1708,
+            1407
+          ],
+          "score": 0.32286208868026733,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2109,
+            1135,
+            2144,
+            1229
+          ],
+          "score": 0.31209373474121094,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1130,
+            622,
+            1168,
+            660
+          ],
+          "score": 0.2958339750766754,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1470,
+            1029,
+            1496,
+            1041
+          ],
+          "score": 0.27874237298965454,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1765,
+            1212,
+            1816,
+            1253
+          ],
+          "score": 0.27228468656539917,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1405,
+            1187,
+            1414,
+            1192
+          ],
+          "score": 0.26388514041900635,
+          "class_id": 4,
+          "class_name": "Waste",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1397,
+            635,
+            1483,
+            688
+          ],
+          "score": 0.25957369804382324,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_full"
+        }
+      ]
+    },
+    {
+      "frame_id": "f03s01",
+      "proposals": [
+        {
+          "bbox": [
+            577,
+            280,
+            804,
+            473
+          ],
+          "score": 0.7645801305770874,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            301,
+            1364,
+            332,
+            1397
+          ],
+          "score": 0.6186060905456543,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2084,
+            1288,
+            2113,
+            1328
+          ],
+          "score": 0.5748062133789062,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1390,
+            1140,
+            1418,
+            1154
+          ],
+          "score": 0.49187231063842773,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            222,
+            1086,
+            984,
+            1440
+          ],
+          "score": 0.44604426622390747,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            2019,
+            1300,
+            2048,
+            1329
+          ],
+          "score": 0.43047067523002625,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2119,
+            1287,
+            2145,
+            1329
+          ],
+          "score": 0.37184157967567444,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1729,
+            609,
+            1748,
+            658
+          ],
+          "score": 0.35718050599098206,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1152,
+            632,
+            1168,
+            659
+          ],
+          "score": 0.3436940014362335,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1765,
+            1212,
+            1816,
+            1253
+          ],
+          "score": 0.3320324122905731,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2110,
+            1135,
+            2144,
+            1224
+          ],
+          "score": 0.32921773195266724,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1471,
+            1029,
+            1496,
+            1041
+          ],
+          "score": 0.2840863764286041,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            424,
+            344,
+            465,
+            376
+          ],
+          "score": 0.2715648412704468,
+          "class_id": 4,
+          "class_name": "Waste",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1516,
+            1315,
+            1707,
+            1407
+          ],
+          "score": 0.2598830461502075,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1405,
+            1187,
+            1414,
+            1192
+          ],
+          "score": 0.24229753017425537,
+          "class_id": 4,
+          "class_name": "Waste",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1399,
+            638,
+            1483,
+            688
+          ],
+          "score": 0.2421187460422516,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1503,
+            1033,
+            1523,
+            1044
+          ],
+          "score": 0.2370787113904953,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1131,
+            622,
+            1168,
+            660
+          ],
+          "score": 0.22556693851947784,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1769,
+            1020,
+            1805,
+            1053
+          ],
+          "score": 0.21619968116283417,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1754,
+            1113,
+            1855,
+            1188
+          ],
+          "score": 0.2093663513660431,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        }
+      ]
+    },
+    {
+      "frame_id": "f03s02",
+      "proposals": [
+        {
+          "bbox": [
+            303,
+            1366,
+            328,
+            1397
+          ],
+          "score": 0.5751730799674988,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            559,
+            278,
+            805,
+            472
+          ],
+          "score": 0.5654820799827576,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            223,
+            1088,
+            992,
+            1440
+          ],
+          "score": 0.5460385084152222,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1390,
+            1140,
+            1417,
+            1154
+          ],
+          "score": 0.5322543978691101,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2084,
+            1288,
+            2113,
+            1328
+          ],
+          "score": 0.5254361629486084,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2019,
+            1300,
+            2049,
+            1329
+          ],
+          "score": 0.44124624133110046,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2119,
+            1287,
+            2145,
+            1329
+          ],
+          "score": 0.44058582186698914,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            555,
+            234,
+            573,
+            273
+          ],
+          "score": 0.34394511580467224,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            423,
+            345,
+            465,
+            378
+          ],
+          "score": 0.33922603726387024,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            846,
+            474,
+            917,
+            545
+          ],
+          "score": 0.3289397954940796,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            577,
+            1085,
+            912,
+            1343
+          ],
+          "score": 0.32353994250297546,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1152,
+            632,
+            1167,
+            660
+          ],
+          "score": 0.2985668480396271,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1755,
+            1113,
+            1853,
+            1195
+          ],
+          "score": 0.29807329177856445,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1398,
+            635,
+            1482,
+            688
+          ],
+          "score": 0.29714757204055786,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1729,
+            609,
+            1748,
+            654
+          ],
+          "score": 0.2930075228214264,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1470,
+            1029,
+            1496,
+            1041
+          ],
+          "score": 0.29291605949401855,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1516,
+            1315,
+            1708,
+            1407
+          ],
+          "score": 0.28655698895454407,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1764,
+            1212,
+            1816,
+            1253
+          ],
+          "score": 0.2779829800128937,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1792,
+            1214,
+            1815,
+            1245
+          ],
+          "score": 0.25821828842163086,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1503,
+            1033,
+            1523,
+            1042
+          ],
+          "score": 0.2524201273918152,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        }
+      ]
+    },
+    {
+      "frame_id": "f04s00",
+      "proposals": [
+        {
+          "bbox": [
+            424,
+            345,
+            463,
+            376
+          ],
+          "score": 0.6554766297340393,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            303,
+            1366,
+            327,
+            1398
+          ],
+          "score": 0.548626720905304,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            888,
+            1101,
+            951,
+            1156
+          ],
+          "score": 0.5381537079811096,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1399,
+            637,
+            1483,
+            689
+          ],
+          "score": 0.5301293730735779,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            2083,
+            1289,
+            2113,
+            1328
+          ],
+          "score": 0.5155582427978516,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2019,
+            1300,
+            2048,
+            1328
+          ],
+          "score": 0.479386568069458,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1701,
+            1022,
+            1769,
+            1090
+          ],
+          "score": 0.4636482000350952,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            643,
+            990,
+            775,
+            1100
+          ],
+          "score": 0.44274580478668213,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1756,
+            1113,
+            1854,
+            1193
+          ],
+          "score": 0.42738938331604004,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1896,
+            935,
+            2000,
+            1108
+          ],
+          "score": 0.41349712014198303,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            157,
+            1232,
+            182,
+            1256
+          ],
+          "score": 0.4106992483139038,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1504,
+            1074,
+            1533,
+            1086
+          ],
+          "score": 0.4021527171134949,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1860,
+            1288,
+            1890,
+            1327
+          ],
+          "score": 0.3741167187690735,
+          "class_id": 4,
+          "class_name": "Waste",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1756,
+            1354,
+            1979,
+            1440
+          ],
+          "score": 0.3384530544281006,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1260,
+            1181,
+            1344,
+            1220
+          ],
+          "score": 0.3357914388179779,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            864,
+            1143,
+            1030,
+            1199
+          ],
+          "score": 0.33280330896377563,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            442,
+            720,
+            460,
+            729
+          ],
+          "score": 0.3267422318458557,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            833,
+            569,
+            854,
+            578
+          ],
+          "score": 0.32421764731407166,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1256,
+            712,
+            1269,
+            718
+          ],
+          "score": 0.2747483551502228,
+          "class_id": 4,
+          "class_name": "Waste",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2117,
+            1288,
+            2145,
+            1328
+          ],
+          "score": 0.27308720350265503,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        }
+      ]
+    },
+    {
+      "frame_id": "f04s01",
+      "proposals": [
+        {
+          "bbox": [
+            303,
+            1366,
+            327,
+            1399
+          ],
+          "score": 0.6603095531463623,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            887,
+            1100,
+            951,
+            1157
+          ],
+          "score": 0.6518105864524841,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1875,
+            1118,
+            1919,
+            1226
+          ],
+          "score": 0.5597144365310669,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1765,
+            1213,
+            1817,
+            1254
+          ],
+          "score": 0.5546958446502686,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            425,
+            345,
+            464,
+            375
+          ],
+          "score": 0.47166046500205994,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1792,
+            1215,
+            1816,
+            1246
+          ],
+          "score": 0.4352494478225708,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1725,
+            1196,
+            1762,
+            1260
+          ],
+          "score": 0.4182770848274231,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2083,
+            1288,
+            2114,
+            1328
+          ],
+          "score": 0.3968769311904907,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            832,
+            569,
+            854,
+            578
+          ],
+          "score": 0.3938814699649811,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1128,
+            622,
+            1167,
+            660
+          ],
+          "score": 0.39273855090141296,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2018,
+            1300,
+            2048,
+            1330
+          ],
+          "score": 0.35103878378868103,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1400,
+            637,
+            1486,
+            689
+          ],
+          "score": 0.33117252588272095,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            157,
+            1233,
+            181,
+            1255
+          ],
+          "score": 0.32214653491973877,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1021,
+            643,
+            1047,
+            656
+          ],
+          "score": 0.31526267528533936,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2112,
+            1135,
+            2143,
+            1231
+          ],
+          "score": 0.30607396364212036,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1257,
+            712,
+            1270,
+            717
+          ],
+          "score": 0.30228838324546814,
+          "class_id": 4,
+          "class_name": "Waste",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            442,
+            720,
+            461,
+            729
+          ],
+          "score": 0.2924187481403351,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1756,
+            1114,
+            1853,
+            1195
+          ],
+          "score": 0.2735980749130249,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1756,
+            1354,
+            1979,
+            1440
+          ],
+          "score": 0.2563892900943756,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            645,
+            987,
+            775,
+            1098
+          ],
+          "score": 0.253256618976593,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        }
+      ]
+    },
+    {
+      "frame_id": "f04s02",
+      "proposals": [
+        {
+          "bbox": [
+            424,
+            345,
+            464,
+            375
+          ],
+          "score": 0.668350100517273,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            303,
+            1365,
+            327,
+            1398
+          ],
+          "score": 0.5702542066574097,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1893,
+            945,
+            2000,
+            1138
+          ],
+          "score": 0.5233401656150818,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            888,
+            1100,
+            951,
+            1157
+          ],
+          "score": 0.5189561247825623,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1766,
+            1214,
+            1817,
+            1254
+          ],
+          "score": 0.5123716592788696,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            159,
+            1231,
+            181,
+            1255
+          ],
+          "score": 0.4785771667957306,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            832,
+            569,
+            853,
+            577
+          ],
+          "score": 0.458818256855011,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1705,
+            1002,
+            1768,
+            1086
+          ],
+          "score": 0.4396895468235016,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            2083,
+            1288,
+            2113,
+            1328
+          ],
+          "score": 0.4113542437553406,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1875,
+            1119,
+            1920,
+            1226
+          ],
+          "score": 0.37020570039749146,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2019,
+            1300,
+            2048,
+            1330
+          ],
+          "score": 0.36436596512794495,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1792,
+            1216,
+            1816,
+            1246
+          ],
+          "score": 0.32625719904899597,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1730,
+            608,
+            1747,
+            654
+          ],
+          "score": 0.3244040608406067,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            801,
+            568,
+            853,
+            577
+          ],
+          "score": 0.32203033566474915,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1501,
+            1075,
+            1532,
+            1085
+          ],
+          "score": 0.31343114376068115,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1258,
+            713,
+            1269,
+            717
+          ],
+          "score": 0.3064625859260559,
+          "class_id": 4,
+          "class_name": "Waste",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1865,
+            1298,
+            1955,
+            1329
+          ],
+          "score": 0.3053045868873596,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1021,
+            644,
+            1046,
+            655
+          ],
+          "score": 0.2969241440296173,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1260,
+            1181,
+            1343,
+            1220
+          ],
+          "score": 0.29467302560806274,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            646,
+            985,
+            775,
+            1096
+          ],
+          "score": 0.2866244614124298,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        }
+      ]
+    },
+    {
+      "frame_id": "f05s00",
+      "proposals": [
+        {
+          "bbox": [
+            366,
+            505,
+            678,
+            767
+          ],
+          "score": 0.7608243823051453,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            424,
+            345,
+            464,
+            376
+          ],
+          "score": 0.7098508477210999,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            576,
+            1086,
+            951,
+            1343
+          ],
+          "score": 0.6912198066711426,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1765,
+            1214,
+            1817,
+            1255
+          ],
+          "score": 0.6879928708076477,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1683,
+            1280,
+            1758,
+            1389
+          ],
+          "score": 0.6851933002471924,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            484,
+            146,
+            572,
+            278
+          ],
+          "score": 0.6801454424858093,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2019,
+            1299,
+            2048,
+            1329
+          ],
+          "score": 0.6145970821380615,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2084,
+            1289,
+            2113,
+            1328
+          ],
+          "score": 0.5825037956237793,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1240,
+            1289,
+            1262,
+            1303
+          ],
+          "score": 0.47980284690856934,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            657,
+            149,
+            697,
+            238
+          ],
+          "score": 0.45251962542533875,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1763,
+            1307,
+            1968,
+            1372
+          ],
+          "score": 0.429922491312027,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            302,
+            1365,
+            327,
+            1396
+          ],
+          "score": 0.3954833447933197,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2110,
+            1137,
+            2146,
+            1232
+          ],
+          "score": 0.3944835066795349,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            643,
+            985,
+            773,
+            1096
+          ],
+          "score": 0.35951584577560425,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            361,
+            638,
+            387,
+            666
+          ],
+          "score": 0.31208595633506775,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            557,
+            264,
+            758,
+            464
+          ],
+          "score": 0.2984764873981476,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1878,
+            1118,
+            1920,
+            1182
+          ],
+          "score": 0.2935333847999573,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1729,
+            604,
+            1747,
+            654
+          ],
+          "score": 0.27553826570510864,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1756,
+            1112,
+            1853,
+            1194
+          ],
+          "score": 0.27379563450813293,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1128,
+            622,
+            1168,
+            660
+          ],
+          "score": 0.24391189217567444,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        }
+      ]
+    },
+    {
+      "frame_id": "f05s01",
+      "proposals": [
+        {
+          "bbox": [
+            365,
+            505,
+            678,
+            767
+          ],
+          "score": 0.9088570475578308,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            576,
+            1086,
+            952,
+            1344
+          ],
+          "score": 0.7891836166381836,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1766,
+            1214,
+            1817,
+            1254
+          ],
+          "score": 0.7542961835861206,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1433,
+            740,
+            1480,
+            768
+          ],
+          "score": 0.7348515391349792,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            424,
+            345,
+            464,
+            375
+          ],
+          "score": 0.6900905966758728,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1515,
+            1315,
+            1707,
+            1407
+          ],
+          "score": 0.6762623190879822,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2084,
+            1288,
+            2113,
+            1328
+          ],
+          "score": 0.5992197394371033,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2019,
+            1299,
+            2048,
+            1329
+          ],
+          "score": 0.5727636218070984,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            589,
+            138,
+            642,
+            226
+          ],
+          "score": 0.563729465007782,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1396,
+            785,
+            1483,
+            963
+          ],
+          "score": 0.5049411654472351,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1432,
+            739,
+            1481,
+            803
+          ],
+          "score": 0.457391619682312,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1757,
+            1114,
+            1853,
+            1193
+          ],
+          "score": 0.43000033497810364,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            644,
+            985,
+            771,
+            1096
+          ],
+          "score": 0.42393186688423157,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            361,
+            638,
+            387,
+            666
+          ],
+          "score": 0.41952186822891235,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1240,
+            1290,
+            1261,
+            1302
+          ],
+          "score": 0.39912620186805725,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1729,
+            596,
+            1747,
+            658
+          ],
+          "score": 0.39309102296829224,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2110,
+            1135,
+            2145,
+            1232
+          ],
+          "score": 0.3871205449104309,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            302,
+            1365,
+            327,
+            1397
+          ],
+          "score": 0.35082992911338806,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1792,
+            1215,
+            1816,
+            1246
+          ],
+          "score": 0.33799251914024353,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1761,
+            1303,
+            1986,
+            1393
+          ],
+          "score": 0.3049326539039612,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_full"
+        }
+      ]
+    },
+    {
+      "frame_id": "f05s02",
+      "proposals": [
+        {
+          "bbox": [
+            365,
+            503,
+            677,
+            767
+          ],
+          "score": 0.8939908146858215,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            424,
+            345,
+            464,
+            376
+          ],
+          "score": 0.7275951504707336,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            576,
+            1087,
+            952,
+            1343
+          ],
+          "score": 0.6777123808860779,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2019,
+            1300,
+            2049,
+            1329
+          ],
+          "score": 0.5768704414367676,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2084,
+            1288,
+            2113,
+            1328
+          ],
+          "score": 0.5758013725280762,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1766,
+            1214,
+            1816,
+            1254
+          ],
+          "score": 0.5646238327026367,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            644,
+            985,
+            774,
+            1095
+          ],
+          "score": 0.4548611342906952,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1792,
+            1216,
+            1816,
+            1246
+          ],
+          "score": 0.4458834230899811,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            799,
+            104,
+            827,
+            170
+          ],
+          "score": 0.441265732049942,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1515,
+            1316,
+            1706,
+            1415
+          ],
+          "score": 0.4387499690055847,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1730,
+            607,
+            1747,
+            655
+          ],
+          "score": 0.3966091573238373,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1757,
+            1114,
+            1853,
+            1193
+          ],
+          "score": 0.3874777853488922,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            361,
+            638,
+            386,
+            665
+          ],
+          "score": 0.35032132267951965,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1894,
+            943,
+            2000,
+            1138
+          ],
+          "score": 0.3339868187904358,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1240,
+            1289,
+            1261,
+            1302
+          ],
+          "score": 0.3296525776386261,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2110,
+            1131,
+            2145,
+            1232
+          ],
+          "score": 0.3295809328556061,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1876,
+            1117,
+            1920,
+            1176
+          ],
+          "score": 0.3220198154449463,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            302,
+            1364,
+            327,
+            1397
+          ],
+          "score": 0.3098563849925995,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            699,
+            1308,
+            734,
+            1343
+          ],
+          "score": 0.2913126051425934,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1793,
+            1306,
+            1948,
+            1368
+          ],
+          "score": 0.28318506479263306,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        }
+      ]
+    },
+    {
+      "frame_id": "f06s00",
+      "proposals": [
+        {
+          "bbox": [
+            2084,
+            1289,
+            2113,
+            1328
+          ],
+          "score": 0.7405344247817993,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1891,
+            952,
+            2012,
+            1135
+          ],
+          "score": 0.6933947205543518,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1737,
+            1318,
+            1916,
+            1440
+          ],
+          "score": 0.6805317997932434,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            993,
+            472,
+            1032,
+            513
+          ],
+          "score": 0.6737962961196899,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            425,
+            345,
+            464,
+            376
+          ],
+          "score": 0.6380714178085327,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1744,
+            1213,
+            1798,
+            1254
+          ],
+          "score": 0.631319522857666,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1025,
+            1384,
+            1088,
+            1440
+          ],
+          "score": 0.623836874961853,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            2019,
+            1299,
+            2048,
+            1328
+          ],
+          "score": 0.6020035147666931,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1729,
+            1113,
+            1844,
+            1195
+          ],
+          "score": 0.5153428912162781,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            978,
+            707,
+            1080,
+            768
+          ],
+          "score": 0.5077334642410278,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            699,
+            1307,
+            735,
+            1341
+          ],
+          "score": 0.5024794936180115,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2117,
+            1288,
+            2145,
+            1328
+          ],
+          "score": 0.47256460785865784,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1434,
+            638,
+            1537,
+            688
+          ],
+          "score": 0.4629376530647278,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1890,
+            1028,
+            1920,
+            1116
+          ],
+          "score": 0.4382268190383911,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            412,
+            1042,
+            536,
+            1096
+          ],
+          "score": 0.3588590919971466,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1516,
+            1315,
+            1709,
+            1408
+          ],
+          "score": 0.34413814544677734,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1129,
+            623,
+            1168,
+            661
+          ],
+          "score": 0.3378475308418274,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1247,
+            1292,
+            1263,
+            1302
+          ],
+          "score": 0.3358405530452728,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            576,
+            1070,
+            954,
+            1344
+          ],
+          "score": 0.3328290283679962,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1728,
+            597,
+            1748,
+            657
+          ],
+          "score": 0.3284032940864563,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        }
+      ]
+    },
+    {
+      "frame_id": "f06s01",
+      "proposals": [
+        {
+          "bbox": [
+            2084,
+            1289,
+            2113,
+            1328
+          ],
+          "score": 0.7306327819824219,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1890,
+            953,
+            2015,
+            1135
+          ],
+          "score": 0.7223811149597168,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1737,
+            1317,
+            1916,
+            1440
+          ],
+          "score": 0.712300181388855,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            700,
+            1307,
+            735,
+            1341
+          ],
+          "score": 0.6399281620979309,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1022,
+            1384,
+            1088,
+            1440
+          ],
+          "score": 0.6174662113189697,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1745,
+            1214,
+            1798,
+            1254
+          ],
+          "score": 0.6161611676216125,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2019,
+            1300,
+            2048,
+            1328
+          ],
+          "score": 0.5717161297798157,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            684,
+            368,
+            747,
+            439
+          ],
+          "score": 0.5597269535064697,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            828,
+            518,
+            867,
+            577
+          ],
+          "score": 0.5524404048919678,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2117,
+            1287,
+            2145,
+            1329
+          ],
+          "score": 0.4877663850784302,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1516,
+            1315,
+            1709,
+            1407
+          ],
+          "score": 0.4753912687301636,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            786,
+            713,
+            864,
+            801
+          ],
+          "score": 0.46902790665626526,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            697,
+            443,
+            765,
+            569
+          ],
+          "score": 0.4483647346496582,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            409,
+            1042,
+            535,
+            1098
+          ],
+          "score": 0.41477495431900024,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1247,
+            1292,
+            1263,
+            1302
+          ],
+          "score": 0.4068561792373657,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1709,
+            1113,
+            1838,
+            1191
+          ],
+          "score": 0.39649322628974915,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1754,
+            1019,
+            1789,
+            1061
+          ],
+          "score": 0.38464099168777466,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            824,
+            610,
+            929,
+            676
+          ],
+          "score": 0.38394463062286377,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1435,
+            638,
+            1537,
+            686
+          ],
+          "score": 0.3816070258617401,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1890,
+            1030,
+            1920,
+            1116
+          ],
+          "score": 0.3743947744369507,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        }
+      ]
+    },
+    {
+      "frame_id": "f06s02",
+      "proposals": [
+        {
+          "bbox": [
+            2084,
+            1289,
+            2113,
+            1328
+          ],
+          "score": 0.7369533181190491,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1743,
+            1213,
+            1798,
+            1254
+          ],
+          "score": 0.7258210182189941,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2019,
+            1300,
+            2047,
+            1328
+          ],
+          "score": 0.6460603475570679,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            700,
+            1306,
+            735,
+            1341
+          ],
+          "score": 0.6285857558250427,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            991,
+            1092,
+            1169,
+            1178
+          ],
+          "score": 0.6016793251037598,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            698,
+            442,
+            765,
+            569
+          ],
+          "score": 0.5991138219833374,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1890,
+            948,
+            2004,
+            1136
+          ],
+          "score": 0.5967200994491577,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            828,
+            518,
+            869,
+            577
+          ],
+          "score": 0.5743723511695862,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1753,
+            1319,
+            1915,
+            1439
+          ],
+          "score": 0.572570264339447,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            784,
+            711,
+            864,
+            801
+          ],
+          "score": 0.5127171277999878,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1021,
+            613,
+            1081,
+            681
+          ],
+          "score": 0.5112369060516357,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            797,
+            672,
+            864,
+            694
+          ],
+          "score": 0.49525129795074463,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            581,
+            415,
+            636,
+            512
+          ],
+          "score": 0.4715592563152313,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1432,
+            638,
+            1536,
+            687
+          ],
+          "score": 0.47089508175849915,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1029,
+            1368,
+            1086,
+            1440
+          ],
+          "score": 0.4531760513782501,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            977,
+            708,
+            1080,
+            768
+          ],
+          "score": 0.4526183605194092,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2117,
+            1287,
+            2143,
+            1329
+          ],
+          "score": 0.4489716589450836,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            825,
+            610,
+            927,
+            673
+          ],
+          "score": 0.44184231758117676,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            846,
+            400,
+            979,
+            426
+          ],
+          "score": 0.41883084177970886,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1248,
+            1292,
+            1263,
+            1302
+          ],
+          "score": 0.4167824983596802,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        }
+      ]
+    },
+    {
+      "frame_id": "f07s00",
+      "proposals": [
+        {
+          "bbox": [
+            2019,
+            1300,
+            2047,
+            1328
+          ],
+          "score": 0.7170979976654053,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2084,
+            1289,
+            2113,
+            1328
+          ],
+          "score": 0.701156497001648,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            935,
+            1011,
+            962,
+            1037
+          ],
+          "score": 0.681727409362793,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            701,
+            444,
+            772,
+            565
+          ],
+          "score": 0.6314953565597534,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1860,
+            1289,
+            1890,
+            1328
+          ],
+          "score": 0.5843622088432312,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2116,
+            1288,
+            2145,
+            1328
+          ],
+          "score": 0.5701480507850647,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            821,
+            1082,
+            854,
+            1111
+          ],
+          "score": 0.4851936399936676,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1218,
+            550,
+            1267,
+            604
+          ],
+          "score": 0.44415152072906494,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1247,
+            1292,
+            1262,
+            1302
+          ],
+          "score": 0.4193421006202698,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1745,
+            1214,
+            1787,
+            1254
+          ],
+          "score": 0.4030674695968628,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            894,
+            725,
+            981,
+            789
+          ],
+          "score": 0.37823188304901123,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            886,
+            552,
+            939,
+            565
+          ],
+          "score": 0.3365209698677063,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            557,
+            1153,
+            733,
+            1244
+          ],
+          "score": 0.3162132501602173,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            953,
+            852,
+            1063,
+            895
+          ],
+          "score": 0.31407037377357483,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1176,
+            1075,
+            1208,
+            1089
+          ],
+          "score": 0.30134668946266174,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1048,
+            1379,
+            1097,
+            1440
+          ],
+          "score": 0.28073641657829285,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1271,
+            1084,
+            1312,
+            1110
+          ],
+          "score": 0.2655172646045685,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1416,
+            838,
+            1447,
+            907
+          ],
+          "score": 0.24233947694301605,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1516,
+            1315,
+            1708,
+            1406
+          ],
+          "score": 0.2395045906305313,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1706,
+            1118,
+            1838,
+            1254
+          ],
+          "score": 0.23426173627376556,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        }
+      ]
+    },
+    {
+      "frame_id": "f07s01",
+      "proposals": [
+        {
+          "bbox": [
+            2019,
+            1300,
+            2048,
+            1328
+          ],
+          "score": 0.6725953221321106,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2084,
+            1289,
+            2113,
+            1328
+          ],
+          "score": 0.670975387096405,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            935,
+            1011,
+            962,
+            1037
+          ],
+          "score": 0.666395902633667,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            700,
+            444,
+            771,
+            568
+          ],
+          "score": 0.6219040155410767,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            820,
+            1081,
+            855,
+            1111
+          ],
+          "score": 0.5670490264892578,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2116,
+            1288,
+            2145,
+            1328
+          ],
+          "score": 0.5405162572860718,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1860,
+            1289,
+            1890,
+            1328
+          ],
+          "score": 0.5143412351608276,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            557,
+            1153,
+            733,
+            1244
+          ],
+          "score": 0.47457486391067505,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1248,
+            1292,
+            1263,
+            1302
+          ],
+          "score": 0.47162723541259766,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1013,
+            1374,
+            1090,
+            1440
+          ],
+          "score": 0.4235104024410248,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            896,
+            724,
+            980,
+            789
+          ],
+          "score": 0.42198655009269714,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1729,
+            1115,
+            1836,
+            1195
+          ],
+          "score": 0.3958740830421448,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1497,
+            595,
+            1594,
+            667
+          ],
+          "score": 0.3674529194831848,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1188,
+            614,
+            1204,
+            623
+          ],
+          "score": 0.33257991075515747,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            424,
+            346,
+            464,
+            375
+          ],
+          "score": 0.31169483065605164,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1175,
+            1076,
+            1208,
+            1088
+          ],
+          "score": 0.3035958707332611,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1745,
+            1213,
+            1789,
+            1254
+          ],
+          "score": 0.2910952866077423,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            871,
+            642,
+            937,
+            677
+          ],
+          "score": 0.28658613562583923,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1876,
+            1117,
+            1919,
+            1181
+          ],
+          "score": 0.2795182168483734,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1876,
+            1118,
+            1920,
+            1271
+          ],
+          "score": 0.26735660433769226,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        }
+      ]
+    },
+    {
+      "frame_id": "f07s02",
+      "proposals": [
+        {
+          "bbox": [
+            2019,
+            1299,
+            2047,
+            1328
+          ],
+          "score": 0.6890255212783813,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2084,
+            1289,
+            2112,
+            1328
+          ],
+          "score": 0.6547558903694153,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            935,
+            1012,
+            962,
+            1037
+          ],
+          "score": 0.6295239329338074,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2116,
+            1287,
+            2145,
+            1329
+          ],
+          "score": 0.588283360004425,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            821,
+            1081,
+            855,
+            1110
+          ],
+          "score": 0.5506274104118347,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1860,
+            1289,
+            1890,
+            1328
+          ],
+          "score": 0.45218536257743835,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1745,
+            1212,
+            1791,
+            1254
+          ],
+          "score": 0.43126606941223145,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            555,
+            1154,
+            732,
+            1245
+          ],
+          "score": 0.38582417368888855,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1876,
+            1117,
+            1920,
+            1174
+          ],
+          "score": 0.3678695261478424,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            2110,
+            1138,
+            2145,
+            1225
+          ],
+          "score": 0.336478590965271,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1247,
+            1291,
+            1263,
+            1302
+          ],
+          "score": 0.32649222016334534,
+          "class_id": 1,
+          "class_name": "Metal",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1046,
+            1379,
+            1090,
+            1440
+          ],
+          "score": 0.31483790278434753,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1498,
+            596,
+            1596,
+            672
+          ],
+          "score": 0.3053535223007202,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1187,
+            615,
+            1206,
+            624
+          ],
+          "score": 0.27364757657051086,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1726,
+            1115,
+            1837,
+            1193
+          ],
+          "score": 0.25939667224884033,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            896,
+            726,
+            978,
+            780
+          ],
+          "score": 0.24985259771347046,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1171,
+            1074,
+            1207,
+            1088
+          ],
+          "score": 0.2447158247232437,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            253,
+            367,
+            359,
+            382
+          ],
+          "score": 0.24000202119350433,
+          "class_id": 3,
+          "class_name": "Plastic",
+          "source": "semantic_full"
+        },
+        {
+          "bbox": [
+            1093,
+            763,
+            1176,
+            870
+          ],
+          "score": 0.22791241109371185,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        },
+        {
+          "bbox": [
+            1859,
+            1288,
+            1917,
+            1329
+          ],
+          "score": 0.20814332365989685,
+          "class_id": 2,
+          "class_name": "Paper",
+          "source": "semantic_tile"
+        }
+      ]
+    }
+  ]
+}

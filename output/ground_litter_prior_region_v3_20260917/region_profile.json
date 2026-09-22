@@ -1,0 +1,40 @@
+{
+  "ground_roi_normalized": [
+    [
+      0.455,
+      0.232
+    ],
+    [
+      0.714,
+      0.232
+    ],
+    [
+      0.806,
+      1.0
+    ],
+    [
+      0.455,
+      1.0
+    ]
+  ],
+  "reference_unknown_rects_normalized": [
+    [
+      0.704,
+      0.515,
+      0.779,
+      0.69
+    ]
+  ],
+  "permanent_exclusion_rects_normalized": [
+    [
+      0.678,
+      0.835,
+      1.0,
+      1.0
+    ]
+  ],
+  "ground_roi_pixels": 864892,
+  "valid_pixels": 717921,
+  "valid_fraction_of_ground_roi": 0.8300701128002109,
+  "reference_unknown_fraction_of_ground_roi": 0.040966964661483744
+}

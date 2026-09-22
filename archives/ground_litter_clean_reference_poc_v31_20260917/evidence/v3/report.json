@@ -1,0 +1,1189 @@
+{
+  "kind": "protected_daylight_prior_region_v3",
+  "gate": "PASS",
+  "parameters": {
+    "ground_roi": [
+      [
+        0.455,
+        0.232
+      ],
+      [
+        0.714,
+        0.232
+      ],
+      [
+        0.806,
+        1.0
+      ],
+      [
+        0.455,
+        1.0
+      ]
+    ],
+    "local_field_blur_sigma": 24.0,
+    "local_field_downsample": 4,
+    "local_field_clip": 48.0,
+    "target_video_adaptive_blacklist": false
+  },
+  "daylight_tolerance": {
+    "source": "union of frozen 0-60s normal-day V2 calibration masks",
+    "is_detection_blacklist": false,
+    "seed_signature_increment": 0.8,
+    "seed_luminance_increment": 30.0,
+    "support_signature_increment": 0.25,
+    "support_luminance_increment": 8.0,
+    "fraction_of_reference_valid": 0.009087350836651943,
+    "t01_region_fraction": 0.0
+  },
+  "region": {
+    "ground_roi_normalized": [
+      [
+        0.455,
+        0.232
+      ],
+      [
+        0.714,
+        0.232
+      ],
+      [
+        0.806,
+        1.0
+      ],
+      [
+        0.455,
+        1.0
+      ]
+    ],
+    "reference_unknown_rects_normalized": [
+      [
+        0.704,
+        0.515,
+        0.779,
+        0.69
+      ]
+    ],
+    "permanent_exclusion_rects_normalized": [
+      [
+        0.678,
+        0.835,
+        1.0,
+        1.0
+      ]
+    ],
+    "ground_roi_pixels": 864892,
+    "valid_pixels": 717921,
+    "valid_fraction_of_ground_roi": 0.8300701128002109,
+    "reference_unknown_fraction_of_ground_roi": 0.040966964661483744
+  },
+  "clean_holdout": {
+    "name": "clean_holdout",
+    "evaluation_start_seconds": 35.79333333333334,
+    "sample_fps": 1.0,
+    "alignment": {
+      "method": "SIFT + RANSAC homography",
+      "matches": 2022,
+      "inliers": 2013,
+      "inlier_fraction": 0.9955,
+      "reprojection_median_px": 0.184,
+      "reprojection_p95_px": 0.649,
+      "inlier_hull_fraction": 0.8289,
+      "matrix": [
+        [
+          0.9999526215975005,
+          -6.293498792149553e-06,
+          0.030501387422004162
+        ],
+        [
+          -1.093945131980372e-05,
+          0.9999786532824348,
+          -0.005467995214240435
+        ],
+        [
+          -2.345009087572359e-08,
+          1.3896077483907063e-08,
+          1.0
+        ]
+      ]
+    },
+    "v2": {
+      "raw_candidates": 0,
+      "raw_per_minute": 0.0,
+      "tracks_total": 0,
+      "tracks_at_least_seconds": {
+        "1": 0,
+        "3": 0,
+        "5": 0,
+        "10": 0,
+        "30": 0
+      },
+      "raw_to_5s_reduction": 1.0
+    },
+    "v3": {
+      "raw_candidates": 0,
+      "raw_per_minute": 0.0,
+      "tracks_total": 0,
+      "tracks_at_least_seconds": {
+        "1": 0,
+        "3": 0,
+        "5": 0,
+        "10": 0,
+        "30": 0
+      },
+      "raw_to_5s_reduction": 1.0
+    },
+    "t01_v2": null,
+    "t01_v3": null,
+    "mean_usable_fraction": 1.0,
+    "environment_state_counts": {
+      "NORMAL": 20
+    },
+    "sample_count": 20,
+    "elapsed_seconds": 30.907271582982503
+  },
+  "positive": {
+    "name": "positive",
+    "evaluation_start_seconds": 60.0,
+    "sample_fps": 1.0,
+    "alignment": {
+      "method": "SIFT + RANSAC homography",
+      "matches": 97,
+      "inliers": 90,
+      "inlier_fraction": 0.9278,
+      "reprojection_median_px": 0.337,
+      "reprojection_p95_px": 0.936,
+      "inlier_hull_fraction": 0.5793,
+      "matrix": [
+        [
+          1.0002278669101512,
+          7.175770737842021e-05,
+          -0.3215133580486024
+        ],
+        [
+          4.361264876742758e-05,
+          1.0003005485860932,
+          -0.19537862482218313
+        ],
+        [
+          1.0810638879125107e-08,
+          1.5770545521529585e-07,
+          1.0
+        ]
+      ]
+    },
+    "v2": {
+      "raw_candidates": 1854,
+      "raw_per_minute": 1149.173553719008,
+      "tracks_total": 225,
+      "tracks_at_least_seconds": {
+        "1": 225,
+        "3": 95,
+        "5": 52,
+        "10": 29,
+        "30": 17
+      },
+      "raw_to_5s_reduction": 0.9719525350593312
+    },
+    "v3": {
+      "raw_candidates": 453,
+      "raw_per_minute": 280.78512396694214,
+      "tracks_total": 181,
+      "tracks_at_least_seconds": {
+        "1": 181,
+        "3": 59,
+        "5": 22,
+        "10": 4,
+        "30": 1
+      },
+      "raw_to_5s_reduction": 0.9514348785871964
+    },
+    "t01_v2": {
+      "evaluation_region": [
+        1430,
+        990,
+        1540,
+        1080
+      ],
+      "appearance_seconds": 72.0,
+      "preappearance_region_hit_timestamps": [
+        64.0,
+        65.0
+      ],
+      "raw_hit_timestamps": [
+        72.0,
+        73.0,
+        74.0,
+        75.0,
+        76.0,
+        77.0,
+        80.0,
+        81.0,
+        82.0,
+        83.0,
+        84.0,
+        85.0,
+        86.0,
+        87.0,
+        88.0,
+        89.0,
+        90.0,
+        91.0,
+        92.0,
+        93.0,
+        94.0,
+        95.0,
+        96.0,
+        97.0,
+        98.0,
+        99.0,
+        100.0,
+        101.0,
+        102.0,
+        103.0,
+        104.0,
+        105.0,
+        106.0,
+        107.0,
+        108.0,
+        109.0,
+        110.0,
+        111.0,
+        112.0,
+        113.0,
+        114.0,
+        115.0,
+        116.0,
+        117.0,
+        118.0,
+        119.0,
+        120.0,
+        121.0,
+        122.0,
+        123.0,
+        124.0,
+        125.0,
+        126.0,
+        128.0,
+        129.0,
+        130.0,
+        131.0,
+        132.0,
+        133.0,
+        134.0,
+        135.0,
+        136.0,
+        137.0,
+        138.0,
+        139.0,
+        140.0,
+        141.0,
+        142.0,
+        143.0,
+        144.0,
+        145.0,
+        146.0,
+        147.0,
+        148.0,
+        149.0,
+        150.0,
+        151.0,
+        152.0,
+        153.0,
+        154.0,
+        155.0,
+        156.0
+      ],
+      "first_raw_seconds": 72.0,
+      "raw_delay_seconds": 0.0,
+      "matching_tracks": [
+        {
+          "track_id": 113,
+          "source": "v2_same_roi",
+          "first_seen": 89.0,
+          "last_seen": 156.0,
+          "hits": 66,
+          "lifetime_seconds": 68.0,
+          "visible_duration_seconds": 66.0,
+          "continuity": 0.9706,
+          "max_gap_seconds": 2.0,
+          "median_box": [
+            1496.0,
+            1026.0,
+            1520.0,
+            1043.0
+          ],
+          "median_score": 0.8021,
+          "occluded_samples": 0,
+          "timestamps": [
+            89.0,
+            90.0,
+            91.0,
+            92.0,
+            93.0,
+            94.0,
+            95.0,
+            96.0,
+            97.0,
+            98.0,
+            99.0,
+            100.0,
+            101.0,
+            102.0,
+            103.0,
+            104.0,
+            105.0,
+            106.0,
+            107.0,
+            108.0,
+            109.0,
+            110.0,
+            111.0,
+            112.0,
+            113.0,
+            114.0,
+            115.0,
+            116.0,
+            117.0,
+            118.0,
+            119.0,
+            120.0,
+            121.0,
+            122.0,
+            123.0,
+            124.0,
+            126.0,
+            128.0,
+            129.0,
+            130.0,
+            131.0,
+            132.0,
+            133.0,
+            134.0,
+            135.0,
+            136.0,
+            137.0,
+            138.0,
+            139.0,
+            140.0,
+            141.0,
+            142.0,
+            143.0,
+            144.0,
+            145.0,
+            146.0,
+            147.0,
+            148.0,
+            149.0,
+            150.0,
+            151.0,
+            152.0,
+            153.0,
+            154.0,
+            155.0,
+            156.0
+          ]
+        },
+        {
+          "track_id": 96,
+          "source": "v2_same_roi",
+          "first_seen": 80.0,
+          "last_seen": 96.0,
+          "hits": 17,
+          "lifetime_seconds": 17.0,
+          "visible_duration_seconds": 17.0,
+          "continuity": 1.0,
+          "max_gap_seconds": 1.0,
+          "median_box": [
+            1496.0,
+            1033.0,
+            1520.0,
+            1043.0
+          ],
+          "median_score": 0.7182,
+          "occluded_samples": 0,
+          "timestamps": [
+            80.0,
+            81.0,
+            82.0,
+            83.0,
+            84.0,
+            85.0,
+            86.0,
+            87.0,
+            88.0,
+            89.0,
+            90.0,
+            91.0,
+            92.0,
+            93.0,
+            94.0,
+            95.0,
+            96.0
+          ]
+        },
+        {
+          "track_id": 71,
+          "source": "v2_same_roi",
+          "first_seen": 72.0,
+          "last_seen": 76.0,
+          "hits": 5,
+          "lifetime_seconds": 5.0,
+          "visible_duration_seconds": 5.0,
+          "continuity": 1.0,
+          "max_gap_seconds": 1.0,
+          "median_box": [
+            1465.0,
+            1031.0,
+            1478.0,
+            1041.0
+          ],
+          "median_score": 0.5706,
+          "occluded_samples": 0,
+          "timestamps": [
+            72.0,
+            73.0,
+            74.0,
+            75.0,
+            76.0
+          ]
+        },
+        {
+          "track_id": 137,
+          "source": "v2_same_roi",
+          "first_seen": 109.0,
+          "last_seen": 112.0,
+          "hits": 4,
+          "lifetime_seconds": 4.0,
+          "visible_duration_seconds": 4.0,
+          "continuity": 1.0,
+          "max_gap_seconds": 1.0,
+          "median_box": [
+            1509.0,
+            1033.0,
+            1519.0,
+            1042.0
+          ],
+          "median_score": 0.6657,
+          "occluded_samples": 0,
+          "timestamps": [
+            109.0,
+            110.0,
+            111.0,
+            112.0
+          ]
+        },
+        {
+          "track_id": 213,
+          "source": "v2_same_roi",
+          "first_seen": 152.0,
+          "last_seen": 155.0,
+          "hits": 3,
+          "lifetime_seconds": 4.0,
+          "visible_duration_seconds": 3.0,
+          "continuity": 0.75,
+          "max_gap_seconds": 2.0,
+          "median_box": [
+            1508.0,
+            1033.0,
+            1519.0,
+            1044.0
+          ],
+          "median_score": 0.6211,
+          "occluded_samples": 0,
+          "timestamps": [
+            152.0,
+            154.0,
+            155.0
+          ]
+        },
+        {
+          "track_id": 32,
+          "source": "v2_same_roi",
+          "first_seen": 63.0,
+          "last_seen": 65.0,
+          "hits": 3,
+          "lifetime_seconds": 3.0,
+          "visible_duration_seconds": 3.0,
+          "continuity": 1.0,
+          "max_gap_seconds": 1.0,
+          "median_box": [
+            1532.0,
+            1061.0,
+            1540.0,
+            1071.0
+          ],
+          "median_score": 0.5896,
+          "occluded_samples": 0,
+          "timestamps": [
+            63.0,
+            64.0,
+            65.0
+          ]
+        },
+        {
+          "track_id": 36,
+          "source": "v2_same_roi",
+          "first_seen": 64.0,
+          "last_seen": 66.0,
+          "hits": 3,
+          "lifetime_seconds": 3.0,
+          "visible_duration_seconds": 3.0,
+          "continuity": 1.0,
+          "max_gap_seconds": 1.0,
+          "median_box": [
+            1510.0,
+            999.0,
+            1539.0,
+            1009.0
+          ],
+          "median_score": 0.8354,
+          "occluded_samples": 0,
+          "timestamps": [
+            64.0,
+            65.0,
+            66.0
+          ]
+        },
+        {
+          "track_id": 168,
+          "source": "v2_same_roi",
+          "first_seen": 123.0,
+          "last_seen": 125.0,
+          "hits": 3,
+          "lifetime_seconds": 3.0,
+          "visible_duration_seconds": 3.0,
+          "continuity": 1.0,
+          "max_gap_seconds": 1.0,
+          "median_box": [
+            1433.0,
+            1024.0,
+            1444.0,
+            1041.0
+          ],
+          "median_score": 0.7313,
+          "occluded_samples": 0,
+          "timestamps": [
+            123.0,
+            124.0,
+            125.0
+          ]
+        },
+        {
+          "track_id": 204,
+          "source": "v2_same_roi",
+          "first_seen": 146.0,
+          "last_seen": 148.0,
+          "hits": 3,
+          "lifetime_seconds": 3.0,
+          "visible_duration_seconds": 3.0,
+          "continuity": 1.0,
+          "max_gap_seconds": 1.0,
+          "median_box": [
+            1496.0,
+            1026.0,
+            1506.0,
+            1038.0
+          ],
+          "median_score": 0.575,
+          "occluded_samples": 0,
+          "timestamps": [
+            146.0,
+            147.0,
+            148.0
+          ]
+        },
+        {
+          "track_id": 88,
+          "source": "v2_same_roi",
+          "first_seen": 76.0,
+          "last_seen": 76.0,
+          "hits": 1,
+          "lifetime_seconds": 1.0,
+          "visible_duration_seconds": 1.0,
+          "continuity": 1.0,
+          "max_gap_seconds": 0.0,
+          "median_box": [
+            1438.0,
+            1032.0,
+            1451.0,
+            1041.0
+          ],
+          "median_score": 0.5887,
+          "occluded_samples": 0,
+          "timestamps": [
+            76.0
+          ]
+        },
+        {
+          "track_id": 90,
+          "source": "v2_same_roi",
+          "first_seen": 77.0,
+          "last_seen": 77.0,
+          "hits": 1,
+          "lifetime_seconds": 1.0,
+          "visible_duration_seconds": 1.0,
+          "continuity": 1.0,
+          "max_gap_seconds": 0.0,
+          "median_box": [
+            1472.0,
+            1055.0,
+            1482.0,
+            1066.0
+          ],
+          "median_score": 0.582,
+          "occluded_samples": 0,
+          "timestamps": [
+            77.0
+          ]
+        },
+        {
+          "track_id": 180,
+          "source": "v2_same_roi",
+          "first_seen": 128.0,
+          "last_seen": 128.0,
+          "hits": 1,
+          "lifetime_seconds": 1.0,
+          "visible_duration_seconds": 1.0,
+          "continuity": 1.0,
+          "max_gap_seconds": 0.0,
+          "median_box": [
+            1429.0,
+            1051.0,
+            1448.0,
+            1064.0
+          ],
+          "median_score": 1.0,
+          "occluded_samples": 0,
+          "timestamps": [
+            128.0
+          ]
+        }
+      ],
+      "first_stable_1s": 73.0,
+      "stable_1s_delay": 1.0,
+      "first_stable_3s": 75.0,
+      "stable_3s_delay": 3.0,
+      "first_stable_5s": 77.0,
+      "stable_5s_delay": 5.0,
+      "post_75_raw_visibility_rate": 0.9634146341463414
+    },
+    "t01_v3": {
+      "evaluation_region": [
+        1430,
+        990,
+        1540,
+        1080
+      ],
+      "appearance_seconds": 72.0,
+      "preappearance_region_hit_timestamps": [
+        64.0,
+        65.0,
+        66.0
+      ],
+      "raw_hit_timestamps": [
+        72.0,
+        73.0,
+        74.0,
+        75.0,
+        76.0,
+        77.0,
+        80.0,
+        81.0,
+        82.0,
+        83.0,
+        84.0,
+        85.0,
+        86.0,
+        87.0,
+        88.0,
+        89.0,
+        90.0,
+        91.0,
+        92.0,
+        93.0,
+        94.0,
+        95.0,
+        96.0,
+        97.0,
+        98.0,
+        99.0,
+        100.0,
+        101.0,
+        102.0,
+        103.0,
+        104.0,
+        105.0,
+        106.0,
+        107.0,
+        108.0,
+        109.0,
+        110.0,
+        111.0,
+        112.0,
+        113.0,
+        114.0,
+        115.0,
+        116.0,
+        117.0,
+        118.0,
+        119.0,
+        120.0,
+        121.0,
+        122.0,
+        123.0,
+        124.0,
+        125.0,
+        126.0,
+        128.0,
+        129.0,
+        130.0,
+        131.0,
+        132.0,
+        133.0,
+        134.0,
+        135.0,
+        136.0,
+        137.0,
+        138.0,
+        139.0,
+        140.0,
+        141.0,
+        142.0,
+        143.0,
+        144.0,
+        145.0,
+        146.0,
+        147.0,
+        148.0,
+        149.0,
+        150.0,
+        151.0,
+        152.0,
+        153.0,
+        154.0,
+        155.0,
+        156.0
+      ],
+      "first_raw_seconds": 72.0,
+      "raw_delay_seconds": 0.0,
+      "matching_tracks": [
+        {
+          "track_id": 96,
+          "source": "protected_daylight_v3",
+          "first_seen": 89.0,
+          "last_seen": 156.0,
+          "hits": 67,
+          "lifetime_seconds": 68.0,
+          "visible_duration_seconds": 67.0,
+          "continuity": 0.9853,
+          "max_gap_seconds": 2.0,
+          "median_box": [
+            1496.0,
+            1026.0,
+            1520.0,
+            1043.0
+          ],
+          "median_score": 0.8069,
+          "occluded_samples": 0,
+          "timestamps": [
+            89.0,
+            90.0,
+            91.0,
+            92.0,
+            93.0,
+            94.0,
+            95.0,
+            96.0,
+            97.0,
+            98.0,
+            99.0,
+            100.0,
+            101.0,
+            102.0,
+            103.0,
+            104.0,
+            105.0,
+            106.0,
+            107.0,
+            108.0,
+            109.0,
+            110.0,
+            111.0,
+            112.0,
+            113.0,
+            114.0,
+            115.0,
+            116.0,
+            117.0,
+            118.0,
+            119.0,
+            120.0,
+            121.0,
+            122.0,
+            123.0,
+            124.0,
+            125.0,
+            126.0,
+            128.0,
+            129.0,
+            130.0,
+            131.0,
+            132.0,
+            133.0,
+            134.0,
+            135.0,
+            136.0,
+            137.0,
+            138.0,
+            139.0,
+            140.0,
+            141.0,
+            142.0,
+            143.0,
+            144.0,
+            145.0,
+            146.0,
+            147.0,
+            148.0,
+            149.0,
+            150.0,
+            151.0,
+            152.0,
+            153.0,
+            154.0,
+            155.0,
+            156.0
+          ]
+        },
+        {
+          "track_id": 83,
+          "source": "protected_daylight_v3",
+          "first_seen": 80.0,
+          "last_seen": 96.0,
+          "hits": 17,
+          "lifetime_seconds": 17.0,
+          "visible_duration_seconds": 17.0,
+          "continuity": 1.0,
+          "max_gap_seconds": 1.0,
+          "median_box": [
+            1496.0,
+            1033.0,
+            1520.0,
+            1043.0
+          ],
+          "median_score": 0.717,
+          "occluded_samples": 0,
+          "timestamps": [
+            80.0,
+            81.0,
+            82.0,
+            83.0,
+            84.0,
+            85.0,
+            86.0,
+            87.0,
+            88.0,
+            89.0,
+            90.0,
+            91.0,
+            92.0,
+            93.0,
+            94.0,
+            95.0,
+            96.0
+          ]
+        },
+        {
+          "track_id": 62,
+          "source": "protected_daylight_v3",
+          "first_seen": 72.0,
+          "last_seen": 77.0,
+          "hits": 6,
+          "lifetime_seconds": 6.0,
+          "visible_duration_seconds": 6.0,
+          "continuity": 1.0,
+          "max_gap_seconds": 1.0,
+          "median_box": [
+            1464.5,
+            1031.0,
+            1478.0,
+            1041.0
+          ],
+          "median_score": 0.5807,
+          "occluded_samples": 0,
+          "timestamps": [
+            72.0,
+            73.0,
+            74.0,
+            75.0,
+            76.0,
+            77.0
+          ]
+        },
+        {
+          "track_id": 136,
+          "source": "protected_daylight_v3",
+          "first_seen": 123.0,
+          "last_seen": 127.0,
+          "hits": 4,
+          "lifetime_seconds": 5.0,
+          "visible_duration_seconds": 4.0,
+          "continuity": 0.8,
+          "max_gap_seconds": 2.0,
+          "median_box": [
+            1423.5,
+            1017.0,
+            1438.0,
+            1034.0
+          ],
+          "median_score": 0.7419,
+          "occluded_samples": 0,
+          "timestamps": [
+            123.0,
+            124.0,
+            125.0,
+            127.0
+          ]
+        },
+        {
+          "track_id": 112,
+          "source": "protected_daylight_v3",
+          "first_seen": 109.0,
+          "last_seen": 112.0,
+          "hits": 4,
+          "lifetime_seconds": 4.0,
+          "visible_duration_seconds": 4.0,
+          "continuity": 1.0,
+          "max_gap_seconds": 1.0,
+          "median_box": [
+            1509.0,
+            1033.0,
+            1519.0,
+            1042.0
+          ],
+          "median_score": 0.6653,
+          "occluded_samples": 0,
+          "timestamps": [
+            109.0,
+            110.0,
+            111.0,
+            112.0
+          ]
+        },
+        {
+          "track_id": 173,
+          "source": "protected_daylight_v3",
+          "first_seen": 152.0,
+          "last_seen": 155.0,
+          "hits": 3,
+          "lifetime_seconds": 4.0,
+          "visible_duration_seconds": 3.0,
+          "continuity": 0.75,
+          "max_gap_seconds": 2.0,
+          "median_box": [
+            1508.0,
+            1033.0,
+            1519.0,
+            1044.0
+          ],
+          "median_score": 0.6213,
+          "occluded_samples": 0,
+          "timestamps": [
+            152.0,
+            154.0,
+            155.0
+          ]
+        },
+        {
+          "track_id": 16,
+          "source": "protected_daylight_v3",
+          "first_seen": 63.0,
+          "last_seen": 65.0,
+          "hits": 3,
+          "lifetime_seconds": 3.0,
+          "visible_duration_seconds": 3.0,
+          "continuity": 1.0,
+          "max_gap_seconds": 1.0,
+          "median_box": [
+            1533.0,
+            1057.0,
+            1540.0,
+            1071.0
+          ],
+          "median_score": 0.6646,
+          "occluded_samples": 0,
+          "timestamps": [
+            63.0,
+            64.0,
+            65.0
+          ]
+        },
+        {
+          "track_id": 28,
+          "source": "protected_daylight_v3",
+          "first_seen": 66.0,
+          "last_seen": 66.0,
+          "hits": 1,
+          "lifetime_seconds": 1.0,
+          "visible_duration_seconds": 1.0,
+          "continuity": 1.0,
+          "max_gap_seconds": 0.0,
+          "median_box": [
+            1461.0,
+            1055.0,
+            1499.0,
+            1068.0
+          ],
+          "median_score": 0.4677,
+          "occluded_samples": 0,
+          "timestamps": [
+            66.0
+          ]
+        },
+        {
+          "track_id": 78,
+          "source": "protected_daylight_v3",
+          "first_seen": 76.0,
+          "last_seen": 76.0,
+          "hits": 1,
+          "lifetime_seconds": 1.0,
+          "visible_duration_seconds": 1.0,
+          "continuity": 1.0,
+          "max_gap_seconds": 0.0,
+          "median_box": [
+            1439.0,
+            1032.0,
+            1451.0,
+            1041.0
+          ],
+          "median_score": 0.6067,
+          "occluded_samples": 0,
+          "timestamps": [
+            76.0
+          ]
+        },
+        {
+          "track_id": 150,
+          "source": "protected_daylight_v3",
+          "first_seen": 128.0,
+          "last_seen": 128.0,
+          "hits": 1,
+          "lifetime_seconds": 1.0,
+          "visible_duration_seconds": 1.0,
+          "continuity": 1.0,
+          "max_gap_seconds": 0.0,
+          "median_box": [
+            1429.0,
+            1051.0,
+            1448.0,
+            1064.0
+          ],
+          "median_score": 1.0,
+          "occluded_samples": 0,
+          "timestamps": [
+            128.0
+          ]
+        },
+        {
+          "track_id": 166,
+          "source": "protected_daylight_v3",
+          "first_seen": 146.0,
+          "last_seen": 146.0,
+          "hits": 1,
+          "lifetime_seconds": 1.0,
+          "visible_duration_seconds": 1.0,
+          "continuity": 1.0,
+          "max_gap_seconds": 0.0,
+          "median_box": [
+            1508.0,
+            1033.0,
+            1520.0,
+            1042.0
+          ],
+          "median_score": 0.6738,
+          "occluded_samples": 0,
+          "timestamps": [
+            146.0
+          ]
+        }
+      ],
+      "first_stable_1s": 73.0,
+      "stable_1s_delay": 1.0,
+      "first_stable_3s": 75.0,
+      "stable_3s_delay": 3.0,
+      "first_stable_5s": 77.0,
+      "stable_5s_delay": 5.0,
+      "post_75_raw_visibility_rate": 0.9634146341463414
+    },
+    "mean_usable_fraction": 1.0,
+    "environment_state_counts": {
+      "GLOBAL_LIGHT_CHANGE": 97
+    },
+    "sample_count": 97,
+    "elapsed_seconds": 146.4574336669757
+  },
+  "negative": {
+    "name": "negative",
+    "evaluation_start_seconds": 60.0,
+    "sample_fps": 1.0,
+    "alignment": {
+      "method": "SIFT + RANSAC homography",
+      "matches": 85,
+      "inliers": 71,
+      "inlier_fraction": 0.8353,
+      "reprojection_median_px": 0.295,
+      "reprojection_p95_px": 0.81,
+      "inlier_hull_fraction": 0.699,
+      "matrix": [
+        [
+          0.9996315105232858,
+          -0.00015277951555677893,
+          0.12452160046632584
+        ],
+        [
+          -6.474726178221249e-05,
+          0.999980459877841,
+          -0.038620511624101656
+        ],
+        [
+          -1.1878581715793771e-07,
+          -3.4534042423237175e-08,
+          1.0
+        ]
+      ]
+    },
+    "v2": {
+      "raw_candidates": 4113,
+      "raw_per_minute": 1011.9616341962494,
+      "tracks_total": 356,
+      "tracks_at_least_seconds": {
+        "1": 356,
+        "3": 152,
+        "5": 93,
+        "10": 52,
+        "30": 21
+      },
+      "raw_to_5s_reduction": 0.9773887673231219
+    },
+    "v3": {
+      "raw_candidates": 1140,
+      "raw_per_minute": 280.4853544818197,
+      "tracks_total": 237,
+      "tracks_at_least_seconds": {
+        "1": 237,
+        "3": 38,
+        "5": 19,
+        "10": 9,
+        "30": 4
+      },
+      "raw_to_5s_reduction": 0.9833333333333333
+    },
+    "t01_v2": null,
+    "t01_v3": null,
+    "mean_usable_fraction": 1.0,
+    "environment_state_counts": {
+      "GLOBAL_LIGHT_CHANGE": 244
+    },
+    "sample_count": 244,
+    "elapsed_seconds": 344.0238044160069
+  }
+}

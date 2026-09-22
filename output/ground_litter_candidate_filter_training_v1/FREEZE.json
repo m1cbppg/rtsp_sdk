@@ -1,0 +1,35 @@
+{
+  "schema": "ground_litter_candidate_filter_fit_freeze_v1",
+  "fit_report_sha256": "74c670e68ca67bfdbc8c1ea0228385f264b224bb57be9fad934cadaa8bea84e4",
+  "artifacts": {
+    "turhancan": {
+      "file": "turhancan.npz",
+      "sha256": "dd95c1245ca4efc3fbad0c9cfceb8a8a286aba66a85ee50de37cd58117d467d3"
+    },
+    "yolo26s": {
+      "file": "yolo26s.npz",
+      "sha256": "edb639638c228afa766e522fa7a37ee46fd18dd7da84865c9e0ddbc83f6aea7b"
+    }
+  },
+  "training": {
+    "base_rows": 955,
+    "active": {
+      "positive": 22,
+      "negative": 175,
+      "excluded": 43
+    },
+    "rows": 1152,
+    "positive": 147,
+    "negative": 1005
+  },
+  "compute": {
+    "requested": "cuda:0",
+    "resolved_type": "cuda",
+    "torch_version": "2.11.0+cu128",
+    "torch_cuda_version": "12.8",
+    "cuda_available": true,
+    "gpu_name": "NVIDIA GeForce RTX 3060 Ti",
+    "gpu_total_memory_bytes": 8222408704
+  },
+  "holdout_labels_read": false
+}

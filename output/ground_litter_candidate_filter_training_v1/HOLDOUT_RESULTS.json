@@ -1,0 +1,222 @@
+{
+  "schema": "ground_litter_candidate_filter_holdout_eval_v1",
+  "fit_report_sha256": "74c670e68ca67bfdbc8c1ea0228385f264b224bb57be9fad934cadaa8bea84e4",
+  "holdout_selection_sha256": "f283e2d7d88bf4e9a4f300d703a600db83608ef282c392dc3f55043685ddf5a5",
+  "holdout_reviews_sha256": "e0affda2372e1a09e7b215b1651b62d2a16b45e32b9ac23bf38b311c3e6ef354",
+  "holdout_identity_sha256": "83ec0ca9d87d393de4557417c719b0368d15440eb065cd56606d7721b4ae68ec",
+  "reviewed": 200,
+  "scored": 178,
+  "positive": 21,
+  "negative": 157,
+  "excluded": {
+    "UNCERTAIN": 20,
+    "BOX_WRONG": 2
+  },
+  "models": {
+    "turhancan": {
+      "primary_camera_excluded_weighted": {
+        "rows": 178,
+        "positive_rows": 21,
+        "negative_rows": 157,
+        "positive_weight": 287.8,
+        "negative_weight": 1911.8,
+        "threshold": -4.25651741027832,
+        "recall": 0.9145239749826269,
+        "precision": 0.19122348154606217,
+        "negative_reduction": 0.41772151898734167,
+        "candidate_reduction": 0.3742498636115654
+      },
+      "primary_camera_excluded_unweighted": {
+        "rows": 178,
+        "positive_rows": 21,
+        "negative_rows": 157,
+        "positive_weight": 21.0,
+        "negative_weight": 157.0,
+        "threshold": -4.25651741027832,
+        "recall": 0.9047619047619048,
+        "precision": 0.18446601941747573,
+        "negative_reduction": 0.46496815286624205,
+        "candidate_reduction": 0.4213483146067416
+      },
+      "exploratory_all_head_ensemble_weighted": {
+        "rows": 178,
+        "positive_rows": 21,
+        "negative_rows": 157,
+        "positive_weight": 287.8,
+        "negative_weight": 1911.8,
+        "threshold": -4.25651741027832,
+        "recall": 0.9145239749826269,
+        "precision": 0.18948884089272855,
+        "negative_reduction": 0.41113087143006566,
+        "candidate_reduction": 0.36852154937261317
+      },
+      "by_camera": {
+        "01021": {
+          "rows": 36,
+          "positive_rows": 3,
+          "negative_rows": 33,
+          "positive_weight": 3.0,
+          "negative_weight": 33.0,
+          "threshold": -4.25651741027832,
+          "recall": 1.0,
+          "precision": 0.1111111111111111,
+          "negative_reduction": 0.2727272727272727,
+          "candidate_reduction": 0.25
+        },
+        "01022": {
+          "rows": 32,
+          "positive_rows": 5,
+          "negative_rows": 27,
+          "positive_weight": 5.0,
+          "negative_weight": 27.0,
+          "threshold": -4.25651741027832,
+          "recall": 1.0,
+          "precision": 0.22727272727272727,
+          "negative_reduction": 0.37037037037037035,
+          "candidate_reduction": 0.3125
+        },
+        "01027": {
+          "rows": 37,
+          "positive_rows": 1,
+          "negative_rows": 36,
+          "positive_weight": 1.0,
+          "negative_weight": 36.0,
+          "threshold": -4.25651741027832,
+          "recall": 1.0,
+          "precision": 0.058823529411764705,
+          "negative_reduction": 0.5555555555555556,
+          "candidate_reduction": 0.5405405405405406
+        },
+        "01028": {
+          "rows": 37,
+          "positive_rows": 3,
+          "negative_rows": 34,
+          "positive_weight": 3.0,
+          "negative_weight": 34.0,
+          "threshold": -4.25651741027832,
+          "recall": 1.0,
+          "precision": 0.15789473684210525,
+          "negative_reduction": 0.5294117647058824,
+          "candidate_reduction": 0.4864864864864865
+        },
+        "01030": {
+          "rows": 36,
+          "positive_rows": 9,
+          "negative_rows": 27,
+          "positive_weight": 9.0,
+          "negative_weight": 27.0,
+          "threshold": -4.25651741027832,
+          "recall": 0.7777777777777778,
+          "precision": 0.3888888888888889,
+          "negative_reduction": 0.5925925925925926,
+          "candidate_reduction": 0.5
+        }
+      }
+    },
+    "yolo26s": {
+      "primary_camera_excluded_weighted": {
+        "rows": 178,
+        "positive_rows": 21,
+        "negative_rows": 157,
+        "positive_weight": 287.8,
+        "negative_weight": 1911.8,
+        "threshold": -5.7223310470581055,
+        "recall": 1.0,
+        "precision": 0.1881783706028508,
+        "negative_reduction": 0.350559681975102,
+        "candidate_reduction": 0.30469176213857063
+      },
+      "primary_camera_excluded_unweighted": {
+        "rows": 178,
+        "positive_rows": 21,
+        "negative_rows": 157,
+        "positive_weight": 21.0,
+        "negative_weight": 157.0,
+        "threshold": -5.7223310470581055,
+        "recall": 1.0,
+        "precision": 0.168,
+        "negative_reduction": 0.33757961783439494,
+        "candidate_reduction": 0.297752808988764
+      },
+      "exploratory_all_head_ensemble_weighted": {
+        "rows": 178,
+        "positive_rows": 21,
+        "negative_rows": 157,
+        "positive_weight": 287.8,
+        "negative_weight": 1911.8,
+        "threshold": -5.7223310470581055,
+        "recall": 1.0,
+        "precision": 0.16697609654212117,
+        "negative_reduction": 0.24898001883042176,
+        "candidate_reduction": 0.2164029823604292
+      },
+      "by_camera": {
+        "01021": {
+          "rows": 36,
+          "positive_rows": 3,
+          "negative_rows": 33,
+          "positive_weight": 3.0,
+          "negative_weight": 33.0,
+          "threshold": -5.7223310470581055,
+          "recall": 1.0,
+          "precision": 0.13636363636363635,
+          "negative_reduction": 0.4242424242424242,
+          "candidate_reduction": 0.38888888888888884
+        },
+        "01022": {
+          "rows": 32,
+          "positive_rows": 5,
+          "negative_rows": 27,
+          "positive_weight": 5.0,
+          "negative_weight": 27.0,
+          "threshold": -5.7223310470581055,
+          "recall": 1.0,
+          "precision": 0.18518518518518517,
+          "negative_reduction": 0.18518518518518523,
+          "candidate_reduction": 0.15625
+        },
+        "01027": {
+          "rows": 37,
+          "positive_rows": 1,
+          "negative_rows": 36,
+          "positive_weight": 1.0,
+          "negative_weight": 36.0,
+          "threshold": -5.7223310470581055,
+          "recall": 1.0,
+          "precision": 0.045454545454545456,
+          "negative_reduction": 0.41666666666666663,
+          "candidate_reduction": 0.4054054054054054
+        },
+        "01028": {
+          "rows": 37,
+          "positive_rows": 3,
+          "negative_rows": 34,
+          "positive_weight": 3.0,
+          "negative_weight": 34.0,
+          "threshold": -5.7223310470581055,
+          "recall": 1.0,
+          "precision": 0.14285714285714285,
+          "negative_reduction": 0.47058823529411764,
+          "candidate_reduction": 0.43243243243243246
+        },
+        "01030": {
+          "rows": 36,
+          "positive_rows": 9,
+          "negative_rows": 27,
+          "positive_weight": 9.0,
+          "negative_weight": 27.0,
+          "threshold": -5.7223310470581055,
+          "recall": 1.0,
+          "precision": 0.2727272727272727,
+          "negative_reduction": 0.11111111111111116,
+          "candidate_reduction": 0.08333333333333337
+        }
+      }
+    }
+  },
+  "limitations": [
+    "This is a score-blind stratified holdout from the same date/pool as active-day3.",
+    "Weighted metrics estimate the remaining candidate pool after active selection.",
+    "A new-date shadow run remains required before production use."
+  ]
+}

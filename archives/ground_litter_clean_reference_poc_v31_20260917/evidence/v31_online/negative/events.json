@@ -1,0 +1,1872 @@
+[
+  {
+    "event_id": 1,
+    "first_seen": 60.0,
+    "last_visible": 303.0,
+    "anchor_box": [
+      1774.0,
+      561.0,
+      1785.0,
+      570.0
+    ],
+    "state": "VISIBLE_ANOMALY",
+    "visible_hits": 244,
+    "visible_duration_seconds": 244.0,
+    "confirmed_at": 64.0,
+    "confirmation_delay_seconds": 4.0,
+    "closed_at": null,
+    "closed_reason": null,
+    "clear_observed_seconds": 0.0,
+    "occluded_samples": 0,
+    "uncertain_samples": 0,
+    "state_history": [
+      {
+        "timestamp": 60.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      }
+    ],
+    "visible_timestamps": [
+      60.0,
+      61.0,
+      62.0,
+      63.0,
+      64.0,
+      65.0,
+      66.0,
+      67.0,
+      68.0,
+      69.0,
+      70.0,
+      71.0,
+      72.0,
+      73.0,
+      74.0,
+      75.0,
+      76.0,
+      77.0,
+      78.0,
+      79.0,
+      80.0,
+      81.0,
+      82.0,
+      83.0,
+      84.0,
+      85.0,
+      86.0,
+      87.0,
+      88.0,
+      89.0,
+      90.0,
+      91.0,
+      92.0,
+      93.0,
+      94.0,
+      95.0,
+      96.0,
+      97.0,
+      98.0,
+      99.0,
+      100.0,
+      101.0,
+      102.0,
+      103.0,
+      104.0,
+      105.0,
+      106.0,
+      107.0,
+      108.0,
+      109.0,
+      110.0,
+      111.0,
+      112.0,
+      113.0,
+      114.0,
+      115.0,
+      116.0,
+      117.0,
+      118.0,
+      119.0,
+      120.0,
+      121.0,
+      122.0,
+      123.0,
+      124.0,
+      125.0,
+      126.0,
+      127.0,
+      128.0,
+      129.0,
+      130.0,
+      131.0,
+      132.0,
+      133.0,
+      134.0,
+      135.0,
+      136.0,
+      137.0,
+      138.0,
+      139.0,
+      140.0,
+      141.0,
+      142.0,
+      143.0,
+      144.0,
+      145.0,
+      146.0,
+      147.0,
+      148.0,
+      149.0,
+      150.0,
+      151.0,
+      152.0,
+      153.0,
+      154.0,
+      155.0,
+      156.0,
+      157.0,
+      158.0,
+      159.0,
+      160.0,
+      161.0,
+      162.0,
+      163.0,
+      164.0,
+      165.0,
+      166.0,
+      167.0,
+      168.0,
+      169.0,
+      170.0,
+      171.0,
+      172.0,
+      173.0,
+      174.0,
+      175.0,
+      176.0,
+      177.0,
+      178.0,
+      179.0,
+      180.0,
+      181.0,
+      182.0,
+      183.0,
+      184.0,
+      185.0,
+      186.0,
+      187.0,
+      188.0,
+      189.0,
+      190.0,
+      191.0,
+      192.0,
+      193.0,
+      194.0,
+      195.0,
+      196.0,
+      197.0,
+      198.0,
+      199.0,
+      200.0,
+      201.0,
+      202.0,
+      203.0,
+      204.0,
+      205.0,
+      206.0,
+      207.0,
+      208.0,
+      209.0,
+      210.0,
+      211.0,
+      212.0,
+      213.0,
+      214.0,
+      215.0,
+      216.0,
+      217.0,
+      218.0,
+      219.0,
+      220.0,
+      221.0,
+      222.0,
+      223.0,
+      224.0,
+      225.0,
+      226.0,
+      227.0,
+      228.0,
+      229.0,
+      230.0,
+      231.0,
+      232.0,
+      233.0,
+      234.0,
+      235.0,
+      236.0,
+      237.0,
+      238.0,
+      239.0,
+      240.0,
+      241.0,
+      242.0,
+      243.0,
+      244.0,
+      245.0,
+      246.0,
+      247.0,
+      248.0,
+      249.0,
+      250.0,
+      251.0,
+      252.0,
+      253.0,
+      254.0,
+      255.0,
+      256.0,
+      257.0,
+      258.0,
+      259.0,
+      260.0,
+      261.0,
+      262.0,
+      263.0,
+      264.0,
+      265.0,
+      266.0,
+      267.0,
+      268.0,
+      269.0,
+      270.0,
+      271.0,
+      272.0,
+      273.0,
+      274.0,
+      275.0,
+      276.0,
+      277.0,
+      278.0,
+      279.0,
+      280.0,
+      281.0,
+      282.0,
+      283.0,
+      284.0,
+      285.0,
+      286.0,
+      287.0,
+      288.0,
+      289.0,
+      290.0,
+      291.0,
+      292.0,
+      293.0,
+      294.0,
+      295.0,
+      296.0,
+      297.0,
+      298.0,
+      299.0,
+      300.0,
+      301.0,
+      302.0,
+      303.0
+    ]
+  },
+  {
+    "event_id": 2,
+    "first_seen": 60.0,
+    "last_visible": 303.0,
+    "anchor_box": [
+      1747.0,
+      476.0,
+      1755.0,
+      484.0
+    ],
+    "state": "VISIBLE_ANOMALY",
+    "visible_hits": 244,
+    "visible_duration_seconds": 244.0,
+    "confirmed_at": 64.0,
+    "confirmation_delay_seconds": 4.0,
+    "closed_at": null,
+    "closed_reason": null,
+    "clear_observed_seconds": 0.0,
+    "occluded_samples": 0,
+    "uncertain_samples": 0,
+    "state_history": [
+      {
+        "timestamp": 60.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      }
+    ],
+    "visible_timestamps": [
+      60.0,
+      61.0,
+      62.0,
+      63.0,
+      64.0,
+      65.0,
+      66.0,
+      67.0,
+      68.0,
+      69.0,
+      70.0,
+      71.0,
+      72.0,
+      73.0,
+      74.0,
+      75.0,
+      76.0,
+      77.0,
+      78.0,
+      79.0,
+      80.0,
+      81.0,
+      82.0,
+      83.0,
+      84.0,
+      85.0,
+      86.0,
+      87.0,
+      88.0,
+      89.0,
+      90.0,
+      91.0,
+      92.0,
+      93.0,
+      94.0,
+      95.0,
+      96.0,
+      97.0,
+      98.0,
+      99.0,
+      100.0,
+      101.0,
+      102.0,
+      103.0,
+      104.0,
+      105.0,
+      106.0,
+      107.0,
+      108.0,
+      109.0,
+      110.0,
+      111.0,
+      112.0,
+      113.0,
+      114.0,
+      115.0,
+      116.0,
+      117.0,
+      118.0,
+      119.0,
+      120.0,
+      121.0,
+      122.0,
+      123.0,
+      124.0,
+      125.0,
+      126.0,
+      127.0,
+      128.0,
+      129.0,
+      130.0,
+      131.0,
+      132.0,
+      133.0,
+      134.0,
+      135.0,
+      136.0,
+      137.0,
+      138.0,
+      139.0,
+      140.0,
+      141.0,
+      142.0,
+      143.0,
+      144.0,
+      145.0,
+      146.0,
+      147.0,
+      148.0,
+      149.0,
+      150.0,
+      151.0,
+      152.0,
+      153.0,
+      154.0,
+      155.0,
+      156.0,
+      157.0,
+      158.0,
+      159.0,
+      160.0,
+      161.0,
+      162.0,
+      163.0,
+      164.0,
+      165.0,
+      166.0,
+      167.0,
+      168.0,
+      169.0,
+      170.0,
+      171.0,
+      172.0,
+      173.0,
+      174.0,
+      175.0,
+      176.0,
+      177.0,
+      178.0,
+      179.0,
+      180.0,
+      181.0,
+      182.0,
+      183.0,
+      184.0,
+      185.0,
+      186.0,
+      187.0,
+      188.0,
+      189.0,
+      190.0,
+      191.0,
+      192.0,
+      193.0,
+      194.0,
+      195.0,
+      196.0,
+      197.0,
+      198.0,
+      199.0,
+      200.0,
+      201.0,
+      202.0,
+      203.0,
+      204.0,
+      205.0,
+      206.0,
+      207.0,
+      208.0,
+      209.0,
+      210.0,
+      211.0,
+      212.0,
+      213.0,
+      214.0,
+      215.0,
+      216.0,
+      217.0,
+      218.0,
+      219.0,
+      220.0,
+      221.0,
+      222.0,
+      223.0,
+      224.0,
+      225.0,
+      226.0,
+      227.0,
+      228.0,
+      229.0,
+      230.0,
+      231.0,
+      232.0,
+      233.0,
+      234.0,
+      235.0,
+      236.0,
+      237.0,
+      238.0,
+      239.0,
+      240.0,
+      241.0,
+      242.0,
+      243.0,
+      244.0,
+      245.0,
+      246.0,
+      247.0,
+      248.0,
+      249.0,
+      250.0,
+      251.0,
+      252.0,
+      253.0,
+      254.0,
+      255.0,
+      256.0,
+      257.0,
+      258.0,
+      259.0,
+      260.0,
+      261.0,
+      262.0,
+      263.0,
+      264.0,
+      265.0,
+      266.0,
+      267.0,
+      268.0,
+      269.0,
+      270.0,
+      271.0,
+      272.0,
+      273.0,
+      274.0,
+      275.0,
+      276.0,
+      277.0,
+      278.0,
+      279.0,
+      280.0,
+      281.0,
+      282.0,
+      283.0,
+      284.0,
+      285.0,
+      286.0,
+      287.0,
+      288.0,
+      289.0,
+      290.0,
+      291.0,
+      292.0,
+      293.0,
+      294.0,
+      295.0,
+      296.0,
+      297.0,
+      298.0,
+      299.0,
+      300.0,
+      301.0,
+      302.0,
+      303.0
+    ]
+  },
+  {
+    "event_id": 3,
+    "first_seen": 65.0,
+    "last_visible": 65.0,
+    "anchor_box": [
+      1984.0,
+      1132.0,
+      1994.0,
+      1148.0
+    ],
+    "state": "EXPIRED_PENDING",
+    "visible_hits": 1,
+    "visible_duration_seconds": 1.0,
+    "confirmed_at": null,
+    "confirmation_delay_seconds": null,
+    "closed_at": 80.0,
+    "closed_reason": "pending_timeout",
+    "clear_observed_seconds": 0.0,
+    "occluded_samples": 0,
+    "uncertain_samples": 12,
+    "state_history": [
+      {
+        "timestamp": 65.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 66.0,
+        "state": "CLEAN_PENDING",
+        "reason": "clean_reference_match"
+      },
+      {
+        "timestamp": 67.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 75.0,
+        "state": "CLEAN_PENDING",
+        "reason": "clean_reference_match"
+      },
+      {
+        "timestamp": 76.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 80.0,
+        "state": "EXPIRED_PENDING",
+        "reason": "pending_timeout"
+      }
+    ],
+    "visible_timestamps": [
+      65.0
+    ]
+  },
+  {
+    "event_id": 4,
+    "first_seen": 66.0,
+    "last_visible": 66.0,
+    "anchor_box": [
+      1637.0,
+      1011.0,
+      1657.0,
+      1026.0
+    ],
+    "state": "EXPIRED_PENDING",
+    "visible_hits": 1,
+    "visible_duration_seconds": 1.0,
+    "confirmed_at": null,
+    "confirmation_delay_seconds": null,
+    "closed_at": 82.0,
+    "closed_reason": "pending_timeout",
+    "clear_observed_seconds": 0.0,
+    "occluded_samples": 2,
+    "uncertain_samples": 13,
+    "state_history": [
+      {
+        "timestamp": 66.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 67.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 80.0,
+        "state": "OCCLUDED",
+        "reason": "actor_occluded"
+      },
+      {
+        "timestamp": 82.0,
+        "state": "EXPIRED_PENDING",
+        "reason": "pending_timeout"
+      }
+    ],
+    "visible_timestamps": [
+      66.0
+    ]
+  },
+  {
+    "event_id": 5,
+    "first_seen": 66.0,
+    "last_visible": 66.0,
+    "anchor_box": [
+      1626.0,
+      968.0,
+      1641.0,
+      985.0
+    ],
+    "state": "EXPIRED_PENDING",
+    "visible_hits": 1,
+    "visible_duration_seconds": 1.0,
+    "confirmed_at": null,
+    "confirmation_delay_seconds": null,
+    "closed_at": 81.0,
+    "closed_reason": "pending_timeout",
+    "clear_observed_seconds": 0.0,
+    "occluded_samples": 2,
+    "uncertain_samples": 12,
+    "state_history": [
+      {
+        "timestamp": 66.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 67.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 73.0,
+        "state": "OCCLUDED",
+        "reason": "actor_occluded"
+      },
+      {
+        "timestamp": 74.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 80.0,
+        "state": "OCCLUDED",
+        "reason": "actor_occluded"
+      },
+      {
+        "timestamp": 81.0,
+        "state": "EXPIRED_PENDING",
+        "reason": "pending_timeout"
+      }
+    ],
+    "visible_timestamps": [
+      66.0
+    ]
+  },
+  {
+    "event_id": 6,
+    "first_seen": 74.0,
+    "last_visible": 303.0,
+    "anchor_box": [
+      1637.0,
+      1191.0,
+      1650.0,
+      1202.0
+    ],
+    "state": "VISIBLE_ANOMALY",
+    "visible_hits": 126,
+    "visible_duration_seconds": 126.0,
+    "confirmed_at": 82.0,
+    "confirmation_delay_seconds": 8.0,
+    "closed_at": null,
+    "closed_reason": null,
+    "clear_observed_seconds": 0.0,
+    "occluded_samples": 3,
+    "uncertain_samples": 101,
+    "state_history": [
+      {
+        "timestamp": 74.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 76.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 80.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 88.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 92.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 113.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 114.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 115.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 116.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 118.0,
+        "state": "OCCLUDED",
+        "reason": "actor_occluded"
+      },
+      {
+        "timestamp": 119.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 120.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 122.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 128.0,
+        "state": "OCCLUDED",
+        "reason": "actor_occluded"
+      },
+      {
+        "timestamp": 129.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 132.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 136.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 151.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 152.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 155.0,
+        "state": "OCCLUDED",
+        "reason": "actor_occluded"
+      },
+      {
+        "timestamp": 156.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 169.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 171.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 173.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 176.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 178.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 184.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 188.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 192.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 196.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 198.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 200.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 204.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 212.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 230.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 231.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 236.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 240.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 256.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 264.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 266.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 268.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 272.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 273.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 274.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 275.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 277.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 278.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 288.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 289.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 292.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 298.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 300.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      }
+    ],
+    "visible_timestamps": [
+      74.0,
+      75.0,
+      80.0,
+      81.0,
+      82.0,
+      83.0,
+      84.0,
+      85.0,
+      86.0,
+      87.0,
+      92.0,
+      93.0,
+      94.0,
+      95.0,
+      96.0,
+      97.0,
+      98.0,
+      99.0,
+      100.0,
+      101.0,
+      102.0,
+      103.0,
+      104.0,
+      105.0,
+      106.0,
+      107.0,
+      108.0,
+      109.0,
+      110.0,
+      111.0,
+      112.0,
+      114.0,
+      116.0,
+      117.0,
+      119.0,
+      122.0,
+      123.0,
+      124.0,
+      125.0,
+      126.0,
+      127.0,
+      129.0,
+      130.0,
+      131.0,
+      136.0,
+      137.0,
+      138.0,
+      139.0,
+      140.0,
+      141.0,
+      142.0,
+      143.0,
+      144.0,
+      145.0,
+      146.0,
+      147.0,
+      148.0,
+      149.0,
+      150.0,
+      152.0,
+      153.0,
+      154.0,
+      156.0,
+      157.0,
+      158.0,
+      159.0,
+      160.0,
+      161.0,
+      162.0,
+      163.0,
+      164.0,
+      165.0,
+      166.0,
+      167.0,
+      168.0,
+      171.0,
+      172.0,
+      176.0,
+      177.0,
+      184.0,
+      185.0,
+      186.0,
+      187.0,
+      192.0,
+      193.0,
+      194.0,
+      195.0,
+      198.0,
+      199.0,
+      204.0,
+      205.0,
+      206.0,
+      207.0,
+      208.0,
+      209.0,
+      210.0,
+      211.0,
+      230.0,
+      236.0,
+      237.0,
+      238.0,
+      239.0,
+      256.0,
+      257.0,
+      258.0,
+      259.0,
+      260.0,
+      261.0,
+      262.0,
+      263.0,
+      266.0,
+      267.0,
+      272.0,
+      274.0,
+      277.0,
+      288.0,
+      292.0,
+      293.0,
+      294.0,
+      295.0,
+      296.0,
+      297.0,
+      300.0,
+      301.0,
+      302.0,
+      303.0
+    ]
+  },
+  {
+    "event_id": 7,
+    "first_seen": 74.0,
+    "last_visible": 74.0,
+    "anchor_box": [
+      1709.0,
+      914.0,
+      1718.0,
+      926.0
+    ],
+    "state": "EXPIRED_PENDING",
+    "visible_hits": 1,
+    "visible_duration_seconds": 1.0,
+    "confirmed_at": null,
+    "confirmation_delay_seconds": null,
+    "closed_at": 89.0,
+    "closed_reason": "pending_timeout",
+    "clear_observed_seconds": 0.0,
+    "occluded_samples": 2,
+    "uncertain_samples": 12,
+    "state_history": [
+      {
+        "timestamp": 74.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 75.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 80.0,
+        "state": "OCCLUDED",
+        "reason": "actor_occluded"
+      },
+      {
+        "timestamp": 82.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 89.0,
+        "state": "EXPIRED_PENDING",
+        "reason": "pending_timeout"
+      }
+    ],
+    "visible_timestamps": [
+      74.0
+    ]
+  },
+  {
+    "event_id": 8,
+    "first_seen": 75.0,
+    "last_visible": 79.0,
+    "anchor_box": [
+      1961.0,
+      1068.0,
+      1971.5,
+      1077.0
+    ],
+    "state": "EXPIRED_PENDING",
+    "visible_hits": 2,
+    "visible_duration_seconds": 2.0,
+    "confirmed_at": null,
+    "confirmation_delay_seconds": null,
+    "closed_at": 94.0,
+    "closed_reason": "pending_timeout",
+    "clear_observed_seconds": 0.0,
+    "occluded_samples": 1,
+    "uncertain_samples": 16,
+    "state_history": [
+      {
+        "timestamp": 75.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 76.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 79.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 80.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 82.0,
+        "state": "OCCLUDED",
+        "reason": "actor_occluded"
+      },
+      {
+        "timestamp": 83.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 94.0,
+        "state": "EXPIRED_PENDING",
+        "reason": "pending_timeout"
+      }
+    ],
+    "visible_timestamps": [
+      75.0,
+      79.0
+    ]
+  },
+  {
+    "event_id": 9,
+    "first_seen": 104.0,
+    "last_visible": 104.0,
+    "anchor_box": [
+      1715.0,
+      941.0,
+      1724.0,
+      958.0
+    ],
+    "state": "EXPIRED_PENDING",
+    "visible_hits": 1,
+    "visible_duration_seconds": 1.0,
+    "confirmed_at": null,
+    "confirmation_delay_seconds": null,
+    "closed_at": 119.0,
+    "closed_reason": "pending_timeout",
+    "clear_observed_seconds": 0.0,
+    "occluded_samples": 1,
+    "uncertain_samples": 13,
+    "state_history": [
+      {
+        "timestamp": 104.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 105.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 118.0,
+        "state": "OCCLUDED",
+        "reason": "actor_occluded"
+      },
+      {
+        "timestamp": 119.0,
+        "state": "EXPIRED_PENDING",
+        "reason": "pending_timeout"
+      }
+    ],
+    "visible_timestamps": [
+      104.0
+    ]
+  },
+  {
+    "event_id": 10,
+    "first_seen": 112.0,
+    "last_visible": 303.0,
+    "anchor_box": [
+      1732.0,
+      437.0,
+      1740.0,
+      447.0
+    ],
+    "state": "VISIBLE_ANOMALY",
+    "visible_hits": 192,
+    "visible_duration_seconds": 192.0,
+    "confirmed_at": 116.0,
+    "confirmation_delay_seconds": 4.0,
+    "closed_at": null,
+    "closed_reason": null,
+    "clear_observed_seconds": 0.0,
+    "occluded_samples": 0,
+    "uncertain_samples": 0,
+    "state_history": [
+      {
+        "timestamp": 112.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      }
+    ],
+    "visible_timestamps": [
+      112.0,
+      113.0,
+      114.0,
+      115.0,
+      116.0,
+      117.0,
+      118.0,
+      119.0,
+      120.0,
+      121.0,
+      122.0,
+      123.0,
+      124.0,
+      125.0,
+      126.0,
+      127.0,
+      128.0,
+      129.0,
+      130.0,
+      131.0,
+      132.0,
+      133.0,
+      134.0,
+      135.0,
+      136.0,
+      137.0,
+      138.0,
+      139.0,
+      140.0,
+      141.0,
+      142.0,
+      143.0,
+      144.0,
+      145.0,
+      146.0,
+      147.0,
+      148.0,
+      149.0,
+      150.0,
+      151.0,
+      152.0,
+      153.0,
+      154.0,
+      155.0,
+      156.0,
+      157.0,
+      158.0,
+      159.0,
+      160.0,
+      161.0,
+      162.0,
+      163.0,
+      164.0,
+      165.0,
+      166.0,
+      167.0,
+      168.0,
+      169.0,
+      170.0,
+      171.0,
+      172.0,
+      173.0,
+      174.0,
+      175.0,
+      176.0,
+      177.0,
+      178.0,
+      179.0,
+      180.0,
+      181.0,
+      182.0,
+      183.0,
+      184.0,
+      185.0,
+      186.0,
+      187.0,
+      188.0,
+      189.0,
+      190.0,
+      191.0,
+      192.0,
+      193.0,
+      194.0,
+      195.0,
+      196.0,
+      197.0,
+      198.0,
+      199.0,
+      200.0,
+      201.0,
+      202.0,
+      203.0,
+      204.0,
+      205.0,
+      206.0,
+      207.0,
+      208.0,
+      209.0,
+      210.0,
+      211.0,
+      212.0,
+      213.0,
+      214.0,
+      215.0,
+      216.0,
+      217.0,
+      218.0,
+      219.0,
+      220.0,
+      221.0,
+      222.0,
+      223.0,
+      224.0,
+      225.0,
+      226.0,
+      227.0,
+      228.0,
+      229.0,
+      230.0,
+      231.0,
+      232.0,
+      233.0,
+      234.0,
+      235.0,
+      236.0,
+      237.0,
+      238.0,
+      239.0,
+      240.0,
+      241.0,
+      242.0,
+      243.0,
+      244.0,
+      245.0,
+      246.0,
+      247.0,
+      248.0,
+      249.0,
+      250.0,
+      251.0,
+      252.0,
+      253.0,
+      254.0,
+      255.0,
+      256.0,
+      257.0,
+      258.0,
+      259.0,
+      260.0,
+      261.0,
+      262.0,
+      263.0,
+      264.0,
+      265.0,
+      266.0,
+      267.0,
+      268.0,
+      269.0,
+      270.0,
+      271.0,
+      272.0,
+      273.0,
+      274.0,
+      275.0,
+      276.0,
+      277.0,
+      278.0,
+      279.0,
+      280.0,
+      281.0,
+      282.0,
+      283.0,
+      284.0,
+      285.0,
+      286.0,
+      287.0,
+      288.0,
+      289.0,
+      290.0,
+      291.0,
+      292.0,
+      293.0,
+      294.0,
+      295.0,
+      296.0,
+      297.0,
+      298.0,
+      299.0,
+      300.0,
+      301.0,
+      302.0,
+      303.0
+    ]
+  },
+  {
+    "event_id": 11,
+    "first_seen": 116.0,
+    "last_visible": 131.0,
+    "anchor_box": [
+      1657.0,
+      394.0,
+      1668.0,
+      400.0
+    ],
+    "state": "ANOMALY_PENDING",
+    "visible_hits": 6,
+    "visible_duration_seconds": 6.0,
+    "confirmed_at": 124.0,
+    "confirmation_delay_seconds": 8.0,
+    "closed_at": null,
+    "closed_reason": null,
+    "clear_observed_seconds": 0.0,
+    "occluded_samples": 0,
+    "uncertain_samples": 182,
+    "state_history": [
+      {
+        "timestamp": 116.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 120.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 124.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 125.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 131.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 132.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      }
+    ],
+    "visible_timestamps": [
+      116.0,
+      117.0,
+      118.0,
+      119.0,
+      124.0,
+      131.0
+    ]
+  },
+  {
+    "event_id": 12,
+    "first_seen": 117.0,
+    "last_visible": 117.0,
+    "anchor_box": [
+      1790.0,
+      920.0,
+      1799.0,
+      950.0
+    ],
+    "state": "EXPIRED_PENDING",
+    "visible_hits": 1,
+    "visible_duration_seconds": 1.0,
+    "confirmed_at": null,
+    "confirmation_delay_seconds": null,
+    "closed_at": 132.0,
+    "closed_reason": "pending_timeout",
+    "clear_observed_seconds": 0.0,
+    "occluded_samples": 2,
+    "uncertain_samples": 12,
+    "state_history": [
+      {
+        "timestamp": 117.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 118.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 122.0,
+        "state": "OCCLUDED",
+        "reason": "actor_occluded"
+      },
+      {
+        "timestamp": 123.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 129.0,
+        "state": "OCCLUDED",
+        "reason": "actor_occluded"
+      },
+      {
+        "timestamp": 130.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 132.0,
+        "state": "EXPIRED_PENDING",
+        "reason": "pending_timeout"
+      }
+    ],
+    "visible_timestamps": [
+      117.0
+    ]
+  },
+  {
+    "event_id": 13,
+    "first_seen": 128.0,
+    "last_visible": 128.0,
+    "anchor_box": [
+      1553.0,
+      861.0,
+      1566.0,
+      872.0
+    ],
+    "state": "EXPIRED_PENDING",
+    "visible_hits": 1,
+    "visible_duration_seconds": 1.0,
+    "confirmed_at": null,
+    "confirmation_delay_seconds": null,
+    "closed_at": 143.0,
+    "closed_reason": "pending_timeout",
+    "clear_observed_seconds": 0.0,
+    "occluded_samples": 0,
+    "uncertain_samples": 14,
+    "state_history": [
+      {
+        "timestamp": 128.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 129.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 143.0,
+        "state": "EXPIRED_PENDING",
+        "reason": "pending_timeout"
+      }
+    ],
+    "visible_timestamps": [
+      128.0
+    ]
+  },
+  {
+    "event_id": 14,
+    "first_seen": 129.0,
+    "last_visible": 129.0,
+    "anchor_box": [
+      1511.0,
+      1249.0,
+      1523.0,
+      1258.0
+    ],
+    "state": "EXPIRED_PENDING",
+    "visible_hits": 1,
+    "visible_duration_seconds": 1.0,
+    "confirmed_at": null,
+    "confirmation_delay_seconds": null,
+    "closed_at": 144.0,
+    "closed_reason": "pending_timeout",
+    "clear_observed_seconds": 0.0,
+    "occluded_samples": 0,
+    "uncertain_samples": 14,
+    "state_history": [
+      {
+        "timestamp": 129.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 130.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 144.0,
+        "state": "EXPIRED_PENDING",
+        "reason": "pending_timeout"
+      }
+    ],
+    "visible_timestamps": [
+      129.0
+    ]
+  },
+  {
+    "event_id": 15,
+    "first_seen": 202.0,
+    "last_visible": 294.0,
+    "anchor_box": [
+      1736.0,
+      362.0,
+      1750.0,
+      372.0
+    ],
+    "state": "ANOMALY_PENDING",
+    "visible_hits": 11,
+    "visible_duration_seconds": 11.0,
+    "confirmed_at": 206.0,
+    "confirmation_delay_seconds": 4.0,
+    "closed_at": null,
+    "closed_reason": null,
+    "clear_observed_seconds": 0.0,
+    "occluded_samples": 5,
+    "uncertain_samples": 86,
+    "state_history": [
+      {
+        "timestamp": 202.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 212.0,
+        "state": "OCCLUDED",
+        "reason": "actor_occluded"
+      },
+      {
+        "timestamp": 214.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 218.0,
+        "state": "OCCLUDED",
+        "reason": "actor_occluded"
+      },
+      {
+        "timestamp": 220.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 228.0,
+        "state": "OCCLUDED",
+        "reason": "actor_occluded"
+      },
+      {
+        "timestamp": 229.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 294.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 295.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      }
+    ],
+    "visible_timestamps": [
+      202.0,
+      203.0,
+      204.0,
+      205.0,
+      206.0,
+      207.0,
+      208.0,
+      209.0,
+      210.0,
+      211.0,
+      294.0
+    ]
+  },
+  {
+    "event_id": 16,
+    "first_seen": 265.0,
+    "last_visible": 265.0,
+    "anchor_box": [
+      1676.0,
+      972.0,
+      1688.0,
+      980.0
+    ],
+    "state": "EXPIRED_PENDING",
+    "visible_hits": 1,
+    "visible_duration_seconds": 1.0,
+    "confirmed_at": null,
+    "confirmation_delay_seconds": null,
+    "closed_at": 280.0,
+    "closed_reason": "pending_timeout",
+    "clear_observed_seconds": 0.0,
+    "occluded_samples": 0,
+    "uncertain_samples": 14,
+    "state_history": [
+      {
+        "timestamp": 265.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 266.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 280.0,
+        "state": "EXPIRED_PENDING",
+        "reason": "pending_timeout"
+      }
+    ],
+    "visible_timestamps": [
+      265.0
+    ]
+  },
+  {
+    "event_id": 17,
+    "first_seen": 288.0,
+    "last_visible": 288.0,
+    "anchor_box": [
+      1510.0,
+      1249.0,
+      1524.0,
+      1256.0
+    ],
+    "state": "EXPIRED_PENDING",
+    "visible_hits": 1,
+    "visible_duration_seconds": 1.0,
+    "confirmed_at": null,
+    "confirmation_delay_seconds": null,
+    "closed_at": 303.0,
+    "closed_reason": "pending_timeout",
+    "clear_observed_seconds": 0.0,
+    "occluded_samples": 0,
+    "uncertain_samples": 14,
+    "state_history": [
+      {
+        "timestamp": 288.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 289.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 303.0,
+        "state": "EXPIRED_PENDING",
+        "reason": "pending_timeout"
+      }
+    ],
+    "visible_timestamps": [
+      288.0
+    ]
+  }
+]

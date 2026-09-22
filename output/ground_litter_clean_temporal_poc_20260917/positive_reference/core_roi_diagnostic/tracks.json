@@ -1,0 +1,2350 @@
+[
+  {
+    "track_id": 4,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 2.0,
+    "last_seen": 2.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1500.0,
+      99.0,
+      1504.0,
+      102.0
+    ],
+    "median_score": 0.9012,
+    "occluded_samples": 0,
+    "timestamps": [
+      2.0
+    ]
+  },
+  {
+    "track_id": 5,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 10.0,
+    "last_seen": 10.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1507.0,
+      32.0,
+      1514.0,
+      36.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      10.0
+    ]
+  },
+  {
+    "track_id": 1,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 0.0,
+    "last_seen": 16.0,
+    "hits": 16,
+    "lifetime_seconds": 17.0,
+    "visible_duration_seconds": 16.0,
+    "continuity": 0.9412,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1628.0,
+      449.0,
+      1631.0,
+      477.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      0.0,
+      1.0,
+      2.0,
+      3.0,
+      4.0,
+      5.0,
+      6.0,
+      7.0,
+      8.0,
+      9.0,
+      10.0,
+      11.0,
+      12.0,
+      13.0,
+      14.0,
+      16.0
+    ]
+  },
+  {
+    "track_id": 6,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 21.0,
+    "last_seen": 28.0,
+    "hits": 8,
+    "lifetime_seconds": 8.0,
+    "visible_duration_seconds": 8.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1628.0,
+      452.0,
+      1631.0,
+      477.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      21.0,
+      22.0,
+      23.0,
+      24.0,
+      25.0,
+      26.0,
+      27.0,
+      28.0
+    ]
+  },
+  {
+    "track_id": 7,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 34.0,
+    "last_seen": 34.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1135.0,
+      1409.0,
+      1143.0,
+      1412.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      34.0
+    ]
+  },
+  {
+    "track_id": 8,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 36.0,
+    "last_seen": 36.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1196.0,
+      885.0,
+      1200.0,
+      895.0
+    ],
+    "median_score": 0.9096,
+    "occluded_samples": 0,
+    "timestamps": [
+      36.0
+    ]
+  },
+  {
+    "track_id": 9,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 36.0,
+    "last_seen": 36.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1223.0,
+      1111.0,
+      1227.0,
+      1120.0
+    ],
+    "median_score": 0.905,
+    "occluded_samples": 0,
+    "timestamps": [
+      36.0
+    ]
+  },
+  {
+    "track_id": 10,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 37.0,
+    "last_seen": 37.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1256.0,
+      1063.0,
+      1260.0,
+      1073.0
+    ],
+    "median_score": 0.8893,
+    "occluded_samples": 0,
+    "timestamps": [
+      37.0
+    ]
+  },
+  {
+    "track_id": 11,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 37.0,
+    "last_seen": 37.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1258.0,
+      1041.0,
+      1262.0,
+      1045.0
+    ],
+    "median_score": 0.8284,
+    "occluded_samples": 0,
+    "timestamps": [
+      37.0
+    ]
+  },
+  {
+    "track_id": 12,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 40.0,
+    "last_seen": 40.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1346.0,
+      657.0,
+      1349.0,
+      672.0
+    ],
+    "median_score": 0.9963,
+    "occluded_samples": 0,
+    "timestamps": [
+      40.0
+    ]
+  },
+  {
+    "track_id": 13,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 40.0,
+    "last_seen": 40.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1314.0,
+      478.0,
+      1317.0,
+      485.0
+    ],
+    "median_score": 0.9212,
+    "occluded_samples": 0,
+    "timestamps": [
+      40.0
+    ]
+  },
+  {
+    "track_id": 14,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 42.0,
+    "last_seen": 42.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1374.0,
+      512.0,
+      1378.0,
+      525.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      42.0
+    ]
+  },
+  {
+    "track_id": 15,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 43.0,
+    "last_seen": 43.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1386.0,
+      454.0,
+      1392.0,
+      475.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      43.0
+    ]
+  },
+  {
+    "track_id": 16,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 45.0,
+    "last_seen": 45.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1444.0,
+      367.0,
+      1453.0,
+      371.0
+    ],
+    "median_score": 0.9708,
+    "occluded_samples": 0,
+    "timestamps": [
+      45.0
+    ]
+  },
+  {
+    "track_id": 18,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 47.0,
+    "last_seen": 47.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1574.0,
+      44.0,
+      1583.0,
+      49.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      47.0
+    ]
+  },
+  {
+    "track_id": 17,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 47.0,
+    "last_seen": 52.0,
+    "hits": 6,
+    "lifetime_seconds": 6.0,
+    "visible_duration_seconds": 6.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1628.0,
+      451.0,
+      1631.0,
+      477.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      47.0,
+      48.0,
+      49.0,
+      50.0,
+      51.0,
+      52.0
+    ]
+  },
+  {
+    "track_id": 19,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 60.0,
+    "last_seen": 60.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1626.0,
+      447.0,
+      1630.0,
+      470.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      60.0
+    ]
+  },
+  {
+    "track_id": 20,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 60.0,
+    "last_seen": 60.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1469.0,
+      260.0,
+      1474.0,
+      264.0
+    ],
+    "median_score": 0.9201,
+    "occluded_samples": 0,
+    "timestamps": [
+      60.0
+    ]
+  },
+  {
+    "track_id": 21,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 63.0,
+    "last_seen": 63.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1615.0,
+      908.0,
+      1632.0,
+      911.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      63.0
+    ]
+  },
+  {
+    "track_id": 22,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 64.0,
+    "last_seen": 64.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1535.0,
+      1059.0,
+      1538.0,
+      1067.0
+    ],
+    "median_score": 0.8505,
+    "occluded_samples": 0,
+    "timestamps": [
+      64.0
+    ]
+  },
+  {
+    "track_id": 23,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 68.0,
+    "last_seen": 68.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1331.0,
+      344.0,
+      1336.0,
+      350.0
+    ],
+    "median_score": 0.9618,
+    "occluded_samples": 0,
+    "timestamps": [
+      68.0
+    ]
+  },
+  {
+    "track_id": 25,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 69.0,
+    "last_seen": 69.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1269.0,
+      1267.0,
+      1288.0,
+      1270.0
+    ],
+    "median_score": 0.8673,
+    "occluded_samples": 0,
+    "timestamps": [
+      69.0
+    ]
+  },
+  {
+    "track_id": 26,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 69.0,
+    "last_seen": 69.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1203.0,
+      1057.0,
+      1209.0,
+      1061.0
+    ],
+    "median_score": 0.8505,
+    "occluded_samples": 0,
+    "timestamps": [
+      69.0
+    ]
+  },
+  {
+    "track_id": 24,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 69.0,
+    "last_seen": 70.0,
+    "hits": 2,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1628.0,
+      451.0,
+      1631.0,
+      477.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      69.0,
+      70.0
+    ]
+  },
+  {
+    "track_id": 27,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 70.0,
+    "last_seen": 70.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1495.0,
+      545.0,
+      1499.0,
+      550.0
+    ],
+    "median_score": 0.9657,
+    "occluded_samples": 0,
+    "timestamps": [
+      70.0
+    ]
+  },
+  {
+    "track_id": 28,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 71.0,
+    "last_seen": 71.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1575.0,
+      849.0,
+      1582.0,
+      864.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      71.0
+    ]
+  },
+  {
+    "track_id": 29,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 71.0,
+    "last_seen": 71.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1618.0,
+      512.0,
+      1623.0,
+      521.0
+    ],
+    "median_score": 0.9445,
+    "occluded_samples": 0,
+    "timestamps": [
+      71.0
+    ]
+  },
+  {
+    "track_id": 30,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 72.0,
+    "last_seen": 72.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1203.0,
+      1150.0,
+      1209.0,
+      1155.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      72.0
+    ]
+  },
+  {
+    "track_id": 31,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 72.0,
+    "last_seen": 72.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1322.0,
+      526.0,
+      1327.0,
+      532.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      72.0
+    ]
+  },
+  {
+    "track_id": 32,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 73.0,
+    "last_seen": 76.0,
+    "hits": 4,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1628.0,
+      453.0,
+      1631.0,
+      476.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      73.0,
+      74.0,
+      75.0,
+      76.0
+    ]
+  },
+  {
+    "track_id": 33,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 74.0,
+    "last_seen": 76.0,
+    "hits": 3,
+    "lifetime_seconds": 3.0,
+    "visible_duration_seconds": 3.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1145.0,
+      1061.0,
+      1148.0,
+      1070.0
+    ],
+    "median_score": 0.9393,
+    "occluded_samples": 0,
+    "timestamps": [
+      74.0,
+      75.0,
+      76.0
+    ]
+  },
+  {
+    "track_id": 34,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 82.0,
+    "last_seen": 82.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1408.0,
+      832.0,
+      1411.0,
+      842.0
+    ],
+    "median_score": 0.8251,
+    "occluded_samples": 0,
+    "timestamps": [
+      82.0
+    ]
+  },
+  {
+    "track_id": 35,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 83.0,
+    "last_seen": 83.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1529.0,
+      61.0,
+      1535.0,
+      68.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      83.0
+    ]
+  },
+  {
+    "track_id": 36,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 84.0,
+    "last_seen": 84.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1427.0,
+      744.0,
+      1430.0,
+      750.0
+    ],
+    "median_score": 0.9936,
+    "occluded_samples": 0,
+    "timestamps": [
+      84.0
+    ]
+  },
+  {
+    "track_id": 37,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 88.0,
+    "last_seen": 88.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1511.0,
+      1037.0,
+      1518.0,
+      1040.0
+    ],
+    "median_score": 0.9517,
+    "occluded_samples": 0,
+    "timestamps": [
+      88.0
+    ]
+  },
+  {
+    "track_id": 38,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 89.0,
+    "last_seen": 92.0,
+    "hits": 4,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1628.0,
+      451.0,
+      1631.0,
+      479.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      89.0,
+      90.0,
+      91.0,
+      92.0
+    ]
+  },
+  {
+    "track_id": 39,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 94.0,
+    "last_seen": 94.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1430.0,
+      468.0,
+      1436.0,
+      474.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      94.0
+    ]
+  },
+  {
+    "track_id": 41,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 98.0,
+    "last_seen": 98.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1529.0,
+      267.0,
+      1537.0,
+      271.0
+    ],
+    "median_score": 0.8991,
+    "occluded_samples": 0,
+    "timestamps": [
+      98.0
+    ]
+  },
+  {
+    "track_id": 42,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 99.0,
+    "last_seen": 99.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1534.0,
+      210.0,
+      1543.0,
+      221.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      99.0
+    ]
+  },
+  {
+    "track_id": 43,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 99.0,
+    "last_seen": 99.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1407.0,
+      362.0,
+      1411.0,
+      372.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      99.0
+    ]
+  },
+  {
+    "track_id": 44,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 101.0,
+    "last_seen": 101.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1458.0,
+      183.0,
+      1466.0,
+      188.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      101.0
+    ]
+  },
+  {
+    "track_id": 45,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 105.0,
+    "last_seen": 105.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1511.0,
+      1037.0,
+      1518.0,
+      1040.0
+    ],
+    "median_score": 0.9664,
+    "occluded_samples": 0,
+    "timestamps": [
+      105.0
+    ]
+  },
+  {
+    "track_id": 46,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 107.0,
+    "last_seen": 107.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1443.0,
+      366.0,
+      1447.0,
+      380.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      107.0
+    ]
+  },
+  {
+    "track_id": 40,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 97.0,
+    "last_seen": 108.0,
+    "hits": 11,
+    "lifetime_seconds": 12.0,
+    "visible_duration_seconds": 11.0,
+    "continuity": 0.9167,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1628.0,
+      451.0,
+      1631.0,
+      476.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      97.0,
+      98.0,
+      99.0,
+      100.0,
+      101.0,
+      102.0,
+      103.0,
+      104.0,
+      105.0,
+      107.0,
+      108.0
+    ]
+  },
+  {
+    "track_id": 47,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 109.0,
+    "last_seen": 109.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1449.0,
+      408.0,
+      1453.0,
+      413.0
+    ],
+    "median_score": 0.9452,
+    "occluded_samples": 0,
+    "timestamps": [
+      109.0
+    ]
+  },
+  {
+    "track_id": 48,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 111.0,
+    "last_seen": 111.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1469.0,
+      467.0,
+      1473.0,
+      472.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      111.0
+    ]
+  },
+  {
+    "track_id": 49,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 111.0,
+    "last_seen": 111.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1490.0,
+      523.0,
+      1496.0,
+      527.0
+    ],
+    "median_score": 0.8976,
+    "occluded_samples": 0,
+    "timestamps": [
+      111.0
+    ]
+  },
+  {
+    "track_id": 3,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 0.0,
+    "last_seen": 112.0,
+    "hits": 112,
+    "lifetime_seconds": 113.0,
+    "visible_duration_seconds": 112.0,
+    "continuity": 0.9912,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1580.0,
+      467.0,
+      1584.0,
+      472.0
+    ],
+    "median_score": 0.9818,
+    "occluded_samples": 0,
+    "timestamps": [
+      0.0,
+      1.0,
+      2.0,
+      3.0,
+      4.0,
+      5.0,
+      6.0,
+      7.0,
+      8.0,
+      9.0,
+      10.0,
+      11.0,
+      12.0,
+      13.0,
+      14.0,
+      15.0,
+      16.0,
+      17.0,
+      18.0,
+      19.0,
+      20.0,
+      21.0,
+      22.0,
+      23.0,
+      24.0,
+      25.0,
+      26.0,
+      27.0,
+      28.0,
+      29.0,
+      30.0,
+      31.0,
+      32.0,
+      33.0,
+      34.0,
+      35.0,
+      36.0,
+      37.0,
+      38.0,
+      39.0,
+      40.0,
+      41.0,
+      42.0,
+      43.0,
+      44.0,
+      45.0,
+      46.0,
+      47.0,
+      48.0,
+      49.0,
+      50.0,
+      51.0,
+      52.0,
+      53.0,
+      54.0,
+      55.0,
+      56.0,
+      57.0,
+      58.0,
+      59.0,
+      60.0,
+      61.0,
+      62.0,
+      63.0,
+      64.0,
+      65.0,
+      66.0,
+      67.0,
+      68.0,
+      69.0,
+      70.0,
+      72.0,
+      73.0,
+      74.0,
+      75.0,
+      76.0,
+      77.0,
+      78.0,
+      79.0,
+      80.0,
+      81.0,
+      82.0,
+      83.0,
+      84.0,
+      85.0,
+      86.0,
+      87.0,
+      88.0,
+      89.0,
+      90.0,
+      91.0,
+      92.0,
+      93.0,
+      94.0,
+      95.0,
+      96.0,
+      97.0,
+      98.0,
+      99.0,
+      100.0,
+      101.0,
+      102.0,
+      103.0,
+      104.0,
+      105.0,
+      106.0,
+      107.0,
+      108.0,
+      109.0,
+      110.0,
+      111.0,
+      112.0
+    ]
+  },
+  {
+    "track_id": 50,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 112.0,
+    "last_seen": 112.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1473.0,
+      396.0,
+      1480.0,
+      399.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      112.0
+    ]
+  },
+  {
+    "track_id": 51,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 112.0,
+    "last_seen": 112.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1628.0,
+      194.0,
+      1632.0,
+      198.0
+    ],
+    "median_score": 0.9963,
+    "occluded_samples": 0,
+    "timestamps": [
+      112.0
+    ]
+  },
+  {
+    "track_id": 52,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 114.0,
+    "last_seen": 115.0,
+    "hits": 2,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1494.5,
+      555.0,
+      1497.5,
+      563.5
+    ],
+    "median_score": 0.9374,
+    "occluded_samples": 0,
+    "timestamps": [
+      114.0,
+      115.0
+    ]
+  },
+  {
+    "track_id": 53,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 115.0,
+    "last_seen": 115.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1545.0,
+      466.0,
+      1549.0,
+      472.0
+    ],
+    "median_score": 0.7873,
+    "occluded_samples": 0,
+    "timestamps": [
+      115.0
+    ]
+  },
+  {
+    "track_id": 54,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 116.0,
+    "last_seen": 117.0,
+    "hits": 2,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1490.0,
+      622.5,
+      1493.0,
+      634.5
+    ],
+    "median_score": 0.9361,
+    "occluded_samples": 0,
+    "timestamps": [
+      116.0,
+      117.0
+    ]
+  },
+  {
+    "track_id": 56,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 118.0,
+    "last_seen": 118.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1502.0,
+      687.0,
+      1505.0,
+      697.0
+    ],
+    "median_score": 0.9559,
+    "occluded_samples": 0,
+    "timestamps": [
+      118.0
+    ]
+  },
+  {
+    "track_id": 57,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 119.0,
+    "last_seen": 119.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1489.0,
+      600.0,
+      1495.0,
+      605.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      119.0
+    ]
+  },
+  {
+    "track_id": 58,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 120.0,
+    "last_seen": 120.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1485.0,
+      761.0,
+      1489.0,
+      781.0
+    ],
+    "median_score": 0.9293,
+    "occluded_samples": 0,
+    "timestamps": [
+      120.0
+    ]
+  },
+  {
+    "track_id": 60,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 121.0,
+    "last_seen": 122.0,
+    "hits": 2,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1497.0,
+      1030.0,
+      1502.0,
+      1034.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      121.0,
+      122.0
+    ]
+  },
+  {
+    "track_id": 61,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 122.0,
+    "last_seen": 122.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1457.0,
+      868.0,
+      1464.0,
+      891.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      122.0
+    ]
+  },
+  {
+    "track_id": 62,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 122.0,
+    "last_seen": 122.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1491.0,
+      703.0,
+      1499.0,
+      707.0
+    ],
+    "median_score": 0.8541,
+    "occluded_samples": 0,
+    "timestamps": [
+      122.0
+    ]
+  },
+  {
+    "track_id": 63,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 123.0,
+    "last_seen": 123.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1445.0,
+      795.0,
+      1478.0,
+      800.0
+    ],
+    "median_score": 0.9349,
+    "occluded_samples": 0,
+    "timestamps": [
+      123.0
+    ]
+  },
+  {
+    "track_id": 59,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 121.0,
+    "last_seen": 124.0,
+    "hits": 3,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 3.0,
+    "continuity": 0.75,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1628.0,
+      451.0,
+      1631.0,
+      476.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      121.0,
+      123.0,
+      124.0
+    ]
+  },
+  {
+    "track_id": 64,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 124.0,
+    "last_seen": 124.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1435.0,
+      972.0,
+      1439.0,
+      982.0
+    ],
+    "median_score": 0.9709,
+    "occluded_samples": 0,
+    "timestamps": [
+      124.0
+    ]
+  },
+  {
+    "track_id": 66,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 125.0,
+    "last_seen": 125.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1479.0,
+      859.0,
+      1487.0,
+      862.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      125.0
+    ]
+  },
+  {
+    "track_id": 67,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 125.0,
+    "last_seen": 125.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1461.0,
+      918.0,
+      1476.0,
+      922.0
+    ],
+    "median_score": 0.9579,
+    "occluded_samples": 0,
+    "timestamps": [
+      125.0
+    ]
+  },
+  {
+    "track_id": 68,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 125.0,
+    "last_seen": 125.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1436.0,
+      1025.0,
+      1439.0,
+      1033.0
+    ],
+    "median_score": 0.7722,
+    "occluded_samples": 0,
+    "timestamps": [
+      125.0
+    ]
+  },
+  {
+    "track_id": 65,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 125.0,
+    "last_seen": 126.0,
+    "hits": 2,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1442.5,
+      917.0,
+      1450.5,
+      923.5
+    ],
+    "median_score": 0.9274,
+    "occluded_samples": 0,
+    "timestamps": [
+      125.0,
+      126.0
+    ]
+  },
+  {
+    "track_id": 69,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 126.0,
+    "last_seen": 126.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1425.0,
+      1097.0,
+      1430.0,
+      1119.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      126.0
+    ]
+  },
+  {
+    "track_id": 70,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 126.0,
+    "last_seen": 126.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1434.0,
+      1183.0,
+      1438.0,
+      1187.0
+    ],
+    "median_score": 0.949,
+    "occluded_samples": 0,
+    "timestamps": [
+      126.0
+    ]
+  },
+  {
+    "track_id": 71,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 126.0,
+    "last_seen": 126.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1474.0,
+      947.0,
+      1477.0,
+      956.0
+    ],
+    "median_score": 0.8792,
+    "occluded_samples": 0,
+    "timestamps": [
+      126.0
+    ]
+  },
+  {
+    "track_id": 72,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 127.0,
+    "last_seen": 127.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1452.0,
+      985.0,
+      1463.0,
+      988.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      127.0
+    ]
+  },
+  {
+    "track_id": 73,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 128.0,
+    "last_seen": 128.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1395.0,
+      1262.0,
+      1400.0,
+      1266.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      128.0
+    ]
+  },
+  {
+    "track_id": 74,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 128.0,
+    "last_seen": 128.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1432.0,
+      1055.0,
+      1444.0,
+      1061.0
+    ],
+    "median_score": 0.9908,
+    "occluded_samples": 0,
+    "timestamps": [
+      128.0
+    ]
+  },
+  {
+    "track_id": 75,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 128.0,
+    "last_seen": 128.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1395.0,
+      1270.0,
+      1400.0,
+      1275.0
+    ],
+    "median_score": 0.9818,
+    "occluded_samples": 0,
+    "timestamps": [
+      128.0
+    ]
+  },
+  {
+    "track_id": 76,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 128.0,
+    "last_seen": 128.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1340.0,
+      1069.0,
+      1343.0,
+      1082.0
+    ],
+    "median_score": 0.8469,
+    "occluded_samples": 0,
+    "timestamps": [
+      128.0
+    ]
+  },
+  {
+    "track_id": 77,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 129.0,
+    "last_seen": 129.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1387.0,
+      1126.0,
+      1395.0,
+      1130.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      129.0
+    ]
+  },
+  {
+    "track_id": 79,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 130.0,
+    "last_seen": 130.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1386.0,
+      1211.0,
+      1400.0,
+      1215.0
+    ],
+    "median_score": 0.969,
+    "occluded_samples": 0,
+    "timestamps": [
+      130.0
+    ]
+  },
+  {
+    "track_id": 80,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 131.0,
+    "last_seen": 131.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1361.0,
+      1303.0,
+      1376.0,
+      1308.0
+    ],
+    "median_score": 0.9426,
+    "occluded_samples": 0,
+    "timestamps": [
+      131.0
+    ]
+  },
+  {
+    "track_id": 81,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 132.0,
+    "last_seen": 132.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1318.0,
+      1383.0,
+      1324.0,
+      1387.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      132.0
+    ]
+  },
+  {
+    "track_id": 82,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 132.0,
+    "last_seen": 132.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1354.0,
+      1409.0,
+      1358.0,
+      1418.0
+    ],
+    "median_score": 0.949,
+    "occluded_samples": 0,
+    "timestamps": [
+      132.0
+    ]
+  },
+  {
+    "track_id": 83,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 132.0,
+    "last_seen": 132.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1357.0,
+      1419.0,
+      1361.0,
+      1424.0
+    ],
+    "median_score": 0.9174,
+    "occluded_samples": 0,
+    "timestamps": [
+      132.0
+    ]
+  },
+  {
+    "track_id": 84,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 134.0,
+    "last_seen": 134.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1628.0,
+      447.0,
+      1631.0,
+      479.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      134.0
+    ]
+  },
+  {
+    "track_id": 85,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 134.0,
+    "last_seen": 134.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1574.0,
+      45.0,
+      1579.0,
+      49.0
+    ],
+    "median_score": 0.9983,
+    "occluded_samples": 0,
+    "timestamps": [
+      134.0
+    ]
+  },
+  {
+    "track_id": 78,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 129.0,
+    "last_seen": 135.0,
+    "hits": 7,
+    "lifetime_seconds": 7.0,
+    "visible_duration_seconds": 7.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1510.0,
+      1037.0,
+      1518.0,
+      1040.0
+    ],
+    "median_score": 0.965,
+    "occluded_samples": 0,
+    "timestamps": [
+      129.0,
+      130.0,
+      131.0,
+      132.0,
+      133.0,
+      134.0,
+      135.0
+    ]
+  },
+  {
+    "track_id": 86,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 141.0,
+    "last_seen": 142.0,
+    "hits": 2,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1628.0,
+      447.0,
+      1633.0,
+      470.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      141.0,
+      142.0
+    ]
+  },
+  {
+    "track_id": 87,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 145.0,
+    "last_seen": 148.0,
+    "hits": 4,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1628.0,
+      447.0,
+      1631.0,
+      477.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      145.0,
+      146.0,
+      147.0,
+      148.0
+    ]
+  },
+  {
+    "track_id": 2,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 0.0,
+    "last_seen": 156.0,
+    "hits": 157,
+    "lifetime_seconds": 157.0,
+    "visible_duration_seconds": 157.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1297.0,
+      267.0,
+      1304.0,
+      270.0
+    ],
+    "median_score": 0.9705,
+    "occluded_samples": 0,
+    "timestamps": [
+      0.0,
+      1.0,
+      2.0,
+      3.0,
+      4.0,
+      5.0,
+      6.0,
+      7.0,
+      8.0,
+      9.0,
+      10.0,
+      11.0,
+      12.0,
+      13.0,
+      14.0,
+      15.0,
+      16.0,
+      17.0,
+      18.0,
+      19.0,
+      20.0,
+      21.0,
+      22.0,
+      23.0,
+      24.0,
+      25.0,
+      26.0,
+      27.0,
+      28.0,
+      29.0,
+      30.0,
+      31.0,
+      32.0,
+      33.0,
+      34.0,
+      35.0,
+      36.0,
+      37.0,
+      38.0,
+      39.0,
+      40.0,
+      41.0,
+      42.0,
+      43.0,
+      44.0,
+      45.0,
+      46.0,
+      47.0,
+      48.0,
+      49.0,
+      50.0,
+      51.0,
+      52.0,
+      53.0,
+      54.0,
+      55.0,
+      56.0,
+      57.0,
+      58.0,
+      59.0,
+      60.0,
+      61.0,
+      62.0,
+      63.0,
+      64.0,
+      65.0,
+      66.0,
+      67.0,
+      68.0,
+      69.0,
+      70.0,
+      71.0,
+      72.0,
+      73.0,
+      74.0,
+      75.0,
+      76.0,
+      77.0,
+      78.0,
+      79.0,
+      80.0,
+      81.0,
+      82.0,
+      83.0,
+      84.0,
+      85.0,
+      86.0,
+      87.0,
+      88.0,
+      89.0,
+      90.0,
+      91.0,
+      92.0,
+      93.0,
+      94.0,
+      95.0,
+      96.0,
+      97.0,
+      98.0,
+      99.0,
+      100.0,
+      101.0,
+      102.0,
+      103.0,
+      104.0,
+      105.0,
+      106.0,
+      107.0,
+      108.0,
+      109.0,
+      110.0,
+      111.0,
+      112.0,
+      113.0,
+      114.0,
+      115.0,
+      116.0,
+      117.0,
+      118.0,
+      119.0,
+      120.0,
+      121.0,
+      122.0,
+      123.0,
+      124.0,
+      125.0,
+      126.0,
+      127.0,
+      128.0,
+      129.0,
+      130.0,
+      131.0,
+      132.0,
+      133.0,
+      134.0,
+      135.0,
+      136.0,
+      137.0,
+      138.0,
+      139.0,
+      140.0,
+      141.0,
+      142.0,
+      143.0,
+      144.0,
+      145.0,
+      146.0,
+      147.0,
+      148.0,
+      149.0,
+      150.0,
+      151.0,
+      152.0,
+      153.0,
+      154.0,
+      155.0,
+      156.0
+    ]
+  },
+  {
+    "track_id": 55,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 117.0,
+    "last_seen": 156.0,
+    "hits": 40,
+    "lifetime_seconds": 40.0,
+    "visible_duration_seconds": 40.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1580.0,
+      467.0,
+      1584.0,
+      472.0
+    ],
+    "median_score": 0.9831,
+    "occluded_samples": 0,
+    "timestamps": [
+      117.0,
+      118.0,
+      119.0,
+      120.0,
+      121.0,
+      122.0,
+      123.0,
+      124.0,
+      125.0,
+      126.0,
+      127.0,
+      128.0,
+      129.0,
+      130.0,
+      131.0,
+      132.0,
+      133.0,
+      134.0,
+      135.0,
+      136.0,
+      137.0,
+      138.0,
+      139.0,
+      140.0,
+      141.0,
+      142.0,
+      143.0,
+      144.0,
+      145.0,
+      146.0,
+      147.0,
+      148.0,
+      149.0,
+      150.0,
+      151.0,
+      152.0,
+      153.0,
+      154.0,
+      155.0,
+      156.0
+    ]
+  },
+  {
+    "track_id": 88,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 154.0,
+    "last_seen": 154.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1552.0,
+      680.0,
+      1559.0,
+      683.0
+    ],
+    "median_score": 0.9199,
+    "occluded_samples": 0,
+    "timestamps": [
+      154.0
+    ]
+  },
+  {
+    "track_id": 89,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 155.0,
+    "last_seen": 155.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1141.0,
+      1080.0,
+      1144.0,
+      1086.0
+    ],
+    "median_score": 0.9253,
+    "occluded_samples": 0,
+    "timestamps": [
+      155.0
+    ]
+  },
+  {
+    "track_id": 90,
+    "source": "clean_reference_core_roi_diagnostic",
+    "first_seen": 156.0,
+    "last_seen": 156.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1531.0,
+      629.0,
+      1536.0,
+      632.0
+    ],
+    "median_score": 0.8544,
+    "occluded_samples": 0,
+    "timestamps": [
+      156.0
+    ]
+  }
+]

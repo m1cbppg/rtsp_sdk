@@ -1,0 +1,3262 @@
+[
+  {
+    "track_id": 5,
+    "source": "yolo",
+    "first_seen": 0.0,
+    "last_seen": 0.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1712.0,
+      631.0,
+      1731.0,
+      635.0
+    ],
+    "median_score": 0.1235,
+    "occluded_samples": 0,
+    "timestamps": [
+      0.0
+    ]
+  },
+  {
+    "track_id": 6,
+    "source": "yolo",
+    "first_seen": 0.0,
+    "last_seen": 0.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1998.0,
+      1047.0,
+      2075.0,
+      1247.0
+    ],
+    "median_score": 0.1188,
+    "occluded_samples": 0,
+    "timestamps": [
+      0.0
+    ]
+  },
+  {
+    "track_id": 7,
+    "source": "yolo",
+    "first_seen": 0.0,
+    "last_seen": 0.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1744.0,
+      344.0,
+      1755.0,
+      349.0
+    ],
+    "median_score": 0.0879,
+    "occluded_samples": 0,
+    "timestamps": [
+      0.0
+    ]
+  },
+  {
+    "track_id": 8,
+    "source": "yolo",
+    "first_seen": 2.0,
+    "last_seen": 2.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      898.0,
+      1417.0,
+      923.0,
+      1440.0
+    ],
+    "median_score": 0.1663,
+    "occluded_samples": 0,
+    "timestamps": [
+      2.0
+    ]
+  },
+  {
+    "track_id": 4,
+    "source": "yolo",
+    "first_seen": 0.0,
+    "last_seen": 4.0,
+    "hits": 3,
+    "lifetime_seconds": 6.0,
+    "visible_duration_seconds": 6.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1714.0,
+      309.0,
+      1730.0,
+      357.0
+    ],
+    "median_score": 0.1444,
+    "occluded_samples": 0,
+    "timestamps": [
+      0.0,
+      2.0,
+      4.0
+    ]
+  },
+  {
+    "track_id": 9,
+    "source": "yolo",
+    "first_seen": 2.0,
+    "last_seen": 4.0,
+    "hits": 2,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1107.5,
+      781.0,
+      1140.5,
+      837.0
+    ],
+    "median_score": 0.1186,
+    "occluded_samples": 0,
+    "timestamps": [
+      2.0,
+      4.0
+    ]
+  },
+  {
+    "track_id": 10,
+    "source": "yolo",
+    "first_seen": 2.0,
+    "last_seen": 4.0,
+    "hits": 2,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1776.0,
+      595.0,
+      1784.0,
+      600.0
+    ],
+    "median_score": 0.1197,
+    "occluded_samples": 0,
+    "timestamps": [
+      2.0,
+      4.0
+    ]
+  },
+  {
+    "track_id": 12,
+    "source": "yolo",
+    "first_seen": 6.0,
+    "last_seen": 6.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1728.0,
+      501.0,
+      1738.0,
+      506.0
+    ],
+    "median_score": 0.0873,
+    "occluded_samples": 0,
+    "timestamps": [
+      6.0
+    ]
+  },
+  {
+    "track_id": 13,
+    "source": "yolo",
+    "first_seen": 10.0,
+    "last_seen": 10.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1089.0,
+      848.0,
+      1111.0,
+      870.0
+    ],
+    "median_score": 0.1577,
+    "occluded_samples": 0,
+    "timestamps": [
+      10.0
+    ]
+  },
+  {
+    "track_id": 14,
+    "source": "yolo",
+    "first_seen": 10.0,
+    "last_seen": 12.0,
+    "hits": 2,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      897.5,
+      1414.0,
+      922.5,
+      1440.0
+    ],
+    "median_score": 0.1201,
+    "occluded_samples": 0,
+    "timestamps": [
+      10.0,
+      12.0
+    ]
+  },
+  {
+    "track_id": 11,
+    "source": "yolo",
+    "first_seen": 2.0,
+    "last_seen": 16.0,
+    "hits": 8,
+    "lifetime_seconds": 16.0,
+    "visible_duration_seconds": 16.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1119.0,
+      1081.0,
+      1136.0,
+      1090.0
+    ],
+    "median_score": 0.2174,
+    "occluded_samples": 0,
+    "timestamps": [
+      2.0,
+      4.0,
+      6.0,
+      8.0,
+      10.0,
+      12.0,
+      14.0,
+      16.0
+    ]
+  },
+  {
+    "track_id": 19,
+    "source": "yolo",
+    "first_seen": 16.0,
+    "last_seen": 16.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1089.0,
+      849.0,
+      1113.0,
+      870.0
+    ],
+    "median_score": 0.2389,
+    "occluded_samples": 0,
+    "timestamps": [
+      16.0
+    ]
+  },
+  {
+    "track_id": 17,
+    "source": "yolo",
+    "first_seen": 14.0,
+    "last_seen": 18.0,
+    "hits": 3,
+    "lifetime_seconds": 6.0,
+    "visible_duration_seconds": 6.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1184.0,
+      280.0,
+      1211.0,
+      363.0
+    ],
+    "median_score": 0.3112,
+    "occluded_samples": 0,
+    "timestamps": [
+      14.0,
+      16.0,
+      18.0
+    ]
+  },
+  {
+    "track_id": 18,
+    "source": "yolo",
+    "first_seen": 14.0,
+    "last_seen": 20.0,
+    "hits": 3,
+    "lifetime_seconds": 8.0,
+    "visible_duration_seconds": 6.0,
+    "continuity": 0.75,
+    "max_gap_seconds": 4.0,
+    "median_box": [
+      1714.0,
+      309.0,
+      1730.0,
+      357.0
+    ],
+    "median_score": 0.0903,
+    "occluded_samples": 0,
+    "timestamps": [
+      14.0,
+      16.0,
+      20.0
+    ]
+  },
+  {
+    "track_id": 20,
+    "source": "yolo",
+    "first_seen": 20.0,
+    "last_seen": 20.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1728.0,
+      501.0,
+      1738.0,
+      506.0
+    ],
+    "median_score": 0.0905,
+    "occluded_samples": 0,
+    "timestamps": [
+      20.0
+    ]
+  },
+  {
+    "track_id": 24,
+    "source": "yolo",
+    "first_seen": 22.0,
+    "last_seen": 22.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1901.0,
+      1143.0,
+      1924.0,
+      1243.0
+    ],
+    "median_score": 0.0903,
+    "occluded_samples": 0,
+    "timestamps": [
+      22.0
+    ]
+  },
+  {
+    "track_id": 16,
+    "source": "yolo",
+    "first_seen": 10.0,
+    "last_seen": 24.0,
+    "hits": 6,
+    "lifetime_seconds": 16.0,
+    "visible_duration_seconds": 12.0,
+    "continuity": 0.75,
+    "max_gap_seconds": 4.0,
+    "median_box": [
+      1776.0,
+      595.0,
+      1783.5,
+      600.0
+    ],
+    "median_score": 0.1168,
+    "occluded_samples": 0,
+    "timestamps": [
+      10.0,
+      12.0,
+      14.0,
+      18.0,
+      22.0,
+      24.0
+    ]
+  },
+  {
+    "track_id": 21,
+    "source": "yolo",
+    "first_seen": 22.0,
+    "last_seen": 24.0,
+    "hits": 2,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1119.0,
+      1081.0,
+      1136.0,
+      1090.0
+    ],
+    "median_score": 0.2042,
+    "occluded_samples": 0,
+    "timestamps": [
+      22.0,
+      24.0
+    ]
+  },
+  {
+    "track_id": 22,
+    "source": "yolo",
+    "first_seen": 22.0,
+    "last_seen": 24.0,
+    "hits": 2,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      897.0,
+      1414.0,
+      923.0,
+      1440.0
+    ],
+    "median_score": 0.1852,
+    "occluded_samples": 0,
+    "timestamps": [
+      22.0,
+      24.0
+    ]
+  },
+  {
+    "track_id": 23,
+    "source": "yolo",
+    "first_seen": 22.0,
+    "last_seen": 24.0,
+    "hits": 2,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1744.0,
+      343.0,
+      1756.0,
+      348.0
+    ],
+    "median_score": 0.1053,
+    "occluded_samples": 0,
+    "timestamps": [
+      22.0,
+      24.0
+    ]
+  },
+  {
+    "track_id": 25,
+    "source": "yolo",
+    "first_seen": 30.0,
+    "last_seen": 32.0,
+    "hits": 2,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1089.0,
+      849.0,
+      1114.0,
+      870.0
+    ],
+    "median_score": 0.2596,
+    "occluded_samples": 0,
+    "timestamps": [
+      30.0,
+      32.0
+    ]
+  },
+  {
+    "track_id": 27,
+    "source": "yolo",
+    "first_seen": 30.0,
+    "last_seen": 32.0,
+    "hits": 2,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1713.5,
+      309.0,
+      1730.5,
+      356.5
+    ],
+    "median_score": 0.1962,
+    "occluded_samples": 0,
+    "timestamps": [
+      30.0,
+      32.0
+    ]
+  },
+  {
+    "track_id": 30,
+    "source": "yolo",
+    "first_seen": 32.0,
+    "last_seen": 32.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1107.0,
+      781.0,
+      1137.0,
+      835.0
+    ],
+    "median_score": 0.1843,
+    "occluded_samples": 0,
+    "timestamps": [
+      32.0
+    ]
+  },
+  {
+    "track_id": 32,
+    "source": "yolo",
+    "first_seen": 32.0,
+    "last_seen": 32.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      959.0,
+      1223.0,
+      976.0,
+      1230.0
+    ],
+    "median_score": 0.0852,
+    "occluded_samples": 0,
+    "timestamps": [
+      32.0
+    ]
+  },
+  {
+    "track_id": 28,
+    "source": "yolo",
+    "first_seen": 30.0,
+    "last_seen": 34.0,
+    "hits": 3,
+    "lifetime_seconds": 6.0,
+    "visible_duration_seconds": 6.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1119.0,
+      1081.0,
+      1136.0,
+      1090.0
+    ],
+    "median_score": 0.1483,
+    "occluded_samples": 0,
+    "timestamps": [
+      30.0,
+      32.0,
+      34.0
+    ]
+  },
+  {
+    "track_id": 29,
+    "source": "yolo",
+    "first_seen": 30.0,
+    "last_seen": 34.0,
+    "hits": 2,
+    "lifetime_seconds": 6.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 0.6667,
+    "max_gap_seconds": 4.0,
+    "median_box": [
+      1906.0,
+      1173.0,
+      1922.0,
+      1245.5
+    ],
+    "median_score": 0.1089,
+    "occluded_samples": 0,
+    "timestamps": [
+      30.0,
+      34.0
+    ]
+  },
+  {
+    "track_id": 26,
+    "source": "yolo",
+    "first_seen": 30.0,
+    "last_seen": 36.0,
+    "hits": 3,
+    "lifetime_seconds": 8.0,
+    "visible_duration_seconds": 6.0,
+    "continuity": 0.75,
+    "max_gap_seconds": 4.0,
+    "median_box": [
+      1184.0,
+      280.0,
+      1211.0,
+      362.0
+    ],
+    "median_score": 0.2061,
+    "occluded_samples": 0,
+    "timestamps": [
+      30.0,
+      32.0,
+      36.0
+    ]
+  },
+  {
+    "track_id": 33,
+    "source": "yolo",
+    "first_seen": 36.0,
+    "last_seen": 36.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1194.0,
+      342.0,
+      1239.0,
+      403.0
+    ],
+    "median_score": 0.1118,
+    "occluded_samples": 0,
+    "timestamps": [
+      36.0
+    ]
+  },
+  {
+    "track_id": 34,
+    "source": "yolo",
+    "first_seen": 38.0,
+    "last_seen": 38.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1082.0,
+      840.0,
+      1096.0,
+      859.0
+    ],
+    "median_score": 0.3336,
+    "occluded_samples": 0,
+    "timestamps": [
+      38.0
+    ]
+  },
+  {
+    "track_id": 37,
+    "source": "yolo",
+    "first_seen": 38.0,
+    "last_seen": 38.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1827.0,
+      1175.0,
+      1876.0,
+      1179.0
+    ],
+    "median_score": 0.0977,
+    "occluded_samples": 0,
+    "timestamps": [
+      38.0
+    ]
+  },
+  {
+    "track_id": 38,
+    "source": "yolo",
+    "first_seen": 38.0,
+    "last_seen": 38.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1702.0,
+      291.0,
+      1708.0,
+      295.0
+    ],
+    "median_score": 0.08,
+    "occluded_samples": 0,
+    "timestamps": [
+      38.0
+    ]
+  },
+  {
+    "track_id": 31,
+    "source": "yolo",
+    "first_seen": 32.0,
+    "last_seen": 40.0,
+    "hits": 5,
+    "lifetime_seconds": 10.0,
+    "visible_duration_seconds": 10.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1776.0,
+      595.0,
+      1784.0,
+      600.0
+    ],
+    "median_score": 0.0869,
+    "occluded_samples": 0,
+    "timestamps": [
+      32.0,
+      34.0,
+      36.0,
+      38.0,
+      40.0
+    ]
+  },
+  {
+    "track_id": 40,
+    "source": "yolo",
+    "first_seen": 40.0,
+    "last_seen": 44.0,
+    "hits": 3,
+    "lifetime_seconds": 6.0,
+    "visible_duration_seconds": 6.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1933.0,
+      860.0,
+      1947.0,
+      867.0
+    ],
+    "median_score": 0.1199,
+    "occluded_samples": 0,
+    "timestamps": [
+      40.0,
+      42.0,
+      44.0
+    ]
+  },
+  {
+    "track_id": 41,
+    "source": "yolo",
+    "first_seen": 42.0,
+    "last_seen": 44.0,
+    "hits": 2,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1905.5,
+      1162.5,
+      1923.0,
+      1243.0
+    ],
+    "median_score": 0.0809,
+    "occluded_samples": 0,
+    "timestamps": [
+      42.0,
+      44.0
+    ]
+  },
+  {
+    "track_id": 35,
+    "source": "yolo",
+    "first_seen": 38.0,
+    "last_seen": 46.0,
+    "hits": 4,
+    "lifetime_seconds": 10.0,
+    "visible_duration_seconds": 8.0,
+    "continuity": 0.8,
+    "max_gap_seconds": 4.0,
+    "median_box": [
+      1099.5,
+      815.0,
+      1126.0,
+      852.5
+    ],
+    "median_score": 0.1835,
+    "occluded_samples": 0,
+    "timestamps": [
+      38.0,
+      42.0,
+      44.0,
+      46.0
+    ]
+  },
+  {
+    "track_id": 42,
+    "source": "yolo",
+    "first_seen": 46.0,
+    "last_seen": 46.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1082.0,
+      840.0,
+      1096.0,
+      858.0
+    ],
+    "median_score": 0.2977,
+    "occluded_samples": 0,
+    "timestamps": [
+      46.0
+    ]
+  },
+  {
+    "track_id": 36,
+    "source": "yolo",
+    "first_seen": 38.0,
+    "last_seen": 50.0,
+    "hits": 5,
+    "lifetime_seconds": 14.0,
+    "visible_duration_seconds": 10.0,
+    "continuity": 0.7143,
+    "max_gap_seconds": 4.0,
+    "median_box": [
+      1714.0,
+      309.0,
+      1730.0,
+      357.0
+    ],
+    "median_score": 0.1238,
+    "occluded_samples": 0,
+    "timestamps": [
+      38.0,
+      40.0,
+      44.0,
+      48.0,
+      50.0
+    ]
+  },
+  {
+    "track_id": 43,
+    "source": "yolo",
+    "first_seen": 46.0,
+    "last_seen": 52.0,
+    "hits": 4,
+    "lifetime_seconds": 8.0,
+    "visible_duration_seconds": 8.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1776.0,
+      595.5,
+      1783.0,
+      600.0
+    ],
+    "median_score": 0.1539,
+    "occluded_samples": 0,
+    "timestamps": [
+      46.0,
+      48.0,
+      50.0,
+      52.0
+    ]
+  },
+  {
+    "track_id": 45,
+    "source": "yolo",
+    "first_seen": 52.0,
+    "last_seen": 54.0,
+    "hits": 2,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1906.0,
+      1173.5,
+      1922.5,
+      1244.0
+    ],
+    "median_score": 0.1106,
+    "occluded_samples": 0,
+    "timestamps": [
+      52.0,
+      54.0
+    ]
+  },
+  {
+    "track_id": 47,
+    "source": "yolo",
+    "first_seen": 54.0,
+    "last_seen": 54.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1826.0,
+      1172.0,
+      1924.0,
+      1244.0
+    ],
+    "median_score": 0.0975,
+    "occluded_samples": 0,
+    "timestamps": [
+      54.0
+    ]
+  },
+  {
+    "track_id": 15,
+    "source": "yolo",
+    "first_seen": 10.0,
+    "last_seen": 56.0,
+    "hits": 24,
+    "lifetime_seconds": 48.0,
+    "visible_duration_seconds": 48.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1712.0,
+      631.0,
+      1731.0,
+      635.0
+    ],
+    "median_score": 0.1353,
+    "occluded_samples": 0,
+    "timestamps": [
+      10.0,
+      12.0,
+      14.0,
+      16.0,
+      18.0,
+      20.0,
+      22.0,
+      24.0,
+      26.0,
+      28.0,
+      30.0,
+      32.0,
+      34.0,
+      36.0,
+      38.0,
+      40.0,
+      42.0,
+      44.0,
+      46.0,
+      48.0,
+      50.0,
+      52.0,
+      54.0,
+      56.0
+    ]
+  },
+  {
+    "track_id": 44,
+    "source": "yolo",
+    "first_seen": 50.0,
+    "last_seen": 56.0,
+    "hits": 3,
+    "lifetime_seconds": 8.0,
+    "visible_duration_seconds": 6.0,
+    "continuity": 0.75,
+    "max_gap_seconds": 4.0,
+    "median_box": [
+      1184.0,
+      280.0,
+      1211.0,
+      363.0
+    ],
+    "median_score": 0.2287,
+    "occluded_samples": 0,
+    "timestamps": [
+      50.0,
+      54.0,
+      56.0
+    ]
+  },
+  {
+    "track_id": 46,
+    "source": "yolo",
+    "first_seen": 52.0,
+    "last_seen": 56.0,
+    "hits": 2,
+    "lifetime_seconds": 6.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 0.6667,
+    "max_gap_seconds": 4.0,
+    "median_box": [
+      1780.0,
+      451.0,
+      1874.0,
+      637.0
+    ],
+    "median_score": 0.1167,
+    "occluded_samples": 0,
+    "timestamps": [
+      52.0,
+      56.0
+    ]
+  },
+  {
+    "track_id": 49,
+    "source": "yolo",
+    "first_seen": 54.0,
+    "last_seen": 56.0,
+    "hits": 2,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1086.0,
+      779.0,
+      1142.0,
+      876.5
+    ],
+    "median_score": 0.0983,
+    "occluded_samples": 0,
+    "timestamps": [
+      54.0,
+      56.0
+    ]
+  },
+  {
+    "track_id": 50,
+    "source": "yolo",
+    "first_seen": 56.0,
+    "last_seen": 56.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1827.0,
+      576.0,
+      1847.0,
+      604.0
+    ],
+    "median_score": 0.5384,
+    "occluded_samples": 0,
+    "timestamps": [
+      56.0
+    ]
+  },
+  {
+    "track_id": 51,
+    "source": "yolo",
+    "first_seen": 56.0,
+    "last_seen": 56.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1820.0,
+      449.0,
+      1851.0,
+      605.0
+    ],
+    "median_score": 0.0974,
+    "occluded_samples": 0,
+    "timestamps": [
+      56.0
+    ]
+  },
+  {
+    "track_id": 48,
+    "source": "yolo",
+    "first_seen": 54.0,
+    "last_seen": 58.0,
+    "hits": 2,
+    "lifetime_seconds": 6.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 0.6667,
+    "max_gap_seconds": 4.0,
+    "median_box": [
+      1108.0,
+      780.0,
+      1141.5,
+      836.0
+    ],
+    "median_score": 0.0915,
+    "occluded_samples": 0,
+    "timestamps": [
+      54.0,
+      58.0
+    ]
+  },
+  {
+    "track_id": 53,
+    "source": "yolo",
+    "first_seen": 58.0,
+    "last_seen": 58.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1827.0,
+      1176.0,
+      1876.0,
+      1179.0
+    ],
+    "median_score": 0.1171,
+    "occluded_samples": 0,
+    "timestamps": [
+      58.0
+    ]
+  },
+  {
+    "track_id": 39,
+    "source": "yolo",
+    "first_seen": 40.0,
+    "last_seen": 64.0,
+    "hits": 12,
+    "lifetime_seconds": 26.0,
+    "visible_duration_seconds": 24.0,
+    "continuity": 0.9231,
+    "max_gap_seconds": 4.0,
+    "median_box": [
+      1119.0,
+      1081.0,
+      1136.0,
+      1090.0
+    ],
+    "median_score": 0.1418,
+    "occluded_samples": 0,
+    "timestamps": [
+      40.0,
+      42.0,
+      44.0,
+      46.0,
+      48.0,
+      50.0,
+      52.0,
+      54.0,
+      56.0,
+      58.0,
+      62.0,
+      64.0
+    ]
+  },
+  {
+    "track_id": 54,
+    "source": "yolo",
+    "first_seen": 62.0,
+    "last_seen": 64.0,
+    "hits": 2,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1824.0,
+      576.0,
+      1856.0,
+      605.0
+    ],
+    "median_score": 0.2077,
+    "occluded_samples": 0,
+    "timestamps": [
+      62.0,
+      64.0
+    ]
+  },
+  {
+    "track_id": 56,
+    "source": "yolo",
+    "first_seen": 62.0,
+    "last_seen": 64.0,
+    "hits": 2,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1905.0,
+      1172.0,
+      1922.5,
+      1242.0
+    ],
+    "median_score": 0.1056,
+    "occluded_samples": 0,
+    "timestamps": [
+      62.0,
+      64.0
+    ]
+  },
+  {
+    "track_id": 59,
+    "source": "yolo",
+    "first_seen": 66.0,
+    "last_seen": 66.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1089.0,
+      849.0,
+      1112.0,
+      870.0
+    ],
+    "median_score": 0.1746,
+    "occluded_samples": 0,
+    "timestamps": [
+      66.0
+    ]
+  },
+  {
+    "track_id": 60,
+    "source": "yolo",
+    "first_seen": 66.0,
+    "last_seen": 66.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1728.0,
+      501.0,
+      1738.0,
+      506.0
+    ],
+    "median_score": 0.0865,
+    "occluded_samples": 0,
+    "timestamps": [
+      66.0
+    ]
+  },
+  {
+    "track_id": 61,
+    "source": "yolo",
+    "first_seen": 66.0,
+    "last_seen": 66.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1082.0,
+      840.0,
+      1096.0,
+      859.0
+    ],
+    "median_score": 0.082,
+    "occluded_samples": 0,
+    "timestamps": [
+      66.0
+    ]
+  },
+  {
+    "track_id": 55,
+    "source": "yolo",
+    "first_seen": 62.0,
+    "last_seen": 68.0,
+    "hits": 4,
+    "lifetime_seconds": 8.0,
+    "visible_duration_seconds": 8.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1776.0,
+      596.0,
+      1783.0,
+      600.0
+    ],
+    "median_score": 0.1422,
+    "occluded_samples": 0,
+    "timestamps": [
+      62.0,
+      64.0,
+      66.0,
+      68.0
+    ]
+  },
+  {
+    "track_id": 62,
+    "source": "yolo",
+    "first_seen": 66.0,
+    "last_seen": 68.0,
+    "hits": 2,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      898.0,
+      1417.0,
+      912.0,
+      1440.0
+    ],
+    "median_score": 0.0834,
+    "occluded_samples": 0,
+    "timestamps": [
+      66.0,
+      68.0
+    ]
+  },
+  {
+    "track_id": 57,
+    "source": "yolo",
+    "first_seen": 62.0,
+    "last_seen": 70.0,
+    "hits": 5,
+    "lifetime_seconds": 10.0,
+    "visible_duration_seconds": 10.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1712.0,
+      630.0,
+      1731.0,
+      635.0
+    ],
+    "median_score": 0.1102,
+    "occluded_samples": 0,
+    "timestamps": [
+      62.0,
+      64.0,
+      66.0,
+      68.0,
+      70.0
+    ]
+  },
+  {
+    "track_id": 52,
+    "source": "yolo",
+    "first_seen": 58.0,
+    "last_seen": 72.0,
+    "hits": 7,
+    "lifetime_seconds": 16.0,
+    "visible_duration_seconds": 14.0,
+    "continuity": 0.875,
+    "max_gap_seconds": 4.0,
+    "median_box": [
+      1714.0,
+      310.0,
+      1730.0,
+      356.0
+    ],
+    "median_score": 0.1644,
+    "occluded_samples": 0,
+    "timestamps": [
+      58.0,
+      60.0,
+      62.0,
+      64.0,
+      66.0,
+      68.0,
+      72.0
+    ]
+  },
+  {
+    "track_id": 63,
+    "source": "yolo",
+    "first_seen": 72.0,
+    "last_seen": 74.0,
+    "hits": 2,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1466.0,
+      1027.5,
+      1487.5,
+      1043.0
+    ],
+    "median_score": 0.2723,
+    "occluded_samples": 0,
+    "timestamps": [
+      72.0,
+      74.0
+    ]
+  },
+  {
+    "track_id": 58,
+    "source": "yolo",
+    "first_seen": 66.0,
+    "last_seen": 76.0,
+    "hits": 6,
+    "lifetime_seconds": 12.0,
+    "visible_duration_seconds": 12.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1184.0,
+      280.0,
+      1211.0,
+      363.0
+    ],
+    "median_score": 0.3587,
+    "occluded_samples": 0,
+    "timestamps": [
+      66.0,
+      68.0,
+      70.0,
+      72.0,
+      74.0,
+      76.0
+    ]
+  },
+  {
+    "track_id": 65,
+    "source": "yolo",
+    "first_seen": 74.0,
+    "last_seen": 76.0,
+    "hits": 2,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      960.0,
+      1223.0,
+      975.0,
+      1230.0
+    ],
+    "median_score": 0.1072,
+    "occluded_samples": 0,
+    "timestamps": [
+      74.0,
+      76.0
+    ]
+  },
+  {
+    "track_id": 66,
+    "source": "yolo",
+    "first_seen": 74.0,
+    "last_seen": 76.0,
+    "hits": 2,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1195.0,
+      336.0,
+      1239.0,
+      404.0
+    ],
+    "median_score": 0.0951,
+    "occluded_samples": 0,
+    "timestamps": [
+      74.0,
+      76.0
+    ]
+  },
+  {
+    "track_id": 67,
+    "source": "yolo",
+    "first_seen": 76.0,
+    "last_seen": 76.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1775.0,
+      595.0,
+      1783.0,
+      600.0
+    ],
+    "median_score": 0.1027,
+    "occluded_samples": 0,
+    "timestamps": [
+      76.0
+    ]
+  },
+  {
+    "track_id": 64,
+    "source": "yolo",
+    "first_seen": 74.0,
+    "last_seen": 78.0,
+    "hits": 3,
+    "lifetime_seconds": 6.0,
+    "visible_duration_seconds": 6.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1119.0,
+      1082.0,
+      1136.0,
+      1090.0
+    ],
+    "median_score": 0.1636,
+    "occluded_samples": 0,
+    "timestamps": [
+      74.0,
+      76.0,
+      78.0
+    ]
+  },
+  {
+    "track_id": 70,
+    "source": "yolo",
+    "first_seen": 78.0,
+    "last_seen": 78.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      898.0,
+      1408.0,
+      924.0,
+      1440.0
+    ],
+    "median_score": 0.204,
+    "occluded_samples": 0,
+    "timestamps": [
+      78.0
+    ]
+  },
+  {
+    "track_id": 71,
+    "source": "yolo",
+    "first_seen": 78.0,
+    "last_seen": 78.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1992.0,
+      1039.0,
+      2110.0,
+      1246.0
+    ],
+    "median_score": 0.1397,
+    "occluded_samples": 0,
+    "timestamps": [
+      78.0
+    ]
+  },
+  {
+    "track_id": 72,
+    "source": "yolo",
+    "first_seen": 78.0,
+    "last_seen": 78.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1828.0,
+      1175.0,
+      1874.0,
+      1179.0
+    ],
+    "median_score": 0.1344,
+    "occluded_samples": 0,
+    "timestamps": [
+      78.0
+    ]
+  },
+  {
+    "track_id": 68,
+    "source": "yolo",
+    "first_seen": 76.0,
+    "last_seen": 84.0,
+    "hits": 4,
+    "lifetime_seconds": 10.0,
+    "visible_duration_seconds": 8.0,
+    "continuity": 0.8,
+    "max_gap_seconds": 4.0,
+    "median_box": [
+      1712.0,
+      630.5,
+      1731.0,
+      635.0
+    ],
+    "median_score": 0.1416,
+    "occluded_samples": 0,
+    "timestamps": [
+      76.0,
+      78.0,
+      82.0,
+      84.0
+    ]
+  },
+  {
+    "track_id": 73,
+    "source": "yolo",
+    "first_seen": 78.0,
+    "last_seen": 84.0,
+    "hits": 3,
+    "lifetime_seconds": 8.0,
+    "visible_duration_seconds": 6.0,
+    "continuity": 0.75,
+    "max_gap_seconds": 4.0,
+    "median_box": [
+      1906.0,
+      1174.0,
+      1922.0,
+      1239.0
+    ],
+    "median_score": 0.1041,
+    "occluded_samples": 0,
+    "timestamps": [
+      78.0,
+      82.0,
+      84.0
+    ]
+  },
+  {
+    "track_id": 74,
+    "source": "yolo",
+    "first_seen": 80.0,
+    "last_seen": 86.0,
+    "hits": 4,
+    "lifetime_seconds": 8.0,
+    "visible_duration_seconds": 8.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1714.0,
+      309.0,
+      1730.0,
+      356.0
+    ],
+    "median_score": 0.1065,
+    "occluded_samples": 0,
+    "timestamps": [
+      80.0,
+      82.0,
+      84.0,
+      86.0
+    ]
+  },
+  {
+    "track_id": 78,
+    "source": "yolo",
+    "first_seen": 86.0,
+    "last_seen": 88.0,
+    "hits": 2,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1184.0,
+      280.0,
+      1210.5,
+      363.0
+    ],
+    "median_score": 0.3476,
+    "occluded_samples": 0,
+    "timestamps": [
+      86.0,
+      88.0
+    ]
+  },
+  {
+    "track_id": 79,
+    "source": "yolo",
+    "first_seen": 86.0,
+    "last_seen": 88.0,
+    "hits": 2,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1119.0,
+      1082.0,
+      1136.0,
+      1089.0
+    ],
+    "median_score": 0.2016,
+    "occluded_samples": 0,
+    "timestamps": [
+      86.0,
+      88.0
+    ]
+  },
+  {
+    "track_id": 80,
+    "source": "yolo",
+    "first_seen": 86.0,
+    "last_seen": 88.0,
+    "hits": 2,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1728.0,
+      501.0,
+      1738.0,
+      506.0
+    ],
+    "median_score": 0.1141,
+    "occluded_samples": 0,
+    "timestamps": [
+      86.0,
+      88.0
+    ]
+  },
+  {
+    "track_id": 84,
+    "source": "yolo",
+    "first_seen": 94.0,
+    "last_seen": 94.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1826.0,
+      576.0,
+      1856.0,
+      605.0
+    ],
+    "median_score": 0.0923,
+    "occluded_samples": 0,
+    "timestamps": [
+      94.0
+    ]
+  },
+  {
+    "track_id": 85,
+    "source": "yolo",
+    "first_seen": 96.0,
+    "last_seen": 96.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1997.0,
+      1047.0,
+      2075.0,
+      1247.0
+    ],
+    "median_score": 0.0814,
+    "occluded_samples": 0,
+    "timestamps": [
+      96.0
+    ]
+  },
+  {
+    "track_id": 86,
+    "source": "yolo",
+    "first_seen": 98.0,
+    "last_seen": 100.0,
+    "hits": 2,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1713.0,
+      310.0,
+      1730.0,
+      356.0
+    ],
+    "median_score": 0.1565,
+    "occluded_samples": 0,
+    "timestamps": [
+      98.0,
+      100.0
+    ]
+  },
+  {
+    "track_id": 87,
+    "source": "yolo",
+    "first_seen": 100.0,
+    "last_seen": 100.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      959.0,
+      1223.0,
+      975.0,
+      1230.0
+    ],
+    "median_score": 0.0948,
+    "occluded_samples": 0,
+    "timestamps": [
+      100.0
+    ]
+  },
+  {
+    "track_id": 88,
+    "source": "yolo",
+    "first_seen": 100.0,
+    "last_seen": 100.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1744.0,
+      344.0,
+      1756.0,
+      348.0
+    ],
+    "median_score": 0.0856,
+    "occluded_samples": 0,
+    "timestamps": [
+      100.0
+    ]
+  },
+  {
+    "track_id": 81,
+    "source": "yolo",
+    "first_seen": 90.0,
+    "last_seen": 104.0,
+    "hits": 8,
+    "lifetime_seconds": 16.0,
+    "visible_duration_seconds": 16.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1712.0,
+      631.0,
+      1731.0,
+      635.0
+    ],
+    "median_score": 0.1362,
+    "occluded_samples": 0,
+    "timestamps": [
+      90.0,
+      92.0,
+      94.0,
+      96.0,
+      98.0,
+      100.0,
+      102.0,
+      104.0
+    ]
+  },
+  {
+    "track_id": 89,
+    "source": "yolo",
+    "first_seen": 102.0,
+    "last_seen": 104.0,
+    "hits": 2,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1288.0,
+      1252.0,
+      1309.0,
+      1415.5
+    ],
+    "median_score": 0.0992,
+    "occluded_samples": 0,
+    "timestamps": [
+      102.0,
+      104.0
+    ]
+  },
+  {
+    "track_id": 77,
+    "source": "yolo",
+    "first_seen": 82.0,
+    "last_seen": 108.0,
+    "hits": 13,
+    "lifetime_seconds": 28.0,
+    "visible_duration_seconds": 26.0,
+    "continuity": 0.9286,
+    "max_gap_seconds": 4.0,
+    "median_box": [
+      1776.0,
+      595.0,
+      1783.0,
+      600.0
+    ],
+    "median_score": 0.137,
+    "occluded_samples": 0,
+    "timestamps": [
+      82.0,
+      84.0,
+      86.0,
+      88.0,
+      90.0,
+      92.0,
+      94.0,
+      96.0,
+      100.0,
+      102.0,
+      104.0,
+      106.0,
+      108.0
+    ]
+  },
+  {
+    "track_id": 90,
+    "source": "yolo",
+    "first_seen": 106.0,
+    "last_seen": 108.0,
+    "hits": 2,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1714.0,
+      310.0,
+      1730.0,
+      358.0
+    ],
+    "median_score": 0.1354,
+    "occluded_samples": 0,
+    "timestamps": [
+      106.0,
+      108.0
+    ]
+  },
+  {
+    "track_id": 92,
+    "source": "yolo",
+    "first_seen": 106.0,
+    "last_seen": 108.0,
+    "hits": 2,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1744.0,
+      344.0,
+      1755.0,
+      348.0
+    ],
+    "median_score": 0.0914,
+    "occluded_samples": 0,
+    "timestamps": [
+      106.0,
+      108.0
+    ]
+  },
+  {
+    "track_id": 94,
+    "source": "yolo",
+    "first_seen": 108.0,
+    "last_seen": 108.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1827.0,
+      1175.0,
+      1876.0,
+      1179.0
+    ],
+    "median_score": 0.081,
+    "occluded_samples": 0,
+    "timestamps": [
+      108.0
+    ]
+  },
+  {
+    "track_id": 82,
+    "source": "yolo",
+    "first_seen": 94.0,
+    "last_seen": 112.0,
+    "hits": 8,
+    "lifetime_seconds": 20.0,
+    "visible_duration_seconds": 16.0,
+    "continuity": 0.8,
+    "max_gap_seconds": 4.0,
+    "median_box": [
+      1184.0,
+      280.0,
+      1211.0,
+      363.0
+    ],
+    "median_score": 0.3113,
+    "occluded_samples": 0,
+    "timestamps": [
+      94.0,
+      96.0,
+      98.0,
+      102.0,
+      104.0,
+      106.0,
+      110.0,
+      112.0
+    ]
+  },
+  {
+    "track_id": 91,
+    "source": "yolo",
+    "first_seen": 106.0,
+    "last_seen": 112.0,
+    "hits": 3,
+    "lifetime_seconds": 8.0,
+    "visible_duration_seconds": 6.0,
+    "continuity": 0.75,
+    "max_gap_seconds": 4.0,
+    "median_box": [
+      1997.0,
+      1048.0,
+      2075.0,
+      1247.0
+    ],
+    "median_score": 0.0918,
+    "occluded_samples": 0,
+    "timestamps": [
+      106.0,
+      110.0,
+      112.0
+    ]
+  },
+  {
+    "track_id": 97,
+    "source": "yolo",
+    "first_seen": 110.0,
+    "last_seen": 112.0,
+    "hits": 2,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1195.0,
+      335.0,
+      1239.0,
+      404.0
+    ],
+    "median_score": 0.1014,
+    "occluded_samples": 0,
+    "timestamps": [
+      110.0,
+      112.0
+    ]
+  },
+  {
+    "track_id": 99,
+    "source": "yolo",
+    "first_seen": 112.0,
+    "last_seen": 112.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1781.0,
+      450.0,
+      1855.0,
+      605.0
+    ],
+    "median_score": 0.095,
+    "occluded_samples": 0,
+    "timestamps": [
+      112.0
+    ]
+  },
+  {
+    "track_id": 102,
+    "source": "yolo",
+    "first_seen": 114.0,
+    "last_seen": 114.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1090.0,
+      780.0,
+      1142.0,
+      875.0
+    ],
+    "median_score": 0.1007,
+    "occluded_samples": 0,
+    "timestamps": [
+      114.0
+    ]
+  },
+  {
+    "track_id": 69,
+    "source": "yolo",
+    "first_seen": 78.0,
+    "last_seen": 116.0,
+    "hits": 19,
+    "lifetime_seconds": 40.0,
+    "visible_duration_seconds": 38.0,
+    "continuity": 0.95,
+    "max_gap_seconds": 4.0,
+    "median_box": [
+      1081.0,
+      840.0,
+      1096.0,
+      859.0
+    ],
+    "median_score": 0.2479,
+    "occluded_samples": 0,
+    "timestamps": [
+      78.0,
+      82.0,
+      84.0,
+      86.0,
+      88.0,
+      90.0,
+      92.0,
+      94.0,
+      96.0,
+      98.0,
+      100.0,
+      102.0,
+      104.0,
+      106.0,
+      108.0,
+      110.0,
+      112.0,
+      114.0,
+      116.0
+    ]
+  },
+  {
+    "track_id": 95,
+    "source": "yolo",
+    "first_seen": 110.0,
+    "last_seen": 116.0,
+    "hits": 4,
+    "lifetime_seconds": 8.0,
+    "visible_duration_seconds": 8.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1825.5,
+      576.0,
+      1856.0,
+      604.0
+    ],
+    "median_score": 0.2011,
+    "occluded_samples": 0,
+    "timestamps": [
+      110.0,
+      112.0,
+      114.0,
+      116.0
+    ]
+  },
+  {
+    "track_id": 100,
+    "source": "yolo",
+    "first_seen": 112.0,
+    "last_seen": 116.0,
+    "hits": 3,
+    "lifetime_seconds": 6.0,
+    "visible_duration_seconds": 6.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      959.0,
+      1223.0,
+      974.0,
+      1230.0
+    ],
+    "median_score": 0.1153,
+    "occluded_samples": 0,
+    "timestamps": [
+      112.0,
+      114.0,
+      116.0
+    ]
+  },
+  {
+    "track_id": 101,
+    "source": "yolo",
+    "first_seen": 112.0,
+    "last_seen": 116.0,
+    "hits": 3,
+    "lifetime_seconds": 6.0,
+    "visible_duration_seconds": 6.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1702.0,
+      291.0,
+      1709.0,
+      295.0
+    ],
+    "median_score": 0.0831,
+    "occluded_samples": 0,
+    "timestamps": [
+      112.0,
+      114.0,
+      116.0
+    ]
+  },
+  {
+    "track_id": 93,
+    "source": "yolo",
+    "first_seen": 108.0,
+    "last_seen": 118.0,
+    "hits": 5,
+    "lifetime_seconds": 12.0,
+    "visible_duration_seconds": 10.0,
+    "continuity": 0.8333,
+    "max_gap_seconds": 4.0,
+    "median_box": [
+      1728.0,
+      501.0,
+      1738.0,
+      506.0
+    ],
+    "median_score": 0.102,
+    "occluded_samples": 0,
+    "timestamps": [
+      108.0,
+      110.0,
+      114.0,
+      116.0,
+      118.0
+    ]
+  },
+  {
+    "track_id": 96,
+    "source": "yolo",
+    "first_seen": 110.0,
+    "last_seen": 118.0,
+    "hits": 4,
+    "lifetime_seconds": 10.0,
+    "visible_duration_seconds": 8.0,
+    "continuity": 0.8,
+    "max_gap_seconds": 4.0,
+    "median_box": [
+      1906.0,
+      1173.0,
+      1922.0,
+      1245.0
+    ],
+    "median_score": 0.1603,
+    "occluded_samples": 0,
+    "timestamps": [
+      110.0,
+      112.0,
+      114.0,
+      118.0
+    ]
+  },
+  {
+    "track_id": 75,
+    "source": "yolo",
+    "first_seen": 82.0,
+    "last_seen": 122.0,
+    "hits": 21,
+    "lifetime_seconds": 42.0,
+    "visible_duration_seconds": 42.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1496.0,
+      1026.0,
+      1519.0,
+      1041.0
+    ],
+    "median_score": 0.294,
+    "occluded_samples": 0,
+    "timestamps": [
+      82.0,
+      84.0,
+      86.0,
+      88.0,
+      90.0,
+      92.0,
+      94.0,
+      96.0,
+      98.0,
+      100.0,
+      102.0,
+      104.0,
+      106.0,
+      108.0,
+      110.0,
+      112.0,
+      114.0,
+      116.0,
+      118.0,
+      120.0,
+      122.0
+    ]
+  },
+  {
+    "track_id": 105,
+    "source": "yolo",
+    "first_seen": 122.0,
+    "last_seen": 122.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1824.0,
+      576.0,
+      1856.0,
+      605.0
+    ],
+    "median_score": 0.0971,
+    "occluded_samples": 0,
+    "timestamps": [
+      122.0
+    ]
+  },
+  {
+    "track_id": 104,
+    "source": "yolo",
+    "first_seen": 120.0,
+    "last_seen": 124.0,
+    "hits": 3,
+    "lifetime_seconds": 6.0,
+    "visible_duration_seconds": 6.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1714.0,
+      309.0,
+      1730.0,
+      357.0
+    ],
+    "median_score": 0.159,
+    "occluded_samples": 0,
+    "timestamps": [
+      120.0,
+      122.0,
+      124.0
+    ]
+  },
+  {
+    "track_id": 108,
+    "source": "yolo",
+    "first_seen": 128.0,
+    "last_seen": 128.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1906.0,
+      1173.0,
+      1923.0,
+      1243.0
+    ],
+    "median_score": 0.0892,
+    "occluded_samples": 0,
+    "timestamps": [
+      128.0
+    ]
+  },
+  {
+    "track_id": 76,
+    "source": "yolo",
+    "first_seen": 82.0,
+    "last_seen": 132.0,
+    "hits": 23,
+    "lifetime_seconds": 52.0,
+    "visible_duration_seconds": 46.0,
+    "continuity": 0.8846,
+    "max_gap_seconds": 4.0,
+    "median_box": [
+      1089.0,
+      849.0,
+      1112.0,
+      870.0
+    ],
+    "median_score": 0.2359,
+    "occluded_samples": 0,
+    "timestamps": [
+      82.0,
+      84.0,
+      86.0,
+      88.0,
+      90.0,
+      92.0,
+      94.0,
+      96.0,
+      98.0,
+      102.0,
+      104.0,
+      108.0,
+      110.0,
+      112.0,
+      114.0,
+      116.0,
+      118.0,
+      120.0,
+      122.0,
+      124.0,
+      126.0,
+      130.0,
+      132.0
+    ]
+  },
+  {
+    "track_id": 106,
+    "source": "yolo",
+    "first_seen": 126.0,
+    "last_seen": 132.0,
+    "hits": 4,
+    "lifetime_seconds": 8.0,
+    "visible_duration_seconds": 8.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1209.5,
+      347.5,
+      1245.0,
+      426.0
+    ],
+    "median_score": 0.0907,
+    "occluded_samples": 0,
+    "timestamps": [
+      126.0,
+      128.0,
+      130.0,
+      132.0
+    ]
+  },
+  {
+    "track_id": 110,
+    "source": "yolo",
+    "first_seen": 134.0,
+    "last_seen": 136.0,
+    "hits": 2,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1109.5,
+      780.0,
+      1141.5,
+      834.0
+    ],
+    "median_score": 0.1702,
+    "occluded_samples": 0,
+    "timestamps": [
+      134.0,
+      136.0
+    ]
+  },
+  {
+    "track_id": 112,
+    "source": "yolo",
+    "first_seen": 138.0,
+    "last_seen": 138.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1825.0,
+      576.0,
+      1856.0,
+      605.0
+    ],
+    "median_score": 0.081,
+    "occluded_samples": 0,
+    "timestamps": [
+      138.0
+    ]
+  },
+  {
+    "track_id": 111,
+    "source": "yolo",
+    "first_seen": 138.0,
+    "last_seen": 140.0,
+    "hits": 2,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1082.5,
+      840.0,
+      1096.0,
+      858.5
+    ],
+    "median_score": 0.174,
+    "occluded_samples": 0,
+    "timestamps": [
+      138.0,
+      140.0
+    ]
+  },
+  {
+    "track_id": 116,
+    "source": "yolo",
+    "first_seen": 142.0,
+    "last_seen": 142.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1906.0,
+      1172.0,
+      1922.0,
+      1243.0
+    ],
+    "median_score": 0.0989,
+    "occluded_samples": 0,
+    "timestamps": [
+      142.0
+    ]
+  },
+  {
+    "track_id": 113,
+    "source": "yolo",
+    "first_seen": 142.0,
+    "last_seen": 144.0,
+    "hits": 2,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1184.0,
+      284.5,
+      1211.0,
+      363.0
+    ],
+    "median_score": 0.5716,
+    "occluded_samples": 0,
+    "timestamps": [
+      142.0,
+      144.0
+    ]
+  },
+  {
+    "track_id": 114,
+    "source": "yolo",
+    "first_seen": 142.0,
+    "last_seen": 144.0,
+    "hits": 2,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1195.0,
+      336.0,
+      1239.0,
+      405.0
+    ],
+    "median_score": 0.1257,
+    "occluded_samples": 0,
+    "timestamps": [
+      142.0,
+      144.0
+    ]
+  },
+  {
+    "track_id": 98,
+    "source": "yolo",
+    "first_seen": 110.0,
+    "last_seen": 148.0,
+    "hits": 18,
+    "lifetime_seconds": 40.0,
+    "visible_duration_seconds": 36.0,
+    "continuity": 0.9,
+    "max_gap_seconds": 4.0,
+    "median_box": [
+      1712.0,
+      631.0,
+      1731.0,
+      635.0
+    ],
+    "median_score": 0.1177,
+    "occluded_samples": 0,
+    "timestamps": [
+      110.0,
+      112.0,
+      114.0,
+      116.0,
+      118.0,
+      122.0,
+      124.0,
+      126.0,
+      128.0,
+      130.0,
+      132.0,
+      134.0,
+      136.0,
+      138.0,
+      140.0,
+      142.0,
+      144.0,
+      148.0
+    ]
+  },
+  {
+    "track_id": 118,
+    "source": "yolo",
+    "first_seen": 146.0,
+    "last_seen": 148.0,
+    "hits": 2,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1744.0,
+      344.0,
+      1756.0,
+      348.0
+    ],
+    "median_score": 0.09,
+    "occluded_samples": 0,
+    "timestamps": [
+      146.0,
+      148.0
+    ]
+  },
+  {
+    "track_id": 119,
+    "source": "yolo",
+    "first_seen": 148.0,
+    "last_seen": 148.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1108.0,
+      781.0,
+      1142.0,
+      837.0
+    ],
+    "median_score": 0.1276,
+    "occluded_samples": 0,
+    "timestamps": [
+      148.0
+    ]
+  },
+  {
+    "track_id": 1,
+    "source": "yolo",
+    "first_seen": 0.0,
+    "last_seen": 156.0,
+    "hits": 74,
+    "lifetime_seconds": 158.0,
+    "visible_duration_seconds": 148.0,
+    "continuity": 0.9367,
+    "max_gap_seconds": 4.0,
+    "median_box": [
+      1126.0,
+      865.0,
+      1143.0,
+      876.0
+    ],
+    "median_score": 0.3394,
+    "occluded_samples": 0,
+    "timestamps": [
+      0.0,
+      2.0,
+      4.0,
+      6.0,
+      10.0,
+      12.0,
+      14.0,
+      16.0,
+      18.0,
+      22.0,
+      24.0,
+      26.0,
+      28.0,
+      30.0,
+      32.0,
+      34.0,
+      38.0,
+      42.0,
+      44.0,
+      46.0,
+      48.0,
+      50.0,
+      52.0,
+      54.0,
+      56.0,
+      58.0,
+      62.0,
+      64.0,
+      66.0,
+      68.0,
+      70.0,
+      72.0,
+      74.0,
+      76.0,
+      78.0,
+      80.0,
+      82.0,
+      84.0,
+      86.0,
+      88.0,
+      90.0,
+      92.0,
+      94.0,
+      96.0,
+      98.0,
+      100.0,
+      102.0,
+      104.0,
+      106.0,
+      108.0,
+      110.0,
+      112.0,
+      114.0,
+      116.0,
+      118.0,
+      120.0,
+      122.0,
+      124.0,
+      126.0,
+      128.0,
+      130.0,
+      132.0,
+      134.0,
+      136.0,
+      138.0,
+      140.0,
+      142.0,
+      144.0,
+      146.0,
+      148.0,
+      150.0,
+      152.0,
+      154.0,
+      156.0
+    ]
+  },
+  {
+    "track_id": 2,
+    "source": "yolo",
+    "first_seen": 0.0,
+    "last_seen": 156.0,
+    "hits": 79,
+    "lifetime_seconds": 158.0,
+    "visible_duration_seconds": 158.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1714.0,
+      308.0,
+      1769.0,
+      366.0
+    ],
+    "median_score": 0.423,
+    "occluded_samples": 0,
+    "timestamps": [
+      0.0,
+      2.0,
+      4.0,
+      6.0,
+      8.0,
+      10.0,
+      12.0,
+      14.0,
+      16.0,
+      18.0,
+      20.0,
+      22.0,
+      24.0,
+      26.0,
+      28.0,
+      30.0,
+      32.0,
+      34.0,
+      36.0,
+      38.0,
+      40.0,
+      42.0,
+      44.0,
+      46.0,
+      48.0,
+      50.0,
+      52.0,
+      54.0,
+      56.0,
+      58.0,
+      60.0,
+      62.0,
+      64.0,
+      66.0,
+      68.0,
+      70.0,
+      72.0,
+      74.0,
+      76.0,
+      78.0,
+      80.0,
+      82.0,
+      84.0,
+      86.0,
+      88.0,
+      90.0,
+      92.0,
+      94.0,
+      96.0,
+      98.0,
+      100.0,
+      102.0,
+      104.0,
+      106.0,
+      108.0,
+      110.0,
+      112.0,
+      114.0,
+      116.0,
+      118.0,
+      120.0,
+      122.0,
+      124.0,
+      126.0,
+      128.0,
+      130.0,
+      132.0,
+      134.0,
+      136.0,
+      138.0,
+      140.0,
+      142.0,
+      144.0,
+      146.0,
+      148.0,
+      150.0,
+      152.0,
+      154.0,
+      156.0
+    ]
+  },
+  {
+    "track_id": 3,
+    "source": "yolo",
+    "first_seen": 0.0,
+    "last_seen": 156.0,
+    "hits": 78,
+    "lifetime_seconds": 158.0,
+    "visible_duration_seconds": 156.0,
+    "continuity": 0.9873,
+    "max_gap_seconds": 4.0,
+    "median_box": [
+      1689.0,
+      390.0,
+      1706.0,
+      397.0
+    ],
+    "median_score": 0.1477,
+    "occluded_samples": 0,
+    "timestamps": [
+      0.0,
+      2.0,
+      4.0,
+      6.0,
+      8.0,
+      10.0,
+      12.0,
+      14.0,
+      16.0,
+      18.0,
+      20.0,
+      22.0,
+      24.0,
+      26.0,
+      28.0,
+      30.0,
+      32.0,
+      34.0,
+      36.0,
+      38.0,
+      40.0,
+      42.0,
+      44.0,
+      46.0,
+      48.0,
+      50.0,
+      52.0,
+      54.0,
+      56.0,
+      58.0,
+      60.0,
+      62.0,
+      64.0,
+      66.0,
+      68.0,
+      70.0,
+      74.0,
+      76.0,
+      78.0,
+      80.0,
+      82.0,
+      84.0,
+      86.0,
+      88.0,
+      90.0,
+      92.0,
+      94.0,
+      96.0,
+      98.0,
+      100.0,
+      102.0,
+      104.0,
+      106.0,
+      108.0,
+      110.0,
+      112.0,
+      114.0,
+      116.0,
+      118.0,
+      120.0,
+      122.0,
+      124.0,
+      126.0,
+      128.0,
+      130.0,
+      132.0,
+      134.0,
+      136.0,
+      138.0,
+      140.0,
+      142.0,
+      144.0,
+      146.0,
+      148.0,
+      150.0,
+      152.0,
+      154.0,
+      156.0
+    ]
+  },
+  {
+    "track_id": 83,
+    "source": "yolo",
+    "first_seen": 94.0,
+    "last_seen": 154.0,
+    "hits": 31,
+    "lifetime_seconds": 62.0,
+    "visible_duration_seconds": 62.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1119.0,
+      1081.0,
+      1136.0,
+      1090.0
+    ],
+    "median_score": 0.2113,
+    "occluded_samples": 0,
+    "timestamps": [
+      94.0,
+      96.0,
+      98.0,
+      100.0,
+      102.0,
+      104.0,
+      106.0,
+      108.0,
+      110.0,
+      112.0,
+      114.0,
+      116.0,
+      118.0,
+      120.0,
+      122.0,
+      124.0,
+      126.0,
+      128.0,
+      130.0,
+      132.0,
+      134.0,
+      136.0,
+      138.0,
+      140.0,
+      142.0,
+      144.0,
+      146.0,
+      148.0,
+      150.0,
+      152.0,
+      154.0
+    ]
+  },
+  {
+    "track_id": 103,
+    "source": "yolo",
+    "first_seen": 114.0,
+    "last_seen": 156.0,
+    "hits": 21,
+    "lifetime_seconds": 44.0,
+    "visible_duration_seconds": 42.0,
+    "continuity": 0.9545,
+    "max_gap_seconds": 4.0,
+    "median_box": [
+      1776.0,
+      595.0,
+      1783.0,
+      600.0
+    ],
+    "median_score": 0.1311,
+    "occluded_samples": 0,
+    "timestamps": [
+      114.0,
+      116.0,
+      118.0,
+      120.0,
+      122.0,
+      126.0,
+      128.0,
+      130.0,
+      132.0,
+      134.0,
+      136.0,
+      138.0,
+      140.0,
+      142.0,
+      144.0,
+      146.0,
+      148.0,
+      150.0,
+      152.0,
+      154.0,
+      156.0
+    ]
+  },
+  {
+    "track_id": 107,
+    "source": "yolo",
+    "first_seen": 128.0,
+    "last_seen": 156.0,
+    "hits": 15,
+    "lifetime_seconds": 30.0,
+    "visible_duration_seconds": 30.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1495.0,
+      1027.0,
+      1520.0,
+      1041.0
+    ],
+    "median_score": 0.277,
+    "occluded_samples": 0,
+    "timestamps": [
+      128.0,
+      130.0,
+      132.0,
+      134.0,
+      136.0,
+      138.0,
+      140.0,
+      142.0,
+      144.0,
+      146.0,
+      148.0,
+      150.0,
+      152.0,
+      154.0,
+      156.0
+    ]
+  },
+  {
+    "track_id": 109,
+    "source": "yolo",
+    "first_seen": 130.0,
+    "last_seen": 156.0,
+    "hits": 14,
+    "lifetime_seconds": 28.0,
+    "visible_duration_seconds": 28.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1089.0,
+      849.0,
+      1112.5,
+      870.0
+    ],
+    "median_score": 0.1628,
+    "occluded_samples": 0,
+    "timestamps": [
+      130.0,
+      132.0,
+      134.0,
+      136.0,
+      138.0,
+      140.0,
+      142.0,
+      144.0,
+      146.0,
+      148.0,
+      150.0,
+      152.0,
+      154.0,
+      156.0
+    ]
+  },
+  {
+    "track_id": 115,
+    "source": "yolo",
+    "first_seen": 142.0,
+    "last_seen": 154.0,
+    "hits": 6,
+    "lifetime_seconds": 14.0,
+    "visible_duration_seconds": 12.0,
+    "continuity": 0.8571,
+    "max_gap_seconds": 4.0,
+    "median_box": [
+      1713.0,
+      310.0,
+      1730.0,
+      356.0
+    ],
+    "median_score": 0.1196,
+    "occluded_samples": 0,
+    "timestamps": [
+      142.0,
+      144.0,
+      146.0,
+      148.0,
+      150.0,
+      154.0
+    ]
+  },
+  {
+    "track_id": 117,
+    "source": "yolo",
+    "first_seen": 146.0,
+    "last_seen": 156.0,
+    "hits": 4,
+    "lifetime_seconds": 12.0,
+    "visible_duration_seconds": 8.0,
+    "continuity": 0.6667,
+    "max_gap_seconds": 4.0,
+    "median_box": [
+      1082.0,
+      839.5,
+      1097.0,
+      859.0
+    ],
+    "median_score": 0.2975,
+    "occluded_samples": 0,
+    "timestamps": [
+      146.0,
+      150.0,
+      152.0,
+      156.0
+    ]
+  },
+  {
+    "track_id": 120,
+    "source": "yolo",
+    "first_seen": 150.0,
+    "last_seen": 156.0,
+    "hits": 4,
+    "lifetime_seconds": 8.0,
+    "visible_duration_seconds": 8.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1184.0,
+      280.0,
+      1211.0,
+      363.0
+    ],
+    "median_score": 0.3446,
+    "occluded_samples": 0,
+    "timestamps": [
+      150.0,
+      152.0,
+      154.0,
+      156.0
+    ]
+  },
+  {
+    "track_id": 121,
+    "source": "yolo",
+    "first_seen": 150.0,
+    "last_seen": 152.0,
+    "hits": 2,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1195.0,
+      339.0,
+      1239.0,
+      404.0
+    ],
+    "median_score": 0.1401,
+    "occluded_samples": 0,
+    "timestamps": [
+      150.0,
+      152.0
+    ]
+  },
+  {
+    "track_id": 122,
+    "source": "yolo",
+    "first_seen": 156.0,
+    "last_seen": 156.0,
+    "hits": 1,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1089.0,
+      848.0,
+      1114.0,
+      871.0
+    ],
+    "median_score": 0.2649,
+    "occluded_samples": 0,
+    "timestamps": [
+      156.0
+    ]
+  }
+]

@@ -1,0 +1,161 @@
+{
+  "dataset": "pilot_01030_20260920",
+  "dataset_fingerprint": "f7bd75d10ca155fa58d20d757cd5e351860b4dd7cdc10b579c8e15706a4482ad",
+  "reviewed": 220,
+  "label_counts": {
+    "LITTER": 16,
+    "NON_LITTER": 199,
+    "UNCERTAIN": 1,
+    "BOX_WRONG": 4
+  },
+  "source_metrics": {
+    "random_grid": {
+      "reviewed": 50,
+      "labels": {
+        "NON_LITTER": 45,
+        "BOX_WRONG": 4,
+        "LITTER": 1
+      },
+      "litter_card_rate": 0.02
+    },
+    "semantic_full": {
+      "reviewed": 30,
+      "labels": {
+        "NON_LITTER": 28,
+        "LITTER": 1,
+        "UNCERTAIN": 1
+      },
+      "litter_card_rate": 0.0333
+    },
+    "semantic_tile": {
+      "reviewed": 60,
+      "labels": {
+        "LITTER": 14,
+        "NON_LITTER": 46
+      },
+      "litter_card_rate": 0.2333
+    },
+    "temporal": {
+      "reviewed": 40,
+      "labels": {
+        "NON_LITTER": 40
+      },
+      "litter_card_rate": 0.0
+    },
+    "texture": {
+      "reviewed": 40,
+      "labels": {
+        "NON_LITTER": 40
+      },
+      "litter_card_rate": 0.0
+    }
+  },
+  "positive_cards": 16,
+  "estimated_distinct_positive_locations": 6,
+  "positive_clusters": [
+    {
+      "cluster_id": 1,
+      "cards": 6,
+      "sources": [
+        "semantic_full",
+        "semantic_tile"
+      ],
+      "review_ids": [
+        "f00s01-0000",
+        "f00s00-0001",
+        "f01s00-0038",
+        "f02s00-0051",
+        "f01s01-0054",
+        "f01s02-0073"
+      ],
+      "timestamps": [
+        "2026-09-20 00:59:10",
+        "2026-09-20 01:00:26",
+        "2026-09-20 03:00:43",
+        "2026-09-20 03:01:59",
+        "2026-09-20 03:03:15",
+        "2026-09-20 04:57:12"
+      ]
+    },
+    {
+      "cluster_id": 2,
+      "cards": 3,
+      "sources": [
+        "semantic_tile"
+      ],
+      "review_ids": [
+        "f00s00-0003",
+        "f00s01-0016",
+        "f00s02-0017"
+      ],
+      "timestamps": [
+        "2026-09-20 00:59:10",
+        "2026-09-20 01:00:26",
+        "2026-09-20 01:01:42"
+      ]
+    },
+    {
+      "cluster_id": 3,
+      "cards": 2,
+      "sources": [
+        "semantic_tile"
+      ],
+      "review_ids": [
+        "f06s01-0024",
+        "f06s00-0025"
+      ],
+      "timestamps": [
+        "2026-09-20 13:00:11",
+        "2026-09-20 13:01:27"
+      ]
+    },
+    {
+      "cluster_id": 4,
+      "cards": 1,
+      "sources": [
+        "semantic_tile"
+      ],
+      "review_ids": [
+        "f02s00-0026"
+      ],
+      "timestamps": [
+        "2026-09-20 04:57:12"
+      ]
+    },
+    {
+      "cluster_id": 5,
+      "cards": 3,
+      "sources": [
+        "random_grid",
+        "semantic_tile"
+      ],
+      "review_ids": [
+        "f01s00-0034",
+        "f01s02-0058",
+        "f00s00-0197"
+      ],
+      "timestamps": [
+        "2026-09-20 00:59:10",
+        "2026-09-20 03:00:43",
+        "2026-09-20 03:03:15"
+      ]
+    },
+    {
+      "cluster_id": 6,
+      "cards": 1,
+      "sources": [
+        "semantic_tile"
+      ],
+      "review_ids": [
+        "f06s02-0047"
+      ],
+      "timestamps": [
+        "2026-09-20 13:02:43"
+      ]
+    }
+  ],
+  "interpretation": {
+    "selection_bias": "Candidate-card positive rates are proposal yield, not detector precision or recall.",
+    "next_batch": "Keep tiled semantic and random audit; reduce zero-yield temporal/texture share but retain a small audit quota."
+  }
+}

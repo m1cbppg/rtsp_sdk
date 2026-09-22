@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>五路摄像头最终垃圾识别 ROI</title>
+  <style>
+    :root { color-scheme: dark; font-family: system-ui,-apple-system,"PingFang SC",sans-serif; }
+    body { margin:0; background:#11151b; color:#eef2f7; }
+    header { padding:18px 24px 12px; border-bottom:1px solid #303744; }
+    h1 { margin:0 0 8px; font-size:22px; }
+    .hint { color:#b9c3d1; line-height:1.55; max-width:1200px; }
+    .layout { display:grid; grid-template-columns:190px minmax(0,1fr); gap:18px; padding:18px; }
+    .cameras { display:flex; flex-direction:column; gap:8px; }
+    .camera { padding:12px; border:1px solid #3a4352; border-radius:8px; background:#1b212b; color:white; text-align:left; cursor:pointer; }
+    .camera.active { border-color:#35d07f; box-shadow:0 0 0 1px #35d07f inset; }
+    .camera.saved::after { content:"已保存"; float:right; color:#35d07f; font-size:12px; }
+    .workspace { min-width:0; }
+    .canvas-wrap { position:relative; width:100%; max-width:1280px; background:#07090c; border:1px solid #333c49; }
+    canvas { display:block; width:100%; height:auto; cursor:crosshair; }
+    .toolbar { display:flex; flex-wrap:wrap; gap:10px; margin:12px 0; }
+    button { border:1px solid #475266; background:#232b37; color:white; padding:10px 15px; border-radius:7px; cursor:pointer; }
+    button.primary { background:#157548; border-color:#28a86b; }
+    button:disabled { opacity:.45; cursor:not-allowed; }
+    .status { min-height:24px; color:#b9c3d1; }
+    .error { color:#ff8484; }
+    code { background:#202631; padding:2px 5px; border-radius:4px; }
+    @media(max-width:800px){ .layout{grid-template-columns:1fr}.cameras{flex-direction:row;overflow:auto}.camera{min-width:130px} }
+  </style>
+</head>
+<body>
+<header>
+  <h1>五路摄像头最终垃圾识别 ROI</h1>
+  <div class="hint">
+    依次点击地面区域边界，形成一个闭合多边形。只圈“垃圾落在这里需要识别”的区域；道路、墙面、店内和无关区域不要圈入。
+    当前画面中的人、车辆是临时遮挡物，边界应按它们下面真实地面的范围画，不需要绕开每个人或每辆车。
+    可以画凹多边形；建议沿边界多点几下保证贴合。至少3个点，然后点击“保存本摄像头”。
+  </div>
+</header>
+<main class="layout">
+  <nav class="cameras" id="cameraList"></nav>
+  <section class="workspace">
+    <div class="status" id="progress"></div>
+    <div class="canvas-wrap"><canvas id="canvas" width="2560" height="1440"></canvas></div>
+    <div class="toolbar">
+      <button id="undo">撤销最后一点</button>
+      <button id="clear">清空重画</button>
+      <button id="save" class="primary">保存本摄像头</button>
+    </div>
+    <div class="status" id="status"></div>
+    <div class="status">当前顶点：<code id="count">0</code>；归一化坐标会自动保存，无需手工计算。</div>
+  </section>
+</main>
+<script>
+const cameraOrder=['01021','01022','01027','01028','01030'];
+const canvas=document.getElementById('canvas'), ctx=canvas.getContext('2d');
+const statusEl=document.getElementById('status'), progressEl=document.getElementById('progress');
+let data=null,current=null,image=null,points=[];
+async function loadData(){
+  data=await fetch('/api/roi').then(r=>r.json());
+  renderCameraList(); selectCamera(cameraOrder[0]);
+}
+function renderCameraList(){
+  const list=document.getElementById('cameraList'); list.innerHTML='';
+  for(const id of cameraOrder){
+    const b=document.createElement('button'); b.className='camera'; b.dataset.id=id;
+    if(id===current)b.classList.add('active'); if(data.cameras[id])b.classList.add('saved');
+    b.textContent=`摄像头 ${id}`; b.onclick=()=>selectCamera(id); list.appendChild(b);
+  }
+  progressEl.textContent=`已保存 ${Object.keys(data.cameras).length} / ${cameraOrder.length} 路`;
+}
+function selectCamera(id){
+  current=id; points=(data.cameras[id]?.roi||[]).map(p=>[p[0],p[1]]);
+  image=new Image(); image.onload=()=>{canvas.width=image.naturalWidth;canvas.height=image.naturalHeight;draw();};
+  image.src=data.available[id].image_url+'?v='+data.available[id].sha256.slice(0,10);
+  statusEl.textContent=data.cameras[id]?'已加载上次保存的 ROI，可继续修改。':'尚未保存，请点击画面添加边界点。';
+  statusEl.className='status'; renderCameraList(); updateButtons();
+}
+function draw(){
+  if(!image)return; ctx.drawImage(image,0,0,canvas.width,canvas.height);
+  if(points.length){
+    ctx.beginPath(); points.forEach((p,i)=>{const x=p[0]*canvas.width,y=p[1]*canvas.height;i?ctx.lineTo(x,y):ctx.moveTo(x,y)});
+    if(points.length>=3){ctx.closePath();ctx.fillStyle='rgba(29,214,112,.22)';ctx.fill();}
+    ctx.strokeStyle='#25f18a';ctx.lineWidth=Math.max(3,canvas.width/700);ctx.stroke();
+    points.forEach((p,i)=>{const x=p[0]*canvas.width,y=p[1]*canvas.height;ctx.beginPath();ctx.arc(x,y,9,0,Math.PI*2);ctx.fillStyle='#ffcf45';ctx.fill();ctx.strokeStyle='#111';ctx.lineWidth=2;ctx.stroke();ctx.fillStyle='#111';ctx.font='bold 15px sans-serif';ctx.fillText(String(i+1),x+12,y-10)});
+  }
+  document.getElementById('count').textContent=points.length; updateButtons();
+}
+canvas.addEventListener('click',e=>{
+  const r=canvas.getBoundingClientRect(); points.push([(e.clientX-r.left)/r.width,(e.clientY-r.top)/r.height]); draw();
+});
+document.getElementById('undo').onclick=()=>{points.pop();draw()};
+document.getElementById('clear').onclick=()=>{if(confirm('清空当前摄像头的所有点？')){points=[];draw()}};
+document.getElementById('save').onclick=async()=>{
+  statusEl.textContent='正在保存…'; statusEl.className='status';
+  const response=await fetch('/api/roi',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({camera_id:current,points})});
+  const result=await response.json();
+  if(!response.ok){statusEl.textContent='保存失败：'+result.error;statusEl.className='status error';return;}
+  data.cameras[current]={...(data.cameras[current]||{}),roi:points.map(p=>p.map(v=>Number(v.toFixed(6))))};
+  statusEl.textContent=`摄像头 ${current} 已保存。`; renderCameraList();
+  const next=cameraOrder.find(id=>!data.cameras[id]); if(next)setTimeout(()=>selectCamera(next),350);
+};
+function updateButtons(){document.getElementById('undo').disabled=!points.length;document.getElementById('save').disabled=points.length<3;}
+window.addEventListener('keydown',e=>{if((e.key==='Backspace'||e.key==='Delete')&&points.length){e.preventDefault();points.pop();draw()}});
+loadData().catch(err=>{statusEl.textContent='页面初始化失败：'+err;statusEl.className='status error'});
+</script>
+</body>
+</html>

@@ -33,3 +33,7 @@ yolo-rtsp-api = "rtsp_annotator.api:main"
 
 [tool.setuptools.packages.find]
 include = ["rtsp_annotator*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+norecursedirs = ["archives", "dist", ".venv"]

@@ -1,0 +1,3361 @@
+{
+  "label": "positive_small_litter",
+  "confidence": 0.15,
+  "zone_minimum_short_side_px": 6,
+  "zone_minimum_box_area_px": 36,
+  "video": "/Users/mlcbppg/Desktop/9月17日/小垃圾正样本.mp4",
+  "native_fps": 30.0,
+  "total_frames": 4704,
+  "analysis_fps": 0.5,
+  "startup_suppress_seconds": 15.0,
+  "weight": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/models/litter/turhancan_yolov8m_seg_trash.pt",
+  "device": "cpu",
+  "wall_seconds": 119.0,
+  "ticks": 79,
+  "records": [
+    {
+      "timestamp": 0.0,
+      "state": "warming_up",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [],
+      "active_events": 0,
+      "confirmed_events": 0,
+      "cleared_events": 0,
+      "semantic_only_active": 0,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 21,
+      "semantic_retained": 4,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 1,
+      "model_runs_crop": 0,
+      "prior_ms": 1616.33,
+      "full_scan_ms": 2754.43,
+      "crop_ms": 0.0,
+      "total_ms": 4399.7,
+      "wall_ms": 4400.3
+    },
+    {
+      "timestamp": 2.0,
+      "state": "warming_up",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [],
+      "active_events": 0,
+      "confirmed_events": 0,
+      "cleared_events": 0,
+      "semantic_only_active": 0,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 1,
+      "model_runs_crop": 0,
+      "prior_ms": 555.85,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 555.9,
+      "wall_ms": 556.3
+    },
+    {
+      "timestamp": 4.0,
+      "state": "warming_up",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [],
+      "active_events": 0,
+      "confirmed_events": 0,
+      "cleared_events": 0,
+      "semantic_only_active": 0,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 28,
+      "semantic_retained": 4,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 2,
+      "model_runs_crop": 0,
+      "prior_ms": 544.87,
+      "full_scan_ms": 1632.5,
+      "crop_ms": 0.0,
+      "total_ms": 2177.41,
+      "wall_ms": 2177.7
+    },
+    {
+      "timestamp": 6.0,
+      "state": "warming_up",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [],
+      "active_events": 0,
+      "confirmed_events": 0,
+      "cleared_events": 0,
+      "semantic_only_active": 0,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 2,
+      "model_runs_crop": 0,
+      "prior_ms": 585.77,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 585.79,
+      "wall_ms": 586.3
+    },
+    {
+      "timestamp": 8.0,
+      "state": "warming_up",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [],
+      "active_events": 0,
+      "confirmed_events": 0,
+      "cleared_events": 0,
+      "semantic_only_active": 0,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 23,
+      "semantic_retained": 5,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 3,
+      "model_runs_crop": 0,
+      "prior_ms": 578.35,
+      "full_scan_ms": 1432.62,
+      "crop_ms": 0.0,
+      "total_ms": 2010.99,
+      "wall_ms": 2011.3
+    },
+    {
+      "timestamp": 10.0,
+      "state": "warming_up",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [],
+      "active_events": 0,
+      "confirmed_events": 0,
+      "cleared_events": 0,
+      "semantic_only_active": 0,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 3,
+      "model_runs_crop": 0,
+      "prior_ms": 557.0,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 557.02,
+      "wall_ms": 557.3
+    },
+    {
+      "timestamp": 12.0,
+      "state": "warming_up",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [],
+      "active_events": 0,
+      "confirmed_events": 0,
+      "cleared_events": 0,
+      "semantic_only_active": 0,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 23,
+      "semantic_retained": 6,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 4,
+      "model_runs_crop": 0,
+      "prior_ms": 563.09,
+      "full_scan_ms": 1385.28,
+      "crop_ms": 0.0,
+      "total_ms": 1948.4,
+      "wall_ms": 1949.1
+    },
+    {
+      "timestamp": 14.0,
+      "state": "warming_up",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [],
+      "active_events": 0,
+      "confirmed_events": 0,
+      "cleared_events": 0,
+      "semantic_only_active": 0,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 4,
+      "model_runs_crop": 0,
+      "prior_ms": 560.39,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 560.41,
+      "wall_ms": 560.6
+    },
+    {
+      "timestamp": 16.0,
+      "state": "running",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [],
+      "active_events": 4,
+      "confirmed_events": 0,
+      "cleared_events": 0,
+      "semantic_only_active": 4,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 18,
+      "semantic_retained": 4,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 5,
+      "model_runs_crop": 0,
+      "prior_ms": 582.59,
+      "full_scan_ms": 1336.15,
+      "crop_ms": 0.0,
+      "total_ms": 1919.09,
+      "wall_ms": 1919.5
+    },
+    {
+      "timestamp": 18.0,
+      "state": "prior_abstaining",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [],
+      "active_events": 4,
+      "confirmed_events": 0,
+      "cleared_events": 0,
+      "semantic_only_active": 4,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 5,
+      "model_runs_crop": 0,
+      "prior_ms": 535.26,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 535.32,
+      "wall_ms": 535.7
+    },
+    {
+      "timestamp": 20.0,
+      "state": "running",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 4,
+      "confirmed_events": 3,
+      "cleared_events": 0,
+      "semantic_only_active": 4,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 17,
+      "semantic_retained": 3,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 6,
+      "model_runs_crop": 0,
+      "prior_ms": 524.94,
+      "full_scan_ms": 1335.54,
+      "crop_ms": 0.0,
+      "total_ms": 1860.76,
+      "wall_ms": 1861.2
+    },
+    {
+      "timestamp": 22.0,
+      "state": "prior_abstaining",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 4,
+      "confirmed_events": 3,
+      "cleared_events": 0,
+      "semantic_only_active": 4,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 6,
+      "model_runs_crop": 0,
+      "prior_ms": 573.28,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 573.36,
+      "wall_ms": 573.8
+    },
+    {
+      "timestamp": 24.0,
+      "state": "running",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 5,
+      "confirmed_events": 3,
+      "cleared_events": 0,
+      "semantic_only_active": 5,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 20,
+      "semantic_retained": 3,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 7,
+      "model_runs_crop": 0,
+      "prior_ms": 582.19,
+      "full_scan_ms": 1685.0,
+      "crop_ms": 0.0,
+      "total_ms": 2267.56,
+      "wall_ms": 2268.2
+    },
+    {
+      "timestamp": 26.0,
+      "state": "prior_abstaining",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 5,
+      "confirmed_events": 3,
+      "cleared_events": 0,
+      "semantic_only_active": 5,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 7,
+      "model_runs_crop": 0,
+      "prior_ms": 576.54,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 576.64,
+      "wall_ms": 577.3
+    },
+    {
+      "timestamp": 28.0,
+      "state": "running",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 5,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 5,
+      "confirmed_events": 4,
+      "cleared_events": 0,
+      "semantic_only_active": 5,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 23,
+      "semantic_retained": 4,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 8,
+      "model_runs_crop": 0,
+      "prior_ms": 564.11,
+      "full_scan_ms": 1684.31,
+      "crop_ms": 0.0,
+      "total_ms": 2249.13,
+      "wall_ms": 2249.4
+    },
+    {
+      "timestamp": 30.0,
+      "state": "prior_abstaining",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 5,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 5,
+      "confirmed_events": 4,
+      "cleared_events": 0,
+      "semantic_only_active": 5,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 8,
+      "model_runs_crop": 0,
+      "prior_ms": 562.83,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 562.92,
+      "wall_ms": 563.2
+    },
+    {
+      "timestamp": 32.0,
+      "state": "running",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 5,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 6,
+      "confirmed_events": 4,
+      "cleared_events": 0,
+      "semantic_only_active": 6,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 19,
+      "semantic_retained": 4,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 9,
+      "model_runs_crop": 0,
+      "prior_ms": 554.47,
+      "full_scan_ms": 1430.61,
+      "crop_ms": 0.0,
+      "total_ms": 1985.36,
+      "wall_ms": 1986.0
+    },
+    {
+      "timestamp": 34.0,
+      "state": "prior_abstaining",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 5,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 6,
+      "confirmed_events": 4,
+      "cleared_events": 0,
+      "semantic_only_active": 6,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 9,
+      "model_runs_crop": 0,
+      "prior_ms": 570.17,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 570.28,
+      "wall_ms": 570.8
+    },
+    {
+      "timestamp": 36.0,
+      "state": "running",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 6,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 9,
+      "confirmed_events": 5,
+      "cleared_events": 0,
+      "semantic_only_active": 9,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 33,
+      "semantic_retained": 7,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 10,
+      "model_runs_crop": 0,
+      "prior_ms": 575.73,
+      "full_scan_ms": 1500.41,
+      "crop_ms": 0.0,
+      "total_ms": 2076.52,
+      "wall_ms": 2076.8
+    },
+    {
+      "timestamp": 38.0,
+      "state": "prior_abstaining",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 6,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 9,
+      "confirmed_events": 5,
+      "cleared_events": 0,
+      "semantic_only_active": 9,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 10,
+      "model_runs_crop": 0,
+      "prior_ms": 544.97,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 545.08,
+      "wall_ms": 545.9
+    },
+    {
+      "timestamp": 40.0,
+      "state": "running",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 6,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 10,
+      "confirmed_events": 4,
+      "cleared_events": 1,
+      "semantic_only_active": 10,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 19,
+      "semantic_retained": 5,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 11,
+      "model_runs_crop": 0,
+      "prior_ms": 545.69,
+      "full_scan_ms": 1325.87,
+      "crop_ms": 0.0,
+      "total_ms": 1871.91,
+      "wall_ms": 1872.5
+    },
+    {
+      "timestamp": 42.0,
+      "state": "prior_abstaining",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 6,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 10,
+      "confirmed_events": 4,
+      "cleared_events": 1,
+      "semantic_only_active": 10,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 11,
+      "model_runs_crop": 0,
+      "prior_ms": 553.07,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 553.18,
+      "wall_ms": 554.3
+    },
+    {
+      "timestamp": 44.0,
+      "state": "running",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 6,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 12,
+      "confirmed_events": 4,
+      "cleared_events": 1,
+      "semantic_only_active": 12,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 25,
+      "semantic_retained": 5,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 12,
+      "model_runs_crop": 0,
+      "prior_ms": 556.47,
+      "full_scan_ms": 1361.18,
+      "crop_ms": 0.0,
+      "total_ms": 1918.04,
+      "wall_ms": 1918.2
+    },
+    {
+      "timestamp": 46.0,
+      "state": "prior_abstaining",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 12,
+      "confirmed_events": 4,
+      "cleared_events": 1,
+      "semantic_only_active": 12,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 12,
+      "model_runs_crop": 0,
+      "prior_ms": 537.17,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 537.28,
+      "wall_ms": 538.5
+    },
+    {
+      "timestamp": 48.0,
+      "state": "running",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 14,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 11,
+      "confirmed_events": 4,
+      "cleared_events": 2,
+      "semantic_only_active": 11,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 25,
+      "semantic_retained": 4,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 13,
+      "model_runs_crop": 0,
+      "prior_ms": 547.33,
+      "full_scan_ms": 1434.3,
+      "crop_ms": 0.0,
+      "total_ms": 1981.96,
+      "wall_ms": 1983.3
+    },
+    {
+      "timestamp": 50.0,
+      "state": "prior_abstaining",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 14,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 11,
+      "confirmed_events": 4,
+      "cleared_events": 2,
+      "semantic_only_active": 11,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 13,
+      "model_runs_crop": 0,
+      "prior_ms": 569.07,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 569.19,
+      "wall_ms": 570.0
+    },
+    {
+      "timestamp": 52.0,
+      "state": "running",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 14,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 12,
+      "confirmed_events": 4,
+      "cleared_events": 2,
+      "semantic_only_active": 12,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 26,
+      "semantic_retained": 5,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 14,
+      "model_runs_crop": 0,
+      "prior_ms": 547.73,
+      "full_scan_ms": 1343.72,
+      "crop_ms": 0.0,
+      "total_ms": 1891.81,
+      "wall_ms": 1892.2
+    },
+    {
+      "timestamp": 54.0,
+      "state": "prior_abstaining",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 14,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 12,
+      "confirmed_events": 4,
+      "cleared_events": 2,
+      "semantic_only_active": 12,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 14,
+      "model_runs_crop": 0,
+      "prior_ms": 554.06,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 554.17,
+      "wall_ms": 554.6
+    },
+    {
+      "timestamp": 56.0,
+      "state": "running",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 14,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 8,
+      "confirmed_events": 4,
+      "cleared_events": 2,
+      "semantic_only_active": 8,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 34,
+      "semantic_retained": 3,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 15,
+      "model_runs_crop": 0,
+      "prior_ms": 541.36,
+      "full_scan_ms": 1398.48,
+      "crop_ms": 0.0,
+      "total_ms": 1940.28,
+      "wall_ms": 1941.6
+    },
+    {
+      "timestamp": 58.0,
+      "state": "prior_abstaining",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 14,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 8,
+      "confirmed_events": 4,
+      "cleared_events": 2,
+      "semantic_only_active": 8,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 15,
+      "model_runs_crop": 0,
+      "prior_ms": 573.48,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 573.59,
+      "wall_ms": 574.1
+    },
+    {
+      "timestamp": 60.0,
+      "state": "running",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 14,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 11,
+      "confirmed_events": 4,
+      "cleared_events": 2,
+      "semantic_only_active": 11,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 26,
+      "semantic_retained": 7,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 16,
+      "model_runs_crop": 0,
+      "prior_ms": 563.97,
+      "full_scan_ms": 1356.27,
+      "crop_ms": 0.0,
+      "total_ms": 1920.65,
+      "wall_ms": 1921.2
+    },
+    {
+      "timestamp": 62.0,
+      "state": "prior_abstaining",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 11,
+      "confirmed_events": 4,
+      "cleared_events": 2,
+      "semantic_only_active": 11,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 16,
+      "model_runs_crop": 0,
+      "prior_ms": 531.35,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 531.46,
+      "wall_ms": 531.6
+    },
+    {
+      "timestamp": 64.0,
+      "state": "running",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 12,
+      "confirmed_events": 3,
+      "cleared_events": 3,
+      "semantic_only_active": 12,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 29,
+      "semantic_retained": 6,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 17,
+      "model_runs_crop": 0,
+      "prior_ms": 540.32,
+      "full_scan_ms": 1405.11,
+      "crop_ms": 0.0,
+      "total_ms": 1946.0,
+      "wall_ms": 1946.8
+    },
+    {
+      "timestamp": 66.0,
+      "state": "prior_abstaining",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 12,
+      "confirmed_events": 3,
+      "cleared_events": 3,
+      "semantic_only_active": 12,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 17,
+      "model_runs_crop": 0,
+      "prior_ms": 540.49,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 540.64,
+      "wall_ms": 541.6
+    },
+    {
+      "timestamp": 68.0,
+      "state": "running",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 15,
+      "confirmed_events": 3,
+      "cleared_events": 3,
+      "semantic_only_active": 15,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 21,
+      "semantic_retained": 5,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 18,
+      "model_runs_crop": 0,
+      "prior_ms": 545.48,
+      "full_scan_ms": 2417.72,
+      "crop_ms": 0.0,
+      "total_ms": 2968.43,
+      "wall_ms": 2969.0
+    },
+    {
+      "timestamp": 70.0,
+      "state": "prior_abstaining",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 15,
+      "confirmed_events": 3,
+      "cleared_events": 3,
+      "semantic_only_active": 15,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 18,
+      "model_runs_crop": 0,
+      "prior_ms": 616.3,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 616.45,
+      "wall_ms": 617.6
+    },
+    {
+      "timestamp": 72.0,
+      "state": "running",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 20,
+      "confirmed_events": 3,
+      "cleared_events": 3,
+      "semantic_only_active": 20,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 32,
+      "semantic_retained": 8,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 19,
+      "model_runs_crop": 0,
+      "prior_ms": 583.87,
+      "full_scan_ms": 1666.95,
+      "crop_ms": 0.0,
+      "total_ms": 2251.49,
+      "wall_ms": 2252.0
+    },
+    {
+      "timestamp": 74.0,
+      "state": "prior_abstaining",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 20,
+      "confirmed_events": 3,
+      "cleared_events": 3,
+      "semantic_only_active": 20,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 19,
+      "model_runs_crop": 0,
+      "prior_ms": 555.93,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 556.09,
+      "wall_ms": 556.4
+    },
+    {
+      "timestamp": 76.0,
+      "state": "running",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 22,
+      "confirmed_events": 3,
+      "cleared_events": 3,
+      "semantic_only_active": 22,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 21,
+      "semantic_retained": 4,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 20,
+      "model_runs_crop": 0,
+      "prior_ms": 556.83,
+      "full_scan_ms": 1351.99,
+      "crop_ms": 0.0,
+      "total_ms": 1909.24,
+      "wall_ms": 1910.2
+    },
+    {
+      "timestamp": 78.0,
+      "state": "prior_abstaining",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 22,
+      "confirmed_events": 3,
+      "cleared_events": 3,
+      "semantic_only_active": 22,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 20,
+      "model_runs_crop": 0,
+      "prior_ms": 533.45,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 533.61,
+      "wall_ms": 534.3
+    },
+    {
+      "timestamp": 80.0,
+      "state": "running",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 21,
+      "confirmed_events": 3,
+      "cleared_events": 3,
+      "semantic_only_active": 21,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 22,
+      "semantic_retained": 7,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 21,
+      "model_runs_crop": 0,
+      "prior_ms": 537.07,
+      "full_scan_ms": 1339.15,
+      "crop_ms": 0.0,
+      "total_ms": 1876.92,
+      "wall_ms": 1877.6
+    },
+    {
+      "timestamp": 82.0,
+      "state": "prior_abstaining",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 21,
+      "confirmed_events": 3,
+      "cleared_events": 3,
+      "semantic_only_active": 21,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 21,
+      "model_runs_crop": 0,
+      "prior_ms": 544.58,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 544.82,
+      "wall_ms": 545.1
+    },
+    {
+      "timestamp": 84.0,
+      "state": "running",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 21,
+      "confirmed_events": 3,
+      "cleared_events": 3,
+      "semantic_only_active": 21,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 28,
+      "semantic_retained": 7,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 22,
+      "model_runs_crop": 0,
+      "prior_ms": 592.49,
+      "full_scan_ms": 1403.72,
+      "crop_ms": 0.0,
+      "total_ms": 1996.8,
+      "wall_ms": 1997.7
+    },
+    {
+      "timestamp": 86.0,
+      "state": "prior_abstaining",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 21,
+      "confirmed_events": 3,
+      "cleared_events": 3,
+      "semantic_only_active": 21,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 22,
+      "model_runs_crop": 0,
+      "prior_ms": 549.72,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 549.87,
+      "wall_ms": 550.5
+    },
+    {
+      "timestamp": 88.0,
+      "state": "running",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 38,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 21,
+      "confirmed_events": 4,
+      "cleared_events": 3,
+      "semantic_only_active": 21,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 24,
+      "semantic_retained": 7,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 23,
+      "model_runs_crop": 0,
+      "prior_ms": 533.61,
+      "full_scan_ms": 1407.34,
+      "crop_ms": 0.0,
+      "total_ms": 1941.48,
+      "wall_ms": 1941.9
+    },
+    {
+      "timestamp": 90.0,
+      "state": "prior_abstaining",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 38,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 21,
+      "confirmed_events": 4,
+      "cleared_events": 3,
+      "semantic_only_active": 21,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 23,
+      "model_runs_crop": 0,
+      "prior_ms": 557.23,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 557.39,
+      "wall_ms": 557.9
+    },
+    {
+      "timestamp": 92.0,
+      "state": "running",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 43,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 38,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 17,
+      "confirmed_events": 5,
+      "cleared_events": 3,
+      "semantic_only_active": 17,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 23,
+      "semantic_retained": 6,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 24,
+      "model_runs_crop": 0,
+      "prior_ms": 564.32,
+      "full_scan_ms": 1391.63,
+      "crop_ms": 0.0,
+      "total_ms": 1956.46,
+      "wall_ms": 1956.6
+    },
+    {
+      "timestamp": 94.0,
+      "state": "prior_abstaining",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 43,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 38,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 17,
+      "confirmed_events": 5,
+      "cleared_events": 3,
+      "semantic_only_active": 17,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 24,
+      "model_runs_crop": 0,
+      "prior_ms": 548.91,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 549.05,
+      "wall_ms": 549.4
+    },
+    {
+      "timestamp": 96.0,
+      "state": "running",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 43,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 38,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 17,
+      "confirmed_events": 5,
+      "cleared_events": 3,
+      "semantic_only_active": 17,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 23,
+      "semantic_retained": 5,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 25,
+      "model_runs_crop": 0,
+      "prior_ms": 538.82,
+      "full_scan_ms": 1436.02,
+      "crop_ms": 0.0,
+      "total_ms": 1975.35,
+      "wall_ms": 1975.9
+    },
+    {
+      "timestamp": 98.0,
+      "state": "prior_abstaining",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 43,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 17,
+      "confirmed_events": 5,
+      "cleared_events": 3,
+      "semantic_only_active": 17,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 25,
+      "model_runs_crop": 0,
+      "prior_ms": 558.17,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 558.32,
+      "wall_ms": 558.5
+    },
+    {
+      "timestamp": 100.0,
+      "state": "running",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 47,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 43,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 13,
+      "confirmed_events": 5,
+      "cleared_events": 4,
+      "semantic_only_active": 13,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 22,
+      "semantic_retained": 5,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 26,
+      "model_runs_crop": 0,
+      "prior_ms": 550.9,
+      "full_scan_ms": 1383.13,
+      "crop_ms": 0.0,
+      "total_ms": 1934.51,
+      "wall_ms": 1935.2
+    },
+    {
+      "timestamp": 102.0,
+      "state": "prior_abstaining",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 47,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 43,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 13,
+      "confirmed_events": 5,
+      "cleared_events": 4,
+      "semantic_only_active": 13,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 26,
+      "model_runs_crop": 0,
+      "prior_ms": 539.87,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 540.01,
+      "wall_ms": 540.5
+    },
+    {
+      "timestamp": 104.0,
+      "state": "running",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 47,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 43,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 11,
+      "confirmed_events": 5,
+      "cleared_events": 4,
+      "semantic_only_active": 11,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 17,
+      "semantic_retained": 4,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 27,
+      "model_runs_crop": 0,
+      "prior_ms": 545.81,
+      "full_scan_ms": 1384.08,
+      "crop_ms": 0.0,
+      "total_ms": 1930.38,
+      "wall_ms": 1931.7
+    },
+    {
+      "timestamp": 106.0,
+      "state": "prior_abstaining",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 47,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 43,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 11,
+      "confirmed_events": 5,
+      "cleared_events": 4,
+      "semantic_only_active": 11,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 27,
+      "model_runs_crop": 0,
+      "prior_ms": 587.14,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 587.3,
+      "wall_ms": 588.0
+    },
+    {
+      "timestamp": 108.0,
+      "state": "running",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 47,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 43,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 9,
+      "confirmed_events": 6,
+      "cleared_events": 4,
+      "semantic_only_active": 9,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 25,
+      "semantic_retained": 5,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 28,
+      "model_runs_crop": 0,
+      "prior_ms": 578.7,
+      "full_scan_ms": 1494.83,
+      "crop_ms": 0.0,
+      "total_ms": 2073.96,
+      "wall_ms": 2074.3
+    },
+    {
+      "timestamp": 110.0,
+      "state": "prior_abstaining",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 43,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 49,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 9,
+      "confirmed_events": 6,
+      "cleared_events": 4,
+      "semantic_only_active": 9,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 28,
+      "model_runs_crop": 0,
+      "prior_ms": 566.55,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 566.67,
+      "wall_ms": 567.2
+    },
+    {
+      "timestamp": 112.0,
+      "state": "running",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 43,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 49,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 7,
+      "confirmed_events": 5,
+      "cleared_events": 5,
+      "semantic_only_active": 7,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 18,
+      "semantic_retained": 5,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 29,
+      "model_runs_crop": 0,
+      "prior_ms": 562.2,
+      "full_scan_ms": 1737.59,
+      "crop_ms": 0.0,
+      "total_ms": 2300.34,
+      "wall_ms": 2301.4
+    },
+    {
+      "timestamp": 114.0,
+      "state": "prior_abstaining",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 43,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 49,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 7,
+      "confirmed_events": 5,
+      "cleared_events": 5,
+      "semantic_only_active": 7,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 29,
+      "model_runs_crop": 0,
+      "prior_ms": 573.15,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 573.27,
+      "wall_ms": 573.5
+    },
+    {
+      "timestamp": 116.0,
+      "state": "running",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 43,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 49,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 9,
+      "confirmed_events": 5,
+      "cleared_events": 5,
+      "semantic_only_active": 9,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 18,
+      "semantic_retained": 5,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 30,
+      "model_runs_crop": 0,
+      "prior_ms": 568.69,
+      "full_scan_ms": 1778.11,
+      "crop_ms": 0.0,
+      "total_ms": 2347.41,
+      "wall_ms": 2348.5
+    },
+    {
+      "timestamp": 118.0,
+      "state": "prior_abstaining",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 43,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 9,
+      "confirmed_events": 5,
+      "cleared_events": 5,
+      "semantic_only_active": 9,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 30,
+      "model_runs_crop": 0,
+      "prior_ms": 568.2,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 568.35,
+      "wall_ms": 569.3
+    },
+    {
+      "timestamp": 120.0,
+      "state": "running",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 50,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 43,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 13,
+      "confirmed_events": 6,
+      "cleared_events": 5,
+      "semantic_only_active": 13,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 33,
+      "semantic_retained": 10,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 31,
+      "model_runs_crop": 0,
+      "prior_ms": 575.74,
+      "full_scan_ms": 1413.07,
+      "crop_ms": 0.0,
+      "total_ms": 1989.41,
+      "wall_ms": 1990.1
+    },
+    {
+      "timestamp": 122.0,
+      "state": "prior_abstaining",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 50,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 43,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 13,
+      "confirmed_events": 6,
+      "cleared_events": 5,
+      "semantic_only_active": 13,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 31,
+      "model_runs_crop": 0,
+      "prior_ms": 569.33,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 569.5,
+      "wall_ms": 569.7
+    },
+    {
+      "timestamp": 124.0,
+      "state": "running",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 50,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 43,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 20,
+      "confirmed_events": 6,
+      "cleared_events": 5,
+      "semantic_only_active": 20,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 39,
+      "semantic_retained": 11,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 32,
+      "model_runs_crop": 0,
+      "prior_ms": 563.01,
+      "full_scan_ms": 1489.14,
+      "crop_ms": 0.0,
+      "total_ms": 2052.82,
+      "wall_ms": 2053.7
+    },
+    {
+      "timestamp": 126.0,
+      "state": "prior_abstaining",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 50,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 43,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 20,
+      "confirmed_events": 6,
+      "cleared_events": 5,
+      "semantic_only_active": 20,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 32,
+      "model_runs_crop": 0,
+      "prior_ms": 565.06,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 565.24,
+      "wall_ms": 565.7
+    },
+    {
+      "timestamp": 128.0,
+      "state": "running",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 50,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 49,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 43,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 24,
+      "confirmed_events": 6,
+      "cleared_events": 5,
+      "semantic_only_active": 24,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 31,
+      "semantic_retained": 8,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 33,
+      "model_runs_crop": 0,
+      "prior_ms": 565.77,
+      "full_scan_ms": 1474.53,
+      "crop_ms": 0.0,
+      "total_ms": 2040.89,
+      "wall_ms": 2041.2
+    },
+    {
+      "timestamp": 130.0,
+      "state": "prior_abstaining",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 49,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 43,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 24,
+      "confirmed_events": 6,
+      "cleared_events": 5,
+      "semantic_only_active": 24,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 33,
+      "model_runs_crop": 0,
+      "prior_ms": 569.8,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 570.0,
+      "wall_ms": 571.1
+    },
+    {
+      "timestamp": 132.0,
+      "state": "running",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 49,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 43,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 24,
+      "confirmed_events": 5,
+      "cleared_events": 6,
+      "semantic_only_active": 24,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 22,
+      "semantic_retained": 4,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 34,
+      "model_runs_crop": 0,
+      "prior_ms": 578.18,
+      "full_scan_ms": 1463.71,
+      "crop_ms": 0.0,
+      "total_ms": 2042.41,
+      "wall_ms": 2042.9
+    },
+    {
+      "timestamp": 134.0,
+      "state": "prior_abstaining",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 49,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 43,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 24,
+      "confirmed_events": 5,
+      "cleared_events": 6,
+      "semantic_only_active": 24,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 34,
+      "model_runs_crop": 0,
+      "prior_ms": 570.43,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 570.62,
+      "wall_ms": 571.0
+    },
+    {
+      "timestamp": 136.0,
+      "state": "running",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 49,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 43,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 21,
+      "confirmed_events": 5,
+      "cleared_events": 6,
+      "semantic_only_active": 21,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 17,
+      "semantic_retained": 2,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 35,
+      "model_runs_crop": 0,
+      "prior_ms": 557.42,
+      "full_scan_ms": 1426.33,
+      "crop_ms": 0.0,
+      "total_ms": 1984.12,
+      "wall_ms": 1984.2
+    },
+    {
+      "timestamp": 138.0,
+      "state": "prior_abstaining",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 21,
+      "confirmed_events": 5,
+      "cleared_events": 6,
+      "semantic_only_active": 21,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 35,
+      "model_runs_crop": 0,
+      "prior_ms": 565.41,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 565.58,
+      "wall_ms": 566.5
+    },
+    {
+      "timestamp": 140.0,
+      "state": "running",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 15,
+      "confirmed_events": 3,
+      "cleared_events": 8,
+      "semantic_only_active": 15,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 18,
+      "semantic_retained": 4,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 36,
+      "model_runs_crop": 0,
+      "prior_ms": 556.88,
+      "full_scan_ms": 1459.49,
+      "crop_ms": 0.0,
+      "total_ms": 2016.96,
+      "wall_ms": 2017.1
+    },
+    {
+      "timestamp": 142.0,
+      "state": "prior_abstaining",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 15,
+      "confirmed_events": 3,
+      "cleared_events": 8,
+      "semantic_only_active": 15,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 36,
+      "model_runs_crop": 0,
+      "prior_ms": 605.87,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 606.03,
+      "wall_ms": 607.5
+    },
+    {
+      "timestamp": 144.0,
+      "state": "running",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 9,
+      "confirmed_events": 3,
+      "cleared_events": 8,
+      "semantic_only_active": 9,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 19,
+      "semantic_retained": 4,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 37,
+      "model_runs_crop": 0,
+      "prior_ms": 572.02,
+      "full_scan_ms": 1734.02,
+      "crop_ms": 0.0,
+      "total_ms": 2306.64,
+      "wall_ms": 2307.3
+    },
+    {
+      "timestamp": 146.0,
+      "state": "prior_abstaining",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 9,
+      "confirmed_events": 3,
+      "cleared_events": 8,
+      "semantic_only_active": 9,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 37,
+      "model_runs_crop": 0,
+      "prior_ms": 577.75,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 577.88,
+      "wall_ms": 578.5
+    },
+    {
+      "timestamp": 148.0,
+      "state": "running",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 6,
+      "confirmed_events": 3,
+      "cleared_events": 8,
+      "semantic_only_active": 6,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 23,
+      "semantic_retained": 4,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 38,
+      "model_runs_crop": 0,
+      "prior_ms": 567.28,
+      "full_scan_ms": 1850.12,
+      "crop_ms": 0.0,
+      "total_ms": 2417.8,
+      "wall_ms": 2418.5
+    },
+    {
+      "timestamp": 150.0,
+      "state": "prior_abstaining",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 6,
+      "confirmed_events": 3,
+      "cleared_events": 8,
+      "semantic_only_active": 6,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 38,
+      "model_runs_crop": 0,
+      "prior_ms": 563.71,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 563.83,
+      "wall_ms": 564.1
+    },
+    {
+      "timestamp": 152.0,
+      "state": "running",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 7,
+      "confirmed_events": 3,
+      "cleared_events": 8,
+      "semantic_only_active": 7,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 28,
+      "semantic_retained": 5,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 39,
+      "model_runs_crop": 0,
+      "prior_ms": 566.08,
+      "full_scan_ms": 1728.49,
+      "crop_ms": 0.0,
+      "total_ms": 2294.97,
+      "wall_ms": 2295.5
+    },
+    {
+      "timestamp": 154.0,
+      "state": "prior_abstaining",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 7,
+      "confirmed_events": 3,
+      "cleared_events": 8,
+      "semantic_only_active": 7,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 0,
+      "semantic_retained": 0,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 39,
+      "model_runs_crop": 0,
+      "prior_ms": 573.05,
+      "full_scan_ms": 0.0,
+      "crop_ms": 0.0,
+      "total_ms": 573.17,
+      "wall_ms": 573.6
+    },
+    {
+      "timestamp": 156.0,
+      "state": "running",
+      "branch_state": "ok",
+      "branch_message": "",
+      "environment_state": "GLOBAL_LIGHT_CHANGE",
+      "prior_available": false,
+      "displayed": [
+        {
+          "event_id": 1,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 3,
+          "source": "semantic_only"
+        },
+        {
+          "event_id": 2,
+          "source": "semantic_only"
+        }
+      ],
+      "active_events": 9,
+      "confirmed_events": 3,
+      "cleared_events": 8,
+      "semantic_only_active": 9,
+      "prior_only_active": 0,
+      "fused_active": 0,
+      "cross_source_merges": 0,
+      "semantic_raw": 21,
+      "semantic_retained": 4,
+      "prior_raw": 0,
+      "prior_retained": 0,
+      "semantic_crop_raw": 0,
+      "semantic_crop_unmatched": 0,
+      "model_runs_full": 40,
+      "model_runs_crop": 0,
+      "prior_ms": 564.36,
+      "full_scan_ms": 1448.65,
+      "crop_ms": 0.0,
+      "total_ms": 2013.36,
+      "wall_ms": 2013.8
+    }
+  ]
+}

@@ -11,6 +11,7 @@ from fastapi.testclient import TestClient
 from rtsp_annotator.api import StreamCreateRequest, create_app
 from rtsp_annotator.event_engine import NormalizedRect
 from rtsp_annotator.events import EventRecord
+from rtsp_annotator.ground_litter_detection import GroundLitterDetectionOptions
 from rtsp_annotator.ptz_verification import PtzVerificationOptions
 from rtsp_annotator.vessel_detection import VesselDetection
 
@@ -36,7 +37,15 @@ class FakeManager:
     def get(self, stream_id: str) -> dict[str, object]:
         if stream_id != "abc123":
             raise KeyError(stream_id)
-        return self.create(object())
+        result = self.create(object())
+        result["metrics"] = {
+            "publish_fps": 25.0,
+            "ground_litter_hybrid": {
+                "branch_state": "ok",
+                "semantic_model_runs_full": 3,
+            },
+        }
+        return result
 
     def update_fishing_risk(
         self,
@@ -423,6 +432,53 @@ class ApiTests(unittest.TestCase):
         self.assertFalse(options.enabled)
         self.assertEqual(options.zones, ())
 
+    def test_clean_reference_v32_request_maps_lifecycle_options(self) -> None:
+        request = StreamCreateRequest.model_validate({
+            "input_url": "rtsp://camera/walkway",
+            "ground_litter": {
+                "enabled": True,
+                "mode": "clean_reference_v32",
+                "profile_id": "camera_01_v32",
+                "confirm_visible_seconds": 6,
+                "clear_confirm_seconds": 7,
+                "pending_expire_seconds": 18,
+                "min_clean_valid_fraction": 0.85,
+                "startup_suppress_seconds": 20,
+                "normal_stability_samples": 4,
+                "zones": [{
+                    "region_id": "walkway",
+                    "polygon": [[0.45, 0.23], [0.72, 0.23], [0.81, 1.0], [0.45, 1.0]],
+                }],
+            },
+        })
+        options = request.to_spec().ground_litter
+        self.assertEqual(options.mode, "clean_reference_v32")
+        self.assertEqual(options.profile_id, "camera_01_v32")
+        self.assertEqual(options.confirm_visible_seconds, 6)
+        self.assertEqual(options.clear_confirm_seconds, 7)
+        self.assertEqual(options.pending_expire_seconds, 18)
+        self.assertEqual(options.min_clean_valid_fraction, 0.85)
+        self.assertEqual(options.startup_suppress_seconds, 20)
+        self.assertEqual(options.normal_stability_samples, 4)
+        self.assertEqual(
+            GroundLitterDetectionOptions.from_payload(options.to_payload()),
+            options,
+        )
+
+    def test_clean_reference_v32_requires_profile_id(self) -> None:
+        with self.assertRaisesRegex(ValueError, "profile_id"):
+            StreamCreateRequest.model_validate({
+                "input_url": "rtsp://camera/walkway",
+                "ground_litter": {
+                    "enabled": True,
+                    "mode": "clean_reference_v32",
+                    "zones": [{
+                        "region_id": "walkway",
+                        "polygon": [[0, 0], [1, 0], [1, 1]],
+                    }],
+                },
+            })
+
     def test_ground_litter_requires_a_zone_when_enabled(self) -> None:
         with self.assertRaisesRegex(ValueError, "至少需要一个地面区域"):
             StreamCreateRequest.model_validate(
@@ -759,6 +815,10 @@ class ApiTests(unittest.TestCase):
                         "classes": [0],
                     },
                 )
+                stream_detail = client.get(
+                    "/v1/streams/abc123",
+                    headers={"X-API-Key": "test-api-key-1234"},
+                )
                 fishing_disabled = client.patch(
                     "/v1/streams/abc123/fishing-risk",
                     headers={"X-API-Key": "test-api-key-1234"},
@@ -904,6 +964,11 @@ class ApiTests(unittest.TestCase):
         self.assertEqual(created.status_code, 201)
         self.assertEqual(created.json()["stream_id"], "abc123")
         self.assertNotIn("camera-user", created.text)
+        self.assertEqual(stream_detail.status_code, 200)
+        self.assertEqual(
+            stream_detail.json()["metrics"]["ground_litter_hybrid"]["branch_state"],
+            "ok",
+        )
         self.assertEqual(fishing_disabled.status_code, 200)
         self.assertFalse(fishing_disabled.json()["fishing_risk"]["enabled"])
         self.assertEqual(return_home.status_code, 202)

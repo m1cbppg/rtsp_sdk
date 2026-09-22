@@ -1,0 +1,150 @@
+ARG BASE_IMAGE=rtsp-yolo-annotator:deepstream8-ground-litter-v32-hardening-20260918
+FROM ${BASE_IMAGE}
+
+WORKDIR /app
+
+# Ground Litter V3.3 dual-channel recall: incremental overlay on the running
+# hardened V3.2 image. Pure-Python code plus the one reviewed Turhancan weight;
+# the side branch reuses the ultralytics/torch stack already inside the
+# DeepStream image, so no TensorRT engine is rebuilt and no existing .engine
+# file is touched. The production image tags are deliberately not modified: this
+# builds a separate candidate tag only.
+COPY rtsp_annotator/api.py /app/rtsp_annotator/api.py
+COPY rtsp_annotator/deepstream_manager.py /app/rtsp_annotator/deepstream_manager.py
+COPY rtsp_annotator/deepstream_worker.py /app/rtsp_annotator/deepstream_worker.py
+COPY rtsp_annotator/stream_manager.py /app/rtsp_annotator/stream_manager.py
+COPY rtsp_annotator/ground_litter_detection.py /app/rtsp_annotator/ground_litter_detection.py
+COPY rtsp_annotator/ground_litter_process.py /app/rtsp_annotator/ground_litter_process.py
+COPY rtsp_annotator/ground_litter_v32.py /app/rtsp_annotator/ground_litter_v32.py
+COPY rtsp_annotator/ground_litter_v33.py /app/rtsp_annotator/ground_litter_v33.py
+COPY rtsp_annotator/ground_litter_geometry.py /app/rtsp_annotator/ground_litter_geometry.py
+COPY THIRD_PARTY_MODEL_NOTICES.md /app/THIRD_PARTY_MODEL_NOTICES.md
+
+# The litter weight is archived in the repository model directory and is not
+# covered by the base image, so copy it explicitly. Single reviewed file only.
+COPY models/litter/turhancan_yolov8m_seg_trash.pt \
+    /app/models/litter/turhancan_yolov8m_seg_trash.pt
+COPY models/litter/profiles /app/models/litter/profiles
+
+RUN python3 -m py_compile \
+    /app/rtsp_annotator/api.py \
+    /app/rtsp_annotator/deepstream_manager.py \
+    /app/rtsp_annotator/deepstream_worker.py \
+    /app/rtsp_annotator/stream_manager.py \
+    /app/rtsp_annotator/ground_litter_detection.py \
+    /app/rtsp_annotator/ground_litter_process.py \
+    /app/rtsp_annotator/ground_litter_v32.py \
+    /app/rtsp_annotator/ground_litter_v33.py \
+    /app/rtsp_annotator/ground_litter_geometry.py
+
+# Fail the build, not the stream, when the base image is not the stack this
+# feature needs. The side process imports cv2/numpy directly and loads the
+# Turhancan .pt through ultralytics on torch; the API and every worker also
+# import the options module, so a missing dependency would break all streams.
+RUN python3 - <<'PY'
+import sys
+
+missing = []
+for name in ("cv2", "numpy", "torch", "ultralytics"):
+    try:
+        module = __import__(name)
+    except Exception as exc:  # noqa: BLE001 - report the exact import error
+        missing.append(f"{name}: {type(exc).__name__}: {exc}")
+        continue
+    print(f"{name} {getattr(module, '__version__', 'unknown')}")
+if missing:
+    sys.exit("基础镜像缺少零散垃圾场景所需依赖: " + "; ".join(missing))
+PY
+
+# Build-time capability check. Beyond importing the modules this actually parses
+# the reviewed weight through Ultralytics and drives the dual-channel scheduler
+# with a fake detector, so a broken V3.3 overlay fails here rather than on a live
+# stream. A file-size check alone would not catch an unparsable checkpoint.
+RUN python3 - <<'PY'
+import numpy as np
+
+from rtsp_annotator.ground_litter_detection import (
+    GroundLitterCandidate,
+    GroundLitterDetectionOptions,
+    GroundLitterZone,
+    build_ground_litter_tiles,
+)
+from rtsp_annotator.event_engine import NormalizedRect
+
+OPTIONS = GroundLitterDetectionOptions(
+    enabled=True,
+    zones=(
+        GroundLitterZone(
+            region_id="build_check",
+            polygon=((0.1, 0.1), (0.4, 0.1), (0.4, 0.6), (0.1, 0.6)),
+        ),
+    ),
+)
+masks, tiles = build_ground_litter_tiles(OPTIONS, 1280, 720)
+assert masks and tiles, "分块规划为空"
+print(f"ground_litter build check ok: tiles={len(tiles)}")
+
+# 1) The reviewed weight must be parsable by the installed Ultralytics.
+from ultralytics import YOLO  # noqa: E402
+
+weight = "/app/models/litter/turhancan_yolov8m_seg_trash.pt"
+model = YOLO(weight)
+names = {int(k): str(v) for k, v in dict(model.names).items()}
+assert names, f"权重类别表为空: {weight}"
+print(f"weight ok: classes={sorted(names.values())}")
+
+# 2) The V3.3 dual-channel stack must import and run one tick with a fake
+#    detector, so a missing module or broken scheduler signature fails the build.
+from rtsp_annotator.ground_litter_process import (  # noqa: E402
+    _HybridPadState,
+    _analyse_hybrid,
+)
+from rtsp_annotator.ground_litter_v32 import (  # noqa: E402
+    CleanReferenceFrameAnalysis,
+    CleanReferenceProfileV32,
+)
+from pathlib import Path  # noqa: E402
+
+frame = np.zeros((240, 320, 3), np.uint8)
+reference = np.zeros((240, 320, 3), np.uint8)
+profile = CleanReferenceProfileV32(
+    "build_check", Path("."), reference,
+    np.full((240, 320), 255, np.uint8), np.zeros((240, 320), np.uint8), {},
+)
+hybrid = GroundLitterDetectionOptions(
+    enabled=True,
+    mode="hybrid_v33",
+    profile_id="build_check",
+    model="litter/turhancan_yolov8m_seg_trash.pt",
+    analysis_fps=0.5,
+    startup_suppress_seconds=0.0,
+    normal_stability_samples=1,
+    zones=OPTIONS.zones,
+)
+
+
+class _FakeDetector:
+    class_names = {3: "Plastic"}
+
+    def tile_candidates_batch(self, frame, opts, *, masks, tiles, night, actors):
+        return (
+            [GroundLitterCandidate(
+                rectangle=NormalizedRect(0.3, 0.4, 0.1, 0.1),
+                confidence=0.7, class_name="Plastic", region_id="build_check",
+            )],
+            {"raw_candidates": 1, "rejected_roi": 0, "rejected_actor": 0},
+        )
+
+    def crop_candidates_batch(self, frame, boxes, opts, *, night):
+        return [], [], 0
+
+
+state = _HybridPadState(hybrid, profile)
+snapshot = _analyse_hybrid(
+    state=state, detector=_FakeDetector(), bgr=frame, timestamp=0.0,
+    night=False, actor_boxes=[],
+)
+assert snapshot.state in ("running", "warming_up"), snapshot.state
+assert snapshot.branch_state in ("ok", "prior_degraded"), snapshot.branch_state
+print(f"hybrid_v33 tick ok: state={snapshot.state} branch={snapshot.branch_state}")
+PY

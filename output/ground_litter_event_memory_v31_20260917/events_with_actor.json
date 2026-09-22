@@ -1,0 +1,517 @@
+[
+  {
+    "event_id": "negative-v31-event-001",
+    "track_ids": [
+      1
+    ],
+    "track_count": 1,
+    "anchor_box": [
+      1774.0,
+      561.0,
+      1785.0,
+      570.0
+    ],
+    "first_seen": 60.0,
+    "last_seen": 303.0,
+    "visible_duration_seconds": 244.0,
+    "maximum_track_lifetime_seconds": 244.0,
+    "predicted_state": "ANOMALY_PENDING",
+    "context_occluded_track_ids": [],
+    "context_occluded_track_fraction": 0.0,
+    "representative_review_id": "negative_v3-track-1",
+    "human_label": "LITTER_CONFIRMED",
+    "human_track_labels": {
+      "1": "LITTER_CONFIRMED"
+    },
+    "context_predicted_state": "ANOMALY_PENDING",
+    "actor_overlap": 0.0,
+    "final_predicted_state": "ANOMALY_PENDING"
+  },
+  {
+    "event_id": "negative-v31-event-002",
+    "track_ids": [
+      2
+    ],
+    "track_count": 1,
+    "anchor_box": [
+      1747.0,
+      476.0,
+      1755.0,
+      483.0
+    ],
+    "first_seen": 60.0,
+    "last_seen": 303.0,
+    "visible_duration_seconds": 244.0,
+    "maximum_track_lifetime_seconds": 244.0,
+    "predicted_state": "ANOMALY_PENDING",
+    "context_occluded_track_ids": [],
+    "context_occluded_track_fraction": 0.0,
+    "representative_review_id": "negative_v3-track-2",
+    "human_label": "LITTER_CONFIRMED",
+    "human_track_labels": {
+      "2": "LITTER_CONFIRMED"
+    },
+    "context_predicted_state": "ANOMALY_PENDING",
+    "actor_overlap": 0.0,
+    "final_predicted_state": "ANOMALY_PENDING"
+  },
+  {
+    "event_id": "negative-v31-event-003",
+    "track_ids": [
+      3,
+      85,
+      92,
+      94,
+      138,
+      180,
+      184,
+      190,
+      193,
+      199,
+      202,
+      230
+    ],
+    "track_count": 12,
+    "anchor_box": [
+      1586.0,
+      479.0,
+      1601.0,
+      488.0
+    ],
+    "first_seen": 60.0,
+    "last_seen": 291.0,
+    "visible_duration_seconds": 57.0,
+    "maximum_track_lifetime_seconds": 9.0,
+    "predicted_state": "OCCLUDED",
+    "context_occluded_track_ids": [
+      3,
+      85,
+      92,
+      94,
+      138,
+      180,
+      184,
+      190,
+      193,
+      199,
+      202,
+      230
+    ],
+    "context_occluded_track_fraction": 1.0,
+    "representative_review_id": "negative_v3-track-3",
+    "human_label": "CLEAR_NON_LITTER",
+    "human_track_labels": {
+      "3": "CLEAR_NON_LITTER",
+      "85": "CLEAR_NON_LITTER",
+      "92": "CLEAR_NON_LITTER",
+      "94": "CLEAR_NON_LITTER",
+      "138": "CLEAR_NON_LITTER",
+      "180": "CLEAR_NON_LITTER",
+      "184": "CLEAR_NON_LITTER",
+      "190": "CLEAR_NON_LITTER",
+      "193": "CLEAR_NON_LITTER",
+      "199": "CLEAR_NON_LITTER",
+      "202": "CLEAR_NON_LITTER",
+      "230": "CLEAR_NON_LITTER"
+    },
+    "context_predicted_state": "OCCLUDED",
+    "actor_overlap": null,
+    "final_predicted_state": "OCCLUDED"
+  },
+  {
+    "event_id": "negative-v31-event-004",
+    "track_ids": [
+      4
+    ],
+    "track_count": 1,
+    "anchor_box": [
+      1276.0,
+      577.0,
+      1291.0,
+      608.0
+    ],
+    "first_seen": 60.0,
+    "last_seen": 72.0,
+    "visible_duration_seconds": 13.0,
+    "maximum_track_lifetime_seconds": 13.0,
+    "predicted_state": "OCCLUDED",
+    "context_occluded_track_ids": [
+      4
+    ],
+    "context_occluded_track_fraction": 1.0,
+    "representative_review_id": "negative_v3-track-4",
+    "human_label": "CLEAR_NON_LITTER",
+    "human_track_labels": {
+      "4": "CLEAR_NON_LITTER"
+    },
+    "context_predicted_state": "OCCLUDED",
+    "actor_overlap": null,
+    "final_predicted_state": "OCCLUDED"
+  },
+  {
+    "event_id": "negative-v31-event-005",
+    "track_ids": [
+      5
+    ],
+    "track_count": 1,
+    "anchor_box": [
+      1281.0,
+      686.0,
+      1291.0,
+      707.0
+    ],
+    "first_seen": 60.0,
+    "last_seen": 71.0,
+    "visible_duration_seconds": 12.0,
+    "maximum_track_lifetime_seconds": 12.0,
+    "predicted_state": "ANOMALY_PENDING",
+    "context_occluded_track_ids": [],
+    "context_occluded_track_fraction": 0.0,
+    "representative_review_id": "negative_v3-track-5",
+    "human_label": "CLEAR_NON_LITTER",
+    "human_track_labels": {
+      "5": "CLEAR_NON_LITTER"
+    },
+    "context_predicted_state": "ANOMALY_PENDING",
+    "actor_overlap": 1.0,
+    "final_predicted_state": "OCCLUDED"
+  },
+  {
+    "event_id": "negative-v31-event-006",
+    "track_ids": [
+      6
+    ],
+    "track_count": 1,
+    "anchor_box": [
+      1240.0,
+      711.0,
+      1251.0,
+      728.0
+    ],
+    "first_seen": 60.0,
+    "last_seen": 62.0,
+    "visible_duration_seconds": 3.0,
+    "maximum_track_lifetime_seconds": 3.0,
+    "predicted_state": "OCCLUDED",
+    "context_occluded_track_ids": [
+      6
+    ],
+    "context_occluded_track_fraction": 1.0,
+    "representative_review_id": "negative_v3-track-6",
+    "human_label": "CLEAR_NON_LITTER",
+    "human_track_labels": {
+      "6": "CLEAR_NON_LITTER"
+    },
+    "context_predicted_state": "OCCLUDED",
+    "actor_overlap": null,
+    "final_predicted_state": "OCCLUDED"
+  },
+  {
+    "event_id": "negative-v31-event-007",
+    "track_ids": [
+      7
+    ],
+    "track_count": 1,
+    "anchor_box": [
+      1221.0,
+      543.0,
+      1229.0,
+      553.0
+    ],
+    "first_seen": 63.0,
+    "last_seen": 71.0,
+    "visible_duration_seconds": 9.0,
+    "maximum_track_lifetime_seconds": 9.0,
+    "predicted_state": "OCCLUDED",
+    "context_occluded_track_ids": [
+      7
+    ],
+    "context_occluded_track_fraction": 1.0,
+    "representative_review_id": "negative_v3-track-7",
+    "human_label": "CLEAR_NON_LITTER",
+    "human_track_labels": {
+      "7": "CLEAR_NON_LITTER"
+    },
+    "context_predicted_state": "OCCLUDED",
+    "actor_overlap": null,
+    "final_predicted_state": "OCCLUDED"
+  },
+  {
+    "event_id": "negative-v31-event-008",
+    "track_ids": [
+      65
+    ],
+    "track_count": 1,
+    "anchor_box": [
+      1758.5,
+      972.0,
+      1777.0,
+      995.0
+    ],
+    "first_seen": 79.0,
+    "last_seen": 81.0,
+    "visible_duration_seconds": 2.0,
+    "maximum_track_lifetime_seconds": 3.0,
+    "predicted_state": "ANOMALY_PENDING",
+    "context_occluded_track_ids": [],
+    "context_occluded_track_fraction": 0.0,
+    "representative_review_id": "negative_v3-track-65",
+    "human_label": "CLEAR_NON_LITTER",
+    "human_track_labels": {
+      "65": "CLEAR_NON_LITTER"
+    },
+    "context_predicted_state": "ANOMALY_PENDING",
+    "actor_overlap": 1.0,
+    "final_predicted_state": "OCCLUDED"
+  },
+  {
+    "event_id": "negative-v31-event-009",
+    "track_ids": [
+      68,
+      87,
+      119,
+      137,
+      182,
+      185,
+      189,
+      200,
+      203,
+      225,
+      233,
+      237
+    ],
+    "track_count": 12,
+    "anchor_box": [
+      1637.0,
+      1192.0,
+      1650.0,
+      1202.5
+    ],
+    "first_seen": 80.0,
+    "last_seen": 303.0,
+    "visible_duration_seconds": 114.0,
+    "maximum_track_lifetime_seconds": 33.0,
+    "predicted_state": "ANOMALY_PENDING",
+    "context_occluded_track_ids": [],
+    "context_occluded_track_fraction": 0.0,
+    "representative_review_id": "negative_v3-track-68",
+    "human_label": "LITTER_CONFIRMED",
+    "human_track_labels": {
+      "68": "LITTER_CONFIRMED",
+      "87": "LITTER_CONFIRMED",
+      "119": "LITTER_CONFIRMED",
+      "137": "LITTER_CONFIRMED",
+      "182": "LITTER_CONFIRMED",
+      "185": "LITTER_CONFIRMED",
+      "189": "LITTER_CONFIRMED",
+      "200": "LITTER_CONFIRMED",
+      "203": "LITTER_CONFIRMED",
+      "225": "LITTER_CONFIRMED",
+      "233": "LITTER_CONFIRMED",
+      "237": "LITTER_CONFIRMED"
+    },
+    "context_predicted_state": "ANOMALY_PENDING",
+    "actor_overlap": 0.0,
+    "final_predicted_state": "ANOMALY_PENDING"
+  },
+  {
+    "event_id": "negative-v31-event-010",
+    "track_ids": [
+      93
+    ],
+    "track_count": 1,
+    "anchor_box": [
+      1732.0,
+      437.0,
+      1740.0,
+      447.0
+    ],
+    "first_seen": 112.0,
+    "last_seen": 303.0,
+    "visible_duration_seconds": 192.0,
+    "maximum_track_lifetime_seconds": 192.0,
+    "predicted_state": "ANOMALY_PENDING",
+    "context_occluded_track_ids": [],
+    "context_occluded_track_fraction": 0.0,
+    "representative_review_id": "negative_v3-track-93",
+    "human_label": "LITTER_CONFIRMED",
+    "human_track_labels": {
+      "93": "LITTER_CONFIRMED"
+    },
+    "context_predicted_state": "ANOMALY_PENDING",
+    "actor_overlap": 0.0,
+    "final_predicted_state": "ANOMALY_PENDING"
+  },
+  {
+    "event_id": "negative-v31-event-011",
+    "track_ids": [
+      95
+    ],
+    "track_count": 1,
+    "anchor_box": [
+      1657.0,
+      394.0,
+      1668.0,
+      400.0
+    ],
+    "first_seen": 116.0,
+    "last_seen": 119.0,
+    "visible_duration_seconds": 4.0,
+    "maximum_track_lifetime_seconds": 4.0,
+    "predicted_state": "ANOMALY_PENDING",
+    "context_occluded_track_ids": [],
+    "context_occluded_track_fraction": 0.0,
+    "representative_review_id": "negative_v3-track-95",
+    "human_label": "LITTER_CONFIRMED",
+    "human_track_labels": {
+      "95": "LITTER_CONFIRMED"
+    },
+    "context_predicted_state": "ANOMALY_PENDING",
+    "actor_overlap": 0.0,
+    "final_predicted_state": "ANOMALY_PENDING"
+  },
+  {
+    "event_id": "negative-v31-event-012",
+    "track_ids": [
+      123
+    ],
+    "track_count": 1,
+    "anchor_box": [
+      1206.0,
+      382.0,
+      1225.0,
+      390.0
+    ],
+    "first_seen": 124.0,
+    "last_seen": 127.0,
+    "visible_duration_seconds": 4.0,
+    "maximum_track_lifetime_seconds": 4.0,
+    "predicted_state": "ANOMALY_PENDING",
+    "context_occluded_track_ids": [],
+    "context_occluded_track_fraction": 0.0,
+    "representative_review_id": "negative_v3-track-123",
+    "human_label": "CLEAR_NON_LITTER",
+    "human_track_labels": {
+      "123": "CLEAR_NON_LITTER"
+    },
+    "context_predicted_state": "ANOMALY_PENDING",
+    "actor_overlap": 1.0,
+    "final_predicted_state": "OCCLUDED"
+  },
+  {
+    "event_id": "negative-v31-event-013",
+    "track_ids": [
+      186
+    ],
+    "track_count": 1,
+    "anchor_box": [
+      1736.0,
+      362.0,
+      1750.0,
+      372.0
+    ],
+    "first_seen": 197.0,
+    "last_seen": 213.0,
+    "visible_duration_seconds": 16.0,
+    "maximum_track_lifetime_seconds": 17.0,
+    "predicted_state": "ANOMALY_PENDING",
+    "context_occluded_track_ids": [],
+    "context_occluded_track_fraction": 0.0,
+    "representative_review_id": "negative_v3-track-186",
+    "human_label": "CLEAR_NON_LITTER",
+    "human_track_labels": {
+      "186": "CLEAR_NON_LITTER"
+    },
+    "context_predicted_state": "ANOMALY_PENDING",
+    "actor_overlap": 0.0,
+    "final_predicted_state": "ANOMALY_PENDING"
+  },
+  {
+    "event_id": "negative-v31-event-014",
+    "track_ids": [
+      196
+    ],
+    "track_count": 1,
+    "anchor_box": [
+      1774.0,
+      358.5,
+      1780.0,
+      371.0
+    ],
+    "first_seen": 228.0,
+    "last_seen": 230.0,
+    "visible_duration_seconds": 2.0,
+    "maximum_track_lifetime_seconds": 3.0,
+    "predicted_state": "OCCLUDED",
+    "context_occluded_track_ids": [
+      196
+    ],
+    "context_occluded_track_fraction": 1.0,
+    "representative_review_id": "negative_v3-track-196",
+    "human_label": "CLEAR_NON_LITTER",
+    "human_track_labels": {
+      "196": "CLEAR_NON_LITTER"
+    },
+    "context_predicted_state": "OCCLUDED",
+    "actor_overlap": null,
+    "final_predicted_state": "OCCLUDED"
+  },
+  {
+    "event_id": "negative-v31-event-015",
+    "track_ids": [
+      221
+    ],
+    "track_count": 1,
+    "anchor_box": [
+      1516.0,
+      502.0,
+      1525.0,
+      524.0
+    ],
+    "first_seen": 267.0,
+    "last_seen": 269.0,
+    "visible_duration_seconds": 3.0,
+    "maximum_track_lifetime_seconds": 3.0,
+    "predicted_state": "OCCLUDED",
+    "context_occluded_track_ids": [
+      221
+    ],
+    "context_occluded_track_fraction": 1.0,
+    "representative_review_id": "negative_v3-track-221",
+    "human_label": "CLEAR_NON_LITTER",
+    "human_track_labels": {
+      "221": "CLEAR_NON_LITTER"
+    },
+    "context_predicted_state": "OCCLUDED",
+    "actor_overlap": null,
+    "final_predicted_state": "OCCLUDED"
+  },
+  {
+    "event_id": "negative-v31-event-016",
+    "track_ids": [
+      226
+    ],
+    "track_count": 1,
+    "anchor_box": [
+      1374.0,
+      340.0,
+      1387.5,
+      350.5
+    ],
+    "first_seen": 273.0,
+    "last_seen": 275.0,
+    "visible_duration_seconds": 2.0,
+    "maximum_track_lifetime_seconds": 3.0,
+    "predicted_state": "ANOMALY_PENDING",
+    "context_occluded_track_ids": [],
+    "context_occluded_track_fraction": 0.0,
+    "representative_review_id": "negative_v3-track-226",
+    "human_label": "CLEAR_NON_LITTER",
+    "human_track_labels": {
+      "226": "CLEAR_NON_LITTER"
+    },
+    "context_predicted_state": "ANOMALY_PENDING",
+    "actor_overlap": 0.879711,
+    "final_predicted_state": "OCCLUDED"
+  }
+]

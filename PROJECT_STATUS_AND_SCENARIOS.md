@@ -2,6 +2,8 @@
 
 更新日期：2026-08-01
 
+> **2026-09-21 零散垃圾路线更新**：现有垃圾服务链路、语义模型和事件状态机仍在，但“七天回放生成 Profile，再由背景差分独立召回小垃圾”的路线已在预注册实验中判定 **NO-GO**（oracle 命中率 0.1276）。v3～v5 Profile Bank 不属于生产可用资产，v6 已暂停；原自动 Profile 切换方案不再实施。下一步改为保留 `turhancan_yolov8m_seg_trash.pt` 检测常规垃圾，并训练一个 ROI 分块的一类现场小垃圾检测器。详见 `docs/decisions/2026-09-21-ground-litter-profile-prior-no-go.md` 与 `docs/plans/2026-09-21-ground-litter-small-detector-roadmap.md`。下文 2026-08-01 的完成状态是历史快照，不能单独作为当前小垃圾准确率结论。
+
 ## 1. 当前完成程度
 
 项目已经从单路 YOLO 画框程序，发展为可通过 HTTP 动态创建任务、通过 RTSP

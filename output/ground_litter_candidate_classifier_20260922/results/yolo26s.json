@@ -1,0 +1,647 @@
+{
+  "schema": "ground_litter_candidate_classifier_eval_v1",
+  "manifest": "/audit/classifier_manifest.json",
+  "samples": 955,
+  "positive": 125,
+  "negative": 830,
+  "target_recall": 0.9,
+  "results": [
+    {
+      "model": "yolo26s",
+      "model_path": "/app/models/yolo26s.pt",
+      "embedding_shape": [
+        955,
+        512
+      ],
+      "splits": [
+        {
+          "name": "day1_to_day2",
+          "train": {
+            "rows": 463,
+            "positive": 51
+          },
+          "test": {
+            "rows": 210,
+            "positive": 43
+          },
+          "cross_day_overlap_filter": {
+            "removed": 282,
+            "removed_positive": 31,
+            "removed_negative": 251
+          },
+          "calibration_folds": [
+            {
+              "held_out_camera": "01021",
+              "fit_rows": 370,
+              "validation_rows": 93,
+              "validation_positive": 14
+            },
+            {
+              "held_out_camera": "01022",
+              "fit_rows": 370,
+              "validation_rows": 93,
+              "validation_positive": 9
+            },
+            {
+              "held_out_camera": "01027",
+              "fit_rows": 368,
+              "validation_rows": 95,
+              "validation_positive": 1
+            },
+            {
+              "held_out_camera": "01028",
+              "fit_rows": 370,
+              "validation_rows": 93,
+              "validation_positive": 12
+            },
+            {
+              "held_out_camera": "01030",
+              "fit_rows": 374,
+              "validation_rows": 89,
+              "validation_positive": 15
+            }
+          ],
+          "visual_oof_calibrated": {
+            "rows": 210,
+            "positive": 43,
+            "negative": 167,
+            "average_precision": 0.441509,
+            "roc_auc": 0.750174,
+            "threshold": -2.71614885,
+            "recall": 0.790698,
+            "precision": 0.326923,
+            "negative_reduction": 0.580838,
+            "candidate_reduction": 0.504762
+          },
+          "visual_oof_calibration_metrics": {
+            "rows": 463,
+            "positive": 51,
+            "negative": 412,
+            "average_precision": 0.260718,
+            "roc_auc": 0.782886,
+            "threshold": -2.71614885,
+            "recall": 0.901961,
+            "precision": 0.213953,
+            "negative_reduction": 0.589806,
+            "candidate_reduction": 0.535637
+          },
+          "visual_test_oracle_90_recall": {
+            "rows": 210,
+            "positive": 43,
+            "negative": 167,
+            "average_precision": 0.441509,
+            "roc_auc": 0.750174,
+            "threshold": -4.09948683,
+            "recall": 0.906977,
+            "precision": 0.29771,
+            "negative_reduction": 0.449102,
+            "candidate_reduction": 0.37619
+          },
+          "model_score_train_calibrated": {
+            "rows": 210,
+            "positive": 43,
+            "negative": 167,
+            "average_precision": 0.190672,
+            "roc_auc": 0.483498,
+            "threshold": 0.45536101,
+            "recall": 0.604651,
+            "precision": 0.213115,
+            "negative_reduction": 0.42515,
+            "candidate_reduction": 0.419048
+          }
+        },
+        {
+          "name": "day2_to_day1",
+          "train": {
+            "rows": 492,
+            "positive": 74
+          },
+          "test": {
+            "rows": 140,
+            "positive": 27
+          },
+          "cross_day_overlap_filter": {
+            "removed": 323,
+            "removed_positive": 24,
+            "removed_negative": 299
+          },
+          "calibration_folds": [
+            {
+              "held_out_camera": "01021",
+              "fit_rows": 388,
+              "validation_rows": 104,
+              "validation_positive": 11
+            },
+            {
+              "held_out_camera": "01022",
+              "fit_rows": 393,
+              "validation_rows": 99,
+              "validation_positive": 22
+            },
+            {
+              "held_out_camera": "01027",
+              "fit_rows": 389,
+              "validation_rows": 103,
+              "validation_positive": 11
+            },
+            {
+              "held_out_camera": "01028",
+              "fit_rows": 384,
+              "validation_rows": 108,
+              "validation_positive": 9
+            },
+            {
+              "held_out_camera": "01030",
+              "fit_rows": 414,
+              "validation_rows": 78,
+              "validation_positive": 21
+            }
+          ],
+          "visual_oof_calibrated": {
+            "rows": 140,
+            "positive": 27,
+            "negative": 113,
+            "average_precision": 0.544239,
+            "roc_auc": 0.797771,
+            "threshold": -5.51242256,
+            "recall": 0.925926,
+            "precision": 0.242718,
+            "negative_reduction": 0.309735,
+            "candidate_reduction": 0.264286
+          },
+          "visual_oof_calibration_metrics": {
+            "rows": 492,
+            "positive": 74,
+            "negative": 418,
+            "average_precision": 0.37343,
+            "roc_auc": 0.739622,
+            "threshold": -5.51242256,
+            "recall": 0.905405,
+            "precision": 0.190883,
+            "negative_reduction": 0.320574,
+            "candidate_reduction": 0.286585
+          },
+          "visual_test_oracle_90_recall": {
+            "rows": 140,
+            "positive": 27,
+            "negative": 113,
+            "average_precision": 0.544239,
+            "roc_auc": 0.797771,
+            "threshold": -3.88125277,
+            "recall": 0.925926,
+            "precision": 0.301205,
+            "negative_reduction": 0.486726,
+            "candidate_reduction": 0.407143
+          },
+          "model_score_train_calibrated": {
+            "rows": 140,
+            "positive": 27,
+            "negative": 113,
+            "average_precision": 0.265039,
+            "roc_auc": 0.597837,
+            "threshold": 0.262216,
+            "recall": 1.0,
+            "precision": 0.192857,
+            "negative_reduction": 0.0,
+            "candidate_reduction": 0.0
+          }
+        },
+        {
+          "name": "leave_camera_01021",
+          "train": {
+            "rows": 758,
+            "positive": 100
+          },
+          "test": {
+            "rows": 197,
+            "positive": 25
+          },
+          "cross_day_overlap_filter": null,
+          "calibration_folds": [
+            {
+              "held_out_camera": "01022",
+              "fit_rows": 566,
+              "validation_rows": 192,
+              "validation_positive": 31
+            },
+            {
+              "held_out_camera": "01027",
+              "fit_rows": 560,
+              "validation_rows": 198,
+              "validation_positive": 12
+            },
+            {
+              "held_out_camera": "01028",
+              "fit_rows": 557,
+              "validation_rows": 201,
+              "validation_positive": 21
+            },
+            {
+              "held_out_camera": "01030",
+              "fit_rows": 591,
+              "validation_rows": 167,
+              "validation_positive": 36
+            }
+          ],
+          "visual_oof_calibrated": {
+            "rows": 197,
+            "positive": 25,
+            "negative": 172,
+            "average_precision": 0.436697,
+            "roc_auc": 0.759302,
+            "threshold": -4.72488785,
+            "recall": 0.92,
+            "precision": 0.151316,
+            "negative_reduction": 0.25,
+            "candidate_reduction": 0.228426
+          },
+          "visual_oof_calibration_metrics": {
+            "rows": 758,
+            "positive": 100,
+            "negative": 658,
+            "average_precision": 0.360358,
+            "roc_auc": 0.747082,
+            "threshold": -4.72488785,
+            "recall": 0.9,
+            "precision": 0.177515,
+            "negative_reduction": 0.366261,
+            "candidate_reduction": 0.331135
+          },
+          "visual_test_oracle_90_recall": {
+            "rows": 197,
+            "positive": 25,
+            "negative": 172,
+            "average_precision": 0.436697,
+            "roc_auc": 0.759302,
+            "threshold": -4.24973726,
+            "recall": 0.92,
+            "precision": 0.165468,
+            "negative_reduction": 0.325581,
+            "candidate_reduction": 0.294416
+          },
+          "model_score_train_calibrated": {
+            "rows": 197,
+            "positive": 25,
+            "negative": 172,
+            "average_precision": 0.114168,
+            "roc_auc": 0.44814,
+            "threshold": 0.272708,
+            "recall": 1.0,
+            "precision": 0.126904,
+            "negative_reduction": 0.0,
+            "candidate_reduction": 0.0
+          }
+        },
+        {
+          "name": "leave_camera_01022",
+          "train": {
+            "rows": 763,
+            "positive": 94
+          },
+          "test": {
+            "rows": 192,
+            "positive": 31
+          },
+          "cross_day_overlap_filter": null,
+          "calibration_folds": [
+            {
+              "held_out_camera": "01021",
+              "fit_rows": 566,
+              "validation_rows": 197,
+              "validation_positive": 25
+            },
+            {
+              "held_out_camera": "01027",
+              "fit_rows": 565,
+              "validation_rows": 198,
+              "validation_positive": 12
+            },
+            {
+              "held_out_camera": "01028",
+              "fit_rows": 562,
+              "validation_rows": 201,
+              "validation_positive": 21
+            },
+            {
+              "held_out_camera": "01030",
+              "fit_rows": 596,
+              "validation_rows": 167,
+              "validation_positive": 36
+            }
+          ],
+          "visual_oof_calibrated": {
+            "rows": 192,
+            "positive": 31,
+            "negative": 161,
+            "average_precision": 0.449835,
+            "roc_auc": 0.704668,
+            "threshold": -4.3518734,
+            "recall": 0.870968,
+            "precision": 0.192857,
+            "negative_reduction": 0.298137,
+            "candidate_reduction": 0.270833
+          },
+          "visual_oof_calibration_metrics": {
+            "rows": 763,
+            "positive": 94,
+            "negative": 669,
+            "average_precision": 0.369335,
+            "roc_auc": 0.772016,
+            "threshold": -4.3518734,
+            "recall": 0.904255,
+            "precision": 0.171026,
+            "negative_reduction": 0.384155,
+            "candidate_reduction": 0.348624
+          },
+          "visual_test_oracle_90_recall": {
+            "rows": 192,
+            "positive": 31,
+            "negative": 161,
+            "average_precision": 0.449835,
+            "roc_auc": 0.704668,
+            "threshold": -4.51394558,
+            "recall": 0.903226,
+            "precision": 0.194444,
+            "negative_reduction": 0.279503,
+            "candidate_reduction": 0.25
+          },
+          "model_score_train_calibrated": {
+            "rows": 192,
+            "positive": 31,
+            "negative": 161,
+            "average_precision": 0.168919,
+            "roc_auc": 0.464436,
+            "threshold": 0.27423799,
+            "recall": 0.903226,
+            "precision": 0.156425,
+            "negative_reduction": 0.062112,
+            "candidate_reduction": 0.067708
+          }
+        },
+        {
+          "name": "leave_camera_01027",
+          "train": {
+            "rows": 757,
+            "positive": 113
+          },
+          "test": {
+            "rows": 198,
+            "positive": 12
+          },
+          "cross_day_overlap_filter": null,
+          "calibration_folds": [
+            {
+              "held_out_camera": "01021",
+              "fit_rows": 560,
+              "validation_rows": 197,
+              "validation_positive": 25
+            },
+            {
+              "held_out_camera": "01022",
+              "fit_rows": 565,
+              "validation_rows": 192,
+              "validation_positive": 31
+            },
+            {
+              "held_out_camera": "01028",
+              "fit_rows": 556,
+              "validation_rows": 201,
+              "validation_positive": 21
+            },
+            {
+              "held_out_camera": "01030",
+              "fit_rows": 590,
+              "validation_rows": 167,
+              "validation_positive": 36
+            }
+          ],
+          "visual_oof_calibrated": {
+            "rows": 198,
+            "positive": 12,
+            "negative": 186,
+            "average_precision": 0.399528,
+            "roc_auc": 0.886201,
+            "threshold": -5.35973454,
+            "recall": 1.0,
+            "precision": 0.090226,
+            "negative_reduction": 0.349462,
+            "candidate_reduction": 0.328283
+          },
+          "visual_oof_calibration_metrics": {
+            "rows": 757,
+            "positive": 113,
+            "negative": 644,
+            "average_precision": 0.356717,
+            "roc_auc": 0.752295,
+            "threshold": -5.35973454,
+            "recall": 0.902655,
+            "precision": 0.191729,
+            "negative_reduction": 0.332298,
+            "candidate_reduction": 0.297226
+          },
+          "visual_test_oracle_90_recall": {
+            "rows": 198,
+            "positive": 12,
+            "negative": 186,
+            "average_precision": 0.399528,
+            "roc_auc": 0.886201,
+            "threshold": -2.19986892,
+            "recall": 0.916667,
+            "precision": 0.171875,
+            "negative_reduction": 0.715054,
+            "candidate_reduction": 0.676768
+          },
+          "model_score_train_calibrated": {
+            "rows": 198,
+            "positive": 12,
+            "negative": 186,
+            "average_precision": 0.050229,
+            "roc_auc": 0.384857,
+            "threshold": 0.27423799,
+            "recall": 0.916667,
+            "precision": 0.061111,
+            "negative_reduction": 0.091398,
+            "candidate_reduction": 0.090909
+          }
+        },
+        {
+          "name": "leave_camera_01028",
+          "train": {
+            "rows": 754,
+            "positive": 104
+          },
+          "test": {
+            "rows": 201,
+            "positive": 21
+          },
+          "cross_day_overlap_filter": null,
+          "calibration_folds": [
+            {
+              "held_out_camera": "01021",
+              "fit_rows": 557,
+              "validation_rows": 197,
+              "validation_positive": 25
+            },
+            {
+              "held_out_camera": "01022",
+              "fit_rows": 562,
+              "validation_rows": 192,
+              "validation_positive": 31
+            },
+            {
+              "held_out_camera": "01027",
+              "fit_rows": 556,
+              "validation_rows": 198,
+              "validation_positive": 12
+            },
+            {
+              "held_out_camera": "01030",
+              "fit_rows": 587,
+              "validation_rows": 167,
+              "validation_positive": 36
+            }
+          ],
+          "visual_oof_calibrated": {
+            "rows": 201,
+            "positive": 21,
+            "negative": 180,
+            "average_precision": 0.374981,
+            "roc_auc": 0.870635,
+            "threshold": -4.50391197,
+            "recall": 1.0,
+            "precision": 0.147887,
+            "negative_reduction": 0.327778,
+            "candidate_reduction": 0.293532
+          },
+          "visual_oof_calibration_metrics": {
+            "rows": 754,
+            "positive": 104,
+            "negative": 650,
+            "average_precision": 0.361307,
+            "roc_auc": 0.746834,
+            "threshold": -4.50391197,
+            "recall": 0.903846,
+            "precision": 0.186508,
+            "negative_reduction": 0.369231,
+            "candidate_reduction": 0.331565
+          },
+          "visual_test_oracle_90_recall": {
+            "rows": 201,
+            "positive": 21,
+            "negative": 180,
+            "average_precision": 0.374981,
+            "roc_auc": 0.870635,
+            "threshold": -0.69641232,
+            "recall": 0.904762,
+            "precision": 0.296875,
+            "negative_reduction": 0.75,
+            "candidate_reduction": 0.681592
+          },
+          "model_score_train_calibrated": {
+            "rows": 201,
+            "positive": 21,
+            "negative": 180,
+            "average_precision": 0.161369,
+            "roc_auc": 0.585979,
+            "threshold": 0.272708,
+            "recall": 1.0,
+            "precision": 0.104478,
+            "negative_reduction": 0.0,
+            "candidate_reduction": 0.0
+          }
+        },
+        {
+          "name": "leave_camera_01030",
+          "train": {
+            "rows": 788,
+            "positive": 89
+          },
+          "test": {
+            "rows": 167,
+            "positive": 36
+          },
+          "cross_day_overlap_filter": null,
+          "calibration_folds": [
+            {
+              "held_out_camera": "01021",
+              "fit_rows": 591,
+              "validation_rows": 197,
+              "validation_positive": 25
+            },
+            {
+              "held_out_camera": "01022",
+              "fit_rows": 596,
+              "validation_rows": 192,
+              "validation_positive": 31
+            },
+            {
+              "held_out_camera": "01027",
+              "fit_rows": 590,
+              "validation_rows": 198,
+              "validation_positive": 12
+            },
+            {
+              "held_out_camera": "01028",
+              "fit_rows": 587,
+              "validation_rows": 201,
+              "validation_positive": 21
+            }
+          ],
+          "visual_oof_calibrated": {
+            "rows": 167,
+            "positive": 36,
+            "negative": 131,
+            "average_precision": 0.595633,
+            "roc_auc": 0.778414,
+            "threshold": -4.73871613,
+            "recall": 0.944444,
+            "precision": 0.283333,
+            "negative_reduction": 0.343511,
+            "candidate_reduction": 0.281437
+          },
+          "visual_oof_calibration_metrics": {
+            "rows": 788,
+            "positive": 89,
+            "negative": 699,
+            "average_precision": 0.334521,
+            "roc_auc": 0.738005,
+            "threshold": -4.73871613,
+            "recall": 0.910112,
+            "precision": 0.149723,
+            "negative_reduction": 0.341917,
+            "candidate_reduction": 0.313452
+          },
+          "visual_test_oracle_90_recall": {
+            "rows": 167,
+            "positive": 36,
+            "negative": 131,
+            "average_precision": 0.595633,
+            "roc_auc": 0.778414,
+            "threshold": -4.26012993,
+            "recall": 0.916667,
+            "precision": 0.294643,
+            "negative_reduction": 0.396947,
+            "candidate_reduction": 0.329341
+          },
+          "model_score_train_calibrated": {
+            "rows": 167,
+            "positive": 36,
+            "negative": 131,
+            "average_precision": 0.245245,
+            "roc_auc": 0.482188,
+            "threshold": 0.28762999,
+            "recall": 0.805556,
+            "precision": 0.208633,
+            "negative_reduction": 0.160305,
+            "candidate_reduction": 0.167665
+          }
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Metrics apply to human-reviewed candidate cards, not all objects in video.",
+    "Card labels are not corrected detection boxes; uncertain and box-wrong rows are excluded upstream.",
+    "The test-oracle threshold measures separability only and is not a deployable threshold."
+  ]
+}

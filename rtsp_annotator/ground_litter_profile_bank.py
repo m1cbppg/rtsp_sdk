@@ -407,7 +407,11 @@ class ProfileRecord:
     @property
     def match_eligible(self) -> bool:
         """是否可参与环境匹配。"""
-        return bool(self.metadata.get("match_eligible", True))
+        if "match_eligible" not in self.metadata:
+            raise BankError(
+                f"{self.profile_id} 缺少能力字段 match_eligible"
+            )
+        return bool(self.metadata.get("match_eligible"))
 
     @property
     def prior_suitable(self) -> bool:
@@ -417,6 +421,14 @@ class ProfileRecord:
         ``capability_source='legacy_conservative'``，这里缺省也返回 False。
         """
         return bool(self.metadata.get("prior_suitable", False))
+
+    @property
+    def prior_degradation_reason(self) -> str | None:
+        """非独立匹配状态必须给出降级原因（loader 已校验存在性）。"""
+        value = self.metadata.get("prior_degradation_reason")
+        if value in (None, "", "None"):
+            return None
+        return str(value)
 
     @property
     def calibration_state(self) -> str:
@@ -430,8 +442,7 @@ class ProfileRecord:
 
     @property
     def calibration_degradation_reason(self) -> str | None:
-        value = self.metadata.get("prior_degradation_reason")
-        return None if value in (None, "", "None") else str(value)
+        return self.prior_degradation_reason
 
     @property
     def capability_source(self) -> str:
@@ -460,8 +471,16 @@ class ProfileBank:
         return f"{self.bank_id}/{self.version}"
 
     @property
+    def match_eligible_ids(self) -> tuple[str, ...]:
+        return tuple(r.profile_id for r in self.profiles if r.match_eligible)
+
+    @property
     def prior_suitable_ids(self) -> tuple[str, ...]:
-        return tuple(r.profile_id for r in self.profiles if r.prior_suitable)
+        # 契约：prior 能力是环境匹配能力的子集。
+        return tuple(
+            r.profile_id for r in self.profiles
+            if r.match_eligible and r.prior_suitable
+        )
 
     @property
     def legacy_capabilities(self) -> bool:
@@ -561,6 +580,58 @@ CALIBRATION_STATES = (
 )
 
 
+def validate_profile_capabilities(
+    metadata: Mapping[str, Any], *, profile_id: str,
+) -> None:
+    """校验能力字段存在且自洽（方案一 v6 契约）。
+
+    合法关系：
+
+    1. ``calibration_state == independent_matched`` ⟺ ``prior_suitable == true``；
+    2. ``reference_self_low_support`` / ``no_independent_material`` ⟹
+       ``prior_suitable == false``；
+    3. ``prior_suitable == true`` ⟹ ``match_eligible == true``；
+    4. ``independent_matched`` 的降级原因必须为空；
+    5. 其他状态必须有明确降级原因。
+    """
+    for key in (
+        "match_eligible", "prior_suitable", "calibration_state",
+        "prior_degradation_reason",
+    ):
+        if key not in metadata:
+            raise BankError(f"{profile_id} 缺少能力字段 {key}")
+    state = str(metadata.get("calibration_state") or "")
+    if state not in CALIBRATION_STATES:
+        raise BankError(f"{profile_id} calibration_state 非法: {state!r}")
+    match_eligible = bool(metadata.get("match_eligible"))
+    suitable = bool(metadata.get("prior_suitable"))
+    reason = metadata.get("prior_degradation_reason")
+    reason_text = "" if reason in (None, "", "None") else str(reason)
+    if state == "independent_matched" and not suitable:
+        raise BankError(
+            f"{profile_id} calibration_state=independent_matched 但 "
+            "prior_suitable=false；两者必须等价"
+        )
+    if state != "independent_matched" and suitable:
+        raise BankError(
+            f"{profile_id} prior_suitable=true 但 calibration_state={state}；"
+            "只有 independent_matched 才允许产生 prior 候选"
+        )
+    if suitable and not match_eligible:
+        raise BankError(
+            f"{profile_id} prior_suitable=true 但 match_eligible=false；"
+            "prior 能力必须是环境匹配能力的子集"
+        )
+    if state == "independent_matched" and reason_text:
+        raise BankError(
+            f"{profile_id} independent_matched 不应带降级原因: {reason_text}"
+        )
+    if state != "independent_matched" and not reason_text:
+        raise BankError(
+            f"{profile_id} calibration_state={state} 必须给出明确的降级原因"
+        )
+
+
 def load_bank(
     root: str | Path, bank_id: str, version: str | None = None,
     *, verify: bool = True, require_calibration: bool = True,
@@ -647,34 +718,31 @@ def load_bank(
         size = metadata.get("reference_size")
         if not isinstance(size, list) or [width, height] != [int(v) for v in size]:
             raise BankError(f"{profile_id} reference_size 与 Bank 不一致")
-        declared = (
-            "prior_suitable" in metadata and "calibration_state" in metadata
+        declared = all(
+            key in metadata for key in (
+                "match_eligible", "prior_suitable", "calibration_state",
+                "prior_degradation_reason",
+            )
         )
         if not declared:
             if not allow_legacy_profile_capabilities:
                 raise BankError(
-                    f"{profile_id} 缺少能力字段 prior_suitable/calibration_state；"
-                    "历史 Bank 必须显式传 allow_legacy_profile_capabilities=True，"
-                    "且会被保守视为 prior_suitable=false"
+                    f"{profile_id} 缺少能力字段"
+                    "（match_eligible/prior_suitable/calibration_state/"
+                    "prior_degradation_reason）；历史 Bank 必须显式传 "
+                    "allow_legacy_profile_capabilities=True，且会被保守视为 "
+                    "prior_suitable=false"
                 )
             metadata = dict(metadata)
+            metadata["match_eligible"] = True
             metadata["prior_suitable"] = False
-            metadata["calibration_state"] = None
+            metadata["calibration_state"] = "no_independent_material"
+            metadata["prior_degradation_reason"] = "legacy_bank_without_capability"
             metadata["capability_source"] = "legacy_conservative"
         else:
-            state = str(metadata.get("calibration_state") or "")
-            if state not in CALIBRATION_STATES:
-                raise BankError(
-                    f"{profile_id} calibration_state 非法: {state!r}"
-                )
-            suitable = bool(metadata.get("prior_suitable"))
-            if suitable and state != "independent_matched":
-                raise BankError(
-                    f"{profile_id} prior_suitable=true 但 calibration_state={state}；"
-                    "只有 independent_matched 才允许产生 prior 候选"
-                )
             metadata = dict(metadata)
             metadata["capability_source"] = "declared"
+            validate_profile_capabilities(metadata, profile_id=profile_id)
         records.append(ProfileRecord(
             profile_id=profile_id,
             directory=directory_path,

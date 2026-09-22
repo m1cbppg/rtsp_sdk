@@ -1,0 +1,33 @@
+{
+  "kind": "ground_litter_event_memory_v31_offline_poc",
+  "source_fingerprint": "514d80c9ce601d5f",
+  "parameters": {
+    "event_center_distance_px": 20.0,
+    "event_size_ratio": 3.0,
+    "context_margin_px": 80,
+    "context_touch_gap_px": 20,
+    "context_candidate_guard_px": 4,
+    "context_occlusion_external_area_px": 200,
+    "human_labels_used_for_prediction": false,
+    "clean_reference_updated": false
+  },
+  "track_level": {
+    "reviewed_tracks": 38,
+    "label_counts": {
+      "LITTER_CONFIRMED": 16,
+      "CLEAR_NON_LITTER": 22
+    },
+    "context_occluded_tracks": 17
+  },
+  "event_level": {
+    "events_total": 16,
+    "litter_events": 5,
+    "non_litter_events": 11,
+    "visible_events_after_context_gate": 10,
+    "visible_litter_events": 5,
+    "occluded_non_litter_events": 6,
+    "litter_event_recall_after_context_gate": 1.0,
+    "visible_candidate_precision": 0.5,
+    "non_litter_event_deferral_rate": 0.5455
+  }
+}

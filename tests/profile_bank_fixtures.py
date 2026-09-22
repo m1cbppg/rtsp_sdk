@@ -146,6 +146,9 @@ def build_synthetic_bank(
                     "independent_matched" if prior_suitable
                     else "reference_self_low_support"
                 ),
+                "prior_degradation_reason": (
+                    None if prior_suitable else "synthetic_no_appearance_match"
+                ),
             },
         })
     matcher = default_matcher_config()

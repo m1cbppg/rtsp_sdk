@@ -1,0 +1,189 @@
+{
+  "schema": "ground_litter_false_positive_cluster_audit_v1",
+  "created_at": "2026-09-22T11:21:00.657698+00:00",
+  "decision": "DIFFUSE",
+  "interpretation": "最终 ROI 内误报以分散模式为主，单纯记忆固定设施的收益有限。",
+  "input": {
+    "loaded_non_litter": 2083,
+    "geometry_cameras": 5
+  },
+  "scopes": {
+    "all_reviewed": {
+      "samples": 2083,
+      "exact_crop": {
+        "samples": 2083,
+        "clusters": 2083,
+        "repeated_samples": 0,
+        "repeated_fraction": 0.0,
+        "singleton_clusters": 2083,
+        "largest_cluster": 1,
+        "top_10_coverage": 0.004800768122899664,
+        "top_20_coverage": 0.009601536245799328,
+        "top_50_coverage": 0.02400384061449832
+      },
+      "radii": {
+        "0.01": {
+          "location_only": {
+            "samples": 2083,
+            "clusters": 1572,
+            "repeated_samples": 885,
+            "repeated_fraction": 0.42486797887662026,
+            "singleton_clusters": 1198,
+            "largest_cluster": 27,
+            "top_10_coverage": 0.039366298607777246,
+            "top_20_coverage": 0.05952952472395583,
+            "top_50_coverage": 0.1041766682669227
+          },
+          "appearance_aware": {
+            "samples": 2083,
+            "clusters": 1916,
+            "repeated_samples": 283,
+            "repeated_fraction": 0.1358617378780605,
+            "singleton_clusters": 1800,
+            "largest_cluster": 27,
+            "top_10_coverage": 0.031204992798847815,
+            "top_20_coverage": 0.043686989918386945,
+            "top_50_coverage": 0.07249159865578493
+          }
+        },
+        "0.02": {
+          "location_only": {
+            "samples": 2083,
+            "clusters": 1225,
+            "repeated_samples": 1295,
+            "repeated_fraction": 0.6216994719155065,
+            "singleton_clusters": 788,
+            "largest_cluster": 29,
+            "top_10_coverage": 0.06913106096975516,
+            "top_20_coverage": 0.10561689870379261,
+            "top_50_coverage": 0.18098895823331734
+          },
+          "appearance_aware": {
+            "samples": 2083,
+            "clusters": 1906,
+            "repeated_samples": 301,
+            "repeated_fraction": 0.14450312049927988,
+            "singleton_clusters": 1782,
+            "largest_cluster": 27,
+            "top_10_coverage": 0.031204992798847815,
+            "top_20_coverage": 0.04464714354296687,
+            "top_50_coverage": 0.07345175228036485
+          }
+        },
+        "0.03": {
+          "location_only": {
+            "samples": 2083,
+            "clusters": 877,
+            "repeated_samples": 1577,
+            "repeated_fraction": 0.757081132981277,
+            "singleton_clusters": 506,
+            "largest_cluster": 47,
+            "top_10_coverage": 0.13442150744119058,
+            "top_20_coverage": 0.20211233797407585,
+            "top_50_coverage": 0.32501200192030727
+          },
+          "appearance_aware": {
+            "samples": 2083,
+            "clusters": 1906,
+            "repeated_samples": 301,
+            "repeated_fraction": 0.14450312049927988,
+            "singleton_clusters": 1782,
+            "largest_cluster": 27,
+            "top_10_coverage": 0.031204992798847815,
+            "top_20_coverage": 0.04464714354296687,
+            "top_50_coverage": 0.07345175228036485
+          }
+        }
+      }
+    },
+    "final_roi": {
+      "samples": 370,
+      "exact_crop": {
+        "samples": 370,
+        "clusters": 370,
+        "repeated_samples": 0,
+        "repeated_fraction": 0.0,
+        "singleton_clusters": 370,
+        "largest_cluster": 1,
+        "top_10_coverage": 0.02702702702702703,
+        "top_20_coverage": 0.05405405405405406,
+        "top_50_coverage": 0.13513513513513514
+      },
+      "radii": {
+        "0.01": {
+          "location_only": {
+            "samples": 370,
+            "clusters": 269,
+            "repeated_samples": 168,
+            "repeated_fraction": 0.4540540540540541,
+            "singleton_clusters": 202,
+            "largest_cluster": 11,
+            "top_10_coverage": 0.12972972972972974,
+            "top_20_coverage": 0.2,
+            "top_50_coverage": 0.3621621621621622
+          },
+          "appearance_aware": {
+            "samples": 370,
+            "clusters": 330,
+            "repeated_samples": 68,
+            "repeated_fraction": 0.1837837837837838,
+            "singleton_clusters": 302,
+            "largest_cluster": 5,
+            "top_10_coverage": 0.08648648648648649,
+            "top_20_coverage": 0.14054054054054055,
+            "top_50_coverage": 0.24324324324324326
+          }
+        },
+        "0.02": {
+          "location_only": {
+            "samples": 370,
+            "clusters": 187,
+            "repeated_samples": 257,
+            "repeated_fraction": 0.6945945945945946,
+            "singleton_clusters": 113,
+            "largest_cluster": 15,
+            "top_10_coverage": 0.22162162162162163,
+            "top_20_coverage": 0.33783783783783783,
+            "top_50_coverage": 0.5648648648648649
+          },
+          "appearance_aware": {
+            "samples": 370,
+            "clusters": 324,
+            "repeated_samples": 79,
+            "repeated_fraction": 0.21351351351351353,
+            "singleton_clusters": 291,
+            "largest_cluster": 5,
+            "top_10_coverage": 0.0891891891891892,
+            "top_20_coverage": 0.14324324324324325,
+            "top_50_coverage": 0.2594594594594595
+          }
+        },
+        "0.03": {
+          "location_only": {
+            "samples": 370,
+            "clusters": 127,
+            "repeated_samples": 302,
+            "repeated_fraction": 0.8162162162162162,
+            "singleton_clusters": 68,
+            "largest_cluster": 23,
+            "top_10_coverage": 0.37567567567567567,
+            "top_20_coverage": 0.5324324324324324,
+            "top_50_coverage": 0.7675675675675676
+          },
+          "appearance_aware": {
+            "samples": 370,
+            "clusters": 324,
+            "repeated_samples": 79,
+            "repeated_fraction": 0.21351351351351353,
+            "singleton_clusters": 291,
+            "largest_cluster": 5,
+            "top_10_coverage": 0.0891891891891892,
+            "top_20_coverage": 0.14324324324324325,
+            "top_50_coverage": 0.2594594594594595
+          }
+        }
+      }
+    }
+  },
+  "problems": []
+}

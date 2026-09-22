@@ -1,0 +1,18 @@
+{
+  "name": "lifecycle_fixture",
+  "sample_fps": 1.0,
+  "evaluation_start_seconds": 0.0,
+  "frames": 62,
+  "events_total": 6,
+  "events_confirmed_5s": 3,
+  "events_active_at_end": 3,
+  "context_blocked_candidates": 77,
+  "actor_blocked_candidates": 160,
+  "environment_states": {
+    "GLOBAL_LIGHT_CHANGE": 62
+  },
+  "elapsed_seconds": 90.462,
+  "events_pruned": 0,
+  "confirmed_events_pruned": 0,
+  "ground_unavailable_event_samples": 0
+}

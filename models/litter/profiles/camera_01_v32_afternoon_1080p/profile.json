@@ -1,0 +1,145 @@
+{
+  "kind": "ground_litter_clean_reference_v32",
+  "profile_id": "camera_01_v32_afternoon_1080p",
+  "reference_size": [
+    1920,
+    1080
+  ],
+  "created": "2026-09-18",
+  "source_reference": "output/ground_litter_v32_production_hardening_20260918/ground_litter_v32_current_raw_20260918.png",
+  "source_reference_sha256": "b41fb58f2aad8a75f820da60c718cbf5a64601d9068a13a7e063e8324d3a22e0",
+  "comparison_sha256": {
+    "sample_first.jpg": "3c790a21f179767d89877b5dde1d57163e1858001071b713ac35b9ef7c4096de",
+    "sample_last.jpg": "9e7a83dcb0e9767b4dde646b1821d7e8bd4dfa4d75f0c37528d490830f524114"
+  },
+  "ground_roi": [
+    [
+      0.5,
+      0.16
+    ],
+    [
+      0.625,
+      0.16
+    ],
+    [
+      0.65,
+      0.22
+    ],
+    [
+      0.67,
+      0.32
+    ],
+    [
+      0.69,
+      0.43
+    ],
+    [
+      0.72,
+      0.56
+    ],
+    [
+      0.75,
+      0.7
+    ],
+    [
+      0.78,
+      0.84
+    ],
+    [
+      0.81,
+      0.96
+    ],
+    [
+      0.37,
+      0.96
+    ],
+    [
+      0.39,
+      0.84
+    ],
+    [
+      0.41,
+      0.7
+    ],
+    [
+      0.43,
+      0.56
+    ],
+    [
+      0.45,
+      0.43
+    ],
+    [
+      0.47,
+      0.32
+    ],
+    [
+      0.488,
+      0.22
+    ]
+  ],
+  "zone_exclude_zones": [
+    [
+      [
+        0.585,
+        0.145
+      ],
+      [
+        0.665,
+        0.145
+      ],
+      [
+        0.675,
+        0.315
+      ],
+      [
+        0.595,
+        0.315
+      ]
+    ]
+  ],
+  "overlay_exclude_zones": [
+    [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.44,
+        0.0
+      ],
+      [
+        0.44,
+        0.12
+      ],
+      [
+        0.0,
+        0.12
+      ]
+    ],
+    [
+      [
+        0.7,
+        0.835
+      ],
+      [
+        0.88,
+        0.835
+      ],
+      [
+        0.88,
+        0.94
+      ],
+      [
+        0.7,
+        0.94
+      ]
+    ]
+  ],
+  "sha256": {
+    "reference.png": "0d467e777a7cbd20ef2283150d621105fdc0f27fbc854806635a8f3fe3ed996d",
+    "valid_mask.png": "4bb2c2d1cc9fbf31117d644c3817412f25a9edb3f5322edab91500e3376f8719",
+    "daylight_tolerance.png": "37401f82c083479bb7e9bc6b7c3693bf90d77307e54d3be28f254aa37e1c0967"
+  },
+  "baseline": "Camera 01 afternoon production hardening reference; reviewed sidewalk polygon; startup evidence suppression required"
+}

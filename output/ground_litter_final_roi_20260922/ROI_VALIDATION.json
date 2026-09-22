@@ -1,0 +1,42 @@
+{
+  "schema": "ground_litter_final_roi_validation_v1",
+  "source_sha256": "95f8c91a479ffb6bcf2de62a5359bb6208b774ba75a2530b24cc3ecd1ac0ab8b",
+  "all_valid": true,
+  "cameras": {
+    "01021": {
+      "points": 7,
+      "normalized_area_fraction": 0.08357113068550001,
+      "self_intersections": [],
+      "valid": true
+    },
+    "01022": {
+      "points": 4,
+      "normalized_area_fraction": 0.10553934652800002,
+      "self_intersections": [],
+      "valid": true,
+      "white_paper_bbox_center_normalized": [
+        0.5169921875,
+        0.678125
+      ],
+      "white_paper_inside_roi": true
+    },
+    "01027": {
+      "points": 4,
+      "normalized_area_fraction": 0.00851623641499999,
+      "self_intersections": [],
+      "valid": true
+    },
+    "01028": {
+      "points": 4,
+      "normalized_area_fraction": 0.03307192100699999,
+      "self_intersections": [],
+      "valid": true
+    },
+    "01030": {
+      "points": 4,
+      "normalized_area_fraction": 0.22028548593749991,
+      "self_intersections": [],
+      "valid": true
+    }
+  }
+}

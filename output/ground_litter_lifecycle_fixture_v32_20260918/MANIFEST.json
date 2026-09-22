@@ -1,0 +1,48 @@
+{
+  "kind": "ground_litter_lifecycle_fixture_v32",
+  "semi_synthetic": true,
+  "source_video": {
+    "path": "/Users/mlcbppg/Desktop/9月17日/小垃圾正样本.mp4",
+    "sha256": "bb265cadb83bc6d36fa7aa0ba4bedd3c7bf8c03a173b9edc7e451ef20481896a"
+  },
+  "fixture_video": {
+    "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_lifecycle_fixture_v32_20260918/ground_litter_lifecycle_fixture_v32.mp4",
+    "sha256": "fc26aa82bc2cd40845fd5fe531d9e663037b9de1e552890dfce1ec69fd5657d1",
+    "duration_seconds": 62.0,
+    "fps": 5
+  },
+  "segments": [
+    {
+      "phase": "clean_before_first_deposit",
+      "source_start": 60.0,
+      "source_end": 71.0,
+      "expected_state": "CLEAN",
+      "fixture_start": 0.0,
+      "fixture_end": 11.0
+    },
+    {
+      "phase": "first_litter_with_real_occlusion",
+      "source_start": 72.0,
+      "source_end": 92.0,
+      "expected_state": "LITTER_VISIBLE_OR_OCCLUDED",
+      "fixture_start": 11.0,
+      "fixture_end": 31.0
+    },
+    {
+      "phase": "clean_after_removal",
+      "source_start": 60.0,
+      "source_end": 71.0,
+      "expected_state": "CLEAN",
+      "fixture_start": 31.0,
+      "fixture_end": 42.0
+    },
+    {
+      "phase": "second_litter_same_location",
+      "source_start": 80.0,
+      "source_end": 100.0,
+      "expected_state": "LITTER_VISIBLE",
+      "fixture_start": 42.0,
+      "fixture_end": 62.0
+    }
+  ]
+}

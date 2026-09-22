@@ -1,0 +1,73 @@
+{
+  "kind": "ground_litter_clean_reference_v32",
+  "profile_id": "camera_01_v32_1080p",
+  "reference_size": [
+    1920,
+    1080
+  ],
+  "source_profile_id": "camera_01_v32",
+  "source_reference_sha256": "d91d9aa50d06f7b2025f66776ce31af9d919391d65cfb1c0a97336ca2e7693f8",
+  "spatial_scale_from_v32_baseline": 0.75,
+  "overlay_exclude_zones": [
+    [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.43,
+        0.0
+      ],
+      [
+        0.43,
+        0.115
+      ],
+      [
+        0.0,
+        0.115
+      ]
+    ],
+    [
+      [
+        0.678,
+        0.835
+      ],
+      [
+        1.0,
+        0.835
+      ],
+      [
+        1.0,
+        1.0
+      ],
+      [
+        0.678,
+        1.0
+      ]
+    ]
+  ],
+  "ground_roi": [
+    [
+      0.455,
+      0.232
+    ],
+    [
+      0.714,
+      0.232
+    ],
+    [
+      0.806,
+      1.0
+    ],
+    [
+      0.455,
+      1.0
+    ]
+  ],
+  "sha256": {
+    "reference.png": "785d5293b501a0933f28b1608eee91b55d0fffc4ba35d94f6a41928e50a1df39",
+    "valid_mask.png": "4d53d51e1c2aa126d4e8774c2615a25763df73ebee2d5df9d8fa89bc2a702b9e",
+    "daylight_tolerance.png": "c7fd9ad2467fb76906cdda1cf390475323f032cd39938f2c8ae211d5cb975748"
+  },
+  "baseline": "V3.2 1080p production-mux derivative; lifecycle validation required"
+}

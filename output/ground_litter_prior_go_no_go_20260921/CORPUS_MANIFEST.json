@@ -1,0 +1,128 @@
+{
+ "kind": "ground_litter_prior_go_no_go_corpus",
+ "version": "r1",
+ "frozen_utc": "2026-09-21",
+ "native_size": [
+  2560,
+  1440
+ ],
+ "online_size": [
+  960,
+  540
+ ],
+ "analysis_fps": 0.5,
+ "templates": [
+  "light_paper",
+  "dark_paper",
+  "color_wrapper",
+  "translucent"
+ ],
+ "sizes": [
+  8,
+  12,
+  16,
+  24
+ ],
+ "roi_positions": [
+  "far",
+  "mid",
+  "near",
+  "texture"
+ ],
+ "profile_groups": null,
+ "capability_reports_used": [],
+ "thresholds_preregistered": {
+  "environments_detectable_min": 3,
+  "environments_min": 4,
+  "fp_confirmed_go_per_hour": 2.0,
+  "fp_confirmed_no_go_per_hour": 6.0,
+  "oracle_hit_rate_go": 0.7,
+  "oracle_hit_rate_no_go": 0.5,
+  "output_to_oracle_ratio_go": 0.7,
+  "prior_availability_go": 0.5,
+  "prior_output_hit_rate_go": 0.5
+ },
+ "corpus": [
+  {
+   "bytes": 78868283,
+   "environment": "env1",
+   "frames": [
+    0,
+    50,
+    100
+   ],
+   "native_size": [
+    2560,
+    1440
+   ],
+   "path": "gonogo_media/2026-09-15T195941.ps",
+   "role": "real_negative_plus_synthetic_injection",
+   "sha256": "3e433b9848fe292e783c9b9fff5002d59968e51e47b5c92a2e0b0dfdc9461f5b",
+   "status": "used",
+   "target_types": "synthetic_only",
+   "uses_real_targets": false
+  },
+  {
+   "bytes": 80877265,
+   "environment": "env2",
+   "frames": [
+    0,
+    50,
+    100
+   ],
+   "native_size": [
+    2560,
+    1440
+   ],
+   "path": "gonogo_media/2026-09-16T015914.ps",
+   "role": "real_negative_plus_synthetic_injection",
+   "sha256": "24a60e5bb6a66a8566fb8029049a1aefe6c0a43be30e7da374fdf0caae85661e",
+   "status": "used",
+   "target_types": "synthetic_only",
+   "uses_real_targets": false
+  },
+  {
+   "bytes": 75697901,
+   "environment": "env3",
+   "frames": [
+    0,
+    50,
+    100
+   ],
+   "native_size": [
+    2560,
+    1440
+   ],
+   "path": "gonogo_media/2026-09-16T155520.ps",
+   "role": "real_negative_plus_synthetic_injection",
+   "sha256": "7e562e035249adb5bd7fb4627c85ab1719144b59a651fa29602965cd79de3452",
+   "status": "used",
+   "target_types": "synthetic_only",
+   "uses_real_targets": false
+  },
+  {
+   "bytes": 70585728,
+   "environment": "env4",
+   "frames": [
+    0,
+    50,
+    100
+   ],
+   "native_size": [
+    2560,
+    1440
+   ],
+   "path": "gonogo_media/2026-09-17T195637.ps",
+   "role": "real_negative_plus_synthetic_injection",
+   "sha256": "ba8b8748687e152bfb5a76800470d243ed5f9692a5661aad43302acadb026e83",
+   "status": "used",
+   "target_types": "synthetic_only",
+   "uses_real_targets": false
+  }
+ ],
+ "total_frames": 12,
+ "real_targets": 0,
+ "synthetic_targets_only": true,
+ "note": "合成注入模板用于结构信号实验；不代表真实垃圾准确率，也不能据此声称真实垃圾召回率。",
+ "manifest_sha256": "e6dbf186939ae4c7b458bff16da6834f34a1cb3cc856354c302f117f9287fdb0"
+}

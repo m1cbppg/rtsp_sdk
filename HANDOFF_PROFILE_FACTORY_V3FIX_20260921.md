@@ -1,5 +1,7 @@
 # Profile Factory v3 复核后定向修复与小目标诊断（2026-09-21）
 
+> **历史记录**：后续 oracle Go/No-Go 实验已经停止 Profile prior 路线。本文不再构成继续修复、建库或生产接入的依据。见 `docs/decisions/2026-09-21-ground-litter-profile-prior-no-go.md`。
+
 本轮只处理 v3 复核列出的三项缺陷 + 一项小目标诊断，保留上一轮的公平评分矩阵、
 冻结资产、双口径命中与同帧基线修复；未实施方案二生产接入，未重开 R1–R11。
 

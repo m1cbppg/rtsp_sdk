@@ -36,6 +36,7 @@ from .ground_litter_detection import (
     DEFAULT_MODEL_SUBDIR as DEFAULT_GROUND_LITTER_SUBDIR,
     GroundLitterDetectionOptions as GroundLitterOptionsForApi,
 )
+from .ground_litter_v32 import CleanReferenceProfileV32
 from .vessel_detection import VesselDetectionOptions
 
 
@@ -199,7 +200,9 @@ class DeepStreamGroup:
         0,
         0,
     )
-    ground_litter_signature: tuple[bool, str, int, int, int, int, float, str] = (
+    ground_litter_signature: tuple[
+        bool, str, int, int, int, int, float, str, str, str
+    ] = (
         False,
         "",
         0,
@@ -207,6 +210,8 @@ class DeepStreamGroup:
         0,
         0,
         1.0,
+        "",
+        "yolo",
         "",
     )
     night_vision_signature: tuple[bool, float, float] = (
@@ -602,7 +607,9 @@ class DeepStreamStreamManager:
         gas_cylinder_enabled: bool,
         gas_cylinder_profile_id: str,
         vessel_signature: tuple[bool, str, int, int, int],
-        ground_litter_signature: tuple[bool, str, int, int, int, int, float, str],
+        ground_litter_signature: tuple[
+            bool, str, int, int, int, int, float, str, str, str
+        ],
     ) -> DeepStreamGroup | None:
         candidates = (
             group
@@ -769,10 +776,10 @@ class DeepStreamStreamManager:
     @staticmethod
     def _ground_litter_signature(
         spec: StreamSpec,
-    ) -> tuple[bool, str, int, int, int, int, float, str]:
+    ) -> tuple[bool, str, int, int, int, int, float, str, str, str]:
         options = spec.ground_litter
         if not options.enabled:
-            return (False, "", 0, 0, 0, 0, 1.0, "")
+            return (False, "", 0, 0, 0, 0, 1.0, "", "yolo", "")
         return (
             True,
             str(options.model),
@@ -782,6 +789,8 @@ class DeepStreamStreamManager:
             float(options.box_smoothing_alpha),
             int(options.actor_imgsz),
             str(options.actor_model or ""),
+            str(options.mode),
+            str(options.profile_id or ""),
         )
 
     def _resolve_ground_litter_model(self, model: str) -> Path:
@@ -815,6 +824,17 @@ class DeepStreamStreamManager:
         self._resolve_ground_litter_model(options.model)
         if options.actor_model is not None:
             self._resolve_ground_litter_model(options.actor_model)
+        if options.mode == "clean_reference_v32":
+            assert options.profile_id is not None
+            try:
+                CleanReferenceProfileV32.load(
+                    self._settings.manager.model_root
+                    / DEFAULT_GROUND_LITTER_SUBDIR
+                    / "profiles",
+                    options.profile_id,
+                )
+            except (OSError, ValueError, json.JSONDecodeError) as exc:
+                raise ModelNotFoundError(str(exc)) from exc
 
     @staticmethod
     def _validate_event_classes(spec: StreamSpec, labels_path: Path) -> None:
@@ -1200,6 +1220,11 @@ class DeepStreamStreamManager:
                 "local_actor_max_crops": group.ground_litter_signature[4],
                 "box_smoothing_alpha": group.ground_litter_signature[5],
                 "actor_imgsz": group.ground_litter_signature[6],
+                "profile_root": str(
+                    self._settings.manager.model_root
+                    / DEFAULT_GROUND_LITTER_SUBDIR
+                    / "profiles"
+                ),
                 "analysis_fps": max(
                     record.spec.ground_litter.analysis_fps
                     for record in records
@@ -1518,6 +1543,37 @@ class DeepStreamStreamManager:
                     int(metrics.get("ground_litter_tile_count", 0))
                     if metrics is not None
                     else 0
+                ),
+                "raw_candidates": (
+                    int(metrics.get("ground_litter_raw_candidates", 0))
+                    if metrics is not None
+                    else 0
+                ),
+                "active_events": (
+                    int(metrics.get("ground_litter_active_events", 0))
+                    if metrics is not None
+                    else 0
+                ),
+                "confirmed_events": (
+                    int(metrics.get("ground_litter_confirmed_events", 0))
+                    if metrics is not None
+                    else 0
+                ),
+                "cleared_events": (
+                    int(metrics.get("ground_litter_cleared_events", 0))
+                    if metrics is not None
+                    else 0
+                ),
+                "environment_state": (
+                    str(metrics.get("ground_litter_environment_state", ""))
+                    if metrics is not None
+                    else ""
+                ),
+                # hybrid_v33 per-source telemetry; empty for legacy modes.
+                "hybrid": (
+                    dict(metrics.get("ground_litter_hybrid", {}) or {})
+                    if metrics is not None
+                    else {}
                 ),
                 "last_inference_ms": (
                     float(

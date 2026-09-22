@@ -1,0 +1,170 @@
+[
+  {
+    "event_id": "negative-v31-event-001",
+    "track_id": 1,
+    "timestamp": 182.0,
+    "candidate_box": [
+      1774.0,
+      561.0,
+      1785.0,
+      570.0
+    ],
+    "actor_count": 33,
+    "max_actor_overlap": 0.0,
+    "matching_actor_boxes": []
+  },
+  {
+    "event_id": "negative-v31-event-002",
+    "track_id": 2,
+    "timestamp": 182.0,
+    "candidate_box": [
+      1747.0,
+      476.0,
+      1755.0,
+      483.0
+    ],
+    "actor_count": 33,
+    "max_actor_overlap": 0.0,
+    "matching_actor_boxes": []
+  },
+  {
+    "event_id": "negative-v31-event-005",
+    "track_id": 5,
+    "timestamp": 66.0,
+    "candidate_box": [
+      1281.0,
+      686.0,
+      1291.0,
+      707.0
+    ],
+    "actor_count": 39,
+    "max_actor_overlap": 1.0,
+    "matching_actor_boxes": [
+      [
+        1192.03,
+        510.16,
+        1298.73,
+        956.65
+      ]
+    ]
+  },
+  {
+    "event_id": "negative-v31-event-008",
+    "track_id": 65,
+    "timestamp": 81.0,
+    "candidate_box": [
+      1758.5,
+      972.0,
+      1777.0,
+      995.0
+    ],
+    "actor_count": 38,
+    "max_actor_overlap": 1.0,
+    "matching_actor_boxes": [
+      [
+        1648.235,
+        754.212,
+        1825.964,
+        1160.121
+      ]
+    ]
+  },
+  {
+    "event_id": "negative-v31-event-009",
+    "track_id": 68,
+    "timestamp": 84.0,
+    "candidate_box": [
+      1637.0,
+      1192.0,
+      1651.0,
+      1201.0
+    ],
+    "actor_count": 40,
+    "max_actor_overlap": 0.0,
+    "matching_actor_boxes": []
+  },
+  {
+    "event_id": "negative-v31-event-010",
+    "track_id": 93,
+    "timestamp": 208.0,
+    "candidate_box": [
+      1732.0,
+      437.0,
+      1740.0,
+      447.0
+    ],
+    "actor_count": 38,
+    "max_actor_overlap": 0.0,
+    "matching_actor_boxes": []
+  },
+  {
+    "event_id": "negative-v31-event-011",
+    "track_id": 95,
+    "timestamp": 118.0,
+    "candidate_box": [
+      1657.0,
+      394.0,
+      1668.0,
+      400.0
+    ],
+    "actor_count": 38,
+    "max_actor_overlap": 0.0,
+    "matching_actor_boxes": []
+  },
+  {
+    "event_id": "negative-v31-event-012",
+    "track_id": 123,
+    "timestamp": 126.0,
+    "candidate_box": [
+      1206.0,
+      382.0,
+      1225.0,
+      390.0
+    ],
+    "actor_count": 41,
+    "max_actor_overlap": 1.0,
+    "matching_actor_boxes": [
+      [
+        1030.368,
+        268.224,
+        1240.65,
+        403.131
+      ]
+    ]
+  },
+  {
+    "event_id": "negative-v31-event-013",
+    "track_id": 186,
+    "timestamp": 206.0,
+    "candidate_box": [
+      1736.0,
+      362.0,
+      1750.0,
+      372.0
+    ],
+    "actor_count": 30,
+    "max_actor_overlap": 0.0,
+    "matching_actor_boxes": []
+  },
+  {
+    "event_id": "negative-v31-event-016",
+    "track_id": 226,
+    "timestamp": 275.0,
+    "candidate_box": [
+      1374.0,
+      340.0,
+      1387.5,
+      350.5
+    ],
+    "actor_count": 37,
+    "max_actor_overlap": 0.879711,
+    "matching_actor_boxes": [
+      [
+        1375.624,
+        214.596,
+        1475.896,
+        443.476
+      ]
+    ]
+  }
+]

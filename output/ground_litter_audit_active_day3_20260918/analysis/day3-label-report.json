@@ -1,0 +1,167 @@
+{
+  "schema": "ground_litter_active_day3_label_report_v1",
+  "dataset": "active_five_cameras_20260918",
+  "fingerprint": "6a61857d911412feb6a7781788c4fc60e556ffd140aaeeb14f25c13d9a284bad",
+  "files": {
+    "review_data_sha256": "c3c9be4be28b9abdba5b273c1588992aa3c03b2a9f646f2c7dc74ce97f2964fa",
+    "reviews_sha256": "f18c94cf77705766fcfa50f01603d96291061a374897f5849dda2bd08df8fdd4",
+    "selection_sha256": "ff50871ba265910ae14f6350d808efe7544bb4ed033750159b1aef707b7605ac"
+  },
+  "overall": {
+    "count": 300,
+    "LITTER": 22,
+    "NON_LITTER": 235,
+    "UNCERTAIN": 36,
+    "BOX_WRONG": 7
+  },
+  "semantic": {
+    "count": 240,
+    "LITTER": 22,
+    "NON_LITTER": 175,
+    "UNCERTAIN": 36,
+    "BOX_WRONG": 7
+  },
+  "random_grid": {
+    "count": 60,
+    "LITTER": 0,
+    "NON_LITTER": 60,
+    "UNCERTAIN": 0,
+    "BOX_WRONG": 0
+  },
+  "by_device": {
+    "01021": {
+      "count": 50,
+      "LITTER": 4,
+      "NON_LITTER": 37,
+      "UNCERTAIN": 7,
+      "BOX_WRONG": 2
+    },
+    "01022": {
+      "count": 100,
+      "LITTER": 13,
+      "NON_LITTER": 79,
+      "UNCERTAIN": 5,
+      "BOX_WRONG": 3
+    },
+    "01027": {
+      "count": 50,
+      "LITTER": 2,
+      "NON_LITTER": 41,
+      "UNCERTAIN": 6,
+      "BOX_WRONG": 1
+    },
+    "01028": {
+      "count": 50,
+      "LITTER": 0,
+      "NON_LITTER": 38,
+      "UNCERTAIN": 11,
+      "BOX_WRONG": 1
+    },
+    "01030": {
+      "count": 50,
+      "LITTER": 3,
+      "NON_LITTER": 40,
+      "UNCERTAIN": 7,
+      "BOX_WRONG": 0
+    }
+  },
+  "by_selection_reason": {
+    "both_likely_positive": {
+      "count": 36,
+      "LITTER": 7,
+      "NON_LITTER": 6,
+      "UNCERTAIN": 20,
+      "BOX_WRONG": 3
+    },
+    "classifier_disagreement": {
+      "count": 84,
+      "LITTER": 6,
+      "NON_LITTER": 72,
+      "UNCERTAIN": 6,
+      "BOX_WRONG": 0
+    },
+    "decision_boundary": {
+      "count": 84,
+      "LITTER": 4,
+      "NON_LITTER": 79,
+      "UNCERTAIN": 1,
+      "BOX_WRONG": 0
+    },
+    "novel_appearance": {
+      "count": 36,
+      "LITTER": 5,
+      "NON_LITTER": 18,
+      "UNCERTAIN": 9,
+      "BOX_WRONG": 4
+    },
+    "random_audit": {
+      "count": 60,
+      "LITTER": 0,
+      "NON_LITTER": 60,
+      "UNCERTAIN": 0,
+      "BOX_WRONG": 0
+    }
+  },
+  "frozen_old_classifier_diagnostics_on_selection_biased_semantic_subset": {
+    "turhancan": {
+      "positive": 22,
+      "negative": 175,
+      "tp": 16,
+      "fp": 94,
+      "recall": 0.7272727272727273,
+      "negative_reduction": 0.46285714285714286,
+      "precision": 0.14545454545454545
+    },
+    "yolo26s": {
+      "positive": 22,
+      "negative": 175,
+      "tp": 19,
+      "fp": 102,
+      "recall": 0.8636363636363636,
+      "negative_reduction": 0.41714285714285715,
+      "precision": 0.15702479338842976
+    },
+    "or": {
+      "positive": 22,
+      "negative": 175,
+      "tp": 21,
+      "fp": 154,
+      "recall": 0.9545454545454546,
+      "negative_reduction": 0.12,
+      "precision": 0.12
+    },
+    "and": {
+      "positive": 22,
+      "negative": 175,
+      "tp": 14,
+      "fp": 42,
+      "recall": 0.6363636363636364,
+      "negative_reduction": 0.76,
+      "precision": 0.25
+    }
+  },
+  "candidate_training_delta": {
+    "positive": 22,
+    "negative": 175,
+    "excluded_uncertain": 36,
+    "excluded_box_wrong": 7,
+    "excluded_random_grid": 60
+  },
+  "candidate_training_total_after_merge_with_days_1_2": {
+    "positive": 147,
+    "negative": 1005,
+    "rows": 1152
+  },
+  "all_review_cards_cumulative": {
+    "cards": 1960,
+    "litter": 150,
+    "non_litter": 1679,
+    "uncertain": 105,
+    "box_wrong": 26
+  },
+  "limitations": [
+    "The 240 semantic rows were actively selected using classifier disagreement, boundary, likely-positive, and novelty criteria.",
+    "Classifier diagnostics are stress-test diagnostics and are not unbiased population estimates.",
+    "Random-grid rows audit proposal recall and are not candidate-classifier training examples."
+  ]
+}

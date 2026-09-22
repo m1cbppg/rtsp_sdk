@@ -1,3 +1,5 @@
+> **最终状态（2026-09-21）**：后续 oracle Go/No-Go 实验已停止整个 Profile prior 路线。不得继续本文的方案二接入或恢复 v6；正式结论见 `docs/decisions/2026-09-21-ground-litter-profile-prior-no-go.md`。以下内容仅作历史追溯。
+>
 > **状态更正（2026-09-20 晚）**：本文 §1 的“真实 PS 验证：通过”**已被撤回**。
 > 实施评审（`docs/plans/2026-09-20-profile-factory-implementation-review.md`）判定本次
 > 验收**不通过**，R1～R11 共 11 项缺陷。本文 §11.3 的 0.9453 与 §11.2 的 N=16

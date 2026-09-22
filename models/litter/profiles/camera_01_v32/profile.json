@@ -1,0 +1,71 @@
+{
+  "kind": "ground_litter_clean_reference_v32",
+  "profile_id": "camera_01_v32",
+  "reference_size": [
+    2560,
+    1440
+  ],
+  "source_reference_sha256": "d91d9aa50d06f7b2025f66776ce31af9d919391d65cfb1c0a97336ca2e7693f8",
+  "overlay_exclude_zones": [
+    [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.43,
+        0.0
+      ],
+      [
+        0.43,
+        0.115
+      ],
+      [
+        0.0,
+        0.115
+      ]
+    ],
+    [
+      [
+        0.678,
+        0.835
+      ],
+      [
+        1.0,
+        0.835
+      ],
+      [
+        1.0,
+        1.0
+      ],
+      [
+        0.678,
+        1.0
+      ]
+    ]
+  ],
+  "ground_roi": [
+    [
+      0.455,
+      0.232
+    ],
+    [
+      0.714,
+      0.232
+    ],
+    [
+      0.806,
+      1.0
+    ],
+    [
+      0.455,
+      1.0
+    ]
+  ],
+  "sha256": {
+    "reference.png": "a5daf4feaba37e7013b670f11007bb20617045dd00e57843af60fe207ac7fa43",
+    "valid_mask.png": "ce6edba5769fb5f91570a2abd8a3b9a8b7cde4fd45026ceecec4ef3c984fae09",
+    "daylight_tolerance.png": "c4fc329487ea95b43cf82cd273ed7c6fb4b128fc87bcfc64f709bb4e19370188"
+  },
+  "baseline": "V3.2 accepted offline baseline; natural field events pending"
+}

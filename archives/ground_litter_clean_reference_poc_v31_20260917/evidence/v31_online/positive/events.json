@@ -1,0 +1,488 @@
+[
+  {
+    "event_id": 1,
+    "first_seen": 71.0,
+    "last_visible": 71.0,
+    "anchor_box": [
+      1712.0,
+      628.0,
+      1730.0,
+      636.0
+    ],
+    "state": "EXPIRED_PENDING",
+    "visible_hits": 1,
+    "visible_duration_seconds": 1.0,
+    "confirmed_at": null,
+    "confirmation_delay_seconds": null,
+    "closed_at": 86.0,
+    "closed_reason": "pending_timeout",
+    "clear_observed_seconds": 0.0,
+    "occluded_samples": 1,
+    "uncertain_samples": 13,
+    "state_history": [
+      {
+        "timestamp": 71.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 72.0,
+        "state": "OCCLUDED",
+        "reason": "actor_occluded"
+      },
+      {
+        "timestamp": 73.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 86.0,
+        "state": "EXPIRED_PENDING",
+        "reason": "pending_timeout"
+      }
+    ],
+    "visible_timestamps": [
+      71.0
+    ]
+  },
+  {
+    "event_id": 2,
+    "first_seen": 72.0,
+    "last_visible": 156.0,
+    "anchor_box": [
+      1496.0,
+      1026.5,
+      1520.0,
+      1044.0
+    ],
+    "state": "VISIBLE_ANOMALY",
+    "visible_hits": 75,
+    "visible_duration_seconds": 75.0,
+    "confirmed_at": 81.0,
+    "confirmation_delay_seconds": 9.0,
+    "closed_at": null,
+    "closed_reason": null,
+    "clear_observed_seconds": 0.0,
+    "occluded_samples": 10,
+    "uncertain_samples": 13,
+    "state_history": [
+      {
+        "timestamp": 72.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 75.0,
+        "state": "OCCLUDED",
+        "reason": "actor_occluded"
+      },
+      {
+        "timestamp": 80.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 88.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 89.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 97.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 109.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 112.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "merged_event_5"
+      },
+      {
+        "timestamp": 123.0,
+        "state": "OCCLUDED",
+        "reason": "actor_occluded"
+      },
+      {
+        "timestamp": 128.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      }
+    ],
+    "visible_timestamps": [
+      72.0,
+      73.0,
+      74.0,
+      80.0,
+      81.0,
+      82.0,
+      83.0,
+      84.0,
+      85.0,
+      86.0,
+      87.0,
+      88.0,
+      89.0,
+      90.0,
+      91.0,
+      92.0,
+      93.0,
+      94.0,
+      95.0,
+      96.0,
+      97.0,
+      98.0,
+      99.0,
+      100.0,
+      101.0,
+      102.0,
+      103.0,
+      104.0,
+      105.0,
+      106.0,
+      107.0,
+      108.0,
+      109.0,
+      110.0,
+      111.0,
+      112.0,
+      113.0,
+      114.0,
+      115.0,
+      116.0,
+      117.0,
+      118.0,
+      119.0,
+      120.0,
+      121.0,
+      122.0,
+      128.0,
+      129.0,
+      130.0,
+      131.0,
+      132.0,
+      133.0,
+      134.0,
+      135.0,
+      136.0,
+      137.0,
+      138.0,
+      139.0,
+      140.0,
+      141.0,
+      142.0,
+      143.0,
+      144.0,
+      145.0,
+      146.0,
+      147.0,
+      148.0,
+      149.0,
+      150.0,
+      151.0,
+      152.0,
+      153.0,
+      154.0,
+      155.0,
+      156.0
+    ]
+  },
+  {
+    "event_id": 3,
+    "first_seen": 76.0,
+    "last_visible": 76.0,
+    "anchor_box": [
+      1280.0,
+      1115.0,
+      1291.0,
+      1126.0
+    ],
+    "state": "EXPIRED_PENDING",
+    "visible_hits": 1,
+    "visible_duration_seconds": 1.0,
+    "confirmed_at": null,
+    "confirmation_delay_seconds": null,
+    "closed_at": 91.0,
+    "closed_reason": "pending_timeout",
+    "clear_observed_seconds": 0.0,
+    "occluded_samples": 0,
+    "uncertain_samples": 14,
+    "state_history": [
+      {
+        "timestamp": 76.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 77.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 91.0,
+        "state": "EXPIRED_PENDING",
+        "reason": "pending_timeout"
+      }
+    ],
+    "visible_timestamps": [
+      76.0
+    ]
+  },
+  {
+    "event_id": 4,
+    "first_seen": 83.0,
+    "last_visible": 96.0,
+    "anchor_box": [
+      1775.0,
+      594.0,
+      1784.0,
+      604.0
+    ],
+    "state": "EXPIRED_PENDING",
+    "visible_hits": 3,
+    "visible_duration_seconds": 3.0,
+    "confirmed_at": null,
+    "confirmation_delay_seconds": null,
+    "closed_at": 111.0,
+    "closed_reason": "pending_timeout",
+    "clear_observed_seconds": 0.0,
+    "occluded_samples": 0,
+    "uncertain_samples": 25,
+    "state_history": [
+      {
+        "timestamp": 83.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 84.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 95.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 97.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 111.0,
+        "state": "EXPIRED_PENDING",
+        "reason": "pending_timeout"
+      }
+    ],
+    "visible_timestamps": [
+      83.0,
+      95.0,
+      96.0
+    ]
+  },
+  {
+    "event_id": 5,
+    "first_seen": 88.0,
+    "last_visible": 112.0,
+    "anchor_box": [
+      1508.0,
+      1033.0,
+      1520.0,
+      1043.0
+    ],
+    "state": "MERGED",
+    "visible_hits": 25,
+    "visible_duration_seconds": 25.0,
+    "confirmed_at": 92.0,
+    "confirmation_delay_seconds": 4.0,
+    "closed_at": 112.0,
+    "closed_reason": "merged_into:2",
+    "clear_observed_seconds": 0.0,
+    "occluded_samples": 0,
+    "uncertain_samples": 0,
+    "state_history": [
+      {
+        "timestamp": 88.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 112.0,
+        "state": "MERGED",
+        "reason": "merged_into:2"
+      }
+    ],
+    "visible_timestamps": [
+      88.0,
+      89.0,
+      90.0,
+      91.0,
+      92.0,
+      93.0,
+      94.0,
+      95.0,
+      96.0,
+      97.0,
+      98.0,
+      99.0,
+      100.0,
+      101.0,
+      102.0,
+      103.0,
+      104.0,
+      105.0,
+      106.0,
+      107.0,
+      108.0,
+      109.0,
+      110.0,
+      111.0,
+      112.0
+    ]
+  },
+  {
+    "event_id": 6,
+    "first_seen": 89.0,
+    "last_visible": 108.0,
+    "anchor_box": [
+      1288.0,
+      367.0,
+      1296.0,
+      378.0
+    ],
+    "state": "ANOMALY_PENDING",
+    "visible_hits": 8,
+    "visible_duration_seconds": 8.0,
+    "confirmed_at": 105.0,
+    "confirmation_delay_seconds": 16.0,
+    "closed_at": null,
+    "closed_reason": null,
+    "clear_observed_seconds": 0.0,
+    "occluded_samples": 0,
+    "uncertain_samples": 60,
+    "state_history": [
+      {
+        "timestamp": 89.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 93.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 105.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 109.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      }
+    ],
+    "visible_timestamps": [
+      89.0,
+      90.0,
+      91.0,
+      92.0,
+      105.0,
+      106.0,
+      107.0,
+      108.0
+    ]
+  },
+  {
+    "event_id": 7,
+    "first_seen": 118.0,
+    "last_visible": 119.0,
+    "anchor_box": [
+      1773.5,
+      594.5,
+      1784.0,
+      604.0
+    ],
+    "state": "EXPIRED_PENDING",
+    "visible_hits": 2,
+    "visible_duration_seconds": 2.0,
+    "confirmed_at": null,
+    "confirmation_delay_seconds": null,
+    "closed_at": 134.0,
+    "closed_reason": "pending_timeout",
+    "clear_observed_seconds": 0.0,
+    "occluded_samples": 0,
+    "uncertain_samples": 14,
+    "state_history": [
+      {
+        "timestamp": 118.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 120.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 134.0,
+        "state": "EXPIRED_PENDING",
+        "reason": "pending_timeout"
+      }
+    ],
+    "visible_timestamps": [
+      118.0,
+      119.0
+    ]
+  },
+  {
+    "event_id": 8,
+    "first_seen": 133.0,
+    "last_visible": 133.0,
+    "anchor_box": [
+      1727.0,
+      499.0,
+      1738.0,
+      506.0
+    ],
+    "state": "EXPIRED_PENDING",
+    "visible_hits": 1,
+    "visible_duration_seconds": 1.0,
+    "confirmed_at": null,
+    "confirmation_delay_seconds": null,
+    "closed_at": 148.0,
+    "closed_reason": "pending_timeout",
+    "clear_observed_seconds": 0.0,
+    "occluded_samples": 0,
+    "uncertain_samples": 14,
+    "state_history": [
+      {
+        "timestamp": 133.0,
+        "state": "VISIBLE_ANOMALY",
+        "reason": "candidate_visible"
+      },
+      {
+        "timestamp": 134.0,
+        "state": "ANOMALY_PENDING",
+        "reason": "residual_without_candidate"
+      },
+      {
+        "timestamp": 148.0,
+        "state": "EXPIRED_PENDING",
+        "reason": "pending_timeout"
+      }
+    ],
+    "visible_timestamps": [
+      133.0
+    ]
+  }
+]

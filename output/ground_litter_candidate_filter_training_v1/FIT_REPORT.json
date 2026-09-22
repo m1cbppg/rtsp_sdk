@@ -1,0 +1,198 @@
+{
+  "schema": "ground_litter_candidate_filter_fit_v1",
+  "compute": {
+    "requested": "cuda:0",
+    "resolved_type": "cuda",
+    "torch_version": "2.11.0+cu128",
+    "torch_cuda_version": "12.8",
+    "cuda_available": true,
+    "gpu_name": "NVIDIA GeForce RTX 3060 Ti",
+    "gpu_total_memory_bytes": 8222408704
+  },
+  "training_config": {
+    "seed": 20260922,
+    "steps_per_head": 500,
+    "optimizer": "AdamW",
+    "learning_rate": 0.015,
+    "weight_decay": 0.05,
+    "loss": "BCEWithLogitsLoss",
+    "class_weighting": "negative_count / positive_count per camera fold",
+    "deterministic_algorithms": true
+  },
+  "target_recall": 0.9,
+  "training": {
+    "base_rows": 955,
+    "active": {
+      "positive": 22,
+      "negative": 175,
+      "excluded": 43
+    },
+    "rows": 1152,
+    "positive": 147,
+    "negative": 1005
+  },
+  "input_sha256": {
+    "base_manifest": "06adcc91438fac5c14a55eb5fbd43416b084aa74a8465df6b1f1452e23909718",
+    "active_selection": "ff50871ba265910ae14f6350d808efe7544bb4ed033750159b1aef707b7605ac",
+    "active_reviews": "f18c94cf77705766fcfa50f01603d96291061a374897f5849dda2bd08df8fdd4",
+    "base_embeddings": {
+      "turhancan": "d841109c2c88e1c9f073f2c32d9d649d8d759d5090177e82cb43fa814e94d8ac",
+      "yolo26s": "4718fa6a57d9bcb5701a56ea89cda5d35885aa1ef7ae102342817607962ac7f2"
+    },
+    "pool_embeddings": {
+      "turhancan": "15ba06373b85864eec3d67587c0affe9e9be2acbf1f85ffa74e3dc8dfd402fe5",
+      "yolo26s": "6eee638ca4efb8bb600dbbf32edb201f53423b79b8e8c3b471075472f80d1462"
+    }
+  },
+  "models": {
+    "turhancan": {
+      "artifact": "turhancan.npz",
+      "artifact_sha256": "dd95c1245ca4efc3fbad0c9cfceb8a8a286aba66a85ee50de37cd58117d467d3",
+      "embedding_dimension": 576,
+      "heads": 5,
+      "head_training": {
+        "01021": {
+          "excluded_camera": "44180209031322001021",
+          "rows": 924,
+          "positive": 118,
+          "negative": 806,
+          "positive_weight": 6.830508474576271,
+          "steps": 500,
+          "final_training_loss": 0.15106646716594696,
+          "seconds": 0.455731
+        },
+        "01022": {
+          "excluded_camera": "44180209031322001022",
+          "rows": 888,
+          "positive": 103,
+          "negative": 785,
+          "positive_weight": 7.621359223300971,
+          "steps": 500,
+          "final_training_loss": 0.14109700918197632,
+          "seconds": 0.43039
+        },
+        "01027": {
+          "excluded_camera": "44180209031322001027",
+          "rows": 921,
+          "positive": 133,
+          "negative": 788,
+          "positive_weight": 5.924812030075188,
+          "steps": 500,
+          "final_training_loss": 0.16264456510543823,
+          "seconds": 0.403347
+        },
+        "01028": {
+          "excluded_camera": "44180209031322001028",
+          "rows": 923,
+          "positive": 126,
+          "negative": 797,
+          "positive_weight": 6.325396825396825,
+          "steps": 500,
+          "final_training_loss": 0.16622339189052582,
+          "seconds": 0.362994
+        },
+        "01030": {
+          "excluded_camera": "44180209031322001030",
+          "rows": 952,
+          "positive": 108,
+          "negative": 844,
+          "positive_weight": 7.814814814814815,
+          "steps": 500,
+          "final_training_loss": 0.1765754222869873,
+          "seconds": 0.413283
+        }
+      },
+      "total_head_training_seconds": 2.065745,
+      "threshold": -4.25651741027832,
+      "camera_oof_metrics": {
+        "rows": 1152,
+        "positive_rows": 147,
+        "negative_rows": 1005,
+        "positive_weight": 147.0,
+        "negative_weight": 1005.0,
+        "threshold": -4.25651741027832,
+        "recall": 0.9047619047619048,
+        "precision": 0.18344827586206897,
+        "negative_reduction": 0.41094527363184075,
+        "candidate_reduction": 0.3706597222222222
+      }
+    },
+    "yolo26s": {
+      "artifact": "yolo26s.npz",
+      "artifact_sha256": "edb639638c228afa766e522fa7a37ee46fd18dd7da84865c9e0ddbc83f6aea7b",
+      "embedding_dimension": 512,
+      "heads": 5,
+      "head_training": {
+        "01021": {
+          "excluded_camera": "44180209031322001021",
+          "rows": 924,
+          "positive": 118,
+          "negative": 806,
+          "positive_weight": 6.830508474576271,
+          "steps": 500,
+          "final_training_loss": 0.07606116682291031,
+          "seconds": 0.433994
+        },
+        "01022": {
+          "excluded_camera": "44180209031322001022",
+          "rows": 888,
+          "positive": 103,
+          "negative": 785,
+          "positive_weight": 7.621359223300971,
+          "steps": 500,
+          "final_training_loss": 0.07114873826503754,
+          "seconds": 0.391098
+        },
+        "01027": {
+          "excluded_camera": "44180209031322001027",
+          "rows": 921,
+          "positive": 133,
+          "negative": 788,
+          "positive_weight": 5.924812030075188,
+          "steps": 500,
+          "final_training_loss": 0.08306989818811417,
+          "seconds": 0.374781
+        },
+        "01028": {
+          "excluded_camera": "44180209031322001028",
+          "rows": 923,
+          "positive": 126,
+          "negative": 797,
+          "positive_weight": 6.325396825396825,
+          "steps": 500,
+          "final_training_loss": 0.07354116439819336,
+          "seconds": 0.447828
+        },
+        "01030": {
+          "excluded_camera": "44180209031322001030",
+          "rows": 952,
+          "positive": 108,
+          "negative": 844,
+          "positive_weight": 7.814814814814815,
+          "steps": 500,
+          "final_training_loss": 0.09034313261508942,
+          "seconds": 0.432892
+        }
+      },
+      "total_head_training_seconds": 2.080593,
+      "threshold": -5.7223310470581055,
+      "camera_oof_metrics": {
+        "rows": 1152,
+        "positive_rows": 147,
+        "negative_rows": 1005,
+        "positive_weight": 147.0,
+        "negative_weight": 1005.0,
+        "threshold": -5.7223310470581055,
+        "recall": 0.9047619047619048,
+        "precision": 0.1581450653983353,
+        "negative_reduction": 0.29552238805970155,
+        "candidate_reduction": 0.2699652777777778
+      }
+    }
+  },
+  "holdout_labels_read": false,
+  "notes": [
+    "Threshold is calibrated on camera-wise out-of-fold training predictions.",
+    "The separately frozen holdout labels were not accepted by or read by fit."
+  ]
+}

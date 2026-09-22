@@ -1,0 +1,776 @@
+{
+  "name": "positive_reference",
+  "sample_fps": 1.0,
+  "start_seconds": 0.0,
+  "alignment": {
+    "method": "SIFT + RANSAC homography",
+    "matches": 121,
+    "inliers": 109,
+    "inlier_fraction": 0.9008,
+    "reprojection_median_px": 0.305,
+    "reprojection_p95_px": 0.861,
+    "inlier_hull_fraction": 0.652,
+    "matrix": [
+      [
+        1.0006049035862585,
+        0.0005995454524608,
+        -0.8750638401199221
+      ],
+      [
+        3.9131221846884527e-05,
+        1.0004933002753795,
+        -0.21983919942103672
+      ],
+      [
+        9.240438668907219e-08,
+        2.82441941552186e-07,
+        1.0
+      ]
+    ]
+  },
+  "main": {
+    "raw_candidates": 3725,
+    "raw_per_minute": 1425.3826530612243,
+    "tracks_total": 418,
+    "tracks_at_least_seconds": {
+      "1": 418,
+      "3": 229,
+      "5": 124,
+      "10": 69,
+      "30": 34
+    },
+    "raw_to_5s_reduction": 0.9667114093959731
+  },
+  "diagnostic_small_core": {
+    "raw_candidates": 11526,
+    "raw_per_minute": 4410.459183673469,
+    "tracks_total": 1604,
+    "tracks_at_least_seconds": {
+      "1": 1604,
+      "3": 964,
+      "5": 546,
+      "10": 278,
+      "30": 72
+    },
+    "raw_to_5s_reduction": 0.9526288391462779
+  },
+  "t01": {
+    "evaluation_region": [
+      1430,
+      990,
+      1540,
+      1080
+    ],
+    "appearance_seconds": 72.0,
+    "preappearance_region_hit_timestamps": [
+      64.0
+    ],
+    "raw_hit_timestamps": [
+      88.0,
+      105.0,
+      121.0,
+      122.0,
+      125.0,
+      128.0,
+      129.0,
+      130.0,
+      131.0,
+      132.0,
+      133.0,
+      134.0,
+      135.0
+    ],
+    "first_raw_seconds": 88.0,
+    "raw_delay_seconds": 16.0,
+    "matching_tracks": [
+      {
+        "track_id": 361,
+        "source": "clean_reference",
+        "first_seen": 129.0,
+        "last_seen": 135.0,
+        "hits": 7,
+        "lifetime_seconds": 7.0,
+        "visible_duration_seconds": 7.0,
+        "continuity": 1.0,
+        "max_gap_seconds": 1.0,
+        "median_box": [
+          1510.0,
+          1037.0,
+          1518.0,
+          1040.0
+        ],
+        "median_score": 0.965,
+        "occluded_samples": 0,
+        "timestamps": [
+          129.0,
+          130.0,
+          131.0,
+          132.0,
+          133.0,
+          134.0,
+          135.0
+        ]
+      },
+      {
+        "track_id": 319,
+        "source": "clean_reference",
+        "first_seen": 121.0,
+        "last_seen": 122.0,
+        "hits": 2,
+        "lifetime_seconds": 2.0,
+        "visible_duration_seconds": 2.0,
+        "continuity": 1.0,
+        "max_gap_seconds": 1.0,
+        "median_box": [
+          1497.0,
+          1030.0,
+          1502.0,
+          1034.0
+        ],
+        "median_score": 1.0,
+        "occluded_samples": 0,
+        "timestamps": [
+          121.0,
+          122.0
+        ]
+      },
+      {
+        "track_id": 151,
+        "source": "clean_reference",
+        "first_seen": 64.0,
+        "last_seen": 64.0,
+        "hits": 1,
+        "lifetime_seconds": 1.0,
+        "visible_duration_seconds": 1.0,
+        "continuity": 1.0,
+        "max_gap_seconds": 0.0,
+        "median_box": [
+          1535.0,
+          1059.0,
+          1538.0,
+          1067.0
+        ],
+        "median_score": 0.8505,
+        "occluded_samples": 0,
+        "timestamps": [
+          64.0
+        ]
+      },
+      {
+        "track_id": 234,
+        "source": "clean_reference",
+        "first_seen": 88.0,
+        "last_seen": 88.0,
+        "hits": 1,
+        "lifetime_seconds": 1.0,
+        "visible_duration_seconds": 1.0,
+        "continuity": 1.0,
+        "max_gap_seconds": 0.0,
+        "median_box": [
+          1511.0,
+          1037.0,
+          1518.0,
+          1040.0
+        ],
+        "median_score": 0.9517,
+        "occluded_samples": 0,
+        "timestamps": [
+          88.0
+        ]
+      },
+      {
+        "track_id": 279,
+        "source": "clean_reference",
+        "first_seen": 105.0,
+        "last_seen": 105.0,
+        "hits": 1,
+        "lifetime_seconds": 1.0,
+        "visible_duration_seconds": 1.0,
+        "continuity": 1.0,
+        "max_gap_seconds": 0.0,
+        "median_box": [
+          1511.0,
+          1037.0,
+          1518.0,
+          1040.0
+        ],
+        "median_score": 0.9664,
+        "occluded_samples": 0,
+        "timestamps": [
+          105.0
+        ]
+      },
+      {
+        "track_id": 348,
+        "source": "clean_reference",
+        "first_seen": 125.0,
+        "last_seen": 125.0,
+        "hits": 1,
+        "lifetime_seconds": 1.0,
+        "visible_duration_seconds": 1.0,
+        "continuity": 1.0,
+        "max_gap_seconds": 0.0,
+        "median_box": [
+          1436.0,
+          1025.0,
+          1439.0,
+          1033.0
+        ],
+        "median_score": 0.7722,
+        "occluded_samples": 0,
+        "timestamps": [
+          125.0
+        ]
+      },
+      {
+        "track_id": 354,
+        "source": "clean_reference",
+        "first_seen": 128.0,
+        "last_seen": 128.0,
+        "hits": 1,
+        "lifetime_seconds": 1.0,
+        "visible_duration_seconds": 1.0,
+        "continuity": 1.0,
+        "max_gap_seconds": 0.0,
+        "median_box": [
+          1432.0,
+          1055.0,
+          1444.0,
+          1061.0
+        ],
+        "median_score": 0.9908,
+        "occluded_samples": 0,
+        "timestamps": [
+          128.0
+        ]
+      }
+    ],
+    "first_stable_1s": 89.0,
+    "stable_1s_delay": 17.0,
+    "first_stable_3s": 131.0,
+    "stable_3s_delay": 59.0,
+    "first_stable_5s": 133.0,
+    "stable_5s_delay": 61.0,
+    "post_75_raw_visibility_rate": 0.15853658536585366
+  },
+  "t01_diagnostic": {
+    "evaluation_region": [
+      1430,
+      990,
+      1540,
+      1080
+    ],
+    "appearance_seconds": 72.0,
+    "preappearance_region_hit_timestamps": [
+      65.0
+    ],
+    "raw_hit_timestamps": [
+      72.0,
+      76.0,
+      77.0,
+      80.0,
+      81.0,
+      82.0,
+      83.0,
+      84.0,
+      86.0,
+      87.0,
+      88.0,
+      89.0,
+      90.0,
+      91.0,
+      92.0,
+      93.0,
+      94.0,
+      95.0,
+      96.0,
+      97.0,
+      98.0,
+      99.0,
+      100.0,
+      101.0,
+      102.0,
+      103.0,
+      104.0,
+      105.0,
+      106.0,
+      107.0,
+      108.0,
+      109.0,
+      110.0,
+      111.0,
+      112.0,
+      113.0,
+      114.0,
+      115.0,
+      116.0,
+      117.0,
+      118.0,
+      119.0,
+      120.0,
+      121.0,
+      123.0,
+      124.0,
+      126.0,
+      128.0,
+      129.0,
+      130.0,
+      131.0,
+      132.0,
+      133.0,
+      134.0,
+      135.0,
+      136.0,
+      137.0,
+      138.0,
+      139.0,
+      140.0,
+      141.0,
+      142.0,
+      143.0,
+      144.0,
+      145.0,
+      146.0,
+      147.0,
+      148.0,
+      149.0,
+      150.0,
+      151.0,
+      152.0,
+      153.0,
+      154.0,
+      155.0,
+      156.0
+    ],
+    "first_raw_seconds": 72.0,
+    "raw_delay_seconds": 0.0,
+    "matching_tracks": [
+      {
+        "track_id": 914,
+        "source": "diagnostic_small_core",
+        "first_seen": 88.0,
+        "last_seen": 124.0,
+        "hits": 36,
+        "lifetime_seconds": 37.0,
+        "visible_duration_seconds": 36.0,
+        "continuity": 0.973,
+        "max_gap_seconds": 2.0,
+        "median_box": [
+          1500.0,
+          1030.0,
+          1502.0,
+          1034.0
+        ],
+        "median_score": 0.9285,
+        "occluded_samples": 0,
+        "timestamps": [
+          88.0,
+          89.0,
+          90.0,
+          91.0,
+          92.0,
+          93.0,
+          94.0,
+          95.0,
+          96.0,
+          97.0,
+          98.0,
+          99.0,
+          100.0,
+          101.0,
+          102.0,
+          103.0,
+          104.0,
+          105.0,
+          106.0,
+          107.0,
+          108.0,
+          109.0,
+          110.0,
+          111.0,
+          112.0,
+          113.0,
+          114.0,
+          115.0,
+          116.0,
+          117.0,
+          118.0,
+          119.0,
+          120.0,
+          121.0,
+          123.0,
+          124.0
+        ]
+      },
+      {
+        "track_id": 1307,
+        "source": "diagnostic_small_core",
+        "first_seen": 124.0,
+        "last_seen": 156.0,
+        "hits": 31,
+        "lifetime_seconds": 33.0,
+        "visible_duration_seconds": 31.0,
+        "continuity": 0.9394,
+        "max_gap_seconds": 2.0,
+        "median_box": [
+          1500.0,
+          1030.0,
+          1502.0,
+          1034.0
+        ],
+        "median_score": 0.9348,
+        "occluded_samples": 0,
+        "timestamps": [
+          124.0,
+          126.0,
+          128.0,
+          129.0,
+          130.0,
+          131.0,
+          132.0,
+          133.0,
+          134.0,
+          135.0,
+          136.0,
+          137.0,
+          138.0,
+          139.0,
+          140.0,
+          141.0,
+          142.0,
+          143.0,
+          144.0,
+          145.0,
+          146.0,
+          147.0,
+          148.0,
+          149.0,
+          150.0,
+          151.0,
+          152.0,
+          153.0,
+          154.0,
+          155.0,
+          156.0
+        ]
+      },
+      {
+        "track_id": 1058,
+        "source": "diagnostic_small_core",
+        "first_seen": 104.0,
+        "last_seen": 120.0,
+        "hits": 15,
+        "lifetime_seconds": 17.0,
+        "visible_duration_seconds": 15.0,
+        "continuity": 0.8824,
+        "max_gap_seconds": 2.0,
+        "median_box": [
+          1512.0,
+          1037.0,
+          1518.0,
+          1039.0
+        ],
+        "median_score": 0.9724,
+        "occluded_samples": 0,
+        "timestamps": [
+          104.0,
+          106.0,
+          107.0,
+          109.0,
+          110.0,
+          111.0,
+          112.0,
+          113.0,
+          114.0,
+          115.0,
+          116.0,
+          117.0,
+          118.0,
+          119.0,
+          120.0
+        ]
+      },
+      {
+        "track_id": 1437,
+        "source": "diagnostic_small_core",
+        "first_seen": 136.0,
+        "last_seen": 149.0,
+        "hits": 14,
+        "lifetime_seconds": 14.0,
+        "visible_duration_seconds": 14.0,
+        "continuity": 1.0,
+        "max_gap_seconds": 1.0,
+        "median_box": [
+          1513.0,
+          1037.0,
+          1517.5,
+          1039.0
+        ],
+        "median_score": 0.9692,
+        "occluded_samples": 0,
+        "timestamps": [
+          136.0,
+          137.0,
+          138.0,
+          139.0,
+          140.0,
+          141.0,
+          142.0,
+          143.0,
+          144.0,
+          145.0,
+          146.0,
+          147.0,
+          148.0,
+          149.0
+        ]
+      },
+      {
+        "track_id": 931,
+        "source": "diagnostic_small_core",
+        "first_seen": 89.0,
+        "last_seen": 101.0,
+        "hits": 13,
+        "lifetime_seconds": 13.0,
+        "visible_duration_seconds": 13.0,
+        "continuity": 1.0,
+        "max_gap_seconds": 1.0,
+        "median_box": [
+          1513.0,
+          1037.0,
+          1518.0,
+          1039.0
+        ],
+        "median_score": 0.9643,
+        "occluded_samples": 0,
+        "timestamps": [
+          89.0,
+          90.0,
+          91.0,
+          92.0,
+          93.0,
+          94.0,
+          95.0,
+          96.0,
+          97.0,
+          98.0,
+          99.0,
+          100.0,
+          101.0
+        ]
+      },
+      {
+        "track_id": 836,
+        "source": "diagnostic_small_core",
+        "first_seen": 80.0,
+        "last_seen": 87.0,
+        "hits": 7,
+        "lifetime_seconds": 8.0,
+        "visible_duration_seconds": 7.0,
+        "continuity": 0.875,
+        "max_gap_seconds": 2.0,
+        "median_box": [
+          1469.0,
+          1035.0,
+          1474.0,
+          1037.0
+        ],
+        "median_score": 0.9023,
+        "occluded_samples": 0,
+        "timestamps": [
+          80.0,
+          81.0,
+          82.0,
+          83.0,
+          84.0,
+          86.0,
+          87.0
+        ]
+      },
+      {
+        "track_id": 629,
+        "source": "diagnostic_small_core",
+        "first_seen": 65.0,
+        "last_seen": 65.0,
+        "hits": 1,
+        "lifetime_seconds": 1.0,
+        "visible_duration_seconds": 1.0,
+        "continuity": 1.0,
+        "max_gap_seconds": 0.0,
+        "median_box": [
+          1503.0,
+          1065.0,
+          1505.0,
+          1068.0
+        ],
+        "median_score": 1.0,
+        "occluded_samples": 0,
+        "timestamps": [
+          65.0
+        ]
+      },
+      {
+        "track_id": 728,
+        "source": "diagnostic_small_core",
+        "first_seen": 72.0,
+        "last_seen": 72.0,
+        "hits": 1,
+        "lifetime_seconds": 1.0,
+        "visible_duration_seconds": 1.0,
+        "continuity": 1.0,
+        "max_gap_seconds": 0.0,
+        "median_box": [
+          1468.0,
+          1035.0,
+          1474.0,
+          1037.0
+        ],
+        "median_score": 0.8889,
+        "occluded_samples": 0,
+        "timestamps": [
+          72.0
+        ]
+      },
+      {
+        "track_id": 729,
+        "source": "diagnostic_small_core",
+        "first_seen": 72.0,
+        "last_seen": 72.0,
+        "hits": 1,
+        "lifetime_seconds": 1.0,
+        "visible_duration_seconds": 1.0,
+        "continuity": 1.0,
+        "max_gap_seconds": 0.0,
+        "median_box": [
+          1485.0,
+          1037.0,
+          1487.0,
+          1040.0
+        ],
+        "median_score": 0.8752,
+        "occluded_samples": 0,
+        "timestamps": [
+          72.0
+        ]
+      },
+      {
+        "track_id": 783,
+        "source": "diagnostic_small_core",
+        "first_seen": 76.0,
+        "last_seen": 76.0,
+        "hits": 1,
+        "lifetime_seconds": 1.0,
+        "visible_duration_seconds": 1.0,
+        "continuity": 1.0,
+        "max_gap_seconds": 0.0,
+        "median_box": [
+          1441.0,
+          1036.0,
+          1447.0,
+          1037.0
+        ],
+        "median_score": 0.9389,
+        "occluded_samples": 0,
+        "timestamps": [
+          76.0
+        ]
+      },
+      {
+        "track_id": 802,
+        "source": "diagnostic_small_core",
+        "first_seen": 77.0,
+        "last_seen": 77.0,
+        "hits": 1,
+        "lifetime_seconds": 1.0,
+        "visible_duration_seconds": 1.0,
+        "continuity": 1.0,
+        "max_gap_seconds": 0.0,
+        "median_box": [
+          1476.0,
+          1059.0,
+          1478.0,
+          1062.0
+        ],
+        "median_score": 0.8545,
+        "occluded_samples": 0,
+        "timestamps": [
+          77.0
+        ]
+      },
+      {
+        "track_id": 1306,
+        "source": "diagnostic_small_core",
+        "first_seen": 124.0,
+        "last_seen": 124.0,
+        "hits": 1,
+        "lifetime_seconds": 1.0,
+        "visible_duration_seconds": 1.0,
+        "continuity": 1.0,
+        "max_gap_seconds": 0.0,
+        "median_box": [
+          1442.0,
+          1036.0,
+          1448.0,
+          1037.0
+        ],
+        "median_score": 1.0,
+        "occluded_samples": 0,
+        "timestamps": [
+          124.0
+        ]
+      },
+      {
+        "track_id": 1308,
+        "source": "diagnostic_small_core",
+        "first_seen": 124.0,
+        "last_seen": 124.0,
+        "hits": 1,
+        "lifetime_seconds": 1.0,
+        "visible_duration_seconds": 1.0,
+        "continuity": 1.0,
+        "max_gap_seconds": 0.0,
+        "median_box": [
+          1474.0,
+          1059.0,
+          1476.0,
+          1061.0
+        ],
+        "median_score": 0.958,
+        "occluded_samples": 0,
+        "timestamps": [
+          124.0
+        ]
+      },
+      {
+        "track_id": 1584,
+        "source": "diagnostic_small_core",
+        "first_seen": 154.0,
+        "last_seen": 154.0,
+        "hits": 1,
+        "lifetime_seconds": 1.0,
+        "visible_duration_seconds": 1.0,
+        "continuity": 1.0,
+        "max_gap_seconds": 0.0,
+        "median_box": [
+          1514.0,
+          1037.0,
+          1516.0,
+          1039.0
+        ],
+        "median_score": 0.9238,
+        "occluded_samples": 0,
+        "timestamps": [
+          154.0
+        ]
+      }
+    ],
+    "first_stable_1s": 73.0,
+    "stable_1s_delay": 1.0,
+    "first_stable_3s": 83.0,
+    "stable_3s_delay": 11.0,
+    "first_stable_5s": 85.0,
+    "stable_5s_delay": 13.0,
+    "post_75_raw_visibility_rate": 0.9146341463414634
+  },
+  "elapsed_seconds": 285.85409154195804
+}

@@ -1,0 +1,3336 @@
+{
+  "schema": "ground_litter_deferred_recovery_replay_v1",
+  "input": {
+    "recording_identity": {
+      "schema": "ground_litter_materialized_recording_v1",
+      "device_code": "44180209031322001027",
+      "file_id": "860384_18081003969_44180209031322001027-1789946973000",
+      "file_name": "20260921072933-20260921073437.ps",
+      "record_start": "2026-09-21 07:29:33",
+      "record_end": "2026-09-21 07:34:37",
+      "declared_bytes": 108366710,
+      "actual_bytes": 108366710,
+      "sha256": "65b261ed27b458e34e8c1c6f90cfbb25aeda7c288235790e00ccf202b2daf825",
+      "signed_url_persisted": false
+    },
+    "geometry_sha256": "85dff158f519a3ce93829d24b145226d1b4cf1b58953f58456375a6e72ee6204",
+    "fit_report_sha256": null,
+    "artifact_sha256": "a39518f0d52e9c96ea45a3fc04332bf1a08644d7b7f3434eb4b5bb1dac999b87",
+    "trash_model_sha256": "a2f8de0c7f714e2ab8b70c62490e2a41fd4a6681ca4a8dd442797c809a140278",
+    "feature_model_sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b",
+    "start_offset": 46.0,
+    "duration": 60.0,
+    "analysis_fps": 2.0
+  },
+  "configuration": {
+    "confidence": 0.025,
+    "per_frame_limit": 60,
+    "roi_dilation": 0.0,
+    "actor_filter": true,
+    "actor_confidence": 0.3,
+    "actor_overlap_threshold": 0.15,
+    "classifier_backbone": "convnext_tiny",
+    "event_mode": "passed_three_hit",
+    "classifier_threshold": 26.391033172607422,
+    "recovery": {
+      "classifier_passed_3hit": {
+        "ttl_seconds": 3.0,
+        "minimum_hits": 3,
+        "maximum_tracks": 32,
+        "history_size": 8,
+        "minimum_iou": 0.2,
+        "maximum_center_scale": 0.75,
+        "minimum_area_ratio": 0.25,
+        "semantic_score_threshold": null
+      }
+    }
+  },
+  "summary": {
+    "ticks": 121,
+    "events": 0,
+    "near_anchor_events": 0,
+    "baseline_anchor_ticks": 0,
+    "anchor_recovered_ticks": {
+      "classifier_passed_3hit": 0
+    },
+    "maximum_active_tracks": {
+      "classifier_passed_3hit": 0
+    },
+    "classifier_seconds_p95": 0.0,
+    "classifier_seconds_p99": 0.0,
+    "semantic_seconds_p50": 0.06650304910726845,
+    "semantic_seconds_p95": 0.07625801814720035,
+    "actor_rejected_total": 118,
+    "actor_seconds_p95": 0.026404293021187186
+  },
+  "events": [],
+  "ticks": [
+    {
+      "tick": 0,
+      "file_offset_seconds": 46.01900000000023,
+      "source_frame_index": 1151,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 26,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.4943192971404642,
+      "actor_seconds": 0.20553109794855118,
+      "classifier_seconds": 0.0,
+      "state_seconds": 2.079317346215248e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 1,
+      "file_offset_seconds": 46.53900000000067,
+      "source_frame_index": 1164,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 29,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06474166898988187,
+      "actor_seconds": 0.015225315000861883,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.813122071325779e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 2,
+      "file_offset_seconds": 47.01800000000003,
+      "source_frame_index": 1176,
+      "raw_candidate_count": 3,
+      "candidate_count": 0,
+      "actor_count": 27,
+      "actor_rejected_count": 3,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.0639159819111228,
+      "actor_seconds": 0.014955046121031046,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4591030776500702e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 3,
+      "file_offset_seconds": 47.538000000000466,
+      "source_frame_index": 1189,
+      "raw_candidate_count": 4,
+      "candidate_count": 0,
+      "actor_count": 29,
+      "actor_rejected_count": 4,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06430859910324216,
+      "actor_seconds": 0.015417925082147121,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.6140053048729897e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 4,
+      "file_offset_seconds": 48.01800000000003,
+      "source_frame_index": 1201,
+      "raw_candidate_count": 2,
+      "candidate_count": 0,
+      "actor_count": 30,
+      "actor_rejected_count": 2,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06403200491331518,
+      "actor_seconds": 0.015059810830280185,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.45698431879282e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 5,
+      "file_offset_seconds": 48.538000000000466,
+      "source_frame_index": 1214,
+      "raw_candidate_count": 2,
+      "candidate_count": 0,
+      "actor_count": 28,
+      "actor_rejected_count": 2,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06458508293144405,
+      "actor_seconds": 0.017054909141734242,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4461111277341843e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 6,
+      "file_offset_seconds": 49.01800000000003,
+      "source_frame_index": 1226,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 29,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.0703076128847897,
+      "actor_seconds": 0.015192260034382343,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.433701254427433e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 7,
+      "file_offset_seconds": 49.53700000000026,
+      "source_frame_index": 1239,
+      "raw_candidate_count": 2,
+      "candidate_count": 0,
+      "actor_count": 29,
+      "actor_rejected_count": 2,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06461442494764924,
+      "actor_seconds": 0.017343960935249925,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4674151316285133e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 8,
+      "file_offset_seconds": 50.016999999999825,
+      "source_frame_index": 1251,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 28,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06400727503933012,
+      "actor_seconds": 0.015478883869946003,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.774379052221775e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 9,
+      "file_offset_seconds": 50.53700000000026,
+      "source_frame_index": 1264,
+      "raw_candidate_count": 0,
+      "candidate_count": 0,
+      "actor_count": 32,
+      "actor_rejected_count": 0,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06439150311052799,
+      "actor_seconds": 0.017118538031354547,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.5452969819307327e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 10,
+      "file_offset_seconds": 51.016999999999825,
+      "source_frame_index": 1276,
+      "raw_candidate_count": 0,
+      "candidate_count": 0,
+      "actor_count": 30,
+      "actor_rejected_count": 0,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06403518817387521,
+      "actor_seconds": 0.015129714040085673,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.515890471637249e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 11,
+      "file_offset_seconds": 51.53600000000006,
+      "source_frame_index": 1289,
+      "raw_candidate_count": 0,
+      "candidate_count": 0,
+      "actor_count": 33,
+      "actor_rejected_count": 0,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06560463388450444,
+      "actor_seconds": 0.01759546180255711,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.7587095499038696e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 12,
+      "file_offset_seconds": 52.01599999999962,
+      "source_frame_index": 1301,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 31,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06422890699468553,
+      "actor_seconds": 0.015143536031246185,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.430511474609375e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 13,
+      "file_offset_seconds": 52.53600000000006,
+      "source_frame_index": 1314,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 25,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06448229216039181,
+      "actor_seconds": 0.016981475055217743,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4870194718241692e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 14,
+      "file_offset_seconds": 53.01599999999962,
+      "source_frame_index": 1326,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 28,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06419707415625453,
+      "actor_seconds": 0.015081173973158002,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.3978919014334679e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 15,
+      "file_offset_seconds": 53.53600000000006,
+      "source_frame_index": 1339,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 30,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06658653914928436,
+      "actor_seconds": 0.016828687163069844,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4689983800053596e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 16,
+      "file_offset_seconds": 54.01499999999942,
+      "source_frame_index": 1351,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 27,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.0642637680284679,
+      "actor_seconds": 0.015003870939835906,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4507211744785309e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 17,
+      "file_offset_seconds": 54.534999999999854,
+      "source_frame_index": 1364,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 28,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06460882700048387,
+      "actor_seconds": 0.023127492982894182,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4802906662225723e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 18,
+      "file_offset_seconds": 55.01499999999942,
+      "source_frame_index": 1376,
+      "raw_candidate_count": 2,
+      "candidate_count": 0,
+      "actor_count": 26,
+      "actor_rejected_count": 2,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06507578585296869,
+      "actor_seconds": 0.01508605107665062,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4046905562281609e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 19,
+      "file_offset_seconds": 55.534999999999854,
+      "source_frame_index": 1389,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 28,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06473131291568279,
+      "actor_seconds": 0.02080540801398456,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.682201400399208e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 20,
+      "file_offset_seconds": 56.013999999999214,
+      "source_frame_index": 1401,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 28,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.07030029501765966,
+      "actor_seconds": 0.015038946876302361,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4448072761297226e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 21,
+      "file_offset_seconds": 56.53399999999965,
+      "source_frame_index": 1414,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 26,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.0645513238850981,
+      "actor_seconds": 0.019737331895157695,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.460895873606205e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 22,
+      "file_offset_seconds": 57.013999999999214,
+      "source_frame_index": 1426,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 27,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06411904911510646,
+      "actor_seconds": 0.021324168890714645,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4813151210546494e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 23,
+      "file_offset_seconds": 57.53399999999965,
+      "source_frame_index": 1439,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 27,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06609282409772277,
+      "actor_seconds": 0.019580007065087557,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4796853065490723e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 24,
+      "file_offset_seconds": 58.013999999999214,
+      "source_frame_index": 1451,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 26,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06430977396667004,
+      "actor_seconds": 0.01890193996950984,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.5017110854387283e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 25,
+      "file_offset_seconds": 58.53299999999945,
+      "source_frame_index": 1464,
+      "raw_candidate_count": 2,
+      "candidate_count": 0,
+      "actor_count": 27,
+      "actor_rejected_count": 2,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06434018909931183,
+      "actor_seconds": 0.016973069868981838,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4635967090725899e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 26,
+      "file_offset_seconds": 59.01300000000265,
+      "source_frame_index": 1476,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 29,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06431516003794968,
+      "actor_seconds": 0.01872105197981,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4571007341146469e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 27,
+      "file_offset_seconds": 59.53299999999945,
+      "source_frame_index": 1489,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 27,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06440639588981867,
+      "actor_seconds": 0.017655337927863002,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.6656937077641487e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 28,
+      "file_offset_seconds": 60.01300000000265,
+      "source_frame_index": 1501,
+      "raw_candidate_count": 0,
+      "candidate_count": 0,
+      "actor_count": 28,
+      "actor_rejected_count": 0,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06432793289422989,
+      "actor_seconds": 0.01858146395534277,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.5459023416042328e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 29,
+      "file_offset_seconds": 60.53199999999924,
+      "source_frame_index": 1514,
+      "raw_candidate_count": 0,
+      "candidate_count": 0,
+      "actor_count": 27,
+      "actor_rejected_count": 0,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.0647447609808296,
+      "actor_seconds": 0.017512565944343805,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.5665078535676003e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 30,
+      "file_offset_seconds": 61.012000000002445,
+      "source_frame_index": 1526,
+      "raw_candidate_count": 0,
+      "candidate_count": 0,
+      "actor_count": 26,
+      "actor_rejected_count": 0,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06428507901728153,
+      "actor_seconds": 0.018643704941496253,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.5072990208864212e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 31,
+      "file_offset_seconds": 61.53199999999924,
+      "source_frame_index": 1539,
+      "raw_candidate_count": 0,
+      "candidate_count": 0,
+      "actor_count": 29,
+      "actor_rejected_count": 0,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.07634576712734997,
+      "actor_seconds": 0.020139332860708237,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.5790807083249092e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 32,
+      "file_offset_seconds": 62.012000000002445,
+      "source_frame_index": 1551,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 29,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06782117509283125,
+      "actor_seconds": 0.01506252191029489,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.5053199604153633e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 33,
+      "file_offset_seconds": 62.53199999999924,
+      "source_frame_index": 1564,
+      "raw_candidate_count": 0,
+      "candidate_count": 0,
+      "actor_count": 25,
+      "actor_rejected_count": 0,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.0642893488984555,
+      "actor_seconds": 0.02363729802891612,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.582503318786621e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 34,
+      "file_offset_seconds": 63.01100000000224,
+      "source_frame_index": 1576,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 28,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06400598189793527,
+      "actor_seconds": 0.015126630896702409,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4896038919687271e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 35,
+      "file_offset_seconds": 63.53100000000268,
+      "source_frame_index": 1589,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 28,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06714305910281837,
+      "actor_seconds": 0.017320672050118446,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.5452038496732712e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 36,
+      "file_offset_seconds": 64.01100000000224,
+      "source_frame_index": 1601,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 27,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.0760425680782646,
+      "actor_seconds": 0.017826858907938004,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4506978914141655e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 37,
+      "file_offset_seconds": 64.53100000000268,
+      "source_frame_index": 1614,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 26,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06448558112606406,
+      "actor_seconds": 0.017164632910862565,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4988938346505165e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 38,
+      "file_offset_seconds": 65.01000000000204,
+      "source_frame_index": 1626,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 24,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.063927544048056,
+      "actor_seconds": 0.015087906969711185,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4053890481591225e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 39,
+      "file_offset_seconds": 65.53000000000247,
+      "source_frame_index": 1639,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 30,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06473361607640982,
+      "actor_seconds": 0.023138175019994378,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.522805541753769e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 40,
+      "file_offset_seconds": 66.01000000000204,
+      "source_frame_index": 1651,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 23,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06422582105733454,
+      "actor_seconds": 0.015115567948669195,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4733057469129562e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 41,
+      "file_offset_seconds": 66.53000000000247,
+      "source_frame_index": 1664,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 27,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06453770096413791,
+      "actor_seconds": 0.02314558788202703,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4473916962742805e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 42,
+      "file_offset_seconds": 67.00900000000183,
+      "source_frame_index": 1676,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 23,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06398120406083763,
+      "actor_seconds": 0.015065377810969949,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4360994100570679e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 43,
+      "file_offset_seconds": 67.52900000000227,
+      "source_frame_index": 1689,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 26,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06419049412943423,
+      "actor_seconds": 0.0235222140327096,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.587904989719391e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 44,
+      "file_offset_seconds": 68.00900000000183,
+      "source_frame_index": 1701,
+      "raw_candidate_count": 2,
+      "candidate_count": 0,
+      "actor_count": 26,
+      "actor_rejected_count": 2,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06416121893562376,
+      "actor_seconds": 0.015111184911802411,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.5108147636055946e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 45,
+      "file_offset_seconds": 68.52900000000227,
+      "source_frame_index": 1714,
+      "raw_candidate_count": 2,
+      "candidate_count": 0,
+      "actor_count": 24,
+      "actor_rejected_count": 2,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.07276271400041878,
+      "actor_seconds": 0.01719551905989647,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.5014084056019783e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 46,
+      "file_offset_seconds": 69.00900000000183,
+      "source_frame_index": 1726,
+      "raw_candidate_count": 2,
+      "candidate_count": 0,
+      "actor_count": 28,
+      "actor_rejected_count": 2,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.0643312269821763,
+      "actor_seconds": 0.015080712968483567,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4549819752573967e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 47,
+      "file_offset_seconds": 69.52800000000207,
+      "source_frame_index": 1739,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 28,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.0649448549374938,
+      "actor_seconds": 0.017225418938323855,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4628982171416283e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 48,
+      "file_offset_seconds": 70.00800000000163,
+      "source_frame_index": 1751,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 33,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06405467982403934,
+      "actor_seconds": 0.014980704057961702,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4731893315911293e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 49,
+      "file_offset_seconds": 70.52800000000207,
+      "source_frame_index": 1764,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 30,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06441475986503065,
+      "actor_seconds": 0.01683535287156701,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4944002032279968e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 50,
+      "file_offset_seconds": 71.00800000000163,
+      "source_frame_index": 1776,
+      "raw_candidate_count": 2,
+      "candidate_count": 0,
+      "actor_count": 31,
+      "actor_rejected_count": 2,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06465906486846507,
+      "actor_seconds": 0.015070334076881409,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4387071132659912e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 51,
+      "file_offset_seconds": 71.52700000000186,
+      "source_frame_index": 1789,
+      "raw_candidate_count": 2,
+      "candidate_count": 0,
+      "actor_count": 30,
+      "actor_rejected_count": 2,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06401408603414893,
+      "actor_seconds": 0.0170470189768821,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.584482379257679e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 52,
+      "file_offset_seconds": 72.00700000000143,
+      "source_frame_index": 1801,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 33,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.07530870893970132,
+      "actor_seconds": 0.017989906948059797,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4452030882239342e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 53,
+      "file_offset_seconds": 72.52700000000186,
+      "source_frame_index": 1814,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 29,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.07703218515962362,
+      "actor_seconds": 0.020000011892989278,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4727003872394562e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 54,
+      "file_offset_seconds": 73.00700000000143,
+      "source_frame_index": 1826,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 31,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06613617995753884,
+      "actor_seconds": 0.015150768216699362,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4638993889093399e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 55,
+      "file_offset_seconds": 73.52700000000186,
+      "source_frame_index": 1839,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 30,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.0678650347981602,
+      "actor_seconds": 0.017165926983579993,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4930032193660736e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 56,
+      "file_offset_seconds": 74.00600000000122,
+      "source_frame_index": 1851,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 29,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.07620460400357842,
+      "actor_seconds": 0.018136513885110617,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4653895050287247e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 57,
+      "file_offset_seconds": 74.52600000000166,
+      "source_frame_index": 1864,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 33,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06873833597637713,
+      "actor_seconds": 0.023232816951349378,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.5587080270051956e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 58,
+      "file_offset_seconds": 75.00600000000122,
+      "source_frame_index": 1876,
+      "raw_candidate_count": 2,
+      "candidate_count": 0,
+      "actor_count": 30,
+      "actor_rejected_count": 2,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06435170001350343,
+      "actor_seconds": 0.015068468172103167,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.434306614100933e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 59,
+      "file_offset_seconds": 75.52600000000166,
+      "source_frame_index": 1889,
+      "raw_candidate_count": 0,
+      "candidate_count": 0,
+      "actor_count": 30,
+      "actor_rejected_count": 0,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06661488302052021,
+      "actor_seconds": 0.018115573097020388,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.797592267394066e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 60,
+      "file_offset_seconds": 76.00500000000102,
+      "source_frame_index": 1901,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 28,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06420039501972497,
+      "actor_seconds": 0.01806195080280304,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4733988791704178e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 61,
+      "file_offset_seconds": 76.52500000000146,
+      "source_frame_index": 1914,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 31,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.065020038979128,
+      "actor_seconds": 0.020678875967860222,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.5634112060070038e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 62,
+      "file_offset_seconds": 77.00500000000102,
+      "source_frame_index": 1926,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 29,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06398199894465506,
+      "actor_seconds": 0.014957469888031483,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4593126252293587e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 63,
+      "file_offset_seconds": 77.52500000000146,
+      "source_frame_index": 1939,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 31,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.07034039404243231,
+      "actor_seconds": 0.017081736819818616,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4922115951776505e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 64,
+      "file_offset_seconds": 78.00500000000102,
+      "source_frame_index": 1951,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 29,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06421343004330993,
+      "actor_seconds": 0.015105352969840169,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.5124212950468063e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 65,
+      "file_offset_seconds": 78.52400000000125,
+      "source_frame_index": 1964,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 29,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.0644840169698,
+      "actor_seconds": 0.016796609852463007,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.5008030459284782e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 66,
+      "file_offset_seconds": 79.00400000000081,
+      "source_frame_index": 1976,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 27,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06433154293335974,
+      "actor_seconds": 0.015009935013949871,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.510116271674633e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 67,
+      "file_offset_seconds": 79.52400000000125,
+      "source_frame_index": 1989,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 30,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.0643597929738462,
+      "actor_seconds": 0.017151061911135912,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.727812923491001e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 68,
+      "file_offset_seconds": 80.00400000000081,
+      "source_frame_index": 2001,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 30,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.07435208605602384,
+      "actor_seconds": 0.01792690111324191,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4937017112970352e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 69,
+      "file_offset_seconds": 80.52300000000105,
+      "source_frame_index": 2014,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 30,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06612844904884696,
+      "actor_seconds": 0.01694083819165826,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.553911715745926e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 70,
+      "file_offset_seconds": 81.00300000000061,
+      "source_frame_index": 2026,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 29,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06659741094335914,
+      "actor_seconds": 0.02129474305547774,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4634104445576668e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 71,
+      "file_offset_seconds": 81.52300000000105,
+      "source_frame_index": 2039,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 24,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.0654191009234637,
+      "actor_seconds": 0.023021023953333497,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.551210880279541e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 72,
+      "file_offset_seconds": 82.00300000000061,
+      "source_frame_index": 2051,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 30,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06420650379732251,
+      "actor_seconds": 0.021155263064429164,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4652032405138016e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 73,
+      "file_offset_seconds": 82.52300000000105,
+      "source_frame_index": 2064,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 28,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06762285018339753,
+      "actor_seconds": 0.023280890891328454,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.5499070286750793e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 74,
+      "file_offset_seconds": 83.00200000000041,
+      "source_frame_index": 2076,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 27,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06411812198348343,
+      "actor_seconds": 0.021222833078354597,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.461803913116455e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 75,
+      "file_offset_seconds": 83.52200000000084,
+      "source_frame_index": 2089,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 25,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06534132990054786,
+      "actor_seconds": 0.023252449929714203,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.5491852536797523e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 76,
+      "file_offset_seconds": 84.00200000000041,
+      "source_frame_index": 2101,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 24,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06618938711471856,
+      "actor_seconds": 0.02134307101368904,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4971010386943817e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 77,
+      "file_offset_seconds": 84.52200000000084,
+      "source_frame_index": 2114,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 25,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06800077995285392,
+      "actor_seconds": 0.022839823039248586,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.5138881281018257e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 78,
+      "file_offset_seconds": 85.0010000000002,
+      "source_frame_index": 2126,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 26,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06674825004301965,
+      "actor_seconds": 0.02118333103135228,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.5049008652567863e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 79,
+      "file_offset_seconds": 85.52100000000064,
+      "source_frame_index": 2139,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 25,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06737872795201838,
+      "actor_seconds": 0.02290376089513302,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.492188312113285e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 80,
+      "file_offset_seconds": 86.0010000000002,
+      "source_frame_index": 2151,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 25,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06902575003914535,
+      "actor_seconds": 0.01804023003205657,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.479010097682476e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 81,
+      "file_offset_seconds": 86.52100000000064,
+      "source_frame_index": 2164,
+      "raw_candidate_count": 0,
+      "candidate_count": 0,
+      "actor_count": 25,
+      "actor_rejected_count": 0,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06448524817824364,
+      "actor_seconds": 0.02288653515279293,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.5884870663285255e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 82,
+      "file_offset_seconds": 87.0010000000002,
+      "source_frame_index": 2176,
+      "raw_candidate_count": 0,
+      "candidate_count": 0,
+      "actor_count": 25,
+      "actor_rejected_count": 0,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06736549804918468,
+      "actor_seconds": 0.021208631107583642,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.561501994729042e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 83,
+      "file_offset_seconds": 87.52000000000044,
+      "source_frame_index": 2189,
+      "raw_candidate_count": 0,
+      "candidate_count": 0,
+      "actor_count": 25,
+      "actor_rejected_count": 0,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06747468491084874,
+      "actor_seconds": 0.022896063048392534,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.705600880086422e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 84,
+      "file_offset_seconds": 88.0,
+      "source_frame_index": 2201,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 30,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06684716208837926,
+      "actor_seconds": 0.02117618592455983,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4733988791704178e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 85,
+      "file_offset_seconds": 88.52000000000044,
+      "source_frame_index": 2214,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 28,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06782196601852775,
+      "actor_seconds": 0.022725401213392615,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.474190503358841e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 86,
+      "file_offset_seconds": 89.0,
+      "source_frame_index": 2226,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 30,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06819728598929942,
+      "actor_seconds": 0.015027951914817095,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.5877187252044678e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 87,
+      "file_offset_seconds": 89.51900000000023,
+      "source_frame_index": 2239,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 30,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06650304910726845,
+      "actor_seconds": 0.022647507023066282,
+      "classifier_seconds": 0.0,
+      "state_seconds": 2.233590930700302e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 88,
+      "file_offset_seconds": 90.03900000000067,
+      "source_frame_index": 2252,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 32,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06494112894870341,
+      "actor_seconds": 0.02121394593268633,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4879973605275154e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 89,
+      "file_offset_seconds": 90.51900000000023,
+      "source_frame_index": 2264,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 28,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06865983502939343,
+      "actor_seconds": 0.015023855958133936,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.5489058569073677e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 90,
+      "file_offset_seconds": 91.03900000000067,
+      "source_frame_index": 2277,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 28,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.07080588303506374,
+      "actor_seconds": 0.022790824063122272,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.482618972659111e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 91,
+      "file_offset_seconds": 91.51800000000003,
+      "source_frame_index": 2289,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 27,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06757642002776265,
+      "actor_seconds": 0.02160647907294333,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.592910848557949e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 92,
+      "file_offset_seconds": 92.03800000000047,
+      "source_frame_index": 2302,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 30,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06692240992560983,
+      "actor_seconds": 0.0228676728438586,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4781951904296875e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 93,
+      "file_offset_seconds": 92.51800000000003,
+      "source_frame_index": 2314,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 30,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.07639695098623633,
+      "actor_seconds": 0.017804325092583895,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.5309080481529236e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 94,
+      "file_offset_seconds": 93.03800000000047,
+      "source_frame_index": 2327,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 31,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06657156790606678,
+      "actor_seconds": 0.019530481193214655,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4619901776313782e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 95,
+      "file_offset_seconds": 93.51800000000003,
+      "source_frame_index": 2339,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 29,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.0685425999108702,
+      "actor_seconds": 0.017677696887403727,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.5265075489878654e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 96,
+      "file_offset_seconds": 94.03700000000026,
+      "source_frame_index": 2352,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 28,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.0713469369802624,
+      "actor_seconds": 0.028012560913339257,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4976132661104202e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 97,
+      "file_offset_seconds": 94.51699999999983,
+      "source_frame_index": 2364,
+      "raw_candidate_count": 0,
+      "candidate_count": 0,
+      "actor_count": 33,
+      "actor_rejected_count": 0,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.07634144416078925,
+      "actor_seconds": 0.01776223909109831,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.5222933143377304e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 98,
+      "file_offset_seconds": 95.03700000000026,
+      "source_frame_index": 2377,
+      "raw_candidate_count": 0,
+      "candidate_count": 0,
+      "actor_count": 34,
+      "actor_rejected_count": 0,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06662368914112449,
+      "actor_seconds": 0.01971559994854033,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.5666009858250618e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 99,
+      "file_offset_seconds": 95.51699999999983,
+      "source_frame_index": 2389,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 33,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.0687978791538626,
+      "actor_seconds": 0.018258946016430855,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.505482941865921e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 100,
+      "file_offset_seconds": 96.03600000000006,
+      "source_frame_index": 2402,
+      "raw_candidate_count": 0,
+      "candidate_count": 0,
+      "actor_count": 29,
+      "actor_rejected_count": 0,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.07083202502690256,
+      "actor_seconds": 0.026391213061288,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.574005000293255e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 101,
+      "file_offset_seconds": 96.51599999999962,
+      "source_frame_index": 2414,
+      "raw_candidate_count": 0,
+      "candidate_count": 0,
+      "actor_count": 30,
+      "actor_rejected_count": 0,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.07625801814720035,
+      "actor_seconds": 0.017778047127649188,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.5699071809649467e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 102,
+      "file_offset_seconds": 97.03600000000006,
+      "source_frame_index": 2427,
+      "raw_candidate_count": 0,
+      "candidate_count": 0,
+      "actor_count": 29,
+      "actor_rejected_count": 0,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.07164574996568263,
+      "actor_seconds": 0.02809989987872541,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.5309080481529236e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 103,
+      "file_offset_seconds": 97.51599999999962,
+      "source_frame_index": 2439,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 29,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.07632164610549808,
+      "actor_seconds": 0.0177133921533823,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4899997040629387e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 104,
+      "file_offset_seconds": 98.03600000000006,
+      "source_frame_index": 2452,
+      "raw_candidate_count": 0,
+      "candidate_count": 0,
+      "actor_count": 31,
+      "actor_rejected_count": 0,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.07076669507659972,
+      "actor_seconds": 0.027207724982872605,
+      "classifier_seconds": 0.0,
+      "state_seconds": 2.1213898435235023e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 105,
+      "file_offset_seconds": 98.51499999999942,
+      "source_frame_index": 2464,
+      "raw_candidate_count": 0,
+      "candidate_count": 0,
+      "actor_count": 29,
+      "actor_rejected_count": 0,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06945804296992719,
+      "actor_seconds": 0.017949915025383234,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.519499346613884e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 106,
+      "file_offset_seconds": 99.03499999999985,
+      "source_frame_index": 2477,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 31,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.07176682981662452,
+      "actor_seconds": 0.028206953080371022,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.5058089047670364e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 107,
+      "file_offset_seconds": 99.51499999999942,
+      "source_frame_index": 2489,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 31,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06881732610054314,
+      "actor_seconds": 0.01925697410479188,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.57069880515337e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 108,
+      "file_offset_seconds": 100.03499999999985,
+      "source_frame_index": 2502,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 27,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.07100551598705351,
+      "actor_seconds": 0.026404293021187186,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4961929991841316e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 109,
+      "file_offset_seconds": 100.51399999999921,
+      "source_frame_index": 2514,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 31,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.07032697717659175,
+      "actor_seconds": 0.017794051207602024,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4563091099262238e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 110,
+      "file_offset_seconds": 101.03399999999965,
+      "source_frame_index": 2527,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 30,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.0703882691450417,
+      "actor_seconds": 0.019897135207429528,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.5072058886289597e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 111,
+      "file_offset_seconds": 101.51399999999921,
+      "source_frame_index": 2539,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 28,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06714369310066104,
+      "actor_seconds": 0.017818594817072153,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4655990526080132e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 112,
+      "file_offset_seconds": 102.03399999999965,
+      "source_frame_index": 2552,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 28,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.0705761150456965,
+      "actor_seconds": 0.026718336855992675,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.492304727435112e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 113,
+      "file_offset_seconds": 102.51399999999921,
+      "source_frame_index": 2564,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 26,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.06866904511116445,
+      "actor_seconds": 0.02388197579421103,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4805002138018608e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 114,
+      "file_offset_seconds": 103.03299999999945,
+      "source_frame_index": 2577,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 27,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.07318552280776203,
+      "actor_seconds": 0.02626097109168768,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.5236902981996536e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 115,
+      "file_offset_seconds": 103.51300000000265,
+      "source_frame_index": 2589,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 29,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.07174274185672402,
+      "actor_seconds": 0.024691255996003747,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4883000403642654e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 116,
+      "file_offset_seconds": 104.03299999999945,
+      "source_frame_index": 2602,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 26,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.07496980507858098,
+      "actor_seconds": 0.026131595019251108,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.5076948329806328e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 117,
+      "file_offset_seconds": 104.51300000000265,
+      "source_frame_index": 2614,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 27,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.07107126200571656,
+      "actor_seconds": 0.024404258001595736,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.5390804037451744e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 118,
+      "file_offset_seconds": 105.03199999999924,
+      "source_frame_index": 2627,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 26,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.07295737299136817,
+      "actor_seconds": 0.02610400808043778,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.5207100659608841e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 119,
+      "file_offset_seconds": 105.51200000000244,
+      "source_frame_index": 2639,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 28,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.07226172997616231,
+      "actor_seconds": 0.024364650947973132,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.557706855237484e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    },
+    {
+      "tick": 120,
+      "file_offset_seconds": 106.03199999999924,
+      "source_frame_index": 2652,
+      "raw_candidate_count": 1,
+      "candidate_count": 0,
+      "actor_count": 27,
+      "actor_rejected_count": 1,
+      "passed_count": 0,
+      "filtered_count": 0,
+      "baseline_anchor_passed": false,
+      "semantic_seconds": 0.07140924083068967,
+      "actor_seconds": 0.025766663951799273,
+      "classifier_seconds": 0.0,
+      "state_seconds": 1.4805933460593224e-05,
+      "policies": {
+        "classifier_passed_3hit": {
+          "active_tracks": 0,
+          "active_recovered_tracks": 0,
+          "evicted_tracks": 0,
+          "temporal_events": 0,
+          "overlap_events": 0,
+          "active_anchor_recovered": false
+        }
+      },
+      "decisions": []
+    }
+  ]
+}

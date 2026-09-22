@@ -1,0 +1,20 @@
+{
+ "analysis_fps": 0.5,
+ "core_seconds": 2040.826,
+ "negative_minutes": 15.0,
+ "note": "旁路离线性能；未运行主视频链路，不冒充生产 FPS",
+ "profile_eval_seconds": {
+  "count": 1536,
+  "p50": 1.2166,
+  "p95": 1.668
+ },
+ "total_seconds": 2165.4,
+ "cache": {
+  "hits": 0,
+  "misses": 1536
+ },
+ "negative_status": "error",
+ "negative_error": "AttributeError: 'types.SimpleNamespace' object has no attribute 'startup_suppress_seconds'",
+ "bypass_only": true,
+ "wall_clock_note": "负样本阶段在 45 min 仍未完成，按 60–90 min 预算主动停止；FP/小时记为未测量。"
+}

@@ -1,0 +1,65 @@
+{
+  "name": "clean_holdout",
+  "evaluation_start_seconds": 35.79333333333334,
+  "sample_fps": 1.0,
+  "alignment": {
+    "method": "SIFT + RANSAC homography",
+    "matches": 2022,
+    "inliers": 2013,
+    "inlier_fraction": 0.9955,
+    "reprojection_median_px": 0.184,
+    "reprojection_p95_px": 0.649,
+    "inlier_hull_fraction": 0.8289,
+    "matrix": [
+      [
+        0.9999526215975005,
+        -6.293498792149553e-06,
+        0.030501387422004162
+      ],
+      [
+        -1.093945131980372e-05,
+        0.9999786532824348,
+        -0.005467995214240435
+      ],
+      [
+        -2.345009087572359e-08,
+        1.3896077483907063e-08,
+        1.0
+      ]
+    ]
+  },
+  "v2": {
+    "raw_candidates": 0,
+    "raw_per_minute": 0.0,
+    "tracks_total": 0,
+    "tracks_at_least_seconds": {
+      "1": 0,
+      "3": 0,
+      "5": 0,
+      "10": 0,
+      "30": 0
+    },
+    "raw_to_5s_reduction": 1.0
+  },
+  "v3": {
+    "raw_candidates": 0,
+    "raw_per_minute": 0.0,
+    "tracks_total": 0,
+    "tracks_at_least_seconds": {
+      "1": 0,
+      "3": 0,
+      "5": 0,
+      "10": 0,
+      "30": 0
+    },
+    "raw_to_5s_reduction": 1.0
+  },
+  "t01_v2": null,
+  "t01_v3": null,
+  "mean_usable_fraction": 1.0,
+  "environment_state_counts": {
+    "NORMAL": 20
+  },
+  "sample_count": 20,
+  "elapsed_seconds": 30.907271582982503
+}

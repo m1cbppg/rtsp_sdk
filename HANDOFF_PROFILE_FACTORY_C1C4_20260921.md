@@ -1,5 +1,7 @@
 # Profile Factory v2 复核后 C1–C4 定向修复交接（2026-09-21）
 
+> **历史记录**：后续 oracle Go/No-Go 实验已经停止 Profile prior 路线。本文不再构成继续修复、建库或生产接入的依据。见 `docs/decisions/2026-09-21-ground-litter-profile-prior-no-go.md`。
+
 本轮只处理 `docs/plans/2026-09-20-profile-factory-v2-acceptance-review.md` 的
 C1–C4，保留 R1–R11 全部结论；未实现方案二生产接入，也未重开 R1–R11 争议。
 计划见 `docs/plans/2026-09-21-profile-factory-v2-c1c4-repair-plan.md`。

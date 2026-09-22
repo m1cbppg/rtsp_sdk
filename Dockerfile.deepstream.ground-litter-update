@@ -13,6 +13,7 @@ COPY rtsp_annotator/deepstream_worker.py /app/rtsp_annotator/deepstream_worker.p
 COPY rtsp_annotator/stream_manager.py /app/rtsp_annotator/stream_manager.py
 COPY rtsp_annotator/ground_litter_detection.py /app/rtsp_annotator/ground_litter_detection.py
 COPY rtsp_annotator/ground_litter_process.py /app/rtsp_annotator/ground_litter_process.py
+COPY rtsp_annotator/ground_litter_v32.py /app/rtsp_annotator/ground_litter_v32.py
 COPY rtsp_annotator/ground_litter_geometry.py /app/rtsp_annotator/ground_litter_geometry.py
 COPY THIRD_PARTY_MODEL_NOTICES.md /app/THIRD_PARTY_MODEL_NOTICES.md
 
@@ -20,6 +21,7 @@ COPY THIRD_PARTY_MODEL_NOTICES.md /app/THIRD_PARTY_MODEL_NOTICES.md
 # covered by the base image, so copy it explicitly. Single reviewed file only.
 COPY models/litter/turhancan_yolov8m_seg_trash.pt \
     /app/models/litter/turhancan_yolov8m_seg_trash.pt
+COPY models/litter/profiles /app/models/litter/profiles
 
 RUN python3 -m py_compile \
     /app/rtsp_annotator/api.py \
@@ -28,6 +30,7 @@ RUN python3 -m py_compile \
     /app/rtsp_annotator/stream_manager.py \
     /app/rtsp_annotator/ground_litter_detection.py \
     /app/rtsp_annotator/ground_litter_process.py \
+    /app/rtsp_annotator/ground_litter_v32.py \
     /app/rtsp_annotator/ground_litter_geometry.py \
     && python3 -c "import pathlib,sys; p=pathlib.Path('/app/models/litter/turhancan_yolov8m_seg_trash.pt'); sys.exit(0 if p.is_file() and p.stat().st_size > 0 else 1)"
 

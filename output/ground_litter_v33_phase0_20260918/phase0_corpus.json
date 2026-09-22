@@ -1,0 +1,1410 @@
+{
+  "frame_count": 20,
+  "targets": {
+    "walkway_small_white": {
+      "target_id": "walkway_small_white",
+      "box": [
+        802.0,
+        560.0,
+        820.0,
+        579.0
+      ],
+      "state": "visible_small_ground_object_probable_litter_unverified",
+      "inside_roi": true,
+      "frames_labeled": 20,
+      "full_scan_hits": 11,
+      "full_scan_confs": [
+        0.2575,
+        0.227,
+        0.2221,
+        0.3429,
+        0.2174,
+        0.2406,
+        0.2766,
+        0.2201,
+        0.2143,
+        0.2376,
+        0.2851
+      ],
+      "full_scan_conf_range": [
+        0.2143,
+        0.3429
+      ],
+      "polarity": "positive"
+    },
+    "broom": {
+      "target_id": "broom",
+      "box": [
+        554.0,
+        625.0,
+        602.0,
+        670.0
+      ],
+      "state": "non_litter_tool_provisional",
+      "inside_roi": true,
+      "frames_labeled": 20,
+      "full_scan_hits": 5,
+      "full_scan_confs": [
+        0.2548,
+        0.5007,
+        0.2868,
+        0.2834,
+        0.4707
+      ],
+      "full_scan_conf_range": [
+        0.2548,
+        0.5007
+      ],
+      "polarity": "negative"
+    },
+    "bucket": {
+      "target_id": "bucket",
+      "box": [
+        548.0,
+        529.0,
+        609.0,
+        592.0
+      ],
+      "state": "non_litter_container_provisional",
+      "inside_roi": false,
+      "frames_labeled": 20,
+      "full_scan_hits": 0,
+      "full_scan_confs": [],
+      "full_scan_conf_range": null,
+      "polarity": "negative"
+    },
+    "curb_bags": {
+      "target_id": "curb_bags",
+      "box": [
+        826.0,
+        567.0,
+        951.0,
+        681.0
+      ],
+      "state": "bag_like_objects_check_roi_membership",
+      "inside_roi": false,
+      "frames_labeled": 20,
+      "full_scan_hits": 12,
+      "full_scan_confs": [
+        0.4696,
+        0.2645,
+        0.3115,
+        0.4024,
+        0.498,
+        0.4732,
+        0.3784,
+        0.3056,
+        0.8398,
+        0.2393,
+        0.4699,
+        0.379
+      ],
+      "full_scan_conf_range": [
+        0.2393,
+        0.8398
+      ],
+      "polarity": "unresolved"
+    }
+  },
+  "target_frames": {
+    "walkway_small_white": [
+      {
+        "frame_id": "live000",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-000.jpg",
+        "box": [
+          802.0,
+          560.0,
+          820.0,
+          579.0
+        ],
+        "raw": [
+          {
+            "box": [
+              803.0,
+              565.0,
+              818.0,
+              573.0
+            ],
+            "confidence": 0.2575328052043915,
+            "label": "Plastic"
+          }
+        ]
+      },
+      {
+        "frame_id": "live001",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-001.jpg",
+        "box": [
+          802.0,
+          560.0,
+          820.0,
+          579.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live002",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-002.jpg",
+        "box": [
+          802.0,
+          560.0,
+          820.0,
+          579.0
+        ],
+        "raw": [
+          {
+            "box": [
+              804.0,
+              565.0,
+              817.0,
+              573.0
+            ],
+            "confidence": 0.2269870787858963,
+            "label": "Plastic"
+          }
+        ]
+      },
+      {
+        "frame_id": "live003",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-003.jpg",
+        "box": [
+          802.0,
+          560.0,
+          820.0,
+          579.0
+        ],
+        "raw": [
+          {
+            "box": [
+              805.0,
+              565.0,
+              818.0,
+              573.0
+            ],
+            "confidence": 0.22214975953102112,
+            "label": "Metal"
+          }
+        ]
+      },
+      {
+        "frame_id": "live004",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-004.jpg",
+        "box": [
+          802.0,
+          560.0,
+          820.0,
+          579.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live005",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-005.jpg",
+        "box": [
+          802.0,
+          560.0,
+          820.0,
+          579.0
+        ],
+        "raw": [
+          {
+            "box": [
+              804.0,
+              565.0,
+              817.0,
+              573.0
+            ],
+            "confidence": 0.34292617440223694,
+            "label": "Plastic"
+          }
+        ]
+      },
+      {
+        "frame_id": "live006",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-006.jpg",
+        "box": [
+          802.0,
+          560.0,
+          820.0,
+          579.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live007",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-007.jpg",
+        "box": [
+          802.0,
+          560.0,
+          820.0,
+          579.0
+        ],
+        "raw": [
+          {
+            "box": [
+              804.0,
+              565.0,
+              818.0,
+              573.0
+            ],
+            "confidence": 0.2174108475446701,
+            "label": "Plastic"
+          }
+        ]
+      },
+      {
+        "frame_id": "live008",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-008.jpg",
+        "box": [
+          802.0,
+          560.0,
+          820.0,
+          579.0
+        ],
+        "raw": [
+          {
+            "box": [
+              803.0,
+              565.0,
+              817.0,
+              574.0
+            ],
+            "confidence": 0.2406301349401474,
+            "label": "Metal"
+          }
+        ]
+      },
+      {
+        "frame_id": "live009",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-009.jpg",
+        "box": [
+          802.0,
+          560.0,
+          820.0,
+          579.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live010",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-010.jpg",
+        "box": [
+          802.0,
+          560.0,
+          820.0,
+          579.0
+        ],
+        "raw": [
+          {
+            "box": [
+              803.0,
+              565.0,
+              817.0,
+              573.0
+            ],
+            "confidence": 0.27655982971191406,
+            "label": "Plastic"
+          }
+        ]
+      },
+      {
+        "frame_id": "live011",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-011.jpg",
+        "box": [
+          802.0,
+          560.0,
+          820.0,
+          579.0
+        ],
+        "raw": [
+          {
+            "box": [
+              804.0,
+              565.0,
+              817.0,
+              573.0
+            ],
+            "confidence": 0.22009889781475067,
+            "label": "Plastic"
+          }
+        ]
+      },
+      {
+        "frame_id": "live012",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-012.jpg",
+        "box": [
+          802.0,
+          560.0,
+          820.0,
+          579.0
+        ],
+        "raw": [
+          {
+            "box": [
+              804.0,
+              565.0,
+              817.0,
+              573.0
+            ],
+            "confidence": 0.21425113081932068,
+            "label": "Plastic"
+          }
+        ]
+      },
+      {
+        "frame_id": "live013",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-013.jpg",
+        "box": [
+          802.0,
+          560.0,
+          820.0,
+          579.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live014",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-014.jpg",
+        "box": [
+          802.0,
+          560.0,
+          820.0,
+          579.0
+        ],
+        "raw": [
+          {
+            "box": [
+              803.0,
+              565.0,
+              818.0,
+              573.0
+            ],
+            "confidence": 0.23758403956890106,
+            "label": "Plastic"
+          }
+        ]
+      },
+      {
+        "frame_id": "live015",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-015.jpg",
+        "box": [
+          802.0,
+          560.0,
+          820.0,
+          579.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live016",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-016.jpg",
+        "box": [
+          802.0,
+          560.0,
+          820.0,
+          579.0
+        ],
+        "raw": [
+          {
+            "box": [
+              804.0,
+              564.0,
+              816.0,
+              573.0
+            ],
+            "confidence": 0.285092830657959,
+            "label": "Plastic"
+          }
+        ]
+      },
+      {
+        "frame_id": "live017",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-017.jpg",
+        "box": [
+          802.0,
+          560.0,
+          820.0,
+          579.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live018",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-018.jpg",
+        "box": [
+          802.0,
+          560.0,
+          820.0,
+          579.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live019",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-019.jpg",
+        "box": [
+          802.0,
+          560.0,
+          820.0,
+          579.0
+        ],
+        "raw": []
+      }
+    ],
+    "broom": [
+      {
+        "frame_id": "live000",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-000.jpg",
+        "box": [
+          554.0,
+          625.0,
+          602.0,
+          670.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live001",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-001.jpg",
+        "box": [
+          554.0,
+          625.0,
+          602.0,
+          670.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live002",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-002.jpg",
+        "box": [
+          554.0,
+          625.0,
+          602.0,
+          670.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live003",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-003.jpg",
+        "box": [
+          554.0,
+          625.0,
+          602.0,
+          670.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live004",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-004.jpg",
+        "box": [
+          554.0,
+          625.0,
+          602.0,
+          670.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live005",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-005.jpg",
+        "box": [
+          554.0,
+          625.0,
+          602.0,
+          670.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live006",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-006.jpg",
+        "box": [
+          554.0,
+          625.0,
+          602.0,
+          670.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live007",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-007.jpg",
+        "box": [
+          554.0,
+          625.0,
+          602.0,
+          670.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live008",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-008.jpg",
+        "box": [
+          554.0,
+          625.0,
+          602.0,
+          670.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live009",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-009.jpg",
+        "box": [
+          554.0,
+          625.0,
+          602.0,
+          670.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live010",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-010.jpg",
+        "box": [
+          554.0,
+          625.0,
+          602.0,
+          670.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live011",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-011.jpg",
+        "box": [
+          554.0,
+          625.0,
+          602.0,
+          670.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live012",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-012.jpg",
+        "box": [
+          554.0,
+          625.0,
+          602.0,
+          670.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live013",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-013.jpg",
+        "box": [
+          554.0,
+          625.0,
+          602.0,
+          670.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live014",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-014.jpg",
+        "box": [
+          554.0,
+          625.0,
+          602.0,
+          670.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live015",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-015.jpg",
+        "box": [
+          554.0,
+          625.0,
+          602.0,
+          670.0
+        ],
+        "raw": [
+          {
+            "box": [
+              565.0,
+              627.0,
+              599.0,
+              651.0
+            ],
+            "confidence": 0.25476518273353577,
+            "label": "Plastic"
+          },
+          {
+            "box": [
+              565.0,
+              627.0,
+              599.0,
+              650.0
+            ],
+            "confidence": 0.22365546226501465,
+            "label": "Plastic"
+          }
+        ]
+      },
+      {
+        "frame_id": "live016",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-016.jpg",
+        "box": [
+          554.0,
+          625.0,
+          602.0,
+          670.0
+        ],
+        "raw": [
+          {
+            "box": [
+              565.0,
+              627.0,
+              597.0,
+              650.0
+            ],
+            "confidence": 0.5006940364837646,
+            "label": "Plastic"
+          },
+          {
+            "box": [
+              565.0,
+              627.0,
+              597.0,
+              650.0
+            ],
+            "confidence": 0.46333521604537964,
+            "label": "Plastic"
+          }
+        ]
+      },
+      {
+        "frame_id": "live017",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-017.jpg",
+        "box": [
+          554.0,
+          625.0,
+          602.0,
+          670.0
+        ],
+        "raw": [
+          {
+            "box": [
+              565.0,
+              627.0,
+              597.0,
+              651.0
+            ],
+            "confidence": 0.2868154048919678,
+            "label": "Plastic"
+          },
+          {
+            "box": [
+              565.0,
+              627.0,
+              597.0,
+              650.0
+            ],
+            "confidence": 0.2471437007188797,
+            "label": "Plastic"
+          }
+        ]
+      },
+      {
+        "frame_id": "live018",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-018.jpg",
+        "box": [
+          554.0,
+          625.0,
+          602.0,
+          670.0
+        ],
+        "raw": [
+          {
+            "box": [
+              566.0,
+              627.0,
+              598.0,
+              651.0
+            ],
+            "confidence": 0.28336843848228455,
+            "label": "Plastic"
+          },
+          {
+            "box": [
+              566.0,
+              627.0,
+              598.0,
+              651.0
+            ],
+            "confidence": 0.2448517382144928,
+            "label": "Plastic"
+          }
+        ]
+      },
+      {
+        "frame_id": "live019",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-019.jpg",
+        "box": [
+          554.0,
+          625.0,
+          602.0,
+          670.0
+        ],
+        "raw": [
+          {
+            "box": [
+              567.0,
+              628.0,
+              598.0,
+              650.0
+            ],
+            "confidence": 0.47067517042160034,
+            "label": "Plastic"
+          },
+          {
+            "box": [
+              567.0,
+              628.0,
+              598.0,
+              650.0
+            ],
+            "confidence": 0.46897441148757935,
+            "label": "Plastic"
+          }
+        ]
+      }
+    ],
+    "bucket": [
+      {
+        "frame_id": "live000",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-000.jpg",
+        "box": [
+          548.0,
+          529.0,
+          609.0,
+          592.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live001",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-001.jpg",
+        "box": [
+          548.0,
+          529.0,
+          609.0,
+          592.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live002",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-002.jpg",
+        "box": [
+          548.0,
+          529.0,
+          609.0,
+          592.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live003",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-003.jpg",
+        "box": [
+          548.0,
+          529.0,
+          609.0,
+          592.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live004",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-004.jpg",
+        "box": [
+          548.0,
+          529.0,
+          609.0,
+          592.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live005",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-005.jpg",
+        "box": [
+          548.0,
+          529.0,
+          609.0,
+          592.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live006",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-006.jpg",
+        "box": [
+          548.0,
+          529.0,
+          609.0,
+          592.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live007",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-007.jpg",
+        "box": [
+          548.0,
+          529.0,
+          609.0,
+          592.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live008",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-008.jpg",
+        "box": [
+          548.0,
+          529.0,
+          609.0,
+          592.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live009",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-009.jpg",
+        "box": [
+          548.0,
+          529.0,
+          609.0,
+          592.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live010",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-010.jpg",
+        "box": [
+          548.0,
+          529.0,
+          609.0,
+          592.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live011",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-011.jpg",
+        "box": [
+          548.0,
+          529.0,
+          609.0,
+          592.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live012",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-012.jpg",
+        "box": [
+          548.0,
+          529.0,
+          609.0,
+          592.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live013",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-013.jpg",
+        "box": [
+          548.0,
+          529.0,
+          609.0,
+          592.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live014",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-014.jpg",
+        "box": [
+          548.0,
+          529.0,
+          609.0,
+          592.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live015",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-015.jpg",
+        "box": [
+          548.0,
+          529.0,
+          609.0,
+          592.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live016",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-016.jpg",
+        "box": [
+          548.0,
+          529.0,
+          609.0,
+          592.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live017",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-017.jpg",
+        "box": [
+          548.0,
+          529.0,
+          609.0,
+          592.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live018",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-018.jpg",
+        "box": [
+          548.0,
+          529.0,
+          609.0,
+          592.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live019",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-019.jpg",
+        "box": [
+          548.0,
+          529.0,
+          609.0,
+          592.0
+        ],
+        "raw": []
+      }
+    ],
+    "curb_bags": [
+      {
+        "frame_id": "live000",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-000.jpg",
+        "box": [
+          826.0,
+          567.0,
+          951.0,
+          681.0
+        ],
+        "raw": [
+          {
+            "box": [
+              837.0,
+              597.0,
+              925.0,
+              668.0
+            ],
+            "confidence": 0.4695703685283661,
+            "label": "Plastic"
+          }
+        ]
+      },
+      {
+        "frame_id": "live001",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-001.jpg",
+        "box": [
+          826.0,
+          567.0,
+          951.0,
+          681.0
+        ],
+        "raw": [
+          {
+            "box": [
+              837.0,
+              597.0,
+              922.0,
+              662.0
+            ],
+            "confidence": 0.2645139992237091,
+            "label": "Plastic"
+          }
+        ]
+      },
+      {
+        "frame_id": "live002",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-002.jpg",
+        "box": [
+          826.0,
+          567.0,
+          951.0,
+          681.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live003",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-003.jpg",
+        "box": [
+          826.0,
+          567.0,
+          951.0,
+          681.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live004",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-004.jpg",
+        "box": [
+          826.0,
+          567.0,
+          951.0,
+          681.0
+        ],
+        "raw": [
+          {
+            "box": [
+              836.0,
+              597.0,
+              922.0,
+              651.0
+            ],
+            "confidence": 0.31153252720832825,
+            "label": "Plastic"
+          }
+        ]
+      },
+      {
+        "frame_id": "live005",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-005.jpg",
+        "box": [
+          826.0,
+          567.0,
+          951.0,
+          681.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live006",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-006.jpg",
+        "box": [
+          826.0,
+          567.0,
+          951.0,
+          681.0
+        ],
+        "raw": [
+          {
+            "box": [
+              836.0,
+              596.0,
+              923.0,
+              655.0
+            ],
+            "confidence": 0.4024003744125366,
+            "label": "Plastic"
+          }
+        ]
+      },
+      {
+        "frame_id": "live007",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-007.jpg",
+        "box": [
+          826.0,
+          567.0,
+          951.0,
+          681.0
+        ],
+        "raw": [
+          {
+            "box": [
+              836.0,
+              597.0,
+              924.0,
+              667.0
+            ],
+            "confidence": 0.4979865849018097,
+            "label": "Plastic"
+          }
+        ]
+      },
+      {
+        "frame_id": "live008",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-008.jpg",
+        "box": [
+          826.0,
+          567.0,
+          951.0,
+          681.0
+        ],
+        "raw": [
+          {
+            "box": [
+              836.0,
+              597.0,
+              921.0,
+              653.0
+            ],
+            "confidence": 0.4731519818305969,
+            "label": "Plastic"
+          }
+        ]
+      },
+      {
+        "frame_id": "live009",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-009.jpg",
+        "box": [
+          826.0,
+          567.0,
+          951.0,
+          681.0
+        ],
+        "raw": [
+          {
+            "box": [
+              836.0,
+              597.0,
+              926.0,
+              671.0
+            ],
+            "confidence": 0.3783887028694153,
+            "label": "Plastic"
+          }
+        ]
+      },
+      {
+        "frame_id": "live010",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-010.jpg",
+        "box": [
+          826.0,
+          567.0,
+          951.0,
+          681.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live011",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-011.jpg",
+        "box": [
+          826.0,
+          567.0,
+          951.0,
+          681.0
+        ],
+        "raw": [
+          {
+            "box": [
+              836.0,
+              597.0,
+              922.0,
+              648.0
+            ],
+            "confidence": 0.3056460916996002,
+            "label": "Plastic"
+          }
+        ]
+      },
+      {
+        "frame_id": "live012",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-012.jpg",
+        "box": [
+          826.0,
+          567.0,
+          951.0,
+          681.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live013",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-013.jpg",
+        "box": [
+          826.0,
+          567.0,
+          951.0,
+          681.0
+        ],
+        "raw": [
+          {
+            "box": [
+              837.0,
+              598.0,
+              926.0,
+              665.0
+            ],
+            "confidence": 0.8397601842880249,
+            "label": "Plastic"
+          }
+        ]
+      },
+      {
+        "frame_id": "live014",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-014.jpg",
+        "box": [
+          826.0,
+          567.0,
+          951.0,
+          681.0
+        ],
+        "raw": [
+          {
+            "box": [
+              836.0,
+              597.0,
+              921.0,
+              653.0
+            ],
+            "confidence": 0.23933255672454834,
+            "label": "Plastic"
+          }
+        ]
+      },
+      {
+        "frame_id": "live015",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-015.jpg",
+        "box": [
+          826.0,
+          567.0,
+          951.0,
+          681.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live016",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-016.jpg",
+        "box": [
+          826.0,
+          567.0,
+          951.0,
+          681.0
+        ],
+        "raw": [
+          {
+            "box": [
+              839.0,
+              595.0,
+              922.0,
+              668.0
+            ],
+            "confidence": 0.46988388895988464,
+            "label": "Plastic"
+          }
+        ]
+      },
+      {
+        "frame_id": "live017",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-017.jpg",
+        "box": [
+          826.0,
+          567.0,
+          951.0,
+          681.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live018",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-018.jpg",
+        "box": [
+          826.0,
+          567.0,
+          951.0,
+          681.0
+        ],
+        "raw": []
+      },
+      {
+        "frame_id": "live019",
+        "sample_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/litter_source_20260914/local_10m_network/snapshots/frame-019.jpg",
+        "box": [
+          826.0,
+          567.0,
+          951.0,
+          681.0
+        ],
+        "raw": [
+          {
+            "box": [
+              838.0,
+              598.0,
+              921.0,
+              667.0
+            ],
+            "confidence": 0.37896132469177246,
+            "label": "Plastic"
+          }
+        ]
+      }
+    ]
+  },
+  "label_conflicts": [
+    {
+      "dedup_item": "item-001",
+      "dedup_box": [
+        837.0,
+        597.0,
+        925.0,
+        668.0
+      ],
+      "dedup_label_set": [
+        "true_litter"
+      ],
+      "dedup_frames": 17,
+      "contained_in_target": "curb_bags",
+      "target_state": "bag_like_objects_check_roi_membership",
+      "target_polarity": "unresolved",
+      "conflict": true
+    },
+    {
+      "dedup_item": "item-002",
+      "dedup_box": [
+        565.0,
+        627.0,
+        599.0,
+        651.0
+      ],
+      "dedup_label_set": [
+        "true_litter"
+      ],
+      "dedup_frames": 5,
+      "contained_in_target": "broom",
+      "target_state": "non_litter_tool_provisional",
+      "target_polarity": "negative",
+      "conflict": true
+    },
+    {
+      "dedup_item": "item-003",
+      "dedup_box": [
+        803.0,
+        565.0,
+        818.0,
+        573.0
+      ],
+      "dedup_label_set": [
+        "user_confirmed_litter"
+      ],
+      "dedup_frames": 13,
+      "contained_in_target": "walkway_small_white",
+      "target_state": "visible_small_ground_object_probable_litter_unverified",
+      "target_polarity": "positive",
+      "conflict": false
+    }
+  ]
+}

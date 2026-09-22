@@ -360,6 +360,21 @@ class MatchEnvelope:
         }
 
 
+def resolve_planned_offsets(
+    window_start: float, window_end: float, planned: Sequence[float],
+) -> list[float]:
+    """把 manifest 里记录的偏移映射回当前时长下的偏移。
+
+    manifest 的偏移是"窗口内相对秒"；重跑时用同样的窗口即可复用。
+    """
+    span = max(0.0, float(window_end) - float(window_start))
+    values = [float(value) for value in planned]
+    return [
+        round(float(window_start) + min(max(value, 0.0), span), 3)
+        for value in values
+    ]
+
+
 def envelope_from_samples(
     scores: Iterable[float], config: Mapping[str, Any],
 ) -> MatchEnvelope:

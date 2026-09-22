@@ -1,0 +1,60 @@
+{
+  "name": "negative_reference",
+  "sample_fps": 1.0,
+  "start_seconds": 0.0,
+  "alignment": {
+    "method": "SIFT + RANSAC homography",
+    "matches": 125,
+    "inliers": 109,
+    "inlier_fraction": 0.872,
+    "reprojection_median_px": 0.334,
+    "reprojection_p95_px": 0.957,
+    "inlier_hull_fraction": 0.7108,
+    "matrix": [
+      [
+        1.0001063203154137,
+        -0.00022195611552187049,
+        0.04884819548879773
+      ],
+      [
+        7.520591887041812e-05,
+        1.0001775708688625,
+        -0.30735712397505954
+      ],
+      [
+        5.086457439014472e-08,
+        -4.7591861755414666e-08,
+        1.0
+      ]
+    ]
+  },
+  "main": {
+    "raw_candidates": 7102,
+    "raw_per_minute": 1402.3425030359076,
+    "tracks_total": 812,
+    "tracks_at_least_seconds": {
+      "1": 812,
+      "3": 481,
+      "5": 275,
+      "10": 156,
+      "30": 39
+    },
+    "raw_to_5s_reduction": 0.9612785130949029
+  },
+  "diagnostic_small_core": {
+    "raw_candidates": 18551,
+    "raw_per_minute": 3663.0323533961027,
+    "tracks_total": 2853,
+    "tracks_at_least_seconds": {
+      "1": 2853,
+      "3": 1659,
+      "5": 882,
+      "10": 451,
+      "30": 90
+    },
+    "raw_to_5s_reduction": 0.9524553932402566
+  },
+  "t01": null,
+  "t01_diagnostic": null,
+  "elapsed_seconds": 517.6067017500172
+}

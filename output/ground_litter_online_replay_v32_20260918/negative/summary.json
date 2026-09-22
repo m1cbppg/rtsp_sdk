@@ -1,0 +1,18 @@
+{
+  "name": "negative",
+  "sample_fps": 1.0,
+  "evaluation_start_seconds": 60.0,
+  "frames": 244,
+  "events_total": 17,
+  "events_confirmed_5s": 6,
+  "events_active_at_end": 6,
+  "context_blocked_candidates": 145,
+  "actor_blocked_candidates": 160,
+  "environment_states": {
+    "GLOBAL_LIGHT_CHANGE": 244
+  },
+  "elapsed_seconds": 324.852,
+  "events_pruned": 0,
+  "confirmed_events_pruned": 0,
+  "ground_unavailable_event_samples": 0
+}

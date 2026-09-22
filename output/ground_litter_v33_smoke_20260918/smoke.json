@@ -1,0 +1,73 @@
+{
+  "weight": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/models/litter/turhancan_yolov8m_seg_trash.pt",
+  "weight_bytes": 54786410,
+  "weight_present": true,
+  "frame": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_v33_replay_20260918/positive_span8_event6.jpg",
+  "device": "cpu",
+  "network_used": false,
+  "options": {
+    "mode": "hybrid_v33",
+    "analysis_fps": 0.5,
+    "semantic_scan_interval_seconds": 4.0,
+    "prior_crop_maximum": 4,
+    "prior_crop_imgsz": 640,
+    "maximum_tiles": 12,
+    "zones": 1
+  },
+  "model_load_seconds": 12.53,
+  "class_names": {
+    "0": "Glass",
+    "1": "Metal",
+    "2": "Paper",
+    "3": "Plastic",
+    "4": "Waste"
+  },
+  "frame_size": [
+    2560,
+    1440
+  ],
+  "tile_count": 6,
+  "full_scan_ms": 2702.4,
+  "full_scan_model_calls": 1,
+  "full_scan_batch_size": 6,
+  "full_scan_stats": {
+    "raw_candidates": 6,
+    "rejected_roi": 1,
+    "rejected_actor": 0,
+    "rejected_confidence": 0,
+    "duplicate_suppressed": 0,
+    "tiles": 6,
+    "model_batches": 1,
+    "local_actor_crops": 0
+  },
+  "full_scan_candidates": 1,
+  "full_scan_classes": [
+    "Plastic"
+  ],
+  "crop_batch_ms": 515.9,
+  "crop_model_calls": 1,
+  "crop_batch_size": 2,
+  "crop_rects": [
+    [
+      1110,
+      610,
+      1350,
+      850
+    ],
+    [
+      320,
+      825,
+      520,
+      1025
+    ]
+  ],
+  "crop_raw_detections": 0,
+  "checks": {
+    "weight_loaded_from_disk": true,
+    "full_scan_used_one_batched_call": true,
+    "crop_batch_used_one_call": true,
+    "model_produced_rows": true,
+    "crop_rects_inside_frame": true
+  },
+  "passed": true
+}

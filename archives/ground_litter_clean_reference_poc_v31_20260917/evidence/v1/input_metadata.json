@@ -1,0 +1,35 @@
+{
+  "clean": {
+    "name": "clean_reference.mp4",
+    "sha256": "d91d9aa50d06f7b2025f66776ce31af9d919391d65cfb1c0a97336ca2e7693f8",
+    "width": 2560,
+    "height": 1440,
+    "fps": 30.0,
+    "frames": 1652,
+    "duration_seconds": 55.06666666666667,
+    "size_bytes": 98705379,
+    "container_bitrate_bps": 14339764.50363196
+  },
+  "positive": {
+    "name": "\u5c0f\u5783\u573e\u6b63\u6837\u672c.mp4",
+    "sha256": "bb265cadb83bc6d36fa7aa0ba4bedd3c7bf8c03a173b9edc7e451ef20481896a",
+    "width": 2560,
+    "height": 1440,
+    "fps": 30.0,
+    "frames": 4704,
+    "duration_seconds": 156.8,
+    "size_bytes": 280925841,
+    "container_bitrate_bps": 14332951.07142857
+  },
+  "negative": {
+    "name": "\u6b63\u5e38\u8d1f\u6837\u672c.mp4",
+    "sha256": "2a843a4cdd5e2c13e8179dfe8745c6c0915b6f1c0fda2c4578adfffd788cd045",
+    "width": 2560,
+    "height": 1440,
+    "fps": 25.011271526971036,
+    "frames": 7600,
+    "duration_seconds": 303.863,
+    "size_bytes": 80804043,
+    "container_bitrate_bps": 2127380.905210572
+  }
+}

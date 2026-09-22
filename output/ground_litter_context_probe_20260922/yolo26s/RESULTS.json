@@ -1,0 +1,312 @@
+{
+  "schema": "ground_litter_context_probe_v1",
+  "decision": "LEVEL_A_NO_GO",
+  "chosen_representation": "camera_specific_crop_context",
+  "selection_used_test_labels": false,
+  "target_recall": 0.9,
+  "minimum_visible_short_side": 12,
+  "dataset_counts": {
+    "train/NON_LITTER/outside": 871,
+    "train/LITTER/outside": 91,
+    "train/NON_LITTER/roi": 177,
+    "train/LITTER/roi": 27,
+    "validation/LITTER/outside": 41,
+    "validation/NON_LITTER/outside": 637,
+    "validation/NON_LITTER/roi": 151,
+    "validation/LITTER/roi": 12,
+    "test/NON_LITTER/outside": 205,
+    "test/NON_LITTER/roi": 42,
+    "test/LITTER/outside": 13,
+    "test/LITTER/roi": 5
+  },
+  "representations": {
+    "crop_only": {
+      "threshold": -4.671786308288574,
+      "validation_business": {
+        "rows": 836,
+        "positive": 48,
+        "negative": 788,
+        "true_positive": 44,
+        "false_positive": 477,
+        "recall": 0.9166666666666666,
+        "precision": 0.08445297504798464,
+        "negative_reduction": 0.39467005076142136,
+        "candidate_reduction": 0.3767942583732058
+      },
+      "validation_all": {
+        "rows": 841,
+        "positive": 53,
+        "negative": 788,
+        "true_positive": 49,
+        "false_positive": 477,
+        "recall": 0.9245283018867925,
+        "precision": 0.09315589353612168,
+        "negative_reduction": 0.39467005076142136,
+        "candidate_reduction": 0.37455410225921526
+      },
+      "final_training_loss": 0.10319797694683075,
+      "camera_calibration": null
+    },
+    "camera_specific_crop_only": {
+      "threshold": 0.0,
+      "validation_business": {
+        "rows": 836,
+        "positive": 48,
+        "negative": 788,
+        "true_positive": 45,
+        "false_positive": 379,
+        "recall": 0.9375,
+        "precision": 0.10613207547169812,
+        "negative_reduction": 0.5190355329949239,
+        "candidate_reduction": 0.49282296650717705
+      },
+      "validation_all": {
+        "rows": 841,
+        "positive": 53,
+        "negative": 788,
+        "true_positive": 49,
+        "false_positive": 379,
+        "recall": 0.9245283018867925,
+        "precision": 0.11448598130841121,
+        "negative_reduction": 0.5190355329949239,
+        "candidate_reduction": 0.4910820451843044
+      },
+      "final_training_loss": null,
+      "camera_calibration": {
+        "01021": {
+          "threshold": -6.959234237670898,
+          "train_rows": 229,
+          "train_positive": 18,
+          "validation_rows": 155,
+          "validation_positive": 14
+        },
+        "01022": {
+          "threshold": -7.224822998046875,
+          "train_rows": 271,
+          "train_positive": 41,
+          "validation_rows": 154,
+          "validation_positive": 6
+        },
+        "01027": {
+          "threshold": 8.341249465942383,
+          "train_rows": 231,
+          "train_positive": 14,
+          "validation_rows": 158,
+          "validation_positive": 1
+        },
+        "01028": {
+          "threshold": -3.9246768951416016,
+          "train_rows": 231,
+          "train_positive": 12,
+          "validation_rows": 154,
+          "validation_positive": 11
+        },
+        "01030": {
+          "threshold": -2.315814733505249,
+          "train_rows": 204,
+          "train_positive": 33,
+          "validation_rows": 215,
+          "validation_positive": 16
+        }
+      }
+    },
+    "crop_context": {
+      "threshold": -4.790521144866943,
+      "validation_business": {
+        "rows": 836,
+        "positive": 48,
+        "negative": 788,
+        "true_positive": 44,
+        "false_positive": 525,
+        "recall": 0.9166666666666666,
+        "precision": 0.0773286467486819,
+        "negative_reduction": 0.33375634517766495,
+        "candidate_reduction": 0.319377990430622
+      },
+      "validation_all": {
+        "rows": 841,
+        "positive": 53,
+        "negative": 788,
+        "true_positive": 49,
+        "false_positive": 525,
+        "recall": 0.9245283018867925,
+        "precision": 0.08536585365853659,
+        "negative_reduction": 0.33375634517766495,
+        "candidate_reduction": 0.31747919143876335
+      },
+      "final_training_loss": 0.051605224609375,
+      "camera_calibration": null
+    },
+    "camera_specific_crop_context": {
+      "threshold": 0.0,
+      "validation_business": {
+        "rows": 836,
+        "positive": 48,
+        "negative": 788,
+        "true_positive": 45,
+        "false_positive": 346,
+        "recall": 0.9375,
+        "precision": 0.11508951406649616,
+        "negative_reduction": 0.5609137055837563,
+        "candidate_reduction": 0.5322966507177034
+      },
+      "validation_all": {
+        "rows": 841,
+        "positive": 53,
+        "negative": 788,
+        "true_positive": 49,
+        "false_positive": 346,
+        "recall": 0.9245283018867925,
+        "precision": 0.1240506329113924,
+        "negative_reduction": 0.5609137055837563,
+        "candidate_reduction": 0.530321046373365
+      },
+      "final_training_loss": null,
+      "camera_calibration": {
+        "01021": {
+          "threshold": -6.38934326171875,
+          "train_rows": 229,
+          "train_positive": 18,
+          "validation_rows": 155,
+          "validation_positive": 14
+        },
+        "01022": {
+          "threshold": -8.021069526672363,
+          "train_rows": 271,
+          "train_positive": 41,
+          "validation_rows": 154,
+          "validation_positive": 6
+        },
+        "01027": {
+          "threshold": 9.457881927490234,
+          "train_rows": 231,
+          "train_positive": 14,
+          "validation_rows": 158,
+          "validation_positive": 1
+        },
+        "01028": {
+          "threshold": -4.779590606689453,
+          "train_rows": 231,
+          "train_positive": 12,
+          "validation_rows": 154,
+          "validation_positive": 11
+        },
+        "01030": {
+          "threshold": -0.17189502716064453,
+          "train_rows": 204,
+          "train_positive": 33,
+          "validation_rows": 215,
+          "validation_positive": 16
+        }
+      }
+    }
+  },
+  "test": {
+    "all": {
+      "rows": 265,
+      "positive": 18,
+      "negative": 247,
+      "true_positive": 15,
+      "false_positive": 110,
+      "recall": 0.8333333333333334,
+      "precision": 0.12,
+      "negative_reduction": 0.5546558704453441,
+      "candidate_reduction": 0.5283018867924528
+    },
+    "business_all": {
+      "rows": 257,
+      "positive": 10,
+      "negative": 247,
+      "true_positive": 8,
+      "false_positive": 110,
+      "recall": 0.8,
+      "precision": 0.06779661016949153,
+      "negative_reduction": 0.5546558704453441,
+      "candidate_reduction": 0.5408560311284047
+    },
+    "all_final_roi": {
+      "rows": 47,
+      "positive": 5,
+      "negative": 42,
+      "true_positive": 5,
+      "false_positive": 19,
+      "recall": 1.0,
+      "precision": 0.20833333333333334,
+      "negative_reduction": 0.5476190476190477,
+      "candidate_reduction": 0.4893617021276596
+    },
+    "business_final_roi": {
+      "rows": 44,
+      "positive": 2,
+      "negative": 42,
+      "true_positive": 2,
+      "false_positive": 19,
+      "recall": 1.0,
+      "precision": 0.09523809523809523,
+      "negative_reduction": 0.5476190476190477,
+      "candidate_reduction": 0.5227272727272727
+    },
+    "by_camera_business": {
+      "01021": {
+        "rows": 49,
+        "positive": 3,
+        "negative": 46,
+        "true_positive": 3,
+        "false_positive": 29,
+        "recall": 1.0,
+        "precision": 0.09375,
+        "negative_reduction": 0.3695652173913043,
+        "candidate_reduction": 0.34693877551020413
+      },
+      "01022": {
+        "rows": 51,
+        "positive": 2,
+        "negative": 49,
+        "true_positive": 2,
+        "false_positive": 38,
+        "recall": 1.0,
+        "precision": 0.05,
+        "negative_reduction": 0.22448979591836737,
+        "candidate_reduction": 0.21568627450980393
+      },
+      "01027": {
+        "rows": 55,
+        "positive": 0,
+        "negative": 55,
+        "true_positive": 0,
+        "false_positive": 1,
+        "recall": 0.0,
+        "precision": 0.0,
+        "negative_reduction": 0.9818181818181818,
+        "candidate_reduction": 0.9818181818181818
+      },
+      "01028": {
+        "rows": 54,
+        "positive": 4,
+        "negative": 50,
+        "true_positive": 2,
+        "false_positive": 31,
+        "recall": 0.5,
+        "precision": 0.06060606060606061,
+        "negative_reduction": 0.38,
+        "candidate_reduction": 0.38888888888888884
+      },
+      "01030": {
+        "rows": 48,
+        "positive": 1,
+        "negative": 47,
+        "true_positive": 1,
+        "false_positive": 11,
+        "recall": 1.0,
+        "precision": 0.08333333333333333,
+        "negative_reduction": 0.7659574468085106,
+        "candidate_reduction": 0.75
+      }
+    }
+  },
+  "limitations": [
+    "Reviewed cards are selected candidates and do not estimate end-to-end generator recall.",
+    "The final ROI test contains very few visible positive examples and cannot authorize production.",
+    "This is a frozen-feature linear probe; it does not update the visual backbone."
+  ]
+}

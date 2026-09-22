@@ -1,0 +1,11 @@
+{
+  "build_end_seconds": 35.79333333333334,
+  "holdout_start_seconds": 35.79333333333334,
+  "sample_fps": 1.0,
+  "sample_count": 36,
+  "method": "per-pixel temporal median; per-pixel temporal MAD validity",
+  "noise_invalid_threshold": 18.0,
+  "valid_roi_fraction": 0.8948288058856819,
+  "noise_roi_median": 4.75,
+  "noise_roi_p95": 10.0
+}

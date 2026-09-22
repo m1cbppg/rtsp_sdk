@@ -1,0 +1,105 @@
+{
+  "schema": "ground_litter_candidate_holdout_freeze_v1",
+  "dataset": "holdout_five_cameras_20260918",
+  "fingerprint": "c209d12ce60fa3223d917a25a21c214832f8701d12efa76377e175b19a9d14ef",
+  "selection_identity_sha256": "83ec0ca9d87d393de4557417c719b0368d15440eb065cd56606d7721b4ae68ec",
+  "selection_sha256": "f283e2d7d88bf4e9a4f300d703a600db83608ef282c392dc3f55043685ddf5a5",
+  "reviews_sha256": "e0affda2372e1a09e7b215b1651b62d2a16b45e32b9ac23bf38b311c3e6ef354",
+  "overall": {
+    "count": 200,
+    "LITTER": 21,
+    "NON_LITTER": 157,
+    "UNCERTAIN": 20,
+    "BOX_WRONG": 2
+  },
+  "scorable": {
+    "count": 178,
+    "positive": 21,
+    "negative": 157
+  },
+  "by_device": {
+    "01021": {
+      "count": 40,
+      "LITTER": 3,
+      "NON_LITTER": 33,
+      "UNCERTAIN": 3,
+      "BOX_WRONG": 1
+    },
+    "01022": {
+      "count": 40,
+      "LITTER": 5,
+      "NON_LITTER": 27,
+      "UNCERTAIN": 7,
+      "BOX_WRONG": 1
+    },
+    "01027": {
+      "count": 40,
+      "LITTER": 1,
+      "NON_LITTER": 36,
+      "UNCERTAIN": 3,
+      "BOX_WRONG": 0
+    },
+    "01028": {
+      "count": 40,
+      "LITTER": 3,
+      "NON_LITTER": 34,
+      "UNCERTAIN": 3,
+      "BOX_WRONG": 0
+    },
+    "01030": {
+      "count": 40,
+      "LITTER": 9,
+      "NON_LITTER": 27,
+      "UNCERTAIN": 4,
+      "BOX_WRONG": 0
+    }
+  },
+  "by_rank_band": {
+    "01-10": {
+      "count": 50,
+      "LITTER": 9,
+      "NON_LITTER": 40,
+      "UNCERTAIN": 1,
+      "BOX_WRONG": 0
+    },
+    "11-20": {
+      "count": 50,
+      "LITTER": 4,
+      "NON_LITTER": 42,
+      "UNCERTAIN": 4,
+      "BOX_WRONG": 0
+    },
+    "21-40": {
+      "count": 50,
+      "LITTER": 6,
+      "NON_LITTER": 35,
+      "UNCERTAIN": 8,
+      "BOX_WRONG": 1
+    },
+    "41-60": {
+      "count": 50,
+      "LITTER": 2,
+      "NON_LITTER": 40,
+      "UNCERTAIN": 7,
+      "BOX_WRONG": 1
+    }
+  },
+  "by_source": {
+    "semantic_full": {
+      "count": 100,
+      "LITTER": 3,
+      "NON_LITTER": 94,
+      "UNCERTAIN": 3,
+      "BOX_WRONG": 0
+    },
+    "semantic_tile": {
+      "count": 100,
+      "LITTER": 18,
+      "NON_LITTER": 63,
+      "UNCERTAIN": 17,
+      "BOX_WRONG": 2
+    }
+  },
+  "released_to_training_server": true,
+  "released_after_fit_report_sha256": "74c670e68ca67bfdbc8c1ea0228385f264b224bb57be9fad934cadaa8bea84e4"
+}

@@ -1,0 +1,989 @@
+{
+  "dataset": "formal_five_cameras_20260919",
+  "fingerprint": "40bbb773cbf33058c7cb0fbfe3ac3b02b821bf0042c6d565f6628fe3a7efd3bf",
+  "review_complete": true,
+  "label_counts": {
+    "NON_LITTER": 656,
+    "BOX_WRONG": 9,
+    "UNCERTAIN": 60,
+    "LITTER": 75
+  },
+  "estimated_distinct_positive_locations": 62,
+  "device_metrics": {
+    "01021": {
+      "reviewed": 160,
+      "labels": {
+        "NON_LITTER": 141,
+        "UNCERTAIN": 7,
+        "BOX_WRONG": 1,
+        "LITTER": 11
+      },
+      "litter_rate": 0.0688
+    },
+    "01022": {
+      "reviewed": 160,
+      "labels": {
+        "NON_LITTER": 124,
+        "UNCERTAIN": 13,
+        "LITTER": 23
+      },
+      "litter_rate": 0.1437
+    },
+    "01027": {
+      "reviewed": 160,
+      "labels": {
+        "NON_LITTER": 140,
+        "UNCERTAIN": 7,
+        "LITTER": 11,
+        "BOX_WRONG": 2
+      },
+      "litter_rate": 0.0688
+    },
+    "01028": {
+      "reviewed": 160,
+      "labels": {
+        "NON_LITTER": 147,
+        "LITTER": 9,
+        "UNCERTAIN": 4
+      },
+      "litter_rate": 0.0563
+    },
+    "01030": {
+      "reviewed": 160,
+      "labels": {
+        "NON_LITTER": 104,
+        "BOX_WRONG": 6,
+        "UNCERTAIN": 29,
+        "LITTER": 21
+      },
+      "litter_rate": 0.1313
+    }
+  },
+  "hour_bin_metrics": {
+    "00-05": {
+      "reviewed": 181,
+      "labels": {
+        "NON_LITTER": 115,
+        "UNCERTAIN": 27,
+        "LITTER": 34,
+        "BOX_WRONG": 5
+      },
+      "litter_rate": 0.1878
+    },
+    "06-11": {
+      "reviewed": 212,
+      "labels": {
+        "NON_LITTER": 201,
+        "UNCERTAIN": 5,
+        "LITTER": 6
+      },
+      "litter_rate": 0.0283
+    },
+    "12-17": {
+      "reviewed": 205,
+      "labels": {
+        "BOX_WRONG": 3,
+        "NON_LITTER": 178,
+        "LITTER": 16,
+        "UNCERTAIN": 8
+      },
+      "litter_rate": 0.078
+    },
+    "18-23": {
+      "reviewed": 202,
+      "labels": {
+        "NON_LITTER": 162,
+        "UNCERTAIN": 20,
+        "LITTER": 19,
+        "BOX_WRONG": 1
+      },
+      "litter_rate": 0.0941
+    }
+  },
+  "source_metrics": {
+    "random_grid": {
+      "reviewed": 200,
+      "labels": {
+        "NON_LITTER": 198,
+        "LITTER": 1,
+        "BOX_WRONG": 1
+      },
+      "litter_card_rate": 0.005
+    },
+    "semantic_full_high": {
+      "reviewed": 15,
+      "labels": {
+        "NON_LITTER": 13,
+        "LITTER": 2
+      },
+      "litter_card_rate": 0.1333
+    },
+    "semantic_full_low": {
+      "reviewed": 20,
+      "labels": {
+        "NON_LITTER": 18,
+        "LITTER": 2
+      },
+      "litter_card_rate": 0.1
+    },
+    "semantic_full_mid": {
+      "reviewed": 39,
+      "labels": {
+        "NON_LITTER": 37,
+        "LITTER": 2
+      },
+      "litter_card_rate": 0.0513
+    },
+    "semantic_tile_high": {
+      "reviewed": 61,
+      "labels": {
+        "NON_LITTER": 52,
+        "LITTER": 8,
+        "UNCERTAIN": 1
+      },
+      "litter_card_rate": 0.1311
+    },
+    "semantic_tile_low": {
+      "reviewed": 174,
+      "labels": {
+        "NON_LITTER": 114,
+        "BOX_WRONG": 4,
+        "UNCERTAIN": 39,
+        "LITTER": 17
+      },
+      "litter_card_rate": 0.0977
+    },
+    "semantic_tile_mid": {
+      "reviewed": 251,
+      "labels": {
+        "NON_LITTER": 184,
+        "UNCERTAIN": 20,
+        "LITTER": 43,
+        "BOX_WRONG": 4
+      },
+      "litter_card_rate": 0.1713
+    },
+    "temporal": {
+      "reviewed": 20,
+      "labels": {
+        "NON_LITTER": 20
+      },
+      "litter_card_rate": 0.0
+    },
+    "texture": {
+      "reviewed": 20,
+      "labels": {
+        "NON_LITTER": 20
+      },
+      "litter_card_rate": 0.0
+    }
+  },
+  "semantic_rank_match": {
+    "matched": 560,
+    "unmatched": 0
+  },
+  "semantic_rank_metrics": {
+    "01-20": {
+      "reviewed": 434,
+      "labels": {
+        "NON_LITTER": 326,
+        "BOX_WRONG": 6,
+        "UNCERTAIN": 37,
+        "LITTER": 65
+      },
+      "litter_rate": 0.1498
+    },
+    "21-40": {
+      "reviewed": 116,
+      "labels": {
+        "NON_LITTER": 85,
+        "LITTER": 8,
+        "UNCERTAIN": 22,
+        "BOX_WRONG": 1
+      },
+      "litter_rate": 0.069
+    },
+    "41-60": {
+      "reviewed": 10,
+      "labels": {
+        "NON_LITTER": 7,
+        "BOX_WRONG": 1,
+        "LITTER": 1,
+        "UNCERTAIN": 1
+      },
+      "litter_rate": 0.1
+    }
+  },
+  "semantic_positive_rank": {
+    "total": 74,
+    "le20": 65,
+    "gt20": 9,
+    "21_40": 8,
+    "41_60": 1,
+    "max": 42,
+    "positive_class_counts": {
+      "Plastic": 43,
+      "Paper": 16,
+      "Metal": 14,
+      "Waste": 1
+    }
+  },
+  "positive_location_rank_dependency": {
+    "clusters_total": 62,
+    "clusters_requiring_gt20": 6,
+    "clusters": [
+      {
+        "cluster_id": 1,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_low"
+        ],
+        "semantic_ranks": [
+          32
+        ],
+        "requires_gt20": true
+      },
+      {
+        "cluster_id": 2,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          4
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 3,
+        "cards": 2,
+        "sources": [
+          "semantic_tile_low"
+        ],
+        "semantic_ranks": [
+          11,
+          14
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 4,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          13
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 5,
+        "cards": 1,
+        "sources": [
+          "semantic_full_mid"
+        ],
+        "semantic_ranks": [
+          5
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 6,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          10
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 7,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          16
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 8,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          9
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 9,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          5
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 10,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          1
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 11,
+        "cards": 2,
+        "sources": [
+          "semantic_tile_high",
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          1,
+          12
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 12,
+        "cards": 1,
+        "sources": [
+          "semantic_full_mid"
+        ],
+        "semantic_ranks": [
+          8
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 13,
+        "cards": 1,
+        "sources": [
+          "semantic_full_high"
+        ],
+        "semantic_ranks": [
+          1
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 14,
+        "cards": 2,
+        "sources": [
+          "semantic_full_low",
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          7,
+          16
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 15,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          7
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 16,
+        "cards": 2,
+        "sources": [
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          2,
+          2
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 17,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_low"
+        ],
+        "semantic_ranks": [
+          9
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 18,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_low"
+        ],
+        "semantic_ranks": [
+          19
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 19,
+        "cards": 3,
+        "sources": [
+          "semantic_tile_high",
+          "semantic_tile_low",
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          2,
+          3,
+          30
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 20,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_high"
+        ],
+        "semantic_ranks": [
+          1
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 21,
+        "cards": 2,
+        "sources": [
+          "semantic_tile_low",
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          25,
+          6
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 22,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          5
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 23,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          5
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 24,
+        "cards": 2,
+        "sources": [
+          "semantic_tile_high",
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          1,
+          4
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 25,
+        "cards": 2,
+        "sources": [
+          "semantic_tile_low"
+        ],
+        "semantic_ranks": [
+          12,
+          13
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 26,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          6
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 27,
+        "cards": 2,
+        "sources": [
+          "semantic_tile_high",
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          1,
+          3
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 28,
+        "cards": 2,
+        "sources": [
+          "semantic_tile_low"
+        ],
+        "semantic_ranks": [
+          21,
+          28
+        ],
+        "requires_gt20": true
+      },
+      {
+        "cluster_id": 29,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          7
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 30,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_low"
+        ],
+        "semantic_ranks": [
+          33
+        ],
+        "requires_gt20": true
+      },
+      {
+        "cluster_id": 31,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          1
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 32,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          2
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 33,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_low"
+        ],
+        "semantic_ranks": [
+          30
+        ],
+        "requires_gt20": true
+      },
+      {
+        "cluster_id": 34,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_low"
+        ],
+        "semantic_ranks": [
+          20
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 35,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          6
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 36,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          2
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 37,
+        "cards": 3,
+        "sources": [
+          "semantic_tile_high",
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          1,
+          16,
+          4
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 38,
+        "cards": 1,
+        "sources": [
+          "random_grid"
+        ],
+        "semantic_ranks": [],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 39,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          16
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 40,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_low"
+        ],
+        "semantic_ranks": [
+          42
+        ],
+        "requires_gt20": true
+      },
+      {
+        "cluster_id": 41,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          11
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 42,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          11
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 43,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          7
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 44,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_high"
+        ],
+        "semantic_ranks": [
+          1
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 45,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_low"
+        ],
+        "semantic_ranks": [
+          17
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 46,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          6
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 47,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          10
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 48,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          6
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 49,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          2
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 50,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          11
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 51,
+        "cards": 1,
+        "sources": [
+          "semantic_full_high"
+        ],
+        "semantic_ranks": [
+          1
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 52,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          4
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 53,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          6
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 54,
+        "cards": 1,
+        "sources": [
+          "semantic_full_low"
+        ],
+        "semantic_ranks": [
+          25
+        ],
+        "requires_gt20": true
+      },
+      {
+        "cluster_id": 55,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          13
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 56,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          2
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 57,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          3
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 58,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_low"
+        ],
+        "semantic_ranks": [
+          18
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 59,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          4
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 60,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          11
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 61,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          2
+        ],
+        "requires_gt20": false
+      },
+      {
+        "cluster_id": 62,
+        "cards": 1,
+        "sources": [
+          "semantic_tile_mid"
+        ],
+        "semantic_ranks": [
+          4
+        ],
+        "requires_gt20": false
+      }
+    ]
+  },
+  "all_batches": [
+    {
+      "dataset": "pilot_01030_20260920",
+      "reviewed": 220,
+      "positive_cards": 16,
+      "estimated_locations": 6,
+      "label_counts": {
+        "LITTER": 16,
+        "NON_LITTER": 199,
+        "UNCERTAIN": 1,
+        "BOX_WRONG": 4
+      }
+    },
+    {
+      "dataset": "formal_four_cameras_20260920",
+      "reviewed": 640,
+      "positive_cards": 37,
+      "estimated_locations": 35,
+      "label_counts": {
+        "NON_LITTER": 589,
+        "LITTER": 37,
+        "BOX_WRONG": 6,
+        "UNCERTAIN": 8
+      }
+    },
+    {
+      "dataset": "formal_five_cameras_20260919",
+      "reviewed": 800,
+      "positive_cards": 75,
+      "estimated_locations": 62,
+      "label_counts": {
+        "NON_LITTER": 656,
+        "BOX_WRONG": 9,
+        "UNCERTAIN": 60,
+        "LITTER": 75
+      }
+    }
+  ],
+  "all_reviewed_cards": 1660,
+  "all_label_counts": {
+    "LITTER": 128,
+    "NON_LITTER": 1444,
+    "UNCERTAIN": 69,
+    "BOX_WRONG": 19
+  },
+  "summed_location_estimate": 103,
+  "cautions": [
+    "Card yield is selection-biased and is not detector precision or recall.",
+    "Location clusters are spatial groups, not verified event identities.",
+    "Day2 differs from day1 in camera count and stratified sampling, so aggregate yield change cannot be attributed only to Top-60."
+  ]
+}

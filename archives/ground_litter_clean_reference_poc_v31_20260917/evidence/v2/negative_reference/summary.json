@@ -1,0 +1,55 @@
+{
+  "name": "negative_reference",
+  "evaluation_start_seconds": 60.0,
+  "sample_fps": 1.0,
+  "alignment": {
+    "method": "SIFT + RANSAC homography",
+    "matches": 125,
+    "inliers": 109,
+    "inlier_fraction": 0.872,
+    "reprojection_median_px": 0.334,
+    "reprojection_p95_px": 0.957,
+    "inlier_hull_fraction": 0.7108,
+    "matrix": [
+      [
+        1.0001063203154137,
+        -0.00022195611552187049,
+        0.04884819548879773
+      ],
+      [
+        7.520591887041812e-05,
+        1.0001775708688625,
+        -0.30735712397505954
+      ],
+      [
+        5.086457439014472e-08,
+        -4.7591861755414666e-08,
+        1.0
+      ]
+    ]
+  },
+  "adaptive": {
+    "calibration_seconds": 60.0,
+    "sample_count": 60,
+    "frozen_after_seconds": 60.0,
+    "high_frequency_threshold": 0.4,
+    "support_frequency_threshold": 0.8,
+    "masked_valid_fraction": 0.015844530703060425,
+    "updates_after_calibration": 0
+  },
+  "metrics": {
+    "raw_candidates": 2362,
+    "raw_per_minute": 581.1459713035597,
+    "tracks_total": 578,
+    "tracks_at_least_seconds": {
+      "1": 578,
+      "3": 140,
+      "5": 82,
+      "10": 45,
+      "30": 18
+    },
+    "raw_to_5s_reduction": 0.9652836579170194
+  },
+  "t01": null,
+  "elapsed_seconds": 268.64965912501793
+}

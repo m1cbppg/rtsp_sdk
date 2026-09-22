@@ -1,0 +1,983 @@
+{
+  "walkway_small_white": {
+    "state": "visible_small_ground_object_probable_litter_unverified",
+    "polarity": "positive",
+    "box": [
+      802.0,
+      560.0,
+      820.0,
+      579.0
+    ],
+    "box_size_px": [
+      18.0,
+      19.0
+    ],
+    "inside_roi": true,
+    "frames_labeled": 20,
+    "full_scan_hits": 11,
+    "full_scan_conf_range": [
+      0.2143,
+      0.3429
+    ],
+    "full_scan_hit_rate": 0.55,
+    "crop_configs": {
+      "exp2.0_imgsz640": {
+        "hits_by_conf": {
+          "0.05": {
+            "frames_with_hit": 17,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.85,
+            "max_conf_median": 0.151
+          },
+          "0.10": {
+            "frames_with_hit": 16,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.8,
+            "max_conf_median": 0.1522
+          },
+          "0.15": {
+            "frames_with_hit": 9,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.45,
+            "max_conf_median": 0.204
+          },
+          "0.20": {
+            "frames_with_hit": 6,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.3,
+            "max_conf_median": 0.2383
+          },
+          "0.25": {
+            "frames_with_hit": 2,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.1,
+            "max_conf_median": 0.3281
+          }
+        },
+        "best_iou_any_detection": 0.3857,
+        "inference_ms_median": 223.4,
+        "inference_ms_p95": 414.1
+      },
+      "exp2.0_imgsz1280": {
+        "hits_by_conf": {
+          "0.05": {
+            "frames_with_hit": 16,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.8,
+            "max_conf_median": 0.5
+          },
+          "0.10": {
+            "frames_with_hit": 16,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.8,
+            "max_conf_median": 0.5
+          },
+          "0.15": {
+            "frames_with_hit": 16,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.8,
+            "max_conf_median": 0.5
+          },
+          "0.20": {
+            "frames_with_hit": 15,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.75,
+            "max_conf_median": 0.5124
+          },
+          "0.25": {
+            "frames_with_hit": 15,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.75,
+            "max_conf_median": 0.5124
+          }
+        },
+        "best_iou_any_detection": 0.4067,
+        "inference_ms_median": 1117.5,
+        "inference_ms_p95": 1909.4
+      },
+      "exp3.0_imgsz640": {
+        "hits_by_conf": {
+          "0.05": {
+            "frames_with_hit": 17,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.85,
+            "max_conf_median": 0.151
+          },
+          "0.10": {
+            "frames_with_hit": 16,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.8,
+            "max_conf_median": 0.1522
+          },
+          "0.15": {
+            "frames_with_hit": 9,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.45,
+            "max_conf_median": 0.204
+          },
+          "0.20": {
+            "frames_with_hit": 6,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.3,
+            "max_conf_median": 0.2383
+          },
+          "0.25": {
+            "frames_with_hit": 2,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.1,
+            "max_conf_median": 0.3281
+          }
+        },
+        "best_iou_any_detection": 0.3857,
+        "inference_ms_median": 225.8,
+        "inference_ms_p95": 303.7
+      },
+      "exp3.0_imgsz1280": {
+        "hits_by_conf": {
+          "0.05": {
+            "frames_with_hit": 16,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.8,
+            "max_conf_median": 0.5
+          },
+          "0.10": {
+            "frames_with_hit": 16,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.8,
+            "max_conf_median": 0.5
+          },
+          "0.15": {
+            "frames_with_hit": 16,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.8,
+            "max_conf_median": 0.5
+          },
+          "0.20": {
+            "frames_with_hit": 15,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.75,
+            "max_conf_median": 0.5124
+          },
+          "0.25": {
+            "frames_with_hit": 15,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.75,
+            "max_conf_median": 0.5124
+          }
+        },
+        "best_iou_any_detection": 0.4067,
+        "inference_ms_median": 1087.8,
+        "inference_ms_p95": 1793.4
+      },
+      "exp4.0_imgsz640": {
+        "hits_by_conf": {
+          "0.05": {
+            "frames_with_hit": 17,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.85,
+            "max_conf_median": 0.151
+          },
+          "0.10": {
+            "frames_with_hit": 16,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.8,
+            "max_conf_median": 0.1522
+          },
+          "0.15": {
+            "frames_with_hit": 9,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.45,
+            "max_conf_median": 0.204
+          },
+          "0.20": {
+            "frames_with_hit": 6,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.3,
+            "max_conf_median": 0.2383
+          },
+          "0.25": {
+            "frames_with_hit": 2,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.1,
+            "max_conf_median": 0.3281
+          }
+        },
+        "best_iou_any_detection": 0.3857,
+        "inference_ms_median": 222.0,
+        "inference_ms_p95": 284.1
+      },
+      "exp4.0_imgsz1280": {
+        "hits_by_conf": {
+          "0.05": {
+            "frames_with_hit": 16,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.8,
+            "max_conf_median": 0.5
+          },
+          "0.10": {
+            "frames_with_hit": 16,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.8,
+            "max_conf_median": 0.5
+          },
+          "0.15": {
+            "frames_with_hit": 16,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.8,
+            "max_conf_median": 0.5
+          },
+          "0.20": {
+            "frames_with_hit": 15,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.75,
+            "max_conf_median": 0.5124
+          },
+          "0.25": {
+            "frames_with_hit": 15,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.75,
+            "max_conf_median": 0.5124
+          }
+        },
+        "best_iou_any_detection": 0.4067,
+        "inference_ms_median": 1067.5,
+        "inference_ms_p95": 1827.3
+      }
+    }
+  },
+  "broom": {
+    "state": "non_litter_tool_provisional",
+    "polarity": "negative",
+    "box": [
+      554.0,
+      625.0,
+      602.0,
+      670.0
+    ],
+    "box_size_px": [
+      48.0,
+      45.0
+    ],
+    "inside_roi": true,
+    "frames_labeled": 20,
+    "full_scan_hits": 5,
+    "full_scan_conf_range": [
+      0.2548,
+      0.5007
+    ],
+    "full_scan_hit_rate": 0.25,
+    "crop_configs": {
+      "exp2.0_imgsz640": {
+        "hits_by_conf": {
+          "0.05": {
+            "frames_with_hit": 10,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.5,
+            "max_conf_median": 0.0688
+          },
+          "0.10": {
+            "frames_with_hit": 3,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.15,
+            "max_conf_median": 0.3031
+          },
+          "0.15": {
+            "frames_with_hit": 2,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.1,
+            "max_conf_median": 0.4644
+          },
+          "0.20": {
+            "frames_with_hit": 2,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.1,
+            "max_conf_median": 0.4644
+          },
+          "0.25": {
+            "frames_with_hit": 2,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.1,
+            "max_conf_median": 0.4644
+          }
+        },
+        "best_iou_any_detection": 0.44,
+        "inference_ms_median": 232.9,
+        "inference_ms_p95": 268.9
+      },
+      "exp2.0_imgsz1280": {
+        "hits_by_conf": {
+          "0.05": {
+            "frames_with_hit": 12,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.6,
+            "max_conf_median": 0.1383
+          },
+          "0.10": {
+            "frames_with_hit": 7,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.35,
+            "max_conf_median": 0.1733
+          },
+          "0.15": {
+            "frames_with_hit": 6,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.3,
+            "max_conf_median": 0.1893
+          },
+          "0.20": {
+            "frames_with_hit": 3,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.15,
+            "max_conf_median": 0.2083
+          },
+          "0.25": {
+            "frames_with_hit": 1,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.05,
+            "max_conf_median": 0.3038
+          }
+        },
+        "best_iou_any_detection": 0.2988,
+        "inference_ms_median": 1104.9,
+        "inference_ms_p95": 1326.9
+      },
+      "exp3.0_imgsz640": {
+        "hits_by_conf": {
+          "0.05": {
+            "frames_with_hit": 10,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.5,
+            "max_conf_median": 0.0688
+          },
+          "0.10": {
+            "frames_with_hit": 3,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.15,
+            "max_conf_median": 0.3031
+          },
+          "0.15": {
+            "frames_with_hit": 2,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.1,
+            "max_conf_median": 0.4644
+          },
+          "0.20": {
+            "frames_with_hit": 2,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.1,
+            "max_conf_median": 0.4644
+          },
+          "0.25": {
+            "frames_with_hit": 2,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.1,
+            "max_conf_median": 0.4644
+          }
+        },
+        "best_iou_any_detection": 0.44,
+        "inference_ms_median": 232.9,
+        "inference_ms_p95": 263.2
+      },
+      "exp3.0_imgsz1280": {
+        "hits_by_conf": {
+          "0.05": {
+            "frames_with_hit": 12,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.6,
+            "max_conf_median": 0.1383
+          },
+          "0.10": {
+            "frames_with_hit": 7,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.35,
+            "max_conf_median": 0.1733
+          },
+          "0.15": {
+            "frames_with_hit": 6,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.3,
+            "max_conf_median": 0.1893
+          },
+          "0.20": {
+            "frames_with_hit": 3,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.15,
+            "max_conf_median": 0.2083
+          },
+          "0.25": {
+            "frames_with_hit": 1,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.05,
+            "max_conf_median": 0.3038
+          }
+        },
+        "best_iou_any_detection": 0.2988,
+        "inference_ms_median": 1116.7,
+        "inference_ms_p95": 1289.3
+      },
+      "exp4.0_imgsz640": {
+        "hits_by_conf": {
+          "0.05": {
+            "frames_with_hit": 6,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.3,
+            "max_conf_median": 0.1036
+          },
+          "0.10": {
+            "frames_with_hit": 3,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.15,
+            "max_conf_median": 0.5267
+          },
+          "0.15": {
+            "frames_with_hit": 2,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.1,
+            "max_conf_median": 0.552
+          },
+          "0.20": {
+            "frames_with_hit": 2,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.1,
+            "max_conf_median": 0.552
+          },
+          "0.25": {
+            "frames_with_hit": 2,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.1,
+            "max_conf_median": 0.552
+          }
+        },
+        "best_iou_any_detection": 0.4182,
+        "inference_ms_median": 234.4,
+        "inference_ms_p95": 276.7
+      },
+      "exp4.0_imgsz1280": {
+        "hits_by_conf": {
+          "0.05": {
+            "frames_with_hit": 12,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.6,
+            "max_conf_median": 0.1122
+          },
+          "0.10": {
+            "frames_with_hit": 7,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.35,
+            "max_conf_median": 0.1641
+          },
+          "0.15": {
+            "frames_with_hit": 4,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.2,
+            "max_conf_median": 0.1755
+          },
+          "0.20": {
+            "frames_with_hit": 1,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.05,
+            "max_conf_median": 0.2336
+          },
+          "0.25": {
+            "frames_with_hit": 0,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.0,
+            "max_conf_median": null
+          }
+        },
+        "best_iou_any_detection": 0.3157,
+        "inference_ms_median": 1109.4,
+        "inference_ms_p95": 1343.4
+      }
+    }
+  },
+  "bucket": {
+    "state": "non_litter_container_provisional",
+    "polarity": "negative",
+    "box": [
+      548.0,
+      529.0,
+      609.0,
+      592.0
+    ],
+    "box_size_px": [
+      61.0,
+      63.0
+    ],
+    "inside_roi": false,
+    "frames_labeled": 20,
+    "full_scan_hits": 0,
+    "full_scan_conf_range": null,
+    "full_scan_hit_rate": 0.0,
+    "crop_configs": {
+      "exp2.0_imgsz640": {
+        "hits_by_conf": {
+          "0.05": {
+            "frames_with_hit": 19,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.95,
+            "max_conf_median": 0.5646
+          },
+          "0.10": {
+            "frames_with_hit": 18,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.9,
+            "max_conf_median": 0.5773
+          },
+          "0.15": {
+            "frames_with_hit": 18,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.9,
+            "max_conf_median": 0.5773
+          },
+          "0.20": {
+            "frames_with_hit": 16,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.8,
+            "max_conf_median": 0.6023
+          },
+          "0.25": {
+            "frames_with_hit": 15,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.75,
+            "max_conf_median": 0.6146
+          }
+        },
+        "best_iou_any_detection": 0.5962,
+        "inference_ms_median": 231.6,
+        "inference_ms_p95": 241.7
+      },
+      "exp2.0_imgsz1280": {
+        "hits_by_conf": {
+          "0.05": {
+            "frames_with_hit": 0,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.0,
+            "max_conf_median": null
+          },
+          "0.10": {
+            "frames_with_hit": 0,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.0,
+            "max_conf_median": null
+          },
+          "0.15": {
+            "frames_with_hit": 0,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.0,
+            "max_conf_median": null
+          },
+          "0.20": {
+            "frames_with_hit": 0,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.0,
+            "max_conf_median": null
+          },
+          "0.25": {
+            "frames_with_hit": 0,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.0,
+            "max_conf_median": null
+          }
+        },
+        "best_iou_any_detection": 0.0124,
+        "inference_ms_median": 1110.6,
+        "inference_ms_p95": 1269.2
+      },
+      "exp3.0_imgsz640": {
+        "hits_by_conf": {
+          "0.05": {
+            "frames_with_hit": 20,
+            "frames_tested": 20,
+            "frame_hit_rate": 1.0,
+            "max_conf_median": 0.4599
+          },
+          "0.10": {
+            "frames_with_hit": 19,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.95,
+            "max_conf_median": 0.4839
+          },
+          "0.15": {
+            "frames_with_hit": 19,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.95,
+            "max_conf_median": 0.4839
+          },
+          "0.20": {
+            "frames_with_hit": 19,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.95,
+            "max_conf_median": 0.4839
+          },
+          "0.25": {
+            "frames_with_hit": 17,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.85,
+            "max_conf_median": 0.5444
+          }
+        },
+        "best_iou_any_detection": 0.6046,
+        "inference_ms_median": 230.6,
+        "inference_ms_p95": 247.6
+      },
+      "exp3.0_imgsz1280": {
+        "hits_by_conf": {
+          "0.05": {
+            "frames_with_hit": 1,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.05,
+            "max_conf_median": 0.0651
+          },
+          "0.10": {
+            "frames_with_hit": 0,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.0,
+            "max_conf_median": null
+          },
+          "0.15": {
+            "frames_with_hit": 0,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.0,
+            "max_conf_median": null
+          },
+          "0.20": {
+            "frames_with_hit": 0,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.0,
+            "max_conf_median": null
+          },
+          "0.25": {
+            "frames_with_hit": 0,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.0,
+            "max_conf_median": null
+          }
+        },
+        "best_iou_any_detection": 0.2273,
+        "inference_ms_median": 1097.1,
+        "inference_ms_p95": 1237.7
+      },
+      "exp4.0_imgsz640": {
+        "hits_by_conf": {
+          "0.05": {
+            "frames_with_hit": 20,
+            "frames_tested": 20,
+            "frame_hit_rate": 1.0,
+            "max_conf_median": 0.3838
+          },
+          "0.10": {
+            "frames_with_hit": 20,
+            "frames_tested": 20,
+            "frame_hit_rate": 1.0,
+            "max_conf_median": 0.3838
+          },
+          "0.15": {
+            "frames_with_hit": 18,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.9,
+            "max_conf_median": 0.4085
+          },
+          "0.20": {
+            "frames_with_hit": 15,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.75,
+            "max_conf_median": 0.5161
+          },
+          "0.25": {
+            "frames_with_hit": 14,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.7,
+            "max_conf_median": 0.5368
+          }
+        },
+        "best_iou_any_detection": 0.6064,
+        "inference_ms_median": 231.8,
+        "inference_ms_p95": 246.6
+      },
+      "exp4.0_imgsz1280": {
+        "hits_by_conf": {
+          "0.05": {
+            "frames_with_hit": 17,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.85,
+            "max_conf_median": 0.2397
+          },
+          "0.10": {
+            "frames_with_hit": 15,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.75,
+            "max_conf_median": 0.2924
+          },
+          "0.15": {
+            "frames_with_hit": 12,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.6,
+            "max_conf_median": 0.3294
+          },
+          "0.20": {
+            "frames_with_hit": 12,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.6,
+            "max_conf_median": 0.3294
+          },
+          "0.25": {
+            "frames_with_hit": 8,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.4,
+            "max_conf_median": 0.4295
+          }
+        },
+        "best_iou_any_detection": 0.5477,
+        "inference_ms_median": 1112.2,
+        "inference_ms_p95": 1259.9
+      }
+    }
+  },
+  "curb_bags": {
+    "state": "bag_like_objects_check_roi_membership",
+    "polarity": "unresolved",
+    "box": [
+      826.0,
+      567.0,
+      951.0,
+      681.0
+    ],
+    "box_size_px": [
+      125.0,
+      114.0
+    ],
+    "inside_roi": false,
+    "frames_labeled": 20,
+    "full_scan_hits": 12,
+    "full_scan_conf_range": [
+      0.2393,
+      0.8398
+    ],
+    "full_scan_hit_rate": 0.6,
+    "crop_configs": {
+      "exp2.0_imgsz640": {
+        "hits_by_conf": {
+          "0.05": {
+            "frames_with_hit": 20,
+            "frames_tested": 20,
+            "frame_hit_rate": 1.0,
+            "max_conf_median": 0.4336
+          },
+          "0.10": {
+            "frames_with_hit": 19,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.95,
+            "max_conf_median": 0.4361
+          },
+          "0.15": {
+            "frames_with_hit": 19,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.95,
+            "max_conf_median": 0.4361
+          },
+          "0.20": {
+            "frames_with_hit": 19,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.95,
+            "max_conf_median": 0.4361
+          },
+          "0.25": {
+            "frames_with_hit": 16,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.8,
+            "max_conf_median": 0.464
+          }
+        },
+        "best_iou_any_detection": 0.4326,
+        "inference_ms_median": 234.4,
+        "inference_ms_p95": 255.2
+      },
+      "exp2.0_imgsz1280": {
+        "hits_by_conf": {
+          "0.05": {
+            "frames_with_hit": 17,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.85,
+            "max_conf_median": 0.2142
+          },
+          "0.10": {
+            "frames_with_hit": 16,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.8,
+            "max_conf_median": 0.2191
+          },
+          "0.15": {
+            "frames_with_hit": 13,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.65,
+            "max_conf_median": 0.2771
+          },
+          "0.20": {
+            "frames_with_hit": 11,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.55,
+            "max_conf_median": 0.3492
+          },
+          "0.25": {
+            "frames_with_hit": 7,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.35,
+            "max_conf_median": 0.36
+          }
+        },
+        "best_iou_any_detection": 0.4444,
+        "inference_ms_median": 1109.4,
+        "inference_ms_p95": 1188.3
+      },
+      "exp3.0_imgsz640": {
+        "hits_by_conf": {
+          "0.05": {
+            "frames_with_hit": 20,
+            "frames_tested": 20,
+            "frame_hit_rate": 1.0,
+            "max_conf_median": 0.3984
+          },
+          "0.10": {
+            "frames_with_hit": 19,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.95,
+            "max_conf_median": 0.4011
+          },
+          "0.15": {
+            "frames_with_hit": 19,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.95,
+            "max_conf_median": 0.4011
+          },
+          "0.20": {
+            "frames_with_hit": 17,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.85,
+            "max_conf_median": 0.4055
+          },
+          "0.25": {
+            "frames_with_hit": 17,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.85,
+            "max_conf_median": 0.4055
+          }
+        },
+        "best_iou_any_detection": 0.4858,
+        "inference_ms_median": 234.3,
+        "inference_ms_p95": 270.2
+      },
+      "exp3.0_imgsz1280": {
+        "hits_by_conf": {
+          "0.05": {
+            "frames_with_hit": 19,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.95,
+            "max_conf_median": 0.3221
+          },
+          "0.10": {
+            "frames_with_hit": 18,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.9,
+            "max_conf_median": 0.3489
+          },
+          "0.15": {
+            "frames_with_hit": 17,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.85,
+            "max_conf_median": 0.3758
+          },
+          "0.20": {
+            "frames_with_hit": 16,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.8,
+            "max_conf_median": 0.3878
+          },
+          "0.25": {
+            "frames_with_hit": 14,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.7,
+            "max_conf_median": 0.4173
+          }
+        },
+        "best_iou_any_detection": 0.595,
+        "inference_ms_median": 1100.4,
+        "inference_ms_p95": 1273.6
+      },
+      "exp4.0_imgsz640": {
+        "hits_by_conf": {
+          "0.05": {
+            "frames_with_hit": 20,
+            "frames_tested": 20,
+            "frame_hit_rate": 1.0,
+            "max_conf_median": 0.4195
+          },
+          "0.10": {
+            "frames_with_hit": 20,
+            "frames_tested": 20,
+            "frame_hit_rate": 1.0,
+            "max_conf_median": 0.4195
+          },
+          "0.15": {
+            "frames_with_hit": 20,
+            "frames_tested": 20,
+            "frame_hit_rate": 1.0,
+            "max_conf_median": 0.4195
+          },
+          "0.20": {
+            "frames_with_hit": 20,
+            "frames_tested": 20,
+            "frame_hit_rate": 1.0,
+            "max_conf_median": 0.4195
+          },
+          "0.25": {
+            "frames_with_hit": 20,
+            "frames_tested": 20,
+            "frame_hit_rate": 1.0,
+            "max_conf_median": 0.4195
+          }
+        },
+        "best_iou_any_detection": 0.4876,
+        "inference_ms_median": 235.2,
+        "inference_ms_p95": 250.9
+      },
+      "exp4.0_imgsz1280": {
+        "hits_by_conf": {
+          "0.05": {
+            "frames_with_hit": 19,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.95,
+            "max_conf_median": 0.3921
+          },
+          "0.10": {
+            "frames_with_hit": 19,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.95,
+            "max_conf_median": 0.3921
+          },
+          "0.15": {
+            "frames_with_hit": 19,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.95,
+            "max_conf_median": 0.3921
+          },
+          "0.20": {
+            "frames_with_hit": 18,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.9,
+            "max_conf_median": 0.4037
+          },
+          "0.25": {
+            "frames_with_hit": 15,
+            "frames_tested": 20,
+            "frame_hit_rate": 0.75,
+            "max_conf_median": 0.4587
+          }
+        },
+        "best_iou_any_detection": 0.4498,
+        "inference_ms_median": 1118.3,
+        "inference_ms_p95": 1211.4
+      }
+    }
+  }
+}

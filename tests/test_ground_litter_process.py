@@ -5,6 +5,7 @@ from __future__ import annotations
 import queue
 import unittest
 from dataclasses import dataclass
+from pathlib import Path
 from unittest.mock import patch
 
 import numpy as np
@@ -237,6 +238,58 @@ class RunProcessTests(unittest.TestCase):
             ["starting"],
         )
 
+    def test_clean_reference_mode_uses_production_processor(self) -> None:
+        frame = np.zeros((200, 200, 3), np.uint8)
+        input_queue: queue.Queue = queue.Queue()
+        output_queue: queue.Queue = queue.Queue(maxsize=16)
+        input_queue.put((0, frame, 5.0, False, ()))
+        input_queue.put(None)
+        clean_options = options(
+            mode="clean_reference_v32",
+            profile_id="camera_01_v32",
+        )
+
+        class FakeCleanProcessor:
+            def __init__(self, options_, profile):
+                self.options = options_
+                self.profile = profile
+
+            def update(self, frame_, *, timestamp, actors=()):
+                self.last = (frame_.shape, timestamp, list(actors))
+                return GroundLitterSnapshot(
+                    state="running",
+                    result_version=1,
+                    updated_at=timestamp,
+                    raw_candidates=7,
+                )
+
+        config = GroundLitterProcessConfig(
+            model_path=None,
+            device="cpu",
+            half=False,
+            actor_model_path=None,
+            options_by_pad={0: clean_options},
+            profile_root=Path("/profiles"),
+        )
+        with patch(
+            "rtsp_annotator.ground_litter_process.UltralyticsGroundLitterDetector",
+            return_value=FakeDetector(),
+        ) as detector_class, patch(
+            "rtsp_annotator.ground_litter_process.CleanReferenceProfileV32.load",
+            return_value=object(),
+        ) as load, patch(
+            "rtsp_annotator.ground_litter_process.CleanReferenceV32Processor",
+            FakeCleanProcessor,
+        ):
+            _run_ground_litter_process(config, input_queue, output_queue)
+        snapshots = [item for _pad, item in _drain(output_queue)]
+        running = [item for item in snapshots if item.state == "running"]
+        self.assertEqual(len(running), 1)
+        self.assertEqual(running[0].raw_candidates, 7)
+        self.assertEqual(running[0].tile_count, 0)
+        load.assert_called_once_with(Path("/profiles"), "camera_01_v32")
+        detector_class.assert_not_called()
+
     def test_frame_that_breaks_the_detector_reports_error_not_crash(self) -> None:
         class ExplodingDetector(FakeDetector):
             def candidates(self, *_args, **_kwargs):
@@ -346,12 +399,38 @@ class ClientTests(unittest.TestCase):
         self.assertEqual(cache.snapshot(0).result_version, 3)
         client.shutdown()
 
-    def test_submit_fails_when_the_input_queue_is_full(self) -> None:
+    def test_submit_keeps_the_newest_frame_for_its_pad(self) -> None:
+        """latest-wins: a full queue must never reject the fresher frame."""
         client, _cache, _process = self._client({0: options()})
         frame = np.zeros((40, 40, 3), np.uint8)
         for _ in range(8):
             client.submit(0, frame, timestamp=1.0)
-        self.assertFalse(client.submit(0, frame, timestamp=2.0))
+        self.assertTrue(client.submit(0, frame, timestamp=2.0))
+        pending = []
+        while True:
+            try:
+                pending.append(client._input_queue.get_nowait())
+            except queue.Empty:
+                break
+        self.assertEqual(len(pending), 1)
+        self.assertEqual(pending[0][2], 2.0)
+        client.shutdown()
+
+    def test_submit_never_evicts_another_pads_only_pending_frame(self) -> None:
+        client, _cache, _process = self._client({0: options(), 1: options()})
+        frame = np.zeros((40, 40, 3), np.uint8)
+        client.submit(1, frame, timestamp=1.0)
+        for index in range(8):
+            client.submit(0, frame, timestamp=float(index))
+        pending = []
+        while True:
+            try:
+                pending.append(client._input_queue.get_nowait())
+            except queue.Empty:
+                break
+        pads = sorted(int(item[0]) for item in pending)
+        self.assertIn(1, pads)
+        self.assertEqual(pads.count(0), 1)
         client.shutdown()
 
     def test_shutdown_sends_sentinel_and_closes_queues(self) -> None:

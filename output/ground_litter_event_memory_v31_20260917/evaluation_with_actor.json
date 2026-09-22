@@ -1,0 +1,25 @@
+{
+  "kind": "ground_litter_event_actor_v31_offline_probe",
+  "parameters": {
+    "actor_model": "yolo26s.pt",
+    "actor_imgsz": 1280,
+    "actor_confidence": 0.15,
+    "actor_overlap_threshold": 0.2,
+    "cascade_order": [
+      "context_unavailable",
+      "actor_overlap"
+    ],
+    "human_labels_used_for_prediction": false
+  },
+  "event_level": {
+    "events_total": 16,
+    "litter_events": 5,
+    "non_litter_events": 11,
+    "visible_events_after_context_and_actor": 6,
+    "visible_litter_events": 5,
+    "deferred_non_litter_events": 10,
+    "litter_event_recall": 1.0,
+    "visible_candidate_precision": 0.8333,
+    "non_litter_event_deferral_rate": 0.9091
+  }
+}

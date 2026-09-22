@@ -1,0 +1,153 @@
+{
+  "schema": "ground_litter_candidate_filter_new_date_shadow_eval_v1",
+  "decision": "INSUFFICIENT_POSITIVES",
+  "decision_reasons": [
+    "FEWER_THAN_20_POSITIVES"
+  ],
+  "selection_sha256": "c8080b9b9abaa4f6692f5cfff2c8870e3ed4793ca59e023defa7fc600414163a",
+  "reviews_sha256": "9b9f62b93c60dd24ce0bd6c5d416612d1e31618afbadfd5cc8bf7495fd1c755d",
+  "performance_sha256": "dddf748e3e63f3fe87fb65cbc5d51037361647f7053613b269a0fa4e23f90f32",
+  "reviewed": 300,
+  "semantic_scored": 206,
+  "excluded": {
+    "UNCERTAIN": 28,
+    "BOX_WRONG": 7
+  },
+  "overall_weighted": {
+    "rows": 206,
+    "positive_rows": 18,
+    "negative_rows": 188,
+    "positive_weight": 734.25,
+    "negative_weight": 4972.666666666667,
+    "recall": 0.9485869935308138,
+    "precision": 0.16619606283555377,
+    "negative_reduction": 0.2972918621799169,
+    "candidate_reduction": 0.26565717039265213
+  },
+  "by_camera_weighted": {
+    "01021": {
+      "rows": 41,
+      "positive_rows": 7,
+      "negative_rows": 34,
+      "positive_weight": 338.5,
+      "negative_weight": 873.1666666666666,
+      "recall": 1.0,
+      "precision": 0.34987080103359175,
+      "negative_reduction": 0.27963351784691737,
+      "candidate_reduction": 0.20151306740027497
+    },
+    "01022": {
+      "rows": 41,
+      "positive_rows": 3,
+      "negative_rows": 38,
+      "positive_weight": 106.16666666666667,
+      "negative_weight": 1042.5,
+      "recall": 0.8712715855572998,
+      "precision": 0.111,
+      "negative_reduction": 0.28936850519584334,
+      "candidate_reduction": 0.2745211839814278
+    },
+    "01027": {
+      "rows": 43,
+      "positive_rows": 0,
+      "negative_rows": 43,
+      "positive_weight": 0,
+      "negative_weight": 1301.5,
+      "recall": null,
+      "precision": 0.0,
+      "negative_reduction": 0.298501728774491,
+      "candidate_reduction": 0.298501728774491
+    },
+    "01028": {
+      "rows": 43,
+      "positive_rows": 5,
+      "negative_rows": 38,
+      "positive_weight": 200.25,
+      "negative_weight": 1006.0,
+      "recall": 0.9338327091136079,
+      "precision": 0.21052631578947367,
+      "negative_reduction": 0.3029324055666004,
+      "candidate_reduction": 0.2636269430051813
+    },
+    "01030": {
+      "rows": 38,
+      "positive_rows": 3,
+      "negative_rows": 35,
+      "positive_weight": 89.33333333333333,
+      "negative_weight": 749.5,
+      "recall": 0.8787313432835822,
+      "precision": 0.13333333333333333,
+      "negative_reduction": 0.319212808539026,
+      "candidate_reduction": 0.2981323266441487
+    }
+  },
+  "filtered_litter_count": 3,
+  "filtered_litter": [
+    {
+      "proposal_id": "01022-f06s00-98c73e3f9176",
+      "device_code": "44180209031322001022",
+      "stratum": "filtered_spread",
+      "weight": 13.666666666666666,
+      "label": 1,
+      "passed": false,
+      "bbox": [
+        1280,
+        965,
+        1367,
+        988
+      ],
+      "timestamp": "2026-09-21 19:32:23"
+    },
+    {
+      "proposal_id": "01028-f00s01-93958595eb5d",
+      "device_code": "44180209031322001028",
+      "stratum": "filtered_spread",
+      "weight": 13.25,
+      "label": 1,
+      "passed": false,
+      "bbox": [
+        1663,
+        988,
+        1693,
+        1004
+      ],
+      "timestamp": "2026-09-21 01:32:35"
+    },
+    {
+      "proposal_id": "01030-f07s00-fda406304115",
+      "device_code": "44180209031322001030",
+      "stratum": "filtered_spread",
+      "weight": 10.833333333333334,
+      "label": 1,
+      "passed": false,
+      "bbox": [
+        1242,
+        436,
+        1269,
+        463
+      ],
+      "timestamp": "2026-09-21 22:29:32"
+    }
+  ],
+  "random_grid": {
+    "scored": 59,
+    "litter_rows": 0,
+    "litter_fraction_unweighted": 0.0,
+    "note": "Generator miss diagnostic; not part of candidate-filter recall."
+  },
+  "performance": {
+    "ticks": 120,
+    "candidates": 6963,
+    "tick_seconds_p95": 0.24614844394382088,
+    "tick_seconds_p99": 0.354381367135793,
+    "tick_seconds_max": 1.774558185134083,
+    "latest_wins": {
+      "submitted": 120,
+      "completed": 118,
+      "dropped": 2,
+      "maximum_queue_depth": 1,
+      "age_p95_seconds": 0.25690427982481173,
+      "age_max_seconds": 1.774558185134083
+    }
+  }
+}

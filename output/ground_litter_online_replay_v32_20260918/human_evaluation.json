@@ -1,0 +1,204 @@
+{
+  "kind": "ground_litter_online_replay_v32_human_evaluation",
+  "human_labels_used_for_prediction": false,
+  "matching": {
+    "center_distance_px": 30.0,
+    "size_ratio": 10.0
+  },
+  "reviewed_baseline": {
+    "tracks_total": 38,
+    "litter_tracks": 16,
+    "candidate_precision": 0.4211,
+    "events_total": 16,
+    "litter_events": 5,
+    "non_litter_events": 11
+  },
+  "representative_frame_cascade": {
+    "events_total": 16,
+    "litter_events": 5,
+    "non_litter_events": 11,
+    "visible_events_after_context_and_actor": 6,
+    "visible_litter_events": 5,
+    "deferred_non_litter_events": 10,
+    "litter_event_recall": 1.0,
+    "visible_candidate_precision": 0.8333,
+    "non_litter_event_deferral_rate": 0.9091
+  },
+  "online_negative": {
+    "events_created": 17,
+    "events_confirmed": 6,
+    "true_positive_events": 5,
+    "false_positive_events": 1,
+    "false_negative_events": 0,
+    "precision": 0.8333,
+    "recall": 1.0,
+    "f1": 0.9091,
+    "non_litter_deferral_rate": 0.9091,
+    "matched_confirmed_events": [
+      {
+        "online_event_id": 1,
+        "online_anchor_box": [
+          1774.0,
+          561.0,
+          1785.0,
+          570.0
+        ],
+        "reviewed_event_id": "negative-v31-event-001",
+        "reviewed_anchor_box": [
+          1774.0,
+          561.0,
+          1785.0,
+          570.0
+        ],
+        "human_label": "LITTER_CONFIRMED",
+        "center_distance_px": 0.0,
+        "reviewed_track_ids": [
+          1
+        ]
+      },
+      {
+        "online_event_id": 2,
+        "online_anchor_box": [
+          1747.0,
+          476.0,
+          1755.0,
+          484.0
+        ],
+        "reviewed_event_id": "negative-v31-event-002",
+        "reviewed_anchor_box": [
+          1747.0,
+          476.0,
+          1755.0,
+          483.0
+        ],
+        "human_label": "LITTER_CONFIRMED",
+        "center_distance_px": 0.5,
+        "reviewed_track_ids": [
+          2
+        ]
+      },
+      {
+        "online_event_id": 6,
+        "online_anchor_box": [
+          1637.0,
+          1191.0,
+          1650.0,
+          1202.0
+        ],
+        "reviewed_event_id": "negative-v31-event-009",
+        "reviewed_anchor_box": [
+          1637.0,
+          1192.0,
+          1650.0,
+          1202.5
+        ],
+        "human_label": "LITTER_CONFIRMED",
+        "center_distance_px": 0.75,
+        "reviewed_track_ids": [
+          68,
+          87,
+          119,
+          137,
+          182,
+          185,
+          189,
+          200,
+          203,
+          225,
+          233,
+          237
+        ]
+      },
+      {
+        "online_event_id": 10,
+        "online_anchor_box": [
+          1732.0,
+          437.0,
+          1740.0,
+          447.0
+        ],
+        "reviewed_event_id": "negative-v31-event-010",
+        "reviewed_anchor_box": [
+          1732.0,
+          437.0,
+          1740.0,
+          447.0
+        ],
+        "human_label": "LITTER_CONFIRMED",
+        "center_distance_px": 0.0,
+        "reviewed_track_ids": [
+          93
+        ]
+      },
+      {
+        "online_event_id": 11,
+        "online_anchor_box": [
+          1657.0,
+          394.0,
+          1668.0,
+          400.0
+        ],
+        "reviewed_event_id": "negative-v31-event-011",
+        "reviewed_anchor_box": [
+          1657.0,
+          394.0,
+          1668.0,
+          400.0
+        ],
+        "human_label": "LITTER_CONFIRMED",
+        "center_distance_px": 0.0,
+        "reviewed_track_ids": [
+          95
+        ]
+      },
+      {
+        "online_event_id": 15,
+        "online_anchor_box": [
+          1736.0,
+          362.0,
+          1750.0,
+          372.0
+        ],
+        "reviewed_event_id": "negative-v31-event-013",
+        "reviewed_anchor_box": [
+          1736.0,
+          362.0,
+          1750.0,
+          372.0
+        ],
+        "human_label": "CLEAR_NON_LITTER",
+        "center_distance_px": 0.0,
+        "reviewed_track_ids": [
+          186
+        ]
+      }
+    ],
+    "missed_litter_event_ids": []
+  },
+  "online_positive_t01": {
+    "matching_event_ids": [
+      2
+    ],
+    "first_seen": 72.0,
+    "first_confirmed_5s": 81.0,
+    "visible_duration_seconds": 75.0
+  },
+  "online_clean_holdout": {
+    "frames": 20,
+    "events_created": 0,
+    "events_confirmed": 0
+  },
+  "environment_diagnostics": {
+    "positive": {
+      "GLOBAL_LIGHT_CHANGE": 97
+    },
+    "negative": {
+      "GLOBAL_LIGHT_CHANGE": 244
+    },
+    "clean_holdout": {
+      "NORMAL": 20
+    },
+    "note": "GLOBAL_LIGHT_CHANGE means photometric compensation was active; only ENVIRONMENT_CHANGE pauses event evidence."
+  },
+  "lifecycle_version": "3.2"
+}

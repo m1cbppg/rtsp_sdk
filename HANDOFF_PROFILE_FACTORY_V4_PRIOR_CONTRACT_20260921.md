@@ -1,5 +1,7 @@
 # Profile Factory v4 prior_suitable 跨模块契约修复（2026-09-21）
 
+> **后续结论（2026-09-21）**：本文记录的契约修复不能解决 oracle 信号不足。Go/No-Go 实验已决定停止 Profile prior 路线，v5 是 `semantic_only`，v6 只是未验证暂停现场，均不是生产资产。本文仅供历史追溯；不得据此恢复构建或部署。见 `docs/decisions/2026-09-21-ground-litter-profile-prior-no-go.md`。
+
 本轮只处理 v4 复核提出的最后一个契约问题：自动剪枝把唯一两个 `prior_suitable=true`
 的候选删掉，最终 Bank 只剩两个 `prior_suitable=false` 的 Profile，却仍被当作
 可用 prior 库。没有重开 C1–C3，也没有改参考选择算法或校准匹配阈值。

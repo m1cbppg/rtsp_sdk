@@ -1,0 +1,465 @@
+{
+  "positive": [
+    "walkway_small_white"
+  ],
+  "hard_negatives": [
+    "broom",
+    "bucket"
+  ],
+  "unresolved": [
+    "curb_bags"
+  ],
+  "configs": [
+    {
+      "exp": 2.0,
+      "imgsz": 640,
+      "conf": 0.05,
+      "pos": 0.85,
+      "negs": {
+        "broom": 0.5,
+        "bucket": 0.95
+      },
+      "worst_neg": 0.95,
+      "false_confirm_2of4": 1.0,
+      "pass_recall": true,
+      "pass_hardneg": false,
+      "pass_both": false
+    },
+    {
+      "exp": 2.0,
+      "imgsz": 640,
+      "conf": 0.1,
+      "pos": 0.8,
+      "negs": {
+        "broom": 0.15,
+        "bucket": 0.9
+      },
+      "worst_neg": 0.9,
+      "false_confirm_2of4": 0.996,
+      "pass_recall": true,
+      "pass_hardneg": false,
+      "pass_both": false
+    },
+    {
+      "exp": 2.0,
+      "imgsz": 640,
+      "conf": 0.15,
+      "pos": 0.45,
+      "negs": {
+        "broom": 0.1,
+        "bucket": 0.9
+      },
+      "worst_neg": 0.9,
+      "false_confirm_2of4": 0.996,
+      "pass_recall": false,
+      "pass_hardneg": false,
+      "pass_both": false
+    },
+    {
+      "exp": 2.0,
+      "imgsz": 640,
+      "conf": 0.2,
+      "pos": 0.3,
+      "negs": {
+        "broom": 0.1,
+        "bucket": 0.8
+      },
+      "worst_neg": 0.8,
+      "false_confirm_2of4": 0.973,
+      "pass_recall": false,
+      "pass_hardneg": false,
+      "pass_both": false
+    },
+    {
+      "exp": 2.0,
+      "imgsz": 640,
+      "conf": 0.25,
+      "pos": 0.1,
+      "negs": {
+        "broom": 0.1,
+        "bucket": 0.75
+      },
+      "worst_neg": 0.75,
+      "false_confirm_2of4": 0.949,
+      "pass_recall": false,
+      "pass_hardneg": false,
+      "pass_both": false
+    },
+    {
+      "exp": 2.0,
+      "imgsz": 1280,
+      "conf": 0.05,
+      "pos": 0.8,
+      "negs": {
+        "broom": 0.6,
+        "bucket": 0.0
+      },
+      "worst_neg": 0.6,
+      "false_confirm_2of4": 0.821,
+      "pass_recall": true,
+      "pass_hardneg": false,
+      "pass_both": false
+    },
+    {
+      "exp": 2.0,
+      "imgsz": 1280,
+      "conf": 0.1,
+      "pos": 0.8,
+      "negs": {
+        "broom": 0.35,
+        "bucket": 0.0
+      },
+      "worst_neg": 0.35,
+      "false_confirm_2of4": 0.437,
+      "pass_recall": true,
+      "pass_hardneg": false,
+      "pass_both": false
+    },
+    {
+      "exp": 2.0,
+      "imgsz": 1280,
+      "conf": 0.15,
+      "pos": 0.8,
+      "negs": {
+        "broom": 0.3,
+        "bucket": 0.0
+      },
+      "worst_neg": 0.3,
+      "false_confirm_2of4": 0.348,
+      "pass_recall": true,
+      "pass_hardneg": false,
+      "pass_both": false
+    },
+    {
+      "exp": 2.0,
+      "imgsz": 1280,
+      "conf": 0.2,
+      "pos": 0.75,
+      "negs": {
+        "broom": 0.15,
+        "bucket": 0.0
+      },
+      "worst_neg": 0.15,
+      "false_confirm_2of4": 0.11,
+      "pass_recall": false,
+      "pass_hardneg": false,
+      "pass_both": false
+    },
+    {
+      "exp": 2.0,
+      "imgsz": 1280,
+      "conf": 0.25,
+      "pos": 0.75,
+      "negs": {
+        "broom": 0.05,
+        "bucket": 0.0
+      },
+      "worst_neg": 0.05,
+      "false_confirm_2of4": 0.014,
+      "pass_recall": false,
+      "pass_hardneg": true,
+      "pass_both": false
+    },
+    {
+      "exp": 3.0,
+      "imgsz": 640,
+      "conf": 0.05,
+      "pos": 0.85,
+      "negs": {
+        "broom": 0.5,
+        "bucket": 1.0
+      },
+      "worst_neg": 1.0,
+      "false_confirm_2of4": 1.0,
+      "pass_recall": true,
+      "pass_hardneg": false,
+      "pass_both": false
+    },
+    {
+      "exp": 3.0,
+      "imgsz": 640,
+      "conf": 0.1,
+      "pos": 0.8,
+      "negs": {
+        "broom": 0.15,
+        "bucket": 0.95
+      },
+      "worst_neg": 0.95,
+      "false_confirm_2of4": 1.0,
+      "pass_recall": true,
+      "pass_hardneg": false,
+      "pass_both": false
+    },
+    {
+      "exp": 3.0,
+      "imgsz": 640,
+      "conf": 0.15,
+      "pos": 0.45,
+      "negs": {
+        "broom": 0.1,
+        "bucket": 0.95
+      },
+      "worst_neg": 0.95,
+      "false_confirm_2of4": 1.0,
+      "pass_recall": false,
+      "pass_hardneg": false,
+      "pass_both": false
+    },
+    {
+      "exp": 3.0,
+      "imgsz": 640,
+      "conf": 0.2,
+      "pos": 0.3,
+      "negs": {
+        "broom": 0.1,
+        "bucket": 0.95
+      },
+      "worst_neg": 0.95,
+      "false_confirm_2of4": 1.0,
+      "pass_recall": false,
+      "pass_hardneg": false,
+      "pass_both": false
+    },
+    {
+      "exp": 3.0,
+      "imgsz": 640,
+      "conf": 0.25,
+      "pos": 0.1,
+      "negs": {
+        "broom": 0.1,
+        "bucket": 0.85
+      },
+      "worst_neg": 0.85,
+      "false_confirm_2of4": 0.988,
+      "pass_recall": false,
+      "pass_hardneg": false,
+      "pass_both": false
+    },
+    {
+      "exp": 3.0,
+      "imgsz": 1280,
+      "conf": 0.05,
+      "pos": 0.8,
+      "negs": {
+        "broom": 0.6,
+        "bucket": 0.05
+      },
+      "worst_neg": 0.6,
+      "false_confirm_2of4": 0.821,
+      "pass_recall": true,
+      "pass_hardneg": false,
+      "pass_both": false
+    },
+    {
+      "exp": 3.0,
+      "imgsz": 1280,
+      "conf": 0.1,
+      "pos": 0.8,
+      "negs": {
+        "broom": 0.35,
+        "bucket": 0.0
+      },
+      "worst_neg": 0.35,
+      "false_confirm_2of4": 0.437,
+      "pass_recall": true,
+      "pass_hardneg": false,
+      "pass_both": false
+    },
+    {
+      "exp": 3.0,
+      "imgsz": 1280,
+      "conf": 0.15,
+      "pos": 0.8,
+      "negs": {
+        "broom": 0.3,
+        "bucket": 0.0
+      },
+      "worst_neg": 0.3,
+      "false_confirm_2of4": 0.348,
+      "pass_recall": true,
+      "pass_hardneg": false,
+      "pass_both": false
+    },
+    {
+      "exp": 3.0,
+      "imgsz": 1280,
+      "conf": 0.2,
+      "pos": 0.75,
+      "negs": {
+        "broom": 0.15,
+        "bucket": 0.0
+      },
+      "worst_neg": 0.15,
+      "false_confirm_2of4": 0.11,
+      "pass_recall": false,
+      "pass_hardneg": false,
+      "pass_both": false
+    },
+    {
+      "exp": 3.0,
+      "imgsz": 1280,
+      "conf": 0.25,
+      "pos": 0.75,
+      "negs": {
+        "broom": 0.05,
+        "bucket": 0.0
+      },
+      "worst_neg": 0.05,
+      "false_confirm_2of4": 0.014,
+      "pass_recall": false,
+      "pass_hardneg": true,
+      "pass_both": false
+    },
+    {
+      "exp": 4.0,
+      "imgsz": 640,
+      "conf": 0.05,
+      "pos": 0.85,
+      "negs": {
+        "broom": 0.3,
+        "bucket": 1.0
+      },
+      "worst_neg": 1.0,
+      "false_confirm_2of4": 1.0,
+      "pass_recall": true,
+      "pass_hardneg": false,
+      "pass_both": false
+    },
+    {
+      "exp": 4.0,
+      "imgsz": 640,
+      "conf": 0.1,
+      "pos": 0.8,
+      "negs": {
+        "broom": 0.15,
+        "bucket": 1.0
+      },
+      "worst_neg": 1.0,
+      "false_confirm_2of4": 1.0,
+      "pass_recall": true,
+      "pass_hardneg": false,
+      "pass_both": false
+    },
+    {
+      "exp": 4.0,
+      "imgsz": 640,
+      "conf": 0.15,
+      "pos": 0.45,
+      "negs": {
+        "broom": 0.1,
+        "bucket": 0.9
+      },
+      "worst_neg": 0.9,
+      "false_confirm_2of4": 0.996,
+      "pass_recall": false,
+      "pass_hardneg": false,
+      "pass_both": false
+    },
+    {
+      "exp": 4.0,
+      "imgsz": 640,
+      "conf": 0.2,
+      "pos": 0.3,
+      "negs": {
+        "broom": 0.1,
+        "bucket": 0.75
+      },
+      "worst_neg": 0.75,
+      "false_confirm_2of4": 0.949,
+      "pass_recall": false,
+      "pass_hardneg": false,
+      "pass_both": false
+    },
+    {
+      "exp": 4.0,
+      "imgsz": 640,
+      "conf": 0.25,
+      "pos": 0.1,
+      "negs": {
+        "broom": 0.1,
+        "bucket": 0.7
+      },
+      "worst_neg": 0.7,
+      "false_confirm_2of4": 0.916,
+      "pass_recall": false,
+      "pass_hardneg": false,
+      "pass_both": false
+    },
+    {
+      "exp": 4.0,
+      "imgsz": 1280,
+      "conf": 0.05,
+      "pos": 0.8,
+      "negs": {
+        "broom": 0.6,
+        "bucket": 0.85
+      },
+      "worst_neg": 0.85,
+      "false_confirm_2of4": 0.988,
+      "pass_recall": true,
+      "pass_hardneg": false,
+      "pass_both": false
+    },
+    {
+      "exp": 4.0,
+      "imgsz": 1280,
+      "conf": 0.1,
+      "pos": 0.8,
+      "negs": {
+        "broom": 0.35,
+        "bucket": 0.75
+      },
+      "worst_neg": 0.75,
+      "false_confirm_2of4": 0.949,
+      "pass_recall": true,
+      "pass_hardneg": false,
+      "pass_both": false
+    },
+    {
+      "exp": 4.0,
+      "imgsz": 1280,
+      "conf": 0.15,
+      "pos": 0.8,
+      "negs": {
+        "broom": 0.2,
+        "bucket": 0.6
+      },
+      "worst_neg": 0.6,
+      "false_confirm_2of4": 0.821,
+      "pass_recall": true,
+      "pass_hardneg": false,
+      "pass_both": false
+    },
+    {
+      "exp": 4.0,
+      "imgsz": 1280,
+      "conf": 0.2,
+      "pos": 0.75,
+      "negs": {
+        "broom": 0.05,
+        "bucket": 0.6
+      },
+      "worst_neg": 0.6,
+      "false_confirm_2of4": 0.821,
+      "pass_recall": false,
+      "pass_hardneg": false,
+      "pass_both": false
+    },
+    {
+      "exp": 4.0,
+      "imgsz": 1280,
+      "conf": 0.25,
+      "pos": 0.75,
+      "negs": {
+        "broom": 0.0,
+        "bucket": 0.4
+      },
+      "worst_neg": 0.4,
+      "false_confirm_2of4": 0.525,
+      "pass_recall": false,
+      "pass_hardneg": false,
+      "pass_both": false
+    }
+  ],
+  "any_pass_both": false
+}

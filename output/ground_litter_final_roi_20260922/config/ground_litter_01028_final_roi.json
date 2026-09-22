@@ -1,0 +1,34 @@
+{
+  "kind": "ground_litter_camera_geometry",
+  "schema_version": 1,
+  "geometry_version": "final-roi-20260922-user-reviewed",
+  "camera_id": "01028",
+  "device_code": "44180209031322001028",
+  "roi": [
+    [
+      0.675781,
+      0.482509
+    ],
+    [
+      0.760156,
+      0.48112
+    ],
+    [
+      0.808594,
+      0.80612
+    ],
+    [
+      0.685156,
+      0.796398
+    ]
+  ],
+  "canvas_size": [
+    2560,
+    1440
+  ],
+  "frame_path": "output/ground_litter_final_roi_20260922/frames/01028.jpg",
+  "frame_sha256": "2436bc2393e94a97a621209567d6c2d02c9b4d1995643b53888e38448f54ad22",
+  "saved_at": "2026-09-22T07:21:46.405550+00:00",
+  "purpose": "final_ground_litter_detection_roi",
+  "exclude_zones": []
+}

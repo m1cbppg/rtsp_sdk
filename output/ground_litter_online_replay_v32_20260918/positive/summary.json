@@ -1,0 +1,26 @@
+{
+  "name": "positive",
+  "sample_fps": 1.0,
+  "evaluation_start_seconds": 60.0,
+  "frames": 97,
+  "events_total": 8,
+  "events_confirmed_5s": 3,
+  "events_active_at_end": 2,
+  "context_blocked_candidates": 153,
+  "actor_blocked_candidates": 193,
+  "environment_states": {
+    "GLOBAL_LIGHT_CHANGE": 97
+  },
+  "elapsed_seconds": 135.898,
+  "events_pruned": 0,
+  "confirmed_events_pruned": 0,
+  "ground_unavailable_event_samples": 0,
+  "t01": {
+    "matching_event_ids": [
+      2
+    ],
+    "first_seen": 72.0,
+    "first_confirmed_5s": 81.0,
+    "visible_duration_seconds": 75.0
+  }
+}

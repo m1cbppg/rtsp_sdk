@@ -57,8 +57,10 @@ def index_remote(args: argparse.Namespace) -> dict[str, Any]:
     if args.api_key:
         headers["X-API-Key"] = args.api_key
     client = RecordingListClient(args.endpoint, headers=headers)
-    start = datetime.strptime(args.start, "%Y-%m-%d %H:%M:%S")
-    end = datetime.strptime(args.end, "%Y-%m-%d %H:%M:%S")
+    # ISO ``T`` avoids fragile shell quoting while the historical space form
+    # remains accepted by ``fromisoformat``.
+    start = datetime.fromisoformat(args.start)
+    end = datetime.fromisoformat(args.end)
     if end <= start:
         raise SystemExit("--end 必须晚于 --start")
     window = timedelta(minutes=max(1, args.window_minutes))

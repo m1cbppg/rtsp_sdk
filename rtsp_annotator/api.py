@@ -485,6 +485,18 @@ class GroundLitterRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     enabled: bool = False
+    mode: Literal["yolo", "clean_reference_v32", "hybrid_v33"] = Field(
+        default="yolo",
+        description=(
+            "yolo为原有候选稳定框；clean_reference_v32为固定机位V3.2事件状态机；"
+            "hybrid_v33为模型通道与先验通道各自独立确认后的事件级融合"
+        ),
+    )
+    profile_id: str | None = Field(
+        default=None,
+        pattern=r"^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$",
+        description="clean_reference_v32与hybrid_v33使用的已审核参考配置ID",
+    )
     model: str = Field(
         default=DEFAULT_GROUND_LITTER_MODEL,
         description=(
@@ -575,6 +587,32 @@ class GroundLitterRequest(BaseModel):
     )
     maximum_age_seconds: float = Field(default=12.0, ge=0.1, le=120)
     maximum_boxes: int = Field(default=8, ge=1, le=64)
+    confirm_visible_seconds: float = Field(
+        default=5.0, ge=1, le=120,
+        description="V3.2累计可见证据达到该时长后才允许绘框",
+    )
+    clear_confirm_seconds: float = Field(
+        default=5.0, ge=1, le=120,
+        description="连续干净证据达到该时长后关闭事件",
+    )
+    pending_expire_seconds: float = Field(
+        default=15.0, ge=1, le=300,
+        description="未确认事件仅在可判断的缺失样本中累计的过期时长",
+    )
+    min_clean_valid_fraction: float = Field(default=0.8, ge=0.5, le=1)
+    maximum_closed_events: int = Field(default=10_000, ge=0, le=100_000)
+    startup_suppress_seconds: float = Field(
+        default=15.0,
+        ge=0,
+        le=120,
+        description="V3.2启动阶段只做对齐和环境判断，不累计或显示事件",
+    )
+    normal_stability_samples: int = Field(
+        default=3,
+        ge=1,
+        le=30,
+        description="V3.2环境恢复后连续正常样本数，满足后才重新接收事件证据",
+    )
     display_zones: bool = Field(
         default=True,
         description="是否在输出画面绘制地面识别区域轮廓",
@@ -585,6 +623,55 @@ class GroundLitterRequest(BaseModel):
     )
     display_confidence: bool = False
     label: str = Field(default="疑似垃圾", min_length=1, max_length=24)
+
+    # --- hybrid_v33 dual-channel recall -----------------------------------
+    # The semantic (model) and prior (Clean Reference) channels confirm
+    # independently; neither may be configured to veto the other, so no
+    # "requires the other channel" switch exists here by design.
+    semantic_scan_interval_seconds: float = Field(default=4.0, ge=0.5, le=60)
+    semantic_confirm_hits: int = Field(default=2, ge=1, le=30)
+    semantic_hit_window: int = Field(default=3, ge=1, le=30)
+    semantic_confirm_span_seconds: float = Field(default=4.0, gt=0, le=120)
+    semantic_clear_seconds: float = Field(default=8.0, gt=0, le=300)
+    semantic_clear_min_misses: int = Field(default=2, ge=1, le=20)
+    prior_confirm_hits: int = Field(default=4, ge=1, le=30)
+    prior_hit_window: int = Field(default=6, ge=1, le=30)
+    prior_confirm_span_seconds: float = Field(default=6.0, gt=0, le=300)
+    prior_suspend_expire_seconds: float = Field(default=120.0, ge=1, le=3600)
+    fused_confirm_hits: int = Field(default=2, ge=1, le=30)
+    fused_hit_window: int = Field(default=4, ge=1, le=30)
+    fused_confirm_span_seconds: float = Field(default=2.0, gt=0, le=120)
+    prior_crop_maximum: int = Field(default=4, ge=0, le=8)
+    prior_crop_expand_ratio: float = Field(default=4.0, ge=1.5, le=6.0)
+    prior_crop_maximum_source_px: int = Field(default=480, ge=160, le=960)
+    prior_crop_imgsz: int = Field(default=640, ge=320, le=1280)
+
+    @model_validator(mode="after")
+    def validate_hybrid_contract(self) -> "GroundLitterRequest":
+        """hybrid_v33 cross-field contract.
+
+        This must be a model-level validator: a field validator for
+        ``semantic_confirm_hits`` runs before ``semantic_hit_window`` exists, so
+        a per-field "hits must fit the window" check never fires.
+        """
+        if self.mode != "hybrid_v33":
+            return self
+        if not self.profile_id:
+            raise ValueError("hybrid_v33模式必须设置profile_id")
+        if not self.model:
+            raise ValueError("hybrid_v33模式必须设置model")
+        pairs = (
+            ("semantic_confirm_hits", self.semantic_confirm_hits,
+             "semantic_hit_window", self.semantic_hit_window),
+            ("prior_confirm_hits", self.prior_confirm_hits,
+             "prior_hit_window", self.prior_hit_window),
+            ("fused_confirm_hits", self.fused_confirm_hits,
+             "fused_hit_window", self.fused_hit_window),
+        )
+        for hits_name, hits, window_name, window in pairs:
+            if not 1 <= int(hits) <= int(window):
+                raise ValueError(f"{hits_name}必须在[1, {window_name}]范围内")
+        return self
 
     @staticmethod
     def _validate_polygon(
@@ -636,6 +723,8 @@ class GroundLitterRequest(BaseModel):
             raise ValueError("local_actor_max_crops需要actor_model")
         if not self.enabled:
             return self
+        if self.mode == "clean_reference_v32" and not self.profile_id:
+            raise ValueError("clean_reference_v32模式必须设置profile_id")
         if not self.zones:
             raise ValueError("启用ground_litter时至少需要一个地面区域")
         if self.minimum_hits > self.hit_window:
@@ -651,6 +740,8 @@ class GroundLitterRequest(BaseModel):
     def to_options(self) -> GroundLitterDetectionOptions:
         options = GroundLitterDetectionOptions(
             enabled=self.enabled,
+            mode=self.mode,
+            profile_id=self.profile_id,
             model=self.model,
             actor_model=self.actor_model,
             analysis_fps=self.analysis_fps,
@@ -677,6 +768,30 @@ class GroundLitterRequest(BaseModel):
             hold_seconds=self.hold_seconds,
             maximum_age_seconds=self.maximum_age_seconds,
             maximum_boxes=self.maximum_boxes,
+            confirm_visible_seconds=self.confirm_visible_seconds,
+            clear_confirm_seconds=self.clear_confirm_seconds,
+            pending_expire_seconds=self.pending_expire_seconds,
+            min_clean_valid_fraction=self.min_clean_valid_fraction,
+            semantic_scan_interval_seconds=self.semantic_scan_interval_seconds,
+            semantic_confirm_hits=self.semantic_confirm_hits,
+            semantic_hit_window=self.semantic_hit_window,
+            semantic_confirm_span_seconds=self.semantic_confirm_span_seconds,
+            semantic_clear_seconds=self.semantic_clear_seconds,
+            semantic_clear_min_misses=self.semantic_clear_min_misses,
+            prior_confirm_hits=self.prior_confirm_hits,
+            prior_hit_window=self.prior_hit_window,
+            prior_confirm_span_seconds=self.prior_confirm_span_seconds,
+            prior_suspend_expire_seconds=self.prior_suspend_expire_seconds,
+            fused_confirm_hits=self.fused_confirm_hits,
+            fused_hit_window=self.fused_hit_window,
+            fused_confirm_span_seconds=self.fused_confirm_span_seconds,
+            prior_crop_maximum=self.prior_crop_maximum,
+            prior_crop_expand_ratio=self.prior_crop_expand_ratio,
+            prior_crop_maximum_source_px=self.prior_crop_maximum_source_px,
+            prior_crop_imgsz=self.prior_crop_imgsz,
+            maximum_closed_events=self.maximum_closed_events,
+            startup_suppress_seconds=self.startup_suppress_seconds,
+            normal_stability_samples=self.normal_stability_samples,
             display_zones=self.display_zones,
             display_class=self.display_class,
             display_confidence=self.display_confidence,
@@ -1391,7 +1506,11 @@ class StreamResponse(BaseModel):
     classes: list[int] | None
     created_at: str
     exit_code: int | None
-    metrics: dict[str, float | int | str | bool | None] | None = None
+    # DeepStream metrics include structured side-branch telemetry (for example
+    # ``ground_litter_hybrid``).  Restricting values to scalars makes the first
+    # metrics-bearing GET fail response validation even while the stream keeps
+    # running.
+    metrics: dict[str, Any] | None = None
     license_plate: dict[str, Any] | None = None
     night_vision: dict[str, Any] | None = None
     event_detection: dict[str, Any] | None = None

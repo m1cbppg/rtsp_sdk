@@ -1,0 +1,84 @@
+{
+  "kind": "ground_litter_online_event_replay_v32",
+  "parameters": {
+    "event_match_distance_px": 30.0,
+    "event_match_size_ratio": 5.0,
+    "event_merge_distance_px": 30.0,
+    "event_merge_size_ratio": 10.0,
+    "context_external_area_px": 200,
+    "clear_confirm_seconds": 5.0,
+    "clean_max_support_pixels": 2,
+    "min_clean_valid_fraction": 0.8,
+    "max_sample_gap_factor": 1.5,
+    "confirm_visible_seconds": 5.0,
+    "pending_expire_seconds": 15.0,
+    "max_closed_events": 10000,
+    "actor_model": "yolo26s.pt",
+    "actor_overlap_threshold": 0.2,
+    "clean_reference_updated": false
+  },
+  "videos": {
+    "negative": {
+      "name": "negative",
+      "sample_fps": 1.0,
+      "evaluation_start_seconds": 60.0,
+      "frames": 244,
+      "events_total": 17,
+      "events_confirmed_5s": 6,
+      "events_active_at_end": 6,
+      "context_blocked_candidates": 145,
+      "actor_blocked_candidates": 160,
+      "environment_states": {
+        "GLOBAL_LIGHT_CHANGE": 244
+      },
+      "elapsed_seconds": 324.852,
+      "events_pruned": 0,
+      "confirmed_events_pruned": 0,
+      "ground_unavailable_event_samples": 0
+    },
+    "positive": {
+      "name": "positive",
+      "sample_fps": 1.0,
+      "evaluation_start_seconds": 60.0,
+      "frames": 97,
+      "events_total": 8,
+      "events_confirmed_5s": 3,
+      "events_active_at_end": 2,
+      "context_blocked_candidates": 153,
+      "actor_blocked_candidates": 193,
+      "environment_states": {
+        "GLOBAL_LIGHT_CHANGE": 97
+      },
+      "elapsed_seconds": 135.898,
+      "events_pruned": 0,
+      "confirmed_events_pruned": 0,
+      "ground_unavailable_event_samples": 0,
+      "t01": {
+        "matching_event_ids": [
+          2
+        ],
+        "first_seen": 72.0,
+        "first_confirmed_5s": 81.0,
+        "visible_duration_seconds": 75.0
+      }
+    },
+    "clean_holdout": {
+      "name": "clean_holdout",
+      "sample_fps": 1.0,
+      "evaluation_start_seconds": 35.79333333333334,
+      "frames": 20,
+      "events_total": 0,
+      "events_confirmed_5s": 0,
+      "events_active_at_end": 0,
+      "context_blocked_candidates": 0,
+      "actor_blocked_candidates": 0,
+      "environment_states": {
+        "NORMAL": 20
+      },
+      "elapsed_seconds": 29.7,
+      "events_pruned": 0,
+      "confirmed_events_pruned": 0,
+      "ground_unavailable_event_samples": 0
+    }
+  }
+}

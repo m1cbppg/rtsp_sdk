@@ -1,0 +1,32 @@
+{
+  "label": "diag_short",
+  "totals": {
+    "ticks": 23,
+    "span_seconds": 45.0,
+    "semantic_only_displayed_events": 4,
+    "prior_only_displayed_events": 0,
+    "fused_displayed_events": 0,
+    "merged_displayed_events": 4,
+    "semantic_only_events_per_hour": 320.0,
+    "prior_only_events_per_hour": 0.0,
+    "fused_events_per_hour": 0.0,
+    "merged_events_per_hour": 320.0,
+    "single_frame_flashes": 1,
+    "flashes_by_source": {
+      "semantic_only": 1
+    },
+    "prior_candidates_proposed": 0,
+    "prior_candidates_retained": 0,
+    "prior_rejected_by_geometry": 0,
+    "semantic_raw_candidates": 175,
+    "semantic_retained_candidates": 30,
+    "semantic_crop_raw": 0,
+    "semantic_crop_unmatched_rejected": 0,
+    "environment_not_normal_ticks": 23,
+    "occluded_ticks": 0,
+    "degraded_ticks": 0,
+    "model_runs_full": 16,
+    "model_runs_crop": 0,
+    "cross_source_merges": 0
+  }
+}

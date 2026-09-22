@@ -1,0 +1,35 @@
+{
+  "polygon": [
+    [
+      0.52,
+      0
+    ],
+    [
+      0.63,
+      0
+    ],
+    [
+      0.72,
+      1
+    ],
+    [
+      0.42,
+      1
+    ]
+  ],
+  "main_gate": false,
+  "metrics": {
+    "raw_candidates": 1013,
+    "raw_per_minute": 200.024353080171,
+    "tracks_total": 157,
+    "tracks_at_least_seconds": {
+      "1": 157,
+      "3": 58,
+      "5": 34,
+      "10": 20,
+      "30": 4
+    },
+    "raw_to_5s_reduction": 0.9664363277393879
+  },
+  "t01": null
+}

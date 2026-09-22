@@ -1,0 +1,1293 @@
+{
+  "runs": [
+    {
+      "scenario": "semantic_only",
+      "trace": [
+        {
+          "timestamp": 0.0,
+          "state": "warming_up",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p startup_suppressed remaining=15.0s env=NORMAL"
+        },
+        {
+          "timestamp": 2.0,
+          "state": "warming_up",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p startup_suppressed remaining=13.0s env=NORMAL"
+        },
+        {
+          "timestamp": 4.0,
+          "state": "warming_up",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p startup_suppressed remaining=11.0s env=NORMAL"
+        },
+        {
+          "timestamp": 6.0,
+          "state": "warming_up",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p startup_suppressed remaining=9.0s env=NORMAL"
+        },
+        {
+          "timestamp": 8.0,
+          "state": "warming_up",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p startup_suppressed remaining=7.0s env=NORMAL"
+        },
+        {
+          "timestamp": 10.0,
+          "state": "warming_up",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p startup_suppressed remaining=5.0s env=NORMAL"
+        },
+        {
+          "timestamp": 12.0,
+          "state": "warming_up",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p startup_suppressed remaining=3.0s env=NORMAL"
+        },
+        {
+          "timestamp": 14.0,
+          "state": "warming_up",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p startup_suppressed remaining=1.0s env=NORMAL"
+        },
+        {
+          "timestamp": 16.0,
+          "state": "running",
+          "displayed": [],
+          "active_events": 1,
+          "confirmed_events": 0,
+          "cleared_events": 0,
+          "semantic_only_active": 1,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=1 confirmed=0 displayed=0 semantic_only=1 prior_only=0 fused=0"
+        },
+        {
+          "timestamp": 18.0,
+          "state": "running",
+          "displayed": [],
+          "active_events": 1,
+          "confirmed_events": 0,
+          "cleared_events": 0,
+          "semantic_only_active": 1,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=1 confirmed=0 displayed=0 semantic_only=1 prior_only=0 fused=0"
+        },
+        {
+          "timestamp": 20.0,
+          "state": "running",
+          "displayed": [
+            {
+              "event_id": 1,
+              "source": "hybrid_v33_semantic",
+              "confidence": 0.62,
+              "rectangle": [
+                0.0391,
+                0.0694,
+                0.0156,
+                0.0278
+              ]
+            }
+          ],
+          "active_events": 1,
+          "confirmed_events": 1,
+          "cleared_events": 0,
+          "semantic_only_active": 1,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=1 confirmed=1 displayed=1 semantic_only=1 prior_only=0 fused=0"
+        },
+        {
+          "timestamp": 22.0,
+          "state": "running",
+          "displayed": [
+            {
+              "event_id": 1,
+              "source": "hybrid_v33_semantic",
+              "confidence": 0.62,
+              "rectangle": [
+                0.0391,
+                0.0694,
+                0.0156,
+                0.0278
+              ]
+            }
+          ],
+          "active_events": 1,
+          "confirmed_events": 1,
+          "cleared_events": 0,
+          "semantic_only_active": 1,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=1 confirmed=1 displayed=1 semantic_only=1 prior_only=0 fused=0"
+        },
+        {
+          "timestamp": 24.0,
+          "state": "running",
+          "displayed": [
+            {
+              "event_id": 1,
+              "source": "hybrid_v33_semantic",
+              "confidence": 0.62,
+              "rectangle": [
+                0.0391,
+                0.0694,
+                0.0156,
+                0.0278
+              ]
+            }
+          ],
+          "active_events": 1,
+          "confirmed_events": 1,
+          "cleared_events": 0,
+          "semantic_only_active": 1,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=1 confirmed=1 displayed=1 semantic_only=1 prior_only=0 fused=0"
+        },
+        {
+          "timestamp": 26.0,
+          "state": "running",
+          "displayed": [
+            {
+              "event_id": 1,
+              "source": "hybrid_v33_semantic",
+              "confidence": 0.62,
+              "rectangle": [
+                0.0391,
+                0.0694,
+                0.0156,
+                0.0278
+              ]
+            }
+          ],
+          "active_events": 1,
+          "confirmed_events": 1,
+          "cleared_events": 0,
+          "semantic_only_active": 1,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=1 confirmed=1 displayed=1 semantic_only=1 prior_only=0 fused=0"
+        },
+        {
+          "timestamp": 28.0,
+          "state": "running",
+          "displayed": [
+            {
+              "event_id": 1,
+              "source": "hybrid_v33_semantic",
+              "confidence": 0.62,
+              "rectangle": [
+                0.0391,
+                0.0694,
+                0.0156,
+                0.0278
+              ]
+            }
+          ],
+          "active_events": 1,
+          "confirmed_events": 1,
+          "cleared_events": 0,
+          "semantic_only_active": 1,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=1 confirmed=1 displayed=1 semantic_only=1 prior_only=0 fused=0"
+        },
+        {
+          "timestamp": 30.0,
+          "state": "running",
+          "displayed": [],
+          "active_events": 1,
+          "confirmed_events": 1,
+          "cleared_events": 0,
+          "semantic_only_active": 1,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=1 confirmed=1 displayed=0 semantic_only=1 prior_only=0 fused=0"
+        },
+        {
+          "timestamp": 32.0,
+          "state": "running",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 1,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=0 confirmed=0 displayed=0 semantic_only=0 prior_only=0 fused=0"
+        },
+        {
+          "timestamp": 34.0,
+          "state": "running",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 1,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=0 confirmed=0 displayed=0 semantic_only=0 prior_only=0 fused=0"
+        },
+        {
+          "timestamp": 36.0,
+          "state": "running",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 1,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=0 confirmed=0 displayed=0 semantic_only=0 prior_only=0 fused=0"
+        },
+        {
+          "timestamp": 38.0,
+          "state": "running",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 1,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=0 confirmed=0 displayed=0 semantic_only=0 prior_only=0 fused=0"
+        },
+        {
+          "timestamp": 40.0,
+          "state": "running",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 1,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=0 confirmed=0 displayed=0 semantic_only=0 prior_only=0 fused=0"
+        },
+        {
+          "timestamp": 42.0,
+          "state": "running",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 1,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=0 confirmed=0 displayed=0 semantic_only=0 prior_only=0 fused=0"
+        },
+        {
+          "timestamp": 44.0,
+          "state": "running",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 1,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=0 confirmed=0 displayed=0 semantic_only=0 prior_only=0 fused=0"
+        },
+        {
+          "timestamp": 46.0,
+          "state": "running",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 1,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=0 confirmed=0 displayed=0 semantic_only=0 prior_only=0 fused=0"
+        }
+      ],
+      "events": [
+        {
+          "event_id": 1,
+          "evidence_kind": "semantic_only",
+          "state": "CLEARED",
+          "confirmed_at": 20.0,
+          "closed_at": 32.0,
+          "closed_reason": "semantic_absent_confirmed",
+          "first_seen_at": 16.0,
+          "last_seen_at": 20.0,
+          "semantic_hits": 2,
+          "prior_hits": 0,
+          "merges": 0,
+          "state_history": [
+            {
+              "timestamp": 16.0,
+              "state": "PENDING",
+              "reason": "awaiting_confirmation"
+            },
+            {
+              "timestamp": 20.0,
+              "state": "SEMANTIC_VISIBLE",
+              "reason": "semantic_confirmed"
+            },
+            {
+              "timestamp": 22.0,
+              "state": "ABSENT_PENDING",
+              "reason": "semantic_absent"
+            },
+            {
+              "timestamp": 24.0,
+              "state": "SEMANTIC_VISIBLE",
+              "reason": "semantic_confirmed"
+            },
+            {
+              "timestamp": 24.0,
+              "state": "ABSENT_PENDING",
+              "reason": "semantic_absent"
+            },
+            {
+              "timestamp": 26.0,
+              "state": "SEMANTIC_VISIBLE",
+              "reason": "semantic_confirmed"
+            },
+            {
+              "timestamp": 26.0,
+              "state": "ABSENT_PENDING",
+              "reason": "semantic_absent"
+            },
+            {
+              "timestamp": 32.0,
+              "state": "CLEARED",
+              "reason": "semantic_absent_confirmed"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": "prior_only",
+      "trace": [
+        {
+          "timestamp": 0.0,
+          "state": "warming_up",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p startup_suppressed remaining=15.0s env=NORMAL"
+        },
+        {
+          "timestamp": 2.0,
+          "state": "warming_up",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p startup_suppressed remaining=13.0s env=NORMAL"
+        },
+        {
+          "timestamp": 4.0,
+          "state": "warming_up",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p startup_suppressed remaining=11.0s env=NORMAL"
+        },
+        {
+          "timestamp": 6.0,
+          "state": "warming_up",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p startup_suppressed remaining=9.0s env=NORMAL"
+        },
+        {
+          "timestamp": 8.0,
+          "state": "warming_up",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p startup_suppressed remaining=7.0s env=NORMAL"
+        },
+        {
+          "timestamp": 10.0,
+          "state": "warming_up",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p startup_suppressed remaining=5.0s env=NORMAL"
+        },
+        {
+          "timestamp": 12.0,
+          "state": "warming_up",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p startup_suppressed remaining=3.0s env=NORMAL"
+        },
+        {
+          "timestamp": 14.0,
+          "state": "warming_up",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p startup_suppressed remaining=1.0s env=NORMAL"
+        },
+        {
+          "timestamp": 16.0,
+          "state": "running",
+          "displayed": [],
+          "active_events": 1,
+          "confirmed_events": 0,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 1,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=1 confirmed=0 displayed=0 semantic_only=0 prior_only=1 fused=0"
+        },
+        {
+          "timestamp": 18.0,
+          "state": "running",
+          "displayed": [],
+          "active_events": 1,
+          "confirmed_events": 0,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 1,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=1 confirmed=0 displayed=0 semantic_only=0 prior_only=1 fused=0"
+        },
+        {
+          "timestamp": 20.0,
+          "state": "running",
+          "displayed": [],
+          "active_events": 1,
+          "confirmed_events": 0,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 1,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=1 confirmed=0 displayed=0 semantic_only=0 prior_only=1 fused=0"
+        },
+        {
+          "timestamp": 22.0,
+          "state": "running",
+          "displayed": [
+            {
+              "event_id": 1,
+              "source": "hybrid_v33_prior",
+              "confidence": 0.0,
+              "rectangle": [
+                0.0391,
+                0.0694,
+                0.0156,
+                0.0278
+              ]
+            }
+          ],
+          "active_events": 1,
+          "confirmed_events": 1,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 1,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=1 confirmed=1 displayed=1 semantic_only=0 prior_only=1 fused=0"
+        },
+        {
+          "timestamp": 24.0,
+          "state": "running",
+          "displayed": [
+            {
+              "event_id": 1,
+              "source": "hybrid_v33_prior",
+              "confidence": 0.0,
+              "rectangle": [
+                0.0391,
+                0.0694,
+                0.0156,
+                0.0278
+              ]
+            }
+          ],
+          "active_events": 1,
+          "confirmed_events": 1,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 1,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=1 confirmed=1 displayed=1 semantic_only=0 prior_only=1 fused=0"
+        },
+        {
+          "timestamp": 26.0,
+          "state": "running",
+          "displayed": [
+            {
+              "event_id": 1,
+              "source": "hybrid_v33_prior",
+              "confidence": 0.0,
+              "rectangle": [
+                0.0391,
+                0.0694,
+                0.0156,
+                0.0278
+              ]
+            }
+          ],
+          "active_events": 1,
+          "confirmed_events": 1,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 1,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=1 confirmed=1 displayed=1 semantic_only=0 prior_only=1 fused=0"
+        },
+        {
+          "timestamp": 28.0,
+          "state": "running",
+          "displayed": [
+            {
+              "event_id": 1,
+              "source": "hybrid_v33_prior",
+              "confidence": 0.0,
+              "rectangle": [
+                0.0391,
+                0.0694,
+                0.0156,
+                0.0278
+              ]
+            }
+          ],
+          "active_events": 1,
+          "confirmed_events": 1,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 1,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=1 confirmed=1 displayed=1 semantic_only=0 prior_only=1 fused=0"
+        },
+        {
+          "timestamp": 30.0,
+          "state": "running",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 1,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=0 confirmed=0 displayed=0 semantic_only=0 prior_only=0 fused=0"
+        },
+        {
+          "timestamp": 32.0,
+          "state": "running",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 1,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=0 confirmed=0 displayed=0 semantic_only=0 prior_only=0 fused=0"
+        },
+        {
+          "timestamp": 34.0,
+          "state": "running",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 1,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=0 confirmed=0 displayed=0 semantic_only=0 prior_only=0 fused=0"
+        },
+        {
+          "timestamp": 36.0,
+          "state": "running",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 1,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=0 confirmed=0 displayed=0 semantic_only=0 prior_only=0 fused=0"
+        },
+        {
+          "timestamp": 38.0,
+          "state": "running",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 1,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=0 confirmed=0 displayed=0 semantic_only=0 prior_only=0 fused=0"
+        },
+        {
+          "timestamp": 40.0,
+          "state": "running",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 1,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=0 confirmed=0 displayed=0 semantic_only=0 prior_only=0 fused=0"
+        },
+        {
+          "timestamp": 42.0,
+          "state": "running",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 1,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=0 confirmed=0 displayed=0 semantic_only=0 prior_only=0 fused=0"
+        },
+        {
+          "timestamp": 44.0,
+          "state": "running",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 1,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=0 confirmed=0 displayed=0 semantic_only=0 prior_only=0 fused=0"
+        },
+        {
+          "timestamp": 46.0,
+          "state": "running",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 1,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=0 confirmed=0 displayed=0 semantic_only=0 prior_only=0 fused=0"
+        }
+      ],
+      "events": [
+        {
+          "event_id": 1,
+          "evidence_kind": "prior_only",
+          "state": "CLEARED",
+          "confirmed_at": 22.0,
+          "closed_at": 30.0,
+          "closed_reason": "clean_confirmed",
+          "first_seen_at": 16.0,
+          "last_seen_at": 22.0,
+          "semantic_hits": 0,
+          "prior_hits": 4,
+          "merges": 0,
+          "state_history": [
+            {
+              "timestamp": 16.0,
+              "state": "PENDING",
+              "reason": "awaiting_confirmation"
+            },
+            {
+              "timestamp": 22.0,
+              "state": "PRIOR_VISIBLE",
+              "reason": "prior_confirmed"
+            },
+            {
+              "timestamp": 24.0,
+              "state": "CLEAN_PENDING",
+              "reason": "clean_reference_match"
+            },
+            {
+              "timestamp": 26.0,
+              "state": "PRIOR_VISIBLE",
+              "reason": "prior_confirmed"
+            },
+            {
+              "timestamp": 26.0,
+              "state": "CLEAN_PENDING",
+              "reason": "clean_reference_match"
+            },
+            {
+              "timestamp": 30.0,
+              "state": "CLEARED",
+              "reason": "clean_confirmed"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": "fused",
+      "trace": [
+        {
+          "timestamp": 0.0,
+          "state": "warming_up",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p startup_suppressed remaining=15.0s env=NORMAL"
+        },
+        {
+          "timestamp": 2.0,
+          "state": "warming_up",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p startup_suppressed remaining=13.0s env=NORMAL"
+        },
+        {
+          "timestamp": 4.0,
+          "state": "warming_up",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p startup_suppressed remaining=11.0s env=NORMAL"
+        },
+        {
+          "timestamp": 6.0,
+          "state": "warming_up",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p startup_suppressed remaining=9.0s env=NORMAL"
+        },
+        {
+          "timestamp": 8.0,
+          "state": "warming_up",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p startup_suppressed remaining=7.0s env=NORMAL"
+        },
+        {
+          "timestamp": 10.0,
+          "state": "warming_up",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p startup_suppressed remaining=5.0s env=NORMAL"
+        },
+        {
+          "timestamp": 12.0,
+          "state": "warming_up",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p startup_suppressed remaining=3.0s env=NORMAL"
+        },
+        {
+          "timestamp": 14.0,
+          "state": "warming_up",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p startup_suppressed remaining=1.0s env=NORMAL"
+        },
+        {
+          "timestamp": 16.0,
+          "state": "running",
+          "displayed": [],
+          "active_events": 1,
+          "confirmed_events": 0,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 1,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=1 confirmed=0 displayed=0 semantic_only=0 prior_only=0 fused=1"
+        },
+        {
+          "timestamp": 18.0,
+          "state": "running",
+          "displayed": [],
+          "active_events": 1,
+          "confirmed_events": 0,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 1,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=1 confirmed=0 displayed=0 semantic_only=0 prior_only=0 fused=1"
+        },
+        {
+          "timestamp": 20.0,
+          "state": "running",
+          "displayed": [
+            {
+              "event_id": 1,
+              "source": "hybrid_v33_fused",
+              "confidence": 0.62,
+              "rectangle": [
+                0.0391,
+                0.0694,
+                0.0156,
+                0.0278
+              ]
+            }
+          ],
+          "active_events": 1,
+          "confirmed_events": 1,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 1,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=1 confirmed=1 displayed=1 semantic_only=0 prior_only=0 fused=1"
+        },
+        {
+          "timestamp": 22.0,
+          "state": "running",
+          "displayed": [
+            {
+              "event_id": 1,
+              "source": "hybrid_v33_fused",
+              "confidence": 0.62,
+              "rectangle": [
+                0.0391,
+                0.0694,
+                0.0156,
+                0.0278
+              ]
+            }
+          ],
+          "active_events": 1,
+          "confirmed_events": 1,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 1,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=1 confirmed=1 displayed=1 semantic_only=0 prior_only=0 fused=1"
+        },
+        {
+          "timestamp": 24.0,
+          "state": "running",
+          "displayed": [
+            {
+              "event_id": 1,
+              "source": "hybrid_v33_fused",
+              "confidence": 0.62,
+              "rectangle": [
+                0.0391,
+                0.0694,
+                0.0156,
+                0.0278
+              ]
+            }
+          ],
+          "active_events": 1,
+          "confirmed_events": 1,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 1,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=1 confirmed=1 displayed=1 semantic_only=0 prior_only=0 fused=1"
+        },
+        {
+          "timestamp": 26.0,
+          "state": "running",
+          "displayed": [
+            {
+              "event_id": 1,
+              "source": "hybrid_v33_fused",
+              "confidence": 0.62,
+              "rectangle": [
+                0.0391,
+                0.0694,
+                0.0156,
+                0.0278
+              ]
+            }
+          ],
+          "active_events": 1,
+          "confirmed_events": 1,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 1,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=1 confirmed=1 displayed=1 semantic_only=0 prior_only=0 fused=1"
+        },
+        {
+          "timestamp": 28.0,
+          "state": "running",
+          "displayed": [
+            {
+              "event_id": 1,
+              "source": "hybrid_v33_fused",
+              "confidence": 0.62,
+              "rectangle": [
+                0.0391,
+                0.0694,
+                0.0156,
+                0.0278
+              ]
+            }
+          ],
+          "active_events": 1,
+          "confirmed_events": 1,
+          "cleared_events": 0,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 1,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=1 confirmed=1 displayed=1 semantic_only=0 prior_only=0 fused=1"
+        },
+        {
+          "timestamp": 30.0,
+          "state": "running",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 1,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=0 confirmed=0 displayed=0 semantic_only=0 prior_only=0 fused=0"
+        },
+        {
+          "timestamp": 32.0,
+          "state": "running",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 1,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=0 confirmed=0 displayed=0 semantic_only=0 prior_only=0 fused=0"
+        },
+        {
+          "timestamp": 34.0,
+          "state": "running",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 1,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=0 confirmed=0 displayed=0 semantic_only=0 prior_only=0 fused=0"
+        },
+        {
+          "timestamp": 36.0,
+          "state": "running",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 1,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=0 confirmed=0 displayed=0 semantic_only=0 prior_only=0 fused=0"
+        },
+        {
+          "timestamp": 38.0,
+          "state": "running",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 1,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=0 confirmed=0 displayed=0 semantic_only=0 prior_only=0 fused=0"
+        },
+        {
+          "timestamp": 40.0,
+          "state": "running",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 1,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=0 confirmed=0 displayed=0 semantic_only=0 prior_only=0 fused=0"
+        },
+        {
+          "timestamp": 42.0,
+          "state": "running",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 1,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=0 confirmed=0 displayed=0 semantic_only=0 prior_only=0 fused=0"
+        },
+        {
+          "timestamp": 44.0,
+          "state": "running",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 1,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=0 confirmed=0 displayed=0 semantic_only=0 prior_only=0 fused=0"
+        },
+        {
+          "timestamp": 46.0,
+          "state": "running",
+          "displayed": [],
+          "active_events": 0,
+          "confirmed_events": 0,
+          "cleared_events": 1,
+          "semantic_only_active": 0,
+          "prior_only_active": 0,
+          "fused_active": 0,
+          "message": "hybrid_v33 profile=camera_01_v32_afternoon_1080p env=NORMAL prior=on events=0 confirmed=0 displayed=0 semantic_only=0 prior_only=0 fused=0"
+        }
+      ],
+      "events": [
+        {
+          "event_id": 1,
+          "evidence_kind": "semantic_and_prior",
+          "state": "CLEARED",
+          "confirmed_at": 20.0,
+          "closed_at": 30.0,
+          "closed_reason": "clean_confirmed",
+          "first_seen_at": 16.0,
+          "last_seen_at": 22.0,
+          "semantic_hits": 2,
+          "prior_hits": 4,
+          "merges": 0,
+          "state_history": [
+            {
+              "timestamp": 16.0,
+              "state": "PENDING",
+              "reason": "awaiting_confirmation"
+            },
+            {
+              "timestamp": 20.0,
+              "state": "FUSED_VISIBLE",
+              "reason": "fused_confirmed"
+            },
+            {
+              "timestamp": 24.0,
+              "state": "CLEAN_PENDING",
+              "reason": "clean_reference_match"
+            },
+            {
+              "timestamp": 26.0,
+              "state": "FUSED_VISIBLE",
+              "reason": "fused_confirmed"
+            },
+            {
+              "timestamp": 26.0,
+              "state": "CLEAN_PENDING",
+              "reason": "clean_reference_match"
+            },
+            {
+              "timestamp": 30.0,
+              "state": "CLEARED",
+              "reason": "clean_confirmed"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "verdicts": {
+    "semantic_only": {
+      "expected": {
+        "source": "hybrid_v33_semantic",
+        "events": 1,
+        "kind": "semantic_only",
+        "closed_reason": "semantic_absent_confirmed"
+      },
+      "observed_sources": [
+        "hybrid_v33_semantic"
+      ],
+      "observed_display_ticks": [
+        20.0,
+        22.0,
+        24.0,
+        26.0,
+        28.0
+      ],
+      "checks": {
+        "displayed_at_all": true,
+        "sources_match": true,
+        "single_event": true,
+        "single_event_id_displayed": true,
+        "evidence_kind": true,
+        "closed_reason": true,
+        "no_warmup_display": true,
+        "no_single_frame_display": true,
+        "event_closed": true
+      },
+      "passed": true
+    },
+    "prior_only": {
+      "expected": {
+        "source": "hybrid_v33_prior",
+        "events": 1,
+        "kind": "prior_only",
+        "closed_reason": "clean_confirmed"
+      },
+      "observed_sources": [
+        "hybrid_v33_prior"
+      ],
+      "observed_display_ticks": [
+        22.0,
+        24.0,
+        26.0,
+        28.0
+      ],
+      "checks": {
+        "displayed_at_all": true,
+        "sources_match": true,
+        "single_event": true,
+        "single_event_id_displayed": true,
+        "evidence_kind": true,
+        "closed_reason": true,
+        "no_warmup_display": true,
+        "no_single_frame_display": true,
+        "event_closed": true
+      },
+      "passed": true
+    },
+    "fused": {
+      "expected": {
+        "source": "hybrid_v33_fused",
+        "events": 1,
+        "kind": "semantic_and_prior",
+        "closed_reason": "clean_confirmed"
+      },
+      "observed_sources": [
+        "hybrid_v33_fused"
+      ],
+      "observed_display_ticks": [
+        20.0,
+        22.0,
+        24.0,
+        26.0,
+        28.0
+      ],
+      "checks": {
+        "displayed_at_all": true,
+        "sources_match": true,
+        "single_event": true,
+        "single_event_id_displayed": true,
+        "evidence_kind": true,
+        "closed_reason": true,
+        "no_warmup_display": true,
+        "no_single_frame_display": true,
+        "event_closed": true
+      },
+      "passed": true
+    }
+  }
+}

@@ -1,0 +1,521 @@
+{
+  "dataset": "formal_four_cameras_20260920",
+  "dataset_fingerprint": "4ad4726d3ef6b02a77ce96ace1601e31449ca11458df855c3446e4644d4d6ba7",
+  "reviewed": 640,
+  "label_counts": {
+    "NON_LITTER": 589,
+    "LITTER": 37,
+    "BOX_WRONG": 6,
+    "UNCERTAIN": 8
+  },
+  "source_metrics": {
+    "random_grid": {
+      "reviewed": 192,
+      "labels": {
+        "NON_LITTER": 187,
+        "BOX_WRONG": 4,
+        "LITTER": 1
+      },
+      "litter_card_rate": 0.0052
+    },
+    "semantic_full": {
+      "reviewed": 96,
+      "labels": {
+        "LITTER": 5,
+        "NON_LITTER": 89,
+        "UNCERTAIN": 2
+      },
+      "litter_card_rate": 0.0521
+    },
+    "semantic_tile": {
+      "reviewed": 288,
+      "labels": {
+        "NON_LITTER": 249,
+        "LITTER": 31,
+        "UNCERTAIN": 6,
+        "BOX_WRONG": 2
+      },
+      "litter_card_rate": 0.1076
+    },
+    "temporal": {
+      "reviewed": 32,
+      "labels": {
+        "NON_LITTER": 32
+      },
+      "litter_card_rate": 0.0
+    },
+    "texture": {
+      "reviewed": 32,
+      "labels": {
+        "NON_LITTER": 32
+      },
+      "litter_card_rate": 0.0
+    }
+  },
+  "positive_cards": 37,
+  "estimated_distinct_positive_locations": 35,
+  "positive_clusters": [
+    {
+      "cluster_id": 1,
+      "cards": 1,
+      "sources": [
+        "semantic_tile"
+      ],
+      "review_ids": [
+        "01021-f06s02-0055"
+      ],
+      "timestamps": [
+        "2026-09-20 19:30:32"
+      ]
+    },
+    {
+      "cluster_id": 2,
+      "cards": 1,
+      "sources": [
+        "semantic_tile"
+      ],
+      "review_ids": [
+        "01022-f03s02-0030"
+      ],
+      "timestamps": [
+        "2026-09-20 10:29:47"
+      ]
+    },
+    {
+      "cluster_id": 3,
+      "cards": 1,
+      "sources": [
+        "semantic_full"
+      ],
+      "review_ids": [
+        "01028-f07s02-0087"
+      ],
+      "timestamps": [
+        "2026-09-20 22:31:32"
+      ]
+    },
+    {
+      "cluster_id": 4,
+      "cards": 1,
+      "sources": [
+        "semantic_tile"
+      ],
+      "review_ids": [
+        "01027-f00s02-0059"
+      ],
+      "timestamps": [
+        "2026-09-20 01:32:21"
+      ]
+    },
+    {
+      "cluster_id": 5,
+      "cards": 2,
+      "sources": [
+        "semantic_tile"
+      ],
+      "review_ids": [
+        "01022-f02s02-0041",
+        "01022-f02s02-0056"
+      ],
+      "timestamps": [
+        "2026-09-20 07:32:33"
+      ]
+    },
+    {
+      "cluster_id": 6,
+      "cards": 1,
+      "sources": [
+        "random_grid"
+      ],
+      "review_ids": [
+        "01028-f05s02-0159"
+      ],
+      "timestamps": [
+        "2026-09-20 16:30:30"
+      ]
+    },
+    {
+      "cluster_id": 7,
+      "cards": 1,
+      "sources": [
+        "semantic_tile"
+      ],
+      "review_ids": [
+        "01021-f07s01-0026"
+      ],
+      "timestamps": [
+        "2026-09-20 22:26:31"
+      ]
+    },
+    {
+      "cluster_id": 8,
+      "cards": 1,
+      "sources": [
+        "semantic_tile"
+      ],
+      "review_ids": [
+        "01021-f06s01-0047"
+      ],
+      "timestamps": [
+        "2026-09-20 19:29:16"
+      ]
+    },
+    {
+      "cluster_id": 9,
+      "cards": 1,
+      "sources": [
+        "semantic_tile"
+      ],
+      "review_ids": [
+        "01021-f00s00-0069"
+      ],
+      "timestamps": [
+        "2026-09-20 01:29:27"
+      ]
+    },
+    {
+      "cluster_id": 10,
+      "cards": 1,
+      "sources": [
+        "semantic_tile"
+      ],
+      "review_ids": [
+        "01028-f03s01-0050"
+      ],
+      "timestamps": [
+        "2026-09-20 10:29:40"
+      ]
+    },
+    {
+      "cluster_id": 11,
+      "cards": 1,
+      "sources": [
+        "semantic_full"
+      ],
+      "review_ids": [
+        "01022-f02s01-0086"
+      ],
+      "timestamps": [
+        "2026-09-20 07:31:17"
+      ]
+    },
+    {
+      "cluster_id": 12,
+      "cards": 1,
+      "sources": [
+        "semantic_tile"
+      ],
+      "review_ids": [
+        "01021-f06s02-0013"
+      ],
+      "timestamps": [
+        "2026-09-20 19:30:32"
+      ]
+    },
+    {
+      "cluster_id": 13,
+      "cards": 2,
+      "sources": [
+        "semantic_tile"
+      ],
+      "review_ids": [
+        "01021-f01s02-0024",
+        "01021-f01s01-0030"
+      ],
+      "timestamps": [
+        "2026-09-20 04:27:58",
+        "2026-09-20 04:29:14"
+      ]
+    },
+    {
+      "cluster_id": 14,
+      "cards": 1,
+      "sources": [
+        "semantic_tile"
+      ],
+      "review_ids": [
+        "01028-f00s00-0013"
+      ],
+      "timestamps": [
+        "2026-09-20 01:29:45.750000"
+      ]
+    },
+    {
+      "cluster_id": 15,
+      "cards": 1,
+      "sources": [
+        "semantic_tile"
+      ],
+      "review_ids": [
+        "01021-f02s02-0017"
+      ],
+      "timestamps": [
+        "2026-09-20 07:31:29"
+      ]
+    },
+    {
+      "cluster_id": 16,
+      "cards": 1,
+      "sources": [
+        "semantic_tile"
+      ],
+      "review_ids": [
+        "01022-f04s00-0071"
+      ],
+      "timestamps": [
+        "2026-09-20 13:29:34"
+      ]
+    },
+    {
+      "cluster_id": 17,
+      "cards": 1,
+      "sources": [
+        "semantic_tile"
+      ],
+      "review_ids": [
+        "01021-f07s02-0058"
+      ],
+      "timestamps": [
+        "2026-09-20 22:27:47"
+      ]
+    },
+    {
+      "cluster_id": 18,
+      "cards": 1,
+      "sources": [
+        "semantic_tile"
+      ],
+      "review_ids": [
+        "01021-f00s02-0028"
+      ],
+      "timestamps": [
+        "2026-09-20 01:31:59"
+      ]
+    },
+    {
+      "cluster_id": 19,
+      "cards": 1,
+      "sources": [
+        "semantic_tile"
+      ],
+      "review_ids": [
+        "01022-f04s02-0042"
+      ],
+      "timestamps": [
+        "2026-09-20 13:32:06"
+      ]
+    },
+    {
+      "cluster_id": 20,
+      "cards": 1,
+      "sources": [
+        "semantic_tile"
+      ],
+      "review_ids": [
+        "01028-f03s01-0003"
+      ],
+      "timestamps": [
+        "2026-09-20 10:29:40"
+      ]
+    },
+    {
+      "cluster_id": 21,
+      "cards": 1,
+      "sources": [
+        "semantic_full"
+      ],
+      "review_ids": [
+        "01028-f01s00-0082"
+      ],
+      "timestamps": [
+        "2026-09-20 04:27:00.750000"
+      ]
+    },
+    {
+      "cluster_id": 22,
+      "cards": 1,
+      "sources": [
+        "semantic_tile"
+      ],
+      "review_ids": [
+        "01021-f07s00-0068"
+      ],
+      "timestamps": [
+        "2026-09-20 22:25:15"
+      ]
+    },
+    {
+      "cluster_id": 23,
+      "cards": 1,
+      "sources": [
+        "semantic_full"
+      ],
+      "review_ids": [
+        "01028-f01s02-0079"
+      ],
+      "timestamps": [
+        "2026-09-20 04:29:32.250000"
+      ]
+    },
+    {
+      "cluster_id": 24,
+      "cards": 1,
+      "sources": [
+        "semantic_full"
+      ],
+      "review_ids": [
+        "01021-f06s00-0086"
+      ],
+      "timestamps": [
+        "2026-09-20 19:28:00"
+      ]
+    },
+    {
+      "cluster_id": 25,
+      "cards": 1,
+      "sources": [
+        "semantic_tile"
+      ],
+      "review_ids": [
+        "01021-f01s01-0044"
+      ],
+      "timestamps": [
+        "2026-09-20 04:27:58"
+      ]
+    },
+    {
+      "cluster_id": 26,
+      "cards": 1,
+      "sources": [
+        "semantic_tile"
+      ],
+      "review_ids": [
+        "01022-f01s00-0060"
+      ],
+      "timestamps": [
+        "2026-09-20 04:27:42"
+      ]
+    },
+    {
+      "cluster_id": 27,
+      "cards": 1,
+      "sources": [
+        "semantic_tile"
+      ],
+      "review_ids": [
+        "01021-f06s02-0001"
+      ],
+      "timestamps": [
+        "2026-09-20 19:30:32"
+      ]
+    },
+    {
+      "cluster_id": 28,
+      "cards": 1,
+      "sources": [
+        "semantic_tile"
+      ],
+      "review_ids": [
+        "01022-f05s00-0037"
+      ],
+      "timestamps": [
+        "2026-09-20 16:26:48"
+      ]
+    },
+    {
+      "cluster_id": 29,
+      "cards": 1,
+      "sources": [
+        "semantic_tile"
+      ],
+      "review_ids": [
+        "01028-f01s02-0067"
+      ],
+      "timestamps": [
+        "2026-09-20 04:29:32.250000"
+      ]
+    },
+    {
+      "cluster_id": 30,
+      "cards": 1,
+      "sources": [
+        "semantic_tile"
+      ],
+      "review_ids": [
+        "01028-f05s01-0006"
+      ],
+      "timestamps": [
+        "2026-09-20 16:29:14"
+      ]
+    },
+    {
+      "cluster_id": 31,
+      "cards": 1,
+      "sources": [
+        "semantic_tile"
+      ],
+      "review_ids": [
+        "01028-f07s02-0043"
+      ],
+      "timestamps": [
+        "2026-09-20 22:31:32"
+      ]
+    },
+    {
+      "cluster_id": 32,
+      "cards": 1,
+      "sources": [
+        "semantic_tile"
+      ],
+      "review_ids": [
+        "01022-f00s00-0029"
+      ],
+      "timestamps": [
+        "2026-09-20 01:30:27"
+      ]
+    },
+    {
+      "cluster_id": 33,
+      "cards": 1,
+      "sources": [
+        "semantic_tile"
+      ],
+      "review_ids": [
+        "01028-f07s01-0001"
+      ],
+      "timestamps": [
+        "2026-09-20 22:30:16"
+      ]
+    },
+    {
+      "cluster_id": 34,
+      "cards": 1,
+      "sources": [
+        "semantic_tile"
+      ],
+      "review_ids": [
+        "01028-f01s01-0025"
+      ],
+      "timestamps": [
+        "2026-09-20 04:28:16.500000"
+      ]
+    },
+    {
+      "cluster_id": 35,
+      "cards": 1,
+      "sources": [
+        "semantic_tile"
+      ],
+      "review_ids": [
+        "01028-f01s02-0030"
+      ],
+      "timestamps": [
+        "2026-09-20 04:29:32.250000"
+      ]
+    }
+  ],
+  "interpretation": {
+    "selection_bias": "Candidate-card positive rates are proposal yield, not detector precision or recall.",
+    "next_batch": "Keep tiled semantic and random audit; reduce zero-yield temporal/texture share but retain a small audit quota."
+  }
+}

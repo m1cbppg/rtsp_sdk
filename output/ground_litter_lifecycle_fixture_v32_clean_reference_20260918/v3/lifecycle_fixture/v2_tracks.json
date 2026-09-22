@@ -1,0 +1,3608 @@
+[
+  {
+    "track_id": 2,
+    "source": "v2_same_roi",
+    "first_seen": 10.0,
+    "last_seen": 10.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1332.0,
+      811.0,
+      1347.0,
+      848.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      10.0
+    ]
+  },
+  {
+    "track_id": 7,
+    "source": "v2_same_roi",
+    "first_seen": 10.0,
+    "last_seen": 10.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1574.0,
+      1362.0,
+      1580.0,
+      1408.0
+    ],
+    "median_score": 0.7429,
+    "occluded_samples": 0,
+    "timestamps": [
+      10.0
+    ]
+  },
+  {
+    "track_id": 13,
+    "source": "v2_same_roi",
+    "first_seen": 10.0,
+    "last_seen": 10.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1317.0,
+      535.0,
+      1328.0,
+      552.0
+    ],
+    "median_score": 0.6184,
+    "occluded_samples": 0,
+    "timestamps": [
+      10.0
+    ]
+  },
+  {
+    "track_id": 5,
+    "source": "v2_same_roi",
+    "first_seen": 10.0,
+    "last_seen": 11.0,
+    "hits": 2,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1199.5,
+      1157.5,
+      1211.5,
+      1177.0
+    ],
+    "median_score": 0.7359,
+    "occluded_samples": 0,
+    "timestamps": [
+      10.0,
+      11.0
+    ]
+  },
+  {
+    "track_id": 14,
+    "source": "v2_same_roi",
+    "first_seen": 11.0,
+    "last_seen": 11.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1167.0,
+      815.0,
+      1174.0,
+      835.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      11.0
+    ]
+  },
+  {
+    "track_id": 16,
+    "source": "v2_same_roi",
+    "first_seen": 11.0,
+    "last_seen": 11.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1213.0,
+      1428.0,
+      1224.0,
+      1440.0
+    ],
+    "median_score": 0.7105,
+    "occluded_samples": 0,
+    "timestamps": [
+      11.0
+    ]
+  },
+  {
+    "track_id": 22,
+    "source": "v2_same_roi",
+    "first_seen": 11.0,
+    "last_seen": 11.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1561.0,
+      353.0,
+      1570.0,
+      380.0
+    ],
+    "median_score": 0.6255,
+    "occluded_samples": 0,
+    "timestamps": [
+      11.0
+    ]
+  },
+  {
+    "track_id": 25,
+    "source": "v2_same_roi",
+    "first_seen": 11.0,
+    "last_seen": 11.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1696.0,
+      949.0,
+      1705.0,
+      962.0
+    ],
+    "median_score": 0.5787,
+    "occluded_samples": 0,
+    "timestamps": [
+      11.0
+    ]
+  },
+  {
+    "track_id": 26,
+    "source": "v2_same_roi",
+    "first_seen": 11.0,
+    "last_seen": 12.0,
+    "hits": 2,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1228.0,
+      1236.0,
+      1241.0,
+      1247.0
+    ],
+    "median_score": 0.5847,
+    "occluded_samples": 0,
+    "timestamps": [
+      11.0,
+      12.0
+    ]
+  },
+  {
+    "track_id": 28,
+    "source": "v2_same_roi",
+    "first_seen": 12.0,
+    "last_seen": 12.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1226.0,
+      1263.0,
+      1238.0,
+      1272.0
+    ],
+    "median_score": 0.4751,
+    "occluded_samples": 0,
+    "timestamps": [
+      12.0
+    ]
+  },
+  {
+    "track_id": 11,
+    "source": "v2_same_roi",
+    "first_seen": 10.0,
+    "last_seen": 14.0,
+    "hits": 5,
+    "lifetime_seconds": 5.0,
+    "visible_duration_seconds": 5.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1465.0,
+      1031.0,
+      1478.0,
+      1041.0
+    ],
+    "median_score": 0.5815,
+    "occluded_samples": 0,
+    "timestamps": [
+      10.0,
+      11.0,
+      12.0,
+      13.0,
+      14.0
+    ]
+  },
+  {
+    "track_id": 20,
+    "source": "v2_same_roi",
+    "first_seen": 11.0,
+    "last_seen": 14.0,
+    "hits": 4,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1292.0,
+      919.0,
+      1305.0,
+      926.0
+    ],
+    "median_score": 0.6338,
+    "occluded_samples": 0,
+    "timestamps": [
+      11.0,
+      12.0,
+      13.0,
+      14.0
+    ]
+  },
+  {
+    "track_id": 21,
+    "source": "v2_same_roi",
+    "first_seen": 11.0,
+    "last_seen": 14.0,
+    "hits": 4,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1705.0,
+      1285.0,
+      1718.0,
+      1301.0
+    ],
+    "median_score": 0.6535,
+    "occluded_samples": 0,
+    "timestamps": [
+      11.0,
+      12.0,
+      13.0,
+      14.0
+    ]
+  },
+  {
+    "track_id": 24,
+    "source": "v2_same_roi",
+    "first_seen": 11.0,
+    "last_seen": 14.0,
+    "hits": 4,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1189.0,
+      353.0,
+      1211.0,
+      364.0
+    ],
+    "median_score": 0.5815,
+    "occluded_samples": 0,
+    "timestamps": [
+      11.0,
+      12.0,
+      13.0,
+      14.0
+    ]
+  },
+  {
+    "track_id": 31,
+    "source": "v2_same_roi",
+    "first_seen": 14.0,
+    "last_seen": 14.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1395.0,
+      1181.0,
+      1405.0,
+      1191.0
+    ],
+    "median_score": 0.7659,
+    "occluded_samples": 0,
+    "timestamps": [
+      14.0
+    ]
+  },
+  {
+    "track_id": 29,
+    "source": "v2_same_roi",
+    "first_seen": 13.0,
+    "last_seen": 15.0,
+    "hits": 2,
+    "lifetime_seconds": 3.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 0.6667,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1373.0,
+      1241.0,
+      1387.0,
+      1259.5
+    ],
+    "median_score": 0.8488,
+    "occluded_samples": 0,
+    "timestamps": [
+      13.0,
+      15.0
+    ]
+  },
+  {
+    "track_id": 34,
+    "source": "v2_same_roi",
+    "first_seen": 15.0,
+    "last_seen": 15.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1572.0,
+      681.0,
+      1579.0,
+      694.0
+    ],
+    "median_score": 0.5531,
+    "occluded_samples": 0,
+    "timestamps": [
+      15.0
+    ]
+  },
+  {
+    "track_id": 35,
+    "source": "v2_same_roi",
+    "first_seen": 15.0,
+    "last_seen": 16.0,
+    "hits": 2,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1361.5,
+      904.0,
+      1372.0,
+      918.5
+    ],
+    "median_score": 0.5933,
+    "occluded_samples": 0,
+    "timestamps": [
+      15.0,
+      16.0
+    ]
+  },
+  {
+    "track_id": 36,
+    "source": "v2_same_roi",
+    "first_seen": 16.0,
+    "last_seen": 16.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1388.0,
+      1061.0,
+      1398.0,
+      1075.0
+    ],
+    "median_score": 0.8449,
+    "occluded_samples": 0,
+    "timestamps": [
+      16.0
+    ]
+  },
+  {
+    "track_id": 32,
+    "source": "v2_same_roi",
+    "first_seen": 14.0,
+    "last_seen": 17.0,
+    "hits": 3,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 3.0,
+    "continuity": 0.75,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1349.0,
+      1006.0,
+      1368.0,
+      1024.0
+    ],
+    "median_score": 0.6851,
+    "occluded_samples": 0,
+    "timestamps": [
+      14.0,
+      16.0,
+      17.0
+    ]
+  },
+  {
+    "track_id": 37,
+    "source": "v2_same_roi",
+    "first_seen": 16.0,
+    "last_seen": 17.0,
+    "hits": 2,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1571.0,
+      1354.0,
+      1578.0,
+      1371.0
+    ],
+    "median_score": 0.5688,
+    "occluded_samples": 0,
+    "timestamps": [
+      16.0,
+      17.0
+    ]
+  },
+  {
+    "track_id": 18,
+    "source": "v2_same_roi",
+    "first_seen": 11.0,
+    "last_seen": 18.0,
+    "hits": 8,
+    "lifetime_seconds": 8.0,
+    "visible_duration_seconds": 8.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1624.0,
+      450.0,
+      1634.0,
+      463.0
+    ],
+    "median_score": 0.675,
+    "occluded_samples": 0,
+    "timestamps": [
+      11.0,
+      12.0,
+      13.0,
+      14.0,
+      15.0,
+      16.0,
+      17.0,
+      18.0
+    ]
+  },
+  {
+    "track_id": 33,
+    "source": "v2_same_roi",
+    "first_seen": 15.0,
+    "last_seen": 18.0,
+    "hits": 4,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1663.0,
+      1212.0,
+      1670.0,
+      1224.0
+    ],
+    "median_score": 0.6014,
+    "occluded_samples": 0,
+    "timestamps": [
+      15.0,
+      16.0,
+      17.0,
+      18.0
+    ]
+  },
+  {
+    "track_id": 38,
+    "source": "v2_same_roi",
+    "first_seen": 16.0,
+    "last_seen": 18.0,
+    "hits": 3,
+    "lifetime_seconds": 3.0,
+    "visible_duration_seconds": 3.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1664.0,
+      916.0,
+      1674.0,
+      938.0
+    ],
+    "median_score": 0.5618,
+    "occluded_samples": 0,
+    "timestamps": [
+      16.0,
+      17.0,
+      18.0
+    ]
+  },
+  {
+    "track_id": 39,
+    "source": "v2_same_roi",
+    "first_seen": 18.0,
+    "last_seen": 18.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1404.0,
+      921.0,
+      1415.0,
+      931.0
+    ],
+    "median_score": 0.7601,
+    "occluded_samples": 0,
+    "timestamps": [
+      18.0
+    ]
+  },
+  {
+    "track_id": 40,
+    "source": "v2_same_roi",
+    "first_seen": 18.0,
+    "last_seen": 18.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1430.0,
+      892.0,
+      1443.0,
+      908.0
+    ],
+    "median_score": 0.6526,
+    "occluded_samples": 0,
+    "timestamps": [
+      18.0
+    ]
+  },
+  {
+    "track_id": 30,
+    "source": "v2_same_roi",
+    "first_seen": 13.0,
+    "last_seen": 19.0,
+    "hits": 7,
+    "lifetime_seconds": 7.0,
+    "visible_duration_seconds": 7.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1587.0,
+      479.0,
+      1610.0,
+      488.0
+    ],
+    "median_score": 0.6848,
+    "occluded_samples": 0,
+    "timestamps": [
+      13.0,
+      14.0,
+      15.0,
+      16.0,
+      17.0,
+      18.0,
+      19.0
+    ]
+  },
+  {
+    "track_id": 41,
+    "source": "v2_same_roi",
+    "first_seen": 19.0,
+    "last_seen": 20.0,
+    "hits": 2,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1450.5,
+      709.0,
+      1460.0,
+      730.5
+    ],
+    "median_score": 0.6772,
+    "occluded_samples": 0,
+    "timestamps": [
+      19.0,
+      20.0
+    ]
+  },
+  {
+    "track_id": 45,
+    "source": "v2_same_roi",
+    "first_seen": 19.0,
+    "last_seen": 20.0,
+    "hits": 2,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1561.0,
+      353.0,
+      1570.5,
+      380.0
+    ],
+    "median_score": 0.6144,
+    "occluded_samples": 0,
+    "timestamps": [
+      19.0,
+      20.0
+    ]
+  },
+  {
+    "track_id": 47,
+    "source": "v2_same_roi",
+    "first_seen": 20.0,
+    "last_seen": 21.0,
+    "hits": 2,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1409.0,
+      804.5,
+      1417.0,
+      832.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      20.0,
+      21.0
+    ]
+  },
+  {
+    "track_id": 12,
+    "source": "v2_same_roi",
+    "first_seen": 10.0,
+    "last_seen": 22.0,
+    "hits": 13,
+    "lifetime_seconds": 13.0,
+    "visible_duration_seconds": 13.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1606.0,
+      342.0,
+      1624.0,
+      352.0
+    ],
+    "median_score": 0.6303,
+    "occluded_samples": 0,
+    "timestamps": [
+      10.0,
+      11.0,
+      12.0,
+      13.0,
+      14.0,
+      15.0,
+      16.0,
+      17.0,
+      18.0,
+      19.0,
+      20.0,
+      21.0,
+      22.0
+    ]
+  },
+  {
+    "track_id": 27,
+    "source": "v2_same_roi",
+    "first_seen": 12.0,
+    "last_seen": 22.0,
+    "hits": 11,
+    "lifetime_seconds": 11.0,
+    "visible_duration_seconds": 11.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1170.0,
+      693.0,
+      1178.0,
+      706.0
+    ],
+    "median_score": 0.6469,
+    "occluded_samples": 0,
+    "timestamps": [
+      12.0,
+      13.0,
+      14.0,
+      15.0,
+      16.0,
+      17.0,
+      18.0,
+      19.0,
+      20.0,
+      21.0,
+      22.0
+    ]
+  },
+  {
+    "track_id": 44,
+    "source": "v2_same_roi",
+    "first_seen": 19.0,
+    "last_seen": 22.0,
+    "hits": 4,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1293.0,
+      920.0,
+      1303.0,
+      926.0
+    ],
+    "median_score": 0.6512,
+    "occluded_samples": 0,
+    "timestamps": [
+      19.0,
+      20.0,
+      21.0,
+      22.0
+    ]
+  },
+  {
+    "track_id": 48,
+    "source": "v2_same_roi",
+    "first_seen": 22.0,
+    "last_seen": 22.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1457.0,
+      597.0,
+      1475.0,
+      606.0
+    ],
+    "median_score": 0.6986,
+    "occluded_samples": 0,
+    "timestamps": [
+      22.0
+    ]
+  },
+  {
+    "track_id": 49,
+    "source": "v2_same_roi",
+    "first_seen": 22.0,
+    "last_seen": 23.0,
+    "hits": 2,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1571.0,
+      680.0,
+      1579.0,
+      694.0
+    ],
+    "median_score": 0.558,
+    "occluded_samples": 0,
+    "timestamps": [
+      22.0,
+      23.0
+    ]
+  },
+  {
+    "track_id": 52,
+    "source": "v2_same_roi",
+    "first_seen": 23.0,
+    "last_seen": 25.0,
+    "hits": 2,
+    "lifetime_seconds": 3.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 0.6667,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1682.0,
+      932.5,
+      1690.0,
+      948.5
+    ],
+    "median_score": 0.5626,
+    "occluded_samples": 0,
+    "timestamps": [
+      23.0,
+      25.0
+    ]
+  },
+  {
+    "track_id": 55,
+    "source": "v2_same_roi",
+    "first_seen": 25.0,
+    "last_seen": 26.0,
+    "hits": 2,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1482.0,
+      1306.0,
+      1490.0,
+      1319.0
+    ],
+    "median_score": 0.6048,
+    "occluded_samples": 0,
+    "timestamps": [
+      25.0,
+      26.0
+    ]
+  },
+  {
+    "track_id": 56,
+    "source": "v2_same_roi",
+    "first_seen": 26.0,
+    "last_seen": 26.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1178.0,
+      928.0,
+      1189.0,
+      956.0
+    ],
+    "median_score": 0.5264,
+    "occluded_samples": 0,
+    "timestamps": [
+      26.0
+    ]
+  },
+  {
+    "track_id": 53,
+    "source": "v2_same_roi",
+    "first_seen": 25.0,
+    "last_seen": 27.0,
+    "hits": 3,
+    "lifetime_seconds": 3.0,
+    "visible_duration_seconds": 3.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1463.0,
+      618.0,
+      1469.0,
+      648.0
+    ],
+    "median_score": 0.7517,
+    "occluded_samples": 0,
+    "timestamps": [
+      25.0,
+      26.0,
+      27.0
+    ]
+  },
+  {
+    "track_id": 57,
+    "source": "v2_same_roi",
+    "first_seen": 27.0,
+    "last_seen": 27.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1663.0,
+      1212.0,
+      1670.0,
+      1224.0
+    ],
+    "median_score": 0.6073,
+    "occluded_samples": 0,
+    "timestamps": [
+      27.0
+    ]
+  },
+  {
+    "track_id": 59,
+    "source": "v2_same_roi",
+    "first_seen": 27.0,
+    "last_seen": 28.0,
+    "hits": 2,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1571.0,
+      681.0,
+      1579.0,
+      694.0
+    ],
+    "median_score": 0.5325,
+    "occluded_samples": 0,
+    "timestamps": [
+      27.0,
+      28.0
+    ]
+  },
+  {
+    "track_id": 60,
+    "source": "v2_same_roi",
+    "first_seen": 28.0,
+    "last_seen": 28.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1588.0,
+      479.0,
+      1611.0,
+      488.0
+    ],
+    "median_score": 0.6802,
+    "occluded_samples": 0,
+    "timestamps": [
+      28.0
+    ]
+  },
+  {
+    "track_id": 1,
+    "source": "v2_same_roi",
+    "first_seen": 10.0,
+    "last_seen": 29.0,
+    "hits": 20,
+    "lifetime_seconds": 20.0,
+    "visible_duration_seconds": 20.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1830.0,
+      516.0,
+      1845.0,
+      543.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      10.0,
+      11.0,
+      12.0,
+      13.0,
+      14.0,
+      15.0,
+      16.0,
+      17.0,
+      18.0,
+      19.0,
+      20.0,
+      21.0,
+      22.0,
+      23.0,
+      24.0,
+      25.0,
+      26.0,
+      27.0,
+      28.0,
+      29.0
+    ]
+  },
+  {
+    "track_id": 3,
+    "source": "v2_same_roi",
+    "first_seen": 10.0,
+    "last_seen": 29.0,
+    "hits": 20,
+    "lifetime_seconds": 20.0,
+    "visible_duration_seconds": 20.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1688.0,
+      390.0,
+      1705.0,
+      399.0
+    ],
+    "median_score": 0.9366,
+    "occluded_samples": 0,
+    "timestamps": [
+      10.0,
+      11.0,
+      12.0,
+      13.0,
+      14.0,
+      15.0,
+      16.0,
+      17.0,
+      18.0,
+      19.0,
+      20.0,
+      21.0,
+      22.0,
+      23.0,
+      24.0,
+      25.0,
+      26.0,
+      27.0,
+      28.0,
+      29.0
+    ]
+  },
+  {
+    "track_id": 4,
+    "source": "v2_same_roi",
+    "first_seen": 10.0,
+    "last_seen": 29.0,
+    "hits": 20,
+    "lifetime_seconds": 20.0,
+    "visible_duration_seconds": 20.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1769.0,
+      351.0,
+      1802.0,
+      374.0
+    ],
+    "median_score": 0.9122,
+    "occluded_samples": 0,
+    "timestamps": [
+      10.0,
+      11.0,
+      12.0,
+      13.0,
+      14.0,
+      15.0,
+      16.0,
+      17.0,
+      18.0,
+      19.0,
+      20.0,
+      21.0,
+      22.0,
+      23.0,
+      24.0,
+      25.0,
+      26.0,
+      27.0,
+      28.0,
+      29.0
+    ]
+  },
+  {
+    "track_id": 6,
+    "source": "v2_same_roi",
+    "first_seen": 10.0,
+    "last_seen": 29.0,
+    "hits": 20,
+    "lifetime_seconds": 20.0,
+    "visible_duration_seconds": 20.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1576.0,
+      463.0,
+      1588.0,
+      475.0
+    ],
+    "median_score": 0.764,
+    "occluded_samples": 0,
+    "timestamps": [
+      10.0,
+      11.0,
+      12.0,
+      13.0,
+      14.0,
+      15.0,
+      16.0,
+      17.0,
+      18.0,
+      19.0,
+      20.0,
+      21.0,
+      22.0,
+      23.0,
+      24.0,
+      25.0,
+      26.0,
+      27.0,
+      28.0,
+      29.0
+    ]
+  },
+  {
+    "track_id": 8,
+    "source": "v2_same_roi",
+    "first_seen": 10.0,
+    "last_seen": 29.0,
+    "hits": 20,
+    "lifetime_seconds": 20.0,
+    "visible_duration_seconds": 20.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1604.0,
+      389.0,
+      1622.0,
+      404.0
+    ],
+    "median_score": 0.7951,
+    "occluded_samples": 0,
+    "timestamps": [
+      10.0,
+      11.0,
+      12.0,
+      13.0,
+      14.0,
+      15.0,
+      16.0,
+      17.0,
+      18.0,
+      19.0,
+      20.0,
+      21.0,
+      22.0,
+      23.0,
+      24.0,
+      25.0,
+      26.0,
+      27.0,
+      28.0,
+      29.0
+    ]
+  },
+  {
+    "track_id": 9,
+    "source": "v2_same_roi",
+    "first_seen": 10.0,
+    "last_seen": 29.0,
+    "hits": 20,
+    "lifetime_seconds": 20.0,
+    "visible_duration_seconds": 20.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1171.0,
+      656.0,
+      1180.0,
+      672.0
+    ],
+    "median_score": 0.7188,
+    "occluded_samples": 0,
+    "timestamps": [
+      10.0,
+      11.0,
+      12.0,
+      13.0,
+      14.0,
+      15.0,
+      16.0,
+      17.0,
+      18.0,
+      19.0,
+      20.0,
+      21.0,
+      22.0,
+      23.0,
+      24.0,
+      25.0,
+      26.0,
+      27.0,
+      28.0,
+      29.0
+    ]
+  },
+  {
+    "track_id": 10,
+    "source": "v2_same_roi",
+    "first_seen": 10.0,
+    "last_seen": 29.0,
+    "hits": 20,
+    "lifetime_seconds": 20.0,
+    "visible_duration_seconds": 20.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1173.0,
+      548.0,
+      1185.0,
+      560.0
+    ],
+    "median_score": 0.7916,
+    "occluded_samples": 0,
+    "timestamps": [
+      10.0,
+      11.0,
+      12.0,
+      13.0,
+      14.0,
+      15.0,
+      16.0,
+      17.0,
+      18.0,
+      19.0,
+      20.0,
+      21.0,
+      22.0,
+      23.0,
+      24.0,
+      25.0,
+      26.0,
+      27.0,
+      28.0,
+      29.0
+    ]
+  },
+  {
+    "track_id": 15,
+    "source": "v2_same_roi",
+    "first_seen": 11.0,
+    "last_seen": 29.0,
+    "hits": 19,
+    "lifetime_seconds": 19.0,
+    "visible_duration_seconds": 19.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1727.0,
+      498.0,
+      1741.0,
+      508.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      11.0,
+      12.0,
+      13.0,
+      14.0,
+      15.0,
+      16.0,
+      17.0,
+      18.0,
+      19.0,
+      20.0,
+      21.0,
+      22.0,
+      23.0,
+      24.0,
+      25.0,
+      26.0,
+      27.0,
+      28.0,
+      29.0
+    ]
+  },
+  {
+    "track_id": 17,
+    "source": "v2_same_roi",
+    "first_seen": 11.0,
+    "last_seen": 29.0,
+    "hits": 19,
+    "lifetime_seconds": 19.0,
+    "visible_duration_seconds": 19.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1774.0,
+      593.0,
+      1784.0,
+      604.0
+    ],
+    "median_score": 0.7601,
+    "occluded_samples": 0,
+    "timestamps": [
+      11.0,
+      12.0,
+      13.0,
+      14.0,
+      15.0,
+      16.0,
+      17.0,
+      18.0,
+      19.0,
+      20.0,
+      21.0,
+      22.0,
+      23.0,
+      24.0,
+      25.0,
+      26.0,
+      27.0,
+      28.0,
+      29.0
+    ]
+  },
+  {
+    "track_id": 19,
+    "source": "v2_same_roi",
+    "first_seen": 11.0,
+    "last_seen": 29.0,
+    "hits": 19,
+    "lifetime_seconds": 19.0,
+    "visible_duration_seconds": 19.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1777.0,
+      560.0,
+      1791.0,
+      570.0
+    ],
+    "median_score": 0.6473,
+    "occluded_samples": 0,
+    "timestamps": [
+      11.0,
+      12.0,
+      13.0,
+      14.0,
+      15.0,
+      16.0,
+      17.0,
+      18.0,
+      19.0,
+      20.0,
+      21.0,
+      22.0,
+      23.0,
+      24.0,
+      25.0,
+      26.0,
+      27.0,
+      28.0,
+      29.0
+    ]
+  },
+  {
+    "track_id": 23,
+    "source": "v2_same_roi",
+    "first_seen": 11.0,
+    "last_seen": 29.0,
+    "hits": 19,
+    "lifetime_seconds": 19.0,
+    "visible_duration_seconds": 19.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1817.0,
+      479.0,
+      1824.0,
+      492.0
+    ],
+    "median_score": 0.6333,
+    "occluded_samples": 0,
+    "timestamps": [
+      11.0,
+      12.0,
+      13.0,
+      14.0,
+      15.0,
+      16.0,
+      17.0,
+      18.0,
+      19.0,
+      20.0,
+      21.0,
+      22.0,
+      23.0,
+      24.0,
+      25.0,
+      26.0,
+      27.0,
+      28.0,
+      29.0
+    ]
+  },
+  {
+    "track_id": 42,
+    "source": "v2_same_roi",
+    "first_seen": 19.0,
+    "last_seen": 29.0,
+    "hits": 11,
+    "lifetime_seconds": 11.0,
+    "visible_duration_seconds": 11.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1467.0,
+      1031.0,
+      1478.0,
+      1041.0
+    ],
+    "median_score": 0.6624,
+    "occluded_samples": 0,
+    "timestamps": [
+      19.0,
+      20.0,
+      21.0,
+      22.0,
+      23.0,
+      24.0,
+      25.0,
+      26.0,
+      27.0,
+      28.0,
+      29.0
+    ]
+  },
+  {
+    "track_id": 43,
+    "source": "v2_same_roi",
+    "first_seen": 19.0,
+    "last_seen": 29.0,
+    "hits": 11,
+    "lifetime_seconds": 11.0,
+    "visible_duration_seconds": 11.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1705.0,
+      1288.0,
+      1718.0,
+      1301.0
+    ],
+    "median_score": 0.6309,
+    "occluded_samples": 0,
+    "timestamps": [
+      19.0,
+      20.0,
+      21.0,
+      22.0,
+      23.0,
+      24.0,
+      25.0,
+      26.0,
+      27.0,
+      28.0,
+      29.0
+    ]
+  },
+  {
+    "track_id": 46,
+    "source": "v2_same_roi",
+    "first_seen": 19.0,
+    "last_seen": 29.0,
+    "hits": 11,
+    "lifetime_seconds": 11.0,
+    "visible_duration_seconds": 11.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1602.0,
+      373.0,
+      1612.0,
+      383.0
+    ],
+    "median_score": 0.5795,
+    "occluded_samples": 0,
+    "timestamps": [
+      19.0,
+      20.0,
+      21.0,
+      22.0,
+      23.0,
+      24.0,
+      25.0,
+      26.0,
+      27.0,
+      28.0,
+      29.0
+    ]
+  },
+  {
+    "track_id": 50,
+    "source": "v2_same_roi",
+    "first_seen": 23.0,
+    "last_seen": 29.0,
+    "hits": 6,
+    "lifetime_seconds": 7.0,
+    "visible_duration_seconds": 6.0,
+    "continuity": 0.8571,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1573.0,
+      1376.0,
+      1580.0,
+      1408.0
+    ],
+    "median_score": 0.6967,
+    "occluded_samples": 0,
+    "timestamps": [
+      23.0,
+      24.0,
+      25.0,
+      26.0,
+      28.0,
+      29.0
+    ]
+  },
+  {
+    "track_id": 51,
+    "source": "v2_same_roi",
+    "first_seen": 23.0,
+    "last_seen": 29.0,
+    "hits": 6,
+    "lifetime_seconds": 7.0,
+    "visible_duration_seconds": 6.0,
+    "continuity": 0.8571,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1561.0,
+      368.0,
+      1571.0,
+      380.0
+    ],
+    "median_score": 0.666,
+    "occluded_samples": 0,
+    "timestamps": [
+      23.0,
+      25.0,
+      26.0,
+      27.0,
+      28.0,
+      29.0
+    ]
+  },
+  {
+    "track_id": 54,
+    "source": "v2_same_roi",
+    "first_seen": 25.0,
+    "last_seen": 29.0,
+    "hits": 5,
+    "lifetime_seconds": 5.0,
+    "visible_duration_seconds": 5.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1170.0,
+      694.0,
+      1180.0,
+      707.0
+    ],
+    "median_score": 0.6479,
+    "occluded_samples": 0,
+    "timestamps": [
+      25.0,
+      26.0,
+      27.0,
+      28.0,
+      29.0
+    ]
+  },
+  {
+    "track_id": 58,
+    "source": "v2_same_roi",
+    "first_seen": 27.0,
+    "last_seen": 29.0,
+    "hits": 3,
+    "lifetime_seconds": 3.0,
+    "visible_duration_seconds": 3.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1496.0,
+      1027.0,
+      1506.0,
+      1038.0
+    ],
+    "median_score": 0.6033,
+    "occluded_samples": 0,
+    "timestamps": [
+      27.0,
+      28.0,
+      29.0
+    ]
+  },
+  {
+    "track_id": 61,
+    "source": "v2_same_roi",
+    "first_seen": 29.0,
+    "last_seen": 29.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1288.0,
+      367.0,
+      1296.0,
+      378.0
+    ],
+    "median_score": 0.634,
+    "occluded_samples": 0,
+    "timestamps": [
+      29.0
+    ]
+  },
+  {
+    "track_id": 62,
+    "source": "v2_same_roi",
+    "first_seen": 29.0,
+    "last_seen": 29.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1560.0,
+      387.0,
+      1571.0,
+      405.0
+    ],
+    "median_score": 0.6119,
+    "occluded_samples": 0,
+    "timestamps": [
+      29.0
+    ]
+  },
+  {
+    "track_id": 63,
+    "source": "v2_same_roi",
+    "first_seen": 29.0,
+    "last_seen": 29.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1195.0,
+      379.0,
+      1242.0,
+      390.0
+    ],
+    "median_score": 0.5799,
+    "occluded_samples": 0,
+    "timestamps": [
+      29.0
+    ]
+  },
+  {
+    "track_id": 64,
+    "source": "v2_same_roi",
+    "first_seen": 29.0,
+    "last_seen": 29.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1277.0,
+      392.0,
+      1284.0,
+      410.0
+    ],
+    "median_score": 0.532,
+    "occluded_samples": 0,
+    "timestamps": [
+      29.0
+    ]
+  },
+  {
+    "track_id": 74,
+    "source": "v2_same_roi",
+    "first_seen": 45.0,
+    "last_seen": 45.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1404.0,
+      921.0,
+      1416.0,
+      931.0
+    ],
+    "median_score": 0.712,
+    "occluded_samples": 0,
+    "timestamps": [
+      45.0
+    ]
+  },
+  {
+    "track_id": 76,
+    "source": "v2_same_roi",
+    "first_seen": 45.0,
+    "last_seen": 45.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1624.0,
+      450.0,
+      1634.0,
+      463.0
+    ],
+    "median_score": 0.6782,
+    "occluded_samples": 0,
+    "timestamps": [
+      45.0
+    ]
+  },
+  {
+    "track_id": 79,
+    "source": "v2_same_roi",
+    "first_seen": 45.0,
+    "last_seen": 45.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1429.0,
+      892.0,
+      1443.0,
+      908.0
+    ],
+    "median_score": 0.6444,
+    "occluded_samples": 0,
+    "timestamps": [
+      45.0
+    ]
+  },
+  {
+    "track_id": 84,
+    "source": "v2_same_roi",
+    "first_seen": 45.0,
+    "last_seen": 45.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1663.0,
+      1212.0,
+      1670.0,
+      1224.0
+    ],
+    "median_score": 0.5858,
+    "occluded_samples": 0,
+    "timestamps": [
+      45.0
+    ]
+  },
+  {
+    "track_id": 85,
+    "source": "v2_same_roi",
+    "first_seen": 45.0,
+    "last_seen": 45.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1664.0,
+      916.0,
+      1674.0,
+      938.0
+    ],
+    "median_score": 0.5846,
+    "occluded_samples": 0,
+    "timestamps": [
+      45.0
+    ]
+  },
+  {
+    "track_id": 88,
+    "source": "v2_same_roi",
+    "first_seen": 45.0,
+    "last_seen": 45.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1687.0,
+      949.0,
+      1701.0,
+      962.0
+    ],
+    "median_score": 0.5567,
+    "occluded_samples": 0,
+    "timestamps": [
+      45.0
+    ]
+  },
+  {
+    "track_id": 89,
+    "source": "v2_same_roi",
+    "first_seen": 46.0,
+    "last_seen": 46.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1449.0,
+      717.0,
+      1460.0,
+      738.0
+    ],
+    "median_score": 0.7185,
+    "occluded_samples": 0,
+    "timestamps": [
+      46.0
+    ]
+  },
+  {
+    "track_id": 82,
+    "source": "v2_same_roi",
+    "first_seen": 45.0,
+    "last_seen": 47.0,
+    "hits": 3,
+    "lifetime_seconds": 3.0,
+    "visible_duration_seconds": 3.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1561.0,
+      353.0,
+      1570.0,
+      380.0
+    ],
+    "median_score": 0.6114,
+    "occluded_samples": 0,
+    "timestamps": [
+      45.0,
+      46.0,
+      47.0
+    ]
+  },
+  {
+    "track_id": 87,
+    "source": "v2_same_roi",
+    "first_seen": 45.0,
+    "last_seen": 47.0,
+    "hits": 3,
+    "lifetime_seconds": 3.0,
+    "visible_duration_seconds": 3.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1190.0,
+      355.0,
+      1212.0,
+      364.0
+    ],
+    "median_score": 0.5651,
+    "occluded_samples": 0,
+    "timestamps": [
+      45.0,
+      46.0,
+      47.0
+    ]
+  },
+  {
+    "track_id": 93,
+    "source": "v2_same_roi",
+    "first_seen": 47.0,
+    "last_seen": 48.0,
+    "hits": 2,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1409.5,
+      804.0,
+      1417.0,
+      832.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      47.0,
+      48.0
+    ]
+  },
+  {
+    "track_id": 75,
+    "source": "v2_same_roi",
+    "first_seen": 45.0,
+    "last_seen": 49.0,
+    "hits": 4,
+    "lifetime_seconds": 5.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 0.8,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1596.0,
+      479.0,
+      1610.5,
+      488.0
+    ],
+    "median_score": 0.6852,
+    "occluded_samples": 0,
+    "timestamps": [
+      45.0,
+      46.0,
+      47.0,
+      49.0
+    ]
+  },
+  {
+    "track_id": 77,
+    "source": "v2_same_roi",
+    "first_seen": 45.0,
+    "last_seen": 49.0,
+    "hits": 5,
+    "lifetime_seconds": 5.0,
+    "visible_duration_seconds": 5.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1606.0,
+      342.0,
+      1629.0,
+      352.0
+    ],
+    "median_score": 0.6645,
+    "occluded_samples": 0,
+    "timestamps": [
+      45.0,
+      46.0,
+      47.0,
+      48.0,
+      49.0
+    ]
+  },
+  {
+    "track_id": 80,
+    "source": "v2_same_roi",
+    "first_seen": 45.0,
+    "last_seen": 49.0,
+    "hits": 5,
+    "lifetime_seconds": 5.0,
+    "visible_duration_seconds": 5.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1293.0,
+      920.0,
+      1303.0,
+      926.0
+    ],
+    "median_score": 0.6502,
+    "occluded_samples": 0,
+    "timestamps": [
+      45.0,
+      46.0,
+      47.0,
+      48.0,
+      49.0
+    ]
+  },
+  {
+    "track_id": 95,
+    "source": "v2_same_roi",
+    "first_seen": 49.0,
+    "last_seen": 49.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1457.0,
+      597.0,
+      1483.0,
+      606.0
+    ],
+    "median_score": 0.7527,
+    "occluded_samples": 0,
+    "timestamps": [
+      49.0
+    ]
+  },
+  {
+    "track_id": 92,
+    "source": "v2_same_roi",
+    "first_seen": 46.0,
+    "last_seen": 50.0,
+    "hits": 5,
+    "lifetime_seconds": 5.0,
+    "visible_duration_seconds": 5.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1572.0,
+      681.0,
+      1579.0,
+      694.0
+    ],
+    "median_score": 0.5978,
+    "occluded_samples": 0,
+    "timestamps": [
+      46.0,
+      47.0,
+      48.0,
+      49.0,
+      50.0
+    ]
+  },
+  {
+    "track_id": 94,
+    "source": "v2_same_roi",
+    "first_seen": 47.0,
+    "last_seen": 53.0,
+    "hits": 7,
+    "lifetime_seconds": 7.0,
+    "visible_duration_seconds": 7.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1571.0,
+      1355.0,
+      1578.0,
+      1371.0
+    ],
+    "median_score": 0.5904,
+    "occluded_samples": 0,
+    "timestamps": [
+      47.0,
+      48.0,
+      49.0,
+      50.0,
+      51.0,
+      52.0,
+      53.0
+    ]
+  },
+  {
+    "track_id": 96,
+    "source": "v2_same_roi",
+    "first_seen": 50.0,
+    "last_seen": 53.0,
+    "hits": 4,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1573.0,
+      1376.0,
+      1580.0,
+      1408.0
+    ],
+    "median_score": 0.6969,
+    "occluded_samples": 0,
+    "timestamps": [
+      50.0,
+      51.0,
+      52.0,
+      53.0
+    ]
+  },
+  {
+    "track_id": 97,
+    "source": "v2_same_roi",
+    "first_seen": 50.0,
+    "last_seen": 53.0,
+    "hits": 3,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 3.0,
+    "continuity": 0.75,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1561.0,
+      368.0,
+      1571.0,
+      380.0
+    ],
+    "median_score": 0.6813,
+    "occluded_samples": 0,
+    "timestamps": [
+      50.0,
+      52.0,
+      53.0
+    ]
+  },
+  {
+    "track_id": 98,
+    "source": "v2_same_roi",
+    "first_seen": 51.0,
+    "last_seen": 53.0,
+    "hits": 3,
+    "lifetime_seconds": 3.0,
+    "visible_duration_seconds": 3.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1190.0,
+      355.0,
+      1211.0,
+      364.0
+    ],
+    "median_score": 0.5253,
+    "occluded_samples": 0,
+    "timestamps": [
+      51.0,
+      52.0,
+      53.0
+    ]
+  },
+  {
+    "track_id": 101,
+    "source": "v2_same_roi",
+    "first_seen": 53.0,
+    "last_seen": 53.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1482.0,
+      1306.0,
+      1489.0,
+      1319.0
+    ],
+    "median_score": 0.6048,
+    "occluded_samples": 0,
+    "timestamps": [
+      53.0
+    ]
+  },
+  {
+    "track_id": 102,
+    "source": "v2_same_roi",
+    "first_seen": 53.0,
+    "last_seen": 53.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1178.0,
+      938.0,
+      1187.0,
+      956.0
+    ],
+    "median_score": 0.4848,
+    "occluded_samples": 0,
+    "timestamps": [
+      53.0
+    ]
+  },
+  {
+    "track_id": 99,
+    "source": "v2_same_roi",
+    "first_seen": 52.0,
+    "last_seen": 54.0,
+    "hits": 3,
+    "lifetime_seconds": 3.0,
+    "visible_duration_seconds": 3.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1463.0,
+      618.0,
+      1469.0,
+      648.0
+    ],
+    "median_score": 0.782,
+    "occluded_samples": 0,
+    "timestamps": [
+      52.0,
+      53.0,
+      54.0
+    ]
+  },
+  {
+    "track_id": 103,
+    "source": "v2_same_roi",
+    "first_seen": 54.0,
+    "last_seen": 54.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1624.0,
+      450.0,
+      1633.0,
+      463.0
+    ],
+    "median_score": 0.6691,
+    "occluded_samples": 0,
+    "timestamps": [
+      54.0
+    ]
+  },
+  {
+    "track_id": 106,
+    "source": "v2_same_roi",
+    "first_seen": 56.0,
+    "last_seen": 56.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1560.0,
+      389.0,
+      1571.0,
+      405.0
+    ],
+    "median_score": 0.5957,
+    "occluded_samples": 0,
+    "timestamps": [
+      56.0
+    ]
+  },
+  {
+    "track_id": 104,
+    "source": "v2_same_roi",
+    "first_seen": 54.0,
+    "last_seen": 57.0,
+    "hits": 4,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1288.0,
+      367.0,
+      1296.0,
+      378.0
+    ],
+    "median_score": 0.6298,
+    "occluded_samples": 0,
+    "timestamps": [
+      54.0,
+      55.0,
+      56.0,
+      57.0
+    ]
+  },
+  {
+    "track_id": 108,
+    "source": "v2_same_roi",
+    "first_seen": 57.0,
+    "last_seen": 57.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1571.0,
+      681.0,
+      1579.0,
+      695.0
+    ],
+    "median_score": 0.5503,
+    "occluded_samples": 0,
+    "timestamps": [
+      57.0
+    ]
+  },
+  {
+    "track_id": 112,
+    "source": "v2_same_roi",
+    "first_seen": 58.0,
+    "last_seen": 58.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1481.0,
+      372.0,
+      1490.0,
+      387.0
+    ],
+    "median_score": 0.6183,
+    "occluded_samples": 0,
+    "timestamps": [
+      58.0
+    ]
+  },
+  {
+    "track_id": 113,
+    "source": "v2_same_roi",
+    "first_seen": 58.0,
+    "last_seen": 58.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1659.0,
+      1166.0,
+      1668.0,
+      1188.0
+    ],
+    "median_score": 0.6107,
+    "occluded_samples": 0,
+    "timestamps": [
+      58.0
+    ]
+  },
+  {
+    "track_id": 117,
+    "source": "v2_same_roi",
+    "first_seen": 59.0,
+    "last_seen": 59.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1561.0,
+      364.0,
+      1571.0,
+      381.0
+    ],
+    "median_score": 0.6395,
+    "occluded_samples": 0,
+    "timestamps": [
+      59.0
+    ]
+  },
+  {
+    "track_id": 109,
+    "source": "v2_same_roi",
+    "first_seen": 58.0,
+    "last_seen": 60.0,
+    "hits": 3,
+    "lifetime_seconds": 3.0,
+    "visible_duration_seconds": 3.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1426.0,
+      463.0,
+      1438.0,
+      478.0
+    ],
+    "median_score": 0.7729,
+    "occluded_samples": 0,
+    "timestamps": [
+      58.0,
+      59.0,
+      60.0
+    ]
+  },
+  {
+    "track_id": 90,
+    "source": "v2_same_roi",
+    "first_seen": 46.0,
+    "last_seen": 61.0,
+    "hits": 16,
+    "lifetime_seconds": 16.0,
+    "visible_duration_seconds": 16.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1496.0,
+      1031.5,
+      1520.0,
+      1043.0
+    ],
+    "median_score": 0.6825,
+    "occluded_samples": 0,
+    "timestamps": [
+      46.0,
+      47.0,
+      48.0,
+      49.0,
+      50.0,
+      51.0,
+      52.0,
+      53.0,
+      54.0,
+      55.0,
+      56.0,
+      57.0,
+      58.0,
+      59.0,
+      60.0,
+      61.0
+    ]
+  },
+  {
+    "track_id": 91,
+    "source": "v2_same_roi",
+    "first_seen": 46.0,
+    "last_seen": 61.0,
+    "hits": 15,
+    "lifetime_seconds": 16.0,
+    "visible_duration_seconds": 15.0,
+    "continuity": 0.9375,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1705.0,
+      1288.0,
+      1718.0,
+      1301.0
+    ],
+    "median_score": 0.6188,
+    "occluded_samples": 0,
+    "timestamps": [
+      46.0,
+      47.0,
+      48.0,
+      49.0,
+      50.0,
+      51.0,
+      52.0,
+      53.0,
+      54.0,
+      55.0,
+      56.0,
+      57.0,
+      58.0,
+      60.0,
+      61.0
+    ]
+  },
+  {
+    "track_id": 107,
+    "source": "v2_same_roi",
+    "first_seen": 57.0,
+    "last_seen": 61.0,
+    "hits": 5,
+    "lifetime_seconds": 5.0,
+    "visible_duration_seconds": 5.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1571.0,
+      1360.0,
+      1580.0,
+      1374.0
+    ],
+    "median_score": 0.5764,
+    "occluded_samples": 0,
+    "timestamps": [
+      57.0,
+      58.0,
+      59.0,
+      60.0,
+      61.0
+    ]
+  },
+  {
+    "track_id": 110,
+    "source": "v2_same_roi",
+    "first_seen": 58.0,
+    "last_seen": 61.0,
+    "hits": 4,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1688.0,
+      1061.5,
+      1694.0,
+      1084.0
+    ],
+    "median_score": 0.6655,
+    "occluded_samples": 0,
+    "timestamps": [
+      58.0,
+      59.0,
+      60.0,
+      61.0
+    ]
+  },
+  {
+    "track_id": 115,
+    "source": "v2_same_roi",
+    "first_seen": 58.0,
+    "last_seen": 61.0,
+    "hits": 4,
+    "lifetime_seconds": 4.0,
+    "visible_duration_seconds": 4.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1293.0,
+      919.0,
+      1306.0,
+      927.0
+    ],
+    "median_score": 0.5842,
+    "occluded_samples": 0,
+    "timestamps": [
+      58.0,
+      59.0,
+      60.0,
+      61.0
+    ]
+  },
+  {
+    "track_id": 118,
+    "source": "v2_same_roi",
+    "first_seen": 60.0,
+    "last_seen": 61.0,
+    "hits": 2,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1423.0,
+      354.5,
+      1435.5,
+      368.5
+    ],
+    "median_score": 0.5708,
+    "occluded_samples": 0,
+    "timestamps": [
+      60.0,
+      61.0
+    ]
+  },
+  {
+    "track_id": 119,
+    "source": "v2_same_roi",
+    "first_seen": 60.0,
+    "last_seen": 61.0,
+    "hits": 2,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1338.0,
+      1070.0,
+      1346.0,
+      1085.0
+    ],
+    "median_score": 0.5598,
+    "occluded_samples": 0,
+    "timestamps": [
+      60.0,
+      61.0
+    ]
+  },
+  {
+    "track_id": 120,
+    "source": "v2_same_roi",
+    "first_seen": 61.0,
+    "last_seen": 61.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1527.0,
+      1146.0,
+      1548.0,
+      1156.0
+    ],
+    "median_score": 0.4278,
+    "occluded_samples": 0,
+    "timestamps": [
+      61.0
+    ]
+  },
+  {
+    "track_id": 65,
+    "source": "v2_same_roi",
+    "first_seen": 45.0,
+    "last_seen": 64.0,
+    "hits": 20,
+    "lifetime_seconds": 20.0,
+    "visible_duration_seconds": 20.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1830.0,
+      516.0,
+      1845.0,
+      543.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      45.0,
+      46.0,
+      47.0,
+      48.0,
+      49.0,
+      50.0,
+      51.0,
+      52.0,
+      53.0,
+      54.0,
+      55.0,
+      56.0,
+      57.0,
+      58.0,
+      59.0,
+      60.0,
+      61.0,
+      62.0,
+      63.0,
+      64.0
+    ]
+  },
+  {
+    "track_id": 66,
+    "source": "v2_same_roi",
+    "first_seen": 45.0,
+    "last_seen": 64.0,
+    "hits": 20,
+    "lifetime_seconds": 20.0,
+    "visible_duration_seconds": 20.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1727.0,
+      498.0,
+      1741.0,
+      507.0
+    ],
+    "median_score": 1.0,
+    "occluded_samples": 0,
+    "timestamps": [
+      45.0,
+      46.0,
+      47.0,
+      48.0,
+      49.0,
+      50.0,
+      51.0,
+      52.0,
+      53.0,
+      54.0,
+      55.0,
+      56.0,
+      57.0,
+      58.0,
+      59.0,
+      60.0,
+      61.0,
+      62.0,
+      63.0,
+      64.0
+    ]
+  },
+  {
+    "track_id": 67,
+    "source": "v2_same_roi",
+    "first_seen": 45.0,
+    "last_seen": 64.0,
+    "hits": 20,
+    "lifetime_seconds": 20.0,
+    "visible_duration_seconds": 20.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1769.0,
+      351.0,
+      1802.0,
+      374.0
+    ],
+    "median_score": 0.9405,
+    "occluded_samples": 0,
+    "timestamps": [
+      45.0,
+      46.0,
+      47.0,
+      48.0,
+      49.0,
+      50.0,
+      51.0,
+      52.0,
+      53.0,
+      54.0,
+      55.0,
+      56.0,
+      57.0,
+      58.0,
+      59.0,
+      60.0,
+      61.0,
+      62.0,
+      63.0,
+      64.0
+    ]
+  },
+  {
+    "track_id": 68,
+    "source": "v2_same_roi",
+    "first_seen": 45.0,
+    "last_seen": 64.0,
+    "hits": 20,
+    "lifetime_seconds": 20.0,
+    "visible_duration_seconds": 20.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1774.0,
+      593.0,
+      1784.0,
+      604.0
+    ],
+    "median_score": 0.7636,
+    "occluded_samples": 0,
+    "timestamps": [
+      45.0,
+      46.0,
+      47.0,
+      48.0,
+      49.0,
+      50.0,
+      51.0,
+      52.0,
+      53.0,
+      54.0,
+      55.0,
+      56.0,
+      57.0,
+      58.0,
+      59.0,
+      60.0,
+      61.0,
+      62.0,
+      63.0,
+      64.0
+    ]
+  },
+  {
+    "track_id": 69,
+    "source": "v2_same_roi",
+    "first_seen": 45.0,
+    "last_seen": 64.0,
+    "hits": 20,
+    "lifetime_seconds": 20.0,
+    "visible_duration_seconds": 20.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1173.0,
+      548.0,
+      1184.5,
+      560.0
+    ],
+    "median_score": 0.8256,
+    "occluded_samples": 0,
+    "timestamps": [
+      45.0,
+      46.0,
+      47.0,
+      48.0,
+      49.0,
+      50.0,
+      51.0,
+      52.0,
+      53.0,
+      54.0,
+      55.0,
+      56.0,
+      57.0,
+      58.0,
+      59.0,
+      60.0,
+      61.0,
+      62.0,
+      63.0,
+      64.0
+    ]
+  },
+  {
+    "track_id": 70,
+    "source": "v2_same_roi",
+    "first_seen": 45.0,
+    "last_seen": 64.0,
+    "hits": 20,
+    "lifetime_seconds": 20.0,
+    "visible_duration_seconds": 20.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1576.0,
+      463.0,
+      1588.0,
+      476.0
+    ],
+    "median_score": 0.7782,
+    "occluded_samples": 0,
+    "timestamps": [
+      45.0,
+      46.0,
+      47.0,
+      48.0,
+      49.0,
+      50.0,
+      51.0,
+      52.0,
+      53.0,
+      54.0,
+      55.0,
+      56.0,
+      57.0,
+      58.0,
+      59.0,
+      60.0,
+      61.0,
+      62.0,
+      63.0,
+      64.0
+    ]
+  },
+  {
+    "track_id": 71,
+    "source": "v2_same_roi",
+    "first_seen": 45.0,
+    "last_seen": 64.0,
+    "hits": 20,
+    "lifetime_seconds": 20.0,
+    "visible_duration_seconds": 20.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1604.0,
+      389.0,
+      1622.0,
+      404.0
+    ],
+    "median_score": 0.8337,
+    "occluded_samples": 0,
+    "timestamps": [
+      45.0,
+      46.0,
+      47.0,
+      48.0,
+      49.0,
+      50.0,
+      51.0,
+      52.0,
+      53.0,
+      54.0,
+      55.0,
+      56.0,
+      57.0,
+      58.0,
+      59.0,
+      60.0,
+      61.0,
+      62.0,
+      63.0,
+      64.0
+    ]
+  },
+  {
+    "track_id": 72,
+    "source": "v2_same_roi",
+    "first_seen": 45.0,
+    "last_seen": 64.0,
+    "hits": 20,
+    "lifetime_seconds": 20.0,
+    "visible_duration_seconds": 20.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1170.5,
+      654.0,
+      1180.0,
+      672.0
+    ],
+    "median_score": 0.7717,
+    "occluded_samples": 0,
+    "timestamps": [
+      45.0,
+      46.0,
+      47.0,
+      48.0,
+      49.0,
+      50.0,
+      51.0,
+      52.0,
+      53.0,
+      54.0,
+      55.0,
+      56.0,
+      57.0,
+      58.0,
+      59.0,
+      60.0,
+      61.0,
+      62.0,
+      63.0,
+      64.0
+    ]
+  },
+  {
+    "track_id": 73,
+    "source": "v2_same_roi",
+    "first_seen": 45.0,
+    "last_seen": 64.0,
+    "hits": 20,
+    "lifetime_seconds": 20.0,
+    "visible_duration_seconds": 20.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1688.5,
+      390.0,
+      1704.0,
+      399.0
+    ],
+    "median_score": 0.9451,
+    "occluded_samples": 0,
+    "timestamps": [
+      45.0,
+      46.0,
+      47.0,
+      48.0,
+      49.0,
+      50.0,
+      51.0,
+      52.0,
+      53.0,
+      54.0,
+      55.0,
+      56.0,
+      57.0,
+      58.0,
+      59.0,
+      60.0,
+      61.0,
+      62.0,
+      63.0,
+      64.0
+    ]
+  },
+  {
+    "track_id": 78,
+    "source": "v2_same_roi",
+    "first_seen": 45.0,
+    "last_seen": 64.0,
+    "hits": 20,
+    "lifetime_seconds": 20.0,
+    "visible_duration_seconds": 20.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1817.0,
+      479.0,
+      1824.0,
+      492.0
+    ],
+    "median_score": 0.6368,
+    "occluded_samples": 0,
+    "timestamps": [
+      45.0,
+      46.0,
+      47.0,
+      48.0,
+      49.0,
+      50.0,
+      51.0,
+      52.0,
+      53.0,
+      54.0,
+      55.0,
+      56.0,
+      57.0,
+      58.0,
+      59.0,
+      60.0,
+      61.0,
+      62.0,
+      63.0,
+      64.0
+    ]
+  },
+  {
+    "track_id": 81,
+    "source": "v2_same_roi",
+    "first_seen": 45.0,
+    "last_seen": 64.0,
+    "hits": 20,
+    "lifetime_seconds": 20.0,
+    "visible_duration_seconds": 20.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1170.0,
+      694.0,
+      1180.0,
+      706.0
+    ],
+    "median_score": 0.6578,
+    "occluded_samples": 0,
+    "timestamps": [
+      45.0,
+      46.0,
+      47.0,
+      48.0,
+      49.0,
+      50.0,
+      51.0,
+      52.0,
+      53.0,
+      54.0,
+      55.0,
+      56.0,
+      57.0,
+      58.0,
+      59.0,
+      60.0,
+      61.0,
+      62.0,
+      63.0,
+      64.0
+    ]
+  },
+  {
+    "track_id": 83,
+    "source": "v2_same_roi",
+    "first_seen": 45.0,
+    "last_seen": 64.0,
+    "hits": 18,
+    "lifetime_seconds": 20.0,
+    "visible_duration_seconds": 18.0,
+    "continuity": 0.9,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1777.0,
+      560.0,
+      1790.5,
+      570.0
+    ],
+    "median_score": 0.6344,
+    "occluded_samples": 0,
+    "timestamps": [
+      45.0,
+      46.0,
+      47.0,
+      48.0,
+      49.0,
+      50.0,
+      51.0,
+      52.0,
+      53.0,
+      54.0,
+      55.0,
+      56.0,
+      57.0,
+      58.0,
+      59.0,
+      61.0,
+      62.0,
+      64.0
+    ]
+  },
+  {
+    "track_id": 86,
+    "source": "v2_same_roi",
+    "first_seen": 45.0,
+    "last_seen": 64.0,
+    "hits": 20,
+    "lifetime_seconds": 20.0,
+    "visible_duration_seconds": 20.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1602.0,
+      373.0,
+      1612.0,
+      383.0
+    ],
+    "median_score": 0.5727,
+    "occluded_samples": 0,
+    "timestamps": [
+      45.0,
+      46.0,
+      47.0,
+      48.0,
+      49.0,
+      50.0,
+      51.0,
+      52.0,
+      53.0,
+      54.0,
+      55.0,
+      56.0,
+      57.0,
+      58.0,
+      59.0,
+      60.0,
+      61.0,
+      62.0,
+      63.0,
+      64.0
+    ]
+  },
+  {
+    "track_id": 100,
+    "source": "v2_same_roi",
+    "first_seen": 52.0,
+    "last_seen": 63.0,
+    "hits": 12,
+    "lifetime_seconds": 12.0,
+    "visible_duration_seconds": 12.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1594.5,
+      479.0,
+      1610.5,
+      488.0
+    ],
+    "median_score": 0.6968,
+    "occluded_samples": 0,
+    "timestamps": [
+      52.0,
+      53.0,
+      54.0,
+      55.0,
+      56.0,
+      57.0,
+      58.0,
+      59.0,
+      60.0,
+      61.0,
+      62.0,
+      63.0
+    ]
+  },
+  {
+    "track_id": 105,
+    "source": "v2_same_roi",
+    "first_seen": 54.0,
+    "last_seen": 64.0,
+    "hits": 10,
+    "lifetime_seconds": 11.0,
+    "visible_duration_seconds": 10.0,
+    "continuity": 0.9091,
+    "max_gap_seconds": 2.0,
+    "median_box": [
+      1496.0,
+      1026.0,
+      1506.0,
+      1038.0
+    ],
+    "median_score": 0.6032,
+    "occluded_samples": 0,
+    "timestamps": [
+      54.0,
+      56.0,
+      57.0,
+      58.0,
+      59.0,
+      60.0,
+      61.0,
+      62.0,
+      63.0,
+      64.0
+    ]
+  },
+  {
+    "track_id": 111,
+    "source": "v2_same_roi",
+    "first_seen": 58.0,
+    "last_seen": 64.0,
+    "hits": 7,
+    "lifetime_seconds": 7.0,
+    "visible_duration_seconds": 7.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1482.0,
+      1289.0,
+      1491.0,
+      1315.0
+    ],
+    "median_score": 0.6369,
+    "occluded_samples": 0,
+    "timestamps": [
+      58.0,
+      59.0,
+      60.0,
+      61.0,
+      62.0,
+      63.0,
+      64.0
+    ]
+  },
+  {
+    "track_id": 114,
+    "source": "v2_same_roi",
+    "first_seen": 58.0,
+    "last_seen": 64.0,
+    "hits": 7,
+    "lifetime_seconds": 7.0,
+    "visible_duration_seconds": 7.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1189.0,
+      355.0,
+      1211.0,
+      364.0
+    ],
+    "median_score": 0.5986,
+    "occluded_samples": 0,
+    "timestamps": [
+      58.0,
+      59.0,
+      60.0,
+      61.0,
+      62.0,
+      63.0,
+      64.0
+    ]
+  },
+  {
+    "track_id": 116,
+    "source": "v2_same_roi",
+    "first_seen": 58.0,
+    "last_seen": 64.0,
+    "hits": 7,
+    "lifetime_seconds": 7.0,
+    "visible_duration_seconds": 7.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1571.0,
+      1335.0,
+      1580.0,
+      1349.0
+    ],
+    "median_score": 0.5314,
+    "occluded_samples": 0,
+    "timestamps": [
+      58.0,
+      59.0,
+      60.0,
+      61.0,
+      62.0,
+      63.0,
+      64.0
+    ]
+  },
+  {
+    "track_id": 121,
+    "source": "v2_same_roi",
+    "first_seen": 62.0,
+    "last_seen": 64.0,
+    "hits": 3,
+    "lifetime_seconds": 3.0,
+    "visible_duration_seconds": 3.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1659.0,
+      1166.0,
+      1668.0,
+      1188.0
+    ],
+    "median_score": 0.6954,
+    "occluded_samples": 0,
+    "timestamps": [
+      62.0,
+      63.0,
+      64.0
+    ]
+  },
+  {
+    "track_id": 122,
+    "source": "v2_same_roi",
+    "first_seen": 62.0,
+    "last_seen": 64.0,
+    "hits": 3,
+    "lifetime_seconds": 3.0,
+    "visible_duration_seconds": 3.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1619.0,
+      450.0,
+      1634.0,
+      463.0
+    ],
+    "median_score": 0.6943,
+    "occluded_samples": 0,
+    "timestamps": [
+      62.0,
+      63.0,
+      64.0
+    ]
+  },
+  {
+    "track_id": 123,
+    "source": "v2_same_roi",
+    "first_seen": 62.0,
+    "last_seen": 64.0,
+    "hits": 3,
+    "lifetime_seconds": 3.0,
+    "visible_duration_seconds": 3.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1561.0,
+      353.0,
+      1571.0,
+      380.0
+    ],
+    "median_score": 0.6764,
+    "occluded_samples": 0,
+    "timestamps": [
+      62.0,
+      63.0,
+      64.0
+    ]
+  },
+  {
+    "track_id": 124,
+    "source": "v2_same_roi",
+    "first_seen": 62.0,
+    "last_seen": 63.0,
+    "hits": 2,
+    "lifetime_seconds": 2.0,
+    "visible_duration_seconds": 2.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1676.0,
+      971.0,
+      1685.0,
+      984.0
+    ],
+    "median_score": 0.6288,
+    "occluded_samples": 0,
+    "timestamps": [
+      62.0,
+      63.0
+    ]
+  },
+  {
+    "track_id": 125,
+    "source": "v2_same_roi",
+    "first_seen": 62.0,
+    "last_seen": 64.0,
+    "hits": 3,
+    "lifetime_seconds": 3.0,
+    "visible_duration_seconds": 3.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1195.0,
+      379.0,
+      1242.0,
+      390.0
+    ],
+    "median_score": 0.6143,
+    "occluded_samples": 0,
+    "timestamps": [
+      62.0,
+      63.0,
+      64.0
+    ]
+  },
+  {
+    "track_id": 126,
+    "source": "v2_same_roi",
+    "first_seen": 62.0,
+    "last_seen": 64.0,
+    "hits": 3,
+    "lifetime_seconds": 3.0,
+    "visible_duration_seconds": 3.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1602.0,
+      372.0,
+      1620.0,
+      383.0
+    ],
+    "median_score": 0.6141,
+    "occluded_samples": 0,
+    "timestamps": [
+      62.0,
+      63.0,
+      64.0
+    ]
+  },
+  {
+    "track_id": 127,
+    "source": "v2_same_roi",
+    "first_seen": 62.0,
+    "last_seen": 64.0,
+    "hits": 3,
+    "lifetime_seconds": 3.0,
+    "visible_duration_seconds": 3.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1572.0,
+      681.0,
+      1579.0,
+      693.0
+    ],
+    "median_score": 0.5534,
+    "occluded_samples": 0,
+    "timestamps": [
+      62.0,
+      63.0,
+      64.0
+    ]
+  },
+  {
+    "track_id": 128,
+    "source": "v2_same_roi",
+    "first_seen": 62.0,
+    "last_seen": 64.0,
+    "hits": 3,
+    "lifetime_seconds": 3.0,
+    "visible_duration_seconds": 3.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 1.0,
+    "median_box": [
+      1417.0,
+      1047.0,
+      1427.0,
+      1077.0
+    ],
+    "median_score": 0.5099,
+    "occluded_samples": 0,
+    "timestamps": [
+      62.0,
+      63.0,
+      64.0
+    ]
+  },
+  {
+    "track_id": 129,
+    "source": "v2_same_roi",
+    "first_seen": 64.0,
+    "last_seen": 64.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1407.0,
+      355.0,
+      1413.0,
+      376.0
+    ],
+    "median_score": 0.8666,
+    "occluded_samples": 0,
+    "timestamps": [
+      64.0
+    ]
+  },
+  {
+    "track_id": 130,
+    "source": "v2_same_roi",
+    "first_seen": 64.0,
+    "last_seen": 64.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1386.0,
+      435.0,
+      1395.0,
+      446.0
+    ],
+    "median_score": 0.654,
+    "occluded_samples": 0,
+    "timestamps": [
+      64.0
+    ]
+  },
+  {
+    "track_id": 131,
+    "source": "v2_same_roi",
+    "first_seen": 64.0,
+    "last_seen": 64.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1338.0,
+      1071.0,
+      1348.0,
+      1085.0
+    ],
+    "median_score": 0.5679,
+    "occluded_samples": 0,
+    "timestamps": [
+      64.0
+    ]
+  },
+  {
+    "track_id": 132,
+    "source": "v2_same_roi",
+    "first_seen": 64.0,
+    "last_seen": 64.0,
+    "hits": 1,
+    "lifetime_seconds": 1.0,
+    "visible_duration_seconds": 1.0,
+    "continuity": 1.0,
+    "max_gap_seconds": 0.0,
+    "median_box": [
+      1715.0,
+      939.0,
+      1724.0,
+      957.0
+    ],
+    "median_score": 0.5325,
+    "occluded_samples": 0,
+    "timestamps": [
+      64.0
+    ]
+  }
+]

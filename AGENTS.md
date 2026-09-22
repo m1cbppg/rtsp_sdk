@@ -807,3 +807,18 @@ ROI 与七天范围，仓库唯一可用 ROI 属 `…01021`，未套用；无 `-
 `numpy/version.py`（已修）并使 `.venv` 的 `cv2` 损坏；**真实素材测试今后一律放服务器**（空闲空间更大），
 服务器流程见 `HANDOFF_PROFILE_FACTORY_20260920.md` §10。详见同文件 §2～§9 与
 `docs/plans/2026-09-20-profile-factory-implementation-plan.md`。
+
+2026-09-21 **Profile prior 路线最终状态（本条覆盖上方 2026-09-20 建库/Selector 的继续实施要求）**：
+背景先验 Go/No-Go 实验已按预注册口径判定 **NO_GO**。冻结产物位于
+`output/ground_litter_prior_go_no_go_20260921/`，实验分支
+`experiment/ground-litter-prior-go-no-go` 提交 `d81f306`。v3 全 Profile oracle 上界为
+98/768=`0.1276`（NO-GO 下限 `0.50`、GO `0.70`）；排除 8px 后的 12～24px 仍只有
+97/576=`0.1684`，彩色包装与半透明模板在 8～24px 均为 0 命中。失败发生在 Selector 和
+状态机之前，因此继续修 v6 能力契约、剪枝、采样、Profile 数量或切换参数不能满足小垃圾召回目标。
+负样本 confirmed FP/hour 未完成测量，实验没有真实垃圾正样本，这些限制必须保留；它们不改变
+oracle 单项触发 NO-GO 的决定。**不得恢复 v6、不得继续原方案二在线 Profile 切换、不得把 v3/v4/v5
+Bank 描述为可用先验或部署生产。** v6 的 6 个已跟踪草稿文件与未跟踪计划保持暂停现场，不提交、不部署。
+回放下载/缓存/抽帧、ROI、数据分组和 V3.3 event memory/latest-wins 可复用。正式决策见
+`docs/decisions/2026-09-21-ground-litter-profile-prior-no-go.md`；下一路线是保留现有 turhancan 语义通道，
+增加 ROI 原生分辨率透视分块的一类现场小垃圾检测器，见
+`docs/plans/2026-09-21-ground-litter-small-detector-roadmap.md`。生产环境未因本实验发生变化。

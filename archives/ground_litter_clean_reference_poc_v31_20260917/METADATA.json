@@ -1,0 +1,66 @@
+{
+  "archive_id": "ground_litter_clean_reference_poc_v31_20260917",
+  "archived_at": "2026-09-17T23:00:00+08:00",
+  "source_repository": "/Users/mlcbppg/Desktop/backend/python_script/rtsp",
+  "source_commit": "1a29604253907f436e0a63076ea5755cbbf088d3",
+  "source_worktree_note": "PoC scripts and outputs were untracked at archive time; this package is the frozen snapshot.",
+  "runtime": {
+    "python": "3.12.0",
+    "opencv": "4.13.0",
+    "numpy": "2.5.2",
+    "ultralytics": "8.4.118"
+  },
+  "inputs": [
+    {
+      "path": "/Users/mlcbppg/Desktop/9月17日/clean_reference.mp4",
+      "bytes": 98705379,
+      "sha256": "d91d9aa50d06f7b2025f66776ce31af9d919391d65cfb1c0a97336ca2e7693f8"
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/9月17日/小垃圾正样本.mp4",
+      "bytes": 280925841,
+      "sha256": "bb265cadb83bc6d36fa7aa0ba4bedd3c7bf8c03a173b9edc7e451ef20481896a"
+    },
+    {
+      "path": "/Users/mlcbppg/Desktop/9月17日/正常负样本.mp4",
+      "bytes": 80804043,
+      "sha256": "2a843a4cdd5e2c13e8179dfe8745c6c0915b6f1c0fda2c4578adfffd788cd045"
+    }
+  ],
+  "models": [
+    {
+      "path": "models/yolo26s.pt",
+      "bytes": 20422725,
+      "sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b"
+    },
+    {
+      "path": "models/litter/turhancan_yolov8m_seg_trash.pt",
+      "bytes": 54786410,
+      "sha256": "a2f8de0c7f714e2ab8b70c62490e2a41fd4a6681ca4a8dd442797c809a140278"
+    }
+  ],
+  "frozen_metrics": {
+    "reviewed_tracks": 38,
+    "reviewed_litter_tracks": 16,
+    "reviewed_non_litter_tracks": 22,
+    "reviewed_events": 16,
+    "litter_events": 5,
+    "non_litter_events": 11,
+    "online_events_created": 17,
+    "online_events_confirmed": 6,
+    "true_positive_events": 5,
+    "false_positive_events": 1,
+    "false_negative_events": 0,
+    "precision": 0.8333,
+    "recall": 1.0,
+    "f1": 0.9091,
+    "non_litter_deferral_rate": 0.9091,
+    "clean_holdout_frames": 20,
+    "clean_holdout_confirmed_events": 0,
+    "t01_first_seen_seconds": 72.0,
+    "t01_confirmed_seconds": 81.0
+  },
+  "clean_reference_updated": false,
+  "production_pipeline_modified": false,
+  "vlm_integrated": false
+}

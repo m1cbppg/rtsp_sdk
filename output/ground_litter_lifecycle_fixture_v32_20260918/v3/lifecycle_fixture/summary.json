@@ -1,0 +1,65 @@
+{
+  "name": "lifecycle_fixture",
+  "evaluation_start_seconds": 0.0,
+  "sample_fps": 1.0,
+  "alignment": {
+    "method": "SIFT + RANSAC homography",
+    "matches": 94,
+    "inliers": 90,
+    "inlier_fraction": 0.9574,
+    "reprojection_median_px": 0.352,
+    "reprojection_p95_px": 0.802,
+    "inlier_hull_fraction": 0.5774,
+    "matrix": [
+      [
+        1.0001522010849728,
+        8.49341671422363e-06,
+        -0.30883252116957144
+      ],
+      [
+        6.049468541730247e-05,
+        1.000129575705099,
+        -0.17251209646722582
+      ],
+      [
+        -2.937569240874906e-09,
+        6.986829544893166e-08,
+        1.0
+      ]
+    ]
+  },
+  "v2": {
+    "raw_candidates": 1104,
+    "raw_per_minute": 1068.3870967741934,
+    "tracks_total": 179,
+    "tracks_at_least_seconds": {
+      "1": 179,
+      "3": 58,
+      "5": 34,
+      "10": 23,
+      "30": 11
+    },
+    "raw_to_5s_reduction": 0.9692028985507246
+  },
+  "v3": {
+    "raw_candidates": 290,
+    "raw_per_minute": 280.6451612903226,
+    "tracks_total": 153,
+    "tracks_at_least_seconds": {
+      "1": 153,
+      "3": 35,
+      "5": 8,
+      "10": 3,
+      "30": 0
+    },
+    "raw_to_5s_reduction": 0.9724137931034482
+  },
+  "t01_v2": null,
+  "t01_v3": null,
+  "mean_usable_fraction": 1.0,
+  "environment_state_counts": {
+    "GLOBAL_LIGHT_CHANGE": 62
+  },
+  "sample_count": 62,
+  "elapsed_seconds": 149.25366258301074
+}

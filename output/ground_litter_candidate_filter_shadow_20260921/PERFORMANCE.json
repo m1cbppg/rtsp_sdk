@@ -1,0 +1,793 @@
+{
+  "schema": "ground_litter_candidate_filter_shadow_performance_v1",
+  "ticks": 120,
+  "candidates": 6963,
+  "candidate_count_p95": 60.0,
+  "tick_seconds_p50": 0.1674841013737023,
+  "tick_seconds_p95": 0.24614844394382088,
+  "tick_seconds_p99": 0.354381367135793,
+  "tick_seconds_max": 1.774558185134083,
+  "simulated_latest_wins_at_fps": 2.0,
+  "latest_wins": {
+    "submitted": 120,
+    "completed": 118,
+    "dropped": 2,
+    "maximum_queue_depth": 1,
+    "age_p95_seconds": 0.25690427982481173,
+    "age_max_seconds": 1.774558185134083
+  },
+  "per_camera_latest_wins": {
+    "01021": {
+      "submitted": 24,
+      "completed": 22,
+      "dropped": 2,
+      "maximum_queue_depth": 1,
+      "age_p95_seconds": 0.4646567680640144,
+      "age_max_seconds": 1.774558185134083
+    },
+    "01022": {
+      "submitted": 24,
+      "completed": 24,
+      "dropped": 0,
+      "maximum_queue_depth": 0,
+      "age_p95_seconds": 0.1928743446362205,
+      "age_max_seconds": 0.20373569009825587
+    },
+    "01027": {
+      "submitted": 24,
+      "completed": 24,
+      "dropped": 0,
+      "maximum_queue_depth": 0,
+      "age_p95_seconds": 0.2060126016382128,
+      "age_max_seconds": 0.21567444992251694
+    },
+    "01028": {
+      "submitted": 24,
+      "completed": 24,
+      "dropped": 0,
+      "maximum_queue_depth": 0,
+      "age_p95_seconds": 0.17223560139536856,
+      "age_max_seconds": 0.19199323398061097
+    },
+    "01030": {
+      "submitted": 24,
+      "completed": 24,
+      "dropped": 0,
+      "maximum_queue_depth": 0,
+      "age_p95_seconds": 0.33239993386669076,
+      "age_max_seconds": 0.35789685999043286
+    }
+  },
+  "aggregate_shared_worker_latest_wins": {
+    "submitted": 120,
+    "completed": 60,
+    "dropped": 60,
+    "maximum_queue_depth": 1,
+    "age_p95_seconds": 0.3312988784140892,
+    "age_max_seconds": 1.774558185134083
+  },
+  "aggregate_arrival_fps": 10.0,
+  "per_tick": [
+    {
+      "device_code": "44180209031322001021",
+      "frame_id": "f00s00",
+      "candidate_count": 60,
+      "seconds": 1.774558185134083
+    },
+    {
+      "device_code": "44180209031322001021",
+      "frame_id": "f00s01",
+      "candidate_count": 60,
+      "seconds": 0.18370863003656268
+    },
+    {
+      "device_code": "44180209031322001021",
+      "frame_id": "f00s02",
+      "candidate_count": 60,
+      "seconds": 0.17363068205304444
+    },
+    {
+      "device_code": "44180209031322001021",
+      "frame_id": "f01s00",
+      "candidate_count": 60,
+      "seconds": 0.2042042079847306
+    },
+    {
+      "device_code": "44180209031322001021",
+      "frame_id": "f01s01",
+      "candidate_count": 60,
+      "seconds": 0.16883588512428105
+    },
+    {
+      "device_code": "44180209031322001021",
+      "frame_id": "f01s02",
+      "candidate_count": 60,
+      "seconds": 0.1675520478747785
+    },
+    {
+      "device_code": "44180209031322001021",
+      "frame_id": "f02s00",
+      "candidate_count": 60,
+      "seconds": 0.19029289204627275
+    },
+    {
+      "device_code": "44180209031322001021",
+      "frame_id": "f02s01",
+      "candidate_count": 60,
+      "seconds": 0.19281906285323203
+    },
+    {
+      "device_code": "44180209031322001021",
+      "frame_id": "f02s02",
+      "candidate_count": 60,
+      "seconds": 0.19664989202283323
+    },
+    {
+      "device_code": "44180209031322001021",
+      "frame_id": "f03s00",
+      "candidate_count": 60,
+      "seconds": 0.19031269499100745
+    },
+    {
+      "device_code": "44180209031322001021",
+      "frame_id": "f03s01",
+      "candidate_count": 60,
+      "seconds": 0.18375568301416934
+    },
+    {
+      "device_code": "44180209031322001021",
+      "frame_id": "f03s02",
+      "candidate_count": 60,
+      "seconds": 0.1951088709756732
+    },
+    {
+      "device_code": "44180209031322001021",
+      "frame_id": "f04s00",
+      "candidate_count": 60,
+      "seconds": 0.17234630999155343
+    },
+    {
+      "device_code": "44180209031322001021",
+      "frame_id": "f04s01",
+      "candidate_count": 60,
+      "seconds": 0.16054344200529158
+    },
+    {
+      "device_code": "44180209031322001021",
+      "frame_id": "f04s02",
+      "candidate_count": 60,
+      "seconds": 0.16828379780054092
+    },
+    {
+      "device_code": "44180209031322001021",
+      "frame_id": "f05s00",
+      "candidate_count": 60,
+      "seconds": 0.15670053497888148
+    },
+    {
+      "device_code": "44180209031322001021",
+      "frame_id": "f05s01",
+      "candidate_count": 60,
+      "seconds": 0.16939005116000772
+    },
+    {
+      "device_code": "44180209031322001021",
+      "frame_id": "f05s02",
+      "candidate_count": 60,
+      "seconds": 0.1669453689828515
+    },
+    {
+      "device_code": "44180209031322001021",
+      "frame_id": "f06s00",
+      "candidate_count": 60,
+      "seconds": 0.1721524081658572
+    },
+    {
+      "device_code": "44180209031322001021",
+      "frame_id": "f06s01",
+      "candidate_count": 60,
+      "seconds": 0.15784778189845383
+    },
+    {
+      "device_code": "44180209031322001021",
+      "frame_id": "f06s02",
+      "candidate_count": 60,
+      "seconds": 0.1711797930765897
+    },
+    {
+      "device_code": "44180209031322001021",
+      "frame_id": "f07s00",
+      "candidate_count": 60,
+      "seconds": 0.1588642238639295
+    },
+    {
+      "device_code": "44180209031322001021",
+      "frame_id": "f07s01",
+      "candidate_count": 60,
+      "seconds": 0.17230964498594403
+    },
+    {
+      "device_code": "44180209031322001021",
+      "frame_id": "f07s02",
+      "candidate_count": 60,
+      "seconds": 0.16909545101225376
+    },
+    {
+      "device_code": "44180209031322001022",
+      "frame_id": "f00s00",
+      "candidate_count": 60,
+      "seconds": 0.18481225497089326
+    },
+    {
+      "device_code": "44180209031322001022",
+      "frame_id": "f00s01",
+      "candidate_count": 60,
+      "seconds": 0.16063851304352283
+    },
+    {
+      "device_code": "44180209031322001022",
+      "frame_id": "f00s02",
+      "candidate_count": 60,
+      "seconds": 0.18354449491016567
+    },
+    {
+      "device_code": "44180209031322001022",
+      "frame_id": "f01s00",
+      "candidate_count": 60,
+      "seconds": 0.16010892088524997
+    },
+    {
+      "device_code": "44180209031322001022",
+      "frame_id": "f01s01",
+      "candidate_count": 60,
+      "seconds": 0.18096175813116133
+    },
+    {
+      "device_code": "44180209031322001022",
+      "frame_id": "f01s02",
+      "candidate_count": 60,
+      "seconds": 0.1599648050032556
+    },
+    {
+      "device_code": "44180209031322001022",
+      "frame_id": "f02s00",
+      "candidate_count": 60,
+      "seconds": 0.17979051894508302
+    },
+    {
+      "device_code": "44180209031322001022",
+      "frame_id": "f02s01",
+      "candidate_count": 60,
+      "seconds": 0.15620073908939958
+    },
+    {
+      "device_code": "44180209031322001022",
+      "frame_id": "f02s02",
+      "candidate_count": 60,
+      "seconds": 0.17889578198082745
+    },
+    {
+      "device_code": "44180209031322001022",
+      "frame_id": "f03s00",
+      "candidate_count": 60,
+      "seconds": 0.1571620930917561
+    },
+    {
+      "device_code": "44180209031322001022",
+      "frame_id": "f03s01",
+      "candidate_count": 60,
+      "seconds": 0.18133557680994272
+    },
+    {
+      "device_code": "44180209031322001022",
+      "frame_id": "f03s02",
+      "candidate_count": 60,
+      "seconds": 0.15852597588673234
+    },
+    {
+      "device_code": "44180209031322001022",
+      "frame_id": "f04s00",
+      "candidate_count": 60,
+      "seconds": 0.18215395300649107
+    },
+    {
+      "device_code": "44180209031322001022",
+      "frame_id": "f04s01",
+      "candidate_count": 60,
+      "seconds": 0.15628260583616793
+    },
+    {
+      "device_code": "44180209031322001022",
+      "frame_id": "f04s02",
+      "candidate_count": 60,
+      "seconds": 0.1751120570115745
+    },
+    {
+      "device_code": "44180209031322001022",
+      "frame_id": "f05s00",
+      "candidate_count": 60,
+      "seconds": 0.1676004061009735
+    },
+    {
+      "device_code": "44180209031322001022",
+      "frame_id": "f05s01",
+      "candidate_count": 60,
+      "seconds": 0.19305649097077549
+    },
+    {
+      "device_code": "44180209031322001022",
+      "frame_id": "f05s02",
+      "candidate_count": 60,
+      "seconds": 0.15977624501101673
+    },
+    {
+      "device_code": "44180209031322001022",
+      "frame_id": "f06s00",
+      "candidate_count": 60,
+      "seconds": 0.17457927903160453
+    },
+    {
+      "device_code": "44180209031322001022",
+      "frame_id": "f06s01",
+      "candidate_count": 60,
+      "seconds": 0.16023162589408457
+    },
+    {
+      "device_code": "44180209031322001022",
+      "frame_id": "f06s02",
+      "candidate_count": 60,
+      "seconds": 0.20373569009825587
+    },
+    {
+      "device_code": "44180209031322001022",
+      "frame_id": "f07s00",
+      "candidate_count": 60,
+      "seconds": 0.16311787301674485
+    },
+    {
+      "device_code": "44180209031322001022",
+      "frame_id": "f07s01",
+      "candidate_count": 60,
+      "seconds": 0.19184218207374215
+    },
+    {
+      "device_code": "44180209031322001022",
+      "frame_id": "f07s02",
+      "candidate_count": 60,
+      "seconds": 0.17208697786554694
+    },
+    {
+      "device_code": "44180209031322001027",
+      "frame_id": "f00s00",
+      "candidate_count": 60,
+      "seconds": 0.19748344807885587
+    },
+    {
+      "device_code": "44180209031322001027",
+      "frame_id": "f00s01",
+      "candidate_count": 60,
+      "seconds": 0.1710855388082564
+    },
+    {
+      "device_code": "44180209031322001027",
+      "frame_id": "f00s02",
+      "candidate_count": 60,
+      "seconds": 0.19252066500484943
+    },
+    {
+      "device_code": "44180209031322001027",
+      "frame_id": "f01s00",
+      "candidate_count": 60,
+      "seconds": 0.15912784985266626
+    },
+    {
+      "device_code": "44180209031322001027",
+      "frame_id": "f01s01",
+      "candidate_count": 60,
+      "seconds": 0.19586159195750952
+    },
+    {
+      "device_code": "44180209031322001027",
+      "frame_id": "f01s02",
+      "candidate_count": 60,
+      "seconds": 0.16281587001867592
+    },
+    {
+      "device_code": "44180209031322001027",
+      "frame_id": "f02s00",
+      "candidate_count": 60,
+      "seconds": 0.19506114907562733
+    },
+    {
+      "device_code": "44180209031322001027",
+      "frame_id": "f02s01",
+      "candidate_count": 60,
+      "seconds": 0.1591031327843666
+    },
+    {
+      "device_code": "44180209031322001027",
+      "frame_id": "f02s02",
+      "candidate_count": 60,
+      "seconds": 0.19086346006952226
+    },
+    {
+      "device_code": "44180209031322001027",
+      "frame_id": "f03s00",
+      "candidate_count": 60,
+      "seconds": 0.16843736707232893
+    },
+    {
+      "device_code": "44180209031322001027",
+      "frame_id": "f03s01",
+      "candidate_count": 60,
+      "seconds": 0.21567444992251694
+    },
+    {
+      "device_code": "44180209031322001027",
+      "frame_id": "f03s02",
+      "candidate_count": 60,
+      "seconds": 0.16078520799055696
+    },
+    {
+      "device_code": "44180209031322001027",
+      "frame_id": "f04s00",
+      "candidate_count": 60,
+      "seconds": 0.1960493482183665
+    },
+    {
+      "device_code": "44180209031322001027",
+      "frame_id": "f04s01",
+      "candidate_count": 60,
+      "seconds": 0.16058768797665834
+    },
+    {
+      "device_code": "44180209031322001027",
+      "frame_id": "f04s02",
+      "candidate_count": 60,
+      "seconds": 0.2061550309881568
+    },
+    {
+      "device_code": "44180209031322001027",
+      "frame_id": "f05s00",
+      "candidate_count": 60,
+      "seconds": 0.1591749251820147
+    },
+    {
+      "device_code": "44180209031322001027",
+      "frame_id": "f05s01",
+      "candidate_count": 60,
+      "seconds": 0.19938682997599244
+    },
+    {
+      "device_code": "44180209031322001027",
+      "frame_id": "f05s02",
+      "candidate_count": 60,
+      "seconds": 0.16913348506204784
+    },
+    {
+      "device_code": "44180209031322001027",
+      "frame_id": "f06s00",
+      "candidate_count": 60,
+      "seconds": 0.19581916299648583
+    },
+    {
+      "device_code": "44180209031322001027",
+      "frame_id": "f06s01",
+      "candidate_count": 60,
+      "seconds": 0.16841740510426462
+    },
+    {
+      "device_code": "44180209031322001027",
+      "frame_id": "f06s02",
+      "candidate_count": 60,
+      "seconds": 0.20520550198853016
+    },
+    {
+      "device_code": "44180209031322001027",
+      "frame_id": "f07s00",
+      "candidate_count": 60,
+      "seconds": 0.16017693700268865
+    },
+    {
+      "device_code": "44180209031322001027",
+      "frame_id": "f07s01",
+      "candidate_count": 60,
+      "seconds": 0.1957818369846791
+    },
+    {
+      "device_code": "44180209031322001027",
+      "frame_id": "f07s02",
+      "candidate_count": 60,
+      "seconds": 0.15616133296862245
+    },
+    {
+      "device_code": "44180209031322001028",
+      "frame_id": "f00s00",
+      "candidate_count": 60,
+      "seconds": 0.19199323398061097
+    },
+    {
+      "device_code": "44180209031322001028",
+      "frame_id": "f00s01",
+      "candidate_count": 60,
+      "seconds": 0.14802097203209996
+    },
+    {
+      "device_code": "44180209031322001028",
+      "frame_id": "f00s02",
+      "candidate_count": 60,
+      "seconds": 0.1726014509331435
+    },
+    {
+      "device_code": "44180209031322001028",
+      "frame_id": "f01s00",
+      "candidate_count": 60,
+      "seconds": 0.15414919308386743
+    },
+    {
+      "device_code": "44180209031322001028",
+      "frame_id": "f01s01",
+      "candidate_count": 60,
+      "seconds": 0.16353159118443727
+    },
+    {
+      "device_code": "44180209031322001028",
+      "frame_id": "f01s02",
+      "candidate_count": 60,
+      "seconds": 0.1596670059952885
+    },
+    {
+      "device_code": "44180209031322001028",
+      "frame_id": "f02s00",
+      "candidate_count": 60,
+      "seconds": 0.17016245401464403
+    },
+    {
+      "device_code": "44180209031322001028",
+      "frame_id": "f02s01",
+      "candidate_count": 60,
+      "seconds": 0.1483184068929404
+    },
+    {
+      "device_code": "44180209031322001028",
+      "frame_id": "f02s02",
+      "candidate_count": 60,
+      "seconds": 0.1488031609915197
+    },
+    {
+      "device_code": "44180209031322001028",
+      "frame_id": "f03s00",
+      "candidate_count": 60,
+      "seconds": 0.1554894910659641
+    },
+    {
+      "device_code": "44180209031322001028",
+      "frame_id": "f03s01",
+      "candidate_count": 60,
+      "seconds": 0.15666387090459466
+    },
+    {
+      "device_code": "44180209031322001028",
+      "frame_id": "f03s02",
+      "candidate_count": 60,
+      "seconds": 0.15765045187436044
+    },
+    {
+      "device_code": "44180209031322001028",
+      "frame_id": "f04s00",
+      "candidate_count": 60,
+      "seconds": 0.14780318713746965
+    },
+    {
+      "device_code": "44180209031322001028",
+      "frame_id": "f04s01",
+      "candidate_count": 60,
+      "seconds": 0.15829567797482014
+    },
+    {
+      "device_code": "44180209031322001028",
+      "frame_id": "f04s02",
+      "candidate_count": 60,
+      "seconds": 0.14825734193436801
+    },
+    {
+      "device_code": "44180209031322001028",
+      "frame_id": "f05s00",
+      "candidate_count": 60,
+      "seconds": 0.15636452985927463
+    },
+    {
+      "device_code": "44180209031322001028",
+      "frame_id": "f05s01",
+      "candidate_count": 60,
+      "seconds": 0.15967370895668864
+    },
+    {
+      "device_code": "44180209031322001028",
+      "frame_id": "f05s02",
+      "candidate_count": 60,
+      "seconds": 0.15551423793658614
+    },
+    {
+      "device_code": "44180209031322001028",
+      "frame_id": "f06s00",
+      "candidate_count": 60,
+      "seconds": 0.15819637011736631
+    },
+    {
+      "device_code": "44180209031322001028",
+      "frame_id": "f06s01",
+      "candidate_count": 60,
+      "seconds": 0.1593390021007508
+    },
+    {
+      "device_code": "44180209031322001028",
+      "frame_id": "f06s02",
+      "candidate_count": 60,
+      "seconds": 0.15711688110604882
+    },
+    {
+      "device_code": "44180209031322001028",
+      "frame_id": "f07s00",
+      "candidate_count": 60,
+      "seconds": 0.15693883993662894
+    },
+    {
+      "device_code": "44180209031322001028",
+      "frame_id": "f07s01",
+      "candidate_count": 60,
+      "seconds": 0.15571797802112997
+    },
+    {
+      "device_code": "44180209031322001028",
+      "frame_id": "f07s02",
+      "candidate_count": 60,
+      "seconds": 0.16741615487262607
+    },
+    {
+      "device_code": "44180209031322001030",
+      "frame_id": "f00s00",
+      "candidate_count": 60,
+      "seconds": 0.15693132486194372
+    },
+    {
+      "device_code": "44180209031322001030",
+      "frame_id": "f00s01",
+      "candidate_count": 60,
+      "seconds": 0.15734237688593566
+    },
+    {
+      "device_code": "44180209031322001030",
+      "frame_id": "f00s02",
+      "candidate_count": 60,
+      "seconds": 0.14902815804816782
+    },
+    {
+      "device_code": "44180209031322001030",
+      "frame_id": "f01s00",
+      "candidate_count": 60,
+      "seconds": 0.15530490083619952
+    },
+    {
+      "device_code": "44180209031322001030",
+      "frame_id": "f01s01",
+      "candidate_count": 60,
+      "seconds": 0.14771494804881513
+    },
+    {
+      "device_code": "44180209031322001030",
+      "frame_id": "f01s02",
+      "candidate_count": 60,
+      "seconds": 0.14784227102063596
+    },
+    {
+      "device_code": "44180209031322001030",
+      "frame_id": "f02s00",
+      "candidate_count": 33,
+      "seconds": 0.11049659200944006
+    },
+    {
+      "device_code": "44180209031322001030",
+      "frame_id": "f02s01",
+      "candidate_count": 37,
+      "seconds": 0.339394266018644
+    },
+    {
+      "device_code": "44180209031322001030",
+      "frame_id": "f02s02",
+      "candidate_count": 54,
+      "seconds": 0.35789685999043286
+    },
+    {
+      "device_code": "44180209031322001030",
+      "frame_id": "f03s00",
+      "candidate_count": 60,
+      "seconds": 0.1563736549578607
+    },
+    {
+      "device_code": "44180209031322001030",
+      "frame_id": "f03s01",
+      "candidate_count": 60,
+      "seconds": 0.1585544110275805
+    },
+    {
+      "device_code": "44180209031322001030",
+      "frame_id": "f03s02",
+      "candidate_count": 60,
+      "seconds": 0.15109058795496821
+    },
+    {
+      "device_code": "44180209031322001030",
+      "frame_id": "f04s00",
+      "candidate_count": 31,
+      "seconds": 0.2927653850056231
+    },
+    {
+      "device_code": "44180209031322001030",
+      "frame_id": "f04s01",
+      "candidate_count": 24,
+      "seconds": 0.28101760521531105
+    },
+    {
+      "device_code": "44180209031322001030",
+      "frame_id": "f04s02",
+      "candidate_count": 24,
+      "seconds": 0.04679267713800073
+    },
+    {
+      "device_code": "44180209031322001030",
+      "frame_id": "f05s00",
+      "candidate_count": 48,
+      "seconds": 0.25264898710884154
+    },
+    {
+      "device_code": "44180209031322001030",
+      "frame_id": "f05s01",
+      "candidate_count": 31,
+      "seconds": 0.06914758286438882
+    },
+    {
+      "device_code": "44180209031322001030",
+      "frame_id": "f05s02",
+      "candidate_count": 53,
+      "seconds": 0.24580631009303033
+    },
+    {
+      "device_code": "44180209031322001030",
+      "frame_id": "f06s00",
+      "candidate_count": 43,
+      "seconds": 0.23172669694758952
+    },
+    {
+      "device_code": "44180209031322001030",
+      "frame_id": "f06s01",
+      "candidate_count": 45,
+      "seconds": 0.1870043408125639
+    },
+    {
+      "device_code": "44180209031322001030",
+      "frame_id": "f06s02",
+      "candidate_count": 60,
+      "seconds": 0.10817702393978834
+    },
+    {
+      "device_code": "44180209031322001030",
+      "frame_id": "f07s00",
+      "candidate_count": 60,
+      "seconds": 0.10876650107093155
+    },
+    {
+      "device_code": "44180209031322001030",
+      "frame_id": "f07s01",
+      "candidate_count": 60,
+      "seconds": 0.11184205417521298
+    },
+    {
+      "device_code": "44180209031322001030",
+      "frame_id": "f07s02",
+      "candidate_count": 60,
+      "seconds": 0.10801190510392189
+    }
+  ],
+  "note": "Measures only YOLO26s crop embedding/filter stage on extracted frames."
+}

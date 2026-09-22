@@ -1,5 +1,7 @@
 # 方案一实施计划（A0～A6 + 共享核心 B1/B2）
 
+> **已停止（2026-09-21）**：本计划已被 oracle 层 NO-GO 证据取代，仅供追溯已实现模块。不得继续 v6 重建或把 Bank 接入生产。见[正式决策](../decisions/2026-09-21-ground-litter-profile-prior-no-go.md)和[下一路线](2026-09-21-ground-litter-small-detector-roadmap.md)。
+
 日期：2026-09-20。契约来源：`2026-09-20-profile-factory-v1.md` r3、`2026-09-20-profile-runtime-selector-v1.md` r3、
 `2026-09-20-profile-bank-design-review.md`（r1 问题为历史发现，r2 已修订正文）。
 

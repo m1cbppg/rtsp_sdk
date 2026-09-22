@@ -26,8 +26,39 @@ from .event_engine import NormalizedRect
 from .ground_litter_geometry import box_overlap_fraction, prepare
 
 _SAFE_MODEL_NAME = re.compile(r"^[A-Za-z0-9._/-]+\.pt$")
+_SAFE_PROFILE_ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$")
 DEFAULT_MODEL = "turhancan_yolov8m_seg_trash.pt"
 DEFAULT_MODEL_SUBDIR = "litter"
+GROUND_LITTER_MODES = ("yolo", "clean_reference_v32", "hybrid_v33")
+
+# hybrid_v33 per-source telemetry names, shared by the side process, the worker
+# metrics snapshot and the API response so the three can never drift apart.
+HYBRID_LITTER_METRIC_FIELDS = (
+    "semantic_raw_candidates",
+    "semantic_retained_candidates",
+    "prior_raw_candidates",
+    "prior_retained_candidates",
+    "semantic_only_active",
+    "semantic_only_confirmed",
+    "prior_only_active",
+    "prior_only_confirmed",
+    "fused_active",
+    "fused_confirmed",
+    "cross_source_merges",
+    "prior_environment_state",
+    "semantic_model_runs_full",
+    "semantic_model_runs_crop",
+    "semantic_crop_raw_candidates",
+    "semantic_crop_unmatched_candidates",
+    "input_frame_age_ms",
+    "dropped_analysis_frames",
+    "last_prior_ms",
+    "last_full_scan_ms",
+    "last_crop_batch_ms",
+    "last_total_ms",
+    "branch_state",
+    "branch_message",
+)
 PERSON_VEHICLE_CLASS_IDS = (0, 1, 2, 3, 5, 7)
 # COCO context classes that can occlude the ground (umbrella, bench, chair,
 # plant, dining table). They are kept separate from person/vehicle filtering:
@@ -134,6 +165,8 @@ class GroundLitterDetectionOptions:
     """
 
     enabled: bool = False
+    mode: str = "yolo"
+    profile_id: str | None = None
     model: str = DEFAULT_MODEL
     actor_model: str | None = None
     analysis_fps: float = 1.0
@@ -160,10 +193,39 @@ class GroundLitterDetectionOptions:
     match_size_ratio: float = 3.0
     match_distance_ratio: float = 0.5
     maximum_boxes: int = 8
+    confirm_visible_seconds: float = 5.0
+    clear_confirm_seconds: float = 5.0
+    pending_expire_seconds: float = 15.0
+    min_clean_valid_fraction: float = 0.8
+    maximum_closed_events: int = 10_000
+    startup_suppress_seconds: float = 15.0
+    normal_stability_samples: int = 3
     display_zones: bool = True
     display_class: bool = False
     display_confidence: bool = False
     label: str = "疑似垃圾"
+
+    # --- hybrid_v33 dual-channel recall (see the dual-recall architecture spec) ---
+    # The semantic (turhancan) and prior (Clean Reference) channels are two
+    # independent recall channels. Either one may confirm an event on its own;
+    # neither is allowed to veto the other.
+    semantic_scan_interval_seconds: float = 4.0
+    semantic_confirm_hits: int = 2
+    semantic_hit_window: int = 3
+    semantic_confirm_span_seconds: float = 4.0
+    semantic_clear_seconds: float = 8.0
+    semantic_clear_min_misses: int = 2
+    prior_confirm_hits: int = 4
+    prior_hit_window: int = 6
+    prior_confirm_span_seconds: float = 6.0
+    prior_suspend_expire_seconds: float = 120.0
+    fused_confirm_hits: int = 2
+    fused_hit_window: int = 4
+    fused_confirm_span_seconds: float = 2.0
+    prior_crop_maximum: int = 4
+    prior_crop_expand_ratio: float = 4.0
+    prior_crop_maximum_source_px: int = 480
+    prior_crop_imgsz: int = 640
 
     @property
     def region_ids(self) -> tuple[str, ...]:
@@ -179,6 +241,21 @@ class GroundLitterDetectionOptions:
         return float(self.confidence)
 
     def validate(self) -> None:
+        if self.mode not in GROUND_LITTER_MODES:
+            raise ValueError(
+                "ground_litter.mode必须是yolo或clean_reference_v32"
+            )
+        if self.profile_id is not None and not _SAFE_PROFILE_ID.fullmatch(
+            str(self.profile_id)
+        ):
+            raise ValueError("ground_litter.profile_id格式无效")
+        if self.enabled and self.mode == "clean_reference_v32" and not self.profile_id:
+            raise ValueError("clean_reference_v32模式必须设置profile_id")
+        if self.enabled and self.mode == "hybrid_v33":
+            if not self.profile_id:
+                raise ValueError("hybrid_v33模式必须设置profile_id")
+            if not self.model:
+                raise ValueError("hybrid_v33模式必须设置model")
         if self.model is None or not _SAFE_MODEL_NAME.match(str(self.model)):
             raise ValueError("ground_litter.model必须是models目录中的.pt文件")
         if str(self.model).startswith("/") or ".." in str(self.model):
@@ -293,12 +370,111 @@ class GroundLitterDetectionOptions:
             raise ValueError(
                 "ground_litter.maximum_boxes必须在[1, 64]范围内"
             )
+        if not 1 <= float(self.confirm_visible_seconds) <= 120:
+            raise ValueError("ground_litter.confirm_visible_seconds必须在[1, 120]范围内")
+        if not 1 <= float(self.clear_confirm_seconds) <= 120:
+            raise ValueError("ground_litter.clear_confirm_seconds必须在[1, 120]范围内")
+        if not 1 <= float(self.pending_expire_seconds) <= 300:
+            raise ValueError("ground_litter.pending_expire_seconds必须在[1, 300]范围内")
+        if not 0.5 <= float(self.min_clean_valid_fraction) <= 1:
+            raise ValueError("ground_litter.min_clean_valid_fraction必须在[0.5, 1]范围内")
+        if not 0 <= int(self.maximum_closed_events) <= 100_000:
+            raise ValueError("ground_litter.maximum_closed_events必须在[0, 100000]范围内")
+        if not 0 <= float(self.startup_suppress_seconds) <= 120:
+            raise ValueError(
+                "ground_litter.startup_suppress_seconds必须在[0, 120]范围内"
+            )
+        if not 1 <= int(self.normal_stability_samples) <= 30:
+            raise ValueError(
+                "ground_litter.normal_stability_samples必须在[1, 30]范围内"
+            )
         if not isinstance(self.label, str) or not self.label.strip():
             raise ValueError("ground_litter.label不能为空")
+        if self.mode == "hybrid_v33":
+            self._validate_hybrid_fields()
+
+    def _validate_hybrid_fields(self) -> None:
+        """hybrid_v33 dual-channel bounds.
+
+        Each channel keeps its own confirmation cadence, so hits are validated
+        against that channel's own window rather than a shared threshold.
+        """
+        def positive(name: str, value: float, low: float, high: float) -> float:
+            number = float(value)
+            if not math.isfinite(number) or not low <= number <= high:
+                raise ValueError(
+                    f"ground_litter.{name}必须在[{low}, {high}]范围内"
+                )
+            return number
+
+        def hits(name: str, hits: int, window: int, window_name: str) -> None:
+            if not 1 <= int(window) <= 30:
+                raise ValueError(
+                    f"ground_litter.{window_name}必须在[1, 30]范围内"
+                )
+            if not 1 <= int(hits) <= int(window):
+                raise ValueError(
+                    f"ground_litter.{name}必须在[1, {window_name}]范围内"
+                )
+
+        positive(
+            "semantic_scan_interval_seconds",
+            self.semantic_scan_interval_seconds, 0.5, 60,
+        )
+        hits(
+            "semantic_confirm_hits", self.semantic_confirm_hits,
+            self.semantic_hit_window, "semantic_hit_window",
+        )
+        positive(
+            "semantic_confirm_span_seconds",
+            self.semantic_confirm_span_seconds, 0.1, 120,
+        )
+        positive("semantic_clear_seconds", self.semantic_clear_seconds, 0.1, 300)
+        if not 1 <= int(self.semantic_clear_min_misses) <= 20:
+            raise ValueError(
+                "ground_litter.semantic_clear_min_misses必须在[1, 20]范围内"
+            )
+        hits(
+            "prior_confirm_hits", self.prior_confirm_hits,
+            self.prior_hit_window, "prior_hit_window",
+        )
+        positive(
+            "prior_confirm_span_seconds",
+            self.prior_confirm_span_seconds, 0.1, 300,
+        )
+        positive(
+            "prior_suspend_expire_seconds",
+            self.prior_suspend_expire_seconds, 1.0, 3600,
+        )
+        hits(
+            "fused_confirm_hits", self.fused_confirm_hits,
+            self.fused_hit_window, "fused_hit_window",
+        )
+        positive(
+            "fused_confirm_span_seconds",
+            self.fused_confirm_span_seconds, 0.1, 120,
+        )
+        if not 0 <= int(self.prior_crop_maximum) <= 8:
+            raise ValueError(
+                "ground_litter.prior_crop_maximum必须在[0, 8]范围内"
+            )
+        positive(
+            "prior_crop_expand_ratio", self.prior_crop_expand_ratio, 1.5, 6.0
+        )
+        if not 160 <= int(self.prior_crop_maximum_source_px) <= 960:
+            raise ValueError(
+                "ground_litter.prior_crop_maximum_source_px必须在[160, 960]范围内"
+            )
+        if not 320 <= int(self.prior_crop_imgsz) <= 1280:
+            raise ValueError(
+                "ground_litter.prior_crop_imgsz必须在[320, 1280]范围内"
+            )
 
     def to_payload(self) -> dict[str, Any]:
         return {
             "enabled": self.enabled,
+            "mode": self.mode,
+            "profile_id": self.profile_id,
             "model": self.model,
             "actor_model": self.actor_model,
             "analysis_fps": self.analysis_fps,
@@ -328,10 +504,34 @@ class GroundLitterDetectionOptions:
             "match_size_ratio": self.match_size_ratio,
             "match_distance_ratio": self.match_distance_ratio,
             "maximum_boxes": self.maximum_boxes,
+            "confirm_visible_seconds": self.confirm_visible_seconds,
+            "clear_confirm_seconds": self.clear_confirm_seconds,
+            "pending_expire_seconds": self.pending_expire_seconds,
+            "min_clean_valid_fraction": self.min_clean_valid_fraction,
+            "maximum_closed_events": self.maximum_closed_events,
+            "startup_suppress_seconds": self.startup_suppress_seconds,
+            "normal_stability_samples": self.normal_stability_samples,
             "display_zones": self.display_zones,
             "display_class": self.display_class,
             "display_confidence": self.display_confidence,
             "label": self.label,
+            "semantic_scan_interval_seconds": self.semantic_scan_interval_seconds,
+            "semantic_confirm_hits": self.semantic_confirm_hits,
+            "semantic_hit_window": self.semantic_hit_window,
+            "semantic_confirm_span_seconds": self.semantic_confirm_span_seconds,
+            "semantic_clear_seconds": self.semantic_clear_seconds,
+            "semantic_clear_min_misses": self.semantic_clear_min_misses,
+            "prior_confirm_hits": self.prior_confirm_hits,
+            "prior_hit_window": self.prior_hit_window,
+            "prior_confirm_span_seconds": self.prior_confirm_span_seconds,
+            "prior_suspend_expire_seconds": self.prior_suspend_expire_seconds,
+            "fused_confirm_hits": self.fused_confirm_hits,
+            "fused_hit_window": self.fused_hit_window,
+            "fused_confirm_span_seconds": self.fused_confirm_span_seconds,
+            "prior_crop_maximum": self.prior_crop_maximum,
+            "prior_crop_expand_ratio": self.prior_crop_expand_ratio,
+            "prior_crop_maximum_source_px": self.prior_crop_maximum_source_px,
+            "prior_crop_imgsz": self.prior_crop_imgsz,
         }
 
     @classmethod
@@ -426,6 +626,36 @@ class GroundLitterSnapshot:
     rejected_roi: int = 0
     rejected_actor: int = 0
     tile_count: int = 0
+    active_events: int = 0
+    confirmed_events: int = 0
+    cleared_events: int = 0
+    environment_state: str = ""
+
+    # --- hybrid_v33 dual-channel telemetry (per-source, see spec section 12) ---
+    semantic_raw_candidates: int = 0
+    semantic_retained_candidates: int = 0
+    prior_raw_candidates: int = 0
+    prior_retained_candidates: int = 0
+    semantic_only_active: int = 0
+    semantic_only_confirmed: int = 0
+    prior_only_active: int = 0
+    prior_only_confirmed: int = 0
+    fused_active: int = 0
+    fused_confirmed: int = 0
+    cross_source_merges: int = 0
+    prior_environment_state: str = ""
+    semantic_model_runs_full: int = 0
+    semantic_model_runs_crop: int = 0
+    semantic_crop_raw_candidates: int = 0
+    semantic_crop_unmatched_candidates: int = 0
+    input_frame_age_ms: float = 0.0
+    dropped_analysis_frames: int = 0
+    last_prior_ms: float = 0.0
+    last_full_scan_ms: float = 0.0
+    last_crop_batch_ms: float = 0.0
+    last_total_ms: float = 0.0
+    branch_state: str = "ok"
+    branch_message: str = ""
 
     @property
     def count(self) -> int:
@@ -450,7 +680,7 @@ class GroundLitterResultCache:
     ) -> None:
         with self._lock:
             previous = self._entries.get(pad_index)
-            if previous is not None and (
+            if snapshot.state != "error" and previous is not None and (
                 snapshot.result_version < previous.result_version
             ):
                 return
@@ -466,7 +696,10 @@ class GroundLitterResultCache:
             previous = self._entries.get(pad_index, GroundLitterSnapshot())
             self._entries[pad_index] = GroundLitterSnapshot(
                 state=state,
-                detections=previous.detections,
+                detections=(
+                    () if state in {"error", "disabled", "abstaining"}
+                    else previous.detections
+                ),
                 result_version=previous.result_version,
                 updated_at=previous.updated_at,
                 message=message,
@@ -476,6 +709,10 @@ class GroundLitterResultCache:
                 rejected_roi=previous.rejected_roi,
                 rejected_actor=previous.rejected_actor,
                 tile_count=previous.tile_count,
+                active_events=previous.active_events,
+                confirmed_events=previous.confirmed_events,
+                cleared_events=previous.cleared_events,
+                environment_state=previous.environment_state,
             )
 
 
@@ -726,6 +963,39 @@ def build_ground_litter_tiles(
     return masks, tiles
 
 
+def prior_crop_rect(
+    box: Iterable[float],
+    *,
+    expand_ratio: float,
+    maximum_source_px: int,
+    width: int,
+    height: int,
+    minimum_side_px: int = 160,
+) -> tuple[int, int, int, int] | None:
+    """Square context crop around a prior candidate, clamped inside the frame.
+
+    Side length is ``max(minimum_side_px, long_side * expand_ratio)`` capped at
+    ``maximum_source_px``; the window is shifted (never padded) so the candidate
+    stays inside whenever the frame is large enough. Enlarging the crop is what
+    gives a previously too-small target enough effective resolution for the
+    litter model, without rescaling the whole frame.
+    """
+    values = [float(value) for value in box]
+    if len(values) < 4:
+        return None
+    x1, y1, x2, y2 = values[:4]
+    long_side = max(x2 - x1, y2 - y1)
+    side = int(round(min(
+        max(float(minimum_side_px), long_side * float(expand_ratio)),
+        float(maximum_source_px),
+    )))
+    side = max(1, min(side, int(width), int(height)))
+    center_x, center_y = (x1 + x2) / 2.0, (y1 + y2) / 2.0
+    left = max(0, min(int(width) - side, int(round(center_x - side / 2.0))))
+    top = max(0, min(int(height) - side, int(round(center_y - side / 2.0))))
+    return (left, top, left + side, top + side)
+
+
 class UltralyticsGroundLitterDetector:
     """Ultralytics detector that keeps the audited native-pixel tiling."""
 
@@ -961,6 +1231,226 @@ class UltralyticsGroundLitterDetector:
         self.last_actor_boxes = actor_boxes
         return retained, stats
 
+    # ------------------------------------------------------------------
+    # hybrid_v33 batched entries
+    #
+    # The legacy ``candidates()`` path stays untouched so yolo-mode behaviour is
+    # unchanged. These entries exist because the dual-recall architecture runs a
+    # full-ROI tile scan and up to N prior crops per tick and must issue one
+    # batched model call per group instead of one call per tile/crop.
+    # ------------------------------------------------------------------
+    def tile_candidates_batch(
+        self,
+        frame: np.ndarray,
+        options: GroundLitterDetectionOptions,
+        *,
+        masks: dict[str, np.ndarray],
+        tiles: list[tuple[int, int, int, int]],
+        night: bool = False,
+        actors: Iterable[Iterable[float]] = (),
+    ) -> tuple[list[GroundLitterCandidate], dict[str, int]]:
+        """Full-ROI semantic scan: one batched model call over all tiles."""
+        height, width = frame.shape[:2]
+        zone_thresholds = {
+            zone.region_id: zone.confidence_for(night, options.confidence_for(night))
+            for zone in options.zones
+        }
+        threshold = min(zone_thresholds.values(), default=options.confidence_for(night))
+        actor_boxes = [list(map(float, box)) for box in actors]
+        stats = {
+            "raw_candidates": 0,
+            "rejected_roi": 0,
+            "rejected_actor": 0,
+            "rejected_confidence": 0,
+            "duplicate_suppressed": 0,
+            "tiles": len(tiles),
+            "model_batches": 0,
+            "local_actor_crops": 0,
+        }
+        crops = [frame[y:bottom, x:right] for x, y, right, bottom in tiles]
+        if not crops:
+            self.last_actor_boxes = actor_boxes
+            return [], stats
+        stats["model_batches"] = 1
+        rows_per_tile = self._predict_batch(
+            self._model, crops,
+            imgsz=int(options.effective_imgsz),
+            confidence=threshold,
+            class_ids=None,
+        )
+        detections: list[dict[str, Any]] = []
+        for tile_index, rows in enumerate(rows_per_tile):
+            x, y, right, bottom = tiles[tile_index]
+            for row in rows:
+                a, c, d, e = row[:4]
+                box = [
+                    max(0, int(round(a + x))),
+                    max(0, int(round(c + y))),
+                    min(width, int(round(d + x))),
+                    min(height, int(round(e + y))),
+                ]
+                if box[2] <= box[0] or box[3] <= box[1]:
+                    continue
+                detections.append({
+                    "box": box,
+                    "confidence": float(row[4]),
+                    "class_id": int(row[5]),
+                    "tile_index": tile_index,
+                })
+        stats["raw_candidates"] = len(detections)
+        eligible_detections = []
+        for detection in detections:
+            x, y, right, bottom = detection["box"]
+            center_x = min(width - 1, (x + right) // 2)
+            center_y = min(height - 1, (y + bottom) // 2)
+            eligible = [
+                zone for zone in options.zones
+                if masks[zone.region_id][center_y, center_x]
+                and min(right - x, bottom - y) >= zone.minimum_short_side_px
+                and (right - x) * (bottom - y) >= zone.minimum_box_area_px
+            ]
+            if not eligible:
+                stats["rejected_roi"] += 1
+                continue
+            eligible = [
+                zone for zone in eligible
+                if detection["confidence"] >= zone_thresholds[zone.region_id]
+            ]
+            if not eligible:
+                stats["rejected_confidence"] += 1
+                continue
+            detection["eligible_zones"] = eligible
+            eligible_detections.append(detection)
+        detections = self._cross_tile_nms(eligible_detections, options)
+        detections, suppressed = self._dedupe_same_position(detections)
+        stats["duplicate_suppressed"] = suppressed
+        candidates: list[GroundLitterCandidate] = []
+        for detection in detections:
+            if max(
+                (box_overlap_fraction(detection["box"], actor)
+                 for actor in actor_boxes),
+                default=0.0,
+            ) > float(options.actor_overlap_threshold):
+                stats["rejected_actor"] += 1
+                continue
+            eligible = detection["eligible_zones"]
+            candidates.append(GroundLitterCandidate(
+                rectangle=_normalized(detection["box"], width, height),
+                confidence=detection["confidence"],
+                class_name=self.class_names.get(detection["class_id"], ""),
+                # Ambiguous ownership stays explicitly unassigned.
+                region_id=eligible[0].region_id if len(eligible) == 1 else "",
+                tile_index=detection["tile_index"],
+            ))
+        self.last_actor_boxes = actor_boxes
+        return candidates, stats
+
+    @staticmethod
+    def _cross_tile_nms(
+        detections: list[dict[str, Any]],
+        options: GroundLitterDetectionOptions,
+    ) -> list[dict[str, Any]]:
+        if not detections:
+            return []
+        boxes = [
+            [
+                item["box"][0],
+                item["box"][1],
+                item["box"][2] - item["box"][0],
+                item["box"][3] - item["box"][1],
+            ]
+            for item in detections
+        ]
+        keep = cv2.dnn.NMSBoxes(
+            boxes,
+            [item["confidence"] for item in detections],
+            0.0,  # Confidence was already applied inclusively above.
+            float(options.nms_iou),
+        )
+        if not len(keep):
+            return []
+        return [detections[int(index)] for index in np.asarray(keep).reshape(-1)]
+
+    @staticmethod
+    def _dedupe_same_position(
+        detections: list[dict[str, Any]],
+    ) -> tuple[list[dict[str, Any]], int]:
+        """Collapse multi-tile and multi-class boxes on one physical position.
+
+        A single analysis tick must count a position once even when adjacent
+        tiles or several material classes report it, otherwise one object could
+        be mistaken for several event hits.
+        """
+        kept: list[dict[str, Any]] = []
+        suppressed = 0
+        for detection in sorted(detections, key=lambda item: -item["confidence"]):
+            x, y, right, bottom = detection["box"]
+            center_x, center_y = (x + right) / 2.0, (y + bottom) / 2.0
+            short = max(1.0, min(right - x, bottom - y))
+            duplicate = False
+            for other in kept:
+                ox, oy, o_right, o_bottom = other["box"]
+                other_short = max(1.0, min(o_right - ox, o_bottom - oy))
+                tolerance = max(6.0, 0.25 * min(short, other_short))
+                if math.hypot(
+                    center_x - (ox + o_right) / 2.0,
+                    center_y - (oy + o_bottom) / 2.0,
+                ) <= tolerance:
+                    duplicate = True
+                    break
+            if duplicate:
+                suppressed += 1
+            else:
+                kept.append(detection)
+        return kept, suppressed
+
+    def crop_candidates_batch(
+        self,
+        frame: np.ndarray,
+        boxes: Iterable[Iterable[float]],
+        options: GroundLitterDetectionOptions,
+        *,
+        night: bool = False,
+    ) -> tuple[list[list[dict[str, Any]]], list[tuple[int, int, int, int]], int]:
+        """Batched prior-guided crops, one model call for the whole group.
+
+        Returned boxes are already mapped back into frame coordinates.
+        """
+        height, width = frame.shape[:2]
+        rects = [
+            prior_crop_rect(
+                box,
+                expand_ratio=float(options.prior_crop_expand_ratio),
+                maximum_source_px=int(options.prior_crop_maximum_source_px),
+                width=width,
+                height=height,
+            )
+            for box in boxes
+        ]
+        rects = [rect for rect in rects if rect is not None]
+        if not rects:
+            return [], [], 0
+        crops = [frame[y:bottom, x:right] for x, y, right, bottom in rects]
+        rows_per_crop = self._predict_batch(
+            self._model, crops,
+            imgsz=int(options.prior_crop_imgsz),
+            confidence=options.confidence_for(night),
+            class_ids=None,
+        )
+        per_crop: list[list[dict[str, Any]]] = []
+        for index, rows in enumerate(rows_per_crop):
+            x0, y0, _, _ = rects[index]
+            mapped = []
+            for row in rows:
+                a, c, d, e = row[:4]
+                mapped.append({
+                    "box": [a + x0, c + y0, d + x0, e + y0],
+                    "confidence": float(row[4]),
+                    "class_id": int(row[5]),
+                })
+            per_crop.append(mapped)
+        return per_crop, rects, 1
+
     def _predict(
         self,
         model: Any,
@@ -989,6 +1479,46 @@ class UltralyticsGroundLitterDetector:
             [float(value) for value in row[:6]]
             for row in boxes.data.cpu().tolist()
         ]
+
+    def _predict_batch(
+        self,
+        model: Any,
+        images: list[np.ndarray],
+        *,
+        imgsz: int,
+        confidence: float,
+        class_ids: tuple[int, ...] | None,
+    ) -> list[list[list[float]]]:
+        """One ``model.predict`` call for a list of images.
+
+        Returns one row list per input image, preserving input order. Batching is
+        mandatory here: starting a separate model call per tile or per crop would
+        make GPU launch and preprocessing cost scale linearly with the count.
+        """
+        if not images:
+            return []
+        kwargs: dict[str, Any] = {
+            "imgsz": int(imgsz),
+            "conf": float(confidence),
+            "verbose": False,
+            "device": self._device,
+        }
+        if class_ids is not None:
+            kwargs["classes"] = list(class_ids)
+        if self._half:
+            kwargs["quantize"] = 16
+        results = model.predict(list(images), **kwargs)
+        rows_per_image: list[list[list[float]]] = []
+        for result in results:
+            boxes = getattr(result, "boxes", None)
+            if boxes is None or getattr(boxes, "data", None) is None:
+                rows_per_image.append([])
+                continue
+            rows_per_image.append([
+                [float(value) for value in row[:6]]
+                for row in boxes.data.cpu().tolist()
+            ])
+        return rows_per_image
 
 
 def _normalized(

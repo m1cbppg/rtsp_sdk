@@ -1,0 +1,233 @@
+{
+  "polygon": [
+    [
+      0.52,
+      0
+    ],
+    [
+      0.63,
+      0
+    ],
+    [
+      0.72,
+      1
+    ],
+    [
+      0.42,
+      1
+    ]
+  ],
+  "main_gate": false,
+  "metrics": {
+    "raw_candidates": 458,
+    "raw_per_minute": 175.25063136144487,
+    "tracks_total": 90,
+    "tracks_at_least_seconds": {
+      "1": 90,
+      "3": 13,
+      "5": 8,
+      "10": 5,
+      "30": 3
+    },
+    "raw_to_5s_reduction": 0.982532751091703
+  },
+  "t01": {
+    "evaluation_region": [
+      1430,
+      990,
+      1540,
+      1080
+    ],
+    "appearance_seconds": 72.0,
+    "preappearance_region_hit_timestamps": [
+      64.0
+    ],
+    "raw_hit_timestamps": [
+      88.0,
+      105.0,
+      121.0,
+      122.0,
+      125.0,
+      128.0,
+      129.0,
+      130.0,
+      131.0,
+      132.0,
+      133.0,
+      134.0,
+      135.0
+    ],
+    "first_raw_seconds": 88.0,
+    "raw_delay_seconds": 16.0,
+    "matching_tracks": [
+      {
+        "track_id": 78,
+        "source": "clean_reference_core_roi_diagnostic",
+        "first_seen": 129.0,
+        "last_seen": 135.0,
+        "hits": 7,
+        "lifetime_seconds": 7.0,
+        "visible_duration_seconds": 7.0,
+        "continuity": 1.0,
+        "max_gap_seconds": 1.0,
+        "median_box": [
+          1510.0,
+          1037.0,
+          1518.0,
+          1040.0
+        ],
+        "median_score": 0.965,
+        "occluded_samples": 0,
+        "timestamps": [
+          129.0,
+          130.0,
+          131.0,
+          132.0,
+          133.0,
+          134.0,
+          135.0
+        ]
+      },
+      {
+        "track_id": 60,
+        "source": "clean_reference_core_roi_diagnostic",
+        "first_seen": 121.0,
+        "last_seen": 122.0,
+        "hits": 2,
+        "lifetime_seconds": 2.0,
+        "visible_duration_seconds": 2.0,
+        "continuity": 1.0,
+        "max_gap_seconds": 1.0,
+        "median_box": [
+          1497.0,
+          1030.0,
+          1502.0,
+          1034.0
+        ],
+        "median_score": 1.0,
+        "occluded_samples": 0,
+        "timestamps": [
+          121.0,
+          122.0
+        ]
+      },
+      {
+        "track_id": 22,
+        "source": "clean_reference_core_roi_diagnostic",
+        "first_seen": 64.0,
+        "last_seen": 64.0,
+        "hits": 1,
+        "lifetime_seconds": 1.0,
+        "visible_duration_seconds": 1.0,
+        "continuity": 1.0,
+        "max_gap_seconds": 0.0,
+        "median_box": [
+          1535.0,
+          1059.0,
+          1538.0,
+          1067.0
+        ],
+        "median_score": 0.8505,
+        "occluded_samples": 0,
+        "timestamps": [
+          64.0
+        ]
+      },
+      {
+        "track_id": 37,
+        "source": "clean_reference_core_roi_diagnostic",
+        "first_seen": 88.0,
+        "last_seen": 88.0,
+        "hits": 1,
+        "lifetime_seconds": 1.0,
+        "visible_duration_seconds": 1.0,
+        "continuity": 1.0,
+        "max_gap_seconds": 0.0,
+        "median_box": [
+          1511.0,
+          1037.0,
+          1518.0,
+          1040.0
+        ],
+        "median_score": 0.9517,
+        "occluded_samples": 0,
+        "timestamps": [
+          88.0
+        ]
+      },
+      {
+        "track_id": 45,
+        "source": "clean_reference_core_roi_diagnostic",
+        "first_seen": 105.0,
+        "last_seen": 105.0,
+        "hits": 1,
+        "lifetime_seconds": 1.0,
+        "visible_duration_seconds": 1.0,
+        "continuity": 1.0,
+        "max_gap_seconds": 0.0,
+        "median_box": [
+          1511.0,
+          1037.0,
+          1518.0,
+          1040.0
+        ],
+        "median_score": 0.9664,
+        "occluded_samples": 0,
+        "timestamps": [
+          105.0
+        ]
+      },
+      {
+        "track_id": 68,
+        "source": "clean_reference_core_roi_diagnostic",
+        "first_seen": 125.0,
+        "last_seen": 125.0,
+        "hits": 1,
+        "lifetime_seconds": 1.0,
+        "visible_duration_seconds": 1.0,
+        "continuity": 1.0,
+        "max_gap_seconds": 0.0,
+        "median_box": [
+          1436.0,
+          1025.0,
+          1439.0,
+          1033.0
+        ],
+        "median_score": 0.7722,
+        "occluded_samples": 0,
+        "timestamps": [
+          125.0
+        ]
+      },
+      {
+        "track_id": 74,
+        "source": "clean_reference_core_roi_diagnostic",
+        "first_seen": 128.0,
+        "last_seen": 128.0,
+        "hits": 1,
+        "lifetime_seconds": 1.0,
+        "visible_duration_seconds": 1.0,
+        "continuity": 1.0,
+        "max_gap_seconds": 0.0,
+        "median_box": [
+          1432.0,
+          1055.0,
+          1444.0,
+          1061.0
+        ],
+        "median_score": 0.9908,
+        "occluded_samples": 0,
+        "timestamps": [
+          128.0
+        ]
+      }
+    ],
+    "first_stable_1s": 89.0,
+    "stable_1s_delay": 17.0,
+    "first_stable_3s": 131.0,
+    "stable_3s_delay": 59.0,
+    "first_stable_5s": 133.0,
+    "stable_5s_delay": 61.0,
+    "post_75_raw_visibility_rate": 0.15853658536585366
+  }
+}

@@ -1,0 +1,3124 @@
+[
+  {
+    "label": "POSITIVE 小垃圾正样本",
+    "path": "/Users/mlcbppg/Desktop/9月17日/小垃圾正样本.mp4",
+    "sampled": 79,
+    "raw": 2587,
+    "clusters": [
+      {
+        "cx": 360.0,
+        "cy": 299.9,
+        "n_frames": 78,
+        "conf_min": 0.101,
+        "conf_max": 0.78,
+        "size": "49x57",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic",
+          "Waste"
+        ]
+      },
+      {
+        "cx": 1410.0,
+        "cy": 357.2,
+        "n_frames": 11,
+        "conf_min": 0.113,
+        "conf_max": 0.741,
+        "size": "70x157",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic",
+          "Waste"
+        ]
+      },
+      {
+        "cx": 658.3,
+        "cy": 944.8,
+        "n_frames": 79,
+        "conf_min": 0.105,
+        "conf_max": 0.74,
+        "size": "100x112",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 329.4,
+        "cy": 1243.4,
+        "n_frames": 79,
+        "conf_min": 0.1,
+        "conf_max": 0.728,
+        "size": "118x79",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 104.2,
+        "cy": 1061.6,
+        "n_frames": 3,
+        "conf_min": 0.109,
+        "conf_max": 0.715,
+        "size": "85x123",
+        "cls": [
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 619.5,
+        "cy": 293.1,
+        "n_frames": 78,
+        "conf_min": 0.121,
+        "conf_max": 0.703,
+        "size": "72x45",
+        "cls": [
+          "Paper",
+          "Plastic",
+          "Waste"
+        ]
+      },
+      {
+        "cx": 1582.6,
+        "cy": 227.1,
+        "n_frames": 8,
+        "conf_min": 0.138,
+        "conf_max": 0.703,
+        "size": "53x87",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 488.1,
+        "cy": 683.9,
+        "n_frames": 74,
+        "conf_min": 0.102,
+        "conf_max": 0.677,
+        "size": "475x394",
+        "cls": [
+          "Metal",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1405.9,
+        "cy": 904.6,
+        "n_frames": 11,
+        "conf_min": 0.115,
+        "conf_max": 0.645,
+        "size": "54x91",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic",
+          "Waste"
+        ]
+      },
+      {
+        "cx": 1555.7,
+        "cy": 876.3,
+        "n_frames": 2,
+        "conf_min": 0.111,
+        "conf_max": 0.638,
+        "size": "72x92",
+        "cls": [
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1741.6,
+        "cy": 338.9,
+        "n_frames": 79,
+        "conf_min": 0.1,
+        "conf_max": 0.632,
+        "size": "54x58",
+        "cls": [
+          "Paper",
+          "Plastic",
+          "Waste"
+        ]
+      },
+      {
+        "cx": 1225.6,
+        "cy": 849.1,
+        "n_frames": 2,
+        "conf_min": 0.131,
+        "conf_max": 0.629,
+        "size": "63x104",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1326.3,
+        "cy": 346.5,
+        "n_frames": 15,
+        "conf_min": 0.101,
+        "conf_max": 0.629,
+        "size": "31x64",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 1565.7,
+        "cy": 86.9,
+        "n_frames": 17,
+        "conf_min": 0.104,
+        "conf_max": 0.622,
+        "size": "43x81",
+        "cls": [
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 125.0,
+        "cy": 602.0,
+        "n_frames": 4,
+        "conf_min": 0.1,
+        "conf_max": 0.611,
+        "size": "47x58",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 771.7,
+        "cy": 191.5,
+        "n_frames": 76,
+        "conf_min": 0.128,
+        "conf_max": 0.595,
+        "size": "56x34",
+        "cls": [
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1195.1,
+        "cy": 1241.0,
+        "n_frames": 4,
+        "conf_min": 0.144,
+        "conf_max": 0.593,
+        "size": "85x123",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1160.1,
+        "cy": 1029.5,
+        "n_frames": 1,
+        "conf_min": 0.105,
+        "conf_max": 0.578,
+        "size": "51x181",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 1404.1,
+        "cy": 786.6,
+        "n_frames": 6,
+        "conf_min": 0.118,
+        "conf_max": 0.578,
+        "size": "52x89",
+        "cls": [
+          "Metal",
+          "Plastic",
+          "Waste"
+        ]
+      },
+      {
+        "cx": 1293.1,
+        "cy": 1141.0,
+        "n_frames": 5,
+        "conf_min": 0.105,
+        "conf_max": 0.558,
+        "size": "66x113",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 802.6,
+        "cy": 291.6,
+        "n_frames": 4,
+        "conf_min": 0.128,
+        "conf_max": 0.556,
+        "size": "76x183",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1487.9,
+        "cy": 701.6,
+        "n_frames": 10,
+        "conf_min": 0.102,
+        "conf_max": 0.554,
+        "size": "55x91",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic",
+          "Waste"
+        ]
+      },
+      {
+        "cx": 823.2,
+        "cy": 1380.4,
+        "n_frames": 79,
+        "conf_min": 0.209,
+        "conf_max": 0.547,
+        "size": "213x36",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 514.9,
+        "cy": 241.0,
+        "n_frames": 5,
+        "conf_min": 0.114,
+        "conf_max": 0.533,
+        "size": "48x141",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1415.6,
+        "cy": 274.0,
+        "n_frames": 5,
+        "conf_min": 0.11,
+        "conf_max": 0.533,
+        "size": "28x44",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1451.5,
+        "cy": 128.7,
+        "n_frames": 77,
+        "conf_min": 0.101,
+        "conf_max": 0.517,
+        "size": "61x111",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1372.1,
+        "cy": 1261.0,
+        "n_frames": 7,
+        "conf_min": 0.102,
+        "conf_max": 0.493,
+        "size": "46x51",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 238.1,
+        "cy": 897.2,
+        "n_frames": 2,
+        "conf_min": 0.126,
+        "conf_max": 0.489,
+        "size": "65x102",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1432.8,
+        "cy": 527.6,
+        "n_frames": 14,
+        "conf_min": 0.102,
+        "conf_max": 0.472,
+        "size": "42x72",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic",
+          "Waste"
+        ]
+      },
+      {
+        "cx": 1207.2,
+        "cy": 1152.4,
+        "n_frames": 2,
+        "conf_min": 0.144,
+        "conf_max": 0.464,
+        "size": "73x139",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1277.9,
+        "cy": 1295.2,
+        "n_frames": 4,
+        "conf_min": 0.107,
+        "conf_max": 0.461,
+        "size": "38x123",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 880.4,
+        "cy": 742.1,
+        "n_frames": 76,
+        "conf_min": 0.108,
+        "conf_max": 0.447,
+        "size": "36x23",
+        "cls": [
+          "Metal"
+        ]
+      },
+      {
+        "cx": 497.1,
+        "cy": 816.3,
+        "n_frames": 3,
+        "conf_min": 0.106,
+        "conf_max": 0.445,
+        "size": "116x45",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1480.4,
+        "cy": 439.6,
+        "n_frames": 6,
+        "conf_min": 0.106,
+        "conf_max": 0.445,
+        "size": "34x56",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic",
+          "Waste"
+        ]
+      },
+      {
+        "cx": 1456.6,
+        "cy": 1235.4,
+        "n_frames": 2,
+        "conf_min": 0.11,
+        "conf_max": 0.444,
+        "size": "38x55",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1348.1,
+        "cy": 1041.1,
+        "n_frames": 7,
+        "conf_min": 0.107,
+        "conf_max": 0.443,
+        "size": "52x65",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1891.8,
+        "cy": 992.7,
+        "n_frames": 1,
+        "conf_min": 0.233,
+        "conf_max": 0.425,
+        "size": "64x22",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1581.7,
+        "cy": 393.2,
+        "n_frames": 21,
+        "conf_min": 0.1,
+        "conf_max": 0.422,
+        "size": "98x197",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 1730.6,
+        "cy": 713.5,
+        "n_frames": 4,
+        "conf_min": 0.114,
+        "conf_max": 0.406,
+        "size": "53x48",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1567.0,
+        "cy": 1077.2,
+        "n_frames": 36,
+        "conf_min": 0.107,
+        "conf_max": 0.385,
+        "size": "24x11",
+        "cls": [
+          "Plastic",
+          "Waste"
+        ]
+      },
+      {
+        "cx": 394.3,
+        "cy": 762.6,
+        "n_frames": 2,
+        "conf_min": 0.143,
+        "conf_max": 0.377,
+        "size": "58x67",
+        "cls": [
+          "Metal",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1227.4,
+        "cy": 745.9,
+        "n_frames": 1,
+        "conf_min": 0.376,
+        "conf_max": 0.376,
+        "size": "39x133",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 422.7,
+        "cy": 973.6,
+        "n_frames": 5,
+        "conf_min": 0.105,
+        "conf_max": 0.374,
+        "size": "144x92",
+        "cls": [
+          "Metal",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 189.0,
+        "cy": 774.4,
+        "n_frames": 3,
+        "conf_min": 0.136,
+        "conf_max": 0.356,
+        "size": "57x79",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1509.3,
+        "cy": 617.0,
+        "n_frames": 1,
+        "conf_min": 0.143,
+        "conf_max": 0.345,
+        "size": "50x86",
+        "cls": [
+          "Metal",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 942.4,
+        "cy": 327.4,
+        "n_frames": 9,
+        "conf_min": 0.101,
+        "conf_max": 0.343,
+        "size": "45x33",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1066.3,
+        "cy": 1141.6,
+        "n_frames": 1,
+        "conf_min": 0.171,
+        "conf_max": 0.34,
+        "size": "39x50",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 1033.7,
+        "cy": 287.1,
+        "n_frames": 79,
+        "conf_min": 0.1,
+        "conf_max": 0.333,
+        "size": "44x42",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1819.5,
+        "cy": 705.5,
+        "n_frames": 2,
+        "conf_min": 0.148,
+        "conf_max": 0.332,
+        "size": "50x93",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 119.7,
+        "cy": 1350.5,
+        "n_frames": 2,
+        "conf_min": 0.167,
+        "conf_max": 0.327,
+        "size": "55x111",
+        "cls": [
+          "Metal"
+        ]
+      },
+      {
+        "cx": 1476.0,
+        "cy": 1036.0,
+        "n_frames": 8,
+        "conf_min": 0.103,
+        "conf_max": 0.32,
+        "size": "25x18",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic",
+          "Waste"
+        ]
+      },
+      {
+        "cx": 106.3,
+        "cy": 934.9,
+        "n_frames": 2,
+        "conf_min": 0.105,
+        "conf_max": 0.32,
+        "size": "187x229",
+        "cls": [
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1349.5,
+        "cy": 455.7,
+        "n_frames": 1,
+        "conf_min": 0.238,
+        "conf_max": 0.318,
+        "size": "45x68",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1650.0,
+        "cy": 793.0,
+        "n_frames": 3,
+        "conf_min": 0.107,
+        "conf_max": 0.317,
+        "size": "48x119",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1401.9,
+        "cy": 1131.1,
+        "n_frames": 2,
+        "conf_min": 0.131,
+        "conf_max": 0.317,
+        "size": "57x79",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 169.2,
+        "cy": 498.3,
+        "n_frames": 4,
+        "conf_min": 0.107,
+        "conf_max": 0.313,
+        "size": "42x69",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic",
+          "Waste"
+        ]
+      },
+      {
+        "cx": 218.5,
+        "cy": 269.1,
+        "n_frames": 15,
+        "conf_min": 0.101,
+        "conf_max": 0.301,
+        "size": "57x23",
+        "cls": [
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 299.0,
+        "cy": 480.2,
+        "n_frames": 1,
+        "conf_min": 0.27,
+        "conf_max": 0.299,
+        "size": "75x92",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 1518.6,
+        "cy": 788.5,
+        "n_frames": 1,
+        "conf_min": 0.225,
+        "conf_max": 0.297,
+        "size": "54x112",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1723.0,
+        "cy": 599.2,
+        "n_frames": 2,
+        "conf_min": 0.104,
+        "conf_max": 0.296,
+        "size": "53x97",
+        "cls": [
+          "Metal",
+          "Paper"
+        ]
+      },
+      {
+        "cx": 1342.6,
+        "cy": 1390.2,
+        "n_frames": 2,
+        "conf_min": 0.113,
+        "conf_max": 0.293,
+        "size": "30x48",
+        "cls": [
+          "Metal",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 646.6,
+        "cy": 861.4,
+        "n_frames": 33,
+        "conf_min": 0.103,
+        "conf_max": 0.291,
+        "size": "31x35",
+        "cls": [
+          "Metal",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 595.9,
+        "cy": 1042.3,
+        "n_frames": 5,
+        "conf_min": 0.101,
+        "conf_max": 0.282,
+        "size": "94x88",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 29.9,
+        "cy": 400.3,
+        "n_frames": 4,
+        "conf_min": 0.103,
+        "conf_max": 0.28,
+        "size": "38x25",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1144.8,
+        "cy": 1352.7,
+        "n_frames": 2,
+        "conf_min": 0.273,
+        "conf_max": 0.279,
+        "size": "119x107",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 1175.1,
+        "cy": 325.2,
+        "n_frames": 8,
+        "conf_min": 0.1,
+        "conf_max": 0.272,
+        "size": "44x50",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1132.8,
+        "cy": 869.6,
+        "n_frames": 78,
+        "conf_min": 0.1,
+        "conf_max": 0.264,
+        "size": "15x10",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 2333.7,
+        "cy": 924.1,
+        "n_frames": 51,
+        "conf_min": 0.101,
+        "conf_max": 0.264,
+        "size": "121x90",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 411.9,
+        "cy": 184.7,
+        "n_frames": 3,
+        "conf_min": 0.107,
+        "conf_max": 0.261,
+        "size": "62x55",
+        "cls": [
+          "Paper",
+          "Plastic",
+          "Waste"
+        ]
+      },
+      {
+        "cx": 330.4,
+        "cy": 938.1,
+        "n_frames": 1,
+        "conf_min": 0.252,
+        "conf_max": 0.252,
+        "size": "123x52",
+        "cls": [
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1621.0,
+        "cy": 708.1,
+        "n_frames": 1,
+        "conf_min": 0.251,
+        "conf_max": 0.251,
+        "size": "45x109",
+        "cls": [
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 199.5,
+        "cy": 1067.9,
+        "n_frames": 2,
+        "conf_min": 0.114,
+        "conf_max": 0.247,
+        "size": "36x24",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 2098.6,
+        "cy": 1307.3,
+        "n_frames": 79,
+        "conf_min": 0.102,
+        "conf_max": 0.244,
+        "size": "27x39",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 229.3,
+        "cy": 376.4,
+        "n_frames": 1,
+        "conf_min": 0.237,
+        "conf_max": 0.237,
+        "size": "452x476",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 1260.4,
+        "cy": 451.2,
+        "n_frames": 14,
+        "conf_min": 0.101,
+        "conf_max": 0.236,
+        "size": "45x73",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 2206.1,
+        "cy": 864.8,
+        "n_frames": 66,
+        "conf_min": 0.101,
+        "conf_max": 0.234,
+        "size": "141x319",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 1283.2,
+        "cy": 607.7,
+        "n_frames": 3,
+        "conf_min": 0.105,
+        "conf_max": 0.232,
+        "size": "60x77",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1011.7,
+        "cy": 497.7,
+        "n_frames": 16,
+        "conf_min": 0.109,
+        "conf_max": 0.223,
+        "size": "289x196",
+        "cls": [
+          "Waste"
+        ]
+      },
+      {
+        "cx": 138.4,
+        "cy": 360.7,
+        "n_frames": 2,
+        "conf_min": 0.119,
+        "conf_max": 0.222,
+        "size": "128x96",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 46.2,
+        "cy": 735.5,
+        "n_frames": 2,
+        "conf_min": 0.204,
+        "conf_max": 0.221,
+        "size": "50x75",
+        "cls": [
+          "Plastic",
+          "Waste"
+        ]
+      },
+      {
+        "cx": 586.4,
+        "cy": 1355.3,
+        "n_frames": 64,
+        "conf_min": 0.104,
+        "conf_max": 0.208,
+        "size": "119x37",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 1246.9,
+        "cy": 985.1,
+        "n_frames": 1,
+        "conf_min": 0.207,
+        "conf_max": 0.207,
+        "size": "183x205",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 676.6,
+        "cy": 741.9,
+        "n_frames": 1,
+        "conf_min": 0.104,
+        "conf_max": 0.206,
+        "size": "137x158",
+        "cls": [
+          "Metal",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 441.1,
+        "cy": 446.1,
+        "n_frames": 2,
+        "conf_min": 0.148,
+        "conf_max": 0.199,
+        "size": "59x116",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 135.6,
+        "cy": 279.6,
+        "n_frames": 2,
+        "conf_min": 0.181,
+        "conf_max": 0.198,
+        "size": "103x97",
+        "cls": [
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1109.9,
+        "cy": 613.8,
+        "n_frames": 13,
+        "conf_min": 0.1,
+        "conf_max": 0.195,
+        "size": "71x50",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 1810.0,
+        "cy": 995.5,
+        "n_frames": 1,
+        "conf_min": 0.189,
+        "conf_max": 0.189,
+        "size": "44x30",
+        "cls": [
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 735.8,
+        "cy": 388.8,
+        "n_frames": 1,
+        "conf_min": 0.185,
+        "conf_max": 0.185,
+        "size": "44x73",
+        "cls": [
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1841.9,
+        "cy": 595.8,
+        "n_frames": 2,
+        "conf_min": 0.104,
+        "conf_max": 0.174,
+        "size": "26x57",
+        "cls": [
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1062.8,
+        "cy": 372.0,
+        "n_frames": 53,
+        "conf_min": 0.1,
+        "conf_max": 0.163,
+        "size": "71x54",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 2282.3,
+        "cy": 1009.3,
+        "n_frames": 11,
+        "conf_min": 0.101,
+        "conf_max": 0.163,
+        "size": "126x311",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 1956.4,
+        "cy": 1312.4,
+        "n_frames": 10,
+        "conf_min": 0.101,
+        "conf_max": 0.161,
+        "size": "196x33",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1882.9,
+        "cy": 785.7,
+        "n_frames": 4,
+        "conf_min": 0.116,
+        "conf_max": 0.16,
+        "size": "60x82",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 440.0,
+        "cy": 1091.3,
+        "n_frames": 1,
+        "conf_min": 0.152,
+        "conf_max": 0.152,
+        "size": "33x22",
+        "cls": [
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1649.9,
+        "cy": 1011.8,
+        "n_frames": 1,
+        "conf_min": 0.141,
+        "conf_max": 0.141,
+        "size": "21x31",
+        "cls": [
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 453.4,
+        "cy": 1348.3,
+        "n_frames": 9,
+        "conf_min": 0.1,
+        "conf_max": 0.134,
+        "size": "172x161",
+        "cls": [
+          "Metal"
+        ]
+      },
+      {
+        "cx": 1061.9,
+        "cy": 1391.6,
+        "n_frames": 1,
+        "conf_min": 0.133,
+        "conf_max": 0.133,
+        "size": "44x95",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 843.9,
+        "cy": 63.5,
+        "n_frames": 1,
+        "conf_min": 0.122,
+        "conf_max": 0.122,
+        "size": "45x39",
+        "cls": [
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 305.6,
+        "cy": 195.1,
+        "n_frames": 1,
+        "conf_min": 0.12,
+        "conf_max": 0.12,
+        "size": "25x20",
+        "cls": [
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 788.2,
+        "cy": 611.1,
+        "n_frames": 1,
+        "conf_min": 0.114,
+        "conf_max": 0.118,
+        "size": "55x57",
+        "cls": [
+          "Metal",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 62.4,
+        "cy": 1267.2,
+        "n_frames": 1,
+        "conf_min": 0.118,
+        "conf_max": 0.118,
+        "size": "123x346",
+        "cls": [
+          "Metal"
+        ]
+      },
+      {
+        "cx": 1571.4,
+        "cy": 1191.3,
+        "n_frames": 2,
+        "conf_min": 0.102,
+        "conf_max": 0.113,
+        "size": "12x13",
+        "cls": [
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 2095.4,
+        "cy": 624.4,
+        "n_frames": 1,
+        "conf_min": 0.109,
+        "conf_max": 0.109,
+        "size": "213x238",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 937.2,
+        "cy": 107.3,
+        "n_frames": 1,
+        "conf_min": 0.106,
+        "conf_max": 0.106,
+        "size": "37x41",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 1230.3,
+        "cy": 1384.8,
+        "n_frames": 1,
+        "conf_min": 0.103,
+        "conf_max": 0.103,
+        "size": "46x110",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 908.1,
+        "cy": 660.0,
+        "n_frames": 1,
+        "conf_min": 0.102,
+        "conf_max": 0.102,
+        "size": "340x132",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 181.5,
+        "cy": 1261.5,
+        "n_frames": 1,
+        "conf_min": 0.102,
+        "conf_max": 0.102,
+        "size": "63x133",
+        "cls": [
+          "Metal"
+        ]
+      },
+      {
+        "cx": 1331.7,
+        "cy": 702.5,
+        "n_frames": 1,
+        "conf_min": 0.101,
+        "conf_max": 0.101,
+        "size": "58x72",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 902.2,
+        "cy": 564.8,
+        "n_frames": 1,
+        "conf_min": 0.101,
+        "conf_max": 0.101,
+        "size": "73x41",
+        "cls": [
+          "Paper"
+        ]
+      }
+    ]
+  },
+  {
+    "label": "NEGATIVE 正常负样本",
+    "path": "/Users/mlcbppg/Desktop/9月17日/正常负样本.mp4",
+    "sampled": 152,
+    "raw": 6704,
+    "clusters": [
+      {
+        "cx": 137.6,
+        "cy": 1078.5,
+        "n_frames": 6,
+        "conf_min": 0.113,
+        "conf_max": 0.898,
+        "size": "119x148",
+        "cls": [
+          "Paper",
+          "Plastic",
+          "Waste"
+        ]
+      },
+      {
+        "cx": 123.0,
+        "cy": 702.4,
+        "n_frames": 12,
+        "conf_min": 0.1,
+        "conf_max": 0.894,
+        "size": "68x95",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic",
+          "Waste"
+        ]
+      },
+      {
+        "cx": 1348.7,
+        "cy": 640.4,
+        "n_frames": 30,
+        "conf_min": 0.102,
+        "conf_max": 0.873,
+        "size": "72x78",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic",
+          "Waste"
+        ]
+      },
+      {
+        "cx": 308.3,
+        "cy": 408.7,
+        "n_frames": 18,
+        "conf_min": 0.102,
+        "conf_max": 0.868,
+        "size": "70x102",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic",
+          "Waste"
+        ]
+      },
+      {
+        "cx": 213.4,
+        "cy": 636.9,
+        "n_frames": 11,
+        "conf_min": 0.11,
+        "conf_max": 0.822,
+        "size": "53x129",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1093.0,
+        "cy": 1212.0,
+        "n_frames": 9,
+        "conf_min": 0.108,
+        "conf_max": 0.819,
+        "size": "102x141",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1577.5,
+        "cy": 712.5,
+        "n_frames": 5,
+        "conf_min": 0.125,
+        "conf_max": 0.813,
+        "size": "89x86",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 658.5,
+        "cy": 944.9,
+        "n_frames": 152,
+        "conf_min": 0.1,
+        "conf_max": 0.812,
+        "size": "101x111",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 564.9,
+        "cy": 639.7,
+        "n_frames": 152,
+        "conf_min": 0.108,
+        "conf_max": 0.798,
+        "size": "441x422",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1494.4,
+        "cy": 895.2,
+        "n_frames": 5,
+        "conf_min": 0.116,
+        "conf_max": 0.78,
+        "size": "84x109",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic",
+          "Waste"
+        ]
+      },
+      {
+        "cx": 195.6,
+        "cy": 925.7,
+        "n_frames": 10,
+        "conf_min": 0.103,
+        "conf_max": 0.773,
+        "size": "54x79",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic",
+          "Waste"
+        ]
+      },
+      {
+        "cx": 40.6,
+        "cy": 717.0,
+        "n_frames": 5,
+        "conf_min": 0.105,
+        "conf_max": 0.767,
+        "size": "71x99",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1523.5,
+        "cy": 1043.5,
+        "n_frames": 6,
+        "conf_min": 0.103,
+        "conf_max": 0.764,
+        "size": "117x112",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 854.9,
+        "cy": 319.3,
+        "n_frames": 69,
+        "conf_min": 0.1,
+        "conf_max": 0.756,
+        "size": "76x118",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1743.9,
+        "cy": 788.6,
+        "n_frames": 3,
+        "conf_min": 0.27,
+        "conf_max": 0.75,
+        "size": "95x111",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1121.9,
+        "cy": 183.9,
+        "n_frames": 107,
+        "conf_min": 0.101,
+        "conf_max": 0.739,
+        "size": "51x32",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1739.6,
+        "cy": 339.3,
+        "n_frames": 150,
+        "conf_min": 0.1,
+        "conf_max": 0.736,
+        "size": "58x60",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 908.6,
+        "cy": 1166.9,
+        "n_frames": 7,
+        "conf_min": 0.115,
+        "conf_max": 0.732,
+        "size": "94x78",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1173.4,
+        "cy": 276.6,
+        "n_frames": 30,
+        "conf_min": 0.1,
+        "conf_max": 0.73,
+        "size": "69x73",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1866.0,
+        "cy": 973.5,
+        "n_frames": 4,
+        "conf_min": 0.109,
+        "conf_max": 0.726,
+        "size": "94x111",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 129.8,
+        "cy": 818.8,
+        "n_frames": 8,
+        "conf_min": 0.105,
+        "conf_max": 0.721,
+        "size": "60x80",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1412.8,
+        "cy": 247.9,
+        "n_frames": 17,
+        "conf_min": 0.109,
+        "conf_max": 0.715,
+        "size": "29x42",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1339.6,
+        "cy": 762.7,
+        "n_frames": 11,
+        "conf_min": 0.101,
+        "conf_max": 0.707,
+        "size": "75x63",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 549.7,
+        "cy": 269.1,
+        "n_frames": 85,
+        "conf_min": 0.101,
+        "conf_max": 0.704,
+        "size": "73x46",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1130.7,
+        "cy": 687.1,
+        "n_frames": 152,
+        "conf_min": 0.1,
+        "conf_max": 0.685,
+        "size": "69x84",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 647.9,
+        "cy": 214.7,
+        "n_frames": 10,
+        "conf_min": 0.107,
+        "conf_max": 0.684,
+        "size": "52x85",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic",
+          "Waste"
+        ]
+      },
+      {
+        "cx": 987.3,
+        "cy": 128.5,
+        "n_frames": 130,
+        "conf_min": 0.1,
+        "conf_max": 0.68,
+        "size": "43x31",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 68.7,
+        "cy": 390.9,
+        "n_frames": 10,
+        "conf_min": 0.102,
+        "conf_max": 0.677,
+        "size": "56x91",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic",
+          "Waste"
+        ]
+      },
+      {
+        "cx": 1001.7,
+        "cy": 1278.6,
+        "n_frames": 5,
+        "conf_min": 0.115,
+        "conf_max": 0.672,
+        "size": "128x216",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 72.9,
+        "cy": 474.3,
+        "n_frames": 13,
+        "conf_min": 0.109,
+        "conf_max": 0.669,
+        "size": "58x84",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1324.4,
+        "cy": 540.6,
+        "n_frames": 32,
+        "conf_min": 0.101,
+        "conf_max": 0.668,
+        "size": "51x92",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1119.6,
+        "cy": 1106.6,
+        "n_frames": 6,
+        "conf_min": 0.181,
+        "conf_max": 0.662,
+        "size": "69x96",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 166.9,
+        "cy": 1215.9,
+        "n_frames": 9,
+        "conf_min": 0.121,
+        "conf_max": 0.657,
+        "size": "274x312",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 327.1,
+        "cy": 532.2,
+        "n_frames": 45,
+        "conf_min": 0.1,
+        "conf_max": 0.656,
+        "size": "31x32",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic",
+          "Waste"
+        ]
+      },
+      {
+        "cx": 1031.3,
+        "cy": 254.1,
+        "n_frames": 148,
+        "conf_min": 0.1,
+        "conf_max": 0.638,
+        "size": "65x51",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic",
+          "Waste"
+        ]
+      },
+      {
+        "cx": 232.3,
+        "cy": 1324.0,
+        "n_frames": 8,
+        "conf_min": 0.106,
+        "conf_max": 0.63,
+        "size": "77x82",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1735.0,
+        "cy": 1243.3,
+        "n_frames": 2,
+        "conf_min": 0.165,
+        "conf_max": 0.628,
+        "size": "64x38",
+        "cls": [
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1438.2,
+        "cy": 431.8,
+        "n_frames": 4,
+        "conf_min": 0.142,
+        "conf_max": 0.605,
+        "size": "87x170",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1731.6,
+        "cy": 910.2,
+        "n_frames": 4,
+        "conf_min": 0.109,
+        "conf_max": 0.6,
+        "size": "65x50",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1691.4,
+        "cy": 677.1,
+        "n_frames": 3,
+        "conf_min": 0.174,
+        "conf_max": 0.595,
+        "size": "52x79",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 907.5,
+        "cy": 209.2,
+        "n_frames": 30,
+        "conf_min": 0.101,
+        "conf_max": 0.592,
+        "size": "181x47",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1485.0,
+        "cy": 608.5,
+        "n_frames": 5,
+        "conf_min": 0.109,
+        "conf_max": 0.577,
+        "size": "60x68",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic",
+          "Waste"
+        ]
+      },
+      {
+        "cx": 1174.5,
+        "cy": 1298.0,
+        "n_frames": 2,
+        "conf_min": 0.486,
+        "conf_max": 0.57,
+        "size": "54x47",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 849.8,
+        "cy": 106.3,
+        "n_frames": 9,
+        "conf_min": 0.104,
+        "conf_max": 0.565,
+        "size": "53x43",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1049.6,
+        "cy": 966.8,
+        "n_frames": 1,
+        "conf_min": 0.131,
+        "conf_max": 0.552,
+        "size": "69x82",
+        "cls": [
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1247.4,
+        "cy": 1086.9,
+        "n_frames": 9,
+        "conf_min": 0.105,
+        "conf_max": 0.551,
+        "size": "73x37",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 740.8,
+        "cy": 296.9,
+        "n_frames": 67,
+        "conf_min": 0.1,
+        "conf_max": 0.543,
+        "size": "306x159",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic",
+          "Waste"
+        ]
+      },
+      {
+        "cx": 1507.1,
+        "cy": 1201.1,
+        "n_frames": 5,
+        "conf_min": 0.106,
+        "conf_max": 0.537,
+        "size": "71x62",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 988.7,
+        "cy": 1188.1,
+        "n_frames": 1,
+        "conf_min": 0.527,
+        "conf_max": 0.527,
+        "size": "51x34",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 772.3,
+        "cy": 190.7,
+        "n_frames": 53,
+        "conf_min": 0.103,
+        "conf_max": 0.523,
+        "size": "57x34",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1298.0,
+        "cy": 992.9,
+        "n_frames": 20,
+        "conf_min": 0.108,
+        "conf_max": 0.522,
+        "size": "37x35",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1389.6,
+        "cy": 1175.6,
+        "n_frames": 4,
+        "conf_min": 0.231,
+        "conf_max": 0.517,
+        "size": "70x70",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 674.4,
+        "cy": 695.9,
+        "n_frames": 2,
+        "conf_min": 0.15,
+        "conf_max": 0.512,
+        "size": "80x81",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 393.2,
+        "cy": 275.6,
+        "n_frames": 141,
+        "conf_min": 0.1,
+        "conf_max": 0.511,
+        "size": "24x54",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic",
+          "Waste"
+        ]
+      },
+      {
+        "cx": 1634.1,
+        "cy": 977.3,
+        "n_frames": 5,
+        "conf_min": 0.103,
+        "conf_max": 0.506,
+        "size": "98x81",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1379.0,
+        "cy": 979.9,
+        "n_frames": 2,
+        "conf_min": 0.105,
+        "conf_max": 0.498,
+        "size": "37x33",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1587.0,
+        "cy": 808.5,
+        "n_frames": 2,
+        "conf_min": 0.133,
+        "conf_max": 0.496,
+        "size": "55x82",
+        "cls": [
+          "Metal",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 47.1,
+        "cy": 1147.1,
+        "n_frames": 5,
+        "conf_min": 0.102,
+        "conf_max": 0.496,
+        "size": "81x109",
+        "cls": [
+          "Metal",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1007.2,
+        "cy": 497.0,
+        "n_frames": 144,
+        "conf_min": 0.1,
+        "conf_max": 0.487,
+        "size": "315x196",
+        "cls": [
+          "Paper",
+          "Plastic",
+          "Waste"
+        ]
+      },
+      {
+        "cx": 252.8,
+        "cy": 1113.8,
+        "n_frames": 4,
+        "conf_min": 0.107,
+        "conf_max": 0.472,
+        "size": "53x36",
+        "cls": [
+          "Paper",
+          "Plastic",
+          "Waste"
+        ]
+      },
+      {
+        "cx": 1831.9,
+        "cy": 870.8,
+        "n_frames": 29,
+        "conf_min": 0.102,
+        "conf_max": 0.469,
+        "size": "54x146",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1918.4,
+        "cy": 803.3,
+        "n_frames": 97,
+        "conf_min": 0.1,
+        "conf_max": 0.458,
+        "size": "59x162",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 1384.3,
+        "cy": 1404.8,
+        "n_frames": 3,
+        "conf_min": 0.116,
+        "conf_max": 0.451,
+        "size": "89x68",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 476.3,
+        "cy": 418.7,
+        "n_frames": 11,
+        "conf_min": 0.104,
+        "conf_max": 0.444,
+        "size": "63x72",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 867.8,
+        "cy": 1260.9,
+        "n_frames": 3,
+        "conf_min": 0.147,
+        "conf_max": 0.439,
+        "size": "70x69",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 263.7,
+        "cy": 826.4,
+        "n_frames": 2,
+        "conf_min": 0.149,
+        "conf_max": 0.431,
+        "size": "92x109",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 32.5,
+        "cy": 920.5,
+        "n_frames": 6,
+        "conf_min": 0.1,
+        "conf_max": 0.423,
+        "size": "35x49",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 562.6,
+        "cy": 396.4,
+        "n_frames": 3,
+        "conf_min": 0.17,
+        "conf_max": 0.418,
+        "size": "114x102",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1201.0,
+        "cy": 1192.2,
+        "n_frames": 2,
+        "conf_min": 0.214,
+        "conf_max": 0.417,
+        "size": "98x227",
+        "cls": [
+          "Metal",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1175.8,
+        "cy": 869.1,
+        "n_frames": 29,
+        "conf_min": 0.108,
+        "conf_max": 0.407,
+        "size": "56x37",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 111.0,
+        "cy": 1388.0,
+        "n_frames": 14,
+        "conf_min": 0.117,
+        "conf_max": 0.393,
+        "size": "130x147",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 658.8,
+        "cy": 351.0,
+        "n_frames": 6,
+        "conf_min": 0.103,
+        "conf_max": 0.388,
+        "size": "46x39",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1452.1,
+        "cy": 130.8,
+        "n_frames": 78,
+        "conf_min": 0.1,
+        "conf_max": 0.385,
+        "size": "60x103",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 790.4,
+        "cy": 430.8,
+        "n_frames": 105,
+        "conf_min": 0.1,
+        "conf_max": 0.382,
+        "size": "86x73",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 43.5,
+        "cy": 1288.6,
+        "n_frames": 6,
+        "conf_min": 0.109,
+        "conf_max": 0.37,
+        "size": "45x75",
+        "cls": [
+          "Paper",
+          "Plastic",
+          "Waste"
+        ]
+      },
+      {
+        "cx": 1258.2,
+        "cy": 452.3,
+        "n_frames": 91,
+        "conf_min": 0.1,
+        "conf_max": 0.365,
+        "size": "44x74",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 127.2,
+        "cy": 1302.3,
+        "n_frames": 1,
+        "conf_min": 0.362,
+        "conf_max": 0.362,
+        "size": "76x62",
+        "cls": [
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1931.7,
+        "cy": 1063.3,
+        "n_frames": 3,
+        "conf_min": 0.147,
+        "conf_max": 0.359,
+        "size": "58x84",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 517.3,
+        "cy": 1234.2,
+        "n_frames": 134,
+        "conf_min": 0.1,
+        "conf_max": 0.357,
+        "size": "89x55",
+        "cls": [
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1301.6,
+        "cy": 365.4,
+        "n_frames": 127,
+        "conf_min": 0.1,
+        "conf_max": 0.35,
+        "size": "31x62",
+        "cls": [
+          "Metal",
+          "Paper"
+        ]
+      },
+      {
+        "cx": 1781.4,
+        "cy": 994.1,
+        "n_frames": 1,
+        "conf_min": 0.347,
+        "conf_max": 0.347,
+        "size": "63x40",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 1580.9,
+        "cy": 393.3,
+        "n_frames": 23,
+        "conf_min": 0.1,
+        "conf_max": 0.346,
+        "size": "97x197",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 1242.5,
+        "cy": 650.7,
+        "n_frames": 11,
+        "conf_min": 0.108,
+        "conf_max": 0.338,
+        "size": "93x152",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 645.9,
+        "cy": 860.9,
+        "n_frames": 150,
+        "conf_min": 0.101,
+        "conf_max": 0.329,
+        "size": "30x34",
+        "cls": [
+          "Metal",
+          "Paper"
+        ]
+      },
+      {
+        "cx": 10.6,
+        "cy": 1003.1,
+        "n_frames": 4,
+        "conf_min": 0.111,
+        "conf_max": 0.325,
+        "size": "51x37",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1568.1,
+        "cy": 620.7,
+        "n_frames": 2,
+        "conf_min": 0.286,
+        "conf_max": 0.324,
+        "size": "52x60",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 955.8,
+        "cy": 1360.7,
+        "n_frames": 4,
+        "conf_min": 0.123,
+        "conf_max": 0.316,
+        "size": "73x57",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1014.1,
+        "cy": 383.7,
+        "n_frames": 35,
+        "conf_min": 0.1,
+        "conf_max": 0.315,
+        "size": "46x35",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 112.3,
+        "cy": 574.0,
+        "n_frames": 8,
+        "conf_min": 0.109,
+        "conf_max": 0.309,
+        "size": "61x117",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic",
+          "Waste"
+        ]
+      },
+      {
+        "cx": 950.6,
+        "cy": 1039.7,
+        "n_frames": 1,
+        "conf_min": 0.308,
+        "conf_max": 0.308,
+        "size": "45x23",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 464.4,
+        "cy": 154.2,
+        "n_frames": 22,
+        "conf_min": 0.1,
+        "conf_max": 0.303,
+        "size": "34x23",
+        "cls": [
+          "Metal"
+        ]
+      },
+      {
+        "cx": 165.5,
+        "cy": 410.1,
+        "n_frames": 7,
+        "conf_min": 0.106,
+        "conf_max": 0.295,
+        "size": "57x92",
+        "cls": [
+          "Metal",
+          "Plastic",
+          "Waste"
+        ]
+      },
+      {
+        "cx": 2098.6,
+        "cy": 1307.2,
+        "n_frames": 150,
+        "conf_min": 0.1,
+        "conf_max": 0.288,
+        "size": "26x39",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 1836.9,
+        "cy": 1248.2,
+        "n_frames": 2,
+        "conf_min": 0.118,
+        "conf_max": 0.286,
+        "size": "46x27",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 676.9,
+        "cy": 1048.1,
+        "n_frames": 64,
+        "conf_min": 0.101,
+        "conf_max": 0.284,
+        "size": "172x220",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1378.8,
+        "cy": 1260.5,
+        "n_frames": 1,
+        "conf_min": 0.177,
+        "conf_max": 0.28,
+        "size": "148x158",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 24.8,
+        "cy": 589.1,
+        "n_frames": 3,
+        "conf_min": 0.171,
+        "conf_max": 0.276,
+        "size": "37x84",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1176.1,
+        "cy": 497.0,
+        "n_frames": 40,
+        "conf_min": 0.1,
+        "conf_max": 0.275,
+        "size": "32x46",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 435.0,
+        "cy": 1203.1,
+        "n_frames": 151,
+        "conf_min": 0.104,
+        "conf_max": 0.273,
+        "size": "73x59",
+        "cls": [
+          "Paper",
+          "Plastic",
+          "Waste"
+        ]
+      },
+      {
+        "cx": 847.9,
+        "cy": 1362.6,
+        "n_frames": 26,
+        "conf_min": 0.102,
+        "conf_max": 0.271,
+        "size": "268x47",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic",
+          "Waste"
+        ]
+      },
+      {
+        "cx": 182.7,
+        "cy": 262.4,
+        "n_frames": 3,
+        "conf_min": 0.104,
+        "conf_max": 0.263,
+        "size": "53x35",
+        "cls": [
+          "Metal",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 23.2,
+        "cy": 1401.6,
+        "n_frames": 1,
+        "conf_min": 0.116,
+        "conf_max": 0.256,
+        "size": "46x77",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1521.4,
+        "cy": 1417.5,
+        "n_frames": 1,
+        "conf_min": 0.14,
+        "conf_max": 0.232,
+        "size": "46x36",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 745.0,
+        "cy": 71.2,
+        "n_frames": 4,
+        "conf_min": 0.111,
+        "conf_max": 0.224,
+        "size": "36x38",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 881.7,
+        "cy": 431.5,
+        "n_frames": 91,
+        "conf_min": 0.101,
+        "conf_max": 0.222,
+        "size": "82x164",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1531.4,
+        "cy": 511.7,
+        "n_frames": 2,
+        "conf_min": 0.12,
+        "conf_max": 0.22,
+        "size": "78x155",
+        "cls": [
+          "Glass",
+          "Paper"
+        ]
+      },
+      {
+        "cx": 1081.9,
+        "cy": 65.6,
+        "n_frames": 50,
+        "conf_min": 0.1,
+        "conf_max": 0.22,
+        "size": "66x49",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic",
+          "Waste"
+        ]
+      },
+      {
+        "cx": 402.3,
+        "cy": 1428.0,
+        "n_frames": 117,
+        "conf_min": 0.102,
+        "conf_max": 0.219,
+        "size": "64x24",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic",
+          "Waste"
+        ]
+      },
+      {
+        "cx": 1084.8,
+        "cy": 1307.6,
+        "n_frames": 1,
+        "conf_min": 0.219,
+        "conf_max": 0.219,
+        "size": "125x60",
+        "cls": [
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 198.1,
+        "cy": 504.0,
+        "n_frames": 2,
+        "conf_min": 0.17,
+        "conf_max": 0.217,
+        "size": "115x193",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 685.6,
+        "cy": 1230.9,
+        "n_frames": 52,
+        "conf_min": 0.101,
+        "conf_max": 0.21,
+        "size": "182x99",
+        "cls": [
+          "Paper",
+          "Plastic",
+          "Waste"
+        ]
+      },
+      {
+        "cx": 257.0,
+        "cy": 1195.8,
+        "n_frames": 2,
+        "conf_min": 0.108,
+        "conf_max": 0.205,
+        "size": "139x153",
+        "cls": [
+          "Metal",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1000.5,
+        "cy": 872.8,
+        "n_frames": 1,
+        "conf_min": 0.2,
+        "conf_max": 0.2,
+        "size": "83x56",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 502.3,
+        "cy": 734.4,
+        "n_frames": 2,
+        "conf_min": 0.109,
+        "conf_max": 0.199,
+        "size": "283x216",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 271.8,
+        "cy": 1412.6,
+        "n_frames": 3,
+        "conf_min": 0.107,
+        "conf_max": 0.194,
+        "size": "46x37",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 569.7,
+        "cy": 476.5,
+        "n_frames": 3,
+        "conf_min": 0.126,
+        "conf_max": 0.194,
+        "size": "175x37",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 1249.8,
+        "cy": 153.4,
+        "n_frames": 33,
+        "conf_min": 0.1,
+        "conf_max": 0.19,
+        "size": "225x142",
+        "cls": [
+          "Metal",
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 409.8,
+        "cy": 507.5,
+        "n_frames": 1,
+        "conf_min": 0.189,
+        "conf_max": 0.189,
+        "size": "27x47",
+        "cls": [
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1835.4,
+        "cy": 1160.3,
+        "n_frames": 1,
+        "conf_min": 0.183,
+        "conf_max": 0.183,
+        "size": "63x17",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 1417.1,
+        "cy": 1077.8,
+        "n_frames": 1,
+        "conf_min": 0.183,
+        "conf_max": 0.183,
+        "size": "21x16",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 1328.5,
+        "cy": 885.9,
+        "n_frames": 3,
+        "conf_min": 0.113,
+        "conf_max": 0.175,
+        "size": "32x32",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 929.9,
+        "cy": 657.9,
+        "n_frames": 2,
+        "conf_min": 0.121,
+        "conf_max": 0.167,
+        "size": "385x132",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 1381.6,
+        "cy": 348.3,
+        "n_frames": 1,
+        "conf_min": 0.167,
+        "conf_max": 0.167,
+        "size": "19x57",
+        "cls": [
+          "Metal"
+        ]
+      },
+      {
+        "cx": 1600.8,
+        "cy": 1296.4,
+        "n_frames": 4,
+        "conf_min": 0.103,
+        "conf_max": 0.163,
+        "size": "47x28",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1050.7,
+        "cy": 723.1,
+        "n_frames": 30,
+        "conf_min": 0.102,
+        "conf_max": 0.161,
+        "size": "47x83",
+        "cls": [
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 775.1,
+        "cy": 1211.3,
+        "n_frames": 1,
+        "conf_min": 0.161,
+        "conf_max": 0.161,
+        "size": "223x190",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 2114.6,
+        "cy": 1018.4,
+        "n_frames": 10,
+        "conf_min": 0.101,
+        "conf_max": 0.16,
+        "size": "473x786",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 680.7,
+        "cy": 777.3,
+        "n_frames": 1,
+        "conf_min": 0.159,
+        "conf_max": 0.159,
+        "size": "79x67",
+        "cls": [
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1942.2,
+        "cy": 1150.7,
+        "n_frames": 1,
+        "conf_min": 0.118,
+        "conf_max": 0.158,
+        "size": "42x30",
+        "cls": [
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1266.7,
+        "cy": 285.0,
+        "n_frames": 2,
+        "conf_min": 0.115,
+        "conf_max": 0.158,
+        "size": "34x50",
+        "cls": [
+          "Metal"
+        ]
+      },
+      {
+        "cx": 1955.2,
+        "cy": 1313.4,
+        "n_frames": 73,
+        "conf_min": 0.1,
+        "conf_max": 0.154,
+        "size": "198x32",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 2208.3,
+        "cy": 866.2,
+        "n_frames": 34,
+        "conf_min": 0.101,
+        "conf_max": 0.153,
+        "size": "143x310",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 298.5,
+        "cy": 680.6,
+        "n_frames": 2,
+        "conf_min": 0.133,
+        "conf_max": 0.145,
+        "size": "27x24",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 395.0,
+        "cy": 362.7,
+        "n_frames": 2,
+        "conf_min": 0.13,
+        "conf_max": 0.144,
+        "size": "50x92",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1106.1,
+        "cy": 360.8,
+        "n_frames": 1,
+        "conf_min": 0.134,
+        "conf_max": 0.134,
+        "size": "56x79",
+        "cls": [
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 303.6,
+        "cy": 999.0,
+        "n_frames": 1,
+        "conf_min": 0.133,
+        "conf_max": 0.133,
+        "size": "42x37",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 2329.8,
+        "cy": 922.9,
+        "n_frames": 5,
+        "conf_min": 0.102,
+        "conf_max": 0.133,
+        "size": "121x89",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 276.9,
+        "cy": 188.5,
+        "n_frames": 3,
+        "conf_min": 0.104,
+        "conf_max": 0.13,
+        "size": "41x36",
+        "cls": [
+          "Metal"
+        ]
+      },
+      {
+        "cx": 1216.5,
+        "cy": 370.8,
+        "n_frames": 1,
+        "conf_min": 0.127,
+        "conf_max": 0.127,
+        "size": "47x61",
+        "cls": [
+          "Metal"
+        ]
+      },
+      {
+        "cx": 951.4,
+        "cy": 44.6,
+        "n_frames": 2,
+        "conf_min": 0.11,
+        "conf_max": 0.122,
+        "size": "36x44",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 550.0,
+        "cy": 179.5,
+        "n_frames": 1,
+        "conf_min": 0.118,
+        "conf_max": 0.118,
+        "size": "49x83",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 947.4,
+        "cy": 290.8,
+        "n_frames": 1,
+        "conf_min": 0.115,
+        "conf_max": 0.115,
+        "size": "24x18",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 1670.4,
+        "cy": 1060.2,
+        "n_frames": 1,
+        "conf_min": 0.115,
+        "conf_max": 0.115,
+        "size": "118x43",
+        "cls": [
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1099.3,
+        "cy": 593.0,
+        "n_frames": 1,
+        "conf_min": 0.11,
+        "conf_max": 0.11,
+        "size": "58x74",
+        "cls": [
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1590.5,
+        "cy": 1192.7,
+        "n_frames": 1,
+        "conf_min": 0.102,
+        "conf_max": 0.109,
+        "size": "40x49",
+        "cls": [
+          "Paper",
+          "Plastic"
+        ]
+      },
+      {
+        "cx": 1524.1,
+        "cy": 226.1,
+        "n_frames": 1,
+        "conf_min": 0.109,
+        "conf_max": 0.109,
+        "size": "25x21",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 2121.8,
+        "cy": 624.7,
+        "n_frames": 1,
+        "conf_min": 0.105,
+        "conf_max": 0.105,
+        "size": "191x237",
+        "cls": [
+          "Paper"
+        ]
+      },
+      {
+        "cx": 1886.7,
+        "cy": 711.9,
+        "n_frames": 1,
+        "conf_min": 0.102,
+        "conf_max": 0.102,
+        "size": "29x55",
+        "cls": [
+          "Plastic"
+        ]
+      }
+    ]
+  }
+]

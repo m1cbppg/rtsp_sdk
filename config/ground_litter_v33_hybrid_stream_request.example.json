@@ -1,0 +1,92 @@
+{
+  "input_url": "rtsp://<camera-host>/<path>",
+  "model": "yolo26s.pt",
+  "classes": [0],
+  "conf": 0.35,
+  "bitrate": "2000k",
+  "display_detections": false,
+  "ground_litter": {
+    "enabled": true,
+    "mode": "hybrid_v33",
+    "profile_id": "camera_01_v32_afternoon_1080p",
+    "model": "litter/turhancan_yolov8m_seg_trash.pt",
+    "actor_model": null,
+    "analysis_fps": 0.5,
+    "confidence": 0.35,
+    "night_confidence": 0.35,
+    "tile_size_px": 640,
+    "inference_imgsz": 640,
+    "tile_overlap": 0.2,
+    "maximum_tiles": 12,
+    "nms_iou": 0.5,
+    "actor_imgsz": 1280,
+    "actor_confidence": 0.3,
+    "actor_class_ids": [0, 1, 2, 3, 5, 7],
+    "context_class_ids": [13, 25, 56, 58, 60],
+    "actor_overlap_threshold": 0.2,
+    "maximum_boxes": 4,
+    "display_zones": true,
+    "display_class": false,
+    "display_confidence": false,
+    "label": "疑似垃圾",
+
+    "semantic_scan_interval_seconds": 4.0,
+    "semantic_confirm_hits": 2,
+    "semantic_hit_window": 4,
+    "semantic_confirm_span_seconds": 8.0,
+    "semantic_clear_seconds": 8.0,
+    "semantic_clear_min_misses": 2,
+    "prior_confirm_hits": 4,
+    "prior_hit_window": 6,
+    "prior_confirm_span_seconds": 6.0,
+    "prior_suspend_expire_seconds": 120.0,
+    "fused_confirm_hits": 2,
+    "fused_hit_window": 4,
+    "fused_confirm_span_seconds": 2.0,
+    "prior_crop_maximum": 4,
+    "prior_crop_expand_ratio": 4.0,
+    "prior_crop_maximum_source_px": 480,
+    "prior_crop_imgsz": 640,
+
+    "startup_suppress_seconds": 15.0,
+    "normal_stability_samples": 3,
+    "clear_confirm_seconds": 6.0,
+    "pending_expire_seconds": 20.0,
+    "min_clean_valid_fraction": 0.8,
+    "maximum_closed_events": 10000,
+
+    "zones": [
+      {
+        "region_id": "walkway_v33_acceptance",
+        "name": "V3.3双通道验收区域",
+        "polygon": [
+          [0.500, 0.160],
+          [0.625, 0.160],
+          [0.650, 0.220],
+          [0.670, 0.320],
+          [0.690, 0.430],
+          [0.720, 0.560],
+          [0.750, 0.700],
+          [0.780, 0.840],
+          [0.810, 0.960],
+          [0.370, 0.960],
+          [0.390, 0.840],
+          [0.410, 0.700],
+          [0.430, 0.560],
+          [0.450, 0.430],
+          [0.470, 0.320],
+          [0.488, 0.220]
+        ],
+        "exclude_zones": [
+          [[0.585, 0.145], [0.665, 0.145], [0.675, 0.315], [0.595, 0.315]]
+        ],
+        "minimum_short_side_px": 6,
+        "minimum_box_area_px": 36
+      }
+    ],
+    "overlay_exclude_zones": [
+      [[0.0, 0.0], [0.44, 0.0], [0.44, 0.12], [0.0, 0.12]],
+      [[0.70, 0.835], [0.88, 0.835], [0.88, 0.94], [0.70, 0.94]]
+    ]
+  }
+}

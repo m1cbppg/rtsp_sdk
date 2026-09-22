@@ -662,7 +662,7 @@ class GroundLitterCacheTests(unittest.TestCase):
         self.assertEqual(cache.snapshot(0).result_version, 2)
         self.assertEqual(cache.snapshot(0).state, "running")
 
-    def test_mark_state_keeps_last_detections(self) -> None:
+    def test_error_state_clears_stale_detections(self) -> None:
         cache = GroundLitterResultCache()
         cache.store_snapshot(
             0,
@@ -682,8 +682,18 @@ class GroundLitterCacheTests(unittest.TestCase):
         cache.mark_state(0, "error", "进程已退出")
         snapshot = cache.snapshot(0)
         self.assertEqual(snapshot.state, "error")
-        self.assertEqual(snapshot.count, 1)
+        self.assertEqual(snapshot.count, 0)
         self.assertEqual(snapshot.result_version, 4)
+
+    def test_error_snapshot_replaces_newer_running_version(self) -> None:
+        cache = GroundLitterResultCache()
+        cache.store_snapshot(
+            0, GroundLitterSnapshot(state="running", result_version=9)
+        )
+        cache.store_snapshot(
+            0, GroundLitterSnapshot(state="error", result_version=0)
+        )
+        self.assertEqual(cache.snapshot(0).state, "error")
 
     def test_unknown_pad_returns_disabled_snapshot(self) -> None:
         cache = GroundLitterResultCache()

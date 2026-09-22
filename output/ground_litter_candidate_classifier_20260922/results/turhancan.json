@@ -1,0 +1,647 @@
+{
+  "schema": "ground_litter_candidate_classifier_eval_v1",
+  "manifest": "/audit/classifier_manifest.json",
+  "samples": 955,
+  "positive": 125,
+  "negative": 830,
+  "target_recall": 0.9,
+  "results": [
+    {
+      "model": "turhancan",
+      "model_path": "/app/models/litter/turhancan_yolov8m_seg_trash.pt",
+      "embedding_shape": [
+        955,
+        576
+      ],
+      "splits": [
+        {
+          "name": "day1_to_day2",
+          "train": {
+            "rows": 463,
+            "positive": 51
+          },
+          "test": {
+            "rows": 210,
+            "positive": 43
+          },
+          "cross_day_overlap_filter": {
+            "removed": 282,
+            "removed_positive": 31,
+            "removed_negative": 251
+          },
+          "calibration_folds": [
+            {
+              "held_out_camera": "01021",
+              "fit_rows": 370,
+              "validation_rows": 93,
+              "validation_positive": 14
+            },
+            {
+              "held_out_camera": "01022",
+              "fit_rows": 370,
+              "validation_rows": 93,
+              "validation_positive": 9
+            },
+            {
+              "held_out_camera": "01027",
+              "fit_rows": 368,
+              "validation_rows": 95,
+              "validation_positive": 1
+            },
+            {
+              "held_out_camera": "01028",
+              "fit_rows": 370,
+              "validation_rows": 93,
+              "validation_positive": 12
+            },
+            {
+              "held_out_camera": "01030",
+              "fit_rows": 374,
+              "validation_rows": 89,
+              "validation_positive": 15
+            }
+          ],
+          "visual_oof_calibrated": {
+            "rows": 210,
+            "positive": 43,
+            "negative": 167,
+            "average_precision": 0.426332,
+            "roc_auc": 0.769113,
+            "threshold": -5.17151451,
+            "recall": 0.976744,
+            "precision": 0.259259,
+            "negative_reduction": 0.281437,
+            "candidate_reduction": 0.228571
+          },
+          "visual_oof_calibration_metrics": {
+            "rows": 463,
+            "positive": 51,
+            "negative": 412,
+            "average_precision": 0.246533,
+            "roc_auc": 0.699267,
+            "threshold": -5.17151451,
+            "recall": 0.901961,
+            "precision": 0.136905,
+            "negative_reduction": 0.296117,
+            "candidate_reduction": 0.274298
+          },
+          "visual_test_oracle_90_recall": {
+            "rows": 210,
+            "positive": 43,
+            "negative": 167,
+            "average_precision": 0.426332,
+            "roc_auc": 0.769113,
+            "threshold": -4.16552114,
+            "recall": 0.906977,
+            "precision": 0.278571,
+            "negative_reduction": 0.39521,
+            "candidate_reduction": 0.333333
+          },
+          "model_score_train_calibrated": {
+            "rows": 210,
+            "positive": 43,
+            "negative": 167,
+            "average_precision": 0.190672,
+            "roc_auc": 0.483498,
+            "threshold": 0.45536101,
+            "recall": 0.604651,
+            "precision": 0.213115,
+            "negative_reduction": 0.42515,
+            "candidate_reduction": 0.419048
+          }
+        },
+        {
+          "name": "day2_to_day1",
+          "train": {
+            "rows": 492,
+            "positive": 74
+          },
+          "test": {
+            "rows": 140,
+            "positive": 27
+          },
+          "cross_day_overlap_filter": {
+            "removed": 323,
+            "removed_positive": 24,
+            "removed_negative": 299
+          },
+          "calibration_folds": [
+            {
+              "held_out_camera": "01021",
+              "fit_rows": 388,
+              "validation_rows": 104,
+              "validation_positive": 11
+            },
+            {
+              "held_out_camera": "01022",
+              "fit_rows": 393,
+              "validation_rows": 99,
+              "validation_positive": 22
+            },
+            {
+              "held_out_camera": "01027",
+              "fit_rows": 389,
+              "validation_rows": 103,
+              "validation_positive": 11
+            },
+            {
+              "held_out_camera": "01028",
+              "fit_rows": 384,
+              "validation_rows": 108,
+              "validation_positive": 9
+            },
+            {
+              "held_out_camera": "01030",
+              "fit_rows": 414,
+              "validation_rows": 78,
+              "validation_positive": 21
+            }
+          ],
+          "visual_oof_calibrated": {
+            "rows": 140,
+            "positive": 27,
+            "negative": 113,
+            "average_precision": 0.497991,
+            "roc_auc": 0.807932,
+            "threshold": -4.27539587,
+            "recall": 0.962963,
+            "precision": 0.276596,
+            "negative_reduction": 0.39823,
+            "candidate_reduction": 0.328571
+          },
+          "visual_oof_calibration_metrics": {
+            "rows": 492,
+            "positive": 74,
+            "negative": 418,
+            "average_precision": 0.367343,
+            "roc_auc": 0.764483,
+            "threshold": -4.27539587,
+            "recall": 0.905405,
+            "precision": 0.232639,
+            "negative_reduction": 0.471292,
+            "candidate_reduction": 0.414634
+          },
+          "visual_test_oracle_90_recall": {
+            "rows": 140,
+            "positive": 27,
+            "negative": 113,
+            "average_precision": 0.497991,
+            "roc_auc": 0.807932,
+            "threshold": -4.06859303,
+            "recall": 0.925926,
+            "precision": 0.274725,
+            "negative_reduction": 0.415929,
+            "candidate_reduction": 0.35
+          },
+          "model_score_train_calibrated": {
+            "rows": 140,
+            "positive": 27,
+            "negative": 113,
+            "average_precision": 0.265039,
+            "roc_auc": 0.597837,
+            "threshold": 0.262216,
+            "recall": 1.0,
+            "precision": 0.192857,
+            "negative_reduction": 0.0,
+            "candidate_reduction": 0.0
+          }
+        },
+        {
+          "name": "leave_camera_01021",
+          "train": {
+            "rows": 758,
+            "positive": 100
+          },
+          "test": {
+            "rows": 197,
+            "positive": 25
+          },
+          "cross_day_overlap_filter": null,
+          "calibration_folds": [
+            {
+              "held_out_camera": "01022",
+              "fit_rows": 566,
+              "validation_rows": 192,
+              "validation_positive": 31
+            },
+            {
+              "held_out_camera": "01027",
+              "fit_rows": 560,
+              "validation_rows": 198,
+              "validation_positive": 12
+            },
+            {
+              "held_out_camera": "01028",
+              "fit_rows": 557,
+              "validation_rows": 201,
+              "validation_positive": 21
+            },
+            {
+              "held_out_camera": "01030",
+              "fit_rows": 591,
+              "validation_rows": 167,
+              "validation_positive": 36
+            }
+          ],
+          "visual_oof_calibrated": {
+            "rows": 197,
+            "positive": 25,
+            "negative": 172,
+            "average_precision": 0.385593,
+            "roc_auc": 0.768605,
+            "threshold": -3.73635578,
+            "recall": 0.84,
+            "precision": 0.194444,
+            "negative_reduction": 0.494186,
+            "candidate_reduction": 0.451777
+          },
+          "visual_oof_calibration_metrics": {
+            "rows": 758,
+            "positive": 100,
+            "negative": 658,
+            "average_precision": 0.369873,
+            "roc_auc": 0.791915,
+            "threshold": -3.73635578,
+            "recall": 0.9,
+            "precision": 0.210773,
+            "negative_reduction": 0.487842,
+            "candidate_reduction": 0.436675
+          },
+          "visual_test_oracle_90_recall": {
+            "rows": 197,
+            "positive": 25,
+            "negative": 172,
+            "average_precision": 0.385593,
+            "roc_auc": 0.768605,
+            "threshold": -5.80232716,
+            "recall": 0.92,
+            "precision": 0.144654,
+            "negative_reduction": 0.209302,
+            "candidate_reduction": 0.192893
+          },
+          "model_score_train_calibrated": {
+            "rows": 197,
+            "positive": 25,
+            "negative": 172,
+            "average_precision": 0.114168,
+            "roc_auc": 0.44814,
+            "threshold": 0.272708,
+            "recall": 1.0,
+            "precision": 0.126904,
+            "negative_reduction": 0.0,
+            "candidate_reduction": 0.0
+          }
+        },
+        {
+          "name": "leave_camera_01022",
+          "train": {
+            "rows": 763,
+            "positive": 94
+          },
+          "test": {
+            "rows": 192,
+            "positive": 31
+          },
+          "cross_day_overlap_filter": null,
+          "calibration_folds": [
+            {
+              "held_out_camera": "01021",
+              "fit_rows": 566,
+              "validation_rows": 197,
+              "validation_positive": 25
+            },
+            {
+              "held_out_camera": "01027",
+              "fit_rows": 565,
+              "validation_rows": 198,
+              "validation_positive": 12
+            },
+            {
+              "held_out_camera": "01028",
+              "fit_rows": 562,
+              "validation_rows": 201,
+              "validation_positive": 21
+            },
+            {
+              "held_out_camera": "01030",
+              "fit_rows": 596,
+              "validation_rows": 167,
+              "validation_positive": 36
+            }
+          ],
+          "visual_oof_calibrated": {
+            "rows": 192,
+            "positive": 31,
+            "negative": 161,
+            "average_precision": 0.308058,
+            "roc_auc": 0.682629,
+            "threshold": -3.14671159,
+            "recall": 0.709677,
+            "precision": 0.213592,
+            "negative_reduction": 0.496894,
+            "candidate_reduction": 0.463542
+          },
+          "visual_oof_calibration_metrics": {
+            "rows": 763,
+            "positive": 94,
+            "negative": 669,
+            "average_precision": 0.396951,
+            "roc_auc": 0.819785,
+            "threshold": -3.14671159,
+            "recall": 0.904255,
+            "precision": 0.232877,
+            "negative_reduction": 0.581465,
+            "candidate_reduction": 0.521625
+          },
+          "visual_test_oracle_90_recall": {
+            "rows": 192,
+            "positive": 31,
+            "negative": 161,
+            "average_precision": 0.308058,
+            "roc_auc": 0.682629,
+            "threshold": -4.40518808,
+            "recall": 0.903226,
+            "precision": 0.212121,
+            "negative_reduction": 0.354037,
+            "candidate_reduction": 0.3125
+          },
+          "model_score_train_calibrated": {
+            "rows": 192,
+            "positive": 31,
+            "negative": 161,
+            "average_precision": 0.168919,
+            "roc_auc": 0.464436,
+            "threshold": 0.27423799,
+            "recall": 0.903226,
+            "precision": 0.156425,
+            "negative_reduction": 0.062112,
+            "candidate_reduction": 0.067708
+          }
+        },
+        {
+          "name": "leave_camera_01027",
+          "train": {
+            "rows": 757,
+            "positive": 113
+          },
+          "test": {
+            "rows": 198,
+            "positive": 12
+          },
+          "cross_day_overlap_filter": null,
+          "calibration_folds": [
+            {
+              "held_out_camera": "01021",
+              "fit_rows": 560,
+              "validation_rows": 197,
+              "validation_positive": 25
+            },
+            {
+              "held_out_camera": "01022",
+              "fit_rows": 565,
+              "validation_rows": 192,
+              "validation_positive": 31
+            },
+            {
+              "held_out_camera": "01028",
+              "fit_rows": 556,
+              "validation_rows": 201,
+              "validation_positive": 21
+            },
+            {
+              "held_out_camera": "01030",
+              "fit_rows": 590,
+              "validation_rows": 167,
+              "validation_positive": 36
+            }
+          ],
+          "visual_oof_calibrated": {
+            "rows": 198,
+            "positive": 12,
+            "negative": 186,
+            "average_precision": 0.294346,
+            "roc_auc": 0.890233,
+            "threshold": -4.10711098,
+            "recall": 1.0,
+            "precision": 0.109091,
+            "negative_reduction": 0.473118,
+            "candidate_reduction": 0.444444
+          },
+          "visual_oof_calibration_metrics": {
+            "rows": 757,
+            "positive": 113,
+            "negative": 644,
+            "average_precision": 0.425592,
+            "roc_auc": 0.787913,
+            "threshold": -4.10711098,
+            "recall": 0.902655,
+            "precision": 0.229213,
+            "negative_reduction": 0.467391,
+            "candidate_reduction": 0.412153
+          },
+          "visual_test_oracle_90_recall": {
+            "rows": 198,
+            "positive": 12,
+            "negative": 186,
+            "average_precision": 0.294346,
+            "roc_auc": 0.890233,
+            "threshold": -1.68684983,
+            "recall": 0.916667,
+            "precision": 0.189655,
+            "negative_reduction": 0.747312,
+            "candidate_reduction": 0.707071
+          },
+          "model_score_train_calibrated": {
+            "rows": 198,
+            "positive": 12,
+            "negative": 186,
+            "average_precision": 0.050229,
+            "roc_auc": 0.384857,
+            "threshold": 0.27423799,
+            "recall": 0.916667,
+            "precision": 0.061111,
+            "negative_reduction": 0.091398,
+            "candidate_reduction": 0.090909
+          }
+        },
+        {
+          "name": "leave_camera_01028",
+          "train": {
+            "rows": 754,
+            "positive": 104
+          },
+          "test": {
+            "rows": 201,
+            "positive": 21
+          },
+          "cross_day_overlap_filter": null,
+          "calibration_folds": [
+            {
+              "held_out_camera": "01021",
+              "fit_rows": 557,
+              "validation_rows": 197,
+              "validation_positive": 25
+            },
+            {
+              "held_out_camera": "01022",
+              "fit_rows": 562,
+              "validation_rows": 192,
+              "validation_positive": 31
+            },
+            {
+              "held_out_camera": "01027",
+              "fit_rows": 556,
+              "validation_rows": 198,
+              "validation_positive": 12
+            },
+            {
+              "held_out_camera": "01030",
+              "fit_rows": 587,
+              "validation_rows": 167,
+              "validation_positive": 36
+            }
+          ],
+          "visual_oof_calibrated": {
+            "rows": 201,
+            "positive": 21,
+            "negative": 180,
+            "average_precision": 0.447442,
+            "roc_auc": 0.852381,
+            "threshold": -4.32293224,
+            "recall": 0.904762,
+            "precision": 0.162393,
+            "negative_reduction": 0.455556,
+            "candidate_reduction": 0.41791
+          },
+          "visual_oof_calibration_metrics": {
+            "rows": 754,
+            "positive": 104,
+            "negative": 650,
+            "average_precision": 0.333678,
+            "roc_auc": 0.769719,
+            "threshold": -4.32293224,
+            "recall": 0.903846,
+            "precision": 0.194215,
+            "negative_reduction": 0.4,
+            "candidate_reduction": 0.35809
+          },
+          "visual_test_oracle_90_recall": {
+            "rows": 201,
+            "positive": 21,
+            "negative": 180,
+            "average_precision": 0.447442,
+            "roc_auc": 0.852381,
+            "threshold": -2.40270042,
+            "recall": 0.904762,
+            "precision": 0.228916,
+            "negative_reduction": 0.644444,
+            "candidate_reduction": 0.587065
+          },
+          "model_score_train_calibrated": {
+            "rows": 201,
+            "positive": 21,
+            "negative": 180,
+            "average_precision": 0.161369,
+            "roc_auc": 0.585979,
+            "threshold": 0.272708,
+            "recall": 1.0,
+            "precision": 0.104478,
+            "negative_reduction": 0.0,
+            "candidate_reduction": 0.0
+          }
+        },
+        {
+          "name": "leave_camera_01030",
+          "train": {
+            "rows": 788,
+            "positive": 89
+          },
+          "test": {
+            "rows": 167,
+            "positive": 36
+          },
+          "cross_day_overlap_filter": null,
+          "calibration_folds": [
+            {
+              "held_out_camera": "01021",
+              "fit_rows": 591,
+              "validation_rows": 197,
+              "validation_positive": 25
+            },
+            {
+              "held_out_camera": "01022",
+              "fit_rows": 596,
+              "validation_rows": 192,
+              "validation_positive": 31
+            },
+            {
+              "held_out_camera": "01027",
+              "fit_rows": 590,
+              "validation_rows": 198,
+              "validation_positive": 12
+            },
+            {
+              "held_out_camera": "01028",
+              "fit_rows": 587,
+              "validation_rows": 201,
+              "validation_positive": 21
+            }
+          ],
+          "visual_oof_calibrated": {
+            "rows": 167,
+            "positive": 36,
+            "negative": 131,
+            "average_precision": 0.762785,
+            "roc_auc": 0.896098,
+            "threshold": -4.92980766,
+            "recall": 1.0,
+            "precision": 0.290323,
+            "negative_reduction": 0.328244,
+            "candidate_reduction": 0.257485
+          },
+          "visual_oof_calibration_metrics": {
+            "rows": 788,
+            "positive": 89,
+            "negative": 699,
+            "average_precision": 0.26978,
+            "roc_auc": 0.728312,
+            "threshold": -4.92980766,
+            "recall": 0.910112,
+            "precision": 0.149446,
+            "negative_reduction": 0.340486,
+            "candidate_reduction": 0.312183
+          },
+          "visual_test_oracle_90_recall": {
+            "rows": 167,
+            "positive": 36,
+            "negative": 131,
+            "average_precision": 0.762785,
+            "roc_auc": 0.896098,
+            "threshold": -3.178689,
+            "recall": 0.916667,
+            "precision": 0.39759,
+            "negative_reduction": 0.618321,
+            "candidate_reduction": 0.502994
+          },
+          "model_score_train_calibrated": {
+            "rows": 167,
+            "positive": 36,
+            "negative": 131,
+            "average_precision": 0.245245,
+            "roc_auc": 0.482188,
+            "threshold": 0.28762999,
+            "recall": 0.805556,
+            "precision": 0.208633,
+            "negative_reduction": 0.160305,
+            "candidate_reduction": 0.167665
+          }
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Metrics apply to human-reviewed candidate cards, not all objects in video.",
+    "Card labels are not corrected detection boxes; uncertain and box-wrong rows are excluded upstream.",
+    "The test-oracle threshold measures separability only and is not a deployable threshold."
+  ]
+}
