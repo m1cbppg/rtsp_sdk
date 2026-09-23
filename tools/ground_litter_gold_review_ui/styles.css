@@ -38,6 +38,27 @@ select,input,textarea{background:var(--panel2);color:var(--fg);border:1px solid 
 .tile img{width:100%;height:150px;object-fit:contain;background:#000;border-radius:4px;display:block}
 .tile figcaption{font-size:10px;color:var(--muted);margin-top:3px}
 .tile .missing{height:150px;display:flex;align-items:center;justify-content:center;color:var(--bad);font-weight:700;border:1px dashed var(--bad);border-radius:4px}
+/* point mode + manual missing-target markers */
+.tile-canvas{position:relative;line-height:0}
+.tile-canvas.clickable{cursor:crosshair;outline:2px dashed var(--accent);outline-offset:2px;border-radius:4px}
+.tile-canvas.clickable::after{content:"点击垃圾中心";position:absolute;top:2px;left:4px;font-size:10px;
+  color:#fff;background:rgba(76,141,255,.85);border-radius:3px;padding:0 4px;line-height:1.5}
+.mt-marker{position:absolute;transform:translate(-50%,-50%);width:20px;height:20px;border-radius:50%;
+  background:rgba(224,96,58,.9);border:2px solid #fff;color:#fff;font-size:10px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;line-height:1;
+  box-shadow:0 0 0 1px rgba(0,0,0,.6);pointer-events:auto;z-index:2}
+.mt-marker.sel{background:var(--accent);box-shadow:0 0 0 3px rgba(76,141,255,.5)}
+.mt-marker.repoint{background:var(--warn);animation:pulse 1s infinite alternate}
+@keyframes pulse{from{opacity:.55}to{opacity:1}}
+.pointbox{border-color:var(--accent)}
+.pointrow{display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap;margin-top:6px}
+.pointrow label{display:grid;gap:2px;font-size:11px;color:var(--muted)}
+.nearwarn{margin-top:8px;border-left:3px solid var(--warn);padding-left:8px;font-size:12px}
+.mtrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:5px 6px;border:1px solid var(--line);
+  border-radius:6px;margin-bottom:5px;background:var(--panel2);font-size:12px}
+.mtrow.sel{outline:2px solid var(--accent)}
+.mtlabel{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;
+  border-radius:50%;background:var(--bad);color:#fff;font-size:11px;font-weight:700}
 .actions{position:sticky;bottom:0;background:var(--bg);padding:10px 0;border-top:1px solid var(--line);display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 button.act{background:var(--panel2);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:7px 12px;cursor:pointer;font:inherit}
 button.act:hover{border-color:var(--accent)}

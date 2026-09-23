@@ -24,9 +24,16 @@ import os
 from pathlib import Path
 import tempfile
 from typing import Any, Iterable, Mapping, Sequence
+import uuid
 
 SCHEMA_VERSION = "ground_litter_gold_episode_review_v1"
-REVIEW_SCHEMA_VERSION = "gold_episode_review_v1"
+#: State-file schema.  Bumped to v2 when manual missing targets were added; the
+#: loader stays tolerant so an existing v1 review_state keeps every decision.
+REVIEW_SCHEMA_VERSION = "gold_episode_review_v2"
+#: FROZEN hash namespace for ``ge-<camera>-<hash>`` episode ids.  Deliberately NOT
+#: tied to REVIEW_SCHEMA_VERSION: bumping the state schema must never rename an
+#: episode that a human already confirmed.
+EPISODE_ID_NAMESPACE = "gold_episode_review_v1"
 
 DECISIONS = ("CONFIRM", "SPLIT", "MERGE", "NON_LITTER", "IGNORE_SMALL", "UNCERTAIN")
 EPISODE_PRODUCING_DECISIONS = ("CONFIRM", "SPLIT", "MERGE")
@@ -38,6 +45,24 @@ TRAINABILITY_STATUSES = ("TRAINABLE_SOURCE_NATIVE", "REVIEW_ONLY", "LINEAGE_UNRE
 
 #: Historical Silver has no scene_version.  Never invent one (plan §13).
 UNKNOWN_SCENE_VERSION = "UNKNOWN_HISTORICAL"
+
+# --- human-discovered missing targets -------------------------------------- #
+#: A reviewer saw a second (third, ...) independent piece of litter in the same
+#: image that no historical candidate ever boxed.  Step 0B §3.5 forbids treating
+#: "this frame has litter" as per-object truth, so each one becomes its own target.
+MANUAL_TARGET_ORIGIN = "HUMAN_DISCOVERED_MISSING_TARGET"
+#: NON_LITTER is deliberately absent: this action only ever *adds* a target.
+MANUAL_TARGET_TRUTH_CLASSES = ("REQUIRED_LITTER", "IGNORE_SMALL", "UNCERTAIN")
+MANUAL_TARGET_ASSET_TYPES = ("context", "current")
+#: Two manual points closer than this trigger a UI prompt.  Compared in native
+#: pixels *of the shared clicked asset* (see _manual_points_close): the assets are
+#: crops, so a normalised crop coordinate is not a source-frame coordinate and
+#: must never be compared across different assets.
+MANUAL_TARGET_DUPLICATE_PX = 10.0
+MANUAL_TARGET_DUPLICATE_FRACTION = 0.02
+#: Silver review cards sample their before/after evidence frames at +/- this many
+#: seconds (mirrors the Step 1A grouping default, which documents the sampling).
+SILVER_BEFORE_AFTER_SECONDS = 2.0
 
 GROUPING_RISK_REASONS = (
     "borderline_within_threshold",
@@ -486,6 +511,20 @@ class ReviewError(ValueError):
     """Invalid human decision; the caller must surface it, never coerce it."""
 
 
+class NearDuplicateTarget(ReviewError):
+    """The clicked point is very close to an existing manual target.
+
+    Raised so the reviewer is *asked* before a possibly-duplicate target is
+    created.  It is never fatal: re-submitting with ``allow_near_duplicate=True``
+    succeeds, because two real pieces of litter can genuinely sit close together.
+    """
+
+    def __init__(self, near_duplicates: Sequence[Mapping[str, Any]]) -> None:
+        self.near_duplicates = [dict(row) for row in near_duplicates]
+        super().__init__(
+            f"{len(self.near_duplicates)} existing manual target(s) are very close")
+
+
 def make_confirm_episode(candidate: Mapping[str, Any]) -> dict[str, Any]:
     return {
         "draft_id": "e1",
@@ -566,6 +605,99 @@ def validate_merge(
     return unique
 
 
+def validate_manual_point(
+    *,
+    x: float,
+    y: float,
+    image_width: int,
+    image_height: int,
+    clicked_asset_type: str,
+    clicked_asset_path: str,
+    member: Mapping[str, Any],
+    batch_key: str,
+) -> dict[str, Any]:
+    """Validate a human click and return authoritative image-native coordinates.
+
+    The browser may render the asset at any CSS size, so only *image-native* pixels
+    are accepted, and the server recomputes the normalised value rather than
+    trusting a client-supplied one.
+    """
+    if clicked_asset_type not in MANUAL_TARGET_ASSET_TYPES:
+        raise ReviewError(
+            f"clicked_asset_type must be one of {MANUAL_TARGET_ASSET_TYPES}")
+    try:
+        width = int(image_width)
+        height = int(image_height)
+    except (TypeError, ValueError):
+        raise ReviewError("clicked image dimensions must be integers") from None
+    if width <= 0 or height <= 0:
+        raise ReviewError("clicked image dimensions must be positive")
+    try:
+        px = float(x)
+        py = float(y)
+    except (TypeError, ValueError):
+        raise ReviewError("point x/y must be numeric") from None
+    if not (0.0 <= px <= float(width)) or not (0.0 <= py <= float(height)):
+        raise ReviewError(
+            f"point ({px}, {py}) is outside the clicked image ({width}x{height})")
+
+    # Both click targets resolve to the same underlying asset: the schema has no
+    # separate current_image, and "current" is the context crop of the source frame.
+    assets = dict(member.get("assets") or {})
+    expected = assets.get("context_image")
+    if not expected or str(clicked_asset_path) != str(expected):
+        raise ReviewError(
+            "clicked asset does not belong to the source member card")
+    x_norm = px / float(width)
+    y_norm = py / float(height)
+    return {
+        "x": round(px, 3),
+        "y": round(py, 3),
+        "x_norm": round(x_norm, 8),
+        "y_norm": round(y_norm, 8),
+        "clicked_image_width": width,
+        "clicked_image_height": height,
+        "clicked_asset_type": clicked_asset_type,
+        "clicked_asset_path": str(clicked_asset_path),
+        "clicked_asset_derived_from": (
+            "context_image" if clicked_asset_type == "current" else None),
+        "batch_key": batch_key,
+    }
+
+
+def _manual_points_close(
+    left: Mapping[str, Any], right: Mapping[str, Any],
+    threshold_px: float = MANUAL_TARGET_DUPLICATE_PX,
+) -> bool:
+    """Whether two clicks are effectively the same spot.
+
+    Only meaningful when both clicks used the *same* asset: the assets are crops
+    of the source frame, so their normalised coordinates live in different spaces.
+    Returns False for different assets rather than inventing a comparison.
+    """
+    left_point = dict(left.get("point") or {})
+    right_point = dict(right.get("point") or {})
+    if not left_point or not right_point:
+        return False
+    left_card = left.get("source_member_card_id")
+    right_card = right.get("source_member_card_id")
+    if left_card and right_card and left_card != right_card:
+        return False
+    if left_point.get("clicked_asset_path") != right_point.get("clicked_asset_path"):
+        return False
+    try:
+        lx, ly = float(left_point["x"]), float(left_point["y"])
+        rx, ry = float(right_point["x"]), float(right_point["y"])
+        width = float(left_point.get("clicked_image_width") or 0)
+        height = float(left_point.get("clicked_image_height") or 0)
+    except (KeyError, TypeError, ValueError):
+        return False
+    if width <= 0 or height <= 0:
+        return False
+    limit = max(float(threshold_px), MANUAL_TARGET_DUPLICATE_FRACTION * max(width, height))
+    return ((lx - rx) ** 2 + (ly - ry) ** 2) ** 0.5 < limit
+
+
 @dataclass
 class ReviewState:
     """Crash-safe review state with an append-only audit trail.
@@ -580,6 +712,8 @@ class ReviewState:
     candidate_count: int = 0
     candidates: dict[str, dict[str, Any]] = field(default_factory=dict)
     audit_trail: list[dict[str, Any]] = field(default_factory=list)
+    #: manual_target_id -> human-discovered missing target (schema v2)
+    manual_targets: dict[str, dict[str, Any]] = field(default_factory=dict)
 
     @classmethod
     def load(cls, path: Path | str, *, step1a: Step1AInput | None = None) -> "ReviewState":
@@ -594,12 +728,16 @@ class ReviewState:
         payload = json.loads(target.read_text(encoding="utf-8"))
         state = cls(
             path=target,
+            # the version this file was actually authored with, for diagnostics
             schema_version=str(payload.get("review_schema_version") or REVIEW_SCHEMA_VERSION),
             input_artifact=str((payload.get("input") or {}).get("artifact") or ""),
             input_sha256=str((payload.get("input") or {}).get("sha256") or ""),
             candidate_count=int((payload.get("input") or {}).get("candidate_count") or 0),
             candidates=dict(payload.get("candidates") or {}),
             audit_trail=list(payload.get("audit_trail") or []),
+            # v1 state has no manual_targets key; tolerate its absence rather than
+            # resetting anything a reviewer already decided.
+            manual_targets=dict(payload.get("manual_targets") or {}),
         )
         if step1a is not None and state.input_sha256 and \
                 state.input_sha256 != step1a.artifact_sha256:
@@ -630,16 +768,209 @@ class ReviewState:
         })
 
     def save(self) -> None:
+        # Always write the current schema: a loaded v1 file is migrated in place on
+        # the next write, and the version it came from is preserved for audit.
         atomic_write_json(self.path, {
-            "review_schema_version": self.schema_version,
+            "review_schema_version": REVIEW_SCHEMA_VERSION,
+            "loaded_schema_version": self.schema_version,
             "input": {
                 "artifact": self.input_artifact,
                 "sha256": self.input_sha256,
                 "candidate_count": self.candidate_count,
             },
             "candidates": self.candidates,
+            "manual_targets": self.manual_targets,
             "audit_trail": self.audit_trail,
         })
+
+    # -- human-discovered missing targets ----------------------------------- #
+
+    def manual_targets_for(self, candidate_id: str) -> list[dict[str, Any]]:
+        rows = [row for row in self.manual_targets.values()
+                if row.get("source_episode_candidate_id") == candidate_id]
+        rows.sort(key=lambda row: (str(row.get("created_at") or ""),
+                                   str(row.get("manual_target_id") or "")))
+        return rows
+
+    def near_duplicate_manual_targets(
+        self, step1a: Step1AInput, candidate_id: str, point: Mapping[str, Any],
+    ) -> list[dict[str, Any]]:
+        return [
+            {"manual_target_id": row["manual_target_id"],
+             "truth_class": row.get("truth_class"),
+             "point": dict(row.get("point") or {})}
+            for row in self.manual_targets_for(candidate_id)
+            if _manual_points_close(
+                row,
+                {"point": point, "source_member_card_id": point.get("source_member_card_id")})
+        ]
+
+    def add_manual_target(
+        self, step1a: Step1AInput, candidate_id: str, *,
+        card_id: str,
+        truth_class: str,
+        clicked_asset_type: str,
+        clicked_asset_path: str,
+        x: float,
+        y: float,
+        image_width: int,
+        image_height: int,
+        note: str = "",
+        allow_near_duplicate: bool = False,
+        manual_target_id: str | None = None,
+    ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+        """Record one reviewer-clicked target without ever expanding it into a bbox.
+
+        Returns the persisted record plus any proximity warnings.  The candidate's
+        own review decision is deliberately untouched: ADD_MISSING_TARGET and
+        CONFIRM are orthogonal operations.
+        """
+        candidate = step1a.candidate_by_id.get(candidate_id)
+        if candidate is None:
+            raise ReviewError(f"unknown candidate {candidate_id}")
+        if truth_class not in MANUAL_TARGET_TRUTH_CLASSES:
+            raise ReviewError(
+                f"truth_class must be one of {MANUAL_TARGET_TRUTH_CLASSES}")
+        members = {m.get("card_id"): m
+                   for m in (candidate.get("lineage") or {}).get("review_cards") or []}
+        member = members.get(card_id)
+        if member is None:
+            raise ReviewError(f"card {card_id} is not a member of {candidate_id}")
+        batch_key = str(member.get("batch_key") or "")
+        point = validate_manual_point(
+            x=x, y=y, image_width=image_width, image_height=image_height,
+            clicked_asset_type=clicked_asset_type, clicked_asset_path=clicked_asset_path,
+            member=member, batch_key=batch_key)
+
+        warnings = self.near_duplicate_manual_targets(
+            step1a, candidate_id,
+            dict(point, source_member_card_id=card_id))
+        if warnings and not allow_near_duplicate:
+            raise NearDuplicateTarget(warnings)
+
+        target_id = manual_target_id or manual_target_id_for(
+            str(candidate.get("camera_id") or ""))
+        if target_id in self.manual_targets:
+            raise ReviewError(f"manual target {target_id} already exists")
+        now = utc_now_text()
+        record = {
+            "manual_target_id": target_id,
+            "truth_target_id": target_id,
+            "source_episode_candidate_id": candidate_id,
+            "source_member_card_id": card_id,
+            "camera_id": candidate.get("camera_id"),
+            "scene_version": UNKNOWN_SCENE_VERSION,
+            "timestamp": member.get("timestamp"),
+            "truth_class": truth_class,
+            "location_type": "POINT",
+            "point": point,
+            "localization_status": "NEEDS_RELOCALIZATION",
+            "origin": MANUAL_TARGET_ORIGIN,
+            "appearance_tag": "",
+            "review_status": "human_reviewed",
+            "note": note,
+            "created_at": now,
+            "updated_at": now,
+            "revision": 1,
+            "review_schema_version": REVIEW_SCHEMA_VERSION,
+        }
+        self.manual_targets[target_id] = record
+        self._record(candidate_id, "manual_target:add", {
+            "manual_target_id": target_id, "card_id": card_id,
+            "truth_class": truth_class, "point": point,
+            "clicked_asset_type": clicked_asset_type,
+            "forced_past_near_duplicate": bool(warnings)})
+        self.save()
+        return record, warnings
+
+    def update_manual_target(
+        self, manual_target_id: str, *,
+        truth_class: str | None = None, note: str | None = None,
+    ) -> dict[str, Any]:
+        """Change the classification only; the id is never regenerated."""
+        row = self.manual_targets.get(manual_target_id)
+        if row is None:
+            raise ReviewError(f"unknown manual target {manual_target_id}")
+        if truth_class is not None:
+            if truth_class not in MANUAL_TARGET_TRUTH_CLASSES:
+                raise ReviewError(
+                    f"truth_class must be one of {MANUAL_TARGET_TRUTH_CLASSES}")
+            row["truth_class"] = truth_class
+        if note is not None:
+            row["note"] = note
+        row["updated_at"] = utc_now_text()
+        row["revision"] = int(row.get("revision") or 1) + 1
+        self._record(str(row.get("source_episode_candidate_id") or ""),
+                     "manual_target:update", {
+                         "manual_target_id": manual_target_id,
+                         "truth_class": row.get("truth_class"), "note": row.get("note")})
+        self.save()
+        return row
+
+    def repoint_manual_target(
+        self, step1a: Step1AInput, manual_target_id: str, *,
+        clicked_asset_type: str, clicked_asset_path: str,
+        x: float, y: float, image_width: int, image_height: int,
+    ) -> dict[str, Any]:
+        """Move an existing target to a newly clicked point, keeping its id."""
+        row = self.manual_targets.get(manual_target_id)
+        if row is None:
+            raise ReviewError(f"unknown manual target {manual_target_id}")
+        candidate_id = str(row.get("source_episode_candidate_id") or "")
+        candidate = step1a.candidate_by_id.get(candidate_id)
+        if candidate is None:
+            raise ReviewError(f"unknown candidate {candidate_id}")
+        members = {m.get("card_id"): m
+                   for m in (candidate.get("lineage") or {}).get("review_cards") or []}
+        member = members.get(str(row.get("source_member_card_id") or ""))
+        if member is None:
+            raise ReviewError("source member card is missing from the candidate")
+        point = validate_manual_point(
+            x=x, y=y, image_width=image_width, image_height=image_height,
+            clicked_asset_type=clicked_asset_type, clicked_asset_path=clicked_asset_path,
+            member=member, batch_key=str(member.get("batch_key") or ""))
+        previous = dict(row.get("point") or {})
+        row["point"] = point
+        row["updated_at"] = utc_now_text()
+        row["revision"] = int(row.get("revision") or 1) + 1
+        self._record(candidate_id, "manual_target:repoint", {
+            "manual_target_id": manual_target_id,
+            "previous_point": previous, "point": point})
+        self.save()
+        return row
+
+    def delete_manual_target(self, manual_target_id: str) -> dict[str, Any]:
+        """Delete a target; the audit trail keeps the full history."""
+        row = self.manual_targets.pop(manual_target_id, None)
+        if row is None:
+            raise ReviewError(f"unknown manual target {manual_target_id}")
+        self._record(str(row.get("source_episode_candidate_id") or ""),
+                     "manual_target:delete", {
+                         "manual_target_id": manual_target_id,
+                         "truth_class": row.get("truth_class"),
+                         "point": row.get("point")})
+        self.save()
+        return row
+
+    def manual_target_counts(self) -> dict[str, Any]:
+        rows = list(self.manual_targets.values())
+        by_class: dict[str, int] = {c: 0 for c in MANUAL_TARGET_TRUTH_CLASSES}
+        by_camera: dict[str, int] = {}
+        for row in rows:
+            key = str(row.get("truth_class") or "UNKNOWN")
+            by_class[key] = by_class.get(key, 0) + 1
+            camera = str(row.get("camera_id") or "")
+            by_camera[camera] = by_camera.get(camera, 0) + 1
+        return {
+            "manual_missing_target_count": len(rows),
+            "manual_required_count": by_class.get("REQUIRED_LITTER", 0),
+            "manual_ignore_small_count": by_class.get("IGNORE_SMALL", 0),
+            "manual_uncertain_count": by_class.get("UNCERTAIN", 0),
+            "manual_targets_by_camera": dict(sorted(by_camera.items())),
+            "manual_targets_needing_relocalization": sum(
+                1 for row in rows
+                if row.get("localization_status") == "NEEDS_RELOCALIZATION"),
+        }
 
     # -- mutations ---------------------------------------------------------- #
 
@@ -747,9 +1078,25 @@ class ReviewState:
 def episode_id_for(camera_id: str, member_card_ids: Iterable[str]) -> str:
     """Deterministic id derived only from the final member card set."""
     members = sorted(str(m) for m in member_card_ids)
-    blob = "|".join([REVIEW_SCHEMA_VERSION, str(camera_id), *members])
+    blob = "|".join([EPISODE_ID_NAMESPACE, str(camera_id), *members])
     digest = hashlib.sha256(blob.encode("utf-8")).hexdigest()[:12]
     return f"ge-{camera_id}-{digest}"
+
+
+def manual_target_id_for(camera_id: str, token: str | None = None) -> str:
+    """Persistent identity for a human-discovered target.
+
+    Two genuinely different pieces of litter can sit on the same pixel, so a
+    content hash cannot identify them: the id must be minted once and persisted.
+    """
+    suffix = token or uuid.uuid4().hex[:12]
+    return f"mt-{camera_id}-{suffix}"
+
+
+def manual_episode_id_for(camera_id: str, manual_target_id: str) -> str:
+    suffix = str(manual_target_id).rsplit("-", 1)[-1]
+    return f"ge-{camera_id}-manual-{suffix}"
+
 
 
 class _UnionFind:
@@ -1203,6 +1550,95 @@ def build_gold_records(
             "is_litter_episode": False,
         })
 
+    # Human-discovered missing targets: each becomes its own independent truth
+    # target / provisional episode.  They are never merged into the candidate they
+    # were found next to (plan §3.5 forbids collapsing per-object truth).
+    for manual_target_id in sorted(state.manual_targets):
+        target = state.manual_targets[manual_target_id]
+        source_card = str(target.get("source_member_card_id") or "")
+        source_candidate = str(target.get("source_episode_candidate_id") or "")
+        entry = card_index.get(source_card)
+        if entry is None:
+            conflicts.append({"type": "manual_target_source_card_missing",
+                              "manual_target_id": manual_target_id,
+                              "source_member_card_id": source_card})
+            continue
+        _, member = entry
+        camera = str(target.get("camera_id") or "")
+        truth_class = str(target.get("truth_class") or "")
+        if truth_class not in MANUAL_TARGET_TRUTH_CLASSES:
+            conflicts.append({"type": "manual_target_invalid_truth_class",
+                              "manual_target_id": manual_target_id,
+                              "truth_class": truth_class})
+            continue
+
+        stamp = parse_timestamp(member.get("timestamp"))
+        visible_intervals = []
+        if stamp is not None:
+            member_assets = dict(member.get("assets") or {})
+            has_context = bool(member_assets.get("before_image")) and \
+                bool(member_assets.get("after_image"))
+            pad = timedelta(seconds=SILVER_BEFORE_AFTER_SECONDS) if has_context \
+                else timedelta(0)
+            left, right = stamp - pad, stamp + pad
+            visible_intervals.append({
+                "start": left.strftime("%Y-%m-%d %H:%M:%S"),
+                "end": right.strftime("%Y-%m-%d %H:%M:%S"),
+                "basis": ("source_review_card_before_after_window" if has_context
+                          else "single_source_review_card_instant"),
+            })
+
+        inherited = audit_trainability(
+            {"member_card_ids": [source_card]}, step1a,
+            policy=policy, source_evidence=source_evidence)
+        if truth_class == "REQUIRED_LITTER":
+            trainability_status = inherited["trainability_status"]
+            trainability_evidence = inherited
+        else:
+            trainability_status = "REVIEW_ONLY"
+            trainability_evidence = {
+                "trainability_status": "REVIEW_ONLY",
+                "lineage_method": inherited.get("lineage_method", "none"),
+                "lineage_reason": "manual_target_classified_not_required_litter",
+                "policy": inherited["policy"],
+                "members": inherited["members"],
+                "note": ("Human-discovered target with a non-REQUIRED_LITTER class; "
+                         "kept as review evidence only."),
+            }
+
+        records.append({
+            "episode_id": manual_episode_id_for(camera, manual_target_id),
+            "truth_target_id": target.get("truth_target_id") or manual_target_id,
+            "truth_class": truth_class,
+            "camera_id": camera,
+            "scene_version": UNKNOWN_SCENE_VERSION,
+            "scene_version_status": "unknown_historical_no_metadata",
+            "start_timestamp": (stamp.strftime("%Y-%m-%d %H:%M:%S") if stamp else None),
+            "end_timestamp": (stamp.strftime("%Y-%m-%d %H:%M:%S") if stamp else None),
+            "visible_intervals": visible_intervals,
+            "source_episode_candidate_ids": [source_candidate] if source_candidate else [],
+            "source_member_card_id": source_card,
+            "member_card_ids": [source_card],
+            "member_count": 1,
+            "original_label_summary": {str(member.get("label") or "UNKNOWN"): 1},
+            "review_decision": "ADD_MISSING_TARGET",
+            "review_status": "human_reviewed",
+            "location_type": "POINT",
+            "point": dict(target.get("point") or {}),
+            "localization_status": "NEEDS_RELOCALIZATION",
+            "origin": MANUAL_TARGET_ORIGIN,
+            "appearance_tag": str(target.get("appearance_tag") or ""),
+            "trainability_status": trainability_status,
+            "trainability_evidence": trainability_evidence,
+            "grouping_review": {"confirmed": False, "split": False, "merged": False,
+                                "merge_source_candidates": []},
+            "notes": str(target.get("note") or ""),
+            "reviewed_at": str(target.get("updated_at") or target.get("created_at") or ""),
+            "review_schema_version": REVIEW_SCHEMA_VERSION,
+            "record_kind": "manual_missing_target",
+            "is_litter_episode": truth_class == "REQUIRED_LITTER",
+        })
+
     records.sort(key=lambda r: (r["camera_id"], r["episode_id"]))
     return records, conflicts
 
@@ -1243,6 +1679,17 @@ def build_summary(
     grouping_risk = [q for q in queue if q.get("grouping_risk")]
     lineage_only = [q for q in queue if q.get("lineage_only")]
 
+    manual_records = [r for r in records if r.get("record_kind") == "manual_missing_target"]
+    manual_block = state.manual_target_counts()
+    manual_block["manual_targets_trainable_lineage"] = sum(
+        1 for r in manual_records if r["trainability_status"] == "TRAINABLE_SOURCE_NATIVE")
+    manual_block["manual_targets_lineage_unresolved"] = sum(
+        1 for r in manual_records if r["trainability_status"] == "LINEAGE_UNRESOLVED")
+    manual_block["manual_gold_episode_count"] = sum(
+        1 for r in manual_records if r["is_litter_episode"])
+    manual_block["manual_targets_are_independent_of_source_candidate"] = True
+    manual_block["manual_targets_merged_automatically"] = False
+
     ops = {
         "confirm_operations": decisions["CONFIRM"],
         "split_operations": decisions["SPLIT"],
@@ -1250,6 +1697,7 @@ def build_summary(
         "non_litter_decisions": decisions["NON_LITTER"],
         "ignore_small_decisions": decisions["IGNORE_SMALL"],
         "uncertain_decisions": decisions["UNCERTAIN"],
+        "add_missing_target_operations": len(manual_records),
     }
     reviewed_candidates = progress["reviewed"]
     return {
@@ -1283,6 +1731,9 @@ def build_summary(
         },
         "gold_episodes": {
             "gold_episode_count": len(litter_episodes),
+            "manual_gold_episode_count": sum(
+                1 for r in litter_episodes
+                if r.get("record_kind") == "manual_missing_target"),
             "classification_outcome_count": len(outcomes),
             "by_truth_class": truth_counts,
             "merge_compression": sum(
@@ -1300,6 +1751,7 @@ def build_summary(
             "per_camera": dict(sorted(per_camera.items())),
             "counts_apply_to": "REQUIRED_LITTER episodes only",
         },
+        "manual_missing_targets": manual_block,
         "risk_coverage": {
             "queue_total": len(queue),
             "grouping_risk_total": len(grouping_risk),
@@ -1323,6 +1775,8 @@ def build_summary(
             "hard_negative_mining_started": False,
             "automatic_merge_applied_without_human": False,
             "scene_version_fabricated": False,
+            "manual_targets_auto_merged": False,
+            "manual_target_bbox_inferred": False,
         },
     }
 
@@ -1363,6 +1817,8 @@ def build_manifest(
             "sealed_inference_accessed": False,
             "training_started": False,
             "auto_gold_generated": False,
+            "manual_target_bbox_inferred": False,
+            "manual_targets_auto_merged": False,
         },
     }
 
@@ -1380,7 +1836,14 @@ def review_fingerprint(state: ReviewState) -> str:
         for cid, row in sorted(state.candidates.items())
     }
     blob = json.dumps(stable, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
-    return hashlib.sha256(blob.encode("utf-8")).hexdigest()
+    manual = json.dumps({
+        mid: {"truth_class": row.get("truth_class"),
+              "point": row.get("point"),
+              "card_id": row.get("source_member_card_id"),
+              "candidate_id": row.get("source_episode_candidate_id")}
+        for mid, row in sorted(state.manual_targets.items())
+    }, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+    return hashlib.sha256((blob + "||" + manual).encode("utf-8")).hexdigest()
 
 
 def write_review_outputs(

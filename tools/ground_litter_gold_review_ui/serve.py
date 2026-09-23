@@ -28,6 +28,9 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from rtsp_annotator.ground_litter_gold_episode_review import (  # noqa: E402
+    MANUAL_TARGET_TRUTH_CLASSES,
+    REVIEW_SCHEMA_VERSION,
+    NearDuplicateTarget,
     ReviewError,
     ReviewState,
     build_queue,
@@ -118,6 +121,7 @@ class ReviewHandler(SimpleHTTPRequestHandler):
                 source = assets.get("context_image")
                 tiles[slot] = {
                     "url": self._image_url(batch_key, source),
+                    "asset_path": source,
                     "missing": not bool(source),
                     "derived_from": "context_image",
                     "note": "no current_image field exists; context_image is the current-frame crop",
@@ -127,6 +131,7 @@ class ReviewHandler(SimpleHTTPRequestHandler):
             resolved = self._resolve_asset(batch_key, str(relative)) if relative else None
             tiles[slot] = {
                 "url": self._image_url(batch_key, str(relative)) if relative else None,
+                "asset_path": relative,
                 "missing": resolved is None,
                 "derived_from": None,
                 "note": "" if resolved is not None else "MISSING",
@@ -193,6 +198,20 @@ class ReviewHandler(SimpleHTTPRequestHandler):
             "merge_suggestions": [self._suggestion_with_image(s)
                                   for s in merge_suggestions(self.step1a, candidate_id)],
             "decision": state.get(candidate_id),
+            "manual_targets": [
+                {"manual_target_id": row["manual_target_id"],
+                 "truth_class": row.get("truth_class"),
+                 "point": dict(row.get("point") or {}),
+                 "source_member_card_id": row.get("source_member_card_id"),
+                 "localization_status": row.get("localization_status"),
+                 "origin": row.get("origin"),
+                 "note": row.get("note"),
+                 "created_at": row.get("created_at"),
+                 "updated_at": row.get("updated_at"),
+                 "revision": row.get("revision")}
+                for row in state.manual_targets_for(candidate_id)
+            ],
+            "manual_target_truth_classes": list(MANUAL_TARGET_TRUTH_CLASSES),
         }
 
     # -- routing ------------------------------------------------------------ #
@@ -220,7 +239,7 @@ class ReviewHandler(SimpleHTTPRequestHandler):
                 "candidate_count": self.step1a.candidate_count,
                 "member_card_count": self.step1a.member_card_count,
                 "step1a_code_commit": self.step1a.step1a_code_commit,
-                "review_schema_version": "gold_episode_review_v1",
+                "review_schema_version": REVIEW_SCHEMA_VERSION,
                 "progress": state.progress(self.step1a),
                 "queue": queue,
             })
@@ -268,8 +287,52 @@ class ReviewHandler(SimpleHTTPRequestHandler):
                 state.skip(str(body["candidate_id"]), note=str(body.get("note") or ""))
             elif parsed.path == "/api/reset":
                 state.reset(str(body["candidate_id"]))
+            elif parsed.path == "/api/manual-target":
+                record, warnings = state.add_manual_target(
+                    self.step1a, str(body["candidate_id"]),
+                    card_id=str(body["card_id"]),
+                    truth_class=str(body.get("truth_class") or "REQUIRED_LITTER"),
+                    clicked_asset_type=str(body["clicked_asset_type"]),
+                    clicked_asset_path=str(body["clicked_asset_path"]),
+                    x=body["x"], y=body["y"],
+                    image_width=body["image_width"], image_height=body["image_height"],
+                    note=str(body.get("note") or ""),
+                    allow_near_duplicate=bool(body.get("allow_near_duplicate")),
+                )
+                return self._json(200, {
+                    "ok": True,
+                    "manual_target": record,
+                    "near_duplicate_warnings": warnings,
+                    "progress": state.progress(self.step1a),
+                })
+            elif parsed.path == "/api/manual-target/update":
+                record = state.update_manual_target(
+                    str(body["manual_target_id"]),
+                    truth_class=(str(body["truth_class"]) if body.get("truth_class") else None),
+                    note=(str(body["note"]) if "note" in body else None),
+                )
+                return self._json(200, {"ok": True, "manual_target": record})
+            elif parsed.path == "/api/manual-target/repoint":
+                record = state.repoint_manual_target(
+                    self.step1a, str(body["manual_target_id"]),
+                    clicked_asset_type=str(body["clicked_asset_type"]),
+                    clicked_asset_path=str(body["clicked_asset_path"]),
+                    x=body["x"], y=body["y"],
+                    image_width=body["image_width"], image_height=body["image_height"],
+                )
+                return self._json(200, {"ok": True, "manual_target": record})
+            elif parsed.path == "/api/manual-target/delete":
+                record = state.delete_manual_target(str(body["manual_target_id"]))
+                return self._json(200, {"ok": True, "deleted": record})
             else:
                 return self._json(404, {"error": "not found"})
+        except NearDuplicateTarget as exc:
+            # Ask, never silently refuse: two real pieces of litter can be adjacent.
+            return self._json(409, {
+                "error": str(exc),
+                "requires_confirmation": True,
+                "near_duplicates": exc.near_duplicates,
+            })
         except ReviewError as exc:
             return self._json(400, {"error": str(exc)})
         except KeyError as exc:
