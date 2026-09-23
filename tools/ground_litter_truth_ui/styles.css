@@ -1,0 +1,55 @@
+:root{--bg:#14161a;--panel:#1c1f26;--panel2:#232833;--line:#333a47;--fg:#e8ecf3;--muted:#9aa4b5;--accent:#4c8dff;--ok:#39b869;--warn:#e0a13a;--bad:#e0603a;--purple:#a97bff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:13px/1.5 -apple-system,"Helvetica Neue","PingFang SC",sans-serif}
+header{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;background:var(--panel);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+h1{font-size:15px;margin:0}
+.muted{color:var(--muted)}
+.progress{text-align:right}
+.progress b{font-size:16px;display:block}
+main{display:grid;grid-template-columns:300px 1fr;height:calc(100vh - 58px)}
+aside{border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:0}
+.filters{padding:8px;display:grid;gap:6px;border-bottom:1px solid var(--line);background:var(--panel)}
+.filters label{display:grid;gap:2px;font-size:11px;color:var(--muted)}
+select,input,textarea{background:var(--panel2);color:var(--fg);border:1px solid var(--line);border-radius:5px;padding:4px 6px;font:inherit}
+.queue{overflow:auto;flex:1}
+.item{display:block;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);color:var(--fg);padding:7px 9px;cursor:pointer;font:inherit}
+.item:hover{background:var(--panel2)}
+.item.active{background:var(--panel2);box-shadow:inset 3px 0 0 var(--accent)}
+.item small{display:block;color:var(--muted);font-size:11px}
+.badges{display:flex;gap:4px;flex-wrap:wrap;margin-top:3px}
+.badge{font-size:10px;padding:1px 5px;border-radius:99px;border:1px solid var(--line);color:var(--muted)}
+.badge.keep{border-color:var(--ok);color:var(--ok)}
+.badge.drop{border-color:var(--bad);color:var(--bad)}
+.badge.unc{border-color:var(--warn);color:var(--warn)}
+.badge.amb{border-color:var(--purple);color:var(--purple)}
+.detail{overflow:auto;height:100%;padding:12px 16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-bottom:12px}
+.kv{display:grid;grid-template-columns:160px 1fr;gap:2px 10px;font-size:12px}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0;word-break:break-all}
+.prior{border:2px solid var(--warn);background:#2a2418;border-radius:8px;padding:10px 12px;margin-bottom:12px}
+.prior .label{font-size:11px;color:var(--warn);font-weight:700;letter-spacing:.04em}
+.prior .value{font-size:18px;font-weight:700;margin-top:4px;word-break:break-word}
+.prior .hint{font-size:11px;color:var(--muted);margin-top:4px}
+.views{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.view{position:relative;background:#0e1013;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.view img{position:absolute;top:0;left:0;transform-origin:0 0;display:block;max-width:none}
+.box{position:absolute;border:2px solid #4c8dff;pointer-events:none}
+.pt{position:absolute;width:0;height:0;pointer-events:none}
+.pt::before,.pt::after{content:"";position:absolute;background:#39b869}
+.pt::before{left:-11px;top:-1px;width:22px;height:2px}
+.pt::after{left:-1px;top:-11px;width:2px;height:22px}
+.viewcap{font-size:10px;color:var(--muted);padding:3px 5px}
+.actions{position:sticky;bottom:0;background:var(--bg);padding:10px 0;border-top:1px solid var(--line);display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+button.act{background:var(--panel2);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:8px 14px;cursor:pointer;font:inherit}
+button.act:hover{border-color:var(--accent)}
+button.act.keep{border-color:var(--ok);color:var(--ok);font-weight:600}
+button.act.small{border-color:var(--warn);color:var(--warn)}
+button.act.non{border-color:var(--bad);color:var(--bad)}
+button.act.unc{border-color:var(--warn)}
+button.act.amb{border-color:var(--purple);color:var(--purple)}
+button.act.sel{background:var(--accent);border-color:var(--accent);color:#fff}
+kbd{background:#0e1013;border:1px solid var(--line);border-radius:4px;padding:0 4px;font-size:10px}
+.hint{color:var(--muted);font-size:11px}
+.err{color:var(--bad);font-weight:600}
+textarea{width:100%}
