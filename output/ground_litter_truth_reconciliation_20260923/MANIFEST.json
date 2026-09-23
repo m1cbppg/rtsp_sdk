@@ -1,0 +1,60 @@
+{
+  "artifact_root": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_truth_reconciliation_20260923",
+  "boundaries": {
+    "auto_classified_from_reason_text": false,
+    "bbox_generated_or_modified": false,
+    "detector_run": false,
+    "gold_modified": false,
+    "identity_ambiguous_folded_into_uncertain": false,
+    "localization_artifact_modified": false,
+    "localization_re_reviewed": false,
+    "proposal_run": false,
+    "recovery_evidence_modified": false,
+    "sealed_accessed": false,
+    "segmentation_run": false,
+    "training_started": false,
+    "training_tiles_generated": false
+  },
+  "code_commit": "5399c4ff972b3f6bff02ba66bc861bc0b684b778",
+  "config": {
+    "generator_version": "step1c1r-1.0.0",
+    "gold": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_gold_episode_review_20260923/gold_episodes.jsonl",
+    "localization_root": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_gold_localization_20260923",
+    "output": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_truth_reconciliation_20260923",
+    "recovery_root": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_gold_source_recovery_20260923",
+    "schema_version": "ground_litter_truth_reconciliation_v1",
+    "state": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_truth_reconciliation_20260923/review_state.json"
+  },
+  "counts": {
+    "in_scope": 60,
+    "required_before_reconciliation": 180,
+    "reviewed": 0,
+    "training_eligible_episode_count": 109
+  },
+  "generated_at": "2026-09-23T07:41:17Z",
+  "generator_version": "step1c1r-1.0.0",
+  "gold_input_sha256": "74eefba08d65fd2c32d4d83ea823acadfef4c20b90c42dc7cbff3ec1100e24eb",
+  "localization_input_sha256": "42cac48bd83e6521d37134d3655fc38ef3f5de8e811b4433ef78811c217fbfc4",
+  "outputs": {
+    "review_state": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_truth_reconciliation_20260923/review_state.json",
+    "training_episode_manifest": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_truth_reconciliation_20260923/training_episode_manifest.jsonl",
+    "truth_reconciliation": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_truth_reconciliation_20260923/truth_reconciliation.jsonl"
+  },
+  "recovery_evidence_sha256": "ed66c42ff1a887ec19e796b375a7aed17059907ad00812b598b9578fe94e9ee1",
+  "schema_version": "ground_litter_truth_reconciliation_v1",
+  "summary_sha256": "d4abdd4571878f8dd6bec93a794fa822926aba980d643616912e1f9fb8080449",
+  "training_episode_manifest_sha256": "3693555617cd2dd1a7a824209b10c1d67525cfc63202530061cde46ec68c8255",
+  "truth_reconciliation_sha256": "4a89af2a0963c4a0685badace2ee8a297e68ae4e1b4698f9ec4828289cc82c38",
+  "upstream_provenance": {
+    "mismatch_explained": "Each step's MANIFEST records the git HEAD at the moment its evidence was written, which is later than the commit that introduced the code when a further evidence commit happened in between. The relevant module files are byte-identical between the reported execution commit and the recorded one (checked with git diff), so the recorded hash names the same code. Recorded here so no downstream step has to guess.",
+    "note": "both commit pairs verified with git diff to be byte-identical for the relevant module files",
+    "step1c0_code_equivalence_verified": true,
+    "step1c0_evidence_commit": "bfdecd5",
+    "step1c0_manifest_commit": "81c3dde27f7ed759248330e3c332d78907a137e3",
+    "step1c0_reported_execution_commit": "2e5da415c20feda3384e080a3ff9217c97c4e83c",
+    "step1c1_code_equivalence_verified": true,
+    "step1c1_evidence_commit": "1a1f65c14a5e971baa00eb36774e9c85911124d8",
+    "step1c1_manifest_commit": "806f8de4cb8b750c1c68aa262571d59ea1c8d0ba",
+    "step1c1_reported_execution_commit": "809ce49196dadc639fe90438da3c27057baa34bd"
+  }
+}

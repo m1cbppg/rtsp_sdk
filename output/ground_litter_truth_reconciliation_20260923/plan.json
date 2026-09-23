@@ -1,0 +1,59 @@
+{
+  "frozen_out_of_scope": {
+    "localization_unresolved": 11,
+    "verified_bbox": 109
+  },
+  "gold_artifact": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_gold_episode_review_20260923/gold_episodes.jsonl",
+  "gold_sha256": "74eefba08d65fd2c32d4d83ea823acadfef4c20b90c42dc7cbff3ec1100e24eb",
+  "in_scope_by_camera": {
+    "01021": 16,
+    "01022": 19,
+    "01027": 8,
+    "01028": 3,
+    "01030": 14
+  },
+  "in_scope_by_origin": {
+    "box_wrong": 22,
+    "historical_litter": 35,
+    "manual_missing_target": 2,
+    "split_derived": 1
+  },
+  "in_scope_count": 60,
+  "localization_artifact": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_gold_localization_20260923/localizations.jsonl",
+  "localization_manifest_sha256": "44d3383038b9a5eee7a2c4ac6196db260412f027dd4510f0f390ae6f3f75a24b",
+  "localization_sha256": "42cac48bd83e6521d37134d3655fc38ef3f5de8e811b4433ef78811c217fbfc4",
+  "localization_summary_sha256": "0aa2938521d11814a08c3c8e52c367b99ed39fa45bcc7e1153ac68a51880fbbc",
+  "note": "prior reasons are displayed for context only and are never auto-classified",
+  "options": [
+    "KEEP_REQUIRED",
+    "IGNORE_SMALL",
+    "NON_LITTER",
+    "UNCERTAIN",
+    "IDENTITY_AMBIGUOUS"
+  ],
+  "preflight": {
+    "localization_unresolved": 11,
+    "required_before": 180,
+    "sum_matches": true,
+    "total": 180,
+    "truth_review_required": 60,
+    "verified_bbox_before": 109
+  },
+  "prior_reason_histogram": {
+    "不完整": 3,
+    "不完整，无法判断": 1,
+    "不是垃圾": 7,
+    "垃圾不完整": 1,
+    "垃圾太小": 42,
+    "无法判断": 1,
+    "框内垃圾太多": 1,
+    "框内多个垃圾": 1,
+    "框内目标太多": 1,
+    "没有垃圾": 1,
+    "疑似污渍": 1
+  },
+  "prior_reason_missing": 0,
+  "prior_reason_present": 60,
+  "recovery_evidence_sha256": "ed66c42ff1a887ec19e796b375a7aed17059907ad00812b598b9578fe94e9ee1",
+  "step1c1_code_commit_recorded_in_manifest": "806f8de4cb8b750c1c68aa262571d59ea1c8d0ba"
+}
