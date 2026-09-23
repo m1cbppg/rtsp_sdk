@@ -7,7 +7,7 @@
     "step1a_artifact_immutable": true,
     "training_started": false
   },
-  "generated_at": "2026-09-23T03:33:19Z",
+  "generated_at": "2026-09-23T04:44:37Z",
   "outputs": {
     "gold_episodes": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_gold_episode_review_20260923/gold_episodes.jsonl",
     "review_state": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_gold_episode_review_20260923/review_state.json",
@@ -24,7 +24,7 @@
     "member_card_count": 224
   },
   "step1b": {
-    "code_commit": "ec5f4ee15b7a748ce0ec1dedc4f1e54d15b39b62",
+    "code_commit": "efcbaef665fecb6c83f4e995d84109e7e887c7ed",
     "config": {
       "artifact": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_episode_candidates_20260923/episode_candidates.jsonl",
       "output": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_gold_episode_review_20260923",
@@ -34,6 +34,6 @@
       "state": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_gold_episode_review_20260923/review_state.json",
       "step1a_manifest": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_episode_candidates_20260923/MANIFEST.json"
     },
-    "review_dataset_fingerprint": "82413c7ff00e18925222894108fb6eb8d5cba36b7e5cb5b134995bb26004b0f3"
+    "review_dataset_fingerprint": "762168acecb4ea81decee8c7b46d912e18901b79c0ab72d2c09d67d9dd9b4d9f"
   }
 }

@@ -13,41 +13,41 @@
   "conflicts": [],
   "gold_episodes": {
     "by_truth_class": {
-      "IGNORE_SMALL": 0,
-      "NON_LITTER": 0,
-      "REQUIRED_LITTER": 0,
-      "UNCERTAIN": 0
+      "IGNORE_SMALL": 9,
+      "NON_LITTER": 16,
+      "REQUIRED_LITTER": 180,
+      "UNCERTAIN": 8
     },
-    "classification_outcome_count": 0,
-    "gold_episode_count": 0,
-    "manual_gold_episode_count": 0,
+    "classification_outcome_count": 33,
+    "gold_episode_count": 180,
+    "manual_gold_episode_count": 9,
     "merge_compression": 0,
-    "net_candidate_to_episode_change": 0,
-    "split_expansion": 0,
+    "net_candidate_to_episode_change": -21,
+    "split_expansion": 6,
     "statement": "Gold episodes exist only for human-reviewed candidates. Empty counts mean no human review has happened yet."
   },
   "human_review": {
     "decisions": {
-      "CONFIRM": 0,
-      "IGNORE_SMALL": 0,
+      "CONFIRM": 165,
+      "IGNORE_SMALL": 9,
       "MERGE": 0,
-      "NON_LITTER": 0,
-      "SPLIT": 0,
-      "UNCERTAIN": 0
+      "NON_LITTER": 16,
+      "SPLIT": 3,
+      "UNCERTAIN": 8
     },
     "operations": {
-      "add_missing_target_operations": 0,
-      "confirm_operations": 0,
-      "ignore_small_decisions": 0,
+      "add_missing_target_operations": 9,
+      "confirm_operations": 165,
+      "ignore_small_decisions": 9,
       "merge_operations": 0,
-      "non_litter_decisions": 0,
-      "split_operations": 0,
-      "uncertain_decisions": 0
+      "non_litter_decisions": 16,
+      "split_operations": 3,
+      "uncertain_decisions": 8
     },
-    "pending": 201,
-    "review_complete": false,
-    "reviewed": 0,
-    "reviewed_fraction": 0.0,
+    "pending": 0,
+    "review_complete": true,
+    "reviewed": 201,
+    "reviewed_fraction": 1.0,
     "skipped": 0,
     "total": 201
   },
@@ -71,7 +71,7 @@
     },
     "hypothetical_if_confirmed_required_litter": true,
     "policy": {
-      "reference_time": "2026-09-23T11:33:19",
+      "reference_time": "2026-09-23T12:44:37",
       "require_assets_present": true,
       "retention_days": 7.0
     },
@@ -82,35 +82,61 @@
     "statement": "Input-lineage readiness only. This is NOT Gold truth and does not mean any candidate has been reviewed."
   },
   "manual_missing_targets": {
-    "manual_gold_episode_count": 0,
+    "manual_gold_episode_count": 9,
     "manual_ignore_small_count": 0,
-    "manual_missing_target_count": 0,
-    "manual_required_count": 0,
+    "manual_missing_target_count": 9,
+    "manual_required_count": 9,
     "manual_targets_are_independent_of_source_candidate": true,
-    "manual_targets_by_camera": {},
-    "manual_targets_lineage_unresolved": 0,
+    "manual_targets_by_camera": {
+      "01021": 2,
+      "01022": 4,
+      "01028": 1,
+      "01030": 2
+    },
+    "manual_targets_lineage_unresolved": 5,
     "manual_targets_merged_automatically": false,
-    "manual_targets_needing_relocalization": 0,
-    "manual_targets_trainable_lineage": 0,
+    "manual_targets_needing_relocalization": 9,
+    "manual_targets_trainable_lineage": 4,
     "manual_uncertain_count": 0
   },
   "review_schema_version": "gold_episode_review_v2",
   "risk_coverage": {
     "box_wrong_derived_gold": 0,
-    "grouping_risk_reviewed": 0,
+    "grouping_risk_reviewed": 19,
     "grouping_risk_total": 19,
-    "lineage_only_reviewed": 0,
+    "lineage_only_reviewed": 69,
     "lineage_only_total": 69,
     "queue_total": 201
   },
   "schema_version": "ground_litter_gold_episode_review_v1",
   "source_native_trainability": {
     "counts": {
-      "LINEAGE_UNRESOLVED": 0,
+      "LINEAGE_UNRESOLVED": 61,
       "REVIEW_ONLY": 0,
-      "TRAINABLE_SOURCE_NATIVE": 0
+      "TRAINABLE_SOURCE_NATIVE": 119
     },
     "counts_apply_to": "REQUIRED_LITTER episodes only",
-    "per_camera": {}
+    "per_camera": {
+      "01021": {
+        "required_litter_episodes": 38,
+        "trainable_episodes": 26
+      },
+      "01022": {
+        "required_litter_episodes": 56,
+        "trainable_episodes": 30
+      },
+      "01027": {
+        "required_litter_episodes": 14,
+        "trainable_episodes": 11
+      },
+      "01028": {
+        "required_litter_episodes": 26,
+        "trainable_episodes": 19
+      },
+      "01030": {
+        "required_litter_episodes": 46,
+        "trainable_episodes": 33
+      }
+    }
   }
 }
