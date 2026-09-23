@@ -1,0 +1,59 @@
+{
+  "blockers": [],
+  "box_problem_excluded": 2,
+  "candidate_png_count": 93,
+  "existing_label_count_histogram": {
+    "1": 50,
+    "2": 10,
+    "3": 2
+  },
+  "generator_version": "step1c2m-1.0.0",
+  "hashes": {
+    "positive_training_manifest_sha256": "a62f947deb15498c576a7ac219788d74fb58ae3e3f1abe28035b2addbdafec40",
+    "review_state_sha256": "17923fc2ec98d2cee734f024e5d9c9cc62ca7980effaeea7e6504b43a18717e6",
+    "step1c2_manifest_sha256": "8b735824d3fd09d85ab665a1ce5884351df03aa33a85d653f6f2417d736dc494",
+    "step1c2_summary_sha256": "bc6062d953d12626881cb44408422c044cfb59978a3f753a781dcf7f2558831b",
+    "tile_candidates_sha256": "c54a5c4f0394f45ef2a7a603028a62bde38890211514ed89573c7949755df43d"
+  },
+  "input_fingerprint": "59b0e78b54ce8ce563a0432bac146fd068012fa7c8690fc9ec59cac3fb95d0aa",
+  "missing_required_input": 62,
+  "note": "read-only: no image is decoded, no crop moves, and the 29 accepted tiles plus the 2 BOX_PROBLEM tiles stay untouched",
+  "old_accepted": 29,
+  "per_camera_missing": {
+    "01021": 12,
+    "01022": 24,
+    "01027": 2,
+    "01028": 11,
+    "01030": 13
+  },
+  "preflight": {
+    "candidate_png_count": 93,
+    "counts_match": true,
+    "expected": {
+      "old_accepted_positive_tile_count": 29,
+      "step1c2_annotation_complete": 29,
+      "step1c2_box_problem": 2,
+      "step1c2_missing_required": 62,
+      "step1c2_other": 0,
+      "step1c2_total": 93
+    },
+    "hashes": {
+      "positive_training_manifest_sha256": "a62f947deb15498c576a7ac219788d74fb58ae3e3f1abe28035b2addbdafec40",
+      "review_state_sha256": "17923fc2ec98d2cee734f024e5d9c9cc62ca7980effaeea7e6504b43a18717e6",
+      "step1c2_manifest_sha256": "8b735824d3fd09d85ab665a1ce5884351df03aa33a85d653f6f2417d736dc494",
+      "step1c2_summary_sha256": "bc6062d953d12626881cb44408422c044cfb59978a3f753a781dcf7f2558831b",
+      "tile_candidates_sha256": "c54a5c4f0394f45ef2a7a603028a62bde38890211514ed89573c7949755df43d"
+    },
+    "old_accepted_positive_tile_count": 29,
+    "problem_count": 0,
+    "problems": [],
+    "step1c2_annotation_complete": 29,
+    "step1c2_box_problem": 2,
+    "step1c2_missing_required": 62,
+    "step1c2_other": 0,
+    "step1c2_total": 93
+  },
+  "risk_flagged_missing": 9,
+  "schema_version": "ground_litter_tile_completion_v1",
+  "step1c2_root": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_positive_tiles_20260923"
+}
