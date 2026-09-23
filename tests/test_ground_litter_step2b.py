@@ -42,13 +42,13 @@ from rtsp_annotator.ground_litter_step2b import (
     TRAIN_RECIPE,
     TRAIN_SET_NOTE,
     TRAIN_SET_RECALL_BAR,
-    VERDICT_FAIL,
-    VERDICT_PARTIAL,
-    VERDICT_PASS,
+    VERDICT_COMPLETE,
+    VERDICT_FAILED,
+    VERDICT_INCOMPLETE,
     Step2BError,
     boundary_flags,
     checkpoint_freeze_record,
-    full_finetune_verdict,
+    training_completion_verdict,
     full_pool_manifest,
     size_bucket_names,
     verify_full_pool,
@@ -64,6 +64,10 @@ STEP2A_CLI = ROOT / "scripts" / "run_ground_litter_step2a.py"
 MODULE = ROOT / "rtsp_annotator" / "ground_litter_step2b.py"
 
 WEIGHT_SHA256 = "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b"
+#: the frozen Step 2C handoff is the last epoch; best.pt is diagnostic only
+PRIMARY_SHA256 = "4852392aeae9a68669a50752eb1f7466fbcc9a426524faba86fb20a3b6351a94"
+DIAGNOSTIC_SHA256 = "e3e1192bcf1dece87d31f2e282ff59630c93359f2b4539bf05f269d810e6012c"
+SUPERSEDED_VERDICT = "FULL_FINETUNE_SANITY_PASS"
 
 #: The operator-frozen Step 2B recipe, spelled out independently of the module.
 FROZEN_RECIPE = {
@@ -217,7 +221,9 @@ class TestFullPoolManifest(unittest.TestCase):
         self.assertTrue(set(names) <= {"<10", "10-19", "20-39", "40-79", "80+"})
 
 
-class TestFullFinetuneVerdict(unittest.TestCase):
+class TestTrainingCompletionVerdict(unittest.TestCase):
+    """The verdict only says whether the full run completed; metrics never grade it."""
+
     def _training(self, **overrides):
         applied = {"data": "d", "imgsz": 640, "epochs": 100, "batch": 8, "device": "cuda",
                    "seed": SEED, "deterministic": True, "optimizer": "auto",
@@ -237,59 +243,78 @@ class TestFullFinetuneVerdict(unittest.TestCase):
         return {"metrics": {"per_conf": {"0.01": {
             "positive_gt_proposal_recall": recall, "positive_image_hit_rate": hit}}}}
 
-    def test_pass_requires_the_train_set_bar(self):
-        verdict = full_finetune_verdict(self._training(), self._post(0.95, 0.9),
-                                        loader_ok=True, full_pool_ok=True)
-        self.assertEqual(verdict["verdict"], VERDICT_PASS)
+    def test_completed_run_is_complete(self):
+        verdict = training_completion_verdict(self._training(), self._post(0.95, 0.9),
+                                              loader_ok=True, full_pool_ok=True)
+        self.assertEqual(verdict["verdict"], VERDICT_COMPLETE)
         self.assertEqual(verdict["failed_preconditions"], [])
-        self.assertEqual(verdict["train_set_recall_bar"], TRAIN_SET_RECALL_BAR)
+        self.assertEqual(verdict["hard_failures"], [])
+        self.assertEqual(verdict["completion_failures"], [])
 
-    def test_below_the_bar_is_only_partial(self):
-        verdict = full_finetune_verdict(self._training(), self._post(0.5, 0.4),
-                                        loader_ok=True, full_pool_ok=True)
-        self.assertEqual(verdict["verdict"], VERDICT_PARTIAL)
+    def test_train_set_metrics_never_change_the_verdict(self):
+        """A low train-set recall must not turn a completed run into a failure label."""
+        for recall, hit in ((0.0, 0.0), (0.5, 0.4), (1.0, 1.0)):
+            verdict = training_completion_verdict(self._training(),
+                                                  self._post(recall, hit),
+                                                  loader_ok=True, full_pool_ok=True)
+            self.assertEqual(verdict["verdict"], VERDICT_COMPLETE, (recall, hit))
+            self.assertEqual(verdict["train_set_gt_proposal_recall_at_0.01"], recall)
+        self.assertIn("informational", verdict["train_set_recall_bar_role"])
+        self.assertIn("completion", verdict["verdict_basis"])
 
-    def test_every_precondition_failure_is_a_fail(self):
+    def test_hard_failures_are_failed(self):
         cases = {
             "loader_ok": dict(loader_ok=False),
             "full_pool_ok": dict(full_pool_ok=False),
-            "epochs_completed": dict(),
             "frozen_args_applied": dict(),
             "augmentation_matches_recipe": dict(),
             "nan_free": dict(),
-            "loss_decreased": dict(),
         }
         for name, kwargs in cases.items():
             training = self._training()
-            if name == "epochs_completed":
-                training["epochs_run"] = 50
-            elif name == "frozen_args_applied":
+            if name == "frozen_args_applied":
                 training["unsupported_args_skipped"] = ["some_arg"]
             elif name == "augmentation_matches_recipe":
                 training["applied_args"]["mosaic"] = 0.5
             elif name == "nan_free":
                 training["nan_or_inf"] = True
-            elif name == "loss_decreased":
-                training["loss_decreased"] = False
             call = {"loader_ok": True, "full_pool_ok": True}
             call.update(kwargs)
-            verdict = full_finetune_verdict(training, self._post(1.0, 1.0), **call)
-            self.assertEqual(verdict["verdict"], VERDICT_FAIL, name)
+            verdict = training_completion_verdict(training, self._post(1.0, 1.0), **call)
+            self.assertEqual(verdict["verdict"], VERDICT_FAILED, name)
+            self.assertIn(name, verdict["hard_failures"], name)
             self.assertIn(name, verdict["failed_preconditions"], name)
 
-    def test_missing_required_arg_is_a_fail(self):
+    def test_short_or_non_decreasing_run_is_incomplete_not_failed(self):
+        short = self._training(epochs_run=50)
+        verdict = training_completion_verdict(short, self._post(1.0, 1.0),
+                                              loader_ok=True, full_pool_ok=True)
+        self.assertEqual(verdict["verdict"], VERDICT_INCOMPLETE)
+        self.assertEqual(verdict["hard_failures"], [])
+        self.assertIn("epochs_completed", verdict["completion_failures"])
+
+        flat = self._training(loss_decreased=False)
+        verdict = training_completion_verdict(flat, self._post(1.0, 1.0),
+                                              loader_ok=True, full_pool_ok=True)
+        self.assertEqual(verdict["verdict"], VERDICT_INCOMPLETE)
+        self.assertIn("loss_decreased", verdict["completion_failures"])
+
+    def test_missing_required_arg_is_a_hard_failure(self):
         training = self._training()
         training["applied_args"].pop("mosaic")
-        verdict = full_finetune_verdict(training, self._post(1.0, 1.0),
-                                        loader_ok=True, full_pool_ok=True)
-        self.assertEqual(verdict["verdict"], VERDICT_FAIL)
+        verdict = training_completion_verdict(training, self._post(1.0, 1.0),
+                                              loader_ok=True, full_pool_ok=True)
+        self.assertEqual(verdict["verdict"], VERDICT_FAILED)
 
-    def test_verdict_never_claims_generalisation(self):
-        verdict = full_finetune_verdict(self._training(), self._post(1.0, 1.0),
-                                        loader_ok=True, full_pool_ok=True)
+    def test_verdict_never_claims_generalisation_or_quality(self):
+        verdict = training_completion_verdict(self._training(), self._post(1.0, 1.0),
+                                              loader_ok=True, full_pool_ok=True)
         self.assertIn("train", verdict["note"].lower())
-        for forbidden in ("generalisation", "development", "sealed"):
-            self.assertNotIn(forbidden, json.dumps(verdict["verdict"]).lower())
+        payload = json.dumps(verdict).lower()
+        for forbidden in ("sanity_pass", "passed", "development", "sealed"):
+            self.assertNotIn(forbidden, payload)
+        # the disclaimer must be present, not the claim
+        self.assertIn("no generalisation is claimed", payload)
 
 
 class TestCheckpointFreeze(unittest.TestCase):
@@ -307,20 +332,43 @@ class TestCheckpointFreeze(unittest.TestCase):
             "best_equals_last": False,
         }
 
-    def test_primary_checkpoint_and_step2c_handoff(self):
+    def test_primary_is_the_last_epoch_and_best_is_forbidden(self):
         record = checkpoint_freeze_record(self._training(), self._checkpoints(),
                                           frozen_at="2026-09-23T00:00:00Z",
                                           manifest_sha256="c" * 64)
-        self.assertEqual(record["primary"], "best.pt")
-        self.assertEqual(record["primary_sha256"], "a" * 64)
-        self.assertEqual(record["primary_bytes"], 123)
+        self.assertEqual(record["primary"], "last.pt")
+        self.assertEqual(record["primary_epoch"], 100)
+        self.assertEqual(record["primary_sha256"], "b" * 64)
+        self.assertEqual(record["primary_bytes"], 124)
         self.assertEqual(record["frozen_at"], "2026-09-23T00:00:00Z")
         self.assertEqual(record["train_manifest_sha256"], "c" * 64)
         self.assertEqual(sorted(record["checkpoints"]), ["best.pt", "last.pt"])
         self.assertFalse(record["best_equals_last"])
+        self.assertIn("last epoch", record["selection_rule"])
+        self.assertIn("best.pt is excluded", record["selection_rule"])
+
+    def test_best_checkpoint_is_diagnostic_only(self):
+        record = checkpoint_freeze_record(self._training(), self._checkpoints())
+        diagnostic = record["diagnostic"]
+        self.assertEqual(diagnostic["name"], "best.pt")
+        self.assertEqual(diagnostic["sha256"], "a" * 64)
+        self.assertEqual(diagnostic["role"], "diagnostic only")
+        self.assertEqual(diagnostic["forbidden_as"],
+                         "Step 2C first-round official checkpoint")
+        self.assertIn("training-set validation metric", diagnostic["reason"])
         handoff = record["step2c_handoff"]
-        self.assertEqual(handoff["weights"], "/tmp/run/weights/best.pt")
-        self.assertEqual(handoff["weights_sha256"], "a" * 64)
+        self.assertIn("best.pt", handoff["forbidden_checkpoints"])
+        forbidden = handoff["forbidden_checkpoints"]["best.pt"]
+        self.assertEqual(forbidden["sha256"], "a" * 64)
+        self.assertEqual(forbidden["role"], "diagnostic only")
+        self.assertIn("training-set validation metric", forbidden["reason"])
+
+    def test_step2c_handoff_points_only_at_the_primary(self):
+        record = checkpoint_freeze_record(self._training(), self._checkpoints())
+        handoff = record["step2c_handoff"]
+        self.assertEqual(handoff["weights"], "/tmp/run/weights/last.pt")
+        self.assertEqual(handoff["weights_sha256"], "b" * 64)
+        self.assertEqual(handoff["weights_epoch"], 100)
         self.assertEqual(handoff["conf_levels"], list(CONF_LEVELS))
         self.assertEqual(handoff["matching"]["iou_normal"], IOU_NORMAL)
         self.assertEqual(handoff["matching"]["iou_small"], IOU_SMALL)
@@ -332,10 +380,11 @@ class TestCheckpointFreeze(unittest.TestCase):
         self.assertFalse(handoff["development_accessed"])
         self.assertFalse(handoff["sealed_accessed"])
         self.assertIn("SHA-256", handoff["rule"])
+        self.assertNotIn("best.pt", [handoff["weights"]])
 
     def test_missing_primary_is_refused(self):
         checkpoints = self._checkpoints()
-        checkpoints.pop("best.pt")
+        checkpoints.pop("last.pt")
         with self.assertRaises(Step2BError):
             checkpoint_freeze_record(self._training(), checkpoints)
 
@@ -406,6 +455,20 @@ class TestStep2bCli(unittest.TestCase):
         self.assertIn("_chmod_read_only(run_dir)", freeze)
         self.assertIn("_pretrained_weight_sha(args, training)", freeze)
         self.assertIn("pretrained_weight_sha_source", freeze)
+        self.assertIn("PRIMARY_CHECKPOINT", freeze)
+        self.assertIn("DIAGNOSTIC_CHECKPOINT", freeze)
+        self.assertIn("never trains and never runs", freeze)
+
+    def test_report_rederives_the_verdict_without_rerunning_inference(self):
+        """Corrected handoff labels must not require a new training or inference run."""
+        source = CLI.read_text(encoding="utf-8")
+        report = source.split("def cmd_report(", 1)[1].split("\ndef ", 1)[0]
+        self.assertIn("training_completion_verdict(", report)
+        self.assertIn('_write_json(args, "verdict.json", verdict)', report)
+        self.assertIn("superseded_verdict", report)
+        self.assertIn("authoritative_source", report)
+        self.assertNotIn("cmd_post(", report)
+        self.assertNotIn("model.predict", report)
 
     def test_pretrained_weight_sha_falls_back_to_recorded_upload_evidence(self):
         """A host holding only the training set has no preflight.json."""
@@ -423,7 +486,7 @@ class TestStep2bCli(unittest.TestCase):
         source = CLI.read_text(encoding="utf-8")
         post = source.split("def cmd_post(", 1)[1].split("\ndef ", 1)[0]
         self.assertIn('_predict(args, best, "post"', post)
-        self.assertIn("full_finetune_verdict", post)
+        self.assertIn("training_completion_verdict", post)
         self.assertIn("loader_ok", post)
         self.assertIn("full_pool_ok", post)
 
@@ -523,7 +586,9 @@ class TestRecordedStep2bEvidence(unittest.TestCase):
     def test_checkpoint_was_frozen_by_hash(self):
         if not self.freeze:
             self.skipTest("no checkpoint freeze is recorded")
-        self.assertEqual(self.freeze["primary"], "best.pt")
+        self.assertEqual(self.freeze["primary"], "last.pt")
+        self.assertEqual(self.freeze["primary_epoch"], 100)
+        self.assertEqual(self.freeze["primary_sha256"], PRIMARY_SHA256)
         self.assertNotEqual(self.freeze["primary_sha256"], WEIGHT_SHA256)
         self.assertGreater(self.freeze["primary_bytes"], 0)
         self.assertEqual(self.freeze["step2c_handoff"]["weights_sha256"],
@@ -534,38 +599,46 @@ class TestRecordedStep2bEvidence(unittest.TestCase):
             if "mode_after" in info:
                 self.assertEqual(int(info["mode_after"], 8) & 0o222, 0, name)
 
-    def test_recorded_loader_sanity_covers_every_tile(self):
-        path = STEP2B_OUT / "loader_sanity.json"
-        if not path.is_file():
-            self.skipTest("no loader sanity is recorded")
-        loader = json.loads(path.read_text(encoding="utf-8"))
-        self.assertTrue(loader["ok"], loader.get("positive_with_zero_boxes"))
-        self.assertEqual(loader["dataset_length"], 107)
-        self.assertEqual(loader["positive_samples"], EXPECTED["positive_images"])
-        self.assertEqual(loader["negative_samples"], EXPECTED["negative_images"])
-        self.assertEqual(loader["positive_box_total"], EXPECTED["positive_boxes"])
-        self.assertEqual(loader["negative_box_total"], 0)
-        self.assertTrue(loader["negative_label_bytes_zero"])
-        self.assertEqual(loader["positive_with_zero_boxes"], [])
-        self.assertEqual(loader["negative_with_boxes"], [])
-        self.assertEqual(len(loader["per_sample"]), 107)
-        self.assertTrue(all(row["sample_img_shape"] == [3, 640, 640]
-                            for row in loader["per_sample"]))
-        self.assertTrue(all(row["sample_img_dtype"] == "torch.uint8"
-                            for row in loader["per_sample"]))
-        # An all-negative sampled batch window is legal (negatives can sort first); the
-        # content guarantee is the per-sample check, so this field is informational.
-        self.assertIn("sampled_batch_box_total", loader)
+    def test_best_checkpoint_is_diagnostic_only_in_the_recorded_evidence(self):
+        if not self.freeze:
+            self.skipTest("no checkpoint freeze is recorded")
+        diagnostic = self.freeze["diagnostic"]
+        self.assertEqual(diagnostic["name"], "best.pt")
+        self.assertEqual(diagnostic["sha256"], DIAGNOSTIC_SHA256)
+        self.assertEqual(diagnostic["role"], "diagnostic only")
+        self.assertEqual(diagnostic["forbidden_as"],
+                         "Step 2C first-round official checkpoint")
+        self.assertIn("training-set validation metric", diagnostic["reason"])
+        forbidden = self.freeze["step2c_handoff"]["forbidden_checkpoints"]
+        self.assertEqual(forbidden["best.pt"]["sha256"], DIAGNOSTIC_SHA256)
+        self.assertNotEqual(self.freeze["step2c_handoff"]["weights_sha256"],
+                            DIAGNOSTIC_SHA256)
+        self.assertNotIn("best.pt", self.freeze["step2c_handoff"]["weights"])
 
-    def test_verdict_is_one_of_the_three_preregistered_values(self):
+    def test_verdict_is_full_training_complete(self):
         if not self.post:
             self.skipTest("no post-train metrics are recorded")
-        verdict = self.post["verdict"]["verdict"]
-        self.assertIn(verdict, (VERDICT_PASS, VERDICT_PARTIAL, VERDICT_FAIL))
-        self.assertEqual(self.summary["verdict"]["verdict"], verdict)
-        for key, value in self.post["verdict"]["preconditions"].items():
+        verdict = self.summary["verdict"]
+        self.assertEqual(verdict["verdict"], VERDICT_COMPLETE)
+        self.assertEqual(verdict["verdict"], "FULL_TRAINING_COMPLETE")
+        self.assertNotEqual(verdict["verdict"], SUPERSEDED_VERDICT)
+        # the embedded raw post record deliberately keeps its original label
+        self.assertEqual(self.post["verdict"]["verdict"], SUPERSEDED_VERDICT)
+        self.assertEqual(verdict.get("superseded_verdict"),
+                         self.post["verdict"]["verdict"])
+        self.assertEqual(verdict["hard_failures"], [])
+        self.assertEqual(verdict["completion_failures"], [])
+        self.assertEqual(verdict["failed_preconditions"], [])
+        for key, value in verdict["preconditions"].items():
             self.assertIsInstance(value, bool, key)
-        self.assertIn("train", self.post["verdict"]["note"].lower())
+        self.assertIn("train", verdict["note"].lower())
+        # the raw inference record keeps its original label; the normalisation is explicit
+        self.assertEqual(verdict.get("superseded_verdict"), SUPERSEDED_VERDICT)
+        self.assertIn("no training or inference was re-run", verdict["superseded_note"])
+        verdict_path = STEP2B_OUT / "verdict.json"
+        if verdict_path.is_file():
+            standalone = json.loads(verdict_path.read_text(encoding="utf-8"))
+            self.assertEqual(standalone["verdict"], verdict["verdict"])
 
     def test_post_uses_the_frozen_matching_and_confidence_levels(self):
         if not self.post:

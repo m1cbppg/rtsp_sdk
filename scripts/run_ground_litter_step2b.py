@@ -51,8 +51,10 @@ from rtsp_annotator.ground_litter_step2a import (  # noqa: E402
 )
 from rtsp_annotator.ground_litter_step2b import (  # noqa: E402
     DATA_YAML_NOTE,
+    DIAGNOSTIC_CHECKPOINT,
     FULL_TRAIN_DATASET,
     FULL_TRAIN_MANIFEST,
+    PRIMARY_CHECKPOINT,
     REQUIRED_ARGS,
     TRAIN_RECIPE,
     TRAIN_SET_RECALL_BAR,
@@ -60,8 +62,8 @@ from rtsp_annotator.ground_litter_step2b import (  # noqa: E402
     build_manifest,
     build_summary,
     checkpoint_freeze_record,
-    full_finetune_verdict,
     full_pool_manifest,
+    training_completion_verdict,
     verify_full_pool,
     write_reports,
 )
@@ -312,8 +314,8 @@ def cmd_post(args: argparse.Namespace) -> int:
     baseline_path = args.output / "baseline_metrics.json"
     baseline = (json.loads(baseline_path.read_text(encoding="utf-8"))
                 if baseline_path.is_file() else None)
-    verdict = full_finetune_verdict(training, payload, loader_ok=loader_ok,
-                                    full_pool_ok=full_pool_ok)
+    verdict = training_completion_verdict(training, payload, loader_ok=loader_ok,
+                                          full_pool_ok=full_pool_ok)
     payload["verdict"] = verdict
     payload["stage"] = "full_finetune_post"
     if baseline:
@@ -380,32 +382,44 @@ def _pretrained_weight_sha(args: argparse.Namespace, training: Mapping) -> tuple
 
 
 def cmd_freeze(args: argparse.Namespace) -> int:
+    """Freeze the pre-registered last-epoch checkpoint and mark best.pt diagnostic-only.
+
+    This command only hashes and chmods existing files: it never trains and never runs
+    inference, so corrected handoff evidence never requires a new run.
+    """
     training = json.loads((args.output / "training.json").read_text(encoding="utf-8"))
     run_dir = Path(training["save_dir"]) / "weights"
     checkpoints: dict[str, object] = {}
-    for name in ("best.pt", "last.pt"):
+    for name in (PRIMARY_CHECKPOINT, DIAGNOSTIC_CHECKPOINT):
         path = run_dir / name
         if not path.is_file():
             raise Step2BError(f"checkpoint missing: {path}")
         checkpoints[name] = {"path": str(path), "bytes": path.stat().st_size,
                              "sha256": sha256_file(path)}
     pretrained_sha, pretrained_source = _pretrained_weight_sha(args, training)
-    if checkpoints["best.pt"]["sha256"] == pretrained_sha:   # type: ignore[index]
-        raise Step2BError("best.pt is byte-identical to the pretrained weight")
-    checkpoints["best_equals_last"] = (checkpoints["best.pt"]["sha256"]  # type: ignore[index]
-                                       == checkpoints["last.pt"]["sha256"])  # type: ignore[index]
+    primary_sha = checkpoints[PRIMARY_CHECKPOINT]["sha256"]        # type: ignore[index]
+    if primary_sha == pretrained_sha:
+        raise Step2BError(f"{PRIMARY_CHECKPOINT} is byte-identical to the pretrained weight")
+    if checkpoints[DIAGNOSTIC_CHECKPOINT]["sha256"] == pretrained_sha:  # type: ignore[index]
+        checkpoints["diagnostic_matches_pretrained"] = True
+    checkpoints["best_equals_last"] = (checkpoints[PRIMARY_CHECKPOINT]["sha256"]  # type: ignore[index]
+                                       == checkpoints[DIAGNOSTIC_CHECKPOINT]["sha256"])  # type: ignore[index]
     _write_json(args, "checkpoint_hashes.json", checkpoints)
     manifest_path = _manifest_path(args)
     record = checkpoint_freeze_record(
-        training, checkpoints, primary="best.pt", frozen_at=_stamp(args),
+        training, checkpoints, frozen_at=_stamp(args),
         manifest_sha256=sha256_file(manifest_path) if manifest_path.is_file() else None)
     record["read_only"] = _chmod_read_only(run_dir)
     record["pretrained_weight_sha256"] = pretrained_sha
     record["pretrained_weight_sha_source"] = pretrained_source
     _write_json(args, "checkpoint_freeze.json", record)
     print(json.dumps({"primary": record["primary"],
+                      "primary_epoch": record["primary_epoch"],
+                      "primary_path": record["primary_path"],
                       "primary_sha256": record["primary_sha256"],
                       "primary_bytes": record["primary_bytes"],
+                      "diagnostic": (record.get("diagnostic") or {}).get("sha256"),
+                      "selection_rule": record["selection_rule"],
                       "best_equals_last": checkpoints["best_equals_last"],
                       "pretrained_weight_sha_source": pretrained_source,
                       "read_only": record["read_only"],
@@ -431,12 +445,25 @@ def cmd_report(args: argparse.Namespace) -> int:
     post = optional("post_metrics.json")
     training = optional("training.json")
     freeze = optional("checkpoint_freeze.json")
-    if post is not None and training is not None and not post.get("verdict"):
-        post["verdict"] = full_finetune_verdict(
+    # The verdict is re-derived from the training/loader/full-pool records on every report
+    # run, so a corrected handoff label never requires re-running training or inference.
+    # The raw post-train inference metrics in post_metrics.json are left untouched; if the
+    # label stored there is stale it is recorded as superseded rather than rewritten.
+    raw_verdict = (post or {}).get("verdict") or None
+    if post is not None and training is not None:
+        verdict = training_completion_verdict(
             training, post, loader_ok=bool((loader or {}).get("ok")),
             full_pool_ok=bool(full_pool.get("ok")))
-    verdict = ((post or {}).get("verdict")
-               or {"verdict": "NOT_EVALUATED", "reason": "full fine-tune not run"})
+    else:
+        verdict = {"verdict": "NOT_EVALUATED", "reason": "full fine-tune not run"}
+    verdict["authoritative_source"] = "verdict.json (written by the report step)"
+    if raw_verdict is not None and raw_verdict.get("verdict") != verdict["verdict"]:
+        verdict["superseded_verdict"] = raw_verdict.get("verdict")
+        verdict["superseded_note"] = (
+            "post_metrics.json keeps its raw inference record; this label was normalised "
+            "after review because best.pt must not be selected on the training-set "
+            "validation metric, and no training or inference was re-run")
+    _write_json(args, "verdict.json", verdict)
     server_run = {
         "upload_sha256sums": optional("upload_sha256sums.json"),
         "evidence_archive": optional("evidence_archive.json"),
@@ -461,6 +488,8 @@ def cmd_report(args: argparse.Namespace) -> int:
                 "weight": str(args.weight), "output": str(args.output),
                 "device": args.device, "batch": args.batch, "epochs": args.epochs,
                 "imgsz": args.imgsz, "seed": SEED,
+                "primary_checkpoint": PRIMARY_CHECKPOINT,
+                "diagnostic_checkpoint": DIAGNOSTIC_CHECKPOINT,
                 "train_set_recall_bar": TRAIN_SET_RECALL_BAR},
         artifact_root=args.output, provenance=provenance)
     paths = write_reports(args.output, manifest=manifest, loader=loader, summary=summary,

@@ -2,11 +2,20 @@
 
 Step 2A proved the training *chain* works on a 12+10 tile subset.  Step 2B trains a
 real model on the **whole** frozen pool (44 positive tiles / 96 boxes + 63 negative
-tiles / 0 boxes) with the light augmentation recipe frozen by the operator, then checks
-that the fine-tuned model can fit its own training samples (§16.3 "fine-tuned model 能
-拟合训练样本"), freezes exactly one checkpoint by SHA-256, and stops.  It makes **no**
-generalisation claim: everything here is measured on the training tiles, and
-Development is Step 2C.
+tiles / 0 boxes) with the light augmentation recipe frozen by the operator, reports the
+train-set metrics, freezes exactly one checkpoint by SHA-256, and stops.  It makes **no**
+generalisation claim and no model-quality claim: everything here is measured on the
+training tiles, and Development is Step 2C.
+
+Two decisions are pre-registered here rather than taken from the results:
+
+* the Step 2B verdict is ``FULL_TRAINING_COMPLETE`` -- a statement that the requested
+  schedule ran to the end on the frozen pool with the frozen recipe and no NaN/Inf.  The
+  train-set metrics are reported for the record and never grade the model.
+* the single Step 2C handoff checkpoint is ``last.pt`` (epoch 100).  Because train == val,
+  ``best.pt`` is chosen by the training-set validation metric, so using it would be
+  checkpoint selection on the very data the sanity metrics come from; it is retained as a
+  diagnostic only and is explicitly forbidden as the Step 2C first-round checkpoint.
 
 The logic is stdlib-only; the Ultralytics loader/trainer/predictor are injected by
 ``scripts/run_ground_litter_step2b.py``.  Step 0B matching, staging and evaluation come
@@ -102,9 +111,28 @@ EXPECTED = {
 MAX_EASY_NEGATIVE_FRACTION = 0.30
 EASY_NEGATIVE_HARDNESS = "random_grid_background"
 
-VERDICT_PASS = "FULL_FINETUNE_SANITY_PASS"
-VERDICT_PARTIAL = "FULL_FINETUNE_PARTIAL"
-VERDICT_FAIL = "FULL_FINETUNE_FAIL"
+#: Step 2B verdict: does the full training run itself complete?  It says nothing about
+#: model quality, and the train-set metrics never select or grade the model.  The earlier
+#: "FULL_FINETUNE_SANITY_PASS" label is superseded: with train == val a "pass" would imply
+#: a judgement the data cannot support.
+VERDICT_COMPLETE = "FULL_TRAINING_COMPLETE"
+VERDICT_INCOMPLETE = "FULL_TRAINING_INCOMPLETE"
+VERDICT_FAILED = "FULL_TRAINING_FAILED"
+
+#: A hard failure means the run must not be treated as a finished training artifact.
+HARD_PRECONDITIONS = ("loader_ok", "full_pool_ok", "frozen_args_applied",
+                      "augmentation_matches_recipe", "nan_free")
+#: These only say whether the requested schedule actually ran to the end.
+COMPLETION_PRECONDITIONS = ("epochs_completed", "loss_decreased")
+
+#: The single Step 2C handoff checkpoint.  train == val, so best.pt was chosen on the
+#: training-set validation metric; using it would be checkpoint selection on the very data
+#: the sanity metrics come from, so the last epoch is the pre-registered artifact.
+PRIMARY_CHECKPOINT = "last.pt"
+DIAGNOSTIC_CHECKPOINT = "best.pt"
+DIAGNOSTIC_REASON = ("best.pt was selected by the training-set validation metric while "
+                     "train == val; it must not be used as the Step 2C first-round "
+                     "official checkpoint")
 
 
 class Step2BError(Step2AError):
@@ -236,9 +264,14 @@ def verify_full_pool(pools: Mapping[str, Any], manifest: Mapping[str, Any],
     }
 
 
-def full_finetune_verdict(training: Mapping[str, Any], post: Mapping[str, Any], *,
-                          loader_ok: bool, full_pool_ok: bool) -> dict[str, Any]:
-    """§16.3 train-set sanity verdict, pre-registered before the run."""
+def training_completion_verdict(training: Mapping[str, Any], post: Mapping[str, Any], *,
+                                loader_ok: bool, full_pool_ok: bool) -> dict[str, Any]:
+    """Did the full training run complete?  Model quality is not judged here.
+
+    ``FULL_TRAINING_COMPLETE`` only asserts that the requested schedule ran to the end on
+    the frozen pool with the frozen recipe and no NaN/Inf.  The train-set metrics are
+    reported for the record and never select or grade the model.
+    """
     conf01 = post["metrics"]["per_conf"]["0.01"]
     recall = float(conf01["positive_gt_proposal_recall"])
     hit = float(conf01["positive_image_hit_rate"])
@@ -260,23 +293,30 @@ def full_finetune_verdict(training: Mapping[str, Any], post: Mapping[str, Any], 
         "preconditions": preconditions,
         "failed_preconditions": sorted(key for key, value in preconditions.items()
                                        if not value),
+        "hard_failures": sorted(key for key in HARD_PRECONDITIONS
+                                if not preconditions[key]),
+        "completion_failures": sorted(key for key in COMPLETION_PRECONDITIONS
+                                      if not preconditions[key]),
         "train_set_gt_proposal_recall_at_0.01": recall,
         "train_set_image_hit_rate_at_0.01": hit,
         "train_set_recall_bar": TRAIN_SET_RECALL_BAR,
+        "train_set_recall_bar_role": "informational reference only; never selects the "
+                                     "checkpoint and never grades the model",
+        "verdict_basis": "run completion only: schedule, frozen recipe, no NaN/Inf",
         "note": TRAIN_SET_NOTE,
     }
-    if not all(preconditions.values()):
-        result["verdict"] = VERDICT_FAIL
-        return result
-    if recall >= TRAIN_SET_RECALL_BAR:
-        result["verdict"] = VERDICT_PASS
+    if result["hard_failures"]:
+        result["verdict"] = VERDICT_FAILED
+    elif result["completion_failures"]:
+        result["verdict"] = VERDICT_INCOMPLETE
     else:
-        result["verdict"] = VERDICT_PARTIAL
+        result["verdict"] = VERDICT_COMPLETE
     return result
 
 
 def checkpoint_freeze_record(training: Mapping[str, Any], checkpoints: Mapping[str, Any],
-                             *, primary: str = "best.pt",
+                             *, primary: str = PRIMARY_CHECKPOINT,
+                             diagnostic: str = DIAGNOSTIC_CHECKPOINT,
                              frozen_at: str | None = None,
                              manifest_sha256: str | None = None) -> dict[str, Any]:
     """Exactly one checkpoint is handed to Step 2C, identified by SHA-256."""
@@ -285,16 +325,30 @@ def checkpoint_freeze_record(training: Mapping[str, Any], checkpoints: Mapping[s
     if primary not in entries:
         raise Step2BError(f"primary checkpoint {primary!r} has no recorded hash")
     primary_info = entries[primary]
+    diagnostic_info = entries.get(diagnostic)
     stamp = frozen_at or datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     return {
         "schema_version": SCHEMA_VERSION,
         "frozen_at": stamp,
         "primary": primary,
+        "primary_epoch": training.get("epochs_run"),
         "primary_path": primary_info["path"],
         "primary_sha256": primary_info["sha256"],
         "primary_bytes": primary_info["bytes"],
+        "selection_rule": (f"last epoch (epoch {training.get('epochs_run')}); best.pt is "
+                           f"excluded because train == val would make it a selection on "
+                           f"the training-set validation metric"),
         "checkpoints": entries,
         "best_equals_last": checkpoints.get("best_equals_last"),
+        "diagnostic": ({
+            "name": diagnostic,
+            "path": diagnostic_info["path"],
+            "sha256": diagnostic_info["sha256"],
+            "bytes": diagnostic_info["bytes"],
+            "role": "diagnostic only",
+            "forbidden_as": "Step 2C first-round official checkpoint",
+            "reason": DIAGNOSTIC_REASON,
+        } if diagnostic_info else None),
         "training": {
             "epochs_run": training.get("epochs_run"),
             "epochs_requested": training.get("epochs_requested"),
@@ -310,9 +364,17 @@ def checkpoint_freeze_record(training: Mapping[str, Any], checkpoints: Mapping[s
         "step2c_handoff": {
             "weights": primary_info["path"],
             "weights_sha256": primary_info["sha256"],
-            "rule": (f"Step 2C must load exactly this SHA-256 ({primary}); the checkpoint "
-                     f"was fixed before any Development asset is looked at, and no "
-                     f"re-selection on Development is allowed"),
+            "weights_epoch": training.get("epochs_run"),
+            "rule": (f"Step 2C must load exactly this SHA-256 ({primary}, last epoch); the "
+                     f"checkpoint was fixed before any Development asset is looked at, and "
+                     f"no re-selection on Development is allowed"),
+            "forbidden_checkpoints": ({
+                diagnostic: {
+                    "sha256": diagnostic_info["sha256"],
+                    "role": "diagnostic only",
+                    "reason": DIAGNOSTIC_REASON,
+                },
+            } if diagnostic_info else {}),
             "matching": {
                 "iou_normal": IOU_NORMAL, "iou_small": IOU_SMALL,
                 "small_gt_short_side_px": SMALL_GT_SHORT_SIDE_PX,
@@ -423,7 +485,10 @@ def build_manifest(pools: Mapping[str, Any], summary: Mapping[str, Any], *,
         "upstream_provenance": dict(provenance),
         "boundaries": dict(summary["boundaries"]),
         "note": (f"{TRAIN_SET_NOTE}; no Development / Sealed access, no hyperparameter or "
-                 f"threshold tuning, one pre-registered checkpoint frozen for Step 2C"),
+                 f"threshold tuning, verdict = full-run completion only, and "
+                 f"{PRIMARY_CHECKPOINT} (last epoch) is the single pre-registered "
+                 f"checkpoint frozen for Step 2C while {DIAGNOSTIC_CHECKPOINT} is "
+                 f"diagnostic only"),
     }
 
 
