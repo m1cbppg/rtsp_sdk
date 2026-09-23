@@ -8,7 +8,7 @@
 
 ## 1. 当前阶段只回答一个问题
 
-> 对铺开的纸巾、揉团纸巾、塑料袋、瓶罐、包装袋、纸盒等肉眼明显、具有清理意义的地面垃圾，在现有和新增同类监控中，能否通过共享 detector 稳定地给出正确候选框，并把主要误报压到可控范围。
+> 对铺开的纸巾、揉团纸巾、塑料袋、瓶罐、包装袋、纸盒等肉眼明显、具有清理意义的地面垃圾，在当前五路监控中，能否通过共享 detector 稳定地给出正确候选框，并把主要误报压到可控范围。新增摄像头与 scene 变化只作为后续迁移诊断。
 
 当前**不要求**：
 
@@ -978,29 +978,42 @@ natural Required Litter episode recall >= 70%
 
 ## 17. 推荐执行顺序
 
-### Step 0A：立即封存即将过期的评估录像
+### Step 0A：封存评估录像 — PASS
 
-这一步优先级最高，可与后续工作并行。
+已完成：
 
-- 五路先各封存约 2 小时白天原始 PS；
-- 初始拆分：Development 约 1 小时/camera，Sealed 约 1 小时/camera；
-- 保存 SHA-256 / source metadata / scene_version / ROI；
-- 不根据任何 detector 结果挑选窗口。
+- Development：65 个 PS / 5.53 GiB；
+- Sealed：64 个 PS / 5.64 GiB；
+- 合计：129 个 PS / 11.17 GiB；
+- SHA256：129 / 129 通过。
 
-如果自然正事件不足，后续按预注册规则追加窗口，只能报告“证据不足”，不能降低样本要求硬判成功。
+后续若自然正 episode 不足，只能按预注册规则追加新窗口并报告“证据不足”，不能降低样本要求硬判成功。
 
-### Step 0B：冻结数据与审核协议
+### Step 0B：冻结数据与评估协议 — FROZEN
 
-实现：
+完整冻结协议单独维护于：
 
-- Required Litter / IGNORE_SMALL 定义；
-- 五类候选审核；
-- Training Tile 完整性确认；
-- point-click 自动补框；
-- review_card / episode / training_tile 三种 ID；
-- Training / Development / Sealed split；
-- annotation-complete tile 规则；
-- 固定评估抽帧和 bbox/coarse matching 规则。
+`docs/plans/2026-09-23-ground-litter-step0b-evaluation-protocol.md`
+
+该协议已经冻结：
+
+- REQUIRED_LITTER / IGNORE_SMALL / NON_LITTER / UNCERTAIN；
+- episode identity 与跨 split 隔离；
+- Blind Truth；
+- annotation-complete training tile；
+- 固定 episode / global ROI 抽帧；
+- prediction-GT matching；
+- TP / FP / FN / IGNORED / UNRESOLVED；
+- low-threshold proposal recall；
+- episode recall；
+- macro visible-frame hit rate；
+- FP / 100 ROI frames；
+- Development threshold / model selection procedure；
+- Development -> Training 边界；
+- Sealed evaluation_lock；
+- EXPLORATORY / DIRECTIONAL / SIGNAL_GO / STABLE_RECOGNITION_PASS / NO_GO 结论等级。
+
+协议层 Step 0B 已完成；审核页、manifest、evaluator 的代码实现由实验执行阶段按该冻结协议落地，不再重新讨论口径。
 
 ### Step 1：历史 Silver 重建
 
