@@ -2,7 +2,7 @@
 
 日期：2026-09-23  
 状态：**当前执行方案**  
-目标：先证明“白天、动态 ROI、原始高分辨率条件下，正常可见垃圾可以被稳定检测”，暂不做报警、Webhook、复杂事件生命周期和生产 V4 接入。
+目标：先证明“白天、当前五路监控、动态 ROI、原始高分辨率条件下，正常可见垃圾可以被稳定检测”，暂不做报警、Webhook、复杂事件生命周期和生产 V4 接入。对新增摄像头、轻微移动后的 scene 泛化只做后续迁移诊断，不作为第一轮 feasibility 的硬成功条件。
 
 ---
 
@@ -70,7 +70,7 @@ IGNORE_SMALL
 - 只做白天 / 正常可见时段；
 - ROI 可变化；
 - 摄像头允许轻微移动；
-- 后续新增同类摄像头要求复用同一个 shared detector。
+- 架构目标仍是后续新增同类摄像头复用同一个 shared detector，但第一轮只证明当前五路；新增 camera / scene 的迁移能力后续单独验证。
 
 模型不得依赖：
 
@@ -365,6 +365,31 @@ positive_unlocalized
 
 暂不进入 detector training。
 
+### 7.2 Training Tile 完整性确认
+
+候选审核通过不等于 training tile 已完整标注。每个准备进入 detector training 的 640×640 source tile，还需要一次低成本完整性确认：
+
+页面显示**完整 source-scale tile + 当前所有已知框**，人工只回答：
+
+~~~text
+A. 已框出全部 Required Litter
+B. 还有漏掉的 Required Litter
+C. 无法确认
+~~~
+
+若选择 B：
+
+- 用户只需单击遗漏目标中心；
+- 机器根据 point prompt / 多 proposal source 自动生成候选框；
+- 用户选择正确框；
+- 若仍无法定位，则该 tile 标为待修复，不进入 detector training。
+
+若选择 C：
+
+- tile 不进入 detector training。
+
+这样不要求人工画框，但能真正满足 §9 的 annotation-complete 训练约束。
+
 ---
 
 ## 8. 三个身份必须分开
@@ -608,8 +633,16 @@ field Gold fine-tune
 - confidence；
 - tile overlap；
 - Turhancan fusion；
-- 唯一一次 FP/FN 修正；
+- 唯一一次 FP/FN 错误分析；
 - 其他所有调参。
+
+Development 暴露的问题可以指导补数据，但遵守以下顺序：
+
+1. **优先**根据错误类型，从 Training Pool / 未使用录像中寻找相似新样本加入训练；
+2. 如果必须直接把某个 Development FN/FP episode 加入训练，则该 episode、其相邻帧、同源重叠 tile 全部从 Development 计分集合移除；
+3. 用于第一版 vs 第二版前后比较的固定 Development Core 不得被加入训练。
+
+禁止“把验证集 FN 加进训练，再继续用同一个 FN 证明第二版提升”。
 
 ### Sealed Test
 
@@ -629,7 +662,7 @@ field Gold fine-tune
 
 ---
 
-## 13. Sealed Test 必须可重放
+## 13. Development / Sealed 评估资产必须可重放
 
 远端录像只有约 7 天滚动。
 
@@ -646,18 +679,52 @@ field Gold fine-tune
 + 抽样协议
 ~~~
 
-五路各约 2 小时：
+初始先封存五路**每路总计约 2 小时**：
 
 ~~~text
-10 camera-hours
+Development：约 1 小时 / camera
+Sealed Test：约 1 小时 / camera
+总计：10 camera-hours
 ≈ 10 GB 量级
 ~~~
 
-这个存储成本完全值得。
+这是**初始覆盖预算，不是样本充分性的保证**。如果自然 Required Litter episode 太少，只能报告“证据不足”，不能因为例如 3/4 > 70% 就判定路线成立。
+
+若需要扩大样本：
+
+- 在未查看模型结果前，按预先规则追加新的时间窗口；
+- Development 与 Sealed 分别扩展，保持互斥；
+- Sealed 不允许因为“某个模型在这段表现好/差”而挑窗口。
+
+由于远端只保留约 7 天，窗口选择和 PS 封存必须**优先于耗时的 Silver 重建**执行，可以并行进行。
 
 ---
 
 ## 14. 第一轮训练
+
+### 14.0 训练链路自检：先做小样本拟合
+
+在正式 A/B 前，先从 Gold Training 中选一小组已完整确认的 source tiles（包含正例和 hard negatives），做 overfit/sanity check。
+
+目的不是证明泛化，而是验证训练管线真的正确：
+
+- bbox 坐标映射没有错位；
+- class id / names 映射正确；
+- source tile -> resize -> label 变换一致；
+- 正例能被模型明显学到；
+- hard negative 不会全部被错误预测为垃圾；
+- loss 正常下降；
+- 导出的预测框能回到正确位置。
+
+如果连这一小组训练样本都无法明显拟合，先修数据/预处理/训练代码，禁止进入模型优劣和摄像机成像结论。
+
+另外：
+
+- `yolo26s.pt` 若只是通用预训练权重，它对纸巾/垃圾的漏检**不能**作为“现场垃圾不可识别”的证据；
+- pretrained baseline 只用于初始化和诊断已有重叠类别；
+- 真正判断 detector 路线，必须看现场 Gold fine-tune 后的模型。
+
+### 14.1 正式第一轮训练
 
 统一数据、统一输入。
 
@@ -685,61 +752,105 @@ RF-DETR-S
 
 ## 15. 当前阶段怎么评估
 
-第一阶段先看 detector，而不是报警。
+第一阶段先看 detector，而不是报警。评估同时区分“能不能找到”和“能不能稳定找到”。
 
-### 15.1 Raw Proposal Recall
+### 15.1 低阈值 Proposal Recall：回答“有没有视觉信号”
 
-低 confidence 下：
+在预注册的低 confidence 下：
 
-> Required Litter 是否至少被正确 proposal 一次。
+> Required Litter 是否至少产生过一个正确 proposal。
 
-这是最重要的指标。
-
-如果垃圾连 proposal 都进不来：
+这是探索阶段最先看的指标，因为如果垃圾连 proposal 都进不来：
 
 - classifier 没用；
 - temporal rule 没用；
 - event layer 没用。
 
-### 15.2 Event Recall
+但“一个 episode 至少命中一次”**不能单独证明稳定识别**。
 
-按 independent episode 计算。
+### 15.2 Episode Recall：回答“独立垃圾事件有没有被发现”
 
-例如：
+按 independent episode 计算：
 
 ~~~text
-真实垃圾事件：30
-模型成功找到：26
-
-event recall = 26 / 30
+真实 Required Litter episodes：30
+至少命中一次：26
+episode recall = 26 / 30
 ~~~
 
-同一事件几十帧都命中仍只算 1 个成功。
+同一垃圾持续几十帧仍只算一个 episode。
 
-### 15.3 False Positive
+这个指标保留作为核心探索指标，但必须与 §15.3 一起看。
 
-当前阶段先报告：
+### 15.3 Episode 内稳定命中率：回答“是不是偶尔碰巧看到”
 
-- FP candidate 数；
-- FP episode 数；
+对每个 truth episode，使用固定采样协议从人工确认的 clear-visible interval 中抽取评估帧，例如：
+
+- 每个 episode 最多均匀抽 5～10 帧；
+- 长 episode 不因持续更久而获得更高权重；
+- 明显遮挡、坏帧、目标不可判断帧不进入 denominator；
+- 采样规则在看模型输出前固定。
+
+每个 episode 计算：
+
+~~~text
+visible_frame_hit_rate
+= 正确命中的采样帧数 / 清晰可见采样帧数
+~~~
+
+最终按 episode 做宏平均：
+
+~~~text
+macro_visible_frame_hit_rate
+= mean(each_episode_hit_rate)
+~~~
+
+避免一个持续 20 分钟的大事件因为采样帧多而主导结果。
+
+这不引入时间确认逻辑，只是在同一个真实垃圾上检查 detector 是否稳定。
+
+### 15.4 正确框匹配规则
+
+不能“模型出了任何大框就算命中”。
+
+第一阶段使用预注册的空间匹配规则。优先使用 verified bbox 时：
+
+- 正确类别为 ground_litter；
+- detection 与 truth 的 IoU >= 0.3，**或**
+- 对极小目标允许 center-in-truth + box size ratio 合理的 small-object matching；
+- 禁止覆盖大半 ROI 的超大框通过 center 命中“蹭”成功；
+- 同帧多个 truth litter 与 detections 做一对一匹配，一个 detection 不能抵扣多个独立目标。
+
+若 truth 只有人工 point / coarse location，则单独标记为 coarse-match，不与 bbox-level 指标混在一起。
+
+具体阈值只允许在 Development 上冻结，Sealed 不再修改。
+
+### 15.5 工作阈值下的 Recall + FP Rate
+
+低阈值 proposal recall 只看 detector 上限。
+
+同时必须选定一个实际 working threshold，并报告：
+
+- working-threshold episode recall；
+- macro visible-frame hit rate；
+- FP / 100 张固定采样 ROI 帧；
 - FP 类型分布。
 
-例如：
+FP/100 ROI frames 使用相同固定抽样协议，才能公平比较 Turhancan、YOLO26、RF-DETR 和 Fusion。
 
-- 井盖；
-- 地砖；
-- 招牌；
-- 桌椅；
-- 反光；
-- 车辆边缘。
+不能只说“某模型 FP 总数更少”，因为不同模型可能实际处理帧数不同。
 
-第一阶段不用急着强行达到每路每天 5 次报警，因为当前还没做报警。
+### 15.6 过滤前后都保留
 
-但目标是看到：
+当前 feasibility 先不启用 actor hard filter，但仍要分别保存：
 
-> FP 是否集中在可学习的少数 hard-negative 模式，以及第二轮训练后是否显著下降。
+1. raw detector outputs；
+2. ROI / overlay deterministic filter 后 outputs；
+3. working-threshold outputs。
 
-### 15.4 分层结果
+这样可以定位召回损失来自模型还是后处理。
+
+### 15.7 分层结果
 
 同时按：
 
@@ -753,64 +864,98 @@ event recall = 26 / 30
 
 分析。
 
+“至少命中一次”“稳定帧命中率”“working-threshold FP”三类证据一起看，才允许使用“稳定检测”这个表述。
+
 ---
 
 ## 16. 当前阶段成功标准
 
-### 16.1 路线成立
+### 16.1 路线成立：不绑定“双模型融合”预设
 
-认为 detector 路线成立，需要看到：
+任一候选配置都可以成为成功方案：
 
-1. source-native tile 下，新 detector 对 Required Litter 有明显真实召回；
-2. New Detector 相比 Turhancan 有独立增量召回；
-3. Fusion 明显高于任一单模型；
-4. 主要误报集中在可以通过 hard negatives 学习的模式；
-5. 第二轮 hard-negative / FN 修正后，FP 明显下降且 recall 没明显崩掉。
+- Turhancan only；
+- YOLO26s fine-tuned；
+- RF-DETR-S fine-tuned；
+- Turhancan + New Detector Fusion。
+
+**不要求 Fusion 必须优于单模型，也不要求新模型必须提供独立增量。**
+
+如果某个单模型已经达到目标，Fusion 没有收益，就直接使用单模型。
+
+同样，第二轮训练不是强制步骤：
+
+- 第一轮已达到预注册目标，可以直接冻结；
+- 第一轮未达标但错误模式可通过补数据合理修正，才做第二轮；
+- 第二轮只是最多一次的机会，不是成功条件。
 
 ### 16.2 数值目标
 
-方向阶段：
+探索阶段的最低继续门槛可以保留：
 
 ~~~text
-自然 Required Litter event recall >= 70%
+natural Required Litter episode recall >= 70%
 ~~~
 
-即可证明路线值得继续。
+但它**不能单独证明“稳定识别”**。
 
-生产候选前再要求：
+路线进入后续 Production V4 前，至少同时要求：
+
+- episode recall 达到预注册目标；
+- macro visible-frame hit rate 达到可接受水平；
+- working-threshold FP / 100 ROI frames 可控；
+- 不存在某一主要垃圾外观几乎完全识别不到的明显盲区。
+
+生产候选 recall：
 
 ~~~text
->= 85%
+最低 >= 85%
 目标 >= 90%
 ~~~
 
-由于早期正事件可能不多，必须同时报告：
+早期样本不足时必须报告：
 
 ~~~text
 命中数 / 总数
++ 样本量
++ Wilson 95% 区间（适用时）
 ~~~
 
-例如：
+例如只有 4 个自然 episode，3/4 即使是 75%，也只能标记为**证据不足**，不能判定路线成立。
 
-~~~text
-17 / 20
-~~~
+建议至少：
 
-不能只有百分比。
+- <20 个独立自然 Required Litter episodes：只做探索；
+- 20～49：可做方向判断；
+- >=50 且覆盖至少 3 路 camera、多种垃圾外观：才开始形成较可信的 overall recall 判断。
 
-### 16.3 Stop Rule
+### 16.3 Stop Rule 前置条件：先证明训练链路没有坏
 
-如果已经完成：
+进入 No-Go 前必须先通过 §14.0 小样本拟合检查。
+
+只有在确认：
+
+- 标签坐标正确；
+- 类别映射正确；
+- source-scale 预处理正确；
+- fine-tuned model 能拟合训练样本；
+- Development 数据无明显标注污染；
+
+之后，才允许把多模型共同失败主要归因于成像 / domain 难度。
+
+### 16.4 Stop Rule
+
+如果上述训练链路自检已通过，并完成：
 
 - source-native ROI/tile；
 - verified 正例；
-- YOLO26s；
-- RF-DETR-S；
-- Turhancan；
+- 至少一个正确完成现场 fine-tune 的主 detector；
+- 必要时异构 challenger；
+- Turhancan baseline；
 
 但对肉眼明显垃圾：
 
-> 超过 50% 的独立 episode 三个 detector 在低阈值下都完全没有 proposal。
+> 超过 50% 的独立自然 episode 在预注册低阈值下仍完全没有任何合理 proposal。
 
 则暂停：
 
@@ -833,79 +978,114 @@ event recall = 26 / 30
 
 ## 17. 推荐执行顺序
 
-### Step 0：冻结数据协议
+### Step 0A：立即封存即将过期的评估录像
 
-先实现：
+这一步优先级最高，可与后续工作并行。
+
+- 五路先各封存约 2 小时白天原始 PS；
+- 初始拆分：Development 约 1 小时/camera，Sealed 约 1 小时/camera；
+- 保存 SHA-256 / source metadata / scene_version / ROI；
+- 不根据任何 detector 结果挑选窗口。
+
+如果自然正事件不足，后续按预注册规则追加窗口，只能报告“证据不足”，不能降低样本要求硬判成功。
+
+### Step 0B：冻结数据与审核协议
+
+实现：
 
 - Required Litter / IGNORE_SMALL 定义；
-- 五类人工审核；
+- 五类候选审核；
+- Training Tile 完整性确认；
+- point-click 自动补框；
 - review_card / episode / training_tile 三种 ID；
 - Training / Development / Sealed split；
-- annotation-complete tile 规则。
+- annotation-complete tile 规则；
+- 固定评估抽帧和 bbox/coarse matching 规则。
 
 ### Step 1：历史 Silver 重建
 
 - 189 LITTER + 35 BOX_WRONG -> episode candidates；
 - 人工重新审核所有独立正事件代表；
 - 2,083 NON_LITTER 聚类；
-- 人工审核约 300～500 个高价值 hard negatives。
+- 人工审核约 300～500 个高价值 hard negatives；
+- 生成 training tiles 后再做一次完整性确认。
 
 输出 Gold V1。
 
-### Step 2：冻结 Development / Sealed 录像
+### Step 2：Blind Truth 建立
 
-- 五路选择白天独立时间窗口；
-- 保存可重放 PS；
-- 保存 SHA-256 / scene_version / ROI；
-- 人工做 Blind ROI Audit。
+对 Development / Sealed：
 
-### Step 3：source-native baseline
+1. 先看无模型框 ROI / contact sheet；
+2. 人工独立记录 Required Litter 目标、visible interval 和粗位置；
+3. 多目标分别建立 truth identity；
+4. 再通过 point-click + machine proposal 补足可用定位；
+5. 模型输出最后才参与匹配。
 
-同一批数据分别跑：
+`positive_unlocalized` 可以参与人工逐目标 episode recall，但不能仅凭“窗口有垃圾 + 模型出了某个框”判定命中。
 
-- Turhancan；
-- YOLO26s pretrained；
+### Step 3：source-native baseline + 训练链路自检
+
+先跑：
+
+- Turhancan baseline；
+- YOLO26s pretrained 仅作初始化/重叠类别诊断；
 - YOLOE mining。
 
-首先确认原始高分辨率输入本身的 proposal 能力。
+随后立即执行 §14.0 小样本 overfit：
 
-### Step 4：训练 A/B
+- 验 bbox；
+- 验 class mapping；
+- 验 source scale；
+- 验训练确实学得动。
+
+pretrained YOLO26 未检出纸巾不能作为路线 No-Go 证据。
+
+### Step 4：正式训练 A/B
 
 同一 Gold V1：
 
-- YOLO26s；
-- RF-DETR-S。
+- YOLO26s fine-tuned；
+- RF-DETR-S fine-tuned。
 
 只看 Development。
 
-### Step 5：消融
+### Step 5：Development 选择“最佳配置”
 
-Development 上比较：
+比较：
 
 - Turhancan only；
-- YOLO/RF-DETR winner only；
-- Fusion。
+- YOLO26s；
+- RF-DETR-S；
+- 必要的 Fusion。
 
-### Step 6：唯一一次数据修正
+按 §15 的完整指标选最佳配置，不预设 Fusion 一定获胜。
 
-把：
+如果第一轮已经达到预注册目标，可以跳过 Step 6。
 
-- FN；
-- 高置信 FP；
-- Turhancan-only positive；
-- New-only positive；
-- conflict；
+### Step 6：最多一次数据修正
 
-重新给人工审核。
+优先：
 
-补训练数据，再训练一次。
+> 根据 Development 暴露出的错误类型，从 Training Pool / 未使用录像补**相似但独立**的新样本。
 
-然后冻结：
+只有找不到独立样本且确有必要时，才允许把 Development 某个 FN/FP episode 转入 Training；一旦转入：
+
+- 该 episode；
+- 相邻帧；
+- 重叠 tiles；
+
+全部退出 Development 计分。
+
+固定 Development Core 始终保持不变，用于第一轮 vs 第二轮比较。
+
+完成第二轮后冻结：
 
 - 模型；
 - threshold；
 - overlap；
-- fusion。
+- single/fusion 配置；
+- matching / evaluation protocol。
 
 ### Step 7：Sealed Test
 
@@ -913,13 +1093,25 @@ Development 上比较：
 
 输出：
 
-- raw proposal recall；
-- event recall；
-- FP；
-- 模型互补；
-- 分层 error analysis。
+- low-threshold proposal recall；
+- episode recall；
+- macro visible-frame hit rate；
+- working-threshold recall；
+- FP / 100 ROI frames；
+- bbox/coarse match breakdown；
+- camera / size / appearance 分层结果。
 
 Sealed 结果不能用于本轮继续调参。
+
+### Step 8：迁移诊断（可选，不阻塞第一轮）
+
+如果有成本很低的条件，可留一个未参与训练的 camera 或新的 scene_version 做迁移诊断。
+
+只回答：
+
+> 当前 shared detector 对轻微视角变化 / 新同类摄像头有没有明显退化？
+
+该结果不纳入第一轮五路 detector feasibility 的硬 Go/No-Go。
 
 ---
 
@@ -984,11 +1176,11 @@ Sealed 结果不能用于本轮继续调参。
 3. 现场已有大量真实 hard negatives；
 4. 可以持续人工审核；
 5. 可以从 7 天录像继续挖自然事件；
-6. ROI / 摄像头变化可以通过 shared detector + runtime ROI 支持；
+6. shared detector + runtime ROI 的架构为未来 ROI / 摄像头变化提供了复用基础，但跨 camera / scene 泛化仍需后续迁移实验验证；
 7. 用户允许忽略极小碎片，问题难度明显降低。
 
 因此当前方案冻结为：
 
-> **数据重建 -> source-native detector A/B -> Turhancan Fusion -> 一次 hard-negative/FN 修正 -> Sealed Test。**
+> **优先封存评估数据 -> 数据重建 -> source-native detector sanity/A-B -> Development 选择最佳单模型或融合配置 -> 必要时最多一次独立数据修正 -> Sealed Test。**
 
 在这条链路证明有效之前，不继续扩展生产事件和告警系统。
