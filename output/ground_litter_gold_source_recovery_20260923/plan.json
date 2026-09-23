@@ -1,0 +1,39 @@
+{
+  "expected_downloads_if_all_resolved": 48,
+  "gold_artifact": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_gold_episode_review_20260923/gold_episodes.jsonl",
+  "gold_code_commit": "efcbaef665fecb6c83f4e995d84109e7e887c7ed",
+  "gold_sha256": "74eefba08d65fd2c32d4d83ea823acadfef4c20b90c42dc7cbff3ec1100e24eb",
+  "known_file_id_episodes": 119,
+  "manual_missing_targets_in_scope": 9,
+  "missing_file_id_episodes": 61,
+  "per_camera": {
+    "01021": {
+      "known_file_id": 26,
+      "missing_file_id": 12,
+      "required": 38
+    },
+    "01022": {
+      "known_file_id": 30,
+      "missing_file_id": 26,
+      "required": 56
+    },
+    "01027": {
+      "known_file_id": 11,
+      "missing_file_id": 3,
+      "required": 14
+    },
+    "01028": {
+      "known_file_id": 19,
+      "missing_file_id": 7,
+      "required": 26
+    },
+    "01030": {
+      "known_file_id": 33,
+      "missing_file_id": 13,
+      "required": 46
+    }
+  },
+  "required_episode_count": 180,
+  "selected_episode_count": 180,
+  "unique_known_file_ids": 48
+}

@@ -1,0 +1,34 @@
+{
+  "artifact_root": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_gold_source_recovery_20260923",
+  "boundaries": {
+    "bbox_modified": false,
+    "episode_merged_or_split": false,
+    "gold_modified": false,
+    "ps_auto_deleted": false,
+    "sealed_accessed": false,
+    "training_started": false,
+    "training_tiles_generated": false
+  },
+  "code_commit": "81c3dde27f7ed759248330e3c332d78907a137e3",
+  "config": {
+    "artifact_root": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_gold_source_recovery_20260923",
+    "endpoint": "default",
+    "frame_quality": 95,
+    "gold_manifest": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_gold_episode_review_20260923/MANIFEST.json",
+    "gold_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_gold_episode_review_20260923/gold_episodes.jsonl",
+    "max_downloads": null,
+    "verify_hashes_on_resume": false
+  },
+  "counts": {
+    "recovered": 180,
+    "required_episode_count": 180,
+    "total_ps_bytes_preserved": 5463770771,
+    "unique_source_files_downloaded": 79
+  },
+  "generated_at": "2026-09-23T05:30:00Z",
+  "generator_version": "step1c0-1.0.0",
+  "gold_input_sha256": "74eefba08d65fd2c32d4d83ea823acadfef4c20b90c42dc7cbff3ec1100e24eb",
+  "schema_version": "ground_litter_gold_source_recovery_v1",
+  "source_evidence_sha256": "ed66c42ff1a887ec19e796b375a7aed17059907ad00812b598b9578fe94e9ee1",
+  "verification_frame_count": 180
+}
