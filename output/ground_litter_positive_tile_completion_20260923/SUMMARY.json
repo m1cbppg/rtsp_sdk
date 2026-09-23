@@ -1,0 +1,225 @@
+{
+  "boundaries": {
+    "alternative_crop_created": false,
+    "crop_moved": false,
+    "detector_run": false,
+    "existing_label_modified": false,
+    "gold_modified": false,
+    "hard_negatives_generated": false,
+    "image_reencoded": false,
+    "image_resized": false,
+    "localization_modified": false,
+    "primary_bbox_modified": false,
+    "recovery_evidence_modified": false,
+    "sealed_accessed": false,
+    "segmentation_run": false,
+    "step1c2_artifact_modified": false,
+    "step1c2_review_decision_modified": false,
+    "training_started": false,
+    "truth_reconciliation_modified": false
+  },
+  "class_mapping": {
+    "0": "ground_litter"
+  },
+  "completion": {
+    "notes": [
+      {
+        "note": "confirmed by reviewer",
+        "status": "ANNOTATION_COMPLETE_AFTER_SUPPLEMENT",
+        "tile_id": "pt-08daffbffef20a58ccc6"
+      },
+      {
+        "note": "confirmed by reviewer",
+        "status": "ANNOTATION_COMPLETE_AFTER_SUPPLEMENT",
+        "tile_id": "pt-9a36bbe18f96da2ccee3"
+      },
+      {
+        "note": "confirmed by reviewer",
+        "status": "ANNOTATION_COMPLETE_AFTER_SUPPLEMENT",
+        "tile_id": "pt-5800901fc7f3de98d448"
+      },
+      {
+        "note": "confirmed by reviewer",
+        "status": "ANNOTATION_COMPLETE_AFTER_SUPPLEMENT",
+        "tile_id": "pt-031517f0967dee166f86"
+      },
+      {
+        "note": "confirmed by reviewer",
+        "status": "ANNOTATION_COMPLETE_AFTER_SUPPLEMENT",
+        "tile_id": "pt-77a080fba8048f2a4f64"
+      },
+      {
+        "note": "confirmed by reviewer",
+        "status": "ANNOTATION_COMPLETE_AFTER_SUPPLEMENT",
+        "tile_id": "pt-0232d9b6ed96308ad608"
+      },
+      {
+        "note": "confirmed by reviewer",
+        "status": "ANNOTATION_COMPLETE_AFTER_SUPPLEMENT",
+        "tile_id": "pt-a88f63c6feac4fb01286"
+      },
+      {
+        "note": "confirmed by reviewer",
+        "status": "ANNOTATION_COMPLETE_AFTER_SUPPLEMENT",
+        "tile_id": "pt-2c4cdc8b71faaddfa130"
+      },
+      {
+        "note": "confirmed by reviewer",
+        "status": "ANNOTATION_COMPLETE_AFTER_SUPPLEMENT",
+        "tile_id": "pt-2105a7dc471caba39b7c"
+      },
+      {
+        "note": "confirmed by reviewer",
+        "status": "ANNOTATION_COMPLETE_AFTER_SUPPLEMENT",
+        "tile_id": "pt-bef67f962d9ee9f47e0e"
+      },
+      {
+        "note": "confirmed by reviewer",
+        "status": "ANNOTATION_COMPLETE_AFTER_SUPPLEMENT",
+        "tile_id": "pt-2e7306aa6837573fbc16"
+      },
+      {
+        "note": "confirmed by reviewer",
+        "status": "ANNOTATION_COMPLETE_AFTER_SUPPLEMENT",
+        "tile_id": "pt-1e4e89542158fbf702b7"
+      },
+      {
+        "note": "confirmed by reviewer",
+        "status": "ANNOTATION_COMPLETE_AFTER_SUPPLEMENT",
+        "tile_id": "pt-99cfcd339d9d79dffe7c"
+      },
+      {
+        "note": "confirmed by reviewer",
+        "status": "ANNOTATION_COMPLETE_AFTER_SUPPLEMENT",
+        "tile_id": "pt-8d24ab8d09e7ecc7c49f"
+      },
+      {
+        "note": "confirmed by reviewer",
+        "status": "ANNOTATION_COMPLETE_AFTER_SUPPLEMENT",
+        "tile_id": "pt-6d798e6ac891271bacb5"
+      }
+    ],
+    "pending": 0,
+    "queue": 62,
+    "reviewed": 62,
+    "skipped": 0,
+    "status_counts": {
+      "ANNOTATION_COMPLETE_AFTER_SUPPLEMENT": 15,
+      "NEEDS_COMPLETION": 0,
+      "STILL_MISSING_REQUIRED": 47,
+      "SUPPLEMENTAL_LOCALIZATION_UNRESOLVED": 0,
+      "TARGET_TRUNCATED": 0,
+      "UNCERTAIN_COMPLETENESS": 0
+    }
+  },
+  "final": {
+    "accepted_v2_label_count": 96,
+    "accepted_v2_positive_tile_count": 44,
+    "label_count_histogram": {
+      "1": 28,
+      "10": 1,
+      "2": 4,
+      "3": 4,
+      "4": 2,
+      "5": 1,
+      "6": 3,
+      "7": 1
+    },
+    "old_accepted_positive_tile_count": 29,
+    "salvaged_positive_tile_count": 15,
+    "tiles_with_1_label": 28,
+    "tiles_with_2_labels": 4,
+    "tiles_with_3plus_labels": 12,
+    "unique_primary_episode_count": 51
+  },
+  "generator_version": "step1c2m-1.0.0",
+  "image_immutability": {
+    "checked": 44,
+    "mismatch": [],
+    "step1c2_sha_checked": true
+  },
+  "input": {
+    "old_accepted_positive_tile_count": 29,
+    "sha256": {
+      "positive_training_manifest_sha256": "a62f947deb15498c576a7ac219788d74fb58ae3e3f1abe28035b2addbdafec40",
+      "review_state_sha256": "17923fc2ec98d2cee734f024e5d9c9cc62ca7980effaeea7e6504b43a18717e6",
+      "step1c2_manifest_sha256": "8b735824d3fd09d85ab665a1ce5884351df03aa33a85d653f6f2417d736dc494",
+      "step1c2_summary_sha256": "bc6062d953d12626881cb44408422c044cfb59978a3f753a781dcf7f2558831b",
+      "tile_candidates_sha256": "c54a5c4f0394f45ef2a7a603028a62bde38890211514ed89573c7949755df43d"
+    },
+    "step1c2_box_problem": 2,
+    "step1c2_complete": 29,
+    "step1c2_missing_required": 62,
+    "step1c2_root": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_positive_tiles_20260923",
+    "step1c2_total": 93
+  },
+  "per_camera": {
+    "01021": {
+      "final_accepted": 8,
+      "missing_input": 12,
+      "salvaged": 3,
+      "still_missing": 9,
+      "truncated": 0,
+      "uncertain": 0,
+      "unresolved": 0
+    },
+    "01022": {
+      "final_accepted": 7,
+      "missing_input": 24,
+      "salvaged": 5,
+      "still_missing": 19,
+      "truncated": 0,
+      "uncertain": 0,
+      "unresolved": 0
+    },
+    "01027": {
+      "final_accepted": 5,
+      "missing_input": 2,
+      "salvaged": 2,
+      "still_missing": 0,
+      "truncated": 0,
+      "uncertain": 0,
+      "unresolved": 0
+    },
+    "01028": {
+      "final_accepted": 9,
+      "missing_input": 11,
+      "salvaged": 2,
+      "still_missing": 9,
+      "truncated": 0,
+      "uncertain": 0,
+      "unresolved": 0
+    },
+    "01030": {
+      "final_accepted": 15,
+      "missing_input": 13,
+      "salvaged": 3,
+      "still_missing": 10,
+      "truncated": 0,
+      "uncertain": 0,
+      "unresolved": 0
+    }
+  },
+  "proposal": {
+    "failed": 78,
+    "first_pass_success": 179,
+    "second_pass_success": 0
+  },
+  "schema_version": "ground_litter_tile_completion_v1",
+  "supplemental": {
+    "duplicate_confirmed_independent_count": 0,
+    "duplicate_warning_count": 0,
+    "supplemental_target_count": 268,
+    "truncated_supplemental_count": 10,
+    "unresolved_supplemental_count": 78,
+    "verified_supplemental_bbox_count": 179
+  },
+  "target_size_histogram": {
+    "10-19": 34,
+    "20-39": 35,
+    "40-79": 13,
+    "80+": 5,
+    "<10": 9
+  },
+  "tile_size": 640
+}

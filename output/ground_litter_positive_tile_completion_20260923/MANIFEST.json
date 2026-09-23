@@ -1,0 +1,71 @@
+{
+  "artifact_root": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_positive_tile_completion_20260923",
+  "boundaries": {
+    "alternative_crop_created": false,
+    "crop_moved": false,
+    "detector_run": false,
+    "existing_label_modified": false,
+    "gold_modified": false,
+    "hard_negatives_generated": false,
+    "image_reencoded": false,
+    "image_resized": false,
+    "localization_modified": false,
+    "primary_bbox_modified": false,
+    "recovery_evidence_modified": false,
+    "sealed_accessed": false,
+    "segmentation_run": false,
+    "step1c2_artifact_modified": false,
+    "step1c2_review_decision_modified": false,
+    "training_started": false,
+    "truth_reconciliation_modified": false
+  },
+  "class_mapping": {
+    "0": "ground_litter"
+  },
+  "code_commit": "8013300d0394f45a840dc259d3f036263e309fd6",
+  "config": {
+    "accepted_root": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_positive_tile_completion_20260923/accepted_v2",
+    "generator_version": "step1c2m-1.0.0",
+    "output": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_positive_tile_completion_20260923",
+    "schema_version": "ground_litter_tile_completion_v1",
+    "state": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_positive_tile_completion_20260923/completion_state.json",
+    "step1c2_root": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_positive_tiles_20260923"
+  },
+  "counts": {
+    "accepted_v2_label_count": 96,
+    "accepted_v2_positive_tile_count": 44,
+    "completion_input_count": 62,
+    "old_accepted_positive_tile_count": 29,
+    "salvaged_positive_tile_count": 15,
+    "supplemental_target_count": 268
+  },
+  "crop_moved": false,
+  "generated_at": "2026-09-23T11:37:27Z",
+  "generator_version": "step1c2m-1.0.0",
+  "image_pixels_immutable": true,
+  "input_fingerprint": "59b0e78b54ce8ce563a0432bac146fd068012fa7c8690fc9ec59cac3fb95d0aa",
+  "resize": false,
+  "review_state_sha256": "17923fc2ec98d2cee734f024e5d9c9cc62ca7980effaeea7e6504b43a18717e6",
+  "schema_version": "ground_litter_tile_completion_v1",
+  "step1c2_manifest_sha256": "8b735824d3fd09d85ab665a1ce5884351df03aa33a85d653f6f2417d736dc494",
+  "step1c2_summary_sha256": "bc6062d953d12626881cb44408422c044cfb59978a3f753a781dcf7f2558831b",
+  "summary_sha256": "5fceb47caa0923ef93b396813f8167e889a1f2d22062e2a4c867f808dc44a30f",
+  "tile_candidates_sha256": "c54a5c4f0394f45ef2a7a603028a62bde38890211514ed89573c7949755df43d",
+  "tile_size": 640,
+  "upstream_provenance": {
+    "note": "Step 1C-2M only reads the Step 1C-2 artifacts recorded here; their SHA-256 is re-verified before anything is written",
+    "step1c0_evidence_commit": "bfdecd5",
+    "step1c0_manifest_commit": "81c3dde27f7ed759248330e3c332d78907a137e3",
+    "step1c0_reported_execution_commit": "2e5da415c20feda3384e080a3ff9217c97c4e83c",
+    "step1c1_evidence_commit": "1a1f65c14a5e971baa00eb36774e9c85911124d8",
+    "step1c1_manifest_commit": "806f8de4cb8b750c1c68aa262571d59ea1c8d0ba",
+    "step1c1_reported_execution_commit": "809ce49196dadc639fe90438da3c27057baa34bd",
+    "step1c1r_evidence_commit": "6c60bb8120161f9f735b00a465cc49cb426369c2",
+    "step1c1r_manifest_commit": "d841864f3a997347bf53db9cf24c2d1940052ac6",
+    "step1c1r_reported_execution_commit": "5399c4ff972b3f6bff02ba66bc861bc0b684b778",
+    "step1c2_evidence_commit": "c548f27e816e4cf80ffd8b7e09a862428e6c9398",
+    "step1c2_manifest_commit": "abe131ec6fe4895dfdcd4c7909eff4f3b65b4b48",
+    "step1c2_reported_execution_commit": "7944dadf248089deca23f097c2f9442770cc5635",
+    "step1c2_section17_correction_commit": "34339737413f1843bab0c3a130c47a4b0bcee3a8"
+  }
+}
