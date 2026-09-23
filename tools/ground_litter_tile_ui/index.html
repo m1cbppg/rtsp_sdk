@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Step 1C-2 · Annotation-Complete Review</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <div class="title">
+    <h1>Step 1C-2 · Annotation-Complete Review</h1>
+    <p id="meta" class="muted">读取中…</p>
+  </div>
+  <div class="progress">
+    <b id="progress">0 / 0</b>
+    <span id="status-line" class="muted">读取中</span>
+  </div>
+</header>
+
+<main>
+  <aside>
+    <div class="filters">
+      <label>状态
+        <select id="f-status">
+          <option value="pending">未复核</option>
+          <option value="all">全部</option>
+          <option value="ANNOTATION_COMPLETE">ANNOTATION_COMPLETE</option>
+          <option value="MISSING_REQUIRED">MISSING_REQUIRED</option>
+          <option value="BOX_PROBLEM">BOX_PROBLEM</option>
+          <option value="UNCERTAIN_COMPLETENESS">UNCERTAIN_COMPLETENESS</option>
+        </select>
+      </label>
+      <label>摄像头
+        <select id="f-camera"><option value="all">全部</option></select>
+      </label>
+      <label>标签数
+        <select id="f-labels">
+          <option value="all">全部</option>
+          <option value="1">1 个</option>
+          <option value="2plus">2 个及以上</option>
+        </select>
+      </label>
+      <label>搜索 tile_id / episode_id
+        <input id="f-search" type="search" placeholder="pt-… / ge-…">
+      </label>
+    </div>
+    <div id="queue" class="queue"></div>
+  </aside>
+
+  <section>
+    <div id="detail" class="detail">
+      <p class="muted">选择左侧 tile 开始完整性复核（覆盖 640×640 source-native 正例候选）</p>
+    </div>
+  </section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
