@@ -1,0 +1,28 @@
+{
+  "auto_matchable": 0,
+  "episodes": 1,
+  "generated_at": "2026-09-23T15:06:30Z",
+  "objects": [
+    {
+      "camera_id": "01021",
+      "episode_id": "ep-0001",
+      "has_bbox": false,
+      "has_point": true,
+      "localization_status": "LOCALIZATION_UNRESOLVED",
+      "needs_manual_adjudication": true,
+      "truth_id": "t-0001"
+    }
+  ],
+  "per_status_counts": {
+    "LOCALIZATION_UNRESOLVED": 1
+  },
+  "point_only": 1,
+  "required_objects": 1,
+  "rule": "a Required object without a reliable bbox is kept in the truth and routed to manual adjudication; it must never be scored as an automatic false negative",
+  "schema_version": "ground_litter_step2c_blind_truth_v1",
+  "unresolved": [
+    "t-0001"
+  ],
+  "unresolved_count": 1,
+  "visible_frames": 1
+}

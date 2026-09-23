@@ -1,0 +1,75 @@
+{
+  "artifact_sha256": {
+    "MANIFEST.json": "496af375ecc632adc9b3f1cc017f5c844d46e419fceb578005ea154e62fd7f03",
+    "SUMMARY.json": "2cde6c57c917816eca78b34e47b9ffbb85ddf9030a818e6b04a64636b82847db",
+    "development_manifest.json": "1ba2b61f238f20d7d5445627b6e5d06763b8cafc0595d09ca0b71511772d2eeb",
+    "episodes.jsonl": "878e59325794e778d7341c1c3651cae36dc75152f270c6822bc014cb3ea9bc4c",
+    "global_roi_frame_manifest.jsonl": "73ee841f26570f1ab4f7f15235872b2bafbac78280b58694c00cf6708039cab9",
+    "localization_state.json": "6d717b12d54bfef5b0dfeb66d593a4319b63a574d6f22649712a3aa73a94cff1",
+    "truth_objects.jsonl": "d3d3e147951fe15c43e40aa4d2f2399051eba7bf29d70424377e55ebf10bc23c",
+    "visible_frame_manifest.jsonl": "e582456ab7ac08100e1e3e31d6598823a42a61467ca9414fa942bd7191f8ba56"
+  },
+  "artifacts": [
+    "truth_objects.jsonl",
+    "episodes.jsonl",
+    "visible_frame_manifest.jsonl",
+    "global_roi_frame_manifest.jsonl",
+    "development_manifest.json",
+    "localization_state.json",
+    "SUMMARY.json",
+    "MANIFEST.json"
+  ],
+  "checkpoint_accessed": false,
+  "detector_loaded": false,
+  "errata": [
+    {
+      "erratum_at": "2026-09-23T15:06:40Z",
+      "recorded_after_inference": false,
+      "truth_id": "t-0002"
+    }
+  ],
+  "extra": {
+    "blindness": {
+      "checkpoint_accessed": false,
+      "checkpoint_args": [],
+      "detector_loaded": false,
+      "forbidden_modules_loaded": [],
+      "forbidden_source_tokens": [],
+      "inference_executed": false,
+      "ok": true
+    }
+  },
+  "frozen_at": "2026-09-23T15:06:30Z",
+  "generator_version": "step2c1-1.0.0",
+  "inference_executed": false,
+  "review_coverage": {
+    "complete": true,
+    "pending": 0,
+    "pending_file_ids": [],
+    "per_camera": {
+      "01021": {
+        "in_progress": 0,
+        "pending": 0,
+        "reviewed": 2,
+        "total": 2
+      },
+      "01022": {
+        "in_progress": 0,
+        "pending": 0,
+        "reviewed": 1,
+        "total": 1
+      }
+    },
+    "per_file": {
+      "281238_18081003969_44180209031322001022-1790063800000": "REVIEWED",
+      "476689_18081003969_44180209031322001021-1790063733000": "REVIEWED",
+      "476689_18081003969_44180209031322001021-1790064037000": "REVIEWED"
+    },
+    "reviewed": 3,
+    "reviewed_fraction": 1.0,
+    "total_files": 3
+  },
+  "schema_version": "ground_litter_step2c_blind_truth_v1",
+  "sealed_accessed": false,
+  "truth_sha256": "18fd4639b71f67e82ebded49b941ff4cbc087c2fd044583acfd27fd50201a337"
+}

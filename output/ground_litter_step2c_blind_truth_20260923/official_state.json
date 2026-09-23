@@ -1,0 +1,26 @@
+{
+  "artifact_root_on_server": "/home/sf01/step2c1-blind-truth/artifact",
+  "development_ps_count": 65,
+  "frozen": false,
+  "inventory_problems": [],
+  "note": "the official artifact holds the frozen Development inventory only; the operator has not started the blind review, and no agent-created truth is present in it",
+  "per_camera_count": {
+    "01021": 13,
+    "01022": 13,
+    "01027": 13,
+    "01028": 13,
+    "01030": 13
+  },
+  "pilot_artifact_root_on_server": "/home/sf01/step2c1-blind-truth/pilot-artifact",
+  "review_state": {
+    "agent_reviewed_truth": false,
+    "pending": 65,
+    "reviewed": 0,
+    "total_files": 65
+  },
+  "roi_geometry_version": [
+    "final-roi-20260922-user-reviewed"
+  ],
+  "sealed_accessed": false,
+  "total_bytes": 5940321791
+}

@@ -1,0 +1,30 @@
+{
+  "archive_received_sha256": "cdaf6a431188565b8c4a1d9119ec55467cbda335a7197c7f8c2c2dc001328bfa",
+  "archive_sha256": "cdaf6a431188565b8c4a1d9119ec55467cbda335a7197c7f8c2c2dc001328bfa",
+  "file_count": 20,
+  "files": {
+    "code/output/ground_litter_final_roi_20260922/config/._ground_litter_01021_final_roi.json": "f49e28a59dd1ab2f27664a5f0921312a2567f4d5e9fe59418809370bb6efcd9f",
+    "code/output/ground_litter_final_roi_20260922/config/._ground_litter_01022_final_roi.json": "f49e28a59dd1ab2f27664a5f0921312a2567f4d5e9fe59418809370bb6efcd9f",
+    "code/output/ground_litter_final_roi_20260922/config/._ground_litter_01027_final_roi.json": "f49e28a59dd1ab2f27664a5f0921312a2567f4d5e9fe59418809370bb6efcd9f",
+    "code/output/ground_litter_final_roi_20260922/config/._ground_litter_01028_final_roi.json": "f49e28a59dd1ab2f27664a5f0921312a2567f4d5e9fe59418809370bb6efcd9f",
+    "code/output/ground_litter_final_roi_20260922/config/._ground_litter_01030_final_roi.json": "f49e28a59dd1ab2f27664a5f0921312a2567f4d5e9fe59418809370bb6efcd9f",
+    "code/output/ground_litter_final_roi_20260922/config/ground_litter_01021_final_roi.json": "82c5fc57ae713b70a29fa0f01e8d3ff6d72528798b82070cdc2bc7a036d299d2",
+    "code/output/ground_litter_final_roi_20260922/config/ground_litter_01022_final_roi.json": "cb89fe955337842933948820b7d1f52344e3fa906b678bcd3850582f540f2998",
+    "code/output/ground_litter_final_roi_20260922/config/ground_litter_01027_final_roi.json": "85dff158f519a3ce93829d24b145226d1b4cf1b58953f58456375a6e72ee6204",
+    "code/output/ground_litter_final_roi_20260922/config/ground_litter_01028_final_roi.json": "fc5c20a1a1892459e30afda7d32a8f2c753e4445f5d92ae378380a1170192276",
+    "code/output/ground_litter_final_roi_20260922/config/ground_litter_01030_final_roi.json": "d2f74f61e1c9c86ea4d8dff80f2e9332276a3abdc66dcea10c5e28d9803b554f",
+    "code/rtsp_annotator/._ground_litter_blind_truth.py": "fc4fbead2836e49ed0074dd9f25799f63e665bab04902c8b0ad9cf907cc69ff9",
+    "code/rtsp_annotator/__init__.py": "42abaa8e04456d2b2589c9aa39e9da7dca9a4ad62fe1ea61392e59816b64d7d3",
+    "code/rtsp_annotator/ground_litter_blind_truth.py": "d9502a41851123c77a03ea882f7380b35bd852ca80333437f6c5c14ad11bc19f",
+    "code/scripts/._serve_ground_litter_blind_truth.py": "fc4fbead2836e49ed0074dd9f25799f63e665bab04902c8b0ad9cf907cc69ff9",
+    "code/scripts/serve_ground_litter_blind_truth.py": "42fcd042f611cd4c8292ab812a79546a6ef940c46bffd85535557330094721d8",
+    "code/tools/ground_litter_blind_truth_ui/._app.js": "fc4fbead2836e49ed0074dd9f25799f63e665bab04902c8b0ad9cf907cc69ff9",
+    "code/tools/ground_litter_blind_truth_ui/._index.html": "fc4fbead2836e49ed0074dd9f25799f63e665bab04902c8b0ad9cf907cc69ff9",
+    "code/tools/ground_litter_blind_truth_ui/app.js": "10afc9301341af748a5b1c30471246b6977fba0e5c200c918c785801e77e020a",
+    "code/tools/ground_litter_blind_truth_ui/index.html": "218d09257d1755a6956a09d52383ec2850a740bbb028ff9505074c6fa1cb8bbc",
+    "code/tools/ground_litter_blind_truth_ui/styles.css": "01d86635d8f0c327225abcd76430754044c76a1f82483cc4dd0915e906b7bb85"
+  },
+  "python": "/home/sf01/ground_litter_train/.venv/bin/python (cv2 5.0.0; no torch, no ultralytics, no av, no ffmpeg used)",
+  "server_root": "/home/sf01/step2c1-blind-truth",
+  "verified_with": "sha256sum -c SHA256SUMS on the server"
+}

@@ -1,0 +1,129 @@
+{
+  "development_root": "/home/sf01/step2c1-blind-truth/pilot/ground-litter-detector-feasibility-20260923-r1/development",
+  "ok": true,
+  "output": "/home/sf01/step2c1-blind-truth/pilot-artifact",
+  "schema_version": "ground_litter_step2c_blind_truth_v1",
+  "server_log_bytes": 813,
+  "server_log_tail": "ui: \"GET /api/inventory HTTP/1.1\" 200 -\nui: \"GET /api/crop?file_id=476689_18081003969_44180209031322001021-1790063733000&t=60&cx=638.57152&cy=848.2410514285714&half=220 HTTP/1.1\" 200 -\nui: \"GET /api/proposals?file_id=476689_18081003969_44180209031322001021-1790063733000&t=60&x=638.57152&y=848.2410514285714 HTTP/1.1\" 200 -\nui: \"POST /api/truth HTTP/1.1\" 200 -\nui: \"POST /api/truth HTTP/1.1\" 200 -\nui: \"POST /api/episode HTTP/1.1\" 200 -\nui: \"POST /api/episode HTTP/1.1\" 200 -\nui: \"POST /api/truth HTTP/1.1\" 200 -\nui: \"POST /api/truth HTTP/1.1\" 200 -\nui: \"POST /api/review HTTP/1.1\" 200 -\nui: \"POST /api/review HTTP/1.1\" 200 -\nui: \"POST /api/review HTTP/1.1\" 200 -\nui: \"GET /api/state HTTP/1.1\" 200 -\nui: \"POST /api/sample HTTP/1.1\" 200 -\nui: \"POST /api/freeze HTTP/1.1\" 200 -\nui: \"POST /api/truth HTTP/1.1\" 409 -\n",
+  "steps": {
+    "artifacts": {
+      "global_frames": 33,
+      "global_sample_reason": [
+        "fixed_30s_grid"
+      ],
+      "read_only": {
+        "FREEZE.json": "0o400",
+        "MANIFEST.json": "0o400",
+        "SUMMARY.json": "0o400",
+        "development_manifest.json": "0o400",
+        "localization_state.json": "0o400",
+        "review_state.json": "0o400"
+      },
+      "truth_objects": 2,
+      "visible_frames": 1,
+      "visible_sample_reason": [
+        "fixed_5s_grid"
+      ],
+      "visible_source_size": [
+        [
+          2560,
+          1440
+        ]
+      ]
+    },
+    "classic_cv_proposals": {
+      "count": 0,
+      "labels": [],
+      "rule": "classic CV only, used after human confirmation; no detector was run",
+      "status": 200
+    },
+    "crop": {
+      "bytes": 112755,
+      "jpeg": true,
+      "source_point": [
+        638.6,
+        848.2
+      ],
+      "status": 200
+    },
+    "episode": {
+      "confirm_status": 200,
+      "episode_id": "ep-0001",
+      "new_status": 200
+    },
+    "frame": {
+      "bytes": 385829,
+      "content_type": "image/jpeg",
+      "jpeg": true,
+      "status": 200
+    },
+    "frame_meta": {
+      "decoded_timestamp": 60.013000000000005,
+      "source_height": 1440,
+      "source_width": 2560,
+      "status": 200
+    },
+    "freeze": {
+      "artifacts": [
+        "MANIFEST.json",
+        "SUMMARY.json",
+        "development_manifest.json",
+        "episodes.jsonl",
+        "global_roi_frame_manifest.jsonl",
+        "localization_state.json",
+        "truth_objects.jsonl",
+        "visible_frame_manifest.jsonl"
+      ],
+      "status": 200,
+      "truth_sha256": "18fd4639b71f67e82ebded49b941ff4cbc087c2fd044583acfd27fd50201a337"
+    },
+    "interval": {
+      "reply": {
+        "end": "2026-09-22 15:56:35.000",
+        "episode_id": "ep-0001"
+      },
+      "status": 200
+    },
+    "inventory": {
+      "cameras": [
+        "01021",
+        "01022"
+      ],
+      "ps_count": 3,
+      "status": 200
+    },
+    "localization": {
+      "has_bbox": false,
+      "localization_status": "LOCALIZATION_UNRESOLVED",
+      "status": 200
+    },
+    "post_freeze_rejected": {
+      "body": "{\"error\": \"Blind Truth is frozen; append a truth erratum instead of editing in place\"}",
+      "status": 409
+    },
+    "review": {
+      "complete": true,
+      "coverage": 1.0,
+      "status": 200
+    },
+    "sample": {
+      "confirmed_required_episodes": 1,
+      "global_frames": 33,
+      "status": 200,
+      "visible_frames": 1
+    },
+    "truth_ignore": {
+      "enters_ignore_set": true,
+      "enters_recall_denominator": false,
+      "status": 200,
+      "truth_id": "t-0002"
+    },
+    "truth_required": {
+      "in_roi": true,
+      "localization_status": "POINT_TRUTH",
+      "status": 200,
+      "timestamp": "2026-09-22 15:56:33.000",
+      "truth_id": "t-0001"
+    }
+  }
+}

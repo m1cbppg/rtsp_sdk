@@ -1,0 +1,61 @@
+{
+  "artifact_root": "/home/sf01/step2c1-blind-truth/pilot-artifact",
+  "blindness": {
+    "checkpoint_accessed": false,
+    "checkpoint_args": [],
+    "detector_loaded": false,
+    "forbidden_modules_loaded": [],
+    "forbidden_source_tokens": [],
+    "inference_executed": false,
+    "ok": true
+  },
+  "boundaries": {
+    "checkpoint_modified": false,
+    "development_accessed": true,
+    "sealed_accessed": false,
+    "training_pool_modified": false,
+    "truth_modified_after_freeze": false
+  },
+  "code_commit": "joint-test",
+  "development_ps_count": 3,
+  "development_sha256": {
+    "281238_18081003969_44180209031322001022-1790063800000": "7d0671c3a30f6255f010f4f2d00e1287da4614a0214ca3194b7e0d0459459871",
+    "476689_18081003969_44180209031322001021-1790063733000": "374d87e5d8d4adce6da31b40f1a5fd2a1267963807191180b1310cc81c015c4f",
+    "476689_18081003969_44180209031322001021-1790064037000": "661acfae795f7d825d19971203f9b2c0b75f04707a8a5514b88492624414b163"
+  },
+  "generated_at": "2026-09-23T15:06:30Z",
+  "generator_version": "step2c1-1.0.0",
+  "note": "Blind Truth was built before any detector inference for this step; no model output was loaded, displayed or used for frame selection",
+  "review_coverage": {
+    "complete": true,
+    "pending": 0,
+    "pending_file_ids": [],
+    "per_camera": {
+      "01021": {
+        "in_progress": 0,
+        "pending": 0,
+        "reviewed": 2,
+        "total": 2
+      },
+      "01022": {
+        "in_progress": 0,
+        "pending": 0,
+        "reviewed": 1,
+        "total": 1
+      }
+    },
+    "per_file": {
+      "281238_18081003969_44180209031322001022-1790063800000": "REVIEWED",
+      "476689_18081003969_44180209031322001021-1790063733000": "REVIEWED",
+      "476689_18081003969_44180209031322001021-1790064037000": "REVIEWED"
+    },
+    "reviewed": 3,
+    "reviewed_fraction": 1.0,
+    "total_files": 3
+  },
+  "roi_geometry_version": [
+    "final-roi-20260922-user-reviewed"
+  ],
+  "schema_version": "ground_litter_step2c_blind_truth_v1",
+  "truth_sha256": null
+}

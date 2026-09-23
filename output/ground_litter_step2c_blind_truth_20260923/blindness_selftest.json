@@ -1,0 +1,59 @@
+{
+  "local_selftest": {
+    "checkpoint_accessed": false,
+    "checkpoint_args": [],
+    "detector_loaded": false,
+    "forbidden_modules_loaded": [],
+    "forbidden_source_tokens": [],
+    "inference_executed": false,
+    "ok": true
+  },
+  "pilot_checks": {
+    "classic_cv_proposals": {
+      "count": 0,
+      "labels": [],
+      "rule": "classic CV only, used after human confirmation; no detector was run",
+      "status": 200
+    },
+    "crop_jpeg": {
+      "bytes": 112755,
+      "jpeg": true,
+      "source_point": [
+        638.6,
+        848.2
+      ],
+      "status": 200
+    },
+    "frame_jpeg": {
+      "bytes": 385829,
+      "content_type": "image/jpeg",
+      "jpeg": true,
+      "status": 200
+    },
+    "frame_meta": {
+      "decoded_timestamp": 60.013000000000005,
+      "source_height": 1440,
+      "source_width": 2560,
+      "status": 200
+    },
+    "post_freeze_rejected_status": 409
+  },
+  "pilot_summary_blindness": {
+    "checkpoint_accessed": false,
+    "checkpoint_args": [],
+    "detector_loaded": false,
+    "forbidden_modules_loaded": [],
+    "forbidden_source_tokens": [],
+    "inference_executed": false,
+    "ok": true
+  },
+  "server_selftest": {
+    "checkpoint_accessed": false,
+    "checkpoint_args": [],
+    "detector_loaded": false,
+    "forbidden_modules_loaded": [],
+    "forbidden_source_tokens": [],
+    "inference_executed": false,
+    "ok": true
+  }
+}

@@ -1,0 +1,2721 @@
+{
+  "cameras": [
+    "01021",
+    "01022",
+    "01027",
+    "01028",
+    "01030"
+  ],
+  "development_root": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development",
+  "files": [
+    {
+      "bytes": 89002420,
+      "camera_id": "01021",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001021",
+      "duration_seconds": 304.0,
+      "file_id": "476689_18081003969_44180209031322001021-1790063733000",
+      "file_name": "20260922155533-20260922160037.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01021/raw/476689_18081003969_44180209031322001021-1790063733000__20260922155533-20260922160037.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01021/raw/476689_18081003969_44180209031322001021-1790063733000__20260922155533-20260922160037.ps",
+      "record_end": "2026-09-22 16:00:37",
+      "record_start": "2026-09-22 15:55:33",
+      "roi": [
+        [
+          0.275781,
+          0.246398
+        ],
+        [
+          0.360938,
+          0.250564
+        ],
+        [
+          0.335938,
+          0.451953
+        ],
+        [
+          0.315625,
+          0.628342
+        ],
+        [
+          0.239844,
+          0.640842
+        ],
+        [
+          0.167187,
+          0.972786
+        ],
+        [
+          0.050781,
+          0.932509
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01021_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01021-final-roi-20260922-b4c94371",
+      "sha256": "374d87e5d8d4adce6da31b40f1a5fd2a1267963807191180b1310cc81c015c4f"
+    },
+    {
+      "bytes": 90055806,
+      "camera_id": "01021",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001021",
+      "duration_seconds": 304.0,
+      "file_id": "476689_18081003969_44180209031322001021-1790064037000",
+      "file_name": "20260922160037-20260922160541.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01021/raw/476689_18081003969_44180209031322001021-1790064037000__20260922160037-20260922160541.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01021/raw/476689_18081003969_44180209031322001021-1790064037000__20260922160037-20260922160541.ps",
+      "record_end": "2026-09-22 16:05:41",
+      "record_start": "2026-09-22 16:00:37",
+      "roi": [
+        [
+          0.275781,
+          0.246398
+        ],
+        [
+          0.360938,
+          0.250564
+        ],
+        [
+          0.335938,
+          0.451953
+        ],
+        [
+          0.315625,
+          0.628342
+        ],
+        [
+          0.239844,
+          0.640842
+        ],
+        [
+          0.167187,
+          0.972786
+        ],
+        [
+          0.050781,
+          0.932509
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01021_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01021-final-roi-20260922-b4c94371",
+      "sha256": "661acfae795f7d825d19971203f9b2c0b75f04707a8a5514b88492624414b163"
+    },
+    {
+      "bytes": 92072854,
+      "camera_id": "01021",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001021",
+      "duration_seconds": 303.0,
+      "file_id": "476689_18081003969_44180209031322001021-1790064341000",
+      "file_name": "20260922160541-20260922161044.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01021/raw/476689_18081003969_44180209031322001021-1790064341000__20260922160541-20260922161044.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01021/raw/476689_18081003969_44180209031322001021-1790064341000__20260922160541-20260922161044.ps",
+      "record_end": "2026-09-22 16:10:44",
+      "record_start": "2026-09-22 16:05:41",
+      "roi": [
+        [
+          0.275781,
+          0.246398
+        ],
+        [
+          0.360938,
+          0.250564
+        ],
+        [
+          0.335938,
+          0.451953
+        ],
+        [
+          0.315625,
+          0.628342
+        ],
+        [
+          0.239844,
+          0.640842
+        ],
+        [
+          0.167187,
+          0.972786
+        ],
+        [
+          0.050781,
+          0.932509
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01021_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01021-final-roi-20260922-b4c94371",
+      "sha256": "e56b40034a884769a400d8534198848197e1b9ce6d8c37043285fc66c7cdd993"
+    },
+    {
+      "bytes": 89270774,
+      "camera_id": "01021",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001021",
+      "duration_seconds": 304.0,
+      "file_id": "476689_18081003969_44180209031322001021-1790064644000",
+      "file_name": "20260922161044-20260922161548.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01021/raw/476689_18081003969_44180209031322001021-1790064644000__20260922161044-20260922161548.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01021/raw/476689_18081003969_44180209031322001021-1790064644000__20260922161044-20260922161548.ps",
+      "record_end": "2026-09-22 16:15:48",
+      "record_start": "2026-09-22 16:10:44",
+      "roi": [
+        [
+          0.275781,
+          0.246398
+        ],
+        [
+          0.360938,
+          0.250564
+        ],
+        [
+          0.335938,
+          0.451953
+        ],
+        [
+          0.315625,
+          0.628342
+        ],
+        [
+          0.239844,
+          0.640842
+        ],
+        [
+          0.167187,
+          0.972786
+        ],
+        [
+          0.050781,
+          0.932509
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01021_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01021-final-roi-20260922-b4c94371",
+      "sha256": "d58492ccd56730b467b468d611c5f95fc321e1193eae2d52dd15517790d09ba6"
+    },
+    {
+      "bytes": 94036974,
+      "camera_id": "01021",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001021",
+      "duration_seconds": 304.0,
+      "file_id": "476689_18081003969_44180209031322001021-1790064948000",
+      "file_name": "20260922161548-20260922162052.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01021/raw/476689_18081003969_44180209031322001021-1790064948000__20260922161548-20260922162052.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01021/raw/476689_18081003969_44180209031322001021-1790064948000__20260922161548-20260922162052.ps",
+      "record_end": "2026-09-22 16:20:52",
+      "record_start": "2026-09-22 16:15:48",
+      "roi": [
+        [
+          0.275781,
+          0.246398
+        ],
+        [
+          0.360938,
+          0.250564
+        ],
+        [
+          0.335938,
+          0.451953
+        ],
+        [
+          0.315625,
+          0.628342
+        ],
+        [
+          0.239844,
+          0.640842
+        ],
+        [
+          0.167187,
+          0.972786
+        ],
+        [
+          0.050781,
+          0.932509
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01021_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01021-final-roi-20260922-b4c94371",
+      "sha256": "955cf6e9481c97956ce512d7501ef419a3dc2e80da9ee29f92f7ac6ed23ee3c5"
+    },
+    {
+      "bytes": 96065682,
+      "camera_id": "01021",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001021",
+      "duration_seconds": 304.0,
+      "file_id": "476689_18081003969_44180209031322001021-1790065252000",
+      "file_name": "20260922162052-20260922162556.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01021/raw/476689_18081003969_44180209031322001021-1790065252000__20260922162052-20260922162556.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01021/raw/476689_18081003969_44180209031322001021-1790065252000__20260922162052-20260922162556.ps",
+      "record_end": "2026-09-22 16:25:56",
+      "record_start": "2026-09-22 16:20:52",
+      "roi": [
+        [
+          0.275781,
+          0.246398
+        ],
+        [
+          0.360938,
+          0.250564
+        ],
+        [
+          0.335938,
+          0.451953
+        ],
+        [
+          0.315625,
+          0.628342
+        ],
+        [
+          0.239844,
+          0.640842
+        ],
+        [
+          0.167187,
+          0.972786
+        ],
+        [
+          0.050781,
+          0.932509
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01021_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01021-final-roi-20260922-b4c94371",
+      "sha256": "291707babc6f9fff163b287011556df5558707108ce37e77689b874f9bd15925"
+    },
+    {
+      "bytes": 98127188,
+      "camera_id": "01021",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001021",
+      "duration_seconds": 304.0,
+      "file_id": "476689_18081003969_44180209031322001021-1790065556000",
+      "file_name": "20260922162556-20260922163100.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01021/raw/476689_18081003969_44180209031322001021-1790065556000__20260922162556-20260922163100.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01021/raw/476689_18081003969_44180209031322001021-1790065556000__20260922162556-20260922163100.ps",
+      "record_end": "2026-09-22 16:31:00",
+      "record_start": "2026-09-22 16:25:56",
+      "roi": [
+        [
+          0.275781,
+          0.246398
+        ],
+        [
+          0.360938,
+          0.250564
+        ],
+        [
+          0.335938,
+          0.451953
+        ],
+        [
+          0.315625,
+          0.628342
+        ],
+        [
+          0.239844,
+          0.640842
+        ],
+        [
+          0.167187,
+          0.972786
+        ],
+        [
+          0.050781,
+          0.932509
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01021_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01021-final-roi-20260922-b4c94371",
+      "sha256": "1f64dc5bbf48339fbf806a658acdfc81da0240359e7820699f4e3e70b30e1229"
+    },
+    {
+      "bytes": 99297174,
+      "camera_id": "01021",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001021",
+      "duration_seconds": 304.0,
+      "file_id": "476689_18081003969_44180209031322001021-1790065860000",
+      "file_name": "20260922163100-20260922163604.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01021/raw/476689_18081003969_44180209031322001021-1790065860000__20260922163100-20260922163604.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01021/raw/476689_18081003969_44180209031322001021-1790065860000__20260922163100-20260922163604.ps",
+      "record_end": "2026-09-22 16:36:04",
+      "record_start": "2026-09-22 16:31:00",
+      "roi": [
+        [
+          0.275781,
+          0.246398
+        ],
+        [
+          0.360938,
+          0.250564
+        ],
+        [
+          0.335938,
+          0.451953
+        ],
+        [
+          0.315625,
+          0.628342
+        ],
+        [
+          0.239844,
+          0.640842
+        ],
+        [
+          0.167187,
+          0.972786
+        ],
+        [
+          0.050781,
+          0.932509
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01021_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01021-final-roi-20260922-b4c94371",
+      "sha256": "3026cb943bd666473df91d4de1ba47bbacc859d5905daf40a01edf61838fe54b"
+    },
+    {
+      "bytes": 99260532,
+      "camera_id": "01021",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001021",
+      "duration_seconds": 304.0,
+      "file_id": "476689_18081003969_44180209031322001021-1790066164000",
+      "file_name": "20260922163604-20260922164108.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01021/raw/476689_18081003969_44180209031322001021-1790066164000__20260922163604-20260922164108.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01021/raw/476689_18081003969_44180209031322001021-1790066164000__20260922163604-20260922164108.ps",
+      "record_end": "2026-09-22 16:41:08",
+      "record_start": "2026-09-22 16:36:04",
+      "roi": [
+        [
+          0.275781,
+          0.246398
+        ],
+        [
+          0.360938,
+          0.250564
+        ],
+        [
+          0.335938,
+          0.451953
+        ],
+        [
+          0.315625,
+          0.628342
+        ],
+        [
+          0.239844,
+          0.640842
+        ],
+        [
+          0.167187,
+          0.972786
+        ],
+        [
+          0.050781,
+          0.932509
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01021_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01021-final-roi-20260922-b4c94371",
+      "sha256": "b3a74f5146af8135b90e0da78c5d04acdb529a7383dd2957ebf938f95de9e6ff"
+    },
+    {
+      "bytes": 94996697,
+      "camera_id": "01021",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001021",
+      "duration_seconds": 304.0,
+      "file_id": "476689_18081003969_44180209031322001021-1790066468000",
+      "file_name": "20260922164108-20260922164612.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01021/raw/476689_18081003969_44180209031322001021-1790066468000__20260922164108-20260922164612.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01021/raw/476689_18081003969_44180209031322001021-1790066468000__20260922164108-20260922164612.ps",
+      "record_end": "2026-09-22 16:46:12",
+      "record_start": "2026-09-22 16:41:08",
+      "roi": [
+        [
+          0.275781,
+          0.246398
+        ],
+        [
+          0.360938,
+          0.250564
+        ],
+        [
+          0.335938,
+          0.451953
+        ],
+        [
+          0.315625,
+          0.628342
+        ],
+        [
+          0.239844,
+          0.640842
+        ],
+        [
+          0.167187,
+          0.972786
+        ],
+        [
+          0.050781,
+          0.932509
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01021_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01021-final-roi-20260922-b4c94371",
+      "sha256": "d7906c901c02f897e5483d9f334f0138769e6238543f3f958cb70b5b2fd61694"
+    },
+    {
+      "bytes": 100015224,
+      "camera_id": "01021",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001021",
+      "duration_seconds": 304.0,
+      "file_id": "476689_18081003969_44180209031322001021-1790066772000",
+      "file_name": "20260922164612-20260922165116.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01021/raw/476689_18081003969_44180209031322001021-1790066772000__20260922164612-20260922165116.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01021/raw/476689_18081003969_44180209031322001021-1790066772000__20260922164612-20260922165116.ps",
+      "record_end": "2026-09-22 16:51:16",
+      "record_start": "2026-09-22 16:46:12",
+      "roi": [
+        [
+          0.275781,
+          0.246398
+        ],
+        [
+          0.360938,
+          0.250564
+        ],
+        [
+          0.335938,
+          0.451953
+        ],
+        [
+          0.315625,
+          0.628342
+        ],
+        [
+          0.239844,
+          0.640842
+        ],
+        [
+          0.167187,
+          0.972786
+        ],
+        [
+          0.050781,
+          0.932509
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01021_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01021-final-roi-20260922-b4c94371",
+      "sha256": "6c10e8fc5cad3946a918116d1731c4074cdbabcf5cfc6139b0761c27f3b47896"
+    },
+    {
+      "bytes": 101090059,
+      "camera_id": "01021",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001021",
+      "duration_seconds": 304.0,
+      "file_id": "476689_18081003969_44180209031322001021-1790067076000",
+      "file_name": "20260922165116-20260922165620.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01021/raw/476689_18081003969_44180209031322001021-1790067076000__20260922165116-20260922165620.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01021/raw/476689_18081003969_44180209031322001021-1790067076000__20260922165116-20260922165620.ps",
+      "record_end": "2026-09-22 16:56:20",
+      "record_start": "2026-09-22 16:51:16",
+      "roi": [
+        [
+          0.275781,
+          0.246398
+        ],
+        [
+          0.360938,
+          0.250564
+        ],
+        [
+          0.335938,
+          0.451953
+        ],
+        [
+          0.315625,
+          0.628342
+        ],
+        [
+          0.239844,
+          0.640842
+        ],
+        [
+          0.167187,
+          0.972786
+        ],
+        [
+          0.050781,
+          0.932509
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01021_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01021-final-roi-20260922-b4c94371",
+      "sha256": "f3cc070c7fb0c463ac4b216ec49c2c4ab6f4ae597fa365cc7b3c843bb282a29f"
+    },
+    {
+      "bytes": 95706420,
+      "camera_id": "01021",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001021",
+      "duration_seconds": 304.0,
+      "file_id": "476689_18081003969_44180209031322001021-1790067380000",
+      "file_name": "20260922165620-20260922170124.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01021/raw/476689_18081003969_44180209031322001021-1790067380000__20260922165620-20260922170124.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01021/raw/476689_18081003969_44180209031322001021-1790067380000__20260922165620-20260922170124.ps",
+      "record_end": "2026-09-22 17:01:24",
+      "record_start": "2026-09-22 16:56:20",
+      "roi": [
+        [
+          0.275781,
+          0.246398
+        ],
+        [
+          0.360938,
+          0.250564
+        ],
+        [
+          0.335938,
+          0.451953
+        ],
+        [
+          0.315625,
+          0.628342
+        ],
+        [
+          0.239844,
+          0.640842
+        ],
+        [
+          0.167187,
+          0.972786
+        ],
+        [
+          0.050781,
+          0.932509
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01021_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01021-final-roi-20260922-b4c94371",
+      "sha256": "e4beb6bd5a844c2626ab0fefe08bbb0583540c7f4f14e1dbca5f6d4659d8707a"
+    },
+    {
+      "bytes": 76249344,
+      "camera_id": "01022",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001022",
+      "duration_seconds": 304.0,
+      "file_id": "281238_18081003969_44180209031322001022-1790063800000",
+      "file_name": "20260922155640-20260922160144.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01022/raw/281238_18081003969_44180209031322001022-1790063800000__20260922155640-20260922160144.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01022/raw/281238_18081003969_44180209031322001022-1790063800000__20260922155640-20260922160144.ps",
+      "record_end": "2026-09-22 16:01:44",
+      "record_start": "2026-09-22 15:56:40",
+      "roi": [
+        [
+          0.4375,
+          0.36862
+        ],
+        [
+          0.535937,
+          0.360286
+        ],
+        [
+          0.761719,
+          0.988064
+        ],
+        [
+          0.528125,
+          0.996398
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01022_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01022-final-roi-20260922-910b692f",
+      "sha256": "7d0671c3a30f6255f010f4f2d00e1287da4614a0214ca3194b7e0d0459459871"
+    },
+    {
+      "bytes": 75011600,
+      "camera_id": "01022",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001022",
+      "duration_seconds": 304.0,
+      "file_id": "281238_18081003969_44180209031322001022-1790064104000",
+      "file_name": "20260922160144-20260922160648.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01022/raw/281238_18081003969_44180209031322001022-1790064104000__20260922160144-20260922160648.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01022/raw/281238_18081003969_44180209031322001022-1790064104000__20260922160144-20260922160648.ps",
+      "record_end": "2026-09-22 16:06:48",
+      "record_start": "2026-09-22 16:01:44",
+      "roi": [
+        [
+          0.4375,
+          0.36862
+        ],
+        [
+          0.535937,
+          0.360286
+        ],
+        [
+          0.761719,
+          0.988064
+        ],
+        [
+          0.528125,
+          0.996398
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01022_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01022-final-roi-20260922-910b692f",
+      "sha256": "695c0ee59cdda776b6625247c0d0993593d1df95d8bda7e66b8ae085ed2f89e4"
+    },
+    {
+      "bytes": 75659114,
+      "camera_id": "01022",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001022",
+      "duration_seconds": 304.0,
+      "file_id": "281238_18081003969_44180209031322001022-1790064408000",
+      "file_name": "20260922160648-20260922161152.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01022/raw/281238_18081003969_44180209031322001022-1790064408000__20260922160648-20260922161152.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01022/raw/281238_18081003969_44180209031322001022-1790064408000__20260922160648-20260922161152.ps",
+      "record_end": "2026-09-22 16:11:52",
+      "record_start": "2026-09-22 16:06:48",
+      "roi": [
+        [
+          0.4375,
+          0.36862
+        ],
+        [
+          0.535937,
+          0.360286
+        ],
+        [
+          0.761719,
+          0.988064
+        ],
+        [
+          0.528125,
+          0.996398
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01022_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01022-final-roi-20260922-910b692f",
+      "sha256": "d6a69bcd9dd507c143ca278a9bac6bfd0acf7a238503bc63b7b8e8766612bff9"
+    },
+    {
+      "bytes": 74360344,
+      "camera_id": "01022",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001022",
+      "duration_seconds": 304.0,
+      "file_id": "281238_18081003969_44180209031322001022-1790064712000",
+      "file_name": "20260922161152-20260922161656.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01022/raw/281238_18081003969_44180209031322001022-1790064712000__20260922161152-20260922161656.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01022/raw/281238_18081003969_44180209031322001022-1790064712000__20260922161152-20260922161656.ps",
+      "record_end": "2026-09-22 16:16:56",
+      "record_start": "2026-09-22 16:11:52",
+      "roi": [
+        [
+          0.4375,
+          0.36862
+        ],
+        [
+          0.535937,
+          0.360286
+        ],
+        [
+          0.761719,
+          0.988064
+        ],
+        [
+          0.528125,
+          0.996398
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01022_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01022-final-roi-20260922-910b692f",
+      "sha256": "618bb6702c01ac4b6b669fa7ff8cb4357d82ba3e7ff84938084c4714dd732e8c"
+    },
+    {
+      "bytes": 76340505,
+      "camera_id": "01022",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001022",
+      "duration_seconds": 303.0,
+      "file_id": "281238_18081003969_44180209031322001022-1790065016000",
+      "file_name": "20260922161656-20260922162159.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01022/raw/281238_18081003969_44180209031322001022-1790065016000__20260922161656-20260922162159.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01022/raw/281238_18081003969_44180209031322001022-1790065016000__20260922161656-20260922162159.ps",
+      "record_end": "2026-09-22 16:21:59",
+      "record_start": "2026-09-22 16:16:56",
+      "roi": [
+        [
+          0.4375,
+          0.36862
+        ],
+        [
+          0.535937,
+          0.360286
+        ],
+        [
+          0.761719,
+          0.988064
+        ],
+        [
+          0.528125,
+          0.996398
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01022_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01022-final-roi-20260922-910b692f",
+      "sha256": "15258eb99e1689ab123d09a9987bebe5f2f94678a1a629aa15e303d0cfd768c7"
+    },
+    {
+      "bytes": 77950206,
+      "camera_id": "01022",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001022",
+      "duration_seconds": 304.0,
+      "file_id": "281238_18081003969_44180209031322001022-1790065319000",
+      "file_name": "20260922162159-20260922162703.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01022/raw/281238_18081003969_44180209031322001022-1790065319000__20260922162159-20260922162703.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01022/raw/281238_18081003969_44180209031322001022-1790065319000__20260922162159-20260922162703.ps",
+      "record_end": "2026-09-22 16:27:03",
+      "record_start": "2026-09-22 16:21:59",
+      "roi": [
+        [
+          0.4375,
+          0.36862
+        ],
+        [
+          0.535937,
+          0.360286
+        ],
+        [
+          0.761719,
+          0.988064
+        ],
+        [
+          0.528125,
+          0.996398
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01022_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01022-final-roi-20260922-910b692f",
+      "sha256": "6fcd0470a094abaaf663940547edee758fd3808bf99a04b797ed9fe949a2fbd8"
+    },
+    {
+      "bytes": 75522930,
+      "camera_id": "01022",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001022",
+      "duration_seconds": 304.0,
+      "file_id": "281238_18081003969_44180209031322001022-1790065623000",
+      "file_name": "20260922162703-20260922163207.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01022/raw/281238_18081003969_44180209031322001022-1790065623000__20260922162703-20260922163207.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01022/raw/281238_18081003969_44180209031322001022-1790065623000__20260922162703-20260922163207.ps",
+      "record_end": "2026-09-22 16:32:07",
+      "record_start": "2026-09-22 16:27:03",
+      "roi": [
+        [
+          0.4375,
+          0.36862
+        ],
+        [
+          0.535937,
+          0.360286
+        ],
+        [
+          0.761719,
+          0.988064
+        ],
+        [
+          0.528125,
+          0.996398
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01022_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01022-final-roi-20260922-910b692f",
+      "sha256": "253e2f0488ae9e2f4902befda2eedbe65e8b07d9490b1bc627521b6ab55b6a8e"
+    },
+    {
+      "bytes": 77582544,
+      "camera_id": "01022",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001022",
+      "duration_seconds": 304.0,
+      "file_id": "281238_18081003969_44180209031322001022-1790065927000",
+      "file_name": "20260922163207-20260922163711.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01022/raw/281238_18081003969_44180209031322001022-1790065927000__20260922163207-20260922163711.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01022/raw/281238_18081003969_44180209031322001022-1790065927000__20260922163207-20260922163711.ps",
+      "record_end": "2026-09-22 16:37:11",
+      "record_start": "2026-09-22 16:32:07",
+      "roi": [
+        [
+          0.4375,
+          0.36862
+        ],
+        [
+          0.535937,
+          0.360286
+        ],
+        [
+          0.761719,
+          0.988064
+        ],
+        [
+          0.528125,
+          0.996398
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01022_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01022-final-roi-20260922-910b692f",
+      "sha256": "1a053d2a10db2381d75b2de1d5f6341271385e495914dd544f961021afcbccd2"
+    },
+    {
+      "bytes": 75605396,
+      "camera_id": "01022",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001022",
+      "duration_seconds": 304.0,
+      "file_id": "281238_18081003969_44180209031322001022-1790066231000",
+      "file_name": "20260922163711-20260922164215.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01022/raw/281238_18081003969_44180209031322001022-1790066231000__20260922163711-20260922164215.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01022/raw/281238_18081003969_44180209031322001022-1790066231000__20260922163711-20260922164215.ps",
+      "record_end": "2026-09-22 16:42:15",
+      "record_start": "2026-09-22 16:37:11",
+      "roi": [
+        [
+          0.4375,
+          0.36862
+        ],
+        [
+          0.535937,
+          0.360286
+        ],
+        [
+          0.761719,
+          0.988064
+        ],
+        [
+          0.528125,
+          0.996398
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01022_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01022-final-roi-20260922-910b692f",
+      "sha256": "2a692d123d7cb3035b0a0cb22bd8c920e6ea7dd2f805ff6930f49969528cf45f"
+    },
+    {
+      "bytes": 78370147,
+      "camera_id": "01022",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001022",
+      "duration_seconds": 304.0,
+      "file_id": "281238_18081003969_44180209031322001022-1790066535000",
+      "file_name": "20260922164215-20260922164719.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01022/raw/281238_18081003969_44180209031322001022-1790066535000__20260922164215-20260922164719.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01022/raw/281238_18081003969_44180209031322001022-1790066535000__20260922164215-20260922164719.ps",
+      "record_end": "2026-09-22 16:47:19",
+      "record_start": "2026-09-22 16:42:15",
+      "roi": [
+        [
+          0.4375,
+          0.36862
+        ],
+        [
+          0.535937,
+          0.360286
+        ],
+        [
+          0.761719,
+          0.988064
+        ],
+        [
+          0.528125,
+          0.996398
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01022_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01022-final-roi-20260922-910b692f",
+      "sha256": "e025f37126db4b3033998e04b9c3aa12d616b154043b2ac9c957b63e1299b752"
+    },
+    {
+      "bytes": 82093834,
+      "camera_id": "01022",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001022",
+      "duration_seconds": 304.0,
+      "file_id": "281238_18081003969_44180209031322001022-1790066839000",
+      "file_name": "20260922164719-20260922165223.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01022/raw/281238_18081003969_44180209031322001022-1790066839000__20260922164719-20260922165223.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01022/raw/281238_18081003969_44180209031322001022-1790066839000__20260922164719-20260922165223.ps",
+      "record_end": "2026-09-22 16:52:23",
+      "record_start": "2026-09-22 16:47:19",
+      "roi": [
+        [
+          0.4375,
+          0.36862
+        ],
+        [
+          0.535937,
+          0.360286
+        ],
+        [
+          0.761719,
+          0.988064
+        ],
+        [
+          0.528125,
+          0.996398
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01022_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01022-final-roi-20260922-910b692f",
+      "sha256": "32aafbcb7717ed03dc0512db4989e9e145b4b4c1fccc9245f6c2b6a2c1a61b7d"
+    },
+    {
+      "bytes": 79296220,
+      "camera_id": "01022",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001022",
+      "duration_seconds": 303.0,
+      "file_id": "281238_18081003969_44180209031322001022-1790067143000",
+      "file_name": "20260922165223-20260922165726.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01022/raw/281238_18081003969_44180209031322001022-1790067143000__20260922165223-20260922165726.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01022/raw/281238_18081003969_44180209031322001022-1790067143000__20260922165223-20260922165726.ps",
+      "record_end": "2026-09-22 16:57:26",
+      "record_start": "2026-09-22 16:52:23",
+      "roi": [
+        [
+          0.4375,
+          0.36862
+        ],
+        [
+          0.535937,
+          0.360286
+        ],
+        [
+          0.761719,
+          0.988064
+        ],
+        [
+          0.528125,
+          0.996398
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01022_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01022-final-roi-20260922-910b692f",
+      "sha256": "2a32c3812c2f1c066b6877d56766712ad0eeffbca46031c312b7ee1de2f730cc"
+    },
+    {
+      "bytes": 77231023,
+      "camera_id": "01022",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001022",
+      "duration_seconds": 304.0,
+      "file_id": "281238_18081003969_44180209031322001022-1790067446000",
+      "file_name": "20260922165726-20260922170230.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01022/raw/281238_18081003969_44180209031322001022-1790067446000__20260922165726-20260922170230.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01022/raw/281238_18081003969_44180209031322001022-1790067446000__20260922165726-20260922170230.ps",
+      "record_end": "2026-09-22 17:02:30",
+      "record_start": "2026-09-22 16:57:26",
+      "roi": [
+        [
+          0.4375,
+          0.36862
+        ],
+        [
+          0.535937,
+          0.360286
+        ],
+        [
+          0.761719,
+          0.988064
+        ],
+        [
+          0.528125,
+          0.996398
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01022_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01022-final-roi-20260922-910b692f",
+      "sha256": "94df6e5dbca3a4ffd6ec7157e04f106dc8cc6c97119602e052f7edad43f969d9"
+    },
+    {
+      "bytes": 120197250,
+      "camera_id": "01027",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001027",
+      "duration_seconds": 304.0,
+      "file_id": "860384_18081003969_44180209031322001027-1790063888000",
+      "file_name": "20260922155808-20260922160312.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01027/raw/860384_18081003969_44180209031322001027-1790063888000__20260922155808-20260922160312.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01027/raw/860384_18081003969_44180209031322001027-1790063888000__20260922155808-20260922160312.ps",
+      "record_end": "2026-09-22 16:03:12",
+      "record_start": "2026-09-22 15:58:08",
+      "roi": [
+        [
+          0.889062,
+          0.489453
+        ],
+        [
+          0.924219,
+          0.460286
+        ],
+        [
+          0.996875,
+          0.540842
+        ],
+        [
+          0.989062,
+          0.649175
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01027_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01027-final-roi-20260922-65e01154",
+      "sha256": "9dbc254d8802c23325eb1f286754bc0a9c0f99669358653555ae057be844f39b"
+    },
+    {
+      "bytes": 113362858,
+      "camera_id": "01027",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001027",
+      "duration_seconds": 304.0,
+      "file_id": "860384_18081003969_44180209031322001027-1790064192000",
+      "file_name": "20260922160312-20260922160816.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01027/raw/860384_18081003969_44180209031322001027-1790064192000__20260922160312-20260922160816.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01027/raw/860384_18081003969_44180209031322001027-1790064192000__20260922160312-20260922160816.ps",
+      "record_end": "2026-09-22 16:08:16",
+      "record_start": "2026-09-22 16:03:12",
+      "roi": [
+        [
+          0.889062,
+          0.489453
+        ],
+        [
+          0.924219,
+          0.460286
+        ],
+        [
+          0.996875,
+          0.540842
+        ],
+        [
+          0.989062,
+          0.649175
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01027_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01027-final-roi-20260922-65e01154",
+      "sha256": "02ca6838ebae8f78924587b82b7d065b76bdfd580e86b8264b950266808845e4"
+    },
+    {
+      "bytes": 107578178,
+      "camera_id": "01027",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001027",
+      "duration_seconds": 304.0,
+      "file_id": "860384_18081003969_44180209031322001027-1790064496000",
+      "file_name": "20260922160816-20260922161320.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01027/raw/860384_18081003969_44180209031322001027-1790064496000__20260922160816-20260922161320.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01027/raw/860384_18081003969_44180209031322001027-1790064496000__20260922160816-20260922161320.ps",
+      "record_end": "2026-09-22 16:13:20",
+      "record_start": "2026-09-22 16:08:16",
+      "roi": [
+        [
+          0.889062,
+          0.489453
+        ],
+        [
+          0.924219,
+          0.460286
+        ],
+        [
+          0.996875,
+          0.540842
+        ],
+        [
+          0.989062,
+          0.649175
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01027_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01027-final-roi-20260922-65e01154",
+      "sha256": "8f008eea2c74ea58463c94c4df9cfc2d4d23eb561a97279d40e6b21238053726"
+    },
+    {
+      "bytes": 103479868,
+      "camera_id": "01027",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001027",
+      "duration_seconds": 304.0,
+      "file_id": "860384_18081003969_44180209031322001027-1790064800000",
+      "file_name": "20260922161320-20260922161824.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01027/raw/860384_18081003969_44180209031322001027-1790064800000__20260922161320-20260922161824.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01027/raw/860384_18081003969_44180209031322001027-1790064800000__20260922161320-20260922161824.ps",
+      "record_end": "2026-09-22 16:18:24",
+      "record_start": "2026-09-22 16:13:20",
+      "roi": [
+        [
+          0.889062,
+          0.489453
+        ],
+        [
+          0.924219,
+          0.460286
+        ],
+        [
+          0.996875,
+          0.540842
+        ],
+        [
+          0.989062,
+          0.649175
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01027_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01027-final-roi-20260922-65e01154",
+      "sha256": "12b7a5b18a45a5026899e4145428bd00946c1558422623601a6bf3110cf02a0f"
+    },
+    {
+      "bytes": 123447668,
+      "camera_id": "01027",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001027",
+      "duration_seconds": 303.0,
+      "file_id": "860384_18081003969_44180209031322001027-1790065104000",
+      "file_name": "20260922161824-20260922162327.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01027/raw/860384_18081003969_44180209031322001027-1790065104000__20260922161824-20260922162327.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01027/raw/860384_18081003969_44180209031322001027-1790065104000__20260922161824-20260922162327.ps",
+      "record_end": "2026-09-22 16:23:27",
+      "record_start": "2026-09-22 16:18:24",
+      "roi": [
+        [
+          0.889062,
+          0.489453
+        ],
+        [
+          0.924219,
+          0.460286
+        ],
+        [
+          0.996875,
+          0.540842
+        ],
+        [
+          0.989062,
+          0.649175
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01027_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01027-final-roi-20260922-65e01154",
+      "sha256": "f811fb62844eedc206ca71cded9334b73289aeddd5ef1451d9157bc68eefa60a"
+    },
+    {
+      "bytes": 115056600,
+      "camera_id": "01027",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001027",
+      "duration_seconds": 304.0,
+      "file_id": "860384_18081003969_44180209031322001027-1790065407000",
+      "file_name": "20260922162327-20260922162831.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01027/raw/860384_18081003969_44180209031322001027-1790065407000__20260922162327-20260922162831.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01027/raw/860384_18081003969_44180209031322001027-1790065407000__20260922162327-20260922162831.ps",
+      "record_end": "2026-09-22 16:28:31",
+      "record_start": "2026-09-22 16:23:27",
+      "roi": [
+        [
+          0.889062,
+          0.489453
+        ],
+        [
+          0.924219,
+          0.460286
+        ],
+        [
+          0.996875,
+          0.540842
+        ],
+        [
+          0.989062,
+          0.649175
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01027_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01027-final-roi-20260922-65e01154",
+      "sha256": "2b192b7228a32131fbc94a20c52fad85b86cb7c3f0358a0808200915293d5f02"
+    },
+    {
+      "bytes": 103668079,
+      "camera_id": "01027",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001027",
+      "duration_seconds": 304.0,
+      "file_id": "860384_18081003969_44180209031322001027-1790065711000",
+      "file_name": "20260922162831-20260922163335.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01027/raw/860384_18081003969_44180209031322001027-1790065711000__20260922162831-20260922163335.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01027/raw/860384_18081003969_44180209031322001027-1790065711000__20260922162831-20260922163335.ps",
+      "record_end": "2026-09-22 16:33:35",
+      "record_start": "2026-09-22 16:28:31",
+      "roi": [
+        [
+          0.889062,
+          0.489453
+        ],
+        [
+          0.924219,
+          0.460286
+        ],
+        [
+          0.996875,
+          0.540842
+        ],
+        [
+          0.989062,
+          0.649175
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01027_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01027-final-roi-20260922-65e01154",
+      "sha256": "a7eb9d9a10f2078070efd4e7e80fe708b3cea53a6412b6a9d780350928174bd6"
+    },
+    {
+      "bytes": 131817878,
+      "camera_id": "01027",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001027",
+      "duration_seconds": 304.0,
+      "file_id": "860384_18081003969_44180209031322001027-1790066015000",
+      "file_name": "20260922163335-20260922163839.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01027/raw/860384_18081003969_44180209031322001027-1790066015000__20260922163335-20260922163839.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01027/raw/860384_18081003969_44180209031322001027-1790066015000__20260922163335-20260922163839.ps",
+      "record_end": "2026-09-22 16:38:39",
+      "record_start": "2026-09-22 16:33:35",
+      "roi": [
+        [
+          0.889062,
+          0.489453
+        ],
+        [
+          0.924219,
+          0.460286
+        ],
+        [
+          0.996875,
+          0.540842
+        ],
+        [
+          0.989062,
+          0.649175
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01027_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01027-final-roi-20260922-65e01154",
+      "sha256": "057dc17860867cc08184173307e038aefcddb8758f45084af3b40850c75152a7"
+    },
+    {
+      "bytes": 122441273,
+      "camera_id": "01027",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001027",
+      "duration_seconds": 304.0,
+      "file_id": "860384_18081003969_44180209031322001027-1790066319000",
+      "file_name": "20260922163839-20260922164343.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01027/raw/860384_18081003969_44180209031322001027-1790066319000__20260922163839-20260922164343.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01027/raw/860384_18081003969_44180209031322001027-1790066319000__20260922163839-20260922164343.ps",
+      "record_end": "2026-09-22 16:43:43",
+      "record_start": "2026-09-22 16:38:39",
+      "roi": [
+        [
+          0.889062,
+          0.489453
+        ],
+        [
+          0.924219,
+          0.460286
+        ],
+        [
+          0.996875,
+          0.540842
+        ],
+        [
+          0.989062,
+          0.649175
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01027_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01027-final-roi-20260922-65e01154",
+      "sha256": "28f9d1490ebae5681b31037643d542bc700cc198436624539074842202bd38e1"
+    },
+    {
+      "bytes": 129965945,
+      "camera_id": "01027",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001027",
+      "duration_seconds": 304.0,
+      "file_id": "860384_18081003969_44180209031322001027-1790066623000",
+      "file_name": "20260922164343-20260922164847.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01027/raw/860384_18081003969_44180209031322001027-1790066623000__20260922164343-20260922164847.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01027/raw/860384_18081003969_44180209031322001027-1790066623000__20260922164343-20260922164847.ps",
+      "record_end": "2026-09-22 16:48:47",
+      "record_start": "2026-09-22 16:43:43",
+      "roi": [
+        [
+          0.889062,
+          0.489453
+        ],
+        [
+          0.924219,
+          0.460286
+        ],
+        [
+          0.996875,
+          0.540842
+        ],
+        [
+          0.989062,
+          0.649175
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01027_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01027-final-roi-20260922-65e01154",
+      "sha256": "9937a348d032a87a13c9294da0b4f1e2bf65cbaf502c63e66aa086544708fb1e"
+    },
+    {
+      "bytes": 111764744,
+      "camera_id": "01027",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001027",
+      "duration_seconds": 304.0,
+      "file_id": "860384_18081003969_44180209031322001027-1790066927000",
+      "file_name": "20260922164847-20260922165351.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01027/raw/860384_18081003969_44180209031322001027-1790066927000__20260922164847-20260922165351.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01027/raw/860384_18081003969_44180209031322001027-1790066927000__20260922164847-20260922165351.ps",
+      "record_end": "2026-09-22 16:53:51",
+      "record_start": "2026-09-22 16:48:47",
+      "roi": [
+        [
+          0.889062,
+          0.489453
+        ],
+        [
+          0.924219,
+          0.460286
+        ],
+        [
+          0.996875,
+          0.540842
+        ],
+        [
+          0.989062,
+          0.649175
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01027_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01027-final-roi-20260922-65e01154",
+      "sha256": "5933bfe792bae29dd6e9a5b5338adf137dcf3d715b069ee721dd969a4af2e427"
+    },
+    {
+      "bytes": 125863325,
+      "camera_id": "01027",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001027",
+      "duration_seconds": 303.0,
+      "file_id": "860384_18081003969_44180209031322001027-1790067231000",
+      "file_name": "20260922165351-20260922165854.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01027/raw/860384_18081003969_44180209031322001027-1790067231000__20260922165351-20260922165854.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01027/raw/860384_18081003969_44180209031322001027-1790067231000__20260922165351-20260922165854.ps",
+      "record_end": "2026-09-22 16:58:54",
+      "record_start": "2026-09-22 16:53:51",
+      "roi": [
+        [
+          0.889062,
+          0.489453
+        ],
+        [
+          0.924219,
+          0.460286
+        ],
+        [
+          0.996875,
+          0.540842
+        ],
+        [
+          0.989062,
+          0.649175
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01027_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01027-final-roi-20260922-65e01154",
+      "sha256": "b0d50822aaee9b389f6cd5becb7f3b80d6179bb59e3604f52e5ab05fadfcb504"
+    },
+    {
+      "bytes": 126458961,
+      "camera_id": "01027",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001027",
+      "duration_seconds": 303.0,
+      "file_id": "860384_18081003969_44180209031322001027-1790067535000",
+      "file_name": "20260922165855-20260922170358.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01027/raw/860384_18081003969_44180209031322001027-1790067535000__20260922165855-20260922170358.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01027/raw/860384_18081003969_44180209031322001027-1790067535000__20260922165855-20260922170358.ps",
+      "record_end": "2026-09-22 17:03:58",
+      "record_start": "2026-09-22 16:58:55",
+      "roi": [
+        [
+          0.889062,
+          0.489453
+        ],
+        [
+          0.924219,
+          0.460286
+        ],
+        [
+          0.996875,
+          0.540842
+        ],
+        [
+          0.989062,
+          0.649175
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01027_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01027-final-roi-20260922-65e01154",
+      "sha256": "10a0f8c6854781d1296952619889995ad92fd2bc4a033ec7c326b5e58cbedc86"
+    },
+    {
+      "bytes": 86945578,
+      "camera_id": "01028",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001028",
+      "duration_seconds": 304.0,
+      "file_id": "798631_18081003969_44180209031322001028-1790063888000",
+      "file_name": "20260922155808-20260922160312.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01028/raw/798631_18081003969_44180209031322001028-1790063888000__20260922155808-20260922160312.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01028/raw/798631_18081003969_44180209031322001028-1790063888000__20260922155808-20260922160312.ps",
+      "record_end": "2026-09-22 16:03:12",
+      "record_start": "2026-09-22 15:58:08",
+      "roi": [
+        [
+          0.675781,
+          0.482509
+        ],
+        [
+          0.760156,
+          0.48112
+        ],
+        [
+          0.808594,
+          0.80612
+        ],
+        [
+          0.685156,
+          0.796398
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01028_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01028-final-roi-20260922-2436bc23",
+      "sha256": "f1f380029e7114ba92d44d5972cd55b5b07640df0b9fb47f6dc3bda82a91e879"
+    },
+    {
+      "bytes": 89824857,
+      "camera_id": "01028",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001028",
+      "duration_seconds": 304.0,
+      "file_id": "798631_18081003969_44180209031322001028-1790064192000",
+      "file_name": "20260922160312-20260922160816.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01028/raw/798631_18081003969_44180209031322001028-1790064192000__20260922160312-20260922160816.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01028/raw/798631_18081003969_44180209031322001028-1790064192000__20260922160312-20260922160816.ps",
+      "record_end": "2026-09-22 16:08:16",
+      "record_start": "2026-09-22 16:03:12",
+      "roi": [
+        [
+          0.675781,
+          0.482509
+        ],
+        [
+          0.760156,
+          0.48112
+        ],
+        [
+          0.808594,
+          0.80612
+        ],
+        [
+          0.685156,
+          0.796398
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01028_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01028-final-roi-20260922-2436bc23",
+      "sha256": "6a194bc8636288e6a8e79eae3179fe4afb0f8bd820555fca32b2f3f9f9a15e15"
+    },
+    {
+      "bytes": 83087667,
+      "camera_id": "01028",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001028",
+      "duration_seconds": 304.0,
+      "file_id": "798631_18081003969_44180209031322001028-1790064496000",
+      "file_name": "20260922160816-20260922161320.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01028/raw/798631_18081003969_44180209031322001028-1790064496000__20260922160816-20260922161320.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01028/raw/798631_18081003969_44180209031322001028-1790064496000__20260922160816-20260922161320.ps",
+      "record_end": "2026-09-22 16:13:20",
+      "record_start": "2026-09-22 16:08:16",
+      "roi": [
+        [
+          0.675781,
+          0.482509
+        ],
+        [
+          0.760156,
+          0.48112
+        ],
+        [
+          0.808594,
+          0.80612
+        ],
+        [
+          0.685156,
+          0.796398
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01028_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01028-final-roi-20260922-2436bc23",
+      "sha256": "72bd75b0d9a8130a079f783fbda497bbbe387e7b0e8b66aefd423dcd1966cf20"
+    },
+    {
+      "bytes": 85473789,
+      "camera_id": "01028",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001028",
+      "duration_seconds": 304.0,
+      "file_id": "798631_18081003969_44180209031322001028-1790064800000",
+      "file_name": "20260922161320-20260922161824.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01028/raw/798631_18081003969_44180209031322001028-1790064800000__20260922161320-20260922161824.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01028/raw/798631_18081003969_44180209031322001028-1790064800000__20260922161320-20260922161824.ps",
+      "record_end": "2026-09-22 16:18:24",
+      "record_start": "2026-09-22 16:13:20",
+      "roi": [
+        [
+          0.675781,
+          0.482509
+        ],
+        [
+          0.760156,
+          0.48112
+        ],
+        [
+          0.808594,
+          0.80612
+        ],
+        [
+          0.685156,
+          0.796398
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01028_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01028-final-roi-20260922-2436bc23",
+      "sha256": "f09cca04e1ae527f13f2989cfac52ec5a80563c0494e581c90e4e58d9d9dbe44"
+    },
+    {
+      "bytes": 86624754,
+      "camera_id": "01028",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001028",
+      "duration_seconds": 303.0,
+      "file_id": "798631_18081003969_44180209031322001028-1790065104000",
+      "file_name": "20260922161824-20260922162327.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01028/raw/798631_18081003969_44180209031322001028-1790065104000__20260922161824-20260922162327.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01028/raw/798631_18081003969_44180209031322001028-1790065104000__20260922161824-20260922162327.ps",
+      "record_end": "2026-09-22 16:23:27",
+      "record_start": "2026-09-22 16:18:24",
+      "roi": [
+        [
+          0.675781,
+          0.482509
+        ],
+        [
+          0.760156,
+          0.48112
+        ],
+        [
+          0.808594,
+          0.80612
+        ],
+        [
+          0.685156,
+          0.796398
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01028_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01028-final-roi-20260922-2436bc23",
+      "sha256": "bba362f7c7dd5f4260ecf4a91e1438fee30164ce9d22a50c34311d01452a678e"
+    },
+    {
+      "bytes": 88063155,
+      "camera_id": "01028",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001028",
+      "duration_seconds": 304.0,
+      "file_id": "798631_18081003969_44180209031322001028-1790065407000",
+      "file_name": "20260922162327-20260922162831.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01028/raw/798631_18081003969_44180209031322001028-1790065407000__20260922162327-20260922162831.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01028/raw/798631_18081003969_44180209031322001028-1790065407000__20260922162327-20260922162831.ps",
+      "record_end": "2026-09-22 16:28:31",
+      "record_start": "2026-09-22 16:23:27",
+      "roi": [
+        [
+          0.675781,
+          0.482509
+        ],
+        [
+          0.760156,
+          0.48112
+        ],
+        [
+          0.808594,
+          0.80612
+        ],
+        [
+          0.685156,
+          0.796398
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01028_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01028-final-roi-20260922-2436bc23",
+      "sha256": "5cd59967b3c3b544b16f4bd2ada5d849983f8492a2a91b7c0c7fc08a0970a71b"
+    },
+    {
+      "bytes": 92190064,
+      "camera_id": "01028",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001028",
+      "duration_seconds": 304.0,
+      "file_id": "798631_18081003969_44180209031322001028-1790065711000",
+      "file_name": "20260922162831-20260922163335.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01028/raw/798631_18081003969_44180209031322001028-1790065711000__20260922162831-20260922163335.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01028/raw/798631_18081003969_44180209031322001028-1790065711000__20260922162831-20260922163335.ps",
+      "record_end": "2026-09-22 16:33:35",
+      "record_start": "2026-09-22 16:28:31",
+      "roi": [
+        [
+          0.675781,
+          0.482509
+        ],
+        [
+          0.760156,
+          0.48112
+        ],
+        [
+          0.808594,
+          0.80612
+        ],
+        [
+          0.685156,
+          0.796398
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01028_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01028-final-roi-20260922-2436bc23",
+      "sha256": "ef51baecca278c094f5c56eca3a119db6dbf8c10244fa97b2a462fcfece2735f"
+    },
+    {
+      "bytes": 94655200,
+      "camera_id": "01028",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001028",
+      "duration_seconds": 304.0,
+      "file_id": "798631_18081003969_44180209031322001028-1790066015000",
+      "file_name": "20260922163335-20260922163839.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01028/raw/798631_18081003969_44180209031322001028-1790066015000__20260922163335-20260922163839.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01028/raw/798631_18081003969_44180209031322001028-1790066015000__20260922163335-20260922163839.ps",
+      "record_end": "2026-09-22 16:38:39",
+      "record_start": "2026-09-22 16:33:35",
+      "roi": [
+        [
+          0.675781,
+          0.482509
+        ],
+        [
+          0.760156,
+          0.48112
+        ],
+        [
+          0.808594,
+          0.80612
+        ],
+        [
+          0.685156,
+          0.796398
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01028_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01028-final-roi-20260922-2436bc23",
+      "sha256": "ca3e70c447b5dbe9457ad4e88578e34080a1292bb37458a1797585835a1ff5e4"
+    },
+    {
+      "bytes": 87645117,
+      "camera_id": "01028",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001028",
+      "duration_seconds": 303.0,
+      "file_id": "798631_18081003969_44180209031322001028-1790066319000",
+      "file_name": "20260922163839-20260922164342.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01028/raw/798631_18081003969_44180209031322001028-1790066319000__20260922163839-20260922164342.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01028/raw/798631_18081003969_44180209031322001028-1790066319000__20260922163839-20260922164342.ps",
+      "record_end": "2026-09-22 16:43:42",
+      "record_start": "2026-09-22 16:38:39",
+      "roi": [
+        [
+          0.675781,
+          0.482509
+        ],
+        [
+          0.760156,
+          0.48112
+        ],
+        [
+          0.808594,
+          0.80612
+        ],
+        [
+          0.685156,
+          0.796398
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01028_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01028-final-roi-20260922-2436bc23",
+      "sha256": "9fcd64da3155edfcae1e2650cc7ef0a347b36bbce2374b8eb37e22265b636a8e"
+    },
+    {
+      "bytes": 86421676,
+      "camera_id": "01028",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001028",
+      "duration_seconds": 304.0,
+      "file_id": "798631_18081003969_44180209031322001028-1790066622000",
+      "file_name": "20260922164342-20260922164846.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01028/raw/798631_18081003969_44180209031322001028-1790066622000__20260922164342-20260922164846.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01028/raw/798631_18081003969_44180209031322001028-1790066622000__20260922164342-20260922164846.ps",
+      "record_end": "2026-09-22 16:48:46",
+      "record_start": "2026-09-22 16:43:42",
+      "roi": [
+        [
+          0.675781,
+          0.482509
+        ],
+        [
+          0.760156,
+          0.48112
+        ],
+        [
+          0.808594,
+          0.80612
+        ],
+        [
+          0.685156,
+          0.796398
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01028_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01028-final-roi-20260922-2436bc23",
+      "sha256": "4e0a1e86b0fff728894b4146615527ba5cc12f27fd2c23150c4235a8eba22170"
+    },
+    {
+      "bytes": 89855225,
+      "camera_id": "01028",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001028",
+      "duration_seconds": 304.0,
+      "file_id": "798631_18081003969_44180209031322001028-1790066926000",
+      "file_name": "20260922164846-20260922165350.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01028/raw/798631_18081003969_44180209031322001028-1790066926000__20260922164846-20260922165350.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01028/raw/798631_18081003969_44180209031322001028-1790066926000__20260922164846-20260922165350.ps",
+      "record_end": "2026-09-22 16:53:50",
+      "record_start": "2026-09-22 16:48:46",
+      "roi": [
+        [
+          0.675781,
+          0.482509
+        ],
+        [
+          0.760156,
+          0.48112
+        ],
+        [
+          0.808594,
+          0.80612
+        ],
+        [
+          0.685156,
+          0.796398
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01028_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01028-final-roi-20260922-2436bc23",
+      "sha256": "8e981af06062bf2bb159425e449858bb838887d9ea3c589c7f818fc33f44f403"
+    },
+    {
+      "bytes": 95175703,
+      "camera_id": "01028",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001028",
+      "duration_seconds": 304.0,
+      "file_id": "798631_18081003969_44180209031322001028-1790067230000",
+      "file_name": "20260922165350-20260922165854.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01028/raw/798631_18081003969_44180209031322001028-1790067230000__20260922165350-20260922165854.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01028/raw/798631_18081003969_44180209031322001028-1790067230000__20260922165350-20260922165854.ps",
+      "record_end": "2026-09-22 16:58:54",
+      "record_start": "2026-09-22 16:53:50",
+      "roi": [
+        [
+          0.675781,
+          0.482509
+        ],
+        [
+          0.760156,
+          0.48112
+        ],
+        [
+          0.808594,
+          0.80612
+        ],
+        [
+          0.685156,
+          0.796398
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01028_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01028-final-roi-20260922-2436bc23",
+      "sha256": "65636f0d449cb2169eb060d63f0363c1c38240463eb55c04f4d2734dea56d210"
+    },
+    {
+      "bytes": 90618977,
+      "camera_id": "01028",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001028",
+      "duration_seconds": 304.0,
+      "file_id": "798631_18081003969_44180209031322001028-1790067534000",
+      "file_name": "20260922165854-20260922170358.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01028/raw/798631_18081003969_44180209031322001028-1790067534000__20260922165854-20260922170358.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01028/raw/798631_18081003969_44180209031322001028-1790067534000__20260922165854-20260922170358.ps",
+      "record_end": "2026-09-22 17:03:58",
+      "record_start": "2026-09-22 16:58:54",
+      "roi": [
+        [
+          0.675781,
+          0.482509
+        ],
+        [
+          0.760156,
+          0.48112
+        ],
+        [
+          0.808594,
+          0.80612
+        ],
+        [
+          0.685156,
+          0.796398
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01028_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01028-final-roi-20260922-2436bc23",
+      "sha256": "1d72d720db98d06ad2cea24ad0d8bf7714c77645417df1881cd386e50284dec1"
+    },
+    {
+      "bytes": 75497724,
+      "camera_id": "01030",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001030",
+      "duration_seconds": 304.0,
+      "file_id": "318010_18081003969_44180209031322001030-1790063889000",
+      "file_name": "20260922155809-20260922160313.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01030/raw/318010_18081003969_44180209031322001030-1790063889000__20260922155809-20260922160313.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01030/raw/318010_18081003969_44180209031322001030-1790063889000__20260922155809-20260922160313.ps",
+      "record_end": "2026-09-22 16:03:13",
+      "record_start": "2026-09-22 15:58:09",
+      "roi": [
+        [
+          0.532031,
+          0.204731
+        ],
+        [
+          0.692969,
+          0.20612
+        ],
+        [
+          0.816406,
+          0.979731
+        ],
+        [
+          0.409375,
+          0.982509
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01030_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01030-final-roi-20260922-69467117",
+      "sha256": "9d0eb57a82ba1ff2541c28e518352659e326bc52da493087bb3e61eeacc0ef8e"
+    },
+    {
+      "bytes": 72880768,
+      "camera_id": "01030",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001030",
+      "duration_seconds": 304.0,
+      "file_id": "318010_18081003969_44180209031322001030-1790064193000",
+      "file_name": "20260922160313-20260922160817.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01030/raw/318010_18081003969_44180209031322001030-1790064193000__20260922160313-20260922160817.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01030/raw/318010_18081003969_44180209031322001030-1790064193000__20260922160313-20260922160817.ps",
+      "record_end": "2026-09-22 16:08:17",
+      "record_start": "2026-09-22 16:03:13",
+      "roi": [
+        [
+          0.532031,
+          0.204731
+        ],
+        [
+          0.692969,
+          0.20612
+        ],
+        [
+          0.816406,
+          0.979731
+        ],
+        [
+          0.409375,
+          0.982509
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01030_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01030-final-roi-20260922-69467117",
+      "sha256": "436813e60d203164cd24ebc863ca65d64b9c148048d7d65afc1545415c5779e4"
+    },
+    {
+      "bytes": 74772602,
+      "camera_id": "01030",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001030",
+      "duration_seconds": 304.0,
+      "file_id": "318010_18081003969_44180209031322001030-1790064497000",
+      "file_name": "20260922160817-20260922161321.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01030/raw/318010_18081003969_44180209031322001030-1790064497000__20260922160817-20260922161321.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01030/raw/318010_18081003969_44180209031322001030-1790064497000__20260922160817-20260922161321.ps",
+      "record_end": "2026-09-22 16:13:21",
+      "record_start": "2026-09-22 16:08:17",
+      "roi": [
+        [
+          0.532031,
+          0.204731
+        ],
+        [
+          0.692969,
+          0.20612
+        ],
+        [
+          0.816406,
+          0.979731
+        ],
+        [
+          0.409375,
+          0.982509
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01030_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01030-final-roi-20260922-69467117",
+      "sha256": "b8b438f06353c0407b836640553921cbb9ff4744cc39dc6b9d712a16af443a1c"
+    },
+    {
+      "bytes": 73718472,
+      "camera_id": "01030",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001030",
+      "duration_seconds": 303.0,
+      "file_id": "318010_18081003969_44180209031322001030-1790064801000",
+      "file_name": "20260922161321-20260922161824.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01030/raw/318010_18081003969_44180209031322001030-1790064801000__20260922161321-20260922161824.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01030/raw/318010_18081003969_44180209031322001030-1790064801000__20260922161321-20260922161824.ps",
+      "record_end": "2026-09-22 16:18:24",
+      "record_start": "2026-09-22 16:13:21",
+      "roi": [
+        [
+          0.532031,
+          0.204731
+        ],
+        [
+          0.692969,
+          0.20612
+        ],
+        [
+          0.816406,
+          0.979731
+        ],
+        [
+          0.409375,
+          0.982509
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01030_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01030-final-roi-20260922-69467117",
+      "sha256": "765821edd8e7695ea815d4eaa09cb23ac4b282158275a7aa7834342d692ed763"
+    },
+    {
+      "bytes": 80382717,
+      "camera_id": "01030",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001030",
+      "duration_seconds": 303.0,
+      "file_id": "318010_18081003969_44180209031322001030-1790065105000",
+      "file_name": "20260922161825-20260922162328.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01030/raw/318010_18081003969_44180209031322001030-1790065105000__20260922161825-20260922162328.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01030/raw/318010_18081003969_44180209031322001030-1790065105000__20260922161825-20260922162328.ps",
+      "record_end": "2026-09-22 16:23:28",
+      "record_start": "2026-09-22 16:18:25",
+      "roi": [
+        [
+          0.532031,
+          0.204731
+        ],
+        [
+          0.692969,
+          0.20612
+        ],
+        [
+          0.816406,
+          0.979731
+        ],
+        [
+          0.409375,
+          0.982509
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01030_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01030-final-roi-20260922-69467117",
+      "sha256": "e65cf35f614c5f7f5530f83313caf0c272a04805e910ab327e6e271fc3b42170"
+    },
+    {
+      "bytes": 74495549,
+      "camera_id": "01030",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001030",
+      "duration_seconds": 304.0,
+      "file_id": "318010_18081003969_44180209031322001030-1790065408000",
+      "file_name": "20260922162328-20260922162832.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01030/raw/318010_18081003969_44180209031322001030-1790065408000__20260922162328-20260922162832.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01030/raw/318010_18081003969_44180209031322001030-1790065408000__20260922162328-20260922162832.ps",
+      "record_end": "2026-09-22 16:28:32",
+      "record_start": "2026-09-22 16:23:28",
+      "roi": [
+        [
+          0.532031,
+          0.204731
+        ],
+        [
+          0.692969,
+          0.20612
+        ],
+        [
+          0.816406,
+          0.979731
+        ],
+        [
+          0.409375,
+          0.982509
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01030_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01030-final-roi-20260922-69467117",
+      "sha256": "165c1b59f278d53e3d9e2a93102bd8e05b605d5ebc0681fcd0a90deb821cbd1e"
+    },
+    {
+      "bytes": 78090140,
+      "camera_id": "01030",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001030",
+      "duration_seconds": 304.0,
+      "file_id": "318010_18081003969_44180209031322001030-1790065712000",
+      "file_name": "20260922162832-20260922163336.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01030/raw/318010_18081003969_44180209031322001030-1790065712000__20260922162832-20260922163336.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01030/raw/318010_18081003969_44180209031322001030-1790065712000__20260922162832-20260922163336.ps",
+      "record_end": "2026-09-22 16:33:36",
+      "record_start": "2026-09-22 16:28:32",
+      "roi": [
+        [
+          0.532031,
+          0.204731
+        ],
+        [
+          0.692969,
+          0.20612
+        ],
+        [
+          0.816406,
+          0.979731
+        ],
+        [
+          0.409375,
+          0.982509
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01030_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01030-final-roi-20260922-69467117",
+      "sha256": "896677c003b0710357255c25df9167d9d5645ce4f697fcda0a939b467ad335e7"
+    },
+    {
+      "bytes": 81627050,
+      "camera_id": "01030",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001030",
+      "duration_seconds": 304.0,
+      "file_id": "318010_18081003969_44180209031322001030-1790066016000",
+      "file_name": "20260922163336-20260922163840.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01030/raw/318010_18081003969_44180209031322001030-1790066016000__20260922163336-20260922163840.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01030/raw/318010_18081003969_44180209031322001030-1790066016000__20260922163336-20260922163840.ps",
+      "record_end": "2026-09-22 16:38:40",
+      "record_start": "2026-09-22 16:33:36",
+      "roi": [
+        [
+          0.532031,
+          0.204731
+        ],
+        [
+          0.692969,
+          0.20612
+        ],
+        [
+          0.816406,
+          0.979731
+        ],
+        [
+          0.409375,
+          0.982509
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01030_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01030-final-roi-20260922-69467117",
+      "sha256": "3c3c883dc44fcafd4678653d3d29ab4cc07366c3ac2827a3a69b383843a15ab6"
+    },
+    {
+      "bytes": 77806397,
+      "camera_id": "01030",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001030",
+      "duration_seconds": 304.0,
+      "file_id": "318010_18081003969_44180209031322001030-1790066320000",
+      "file_name": "20260922163840-20260922164344.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01030/raw/318010_18081003969_44180209031322001030-1790066320000__20260922163840-20260922164344.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01030/raw/318010_18081003969_44180209031322001030-1790066320000__20260922163840-20260922164344.ps",
+      "record_end": "2026-09-22 16:43:44",
+      "record_start": "2026-09-22 16:38:40",
+      "roi": [
+        [
+          0.532031,
+          0.204731
+        ],
+        [
+          0.692969,
+          0.20612
+        ],
+        [
+          0.816406,
+          0.979731
+        ],
+        [
+          0.409375,
+          0.982509
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01030_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01030-final-roi-20260922-69467117",
+      "sha256": "28d59ba9eb2c1ed64474c62f59d937c1170d7d0217736f067b2ab50ba44c131d"
+    },
+    {
+      "bytes": 77963857,
+      "camera_id": "01030",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001030",
+      "duration_seconds": 304.0,
+      "file_id": "318010_18081003969_44180209031322001030-1790066624000",
+      "file_name": "20260922164344-20260922164848.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01030/raw/318010_18081003969_44180209031322001030-1790066624000__20260922164344-20260922164848.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01030/raw/318010_18081003969_44180209031322001030-1790066624000__20260922164344-20260922164848.ps",
+      "record_end": "2026-09-22 16:48:48",
+      "record_start": "2026-09-22 16:43:44",
+      "roi": [
+        [
+          0.532031,
+          0.204731
+        ],
+        [
+          0.692969,
+          0.20612
+        ],
+        [
+          0.816406,
+          0.979731
+        ],
+        [
+          0.409375,
+          0.982509
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01030_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01030-final-roi-20260922-69467117",
+      "sha256": "0a8f20f22a5d50fe9a8c7ef94edd720faebd7251532e84d4c6c0cc08c9b8950e"
+    },
+    {
+      "bytes": 83346992,
+      "camera_id": "01030",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001030",
+      "duration_seconds": 303.0,
+      "file_id": "318010_18081003969_44180209031322001030-1790066928000",
+      "file_name": "20260922164848-20260922165351.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01030/raw/318010_18081003969_44180209031322001030-1790066928000__20260922164848-20260922165351.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01030/raw/318010_18081003969_44180209031322001030-1790066928000__20260922164848-20260922165351.ps",
+      "record_end": "2026-09-22 16:53:51",
+      "record_start": "2026-09-22 16:48:48",
+      "roi": [
+        [
+          0.532031,
+          0.204731
+        ],
+        [
+          0.692969,
+          0.20612
+        ],
+        [
+          0.816406,
+          0.979731
+        ],
+        [
+          0.409375,
+          0.982509
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01030_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01030-final-roi-20260922-69467117",
+      "sha256": "b2eca1ee12b46d850e8733aa2f9ba6e69ab068bdea0dbdbdec0b39379bbb3368"
+    },
+    {
+      "bytes": 79833477,
+      "camera_id": "01030",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001030",
+      "duration_seconds": 304.0,
+      "file_id": "318010_18081003969_44180209031322001030-1790067231000",
+      "file_name": "20260922165351-20260922165855.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01030/raw/318010_18081003969_44180209031322001030-1790067231000__20260922165351-20260922165855.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01030/raw/318010_18081003969_44180209031322001030-1790067231000__20260922165351-20260922165855.ps",
+      "record_end": "2026-09-22 16:58:55",
+      "record_start": "2026-09-22 16:53:51",
+      "roi": [
+        [
+          0.532031,
+          0.204731
+        ],
+        [
+          0.692969,
+          0.20612
+        ],
+        [
+          0.816406,
+          0.979731
+        ],
+        [
+          0.409375,
+          0.982509
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01030_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01030-final-roi-20260922-69467117",
+      "sha256": "ba8c90136318a157e218414bdb923453645e57e6ecb92f73c58f763d3e681402"
+    },
+    {
+      "bytes": 77950646,
+      "camera_id": "01030",
+      "canvas_size": [
+        2560,
+        1440
+      ],
+      "device_code": "44180209031322001030",
+      "duration_seconds": 304.0,
+      "file_id": "318010_18081003969_44180209031322001030-1790067535000",
+      "file_name": "20260922165855-20260922170359.ps",
+      "identity_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01030/raw/318010_18081003969_44180209031322001030-1790067535000__20260922165855-20260922170359.ps.identity.json",
+      "ps_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01030/raw/318010_18081003969_44180209031322001030-1790067535000__20260922165855-20260922170359.ps",
+      "record_end": "2026-09-22 17:03:59",
+      "record_start": "2026-09-22 16:58:55",
+      "roi": [
+        [
+          0.532031,
+          0.204731
+        ],
+        [
+          0.692969,
+          0.20612
+        ],
+        [
+          0.816406,
+          0.979731
+        ],
+        [
+          0.409375,
+          0.982509
+        ]
+      ],
+      "roi_available": true,
+      "roi_config_path": "/home/sf01/step2c1-blind-truth/code/output/ground_litter_final_roi_20260922/config/ground_litter_01030_final_roi.json",
+      "roi_geometry_version": "final-roi-20260922-user-reviewed",
+      "scene_version": "01030-final-roi-20260922-69467117",
+      "sha256": "da2028a0f150c89f605b5144f176f38f64ed1bb73ca8d891806e8fd2f1fcf429"
+    }
+  ],
+  "generator_version": "step2c1-1.0.0",
+  "ok": true,
+  "per_camera_count": {
+    "01021": 13,
+    "01022": 13,
+    "01027": 13,
+    "01028": 13,
+    "01030": 13
+  },
+  "problems": [],
+  "ps_count": 65,
+  "roi_geometry_version": [
+    "final-roi-20260922-user-reviewed"
+  ],
+  "schema_version": "ground_litter_step2c_blind_truth_v1",
+  "sealed_accessed": false,
+  "split": "development",
+  "total_bytes": 5940321791
+}
