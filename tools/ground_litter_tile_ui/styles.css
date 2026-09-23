@@ -65,3 +65,11 @@ kbd{background:#0e1013;border:1px solid var(--line);border-radius:4px;padding:0 
 .hint{color:var(--muted);font-size:11px}
 .err{color:var(--bad);font-weight:600}
 textarea{width:100%}
+
+.riskbox{border:3px solid var(--bad);background:#2d1a14;border-radius:8px;padding:10px 12px;margin-bottom:12px}
+.riskbox .label{color:#ff9b7a;font-weight:700;font-size:12px;letter-spacing:.04em}
+.riskbox .value{font-size:15px;font-weight:700;margin-top:4px}
+.riskbox .hint{color:#f0c9b8;font-size:11px;margin-top:4px}
+.confirmbox{border:2px dashed var(--accent);background:#182231;border-radius:8px;padding:8px 10px;margin-top:8px}
+.confirmbox .label{color:var(--accent);font-weight:700;font-size:11px;letter-spacing:.04em}
+.confirmbox .value{font-size:13px;margin:4px 0 6px}

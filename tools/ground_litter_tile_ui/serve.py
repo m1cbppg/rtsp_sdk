@@ -156,8 +156,14 @@ class ReviewHandler(SimpleHTTPRequestHandler):
             "known_required_same_frame_count": row.get("known_required_same_frame_count"),
             "known_unlocalized_required_present":
                 row.get("known_unlocalized_required_present"),
+            "known_unlocalized_required_episode_ids":
+                row.get("known_unlocalized_required_episode_ids"),
             "known_unlocalized_required_same_frame_ids":
                 row.get("known_unlocalized_required_same_frame_ids"),
+            "known_unlocalized_required_in_crop_ids":
+                row.get("known_unlocalized_required_in_crop_ids"),
+            "risk_geometry_source": row.get("risk_geometry_source"),
+            "risk_flags": row.get("risk_flags") or [],
             "ignore_small_in_crop_ids": row.get("ignore_small_in_crop_ids"),
             "non_litter_same_frame_ids": row.get("non_litter_same_frame_ids"),
             "uncertain_truth_in_crop_ids": row.get("uncertain_truth_in_crop_ids"),
@@ -217,7 +223,9 @@ class ReviewHandler(SimpleHTTPRequestHandler):
         try:
             if parsed.path == "/api/review":
                 state.decide(candidate, str(body.get("decision") or ""),
-                             note=str(body.get("note") or ""))
+                             note=str(body.get("note") or ""),
+                             confirmed_no_unlabeled_required=bool(
+                                 body.get("confirmed_no_unlabeled_required")))
             elif parsed.path == "/api/reset":
                 state.reset(tile_id)
             elif parsed.path == "/api/skip":

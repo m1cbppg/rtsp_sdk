@@ -23,6 +23,8 @@ from rtsp_annotator.ground_litter_localization_review import (
 from rtsp_annotator.ground_litter_positive_tiles import (
     CLASS_ID,
     CLASS_NAME,
+    PENDING,
+    RISK_KNOWN_UNLOCALIZED_REQUIRED,
     DEFAULT_FRAME_INTERVAL_SECONDS,
     MIN_LABEL_MARGIN_PX,
     REVIEW_DECISIONS,
@@ -597,22 +599,50 @@ class MultiLabelTest(Base):
         self.assertEqual(len(dedup_labels(far)), 2)
         self.assertGreater(bbox_iou(near[0]["source_xyxy"], near[1]["source_xyxy"]), 0.95)
 
-    def test_unlocalized_required_touching_the_crop_blocks_the_tile(self) -> None:
+    def test_unlocalized_required_touching_the_crop_is_only_a_risk_flag(self) -> None:
+        """§17 is advisory: the tile is still generated and still reviewed by a human."""
         f = self.fixture()
         f.add_episode("ge-a", bbox=[1240, 680, 1320, 760], offset=10)
         f.add_episode("ge-keep", bbox=None, offset=10, eligible=False,
                       truth="REQUIRED_LITTER", localization="TRUTH_REVIEW_REQUIRED",
                       screening_bbox=[1300, 700, 1360, 760], decision="KEEP_REQUIRED")
         data = f.write()
-        result = self.generate(data, f)
-        row = result["candidates"][0]
-        self.assertEqual(row["candidate_generation_status"],
-                         "KNOWN_UNLOCALIZED_REQUIRED_PRESENT")
+        row = self.generate(data, f)["candidates"][0]
+        self.assertEqual(row["candidate_generation_status"], STATUS_READY)
+        self.assertEqual(row["annotation_review_status"], PENDING)
         self.assertTrue(row["known_unlocalized_required_present"])
-        self.assertIn("ge-keep", row["known_unlocalized_required_in_crop_ids"])
-        self.assertIsNone(row["annotation_review_status"])
+        self.assertEqual(row["known_unlocalized_required_episode_ids"], ["ge-keep"])
+        self.assertEqual(row["known_unlocalized_required_in_crop_ids"], ["ge-keep"])
+        self.assertEqual(row["risk_flags"], [RISK_KNOWN_UNLOCALIZED_REQUIRED])
+        self.assertEqual(row["risk_geometry_source"], {"ge-keep": "historical_bbox"})
+        # it got a real source-native tile ...
+        self.assertIsNotNone(row["image_path"])
+        self.assertTrue(Path(row["image_path"]).is_file())
+        self.assertEqual(sha256_file(row["image_path"]), row["image_sha256"])
+        # ... and the unlocalized target still never becomes a label
+        self.assertEqual(row["label_count"], 1)
+        labeled = {e for label in row["labels"] for e in label["episode_ids"]}
+        self.assertEqual(labeled, {"ge-a"})
+        self.assertNotIn("ge-keep", labeled)
+        self.assertEqual(len(label_txt_lines(row["labels"])), 1)
 
-    def test_unlocalized_required_provably_outside_the_crop_does_not_block(self) -> None:
+    def test_the_risk_tile_pixels_are_identical_to_a_plain_tile(self) -> None:
+        """The risk path must not touch a single pixel."""
+        plain = self.fixture()
+        plain.add_episode("ge-a", bbox=[1240, 680, 1320, 760], offset=10)
+        plain_row = self.generate(plain.write(), plain)["candidates"][0]
+        risky = self.fixture()
+        risky.add_episode("ge-a", bbox=[1240, 680, 1320, 760], offset=10)
+        risky.add_episode("ge-keep", bbox=None, offset=10, eligible=False,
+                          truth="REQUIRED_LITTER", localization="TRUTH_REVIEW_REQUIRED",
+                          screening_bbox=[1300, 700, 1360, 760], decision="KEEP_REQUIRED")
+        risk_row = self.generate(risky.write(), risky)["candidates"][0]
+        self.assertEqual(plain_row["source_crop_xyxy"], risk_row["source_crop_xyxy"])
+        self.assertEqual(plain_row["image_sha256"], risk_row["image_sha256"])
+        self.assertEqual(Path(plain_row["image_path"]).read_bytes(),
+                         Path(risk_row["image_path"]).read_bytes())
+
+    def test_unlocalized_required_provably_outside_the_crop_is_not_flagged(self) -> None:
         f = self.fixture()
         f.add_episode("ge-a", bbox=[400, 400, 460, 460], offset=10)
         f.add_episode("ge-keep", bbox=None, offset=10, eligible=False,
@@ -624,18 +654,33 @@ class MultiLabelTest(Base):
         self.assertFalse(row["known_unlocalized_required_present"])
         self.assertEqual(row["known_unlocalized_required_same_frame_ids"], ["ge-keep"])
         self.assertEqual(row["known_unlocalized_required_in_crop_ids"], [])
+        self.assertEqual(row["risk_flags"], [])
+        self.assertEqual(row["risk_geometry_source"], {})
 
-    def test_unlocalized_required_without_any_geometry_blocks_the_tile(self) -> None:
+    def test_unlocalized_required_without_geometry_is_flagged_as_risk(self) -> None:
         f = self.fixture()
         f.add_episode("ge-a", bbox=[1240, 680, 1320, 760], offset=10)
         f.add_episode("ge-nowhere", bbox=None, offset=10, eligible=False,
                       truth="REQUIRED_LITTER", localization="LOCALIZATION_UNRESOLVED")
         data = f.write()
         row = self.generate(data, f)["candidates"][0]
-        self.assertEqual(row["candidate_generation_status"],
-                         "KNOWN_UNLOCALIZED_REQUIRED_PRESENT")
+        self.assertEqual(row["candidate_generation_status"], STATUS_READY)
+        self.assertIsNotNone(row["image_path"])
         self.assertEqual(row["known_unlocalized_required_without_geometry_ids"],
                          ["ge-nowhere"])
+        self.assertEqual(row["risk_geometry_source"], {"ge-nowhere": "none"})
+        self.assertEqual(row["risk_flags"], [RISK_KNOWN_UNLOCALIZED_REQUIRED])
+
+    def test_manual_point_risk_source_is_recorded(self) -> None:
+        f = self.fixture()
+        f.add_episode("ge-a", bbox=[1240, 680, 1320, 760], offset=10)
+        f.add_episode("ge-manual", bbox=None, offset=10, eligible=False,
+                      truth="REQUIRED_LITTER", localization="TRUTH_REVIEW_REQUIRED",
+                      screening_point=(1300.0, 720.0), decision="KEEP_REQUIRED")
+        data = f.write()
+        row = self.generate(data, f)["candidates"][0]
+        self.assertEqual(row["risk_geometry_source"], {"ge-manual": "mapped_point"})
+        self.assertEqual(row["risk_flags"], [RISK_KNOWN_UNLOCALIZED_REQUIRED])
 
     def test_ignore_small_inside_the_crop_is_not_labeled_and_not_blocking(self) -> None:
         f = self.fixture()
@@ -898,6 +943,85 @@ class ReviewTest(Base):
         self.assertIsNone(restarted.get(candidates[0]["tile_id"]))
         self.assertEqual(TileReviewState.load(f.state).audit_trail[-1]["action"], "reset")
 
+    def _risk_tile(self):
+        f = self.fixture()
+        f.add_episode("ge-a", bbox=[1240, 680, 1320, 760], offset=10)
+        f.add_episode("ge-keep", bbox=None, offset=10, eligible=False,
+                      truth="REQUIRED_LITTER", localization="TRUTH_REVIEW_REQUIRED",
+                      screening_bbox=[1300, 700, 1360, 760], decision="KEEP_REQUIRED")
+        data = f.write()
+        candidates = self.generate(data, f)["candidates"]
+        self.assertEqual(len(candidates), 1)
+        return f, candidates
+
+    def test_risk_tile_is_reviewable_and_requires_a_second_confirmation(self) -> None:
+        f, candidates = self._risk_tile()
+        row = candidates[0]
+        self.assertEqual(row["candidate_generation_status"], STATUS_READY)
+        self.assertTrue(row["known_unlocalized_required_present"])
+        state = TileReviewState.load(f.state, candidate_count=1)
+        self.assertEqual(state.progress(candidates),
+                         {"reviewable": 1, "reviewed": 0, "pending": 1, "skipped": 0})
+        with self.assertRaises(ReviewError) as caught:
+            state.decide(row, "ANNOTATION_COMPLETE")
+        self.assertIn("confirm", str(caught.exception).lower())
+        self.assertEqual(state.progress(candidates)["reviewed"], 0)
+        self.assertIsNone(state.get(row["tile_id"]))
+        record = state.decide(row, "ANNOTATION_COMPLETE",
+                              confirmed_no_unlabeled_required=True)
+        self.assertTrue(record["positive_training_ready"])
+        self.assertEqual(record["risk_flags"], [RISK_KNOWN_UNLOCALIZED_REQUIRED])
+        self.assertTrue(record["confirmed_no_unlabeled_required"])
+        self.assertEqual(state.progress(candidates)["reviewed"], 1)
+
+    def test_risk_confirmation_is_only_required_for_flagged_tiles(self) -> None:
+        data, f = self.data_with(dict(episode_id="ge-a", bbox=[1240, 680, 1320, 760]))
+        candidates = self.generate(data, f)["candidates"]
+        self.assertFalse(candidates[0]["known_unlocalized_required_present"])
+        state = TileReviewState.load(f.state, candidate_count=1)
+        record = state.decide(candidates[0], "ANNOTATION_COMPLETE")
+        self.assertTrue(record["positive_training_ready"])
+        self.assertFalse(record["confirmed_no_unlabeled_required"])
+
+    def test_risk_tile_missing_required_is_excluded_from_training(self) -> None:
+        f, candidates = self._risk_tile()
+        state = TileReviewState.load(f.state, candidate_count=1)
+        record = state.decide(candidates[0], "MISSING_REQUIRED",
+                              note="a second bag is visible on the right")
+        self.assertFalse(record["positive_training_ready"])
+        self.assertFalse(apply_review(candidates, state)[0]["positive_training_ready"])
+        accepted = build_accepted(candidates, f.out / "candidate_tiles" / "images",
+                                  f.out / "accepted", state=state)
+        self.assertEqual(accepted["accepted_tile_count"], 0)
+        self.assertEqual(accepted["rows"], [])
+
+    def test_risk_tile_uncertain_is_excluded_from_training(self) -> None:
+        f, candidates = self._risk_tile()
+        state = TileReviewState.load(f.state, candidate_count=1)
+        record = state.decide(candidates[0], "UNCERTAIN_COMPLETENESS",
+                              note="cannot tell at this scale")
+        self.assertFalse(record["positive_training_ready"])
+        accepted = build_accepted(candidates, f.out / "candidate_tiles" / "images",
+                                  f.out / "accepted", state=state)
+        self.assertEqual(accepted["accepted_tile_count"], 0)
+
+    def test_risk_tile_box_problem_is_excluded_from_training(self) -> None:
+        f, candidates = self._risk_tile()
+        state = TileReviewState.load(f.state, candidate_count=1)
+        record = state.decide(candidates[0], "BOX_PROBLEM", note="box is loose")
+        self.assertFalse(record["positive_training_ready"])
+
+    def test_risk_tile_can_be_accepted_after_confirmation(self) -> None:
+        f, candidates = self._risk_tile()
+        state = TileReviewState.load(f.state, candidate_count=1)
+        state.decide(candidates[0], "ANNOTATION_COMPLETE",
+                     confirmed_no_unlabeled_required=True)
+        accepted = build_accepted(candidates, f.out / "candidate_tiles" / "images",
+                                  f.out / "accepted", state=state)
+        self.assertEqual(accepted["accepted_tile_count"], 1)
+        self.assertEqual(accepted["accepted_label_count"], 1)
+        self.assertNotIn("ge-keep", accepted["rows"][0]["labels"][0]["episode_ids"])
+
     def test_state_from_a_different_candidate_set_is_refused(self) -> None:
         data, f, candidates = self._generated()
         state = TileReviewState.load(f.state, candidate_count=len(candidates),
@@ -1133,6 +1257,26 @@ class SafetyTest(unittest.TestCase):
         # numpy may only be imported inside the two pixel helpers
         self.assertEqual(source.count("import numpy"), 2)
 
+    def test_risk_metadata_can_never_become_a_label(self) -> None:
+        source = (ROOT / "rtsp_annotator"
+                  / "ground_litter_positive_tiles.py").read_text(encoding="utf-8")
+        # label geometry is only ever built from a verified box or from the crop plan's
+        # contained boxes; the screening geometry never reaches label construction
+        label_section = source.split("def build_label")[1].split("def dedup_labels")[0]
+        self.assertNotIn("screening", label_section)
+        self.assertNotIn("risk_", label_section)
+        candidate_section = source.split("def build_candidate_for_episode")[1] \
+            .split("def fill_review_fields")[0]
+        labels_block = candidate_section.split("labels = [build_label")[1] \
+            .split("base[\"label_count\"]")[0]
+        self.assertNotIn("known_unlocalized", labels_block)
+        self.assertNotIn("ignore_small", labels_block)
+        # no ignored-region trick, no auto labelling, no proposal / SAM / detector path
+        for forbidden in ("ignore_region", "ignore-region", "auto_label", "autolabel",
+                          "propose_box", "sam_model", "segment_anything", "cv2",
+                          "ultralytics", "pseudo_label"):
+            self.assertNotIn(forbidden, source.lower(), forbidden)
+
     def test_decode_adapter_imports_nothing_heavy_at_module_level(self) -> None:
         import ast
 
@@ -1175,6 +1319,35 @@ class SafetyTest(unittest.TestCase):
                       'parsed.path == "/api/reset"', 'parsed.path == "/api/skip"'):
             self.assertIn(route, server)
         self.assertEqual(server.count('parsed.path == "/api/'), 3)
+
+    def test_review_ui_shows_the_section_17_warning_and_confirm_gate(self) -> None:
+        app = (TOOLS / "app.js").read_text(encoding="utf-8")
+        server = (TOOLS / "serve.py").read_text(encoding="utf-8")
+        styles = (TOOLS / "styles.css").read_text(encoding="utf-8")
+        # the exact warning the reviewer must see
+        self.assertIn("同帧存在未定位 REQUIRED_LITTER", app)
+        self.assertIn("可能落在当前 tile", app)
+        self.assertIn("请人工确认是否存在未标注 Required", app)
+        # the exact second-confirmation sentence
+        self.assertIn("我已确认当前 tile 中不存在可见但未标注的 Required Litter", app)
+        self.assertIn("riskbox", app)
+        self.assertIn(".riskbox", styles)
+        self.assertIn("confirmbox", app)
+        self.assertIn(".confirmbox", styles)
+        # COMPLETE on a flagged tile is routed through the confirmation panel
+        self.assertIn("state.confirming = true", app)
+        self.assertIn("confirmed_no_unlabeled_required", app)
+        self.assertIn("confirmed_no_unlabeled_required", server)
+        # the server still only offers the four decisions
+        self.assertEqual(set(re.findall(r'data-act="([^"]+)"', app)),
+                         set(REVIEW_DECISIONS) | {"SKIP", "RESET"})
+
+    def test_risk_metadata_is_exposed_to_the_page(self) -> None:
+        source = (TOOLS / "serve.py").read_text(encoding="utf-8")
+        for field in ("known_unlocalized_required_present",
+                      "known_unlocalized_required_episode_ids",
+                      "risk_geometry_source", "risk_flags"):
+            self.assertIn(field, source, field)
 
     def test_review_ui_overlay_never_touches_the_image_bytes(self) -> None:
         app = (TOOLS / "app.js").read_text(encoding="utf-8")

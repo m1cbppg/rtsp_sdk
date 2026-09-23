@@ -13,7 +13,13 @@
   const state = {
     meta: null, queue: [], current: null, tile: null,
     note: "", zoom: 1, focus: 0, message: "", error: "",
+    // §17 risk tiles need one explicit confirmation before COMPLETE is saved
+    confirming: false,
   };
+  const RISK_TEXT = "同帧存在未定位 REQUIRED_LITTER，可能落在当前 tile；" +
+    "请人工确认是否存在未标注 Required。";
+  const RISK_CONFIRM_TEXT =
+    "我已确认当前 tile 中不存在可见但未标注的 Required Litter";
 
   const $ = (id) => document.getElementById(id);
   const esc = (v) => String(v == null ? "" : v)
@@ -94,6 +100,9 @@
       const n = row.label_count || 0;
       badges.push(`<span class="badge${n >= 2 ? " amb" : ""}">${n} box</span>`);
       if (row.known_unlocalized_required_present) {
+        badges.push('<span class="badge bad">§17 需确认</span>');
+      }
+      if (row.known_unlocalized_required_present) {
         badges.push('<span class="badge warn">UNLOCALIZED</span>');
       }
       const active = state.current === row.tile_id ? " active" : "";
@@ -113,6 +122,7 @@
     state.message = "";
     state.error = "";
     state.focus = 0;
+    state.confirming = false;
     try {
       state.tile = await api(`/api/tile?id=${encodeURIComponent(tileId)}`);
       state.note = state.tile.annotation_review_note || "";
@@ -195,9 +205,11 @@
     const chosen = tile.annotation_review_status;
     const warnings = [];
     if (tile.known_unlocalized_required_present) {
-      warnings.push(`同帧存在 KNOWN_UNLOCALIZED_REQUIRED：` +
-        `${(tile.known_unlocalized_required_same_frame_ids || []).length} 个 Required ` +
-        `没有可靠 bbox，且其位置与本 crop 相交（生成阶段已标记不可训练）`);
+      const ids = tile.known_unlocalized_required_episode_ids || [];
+      const sources = tile.risk_geometry_source || {};
+      const sourceText = ids.map((id) => `${id}(${sources[id] || "unknown"})`).join("、");
+      warnings.push(RISK_TEXT + " 未定位 Required：" + ids.length + " 个（" +
+        sourceText + "）。这些位置证据仅作提示，不构成训练标注。");
     } else if ((tile.known_unlocalized_required_same_frame_ids || []).length) {
       warnings.push(`同帧有 ${tile.known_unlocalized_required_same_frame_ids.length} 个 ` +
         `Required 没有可靠 bbox，但其位置可证明不在本 crop 内`);
@@ -223,6 +235,17 @@
     </tr>`).join("");
 
     $("detail").innerHTML = `
+      ${tile.known_unlocalized_required_present ? `
+      <div class="riskbox" id="riskbox">
+        <div class="label">⚠ §17 风险提示：必须人工确认</div>
+        <div class="value">${esc(RISK_TEXT)}</div>
+        <div class="hint">未定位 Required：${esc((tile.known_unlocalized_required_episode_ids || []).join("、"))}
+          · 位置证据来源：${esc(Object.values(tile.risk_geometry_source || {}).join("、") || "无")}
+          （如历史 bbox / manual point；<b>不会</b>作为训练标注，也不会被自动补框）</div>
+        <div class="hint">看到可见但未标注的 Required → 选 <b>MISSING_REQUIRED</b>（排除）；
+          确认不存在 → 选 <b>COMPLETE</b>（需二次确认）；无法判断 → <b>UNCERTAIN_COMPLETENESS</b>。</div>
+      </div>` : ""}
+
       <div class="question">
         <div class="label">本步骤唯一问题</div>
         <div class="value">这个 640×640 tile 里，所有需要稳定检测的 Required Litter
@@ -302,6 +325,13 @@
           <kbd>4</kbd> UNCERTAIN_COMPLETENESS（无法确认 → 排除） ·
           <kbd>S</kbd> 跳过 · <kbd>R</kbd> 清除 · <kbd>←</kbd><kbd>→</kbd> 上下一条
         </p>
+        ${state.confirming ? `
+        <div class="confirmbox" id="confirmbox">
+          <div class="label">二次确认（§17 风险 tile）</div>
+          <div class="value">${esc(RISK_CONFIRM_TEXT)}</div>
+          <button class="act complete" id="confirm-yes">确认并保存 COMPLETE</button>
+          <button class="act" id="confirm-no">取消</button>
+        </div>` : ""}
         <div class="${state.error ? "err" : "hint"}">${esc(state.error || state.message)}</div>
       </div>
 
@@ -317,6 +347,10 @@
     document.querySelectorAll("[data-act]").forEach((node) => {
       node.onclick = () => action(node.dataset.act);
     });
+    const yes = $("confirm-yes");
+    if (yes) yes.onclick = () => submitReview("ANNOTATION_COMPLETE", true);
+    const no = $("confirm-no");
+    if (no) no.onclick = () => { state.confirming = false; renderDetail(); };
     document.querySelectorAll("[data-zoom]").forEach((node) => {
       node.onclick = () => { state.zoom = Number(node.dataset.zoom); renderDetail(); };
     });
@@ -351,9 +385,30 @@
         return;
       }
       if (!ORDER.includes(name)) throw new Error(`unknown action ${name}`);
+      if (name === "ANNOTATION_COMPLETE" && tile.known_unlocalized_required_present) {
+        // one explicit confirmation is required before this can be saved
+        state.confirming = true;
+        renderDetail();
+        return;
+      }
+      await submitReview(name, false);
+    } catch (error) {
+      state.error = String(error.message || error);
+      renderDetail();
+    }
+  }
+
+  async function submitReview(decision, confirmed) {
+    const tile = state.tile;
+    if (!tile) return;
+    state.error = "";
+    try {
       const at = visibleRows().findIndex((r) => r.tile_id === tile.tile_id);
-      await post("/api/review", { tile_id: tile.tile_id, decision: name,
-                                  note: currentNote() });
+      await post("/api/review", {
+        tile_id: tile.tile_id, decision, note: currentNote(),
+        confirmed_no_unlabeled_required: !!confirmed,
+      });
+      state.confirming = false;
       await advance(at);
     } catch (error) {
       state.error = String(error.message || error);

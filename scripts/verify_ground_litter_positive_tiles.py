@@ -130,10 +130,9 @@ def pick_cases(data):
         "complex": max(complex_frames or multi, key=lambda f: len(f["members"]))
         ["members"][0],
     }
-    blocked = [f for f in ordered
-               if any(p["candidate_generation_status"]
-                      == "KNOWN_UNLOCALIZED_REQUIRED_PRESENT" for p in f["plans"])]
-    return cases, {f["key"]: f["members"] for f in ordered}, blocked
+    risky = [f for f in ordered
+             if any(p.get("risk_flags") for p in f["plans"])]
+    return cases, {f["key"]: f["members"] for f in ordered}, risky
 
 
 def png_pixels(path: Path):
@@ -211,10 +210,12 @@ def main(argv=None) -> int:
     }
     before = {name: hash_of(path) for name, path in upstream.items()}
 
-    cases, frames, blocked = pick_cases(data)
+    cases, frames, risky = pick_cases(data)
     decoder = load_default_decoder()
     canvases = []
-    union: set[str] = set()
+    # the union always includes one §17 risk frame, so the warning and the second
+    # confirmation are exercised end to end by the UI part of this test
+    union: set[str] = {m["episode_id"] for m in risky[0]["members"]} if risky else set()
 
     for name, primary in cases.items():
         key = (primary["source_file_id"], primary["step1c0_decoded_timestamp"])
@@ -321,16 +322,16 @@ def main(argv=None) -> int:
     rows_all = unified["candidates"]
     write_jsonl(work / "tile_candidates.jsonl", rows_all)
 
-    print(f"\n--- §17 rule on real data: {len(blocked)} frame(s) blocked by a same-frame "
-          f"Required without a verified bbox (reported, not a failure)")
-    for frame in blocked[:5]:
+    print(f"\n--- §17 on real data: {len(risky)} frame(s) carry the "
+          f"KNOWN_UNLOCALIZED_REQUIRED risk flag (warning only, never an exclusion)")
+    for frame in risky[:5]:
         member = frame["members"][0]
-        plan = frame["plans"][0]
+        plan = [p for p in frame["plans"] if p.get("risk_flags")][0]
         print(f"      {member['episode_id']} cam={member['camera_id']} "
               f"{member['step1c0_decoded_timestamp']} "
               f"status={plan['candidate_generation_status']} "
-              f"in_crop={plan['known_unlocalized_required_in_crop_ids']} "
-              f"same_frame={len(plan['known_unlocalized_required_same_frame_ids'])}")
+              f"risk_flags={plan['risk_flags']} "
+              f"geometry={plan['risk_geometry_source']}")
 
     check(len(rows_all) >= 5, "at least five candidate tiles for the UI joint test",
           f"n={len(rows_all)} (a multi-target frame can yield several crops)")
@@ -358,7 +359,8 @@ def main(argv=None) -> int:
               and meta["progress"]["reviewed"] == 0,
               f"server shows {len(rows_all)} reviewable tiles, 0 reviewed",
               json.dumps(meta["progress"]))
-        first = meta["queue"][0]["tile_id"]
+        first = next(row["tile_id"] for row in meta["queue"]
+                     if not row.get("known_unlocalized_required_present"))
         tile = json.loads(urllib.request.urlopen(base + "/api/tile?id=" + first,
                                                  timeout=10).read())
         check(len(tile["labels"]) >= 1 and tile["crop_size"] == 640,
@@ -380,6 +382,50 @@ def main(argv=None) -> int:
         check(reply["annotation_review_status"] == "ANNOTATION_COMPLETE"
               and reply["positive_training_ready"] is True,
               "COMPLETE marks the tile training-ready")
+
+        risk_tiles = [row for row in rows_all
+                      if row.get("known_unlocalized_required_present")]
+        check(bool(risk_tiles), "the artifact contains a §17 risk tile to exercise")
+        if risk_tiles:
+            risk_id = risk_tiles[0]["tile_id"]
+            risk_payload = json.loads(urllib.request.urlopen(
+                base + "/api/tile?id=" + risk_id, timeout=10).read())
+            check(bool(risk_payload["known_unlocalized_required_present"])
+                  and bool(risk_payload["known_unlocalized_required_episode_ids"])
+                  and bool(risk_payload["risk_geometry_source"]),
+                  "risk tile exposes the warning metadata",
+                  json.dumps(risk_payload["known_unlocalized_required_episode_ids"]))
+            check(not [label for label in risk_payload["labels"]]
+                  or all(e not in risk_payload["known_unlocalized_required_episode_ids"]
+                         for label in risk_payload["labels"]
+                         for e in label["episode_ids"]),
+                  "the unlocalized Required never appears in a label")
+
+            def review(tile_id, decision, confirmed=None, note="joint test"):
+                payload = {"tile_id": tile_id, "decision": decision, "note": note}
+                if confirmed is not None:
+                    payload["confirmed_no_unlabeled_required"] = confirmed
+                request = urllib.request.Request(
+                    base + "/api/review", data=json.dumps(payload).encode(),
+                    method="POST", headers={"Content-Type": "application/json"})
+                return urllib.request.urlopen(request, timeout=10)
+
+            try:
+                review(risk_id, "ANNOTATION_COMPLETE", confirmed=False)
+                check(False, "COMPLETE without the §17 confirmation must be refused")
+            except urllib.error.HTTPError as exc:
+                body = exc.read().decode()
+                check(exc.code == 400 and "confirm" in body.lower(),
+                      "COMPLETE without the §17 confirmation is refused (400)")
+            confirmed = json.loads(review(risk_id, "ANNOTATION_COMPLETE",
+                                          confirmed=True).read())
+            check(confirmed["annotation_review_status"] == "ANNOTATION_COMPLETE"
+                  and confirmed["positive_training_ready"] is True,
+                  "COMPLETE is accepted after the explicit confirmation")
+            uncertain = json.loads(review(risk_id, "UNCERTAIN_COMPLETENESS",
+                                          note="cannot tell").read())
+            check(uncertain["positive_training_ready"] is False,
+                  "UNCERTAIN_COMPLETENESS on a risk tile is excluded")
         for forbidden in ("/api/proposal", "/api/box", "/api/new_bbox"):
             try:
                 urllib.request.urlopen(base + forbidden, timeout=5)

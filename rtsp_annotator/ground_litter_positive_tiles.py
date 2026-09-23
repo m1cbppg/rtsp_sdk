@@ -41,7 +41,7 @@ from .ground_litter_localization_review import (  # reuse, do not duplicate
 )
 
 SCHEMA_VERSION = "ground_litter_positive_tiles_v1"
-GENERATOR_VERSION = "step1c2-1.0.0"
+GENERATOR_VERSION = "step1c2-1.1.0"
 REVIEW_SCHEMA_VERSION = "positive_tile_review_v1"
 
 TILE_SIZE = 640
@@ -58,11 +58,15 @@ CANDIDATE_STATUSES = (
     "TARGET_EXCEEDS_TILE",
     "MULTI_TARGET_EXCEEDS_TILE",
     "SOURCE_FRAME_MISMATCH",
-    "KNOWN_UNLOCALIZED_REQUIRED_PRESENT",
     "UNCERTAIN_TRUTH_IN_CROP",
     "DECODE_FAILED",
     "CROP_UNSTABLE",
 )
+#: §17 risk flags.  A flag is advisory: it never excludes a tile and never becomes a
+#: label, it only tells the human what to look for during the completeness review.
+RISK_KNOWN_UNLOCALIZED_REQUIRED = "KNOWN_UNLOCALIZED_REQUIRED_PRESENT"
+RISK_FLAGS = (RISK_KNOWN_UNLOCALIZED_REQUIRED,)
+
 REVIEW_DECISIONS = (
     "ANNOTATION_COMPLETE",
     "MISSING_REQUIRED",
@@ -728,9 +732,12 @@ def build_candidate_for_episode(episode: Mapping[str, Any],
         "min_label_margin_px": None,
         "known_required_same_frame_count": 0,
         "known_unlocalized_required_present": False,
+        "known_unlocalized_required_episode_ids": [],
         "known_unlocalized_required_in_crop_ids": [],
         "known_unlocalized_required_same_frame_ids": [],
         "known_unlocalized_required_without_geometry_ids": [],
+        "risk_geometry_source": {},
+        "risk_flags": [],
         "ignore_small_in_crop_ids": [],
         "non_litter_same_frame_ids": [],
         "uncertain_truth_in_crop_ids": [],
@@ -796,22 +803,36 @@ def build_candidate_for_episode(episode: Mapping[str, Any],
         if not available:
             base["known_unlocalized_required_without_geometry_ids"].append(
                 target["episode_id"])
-            base["known_unlocalized_required_present"] = True
         elif hit:
-            base["known_unlocalized_required_present"] = True
             base["known_unlocalized_required_in_crop_ids"].append(target["episode_id"])
-    for key in ("known_unlocalized_required_in_crop_ids",
+        else:
+            # the historical bbox / manual point proves the target is *outside* this
+            # crop, so this tile carries no risk (only the same-frame note above)
+            continue
+        # §17: this is a *risk*, never an automatic exclusion.  The historical bbox /
+        # manual point is only good enough to say "look here, it may be inside"; it does
+        # not prove the tile is annotation-incomplete, so the human decides.
+        base["known_unlocalized_required_present"] = True
+        base["known_unlocalized_required_episode_ids"].append(target["episode_id"])
+        base["risk_geometry_source"][target["episode_id"]] = str(
+            target.get("screening_geometry_source") or "none")
+    for key in ("known_unlocalized_required_episode_ids",
+                "known_unlocalized_required_in_crop_ids",
                 "known_unlocalized_required_same_frame_ids",
                 "known_unlocalized_required_without_geometry_ids",
                 "ignore_small_in_crop_ids", "non_litter_same_frame_ids",
                 "uncertain_truth_in_crop_ids", "other_truth_same_frame_ids"):
         base[key] = sorted(set(base[key]))
-
+    base["risk_geometry_source"] = {
+        key: value for key, value in sorted(base["risk_geometry_source"].items())
+        if key in base["known_unlocalized_required_episode_ids"]}
     if base["known_unlocalized_required_present"]:
-        status = "KNOWN_UNLOCALIZED_REQUIRED_PRESENT"
-        detail = ("same frame contains REQUIRED_LITTER without a verified bbox whose "
-                  "location touches this crop")
-    elif base["uncertain_truth_in_crop_ids"]:
+        base["risk_flags"] = [RISK_KNOWN_UNLOCALIZED_REQUIRED]
+        detail = ("same frame contains REQUIRED_LITTER without a verified bbox; its "
+                  "historical bbox / manual point may fall inside this crop — the human "
+                  "must confirm whether any Required Litter is visible but unlabeled")
+
+    if base["uncertain_truth_in_crop_ids"]:
         status = "UNCERTAIN_TRUTH_IN_CROP"
         detail = ("same frame contains UNCERTAIN / IDENTITY_AMBIGUOUS truth inside the "
                   "crop (Step 0B §6.4)")
@@ -912,6 +933,11 @@ def generate_candidates(data: Mapping[str, Any], decoder: Any, images_dir: Path,
         # bytes were identical, i.e. the very same frame and crop.
         if record.get("source_crop_xyxy") != plan.get("source_crop_xyxy"):
             return False
+        for field in ("risk_flags", "risk_geometry_source",
+                      "known_unlocalized_required_episode_ids",
+                      "known_unlocalized_required_present"):
+            if record.get(field) != plan.get(field):
+                return False
         record_labels = list(record.get("labels") or [])
         plan_labels = list(plan.get("labels") or [])
         if plan_labels != record_labels:
@@ -1213,7 +1239,13 @@ def dedup_candidates(candidates: Sequence[Mapping[str, Any]]
         keeper["label_count"] = len(merged_labels)
         keeper["all_known_label_episode_ids"] = sorted(
             {e for label in merged_labels for e in label["episode_ids"]})
-        for field in ("known_unlocalized_required_in_crop_ids",
+        keeper["risk_geometry_source"] = {
+            **keeper.get("risk_geometry_source", {}),
+            **candidate.get("risk_geometry_source", {})}
+        keeper["risk_flags"] = sorted(set(keeper.get("risk_flags") or [])
+                                      | set(candidate.get("risk_flags") or []))
+        for field in ("known_unlocalized_required_episode_ids",
+                      "known_unlocalized_required_in_crop_ids",
                       "known_unlocalized_required_same_frame_ids",
                       "ignore_small_in_crop_ids", "non_litter_same_frame_ids",
                       "uncertain_truth_in_crop_ids", "other_truth_same_frame_ids",
@@ -1286,7 +1318,8 @@ class TileReviewState:
         return self.decisions.get(tile_id)
 
     def decide(self, candidate: Mapping[str, Any], decision: str, *,
-               note: str = "") -> dict[str, Any]:
+               note: str = "", confirmed_no_unlabeled_required: bool = False
+               ) -> dict[str, Any]:
         from datetime import datetime
 
         if candidate.get("candidate_generation_status") != STATUS_READY:
@@ -1295,6 +1328,15 @@ class TileReviewState:
                 f"({candidate.get('candidate_generation_status')})")
         if decision not in REVIEW_DECISIONS:
             raise ReviewError(f"unknown review decision {decision!r}")
+        # §17 tiles carry a same-frame unlocalized Required risk.  Signing them off as
+        # complete requires an explicit "I looked and there is nothing unlabeled here".
+        if (decision == COMPLETE and candidate.get("known_unlocalized_required_present")
+                and not confirmed_no_unlabeled_required):
+            raise ReviewError(
+                f"{candidate.get('tile_id')} carries the "
+                f"{RISK_KNOWN_UNLOCALIZED_REQUIRED} risk: "
+                f"confirm that no visible Required Litter is unlabeled before marking "
+                f"it COMPLETE")
         tile_id = str(candidate["tile_id"])
         previous = self.decisions.get(tile_id) or {}
         record = {
@@ -1304,6 +1346,10 @@ class TileReviewState:
             "annotation_review_note": note.strip(),
             "annotation_review_reason": decision,
             "positive_training_ready": decision == COMPLETE,
+            "risk_flags": list(candidate.get("risk_flags") or []),
+            "confirmed_no_unlabeled_required": bool(
+                confirmed_no_unlabeled_required
+                and candidate.get("known_unlocalized_required_present")),
             "reviewed_at": datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
             "review_schema_version": REVIEW_SCHEMA_VERSION,
             "revision": int(previous.get("revision") or 0) + 1,
@@ -1312,7 +1358,10 @@ class TileReviewState:
         }
         self.decisions[tile_id] = record
         self._record(tile_id, f"review:{decision}",
-                     {"note": note.strip(), "revision": record["revision"]})
+                     {"note": note.strip(), "revision": record["revision"],
+                      "risk_flags": record["risk_flags"],
+                      "confirmed_no_unlabeled_required":
+                          record["confirmed_no_unlabeled_required"]})
         self.save()
         return record
 
@@ -1486,6 +1535,8 @@ def build_summary(data: Mapping[str, Any], candidates: Sequence[Mapping[str, Any
                      "BOX_PROBLEM": 0, "UNCERTAIN_COMPLETENESS": 0}
     buckets: dict[str, int] = {}
     label_hist: dict[str, int] = {}
+    risk_counts: dict[str, int] = {flag: 0 for flag in RISK_FLAGS}
+    risk_geometry_counts: dict[str, int] = {}
     for row in rows:
         camera = per_camera.setdefault(str(row["camera_id"]), {
             "input_eligible": 0, "candidate": 0, "reviewable": 0, "annotation_complete": 0,
@@ -1511,6 +1562,10 @@ def build_summary(data: Mapping[str, Any], candidates: Sequence[Mapping[str, Any
                 camera["uncertain"] += 1
             if row.get("positive_training_ready"):
                 camera["accepted"] += 1
+        for flag in row.get("risk_flags") or []:
+            risk_counts[flag] = risk_counts.get(flag, 0) + 1
+        for source in (row.get("risk_geometry_source") or {}).values():
+            risk_geometry_counts[str(source)] = risk_geometry_counts.get(str(source), 0) + 1
         for label in row.get("labels") or []:
             key = label.get("size_bucket") or "unknown"
             buckets[key] = buckets.get(key, 0) + 1
@@ -1566,9 +1621,9 @@ def build_summary(data: Mapping[str, Any], candidates: Sequence[Mapping[str, Any
                 "primary_candidate_count": len(episodes),
                 "reviewable_tile_count": review_counts["PENDING"]
                 + sum(review_counts.get(d, 0) for d in REVIEW_DECISIONS),
+                "automatic_section_17_exclusion_count": 0,
                 "known_unlocalized_required_present_count":
-                    status_counts.get("KNOWN_UNLOCALIZED_REQUIRED_PRESENT", 0)
-                    + status_counts.get("UNCERTAIN_TRUTH_IN_CROP", 0),
+                    risk_counts.get(RISK_KNOWN_UNLOCALIZED_REQUIRED, 0),
                 "technical_failure_count": sum(
                     status_counts.get(code, 0) for code in (
                         "DECODE_FAILED", "SOURCE_FRAME_MISMATCH", "CROP_UNSTABLE",
@@ -1584,8 +1639,12 @@ def build_summary(data: Mapping[str, Any], candidates: Sequence[Mapping[str, Any
             "source_too_small_count": status_counts.get("SOURCE_TOO_SMALL", 0),
             "multi_target_exceeds_tile_count":
                 status_counts.get("MULTI_TARGET_EXCEEDS_TILE", 0),
+            # §17 is a review risk, not an exclusion: these tiles are generated and
+            # reviewed by a human exactly like every other candidate.
             "known_unlocalized_required_present_count":
-                status_counts.get("KNOWN_UNLOCALIZED_REQUIRED_PRESENT", 0),
+                risk_counts.get(RISK_KNOWN_UNLOCALIZED_REQUIRED, 0),
+            "risk_flag_counts": risk_counts,
+            "risk_geometry_source_counts": risk_geometry_counts,
             "uncertain_truth_in_crop_count":
                 status_counts.get("UNCERTAIN_TRUTH_IN_CROP", 0),
             "multi_label_tile_count": sum(1 for r in rows
