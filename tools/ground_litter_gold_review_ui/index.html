@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Step 1B · 历史 Silver Episode 人工确认</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <div class="title">
+    <h1>Step 1B · Episode 人工确认</h1>
+    <p id="meta" class="muted">读取中…</p>
+  </div>
+  <div class="progress">
+    <b id="progress">0 / 0</b>
+    <span id="status-line" class="muted">读取中</span>
+  </div>
+</header>
+
+<main>
+  <aside>
+    <div class="filters">
+      <label>状态
+        <select id="f-status">
+          <option value="pending">未审核</option>
+          <option value="all">全部</option>
+          <option value="reviewed">已审核</option>
+          <option value="skipped">已跳过</option>
+        </select>
+      </label>
+      <label>风险
+        <select id="f-risk">
+          <option value="all">全部</option>
+          <option value="grouping">GROUPING_RISK</option>
+          <option value="lineage">LINEAGE_ONLY</option>
+          <option value="none">无标记</option>
+        </select>
+      </label>
+      <label>摄像头
+        <select id="f-camera"><option value="all">全部</option></select>
+      </label>
+      <label>成员数
+        <select id="f-members">
+          <option value="all">全部</option>
+          <option value="multi">多成员</option>
+          <option value="single">单成员</option>
+        </select>
+      </label>
+      <label>搜索 candidate id
+        <input id="f-search" type="search" placeholder="ec-…">
+      </label>
+    </div>
+    <div id="queue" class="queue"></div>
+  </aside>
+
+  <section>
+    <div id="detail" class="detail">
+      <p class="muted">选择左侧 candidate 开始审核</p>
+    </div>
+  </section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
