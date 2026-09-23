@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Step 1D · Hard Negative Review</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <div class="title">
+    <h1>Step 1D · Negative-Complete Review</h1>
+    <p id="meta" class="muted">读取中…</p>
+  </div>
+  <div class="progress">
+    <b id="progress">0 / 0</b>
+    <span id="status-line" class="muted">读取中</span>
+  </div>
+</header>
+
+<main>
+  <aside>
+    <div class="filters">
+      <label>状态
+        <select id="f-status">
+          <option value="pending">未审核</option>
+          <option value="all">全部</option>
+          <option value="NEGATIVE_OK">NEGATIVE_OK</option>
+          <option value="REQUIRED_PRESENT">REQUIRED_PRESENT</option>
+          <option value="UNCERTAIN">UNCERTAIN</option>
+          <option value="BAD_CROP">BAD_CROP</option>
+        </select>
+      </label>
+      <label>摄像头
+        <select id="f-camera"><option value="all">全部</option></select>
+      </label>
+      <label>来源
+        <select id="f-origin">
+          <option value="all">全部</option>
+          <option value="historical_non_litter">historical_non_litter</option>
+          <option value="reconciled_non_litter">reconciled_non_litter</option>
+        </select>
+      </label>
+      <label>搜索 candidate / camera
+        <input id="f-search" type="search" placeholder="hn-…">
+      </label>
+    </div>
+    <div id="queue" class="queue"></div>
+  </aside>
+
+  <section>
+    <div id="detail" class="detail">
+      <p class="muted">选择左侧 candidate 开始 negative 完整性审核（仅 152 个 ready candidate）</p>
+    </div>
+  </section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
