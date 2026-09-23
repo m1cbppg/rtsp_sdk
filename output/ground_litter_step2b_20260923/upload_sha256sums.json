@@ -9,9 +9,9 @@
     "code/rtsp_annotator/ground_litter_localization_review.py": "cb69a5a477c2fe2ba8f71fbe5083ec43d6092b9f49a78d196e282d4964ceb8b9",
     "code/rtsp_annotator/ground_litter_positive_tiles.py": "912efcbe6de78a5f63e74c215b02c680e60414238b7e53e864c73cfb541eee8c",
     "code/rtsp_annotator/ground_litter_step2a.py": "267864fa88d507697b85da5a627bf446d403dcdafef5ec02c56a46decb46332f",
-    "code/rtsp_annotator/ground_litter_step2b.py": "cfee8b2fe16dd330c10267494e842db85520320f5b361557977d952cf8c44899",
+    "code/rtsp_annotator/ground_litter_step2b.py": "4491f5ee85265f1ee9e16ff031e8943982d3446591b9724a19f2c3cfe7e1a53b",
     "code/scripts/run_ground_litter_step2a.py": "d273d60bfbf480c3e214caaf999020abb4d9b5b7b1cb16fb23a4d679514a9567",
-    "code/scripts/run_ground_litter_step2b.py": "f4f367b2b5f43d978ac69d6d327126ac69c9773f16d8aaa939cd28aebccc3d15",
+    "code/scripts/run_ground_litter_step2b.py": "27eebbe4af953c575bfde0ee6d04c00254096aba046b101347ee679180b4a5ac",
     "frozen/data.yaml": "04a587c568947949fd3b955b58c08d4c8d7e21937090c9e17b62325eca760078",
     "out/full_train_dataset/data.yaml": "04a587c568947949fd3b955b58c08d4c8d7e21937090c9e17b62325eca760078",
     "out/full_train_dataset/images/train/hn-02f7af08cc6a62dafb99.png": "e99b267561fb71adf5ea4d540c33bdeb9024859533974b60d1523fda0b5c5ce9",
@@ -230,11 +230,20 @@
     "out/full_train_dataset/labels/train/pt-fa45acecc28bb80957b9.txt": "7527f52c703e3ee1e795335cdc9cf280a661d82e358a36a71d6601aed00c3491",
     "out/full_train_manifest.json": "9a9205f88064bb6d1258898dea5e25d137800394a2ad6eb255f802c899e13451"
   },
+  "handoff_correction": {
+    "diagnostic": "best.pt",
+    "inference_rerun": false,
+    "post_metrics_json_rewritten": false,
+    "primary": "last.pt",
+    "primary_sha256": "4852392aeae9a68669a50752eb1f7466fbcc9a426524faba86fb20a3b6351a94",
+    "training_rerun": false
+  },
   "note": "out/full_train_dataset/data.yaml is a derived copy of frozen/data.yaml with only the server path line rewritten; the frozen file is verified at frozen/data.yaml",
-  "reupload_reason": "the shared loader-sanity gate required a positive inside the sampled batch window (dataset scan-order dependent) and the freeze guard required preflight.json, which a host holding only the uploaded training set does not have",
+  "reupload_reason": "loader-sanity gate was dataset-scan-order dependent; the freeze guard needed a host-portable pretrained-weight hash; and the Step 2B handoff was corrected to the pre-registered last-epoch checkpoint (best.pt diagnostic only) with the FULL_TRAINING_COMPLETE verdict",
   "reuploads": {
+    "code/rtsp_annotator/ground_litter_step2b.py": "4491f5ee85265f1ee9e16ff031e8943982d3446591b9724a19f2c3cfe7e1a53b",
     "code/scripts/run_ground_litter_step2a.py": "d273d60bfbf480c3e214caaf999020abb4d9b5b7b1cb16fb23a4d679514a9567",
-    "code/scripts/run_ground_litter_step2b.py": "f4f367b2b5f43d978ac69d6d327126ac69c9773f16d8aaa939cd28aebccc3d15"
+    "code/scripts/run_ground_litter_step2b.py": "27eebbe4af953c575bfde0ee6d04c00254096aba046b101347ee679180b4a5ac"
   },
   "server_dir": "/home/sf01/step2b-20260923",
   "verified_with": "sha256sum -c SHA256SUMS on the server (226/226 OK at upload)"

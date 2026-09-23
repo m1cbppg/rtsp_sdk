@@ -12,21 +12,31 @@
       "sha256": "4852392aeae9a68669a50752eb1f7466fbcc9a426524faba86fb20a3b6351a94"
     }
   },
-  "frozen_at": "2026-09-23T14:10:17Z",
+  "diagnostic": {
+    "bytes": 20317957,
+    "forbidden_as": "Step 2C first-round official checkpoint",
+    "name": "best.pt",
+    "path": "/home/sf01/step2b-20260923/out/runs/full_finetune/weights/best.pt",
+    "reason": "best.pt was selected by the training-set validation metric while train == val; it must not be used as the Step 2C first-round official checkpoint",
+    "role": "diagnostic only",
+    "sha256": "e3e1192bcf1dece87d31f2e282ff59630c93359f2b4539bf05f269d810e6012c"
+  },
+  "frozen_at": "2026-09-23T14:45:34Z",
   "pretrained_weight_sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b",
   "pretrained_weight_sha_source": "frozen_input_verification.json",
-  "primary": "best.pt",
+  "primary": "last.pt",
   "primary_bytes": 20317957,
-  "primary_path": "/home/sf01/step2b-20260923/out/runs/full_finetune/weights/best.pt",
-  "primary_sha256": "e3e1192bcf1dece87d31f2e282ff59630c93359f2b4539bf05f269d810e6012c",
+  "primary_epoch": 100,
+  "primary_path": "/home/sf01/step2b-20260923/out/runs/full_finetune/weights/last.pt",
+  "primary_sha256": "4852392aeae9a68669a50752eb1f7466fbcc9a426524faba86fb20a3b6351a94",
   "read_only": {
     "best.pt": {
       "mode_after": "0o444",
-      "mode_before": "0o664"
+      "mode_before": "0o444"
     },
     "last.pt": {
       "mode_after": "0o444",
-      "mode_before": "0o664"
+      "mode_before": "0o444"
     }
   },
   "recipe": {
@@ -56,6 +66,7 @@
     "val": true
   },
   "schema_version": "ground_litter_step2b_v1",
+  "selection_rule": "last epoch (epoch 100); best.pt is excluded because train == val would make it a selection on the training-set validation metric",
   "step2c_handoff": {
     "conf_levels": [
       0.01,
@@ -63,6 +74,13 @@
       0.1
     ],
     "development_accessed": false,
+    "forbidden_checkpoints": {
+      "best.pt": {
+        "reason": "best.pt was selected by the training-set validation metric while train == val; it must not be used as the Step 2C first-round official checkpoint",
+        "role": "diagnostic only",
+        "sha256": "e3e1192bcf1dece87d31f2e282ff59630c93359f2b4539bf05f269d810e6012c"
+      }
+    },
     "matching": {
       "iou_normal": 0.3,
       "iou_small": 0.2,
@@ -74,11 +92,12 @@
       "small_expand": 0.5,
       "small_gt_short_side_px": 20.0
     },
-    "rule": "Step 2C must load exactly this SHA-256 (best.pt); the checkpoint was fixed before any Development asset is looked at, and no re-selection on Development is allowed",
+    "rule": "Step 2C must load exactly this SHA-256 (last.pt, last epoch); the checkpoint was fixed before any Development asset is looked at, and no re-selection on Development is allowed",
     "sealed_accessed": false,
     "train_val_split": "train == val (train-set sanity only)",
-    "weights": "/home/sf01/step2b-20260923/out/runs/full_finetune/weights/best.pt",
-    "weights_sha256": "e3e1192bcf1dece87d31f2e282ff59630c93359f2b4539bf05f269d810e6012c"
+    "weights": "/home/sf01/step2b-20260923/out/runs/full_finetune/weights/last.pt",
+    "weights_epoch": 100,
+    "weights_sha256": "4852392aeae9a68669a50752eb1f7466fbcc9a426524faba86fb20a3b6351a94"
   },
   "train_manifest_sha256": "9a9205f88064bb6d1258898dea5e25d137800394a2ad6eb255f802c899e13451",
   "training": {

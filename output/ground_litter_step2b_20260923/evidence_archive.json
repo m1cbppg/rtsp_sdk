@@ -19,6 +19,17 @@
     "train_full_finetune.log": "a382d2d2e4b8cd1485a717ced71175d725999bb496e5eba73d46596c11cb9fb4",
     "training.json": "4cc08352b3ca3c4ed315d6dc1eb979fc5ac14036a1ecb79e081d875ddde73438"
   },
+  "handoff_correction_archive": {
+    "archive_sha256_local": "a33b3241f888874add170fdbb1138ebc3f61a27cc544305917916ac54202b2c0",
+    "archive_sha256_remote": "a33b3241f888874add170fdbb1138ebc3f61a27cc544305917916ac54202b2c0",
+    "files": {
+      "SHA256SUMS": "0e36e973188e4b0f966e04d01539a2f0038ce1bdcb4814234e65b71fcb8f5600",
+      "checkpoint_freeze.json": "194f4a165012d3e1a76ce43709436ab22e6dd63abe244d580da8dbf950926bab",
+      "checkpoint_hashes.json": "83086fda8d5c914c2d9b02287d5e64567e8407459228babe075da6a3d1e39c94"
+    },
+    "ok": true,
+    "remote_archive": "/tmp/step2b_fix.tar.gz"
+  },
   "ok": true,
   "remote_archive": "/tmp/step2b_ev.tar.gz",
   "server_manifest_matches_local_frozen": true

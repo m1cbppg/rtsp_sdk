@@ -50076,21 +50076,31 @@
         "sha256": "4852392aeae9a68669a50752eb1f7466fbcc9a426524faba86fb20a3b6351a94"
       }
     },
-    "frozen_at": "2026-09-23T14:10:17Z",
+    "diagnostic": {
+      "bytes": 20317957,
+      "forbidden_as": "Step 2C first-round official checkpoint",
+      "name": "best.pt",
+      "path": "/home/sf01/step2b-20260923/out/runs/full_finetune/weights/best.pt",
+      "reason": "best.pt was selected by the training-set validation metric while train == val; it must not be used as the Step 2C first-round official checkpoint",
+      "role": "diagnostic only",
+      "sha256": "e3e1192bcf1dece87d31f2e282ff59630c93359f2b4539bf05f269d810e6012c"
+    },
+    "frozen_at": "2026-09-23T14:45:34Z",
     "pretrained_weight_sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b",
     "pretrained_weight_sha_source": "frozen_input_verification.json",
-    "primary": "best.pt",
+    "primary": "last.pt",
     "primary_bytes": 20317957,
-    "primary_path": "/home/sf01/step2b-20260923/out/runs/full_finetune/weights/best.pt",
-    "primary_sha256": "e3e1192bcf1dece87d31f2e282ff59630c93359f2b4539bf05f269d810e6012c",
+    "primary_epoch": 100,
+    "primary_path": "/home/sf01/step2b-20260923/out/runs/full_finetune/weights/last.pt",
+    "primary_sha256": "4852392aeae9a68669a50752eb1f7466fbcc9a426524faba86fb20a3b6351a94",
     "read_only": {
       "best.pt": {
         "mode_after": "0o444",
-        "mode_before": "0o664"
+        "mode_before": "0o444"
       },
       "last.pt": {
         "mode_after": "0o444",
-        "mode_before": "0o664"
+        "mode_before": "0o444"
       }
     },
     "recipe": {
@@ -50120,6 +50130,7 @@
       "val": true
     },
     "schema_version": "ground_litter_step2b_v1",
+    "selection_rule": "last epoch (epoch 100); best.pt is excluded because train == val would make it a selection on the training-set validation metric",
     "step2c_handoff": {
       "conf_levels": [
         0.01,
@@ -50127,6 +50138,13 @@
         0.1
       ],
       "development_accessed": false,
+      "forbidden_checkpoints": {
+        "best.pt": {
+          "reason": "best.pt was selected by the training-set validation metric while train == val; it must not be used as the Step 2C first-round official checkpoint",
+          "role": "diagnostic only",
+          "sha256": "e3e1192bcf1dece87d31f2e282ff59630c93359f2b4539bf05f269d810e6012c"
+        }
+      },
       "matching": {
         "iou_normal": 0.3,
         "iou_small": 0.2,
@@ -50138,11 +50156,12 @@
         "small_expand": 0.5,
         "small_gt_short_side_px": 20.0
       },
-      "rule": "Step 2C must load exactly this SHA-256 (best.pt); the checkpoint was fixed before any Development asset is looked at, and no re-selection on Development is allowed",
+      "rule": "Step 2C must load exactly this SHA-256 (last.pt, last epoch); the checkpoint was fixed before any Development asset is looked at, and no re-selection on Development is allowed",
       "sealed_accessed": false,
       "train_val_split": "train == val (train-set sanity only)",
-      "weights": "/home/sf01/step2b-20260923/out/runs/full_finetune/weights/best.pt",
-      "weights_sha256": "e3e1192bcf1dece87d31f2e282ff59630c93359f2b4539bf05f269d810e6012c"
+      "weights": "/home/sf01/step2b-20260923/out/runs/full_finetune/weights/last.pt",
+      "weights_epoch": 100,
+      "weights_sha256": "4852392aeae9a68669a50752eb1f7466fbcc9a426524faba86fb20a3b6351a94"
     },
     "train_manifest_sha256": "9a9205f88064bb6d1258898dea5e25d137800394a2ad6eb255f802c899e13451",
     "training": {
@@ -57752,6 +57771,17 @@
         "train_full_finetune.log": "a382d2d2e4b8cd1485a717ced71175d725999bb496e5eba73d46596c11cb9fb4",
         "training.json": "4cc08352b3ca3c4ed315d6dc1eb979fc5ac14036a1ecb79e081d875ddde73438"
       },
+      "handoff_correction_archive": {
+        "archive_sha256_local": "a33b3241f888874add170fdbb1138ebc3f61a27cc544305917916ac54202b2c0",
+        "archive_sha256_remote": "a33b3241f888874add170fdbb1138ebc3f61a27cc544305917916ac54202b2c0",
+        "files": {
+          "SHA256SUMS": "0e36e973188e4b0f966e04d01539a2f0038ce1bdcb4814234e65b71fcb8f5600",
+          "checkpoint_freeze.json": "194f4a165012d3e1a76ce43709436ab22e6dd63abe244d580da8dbf950926bab",
+          "checkpoint_hashes.json": "83086fda8d5c914c2d9b02287d5e64567e8407459228babe075da6a3d1e39c94"
+        },
+        "ok": true,
+        "remote_archive": "/tmp/step2b_fix.tar.gz"
+      },
       "ok": true,
       "remote_archive": "/tmp/step2b_ev.tar.gz",
       "server_manifest_matches_local_frozen": true
@@ -57800,9 +57830,9 @@
         "code/rtsp_annotator/ground_litter_localization_review.py": "cb69a5a477c2fe2ba8f71fbe5083ec43d6092b9f49a78d196e282d4964ceb8b9",
         "code/rtsp_annotator/ground_litter_positive_tiles.py": "912efcbe6de78a5f63e74c215b02c680e60414238b7e53e864c73cfb541eee8c",
         "code/rtsp_annotator/ground_litter_step2a.py": "267864fa88d507697b85da5a627bf446d403dcdafef5ec02c56a46decb46332f",
-        "code/rtsp_annotator/ground_litter_step2b.py": "cfee8b2fe16dd330c10267494e842db85520320f5b361557977d952cf8c44899",
+        "code/rtsp_annotator/ground_litter_step2b.py": "4491f5ee85265f1ee9e16ff031e8943982d3446591b9724a19f2c3cfe7e1a53b",
         "code/scripts/run_ground_litter_step2a.py": "d273d60bfbf480c3e214caaf999020abb4d9b5b7b1cb16fb23a4d679514a9567",
-        "code/scripts/run_ground_litter_step2b.py": "f4f367b2b5f43d978ac69d6d327126ac69c9773f16d8aaa939cd28aebccc3d15",
+        "code/scripts/run_ground_litter_step2b.py": "27eebbe4af953c575bfde0ee6d04c00254096aba046b101347ee679180b4a5ac",
         "frozen/data.yaml": "04a587c568947949fd3b955b58c08d4c8d7e21937090c9e17b62325eca760078",
         "out/full_train_dataset/data.yaml": "04a587c568947949fd3b955b58c08d4c8d7e21937090c9e17b62325eca760078",
         "out/full_train_dataset/images/train/hn-02f7af08cc6a62dafb99.png": "e99b267561fb71adf5ea4d540c33bdeb9024859533974b60d1523fda0b5c5ce9",
@@ -58021,11 +58051,20 @@
         "out/full_train_dataset/labels/train/pt-fa45acecc28bb80957b9.txt": "7527f52c703e3ee1e795335cdc9cf280a661d82e358a36a71d6601aed00c3491",
         "out/full_train_manifest.json": "9a9205f88064bb6d1258898dea5e25d137800394a2ad6eb255f802c899e13451"
       },
+      "handoff_correction": {
+        "diagnostic": "best.pt",
+        "inference_rerun": false,
+        "post_metrics_json_rewritten": false,
+        "primary": "last.pt",
+        "primary_sha256": "4852392aeae9a68669a50752eb1f7466fbcc9a426524faba86fb20a3b6351a94",
+        "training_rerun": false
+      },
       "note": "out/full_train_dataset/data.yaml is a derived copy of frozen/data.yaml with only the server path line rewritten; the frozen file is verified at frozen/data.yaml",
-      "reupload_reason": "the shared loader-sanity gate required a positive inside the sampled batch window (dataset scan-order dependent) and the freeze guard required preflight.json, which a host holding only the uploaded training set does not have",
+      "reupload_reason": "loader-sanity gate was dataset-scan-order dependent; the freeze guard needed a host-portable pretrained-weight hash; and the Step 2B handoff was corrected to the pre-registered last-epoch checkpoint (best.pt diagnostic only) with the FULL_TRAINING_COMPLETE verdict",
       "reuploads": {
+        "code/rtsp_annotator/ground_litter_step2b.py": "4491f5ee85265f1ee9e16ff031e8943982d3446591b9724a19f2c3cfe7e1a53b",
         "code/scripts/run_ground_litter_step2a.py": "d273d60bfbf480c3e214caaf999020abb4d9b5b7b1cb16fb23a4d679514a9567",
-        "code/scripts/run_ground_litter_step2b.py": "f4f367b2b5f43d978ac69d6d327126ac69c9773f16d8aaa939cd28aebccc3d15"
+        "code/scripts/run_ground_litter_step2b.py": "27eebbe4af953c575bfde0ee6d04c00254096aba046b101347ee679180b4a5ac"
       },
       "server_dir": "/home/sf01/step2b-20260923",
       "verified_with": "sha256sum -c SHA256SUMS on the server (226/226 OK at upload)"
@@ -59906,7 +59945,10 @@
     "unsupported_args_skipped": []
   },
   "verdict": {
+    "authoritative_source": "verdict.json (written by the report step)",
+    "completion_failures": [],
     "failed_preconditions": [],
+    "hard_failures": [],
     "note": "FULL_TRAIN_SET_SANITY_ONLY: every metric in this step is measured on the training tiles; train == val, so no generalisation is claimed",
     "preconditions": {
       "augmentation_matches_recipe": true,
@@ -59917,9 +59959,13 @@
       "loss_decreased": true,
       "nan_free": true
     },
+    "superseded_note": "post_metrics.json keeps its raw inference record; this label was normalised after review because best.pt must not be selected on the training-set validation metric, and no training or inference was re-run",
+    "superseded_verdict": "FULL_FINETUNE_SANITY_PASS",
     "train_set_gt_proposal_recall_at_0.01": 1.0,
     "train_set_image_hit_rate_at_0.01": 1.0,
     "train_set_recall_bar": 0.9,
-    "verdict": "FULL_FINETUNE_SANITY_PASS"
+    "train_set_recall_bar_role": "informational reference only; never selects the checkpoint and never grades the model",
+    "verdict": "FULL_TRAINING_COMPLETE",
+    "verdict_basis": "run completion only: schedule, frozen recipe, no NaN/Inf"
   }
 }

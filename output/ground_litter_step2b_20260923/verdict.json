@@ -1,0 +1,24 @@
+{
+  "authoritative_source": "verdict.json (written by the report step)",
+  "completion_failures": [],
+  "failed_preconditions": [],
+  "hard_failures": [],
+  "note": "FULL_TRAIN_SET_SANITY_ONLY: every metric in this step is measured on the training tiles; train == val, so no generalisation is claimed",
+  "preconditions": {
+    "augmentation_matches_recipe": true,
+    "epochs_completed": true,
+    "frozen_args_applied": true,
+    "full_pool_ok": true,
+    "loader_ok": true,
+    "loss_decreased": true,
+    "nan_free": true
+  },
+  "superseded_note": "post_metrics.json keeps its raw inference record; this label was normalised after review because best.pt must not be selected on the training-set validation metric, and no training or inference was re-run",
+  "superseded_verdict": "FULL_FINETUNE_SANITY_PASS",
+  "train_set_gt_proposal_recall_at_0.01": 1.0,
+  "train_set_image_hit_rate_at_0.01": 1.0,
+  "train_set_recall_bar": 0.9,
+  "train_set_recall_bar_role": "informational reference only; never selects the checkpoint and never grades the model",
+  "verdict": "FULL_TRAINING_COMPLETE",
+  "verdict_basis": "run completion only: schedule, frozen recipe, no NaN/Inf"
+}
