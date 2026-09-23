@@ -1,9 +1,9 @@
 # 五路监控零散地面垃圾识别最终技术方案（V1 冻结候选）
 
 日期：2026-09-22  
-状态：**方案评审完成；进入离线数据重建与 A/B 验证前冻结**  
+状态：**第三轮代码审查后修订；Detector 路线冻结，V4 生产契约需按本文 P1 边界实现**  
 范围：五路现有监控 + 后续 ROI 变化、摄像头轻微移动和新增同类监控的复用  
-生产边界：本方案第一阶段只做离线数据、训练、回放评估，不修改生产流
+生产边界：3～7 天用于判定 detector 路线，不等于 3～7 天完成生产 V4；生产 shadow 前还必须完成原图入口、事件关闭语义、告警账本、冻结评估资产与资源验收
 
 ---
 
@@ -85,6 +85,8 @@ FN + 高价值 FP
 5. **先解决 detector 的召回能力，再解决误报**。如果 detector 连候选都不给出，classifier 和时间规则都救不了。
 6. **生产指标按事件计算**，而不是按单帧框计算。
 7. **人力是最稀缺资源**。机器负责 proposal、框、去重、挑高价值样本；人工只做审核判断。
+8. **离线原图效果和当前线上入口必须分开验收**。当前生产 ground-litter 旁路位于 nvstreammux 之后，默认拿到的是 1920×1080 mux 帧，不是 2560×1440 摄像头源帧；V4 不能把“mux 后 native tile”误称为“源图 native tile”。
+9. **检测观测、事件状态、持久化事件/告警、显示/通知是四层不同契约**。不能再从显示框或进程内 confirmed 数推导生产告警指标。
 
 ---
 
@@ -157,7 +159,7 @@ FN + 高价值 FP
 
 ## 3. 为什么这条路线具有现实可行性
 
-### 3.1 原生像素 ROI / tile 能直接解决主要信号损失
+### 3.1 原生像素 ROI / tile 能直接解决主要信号损失，但当前线上入口尚未满足“源图原生像素”
 
 全帧从 2560 宽缩到 640，线性缩放约为 0.25。
 
@@ -169,9 +171,17 @@ FN + 高价值 FP
 
 这会把原本可见的纸巾、包装物继续压缩到几乎不可识别。
 
-当前五路 ROI 面积仅约 0.85%～22.03%。如果在原始分辨率上先裁 ROI 或切 640×640 native tiles，再按 640 输入 detector，目标像素尺寸基本被保留。
+当前五路 ROI 面积仅约 0.85%～22.03%。如果在**摄像头源分辨率**上先裁 ROI 或切 640×640 source tiles，再按 640 输入 detector，目标像素尺寸基本被保留。
 
-仓库当前 ground_litter_detection.py 已明确实现和描述“native-pixel tiling”：从原始 2560×1440 帧切 640 tile，而不是先缩整帧。这说明该工程基础已经存在，不需要从零实现。
+但是第三轮代码审查确认：当前 DeepStream ground-litter 旁路从 `analytics_tee` 分出，而 `analytics_tee` 位于 `nvstreammux -> primary_infer -> tracker` 之后；`deepstream_manager.py` 默认 `mux_width=1920`、`mux_height=1080`。因此当前 `ground_litter_detection.py` 的 640 tile 保留的是**mux 后 1920×1080 图像中的像素**，不是源 2560×1440 的原始像素。
+
+这意味着：
+
+- 离线 PS 原图实验可以验证 detector 的视觉上限；
+- 但离线原图效果不能直接代表当前生产入口；
+- V4 生产接入必须先满足 §5.0 的“输入帧契约”，否则会出现离线成功、线上因预缩放重新丢召回。
+
+现有 native-tile 代码仍然可复用：tile 生成、坐标还原、跨 tile NMS 都有价值；需要新增/调整的是**tile 之前的源图获取边界**。
 
 SAHI 的公开 sliced inference 方案也采用相同思想：大图切成有重叠的小块、独立推理、再把结果映射回整图并合并；其文档明确把大图小目标和 surveillance 作为适用问题。
 
@@ -285,6 +295,38 @@ SAHI 的公开 sliced inference 方案也采用相同思想：大图切成有重
 - source=shared_detector；
 - 后续如果新增模型，可继续注册新的 detector source，而不改变 event state machine。
 
+### 5.0 输入帧契约（P1，生产 V4 前置条件）
+
+V4 detector 输入必须显式区分：
+
+- `source_frame`：解码后的摄像头源分辨率帧，目标是 2560×1440（以实际源 metadata 为准）；
+- `mux_frame`：经 nvstreammux 统一缩放后的帧，当前默认 1920×1080；
+- `detector_tile`：从 source_frame ROI 中切出的原生 source tile。
+
+每个 V4 frame envelope 至少携带：
+
+- camera_id / stream_id；
+- scene_version；
+- source_width / source_height；
+- source frame sequence 或可关联身份；
+- source PTS / acquisition timestamp（若源无法可靠提供则显式标 unknown）；
+- local arrival monotonic timestamp；
+- source -> mux 坐标变换；
+- actor metadata 对应的 frame identity / PTS；
+- frame health / decode discontinuity 信息。
+
+生产优先方案：在**mux 缩放前**为 ground-litter 建低频、latest-wins 的源图旁路，再让主链继续进入 mux。若 ServiceMaker/DeepStream 的 pre-mux tee 工程代价过高，可离线比较以下备选后再选实现：
+
+1. pre-mux source tee（优先）；
+2. ground-litter 独立低频解码入口；
+3. 将 mux 保持源分辨率，但只有在证明主链 GPU / 显存 / 带宽可接受时才采用。
+
+禁止把当前 mux 后 1920×1080 appsink 继续描述为“源图 native”。
+
+actor metadata 当前来自 mux 后主模型。V4 使用 source_frame 后，actor 不能只按“当前循环拿到的框”默认同帧；必须按 camera + frame identity / PTS 对齐，并用 source<->mux 变换映射坐标。无法可靠对齐时，actor guard 标记为 `UNAVAILABLE`，不能把它当作“没有 actor”。
+
+离线 detector A/B 的第一阶段可以暂时不启用 actor guard，先单独测 source-frame proposal recall；生产回放再验证 actor 对齐和规则损失。
+
 ### 5.1 动态 ROI tile 生成
 
 不把 tile 坐标写死。
@@ -304,7 +346,7 @@ SAHI 的公开 sliced inference 方案也采用相同思想：大图切成有重
 
 初始只固定 640 + 20% overlap，避免第一轮同时调 tile size、imgsz、overlap 三个变量。
 
-如 blind set 显示 tile 边缘仍有明显漏检，再单独测试 25%～30% overlap。
+如**开发验证集（development validation）**显示 tile 边缘仍有明显漏检，再单独测试 25%～30% overlap。封存 Blind Test 不允许用于调整 overlap、阈值、模型或任何规则。
 
 ### 5.2 ROI / 摄像头变化
 
@@ -344,13 +386,37 @@ ROI / overlay 改变后必须随 scene_version 重校验。
 
 ### 5.4 Actor / occlusion guard
 
+第三轮代码审查确认：当前 `tile_candidates_batch()` 会在 actor overlap 超阈值时直接 `continue` 丢弃候选。这与 V4 的目标不一致，因为事件层无法再区分：
+
+- detector 完全没检出；
+- detector 已检出，但被 actor 规则拦截；
+- detector 已检出，但当前被遮挡，暂时不可判断。
+
+V4 的统一 detector adapter 必须输出**未被 actor 丢弃的原始模型候选**。每个候选附带结构化 gate evidence，例如：
+
+- roi_membership；
+- overlay_excluded；
+- actor_overlap；
+- occlusion_state；
+- size_band；
+- raw_confidence；
+- gate_reason。
+
 actor 只作为上下文证据：
 
-- person / vehicle 高重叠时可暂缓确认；
+- person / vehicle 高重叠时可暂缓事件确认或清除；
 - actor 离开后垃圾仍存在，增加事件可信度；
-- 不应因为目标曾靠近人或车辆就永久判定非垃圾。
+- 不应因为目标曾靠近人或车辆就永久判定非垃圾；
+- actor metadata 不可用/未对齐时属于 UNKNOWN，不等价于“没有 actor”。
 
-这样能支持“人放下垃圾后离开”的业务过程。
+评估必须分层报告：
+
+1. raw detector proposal recall；
+2. ROI / overlay 等确定性 gate 后 recall；
+3. actor/occlusion guard 后 recall；
+4. 最终 confirmed alert recall。
+
+这样才能定位召回到底损失在哪一层。
 
 ---
 
@@ -585,6 +651,29 @@ Candidate Review 只能告诉我们：
 
 Blind ROI Audit 才能暴露“所有模型共同漏掉”的垃圾，从而形成真实端到端 recall 证据。
 
+### 8.5 审核代表卡、独立事件、训练 tile 必须分离
+
+现有审核资产是“候选卡 + crop + context + 标签”，它不是天然完整标注的 detection training tile。V4 数据层必须使用三个不同身份：
+
+- `review_card_id`：为了节省人工展示的一张代表卡；
+- `episode_id`：真实世界中的一个独立垃圾出现/持续/清走过程；
+- `training_tile_id`：真正进入 detector 训练的一块 source-scale 图像。
+
+三者禁止互相等同。
+
+历史 `dedupe_persistent_proposals()` 主要按位置和尺寸去重，适合减少审核卡，但不具备完整时间连续性语义；不同日期、不同时间在同一位置先后出现的两个垃圾不能因此合成同一 episode。
+
+正式 episode 聚类至少保留：
+
+- first_seen / last_seen；
+- 全部成员帧；
+- camera / scene_version；
+- 中间是否存在经过人工确认的 clean gap；
+- 原始 file_id / timestamp；
+- 聚类依据和 confidence。
+
+一旦确认中间已经清走，再次同位置出现必须创建新 episode。
+
 ---
 
 ## 9. 历史数据如何重新利用
@@ -644,19 +733,25 @@ Blind ROI Audit 才能暴露“所有模型共同漏掉”的垃圾，从而形�
 
 ### 10.1 处理原则
 
-严格沿用：
+V4 正式数据工厂优先复用 `ground_litter_recording_cache.py` 的受管缓存、租约、artifact SHA-256、stage transaction 和 commit-after-delete 契约，而不是把简化抽帧脚本直接升级成评估基础设施。
+
+训练挖掘流程：
 
 1. 按 1～4 小时窗口查询文件列表；
-2. 下载一个 PS；
+2. 受管下载一个 PS；
 3. 校验 file_id / size / SHA-256；
-4. 解码需要的帧；
-5. 运行候选挖掘；
-6. 只保存小型 JPEG/WebP、JSON/JSONL、必要特征；
-7. 删除 PS；
-8. 更新 checkpoint；
-9. 处理下一个。
+4. acquire lease；
+5. 解码需要的帧；
+6. 运行候选挖掘；
+7. 保存小型 JPEG/WebP、JSON/JSONL、必要特征；
+8. artifact 校验并提交对应 stage；
+9. 释放 lease；
+10. 只有目标 stage committed 后才允许删除 PS；
+11. 更新 checkpoint，处理下一个。
 
 禁止预先下载七天全部录像。
+
+`collect_ground_litter_audit_frames.py` 当前适合稀疏候选抽样，但其 finally 直接删除 PS、结束后才写总 manifest 的模式不作为 sealed evaluation 的正式入口。
 
 ### 10.2 第一轮只处理白天
 
@@ -683,7 +778,20 @@ Blind ROI Audit 才能暴露“所有模型共同漏掉”的垃圾，从而形�
 
 短时变化只能是 proposal source，不能重新成为生产垃圾 detector。
 
-### 10.4 人工预算原则
+### 10.4 冻结评估资产必须可重放
+
+远端接口只有滚动约 7 天，不能把“以后还能重新下载”当作评估可复现保证。
+
+对 Development Validation / Sealed Test 窗口：
+
+- 保留原始 PS，或保留满足冻结采样协议的 source-resolution 帧序列；
+- 记录每帧实际 PTS/时间，不用“理论中心时间”代替实际抽到的时间；
+- 保存文件 SHA-256、解码版本、抽样协议、scene_version 和 ROI 配置；
+- 只有评估资产 commit 完成后才允许释放临时源。
+
+按当前实测流量，五路各保留 2 小时约为 10 camera-hours，约 10 GB 量级，属于可接受的封存成本；因此第一版优先直接封存对应 PS，避免为了省几 GB 牺牲可重放性。
+
+### 10.5 人工预算原则
 
 每个审核 batch 优先包含：
 
@@ -778,10 +886,19 @@ Positive：
 
 Negative：
 
-- 经人工验证的紧凑 NON_LITTER patch；
-- 只有经过 Blind / Gold 审核确认“该训练 tile 内没有 Required Litter”的 clean ROI tile。
+- 经人工验证的 hard-negative 目标；
+- 只有经过 Blind / Gold 审核确认“该训练 tile 内没有 Required Litter”的 clean source tile。
+
+**检测训练要求 tile 标注完整。** 对每个准备进入 detector 训练的 source-scale tile：
+
+1. 已知 Required Litter 必须全部有框；
+2. 任何 UNCERTAIN / IGNORE_SMALL / positive_unlocalized 若仍可见，不能静默留在 tile 中作为背景；
+3. 无法把 tile 标注完整时，优先裁掉该区域或整张 tile 暂不进入 detection training；
+4. 如果训练框架未来引入经过验证的 ignore-region 机制，必须做单独回归后才能使用，不能默认 YOLO / RF-DETR 会自动忽略未标对象。
 
 禁止把“某个候选框是 NON_LITTER”直接扩展成“整张原始 context 都是负样本”，否则 context 中未标出的真实垃圾会被错误当成背景。
+
+hard-negative 也要保持线上 source-scale 分布。不能把 64×64 或 96×96 的小负 patch 全部放大成 640×640 后直接当线上 tile 训练；优先从原始帧生成与部署一致的 640 source tile，并对整 tile 做必要的 clean/annotation-complete 审核。
 
 Exclude：
 
@@ -837,36 +954,69 @@ YOLO26s 与 RF-DETR-S 使用同一 Gold 数据。
 
 ## 14. Event Fusion V4
 
+V4 不通过把 V3.3 的 prior 字段“改名为 new_detector”来复用整个状态机。V3.3 中以下能力值得抽取复用：
+
+- 同目标空间关联；
+- 多 tick 时间窗口；
+- 重复时间戳/过长 gap 防护；
+- “未扫描”与“有效扫描未检出”的区分；
+- occlusion 时暂停 clear 证据；
+- SQLite inventory 中“absence is not removal”的原则。
+
+但 prior/profile-specific 的 suspension、clean-reference clear 和关闭规则不进入 V4。
+
 ### 14.1 单帧 candidate merge
 
-同一 tick：
+同一有效 detector scan：
 
 - Turhancan；
 - shared detector。
 
-候选统一映射回原图后，以 IoU / center distance / size ratio 去重。
+候选统一映射回 source frame 后，以 IoU / center distance / size ratio 去重。
 
-每个候选保留：
+每个 observation 至少保留：
 
 - source_set；
 - per-source confidence；
-- bbox；
-- timestamp；
-- scene_version。
+- raw bbox；
+- gated bbox / gate evidence；
+- camera_id / scene_version；
+- source frame identity / PTS；
+- scan_id；
+- detector_run_status；
+- actor/occlusion availability。
 
-### 14.2 Event state
+### 14.2 观测语义必须显式区分
 
-建议最简状态：
+对“目标位置本 tick 有没有证据”至少区分：
+
+- `SUPPORTED`：任一有效召回通道看到目标；
+- `SCANNED_ABSENT`：覆盖目标位置的有效 scan 已完成，但没有候选；
+- `NOT_SCANNED`：本 tick 根本没有跑到该通道/位置；
+- `FAILED`：模型或输入失败；
+- `STALE`：帧过期；
+- `OCCLUDED`：目标位置不可判断；
+- `ACTOR_ALIGNMENT_UNKNOWN`：原图与 actor metadata 无法可靠对齐。
+
+只有 `SCANNED_ABSENT` 可以累计“持续未检出”证据。其他不可判断状态一律暂停 absent/clear timer。
+
+任一召回通道持续提供 `SUPPORTED` 时，不能因为另一通道不可用而结束事件。
+
+### 14.3 Event state
+
+建议最简运行状态：
 
 - PENDING；
 - CONFIRMED；
-- OCCLUDED；
+- OCCLUDED / UNOBSERVABLE；
 - ABSENT_PENDING；
-- CLEARED / EXPIRED。
+- CLOSED_ABSENT；
+- CLEARED（仅在有独立清走证据时使用）；
+- EXPIRED（仅用于内存/生命周期管理，不宣称已清走）。
 
-不要延续 prior-specific 状态作为新架构核心。
+第一版如果只有 detector 的持续未检出，关闭原因应写 `persistent_absence` / `closed_absent`，不能写“已清走”。只有后续加入可靠的局部 clean-ground / before-after 清走证据后，才允许使用 `CLEARED`。
 
-### 14.3 时间证据的正确用途
+### 14.4 时间证据的正确用途
 
 时间证据可以增加：
 
@@ -874,27 +1024,47 @@ YOLO26s 与 RF-DETR-S 使用同一 Gold 数据。
 - 两个 detector 共同支持；
 - actor 离开后仍存在；
 - 新出现后持续；
-- 最终消失 / 清走。
+- 持续有效 scan 后未检出。
 
-但不要求：
+但不要求必须先观察到“新出现”，因为系统启动时垃圾可能已经存在。
 
-- 必须先观察到“新出现”。
+同样不允许“连续 3 次命中 = 一定是垃圾”。固定设施也可以无限连续命中。
 
-原因：系统启动时垃圾可能已经存在。
+### 14.5 持久化事件与告警账本
 
-同样不允许：
+生产链路明确拆为：
 
-- “连续 3 次命中 = 一定是垃圾”。
+~~~text
+Detection Observation
+        ↓
+Event State Machine
+        ↓
+Persistent Item/Event Ledger
+        ↓
+Alert Ledger / Delivery
+        ↓
+Display / OSD / Webhook
+~~~
 
-固定设施也可以无限连续命中。
+现有 `GroundLitterInventory` 的 SQLite 身份与“只有明确 clear evidence 才清除”原则应复用；现有 `EventRepository` / `WebhookDispatcher` 可以复用文件持久化、异步交付等基础，但 V4 仍需增加专门的 alert idempotency contract。
 
-### 14.4 告警去重
+至少持久化：
 
-同一持续垃圾事件只发一次告警。
+- item_id / episode identity；
+- camera_id / scene_version；
+- first_seen / last_supported；
+- event_state / close_reason；
+- alert_id；
+- alert_created_at；
+- delivery state / attempts；
+- payload hash；
+- reviewed label（若有人审）。
 
-如果事件真正清走后再次出现，可生成新事件。
+同一持续垃圾事件只允许创建一个业务 alert；重试必须复用相同 alert_id / idempotency key。进程重启后从持久化账本恢复去重身份，不能因为内存 event_id 重新从 1 开始而再次报警。
 
-生产 FP 指标按实际发出的错误告警计算。
+显示层的 `maximum_boxes` 只影响 OSD，不得影响告警账本和评估统计。
+
+生产 FP 必须从**实际 alert ledger**统计，而不是从当前显示框数、snapshot confirmed 数或内存 event 数推导。
 
 ---
 
@@ -906,24 +1076,30 @@ YOLO26s 与 RF-DETR-S 使用同一 Gold 数据。
 
 - low-frequency analysis；
 - latest-wins；
-- queue capacity 1；
 - stale frame 丢弃；
-- 多路 tile batch；
 - 推流主链路与分析旁路解耦。
+
+但必须区分“已有”与“待新增”：
+
+- 当前已有的是：按 DeepStream group 的 ground-litter 子进程、每路采样、单帧内多个 tile batch；
+- 当前**没有**完整的五路跨摄像头统一 batch 调度器；
+- 当前 `frame_age_ms` 主要反映进入子进程队列后的等待，不等于摄像头 source frame 的端到端年龄。
 
 初始推荐：
 
 - detector scan interval：约 4～6 秒 / camera；
-- 同一批次将当前待分析摄像头的 ROI tiles 合并 batch；
+- 第一阶段先按现有 group 方式测双模型实例数、显存、tile 数和可达到的五路扫描间隔；
 - 先离线测 YOLO26s / RF-DETR-S / Turhancan 的真实 P50/P95；
 - 生产 cadence 由“5 路总 GPU 占用 + 事件可接受确认延迟”共同决定。
 
 双 detector 并行是**逻辑架构**，不是承诺 3060 Ti 一定能在同一时刻全量运行两套模型。如果实测 GPU 预算不足，按以下顺序处理：
 
-1. 跨摄像头 / 跨 tile batch；
-2. 交错 Turhancan 与 new detector 的扫描时刻；
-3. 降低低价值通道扫描频率；
-4. 根据消融结果淘汰独立增量召回很低但成本高的通道。
+1. 交错 Turhancan 与 new detector 的扫描时刻；
+2. 降低低价值通道扫描频率；
+3. 根据消融结果淘汰独立增量召回很低但成本高的通道；
+4. 只有前述仍不足时，再新增独立共享推理调度器，实现五路 latest-frame 公平调度、最大 batch 等待、scene_version 校验与跨 camera/tile batch。
+
+跨摄像头 batch 是**候选优化项，不是当前已具备能力**。
 
 禁止通过堆积旧帧来换吞吐。
 
@@ -936,15 +1112,28 @@ YOLO26s 与 RF-DETR-S 使用同一 Gold 数据。
 - batch size；
 - GPU memory；
 - analysis tick P50 / P95；
-- frame age；
+- source frame age（可计算时）；
+- process queue wait；
+- inference time；
+- alert delay；
 - dropped ticks；
 - 主 RTSP publish FPS。
+
+若 source PTS / acquisition time 不可靠，source frame age 必须报告 UNKNOWN，不能拿 process 入队时间冒充端到端年龄。
 
 ---
 
 ## 16. 评估协议
 
-评估拆成两个集合，不再试图用一个 dataset 同时回答所有问题。
+复用并扩展现有 `ground_litter_acceptance.py` 的 episode、visible/clean interval、时间轴、重复记录、确认延迟和 Wilson 区间能力，不退化为简单“窗口有/无垃圾”二分类。
+
+数据严格分为三部分：
+
+1. **Training**：用于 detector 训练和 hard-negative learning；
+2. **Development Validation**：用于模型选择、阈值、tile overlap、事件参数和唯一一次 FN/FP 修正；
+3. **Sealed Test / Blind Replay**：封存后禁止用于任何调参，最终冻结版本只运行一次。
+
+现有 acceptance schema 目前只有 calibration / validation，需要 V4 扩展出清晰的 development / sealed-test 语义，或者建立等价的外层 manifest；不能用同一个 validation 集既调参又做最终声明。
 
 ### 16.1 Positive Challenge Set
 
@@ -982,9 +1171,37 @@ YOLO26s 与 RF-DETR-S 使用同一 Gold 数据。
 
 为了节省人工，可按固定时间片生成无框 ROI contact sheet；一旦发现明显垃圾再展开该时间片。
 
-模型训练、调 threshold、挑 winner 时禁止读取 Blind Test 标签。
+模型训练、调 threshold、调 tile overlap、选择 YOLO26s/RF-DETR winner、事件阈值以及第二轮 FN/FP 修正，全部只能读取 Development Validation。Sealed Blind Test 标签在最终版本冻结前不得参与任何选择。
 
-### 16.3 样本量解释
+### 16.3 Episode 真值与匹配
+
+Blind 审核入口可以先做“窗口有/无 Required Litter”，但最终评估真值要落到现有 episode/time-interval 结构。
+
+每个 truth episode 至少记录：
+
+- episode_id；
+- camera_id / scene_version；
+- visible intervals；
+- eligible / ignore；
+- 粗位置（point / coarse region / verified bbox，按人工能力逐步增强）；
+- object size band；
+- litter appearance category（只用于诊断，不作为训练类别）。
+
+多目标同框时必须定义一对一匹配规则，避免一个告警同时“命中”两个独立垃圾 episode。
+
+最终新增两类指标：
+
+- `visible_episode_recall`：继承现有 episode recall；
+- `false_alerts_per_camera_hour/day`：从 Alert Ledger 统计，而不是只统计 created records。
+
+同时保留：
+
+- duplicate alerts；
+- confirmation delay；
+- erroneous close / clear；
+- coverage gaps / unobservable time。
+
+### 16.4 样本量解释
 
 如果独立自然正事件很少：
 
@@ -999,7 +1216,7 @@ YOLO26s 与 RF-DETR-S 使用同一 Gold 数据。
 - ≥50 个、覆盖至少 3 路摄像头和多种垃圾外观后，才开始形成较可信的 overall recall 判断；
 - 单摄像头正事件 <5 时，不单独宣称该摄像头 recall，只报告 FP 和观察结果。
 
-### 16.4 Go / No-Go
+### 16.5 Go / No-Go
 
 #### 方向成立
 
@@ -1039,7 +1256,7 @@ YOLO26s 与 RF-DETR-S 使用同一 Gold 数据。
 
 ---
 
-## 17. 3～7 天离线判定计划
+## 17. 3～7 天 Detector 路线判定计划（不是生产 V4 完工计划）
 
 ### Day 1：Gold V1 重建
 
@@ -1064,13 +1281,14 @@ YOLO26s 与 RF-DETR-S 使用同一 Gold 数据。
 - unresolved / ignore；
 - 数据 manifest + fingerprint。
 
-### Day 2：Blind Set + 新自然数据
+### Day 2：Development / Sealed 数据协议 + 新自然数据
 
 目标：
 
 - 五路选择独立白天时间窗口；
-- 建 Blind ROI Audit；
-- 流式处理部分七天 PS；
+- 分别冻结 Development Validation 和 Sealed Blind Replay；
+- Sealed Test 原始 PS / source-resolution 评估资产进入受管缓存并提交；
+- 流式处理其他七天 PS 做训练挖掘；
 - Turhancan + YOLOE 挖新自然候选；
 - 如可行，补约 10～20 个人工摆放事件，只进训练。
 
@@ -1101,13 +1319,15 @@ YOLO26s 与 RF-DETR-S 使用同一 Gold 数据。
 - 相同 validation / challenge 结果；
 - candidate-level recall / FP 诊断。
 
-### Day 4：三路消融
+### Day 4：Development Validation 上三路消融
 
-统一跑：
+只在 Development Validation 上统一跑：
 
 - Turhancan only；
 - YOLO26s or RF-DETR winner only；
 - Turhancan + winner Fusion。
+
+Sealed Test 仍保持未读。
 
 重点看：
 
@@ -1118,7 +1338,7 @@ YOLO26s 与 RF-DETR-S 使用同一 Gold 数据。
 
 ### Day 5：唯一一次主动修正
 
-自动生成：
+自动生成的修正样本**只能来自 Training / Development Validation**：
 
 - winner FN；
 - 高置信 FP；
@@ -1128,22 +1348,34 @@ YOLO26s 与 RF-DETR-S 使用同一 Gold 数据。
 
 用户审核一轮。
 
-只针对主要错误补数据，训练第二版。
+只针对主要错误补数据，训练第二版并冻结全部模型/阈值/tile/event 参数。Sealed Test 仍不参与。
 
-### Day 6～7：长回放压力测试
+### Day 6：Sealed detector-only 最终测试
 
-至少在各路独立白天录像上跑长时间 replay。
+冻结第二版后，第一次读取 Sealed Test：
+
+- Turhancan only；
+- winner only；
+- Fusion。
+
+输出 sealed event recall、raw proposal recall、规则层损失和 error contact sheet。**测试结果不能再反向修改本轮模型。**
+
+### Day 7：V4 事件回放原型与资源测量
+
+在可重放 source-resolution 窗口上接入：
+
+- source-agnostic event semantics；
+- simulated alert ledger；
+- 实际 scan cadence / drop；
+- actor 暂时可设 unavailable 或在能可靠对齐时启用。
 
 目标：
 
-- confirmed FP / camera-day；
-- event recall；
-- GPU；
-- frame age；
-- event duplicate；
-- 是否出现新的高频 FP 簇。
+- 证明 observation -> event -> persistent alert 的行为正确；
+- 测现有 group 架构下 GPU / latency；
+- 给出 production V4 的剩余工程清单。
 
-达到方向门槛后才进入生产 shadow，不直接报警。
+**3～7 天的 Go/No-Go 只回答“detector 路线是否值得继续”。** 生产 shadow 准入还需要 §5.0 原图入口、actor 对齐、持久化告警、scene switch、资源预算全部验收。
 
 ---
 
@@ -1173,14 +1405,20 @@ YOLO26s 与 RF-DETR-S 使用同一 Gold 数据。
 
 建议模块边界：
 
+- ground_litter_source_frame.py  
+  source-frame envelope、原图入口、PTS/scene_version、source↔mux 坐标契约。
+
 - ground_litter_roi_tiles.py  
-  动态 ROI native tile 生成、坐标映射、merge。
+  动态 ROI source-native tile 生成、坐标映射、merge。
 
 - ground_litter_detector_v4.py  
   Turhancan / shared detector 统一 detector adapter。
 
 - ground_litter_event_v4.py  
-  source-agnostic event memory，不依赖 prior/profile。
+  source-agnostic event memory，不依赖 prior/profile；显式区分 SUPPORTED / SCANNED_ABSENT / NOT_SCANNED / FAILED / OCCLUDED。
+
+- ground_litter_alert_ledger.py  
+  持久化 item/event/alert 身份、幂等交付、重启去重和实际告警统计。
 
 - build_ground_litter_verified_dataset.py  
   历史 Silver 聚类、PS mining、Gold manifest。
@@ -1194,18 +1432,32 @@ YOLO26s 与 RF-DETR-S 使用同一 Gold 数据。
 - evaluate_ground_litter_v4.py  
   event recall、FP/camera-day、source ablation、size/camera/scene_version 分层。
 
-现有：
+现有可复用：
 
-- PS 流式下载；
-- native tiling；
+- recording cache 的租约 / SHA-256 / stage transaction / 提交后删除；
+- mux 后 native tiling 的切图 / merge 实现（输入边界需改为 source-frame）；
 - ROI geometry；
-- actor detection；
-- latest-wins；
+- primary actor detection（但需做 source-frame 时间/坐标对齐）；
+- V3.3 的未扫描 vs 扫描未检出、occlusion pause、时间窗口等局部逻辑；
+- GroundLitterInventory 的 SQLite identity 与“absence is not removal”原则；
+- EventRepository / WebhookDispatcher 的事件持久化与异步交付基础；
+- latest-wins 思想；
 - review UI；
-- event evidence；
-- DeepStream 主旁路隔离；
+- acceptance 的 episode / interval / duplicate / delay / Wilson 统计；
+- DeepStream 主旁路隔离。
 
-尽量复用，不重新造基础设施。
+待新增或改造：
+
+- mux 前 source-frame 低频入口；
+- raw candidate + gate evidence detector adapter；
+- source-agnostic V4 event close semantics；
+- alert ledger / idempotency / restart dedupe；
+- annotation-complete training tile builder；
+- development / sealed-test 数据隔离；
+- sealed replay 资产保留；
+- 必要时五路共享推理调度器。
+
+因此不是重写系统，但也不能再描述成“主要只是数据重建和 detector 替换”。
 
 ---
 
@@ -1238,7 +1490,7 @@ YOLO26s 与 RF-DETR-S 使用同一 Gold 数据。
 4. 人工可以持续做低成本审核，足以建立 active-learning 闭环；
 5. 预训练 detector 可以在少量高质量现场样本上做 domain fine-tune，不需要从零训练；
 6. 模型与 camera / ROI 解耦，因此可以支持 ROI 变化、摄像头移动和新增监控；
-7. 项目已经具备 PS 有界处理、ROI、native tiling、审核页、事件状态机和旁路调度基础设施，主要工作是数据重建和 detector 替换/扩展，不是重写系统。
+7. 项目已经具备 PS 受管缓存、ROI、tile 处理、审核页、episode 验收、部分事件状态与持久化基础；这些应复用，但生产 V4 仍需补 source-frame 入口、gate evidence、V4 关闭语义、告警账本和 sealed replay 边界。
 
 真正尚未被证明的核心问题只有一个：
 
@@ -1248,9 +1500,25 @@ YOLO26s 与 RF-DETR-S 使用同一 Gold 数据。
 
 ---
 
-## 22. 自审结论（第二轮）
+## 22. 第三轮代码审查结论
 
-文档写入后按以下问题重新检查：
+本轮在第二轮自审基础上继续逐项对照 `deepstream_worker.py`、`deepstream_manager.py`、`ground_litter_detection.py`、`ground_litter_v33.py`、`ground_litter_inventory.py`、`ground_litter_acceptance.py`、`ground_litter_recording_cache.py`、`ground_litter_process.py` 和审核脚本。结论：Detector 路线保留，但上一版对生产集成工作量偏乐观，已按以下 P1/P2 修正：
+
+### 22.0 本轮新增的 P1 / P2
+
+P1：
+
+1. source-frame 输入契约：当前线上 tile 是 mux 后 1920×1080，不是源 2560×1440；
+2. actor 不得在 detector adapter 内直接丢候选，必须保留 gate evidence；
+3. V4 不能机械复用 prior-specific close logic；
+4. confirmed event 与实际 alert 必须有持久化幂等边界；
+5. review card / episode / training tile 分离，训练 tile 必须 annotation-complete；
+6. 继承 episode/time-interval acceptance，并严格拆 development 与 sealed test；
+7. 正式数据工厂复用受管 recording cache，封存评估资产保证可重放。
+
+P2：
+
+8. 五路跨摄像头 batch 是待验证/待新增能力；先测现有 group 架构，必要时再建设共享推理调度器。
 
 ### 22.1 是否错误依赖固定 ROI / 固定摄像头
 
@@ -1280,10 +1548,11 @@ YOLO26s 与 RF-DETR-S 使用同一 Gold 数据。
 2. shared detector 在 native ROI/tile 后，对自然纸巾、塑料袋、瓶罐、包装物能达到多高的低阈值 proposal recall；
 3. hard-negative 第二轮能否在不明显损失 recall 的前提下把 confirmed FP 压到 ≤5 / camera-day；
 4. Turhancan 对最终 Fusion 还有多少独立增量召回，是否值得长期保留生产算力；
-5. 五路实际 tile 数和双 detector 在 3060 Ti 上的资源预算；
-6. “多久以内快速消失的垃圾不需要报警”仍是业务参数，当前不影响 Day 1 数据重建。
+5. source-frame 入口实现后，五路实际 tile 数和双 detector 在 3060 Ti 上的资源预算；
+6. actor 元数据能否用 source PTS/frame identity 稳定对齐；
+7. “多久以内快速消失的垃圾不需要报警”仍是业务参数；它不阻塞 detector A/B，但会影响最终告警语义。
 
-因此本方案的下一步不是继续扩展算法，而是执行 Day 1～Day 7 的预注册实验，用冻结 Blind Set 给出 Go / No-Go。
+因此下一步不是继续扩展算法，而是先完成输入/数据/评估协议冻结，再执行 Day 1～Day 7 的预注册 detector 实验。该 Go / No-Go 只决定视觉 detector 路线是否成立；通过后再完成生产 V4 的 P1 集成边界并进入 shadow。
 
 ---
 
