@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>Blind Truth Review — Development</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="blind-banner">
+  <span class="blind-tag">BLIND TRUTH MODE</span>
+  <span class="blind-tag danger">DETECTOR OUTPUT DISABLED</span>
+  <span class="blind-note">本页不加载任何 detector / checkpoint / 推理结果；没有 bbox、没有 confidence、没有 proposal recall。</span>
+</div>
+
+<header>
+  <label>机位 <select id="camera"></select></label>
+  <label>PS <select id="file"></select></label>
+  <span id="file-meta" class="meta"></span>
+</header>
+
+<main>
+  <section id="viewer">
+    <div class="toolbar">
+      <button id="btn-prev">◀ 1帧</button>
+      <button id="btn-next">1帧 ▶</button>
+      <button id="btn-prev-sec">◀ 1s</button>
+      <button id="btn-next-sec">1s ▶</button>
+      <button id="btn-play">播放/暂停 (空格)</button>
+      <label>t <input id="time-input" type="number" step="0.04" min="0"> s</label>
+      <button id="btn-goto">跳转</button>
+      <span class="sep"></span>
+      <button id="btn-zoom-in">放大 +</button>
+      <button id="btn-zoom-out">缩小 −</button>
+      <button id="btn-zoom-reset">全局</button>
+      <button id="btn-proposals">经典CV定位候选</button>
+      <span class="sep"></span>
+      <button id="btn-review">标记本段已看完 (M)</button>
+    </div>
+
+    <div id="canvas-wrap">
+      <img id="frame" alt="frame">
+      <canvas id="overlay"></canvas>
+    </div>
+    <div id="status" class="meta"></div>
+
+    <div id="proposals" class="hidden">
+      <strong>经典 CV 定位候选（仅在人工已确认目标存在后用于定位）</strong>
+      <div id="proposal-list"></div>
+      <button id="btn-proposal-cancel">取消</button>
+    </div>
+  </section>
+
+  <aside>
+    <div class="panel">
+      <h3>当前点 <span id="point-info" class="meta"></span></h3>
+      <div class="keys">
+        <button data-class="REQUIRED_LITTER">R 垃圾(Required)</button>
+        <button data-class="IGNORE_SMALL">I 过小(Ignore)</button>
+        <button data-class="UNCERTAIN">U 不确定</button>
+        <button data-class="NON_LITTER">D 不是垃圾</button>
+        <button id="btn-delete-truth">X 删除所选 truth</button>
+      </div>
+      <div class="keys">
+        <button id="btn-new-episode">N 新 episode</button>
+        <button id="btn-assign-episode">E 归入所选 episode</button>
+        <button id="btn-confirm-episode">C 确认 episode</button>
+      </div>
+      <div class="keys">
+        <button id="btn-set-start">设为可见区间起点</button>
+        <button id="btn-set-end">设为可见区间终点</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>Truth 对象 <span id="truth-count" class="meta"></span></h3>
+      <ul id="truth-list"></ul>
+    </div>
+
+    <div class="panel">
+      <h3>Episodes <span id="episode-count" class="meta"></span></h3>
+      <ul id="episode-list"></ul>
+    </div>
+
+    <div class="panel">
+      <h3>Review 覆盖 <span id="coverage" class="meta"></span></h3>
+      <div id="coverage-detail" class="meta"></div>
+      <button id="btn-sample">生成采样清单 (5s / 30s)</button>
+      <button id="btn-freeze">Freeze Blind Truth</button>
+      <div id="freeze-info" class="meta"></div>
+    </div>
+  </aside>
+</main>
+<script src="app.js"></script>
+</body>
+</html>

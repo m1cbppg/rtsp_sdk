@@ -1,0 +1,50 @@
+/* Blind Truth review UI — intentionally plain: no model output is rendered anywhere. */
+* { box-sizing: border-box; }
+body { margin: 0; font: 13px/1.45 -apple-system, "Helvetica Neue", Arial, sans-serif;
+       background: #14161a; color: #e8e8e8; }
+#blind-banner { position: sticky; top: 0; z-index: 20; display: flex; gap: 10px;
+  align-items: center; padding: 8px 12px; background: #3a1d1d;
+  border-bottom: 2px solid #d9534f; }
+.blind-tag { font-weight: 700; letter-spacing: .06em; padding: 2px 8px; border-radius: 3px;
+  background: #d9534f; color: #fff; }
+.blind-tag.danger { background: #8a1f1b; }
+.blind-note { color: #f0c0be; }
+header { display: flex; gap: 14px; align-items: center; padding: 10px 12px;
+  background: #1b1f26; border-bottom: 1px solid #2b3240; flex-wrap: wrap; }
+header select, header input { background: #0f1216; color: #e8e8e8; border: 1px solid #39424f;
+  border-radius: 4px; padding: 3px 6px; }
+main { display: flex; gap: 12px; padding: 12px; align-items: flex-start; }
+#viewer { flex: 1 1 auto; min-width: 0; }
+.toolbar { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; align-items: center; }
+button { background: #2a3140; color: #e8e8e8; border: 1px solid #3b4557; border-radius: 4px;
+  padding: 4px 9px; cursor: pointer; }
+button:hover { background: #364053; }
+button.active { background: #2f6f4f; border-color: #3f9c6d; }
+.sep { width: 1px; height: 18px; background: #39424f; margin: 0 4px; }
+#canvas-wrap { position: relative; display: inline-block; max-width: 100%; background: #000;
+  border: 1px solid #2b3240; }
+#frame { display: block; max-width: 100%; height: auto; }
+#overlay { position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+  pointer-events: none; }
+aside { flex: 0 0 380px; display: flex; flex-direction: column; gap: 10px; }
+.panel { background: #1b1f26; border: 1px solid #2b3240; border-radius: 5px; padding: 8px 10px; }
+.panel h3 { margin: 0 0 6px; font-size: 13px; color: #9fb3c8; }
+.keys { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 6px; }
+.meta { color: #8b98a8; font-size: 12px; }
+ul { list-style: none; margin: 0; padding: 0; max-height: 220px; overflow: auto; }
+li { padding: 4px 6px; border-bottom: 1px solid #232a35; cursor: pointer; font-size: 12px; }
+li:hover { background: #222a36; }
+li.sel { background: #2f3d52; }
+li.REQUIRED_LITTER { border-left: 3px solid #d9534f; }
+li.IGNORE_SMALL { border-left: 3px solid #d9a24f; }
+li.UNCERTAIN { border-left: 3px solid #8a8f98; }
+li.NON_LITTER { border-left: 3px solid #4f8ad9; }
+.hidden { display: none; }
+#proposals { margin-top: 8px; padding: 8px; background: #1b1f26; border: 1px solid #3b4557;
+  border-radius: 5px; }
+#proposal-list { display: flex; gap: 8px; flex-wrap: wrap; margin: 6px 0; }
+#proposal-list figure { margin: 0; text-align: center; }
+#proposal-list img { border: 2px solid #3b4557; cursor: pointer; background: #000; }
+#proposal-list img:hover { border-color: #3f9c6d; }
+.badge { display: inline-block; padding: 0 5px; border-radius: 3px; background: #2a3140;
+  margin-left: 5px; font-size: 11px; }
