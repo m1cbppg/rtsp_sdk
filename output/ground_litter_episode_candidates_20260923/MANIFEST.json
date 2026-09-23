@@ -1,0 +1,103 @@
+{
+  "boundaries": {
+    "deletable_and_rebuildable": true,
+    "detector_outputs_consulted": false,
+    "episode_candidate_id_is_not_episode_id": true,
+    "gold_truth_claimed": false,
+    "original_silver_modified": false,
+    "sealed_test_accessed": false,
+    "visual_embedding_used": false
+  },
+  "config": {
+    "before_after_seconds": 2.0,
+    "max_center_distance_ratio": 0.75,
+    "max_size_ratio": 3.0,
+    "max_time_gap_seconds": 600.0,
+    "min_center_distance_px": 24.0,
+    "near_threshold_factor": 1.25,
+    "positive_labels": [
+      "LITTER",
+      "BOX_WRONG"
+    ]
+  },
+  "generated_at": "2026-09-23T03:00:18Z",
+  "generator_version": "step1a-1.0.0",
+  "git_commit": "9c2829c82b7ae2102ff6930022c80de1000a1a6b",
+  "input_manifest": {
+    "batches": [
+      {
+        "batch_key": "active_day3",
+        "dataset": "active_five_cameras_20260918",
+        "dataset_fingerprint": "6a61857d911412feb6a7781788c4fc60e556ffd140aaeeb14f25c13d9a284bad",
+        "directory": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_audit_active_day3_20260918/review",
+        "positive_card_count": 29,
+        "raw_card_count": 300
+      },
+      {
+        "batch_key": "formal_day1",
+        "dataset": "formal_four_cameras_20260920",
+        "dataset_fingerprint": "4ad4726d3ef6b02a77ce96ace1601e31449ca11458df855c3446e4644d4d6ba7",
+        "directory": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_audit_formal_day1",
+        "positive_card_count": 43,
+        "raw_card_count": 640
+      },
+      {
+        "batch_key": "formal_day2",
+        "dataset": "formal_five_cameras_20260919",
+        "dataset_fingerprint": "40bbb773cbf33058c7cb0fbfe3ac3b02b821bf0042c6d565f6628fe3a7efd3bf",
+        "directory": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_audit_formal_day2",
+        "positive_card_count": 84,
+        "raw_card_count": 800
+      },
+      {
+        "batch_key": "holdout",
+        "dataset": "holdout_five_cameras_20260918",
+        "dataset_fingerprint": "c209d12ce60fa3223d917a25a21c214832f8701d12efa76377e175b19a9d14ef",
+        "directory": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_audit_holdout_20260918",
+        "positive_card_count": 23,
+        "raw_card_count": 200
+      },
+      {
+        "batch_key": "pilot_01030",
+        "dataset": "pilot_01030_20260920",
+        "dataset_fingerprint": "f7bd75d10ca155fa58d20d757cd5e351860b4dd7cdc10b579c8e15706a4482ad",
+        "directory": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_audit_pilot_01030_20260920/review",
+        "positive_card_count": 20,
+        "raw_card_count": 220
+      },
+      {
+        "batch_key": "shadow_20260921",
+        "dataset": "ground-litter-new-date-shadow-20260921",
+        "dataset_fingerprint": "948daa31d841e1a7b7d5a5db5818e820e7ee22d1a811e16b74d84adc29da3727",
+        "directory": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_candidate_filter_shadow_20260921/review",
+        "positive_card_count": 25,
+        "raw_card_count": 300
+      }
+    ],
+    "card_count": 2460,
+    "input_cards_sha256": "12ec093c0fcf319e5e337b5349209061cdac4e5c0bce63ff49c2aa5bf2f7daf0"
+  },
+  "inputs": {
+    "batches": {
+      "active_day3": "output/ground_litter_audit_active_day3_20260918/review",
+      "formal_day1": "output/ground_litter_audit_formal_day1",
+      "formal_day2": "output/ground_litter_audit_formal_day2",
+      "holdout": "output/ground_litter_audit_holdout_20260918",
+      "pilot_01030": "output/ground_litter_audit_pilot_01030_20260920/review",
+      "shadow_20260921": "output/ground_litter_candidate_filter_shadow_20260921/review"
+    },
+    "clean_gap_file": null
+  },
+  "known_input_limitations": [
+    "review_id is not globally unique across historical batches; card_id is batch-qualified to avoid silent collisions.",
+    "800 of 2460 cards (active_day3, holdout, shadow_20260921) carry no source file_id; lineage for those stops at frame_id + timestamp.",
+    "no historical card records a scene_version; grouping therefore cannot separate scene versions for this dataset.",
+    "220 pilot_01030 cards have no before/after frames."
+  ],
+  "outputs": {
+    "candidate_count": 201,
+    "episode_candidates_jsonl": "episode_candidates.jsonl",
+    "summary_json": "SUMMARY.json"
+  },
+  "schema_version": "ground_litter_episode_candidates_v1"
+}
