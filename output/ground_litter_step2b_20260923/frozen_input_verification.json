@@ -1,0 +1,27 @@
+{
+  "all_negative_labels_zero_bytes": true,
+  "cli_reuploaded_after_fix": {
+    "path": "code/scripts/run_ground_litter_step2a.py",
+    "reason": "the shared loader-sanity gate required a positive inside the sampled batch window, which depends on the dataset scan order; it now checks every tile's shape/dtype instead and records sampled_batch_box_total",
+    "sha256": "d273d60bfbf480c3e214caaf999020abb4d9b5b7b1cb16fb23a4d679514a9567"
+  },
+  "frozen_inputs_mismatch": [],
+  "frozen_inputs_verified_ok": 225,
+  "local_frozen_weight_sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b",
+  "local_manifest_sha256": "9a9205f88064bb6d1258898dea5e25d137800394a2ad6eb255f802c899e13451",
+  "manifest_matches_local": true,
+  "manifest_sha256": "9a9205f88064bb6d1258898dea5e25d137800394a2ad6eb255f802c899e13451",
+  "manifest_vs_files_problems": [],
+  "negative_boxes": 0,
+  "negative_tiles": 63,
+  "ok": true,
+  "positive_boxes": 96,
+  "positive_labels_class_zero_only": true,
+  "positive_tiles": 44,
+  "sha256sums_entries": 226,
+  "tiles_checked": 214,
+  "uploaded_archive_sha256": "8a3a886edf1e9e435ba054ae6f9fdcfaceee88f28f85163c4344fa3185c4187f",
+  "weight_bytes": 20422725,
+  "weight_matches_local_frozen": true,
+  "weight_sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b"
+}

@@ -1,0 +1,23 @@
+{
+  "blockers": [],
+  "cuda_available": true,
+  "cuda_device_count": 1,
+  "cuda_device_name": "NVIDIA GeForce RTX 3060 Ti",
+  "cuda_vram_bytes": 8222408704,
+  "executable": "/home/sf01/ground_litter_train/.venv/bin/python",
+  "machine": "x86_64",
+  "mps_available": false,
+  "mps_built": false,
+  "nvidia_smi": "NVIDIA GeForce RTX 3060 Ti, 8192 MiB, 595.84",
+  "nvidia_smi_present": true,
+  "opencv": "5.0.0",
+  "opencv_path": "/home/sf01/ground_litter_train/.venv/lib/python3.12/site-packages/cv2/__init__.py",
+  "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.39",
+  "python": "3.12.3",
+  "pythonpath": "",
+  "step": "step2b_full_finetune",
+  "torch": "2.14.0+cu130",
+  "torch_cuda_version": "13.0",
+  "ultralytics": "8.4.150",
+  "ultralytics_path": "/home/sf01/ground_litter_train/.venv/lib/python3.12/site-packages/ultralytics/__init__.py"
+}

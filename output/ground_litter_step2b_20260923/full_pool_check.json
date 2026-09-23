@@ -1,0 +1,71 @@
+{
+  "counts": {
+    "negative_boxes": 0,
+    "negative_images": 63,
+    "positive_boxes": 96,
+    "positive_images": 44
+  },
+  "counts_match": true,
+  "coverage": {
+    "easy_negative_count": 15,
+    "hard_negative_count": 48,
+    "multi_label_tiles": 16,
+    "negative_cameras": [
+      "01021",
+      "01022",
+      "01027",
+      "01028",
+      "01030"
+    ],
+    "negative_source_recordings": 30,
+    "negative_tiles": 63,
+    "per_camera_negative": {
+      "01021": 10,
+      "01022": 15,
+      "01027": 15,
+      "01028": 11,
+      "01030": 12
+    },
+    "per_camera_positive": {
+      "01021": 8,
+      "01022": 7,
+      "01027": 5,
+      "01028": 9,
+      "01030": 15
+    },
+    "positive_bboxes": 96,
+    "positive_cameras": [
+      "01021",
+      "01022",
+      "01027",
+      "01028",
+      "01030"
+    ],
+    "positive_source_recordings": 33,
+    "positive_tiles": 44,
+    "short_side_buckets": {
+      "10-19": 34,
+      "20-39": 35,
+      "40-79": 13,
+      "80+": 5,
+      "<10": 9
+    },
+    "three_plus_label_tiles": 12
+  },
+  "duplicate_tiles": [],
+  "easy_negative_count": 15,
+  "easy_negative_fraction": 0.2381,
+  "expected": {
+    "negative_boxes": 0,
+    "negative_images": 63,
+    "positive_boxes": 96,
+    "positive_images": 44
+  },
+  "max_easy_negative_fraction": 0.3,
+  "negative_label_not_empty": [],
+  "ok": true,
+  "pool_tiles_missing": [],
+  "pool_tiles_total": 107,
+  "positive_without_boxes": [],
+  "problems": []
+}

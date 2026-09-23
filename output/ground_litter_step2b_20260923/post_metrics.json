@@ -1,0 +1,4596 @@
+{
+  "baseline_comparison": {
+    "0.01": {
+      "image_hit_after": 1.0,
+      "image_hit_before": 0.6591,
+      "negative_fp_images_after": 3,
+      "negative_fp_images_before": 63,
+      "recall_after": 1.0,
+      "recall_before": 0.4896
+    },
+    "0.05": {
+      "image_hit_after": 1.0,
+      "image_hit_before": 0.4091,
+      "negative_fp_images_after": 0,
+      "negative_fp_images_before": 63,
+      "recall_after": 1.0,
+      "recall_before": 0.2604
+    },
+    "0.10": {
+      "image_hit_after": 1.0,
+      "image_hit_before": 0.3182,
+      "negative_fp_images_after": 0,
+      "negative_fp_images_before": 62,
+      "recall_after": 1.0,
+      "recall_before": 0.1875
+    }
+  },
+  "conf_floor": 0.01,
+  "device": "cuda",
+  "imgsz": 640,
+  "iou_nms": 0.7,
+  "manifest_provenance": {
+    "path": "/home/sf01/step2b-20260923/out/full_train_manifest.json",
+    "reused_frozen_manifest": true,
+    "sha256": "9a9205f88064bb6d1258898dea5e25d137800394a2ad6eb255f802c899e13451",
+    "source": "frozen_file"
+  },
+  "metrics": {
+    "conf_levels": [
+      0.01,
+      0.05,
+      0.1
+    ],
+    "matching": {
+      "iou_normal": 0.3,
+      "iou_small": 0.2,
+      "one_to_one": true,
+      "small_area_ratio": [
+        0.25,
+        4.0
+      ],
+      "small_expand": 0.5,
+      "small_gt_short_side_px": 20.0
+    },
+    "per_conf": {
+      "0.01": {
+        "by_label_count": {
+          "multi": {
+            "gt": 68,
+            "hit_images": 16,
+            "images": 16,
+            "proposal_recall": 1.0,
+            "tp": 68
+          },
+          "single": {
+            "gt": 28,
+            "hit_images": 28,
+            "images": 28,
+            "proposal_recall": 1.0,
+            "tp": 28
+          }
+        },
+        "by_size_bucket": {
+          "10-19": {
+            "gt": 34,
+            "recall": 1.0,
+            "tp": 34
+          },
+          "20-39": {
+            "gt": 35,
+            "recall": 1.0,
+            "tp": 35
+          },
+          "40-79": {
+            "gt": 13,
+            "recall": 1.0,
+            "tp": 13
+          },
+          "80+": {
+            "gt": 5,
+            "recall": 1.0,
+            "tp": 5
+          },
+          "<10": {
+            "gt": 9,
+            "recall": 1.0,
+            "tp": 9
+          }
+        },
+        "conf": 0.01,
+        "negative_fp_image_rate": 0.0476,
+        "negative_fp_images": 3,
+        "negative_fp_per_image": 0.063,
+        "negative_total_predictions": 4,
+        "per_negative_image": [
+          {
+            "predictions": 0,
+            "tile_id": "hn-3ab68433c09ca1a17f6e"
+          },
+          {
+            "predictions": 2,
+            "tile_id": "hn-44a2d05776138f6810ca"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-6aadc8f3b9e4343520b9"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-af81e306acbc12c1e209"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-bc0b74ef2dad238db8e7"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-da478d3217795c2facf9"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-ec9416f5c110b814bad1"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-ef250087ff324e06447a"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-fbd64b8c169f815ad47c"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-fc41fffcb938c02ead3d"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-02f7af08cc6a62dafb99"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-110c67115f25e3939c8f"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-1232320c5944c1e7b2cb"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-3116776e93a17947561d"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-39aa14babf5223650666"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-57dc1043216452d71f4b"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-603856cc0a6806b13ec5"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-7800827aa819bfee1484"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-8e8ddf13fe80eb2d8d06"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-8f2fcc4965a70ef7d8d2"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-95252c272bc506728056"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-ac3d8e3974073d1d5d5e"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-b3e511166a395a12e3e7"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-bf6582e56d6b060a10bd"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-ea8fb778864834e7997c"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-043ba51070f02c46c061"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-07f399b065bdca96e6a0"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-407b6784a85d47d5ca86"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-5d7fe603fa7a61bd4c36"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-65346390548cca3ba2e8"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-735c5d5d8f15dac3cf29"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-7e07426d53c0b65ba24c"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-967e8d4fb1982a4b9a9d"
+          },
+          {
+            "predictions": 1,
+            "tile_id": "hn-b7c31959b60410f16b61"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-befb12a6dfdc2d5dcc03"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-d710244fb3b3ff71f576"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-e8ae741b075dbdefeaf0"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-f15a1bd3d0dfdd255aa7"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-fa7d607354f3512fce92"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-fe12b29531b9d7879d58"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-0cc2b564e67fe86a99d0"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-25d231aee901a2c0f1fc"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-307f1d5e67c282567441"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-378365281330513b7e7a"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-5050883dd5ea34016204"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-69549c44481031dfbffa"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-6cab122071e8d87d837d"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-9c1ea02d67c73f75961a"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-9e56a5033e186e099eae"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-dd6ad50b089c26db3c14"
+          },
+          {
+            "predictions": 1,
+            "tile_id": "hn-e05bb59fe989f83f5322"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-55bdc0fcd0ef96b54145"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-56444d8aaaaeb000ac6d"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-68684cd0aff84b2b6f5d"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-95f70e3dd238e8915b18"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-a624e55164e4c577b114"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-ad0ab5cf6613957b5a45"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-b54a2ca7fc0d6145ce1d"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-ced0474f2eb3df4a5a66"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-e3ffb88c713055144ec4"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-f7159b23779a8a73707c"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-fc1873d23a562001a6fb"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-fedf6e4b68ecff73bc45"
+          }
+        ],
+        "per_positive_image": [
+          {
+            "fn": 0,
+            "gt": 7,
+            "iou": {
+              "0": 0.8019,
+              "1": 0.9582,
+              "2": 0.8615,
+              "3": 0.8202,
+              "4": 0.9047,
+              "5": 0.8269,
+              "6": 0.8362
+            },
+            "predictions": 15,
+            "tile_id": "pt-08daffbffef20a58ccc6",
+            "tp": 7
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.8697
+            },
+            "predictions": 1,
+            "tile_id": "pt-5715f1a937e60d9a0405",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 10,
+            "iou": {
+              "0": 0.814,
+              "1": 0.6474,
+              "2": 0.9242,
+              "3": 0.9134,
+              "4": 0.6185,
+              "5": 0.8552,
+              "6": 0.9317,
+              "7": 0.8599,
+              "8": 0.949,
+              "9": 0.8861
+            },
+            "predictions": 30,
+            "tile_id": "pt-5800901fc7f3de98d448",
+            "tp": 10
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.8835
+            },
+            "predictions": 2,
+            "tile_id": "pt-5eb3c00f39c1ff273b8c",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 4,
+            "iou": {
+              "0": 0.9115,
+              "1": 0.9465,
+              "2": 0.9105,
+              "3": 0.8129
+            },
+            "predictions": 6,
+            "tile_id": "pt-9a36bbe18f96da2ccee3",
+            "tp": 4
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9477
+            },
+            "predictions": 1,
+            "tile_id": "pt-ca2b2bade7ac520823aa",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9271
+            },
+            "predictions": 1,
+            "tile_id": "pt-e1b67d10e2648e0a4a71",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9141
+            },
+            "predictions": 1,
+            "tile_id": "pt-f8bd29e3501c2ab224ee",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 4,
+            "iou": {
+              "0": 0.9452,
+              "1": 0.9642,
+              "2": 0.9193,
+              "3": 0.687
+            },
+            "predictions": 6,
+            "tile_id": "pt-0232d9b6ed96308ad608",
+            "tp": 4
+          },
+          {
+            "fn": 0,
+            "gt": 2,
+            "iou": {
+              "0": 0.7718,
+              "1": 0.9743
+            },
+            "predictions": 2,
+            "tile_id": "pt-031517f0967dee166f86",
+            "tp": 2
+          },
+          {
+            "fn": 0,
+            "gt": 3,
+            "iou": {
+              "0": 0.9648,
+              "1": 0.9221,
+              "2": 0.9391
+            },
+            "predictions": 7,
+            "tile_id": "pt-2c4cdc8b71faaddfa130",
+            "tp": 3
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9374
+            },
+            "predictions": 2,
+            "tile_id": "pt-6a719fa13f06121518ed",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 5,
+            "iou": {
+              "0": 0.9327,
+              "1": 0.9328,
+              "2": 0.9312,
+              "3": 0.919,
+              "4": 0.9122
+            },
+            "predictions": 9,
+            "tile_id": "pt-77a080fba8048f2a4f64",
+            "tp": 5
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9417
+            },
+            "predictions": 1,
+            "tile_id": "pt-91d5edd9d4aeb60070ff",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 3,
+            "iou": {
+              "0": 0.947,
+              "1": 0.9445,
+              "2": 0.8356
+            },
+            "predictions": 5,
+            "tile_id": "pt-a88f63c6feac4fb01286",
+            "tp": 3
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9464
+            },
+            "predictions": 3,
+            "tile_id": "pt-062a7045de2b872a52ff",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9592
+            },
+            "predictions": 1,
+            "tile_id": "pt-0c802c8de27dcb548fa1",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9178
+            },
+            "predictions": 3,
+            "tile_id": "pt-11d7154afb5adc813b01",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 6,
+            "iou": {
+              "0": 0.8863,
+              "1": 0.926,
+              "2": 0.9263,
+              "3": 0.8555,
+              "4": 0.9644,
+              "5": 0.7876
+            },
+            "predictions": 16,
+            "tile_id": "pt-2105a7dc471caba39b7c",
+            "tp": 6
+          },
+          {
+            "fn": 0,
+            "gt": 3,
+            "iou": {
+              "0": 0.9147,
+              "1": 0.9046,
+              "2": 0.9084
+            },
+            "predictions": 6,
+            "tile_id": "pt-bef67f962d9ee9f47e0e",
+            "tp": 3
+          },
+          {
+            "fn": 0,
+            "gt": 2,
+            "iou": {
+              "0": 0.9292,
+              "1": 0.8579
+            },
+            "predictions": 2,
+            "tile_id": "pt-1e4e89542158fbf702b7",
+            "tp": 2
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9414
+            },
+            "predictions": 1,
+            "tile_id": "pt-2d423391e731dea2d658",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 6,
+            "iou": {
+              "0": 0.7345,
+              "1": 0.7553,
+              "2": 0.9078,
+              "3": 0.9508,
+              "4": 0.8523,
+              "5": 0.9423
+            },
+            "predictions": 14,
+            "tile_id": "pt-2e7306aa6837573fbc16",
+            "tp": 6
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.97
+            },
+            "predictions": 2,
+            "tile_id": "pt-45e17d6c39ef7e01a701",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.949
+            },
+            "predictions": 2,
+            "tile_id": "pt-8ea8e435a55a267b80b0",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9643
+            },
+            "predictions": 3,
+            "tile_id": "pt-d61762ee01d6f93305bb",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9559
+            },
+            "predictions": 2,
+            "tile_id": "pt-e20740b1551fa7f5406c",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9515
+            },
+            "predictions": 2,
+            "tile_id": "pt-efb65965607a0e34ffd8",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.948
+            },
+            "predictions": 1,
+            "tile_id": "pt-fa45acecc28bb80957b9",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9449
+            },
+            "predictions": 1,
+            "tile_id": "pt-0020c1be4f4c74a57286",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.925
+            },
+            "predictions": 2,
+            "tile_id": "pt-064220b2d6038e35aa5c",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9193
+            },
+            "predictions": 1,
+            "tile_id": "pt-448923949d3c2d99060d",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 2,
+            "iou": {
+              "0": 0.8838,
+              "1": 0.8991
+            },
+            "predictions": 4,
+            "tile_id": "pt-4ff8b150b5d6808b7521",
+            "tp": 2
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9659
+            },
+            "predictions": 1,
+            "tile_id": "pt-675dc3fb1d9d32abc835",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9526
+            },
+            "predictions": 2,
+            "tile_id": "pt-6d538ccd98f6adfa20be",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 6,
+            "iou": {
+              "0": 0.6775,
+              "1": 0.9478,
+              "2": 0.8574,
+              "3": 0.8942,
+              "4": 0.9126,
+              "5": 0.7963
+            },
+            "predictions": 12,
+            "tile_id": "pt-6d798e6ac891271bacb5",
+            "tp": 6
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.8843
+            },
+            "predictions": 3,
+            "tile_id": "pt-732f50fe84e5f730c1bf",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.8597
+            },
+            "predictions": 1,
+            "tile_id": "pt-75216f2a84600bb99e54",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 3,
+            "iou": {
+              "0": 0.8282,
+              "1": 0.7618,
+              "2": 0.919
+            },
+            "predictions": 6,
+            "tile_id": "pt-8d24ab8d09e7ecc7c49f",
+            "tp": 3
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9443
+            },
+            "predictions": 3,
+            "tile_id": "pt-987e86059de11d12622c",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 2,
+            "iou": {
+              "0": 0.8613,
+              "1": 0.758
+            },
+            "predictions": 3,
+            "tile_id": "pt-99cfcd339d9d79dffe7c",
+            "tp": 2
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9243
+            },
+            "predictions": 3,
+            "tile_id": "pt-a3273aec81ab8edd8939",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9121
+            },
+            "predictions": 1,
+            "tile_id": "pt-e1073fcffe525f242e98",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9405
+            },
+            "predictions": 1,
+            "tile_id": "pt-eb10ae338dd58e7aa831",
+            "tp": 1
+          }
+        ],
+        "positive_gt_proposal_recall": 1.0,
+        "positive_gt_total": 96,
+        "positive_gt_tp": 96,
+        "positive_image_hit_rate": 1.0,
+        "positive_image_hits": 44,
+        "positive_image_total": 44
+      },
+      "0.05": {
+        "by_label_count": {
+          "multi": {
+            "gt": 68,
+            "hit_images": 16,
+            "images": 16,
+            "proposal_recall": 1.0,
+            "tp": 68
+          },
+          "single": {
+            "gt": 28,
+            "hit_images": 28,
+            "images": 28,
+            "proposal_recall": 1.0,
+            "tp": 28
+          }
+        },
+        "by_size_bucket": {
+          "10-19": {
+            "gt": 34,
+            "recall": 1.0,
+            "tp": 34
+          },
+          "20-39": {
+            "gt": 35,
+            "recall": 1.0,
+            "tp": 35
+          },
+          "40-79": {
+            "gt": 13,
+            "recall": 1.0,
+            "tp": 13
+          },
+          "80+": {
+            "gt": 5,
+            "recall": 1.0,
+            "tp": 5
+          },
+          "<10": {
+            "gt": 9,
+            "recall": 1.0,
+            "tp": 9
+          }
+        },
+        "conf": 0.05,
+        "negative_fp_image_rate": 0.0,
+        "negative_fp_images": 0,
+        "negative_fp_per_image": 0.0,
+        "negative_total_predictions": 0,
+        "per_negative_image": [
+          {
+            "predictions": 0,
+            "tile_id": "hn-3ab68433c09ca1a17f6e"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-44a2d05776138f6810ca"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-6aadc8f3b9e4343520b9"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-af81e306acbc12c1e209"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-bc0b74ef2dad238db8e7"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-da478d3217795c2facf9"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-ec9416f5c110b814bad1"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-ef250087ff324e06447a"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-fbd64b8c169f815ad47c"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-fc41fffcb938c02ead3d"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-02f7af08cc6a62dafb99"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-110c67115f25e3939c8f"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-1232320c5944c1e7b2cb"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-3116776e93a17947561d"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-39aa14babf5223650666"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-57dc1043216452d71f4b"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-603856cc0a6806b13ec5"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-7800827aa819bfee1484"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-8e8ddf13fe80eb2d8d06"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-8f2fcc4965a70ef7d8d2"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-95252c272bc506728056"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-ac3d8e3974073d1d5d5e"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-b3e511166a395a12e3e7"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-bf6582e56d6b060a10bd"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-ea8fb778864834e7997c"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-043ba51070f02c46c061"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-07f399b065bdca96e6a0"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-407b6784a85d47d5ca86"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-5d7fe603fa7a61bd4c36"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-65346390548cca3ba2e8"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-735c5d5d8f15dac3cf29"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-7e07426d53c0b65ba24c"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-967e8d4fb1982a4b9a9d"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-b7c31959b60410f16b61"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-befb12a6dfdc2d5dcc03"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-d710244fb3b3ff71f576"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-e8ae741b075dbdefeaf0"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-f15a1bd3d0dfdd255aa7"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-fa7d607354f3512fce92"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-fe12b29531b9d7879d58"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-0cc2b564e67fe86a99d0"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-25d231aee901a2c0f1fc"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-307f1d5e67c282567441"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-378365281330513b7e7a"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-5050883dd5ea34016204"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-69549c44481031dfbffa"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-6cab122071e8d87d837d"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-9c1ea02d67c73f75961a"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-9e56a5033e186e099eae"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-dd6ad50b089c26db3c14"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-e05bb59fe989f83f5322"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-55bdc0fcd0ef96b54145"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-56444d8aaaaeb000ac6d"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-68684cd0aff84b2b6f5d"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-95f70e3dd238e8915b18"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-a624e55164e4c577b114"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-ad0ab5cf6613957b5a45"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-b54a2ca7fc0d6145ce1d"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-ced0474f2eb3df4a5a66"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-e3ffb88c713055144ec4"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-f7159b23779a8a73707c"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-fc1873d23a562001a6fb"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-fedf6e4b68ecff73bc45"
+          }
+        ],
+        "per_positive_image": [
+          {
+            "fn": 0,
+            "gt": 7,
+            "iou": {
+              "0": 0.8019,
+              "1": 0.9582,
+              "2": 0.8615,
+              "3": 0.8202,
+              "4": 0.9047,
+              "5": 0.8269,
+              "6": 0.8362
+            },
+            "predictions": 10,
+            "tile_id": "pt-08daffbffef20a58ccc6",
+            "tp": 7
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.8697
+            },
+            "predictions": 1,
+            "tile_id": "pt-5715f1a937e60d9a0405",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 10,
+            "iou": {
+              "0": 0.814,
+              "1": 0.6474,
+              "2": 0.9242,
+              "3": 0.9134,
+              "4": 0.6185,
+              "5": 0.8552,
+              "6": 0.9317,
+              "7": 0.8599,
+              "8": 0.949,
+              "9": 0.8861
+            },
+            "predictions": 16,
+            "tile_id": "pt-5800901fc7f3de98d448",
+            "tp": 10
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.8835
+            },
+            "predictions": 1,
+            "tile_id": "pt-5eb3c00f39c1ff273b8c",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 4,
+            "iou": {
+              "0": 0.9115,
+              "1": 0.9465,
+              "2": 0.9105,
+              "3": 0.8129
+            },
+            "predictions": 4,
+            "tile_id": "pt-9a36bbe18f96da2ccee3",
+            "tp": 4
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9477
+            },
+            "predictions": 1,
+            "tile_id": "pt-ca2b2bade7ac520823aa",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9271
+            },
+            "predictions": 1,
+            "tile_id": "pt-e1b67d10e2648e0a4a71",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9141
+            },
+            "predictions": 1,
+            "tile_id": "pt-f8bd29e3501c2ab224ee",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 4,
+            "iou": {
+              "0": 0.9452,
+              "1": 0.9642,
+              "2": 0.9193,
+              "3": 0.687
+            },
+            "predictions": 4,
+            "tile_id": "pt-0232d9b6ed96308ad608",
+            "tp": 4
+          },
+          {
+            "fn": 0,
+            "gt": 2,
+            "iou": {
+              "0": 0.7718,
+              "1": 0.9743
+            },
+            "predictions": 2,
+            "tile_id": "pt-031517f0967dee166f86",
+            "tp": 2
+          },
+          {
+            "fn": 0,
+            "gt": 3,
+            "iou": {
+              "0": 0.9648,
+              "1": 0.9221,
+              "2": 0.9391
+            },
+            "predictions": 3,
+            "tile_id": "pt-2c4cdc8b71faaddfa130",
+            "tp": 3
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9374
+            },
+            "predictions": 1,
+            "tile_id": "pt-6a719fa13f06121518ed",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 5,
+            "iou": {
+              "0": 0.9327,
+              "1": 0.9328,
+              "2": 0.9312,
+              "3": 0.919,
+              "4": 0.9122
+            },
+            "predictions": 7,
+            "tile_id": "pt-77a080fba8048f2a4f64",
+            "tp": 5
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9417
+            },
+            "predictions": 1,
+            "tile_id": "pt-91d5edd9d4aeb60070ff",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 3,
+            "iou": {
+              "0": 0.947,
+              "1": 0.9445,
+              "2": 0.8356
+            },
+            "predictions": 5,
+            "tile_id": "pt-a88f63c6feac4fb01286",
+            "tp": 3
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9464
+            },
+            "predictions": 1,
+            "tile_id": "pt-062a7045de2b872a52ff",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9592
+            },
+            "predictions": 1,
+            "tile_id": "pt-0c802c8de27dcb548fa1",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9178
+            },
+            "predictions": 1,
+            "tile_id": "pt-11d7154afb5adc813b01",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 6,
+            "iou": {
+              "0": 0.8863,
+              "1": 0.926,
+              "2": 0.9263,
+              "3": 0.8555,
+              "4": 0.9644,
+              "5": 0.7876
+            },
+            "predictions": 8,
+            "tile_id": "pt-2105a7dc471caba39b7c",
+            "tp": 6
+          },
+          {
+            "fn": 0,
+            "gt": 3,
+            "iou": {
+              "0": 0.9147,
+              "1": 0.9046,
+              "2": 0.9084
+            },
+            "predictions": 4,
+            "tile_id": "pt-bef67f962d9ee9f47e0e",
+            "tp": 3
+          },
+          {
+            "fn": 0,
+            "gt": 2,
+            "iou": {
+              "0": 0.9292,
+              "1": 0.8579
+            },
+            "predictions": 2,
+            "tile_id": "pt-1e4e89542158fbf702b7",
+            "tp": 2
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9414
+            },
+            "predictions": 1,
+            "tile_id": "pt-2d423391e731dea2d658",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 6,
+            "iou": {
+              "0": 0.7345,
+              "1": 0.7553,
+              "2": 0.9078,
+              "3": 0.9508,
+              "4": 0.8523,
+              "5": 0.9423
+            },
+            "predictions": 9,
+            "tile_id": "pt-2e7306aa6837573fbc16",
+            "tp": 6
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.97
+            },
+            "predictions": 1,
+            "tile_id": "pt-45e17d6c39ef7e01a701",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.949
+            },
+            "predictions": 1,
+            "tile_id": "pt-8ea8e435a55a267b80b0",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9643
+            },
+            "predictions": 1,
+            "tile_id": "pt-d61762ee01d6f93305bb",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9559
+            },
+            "predictions": 1,
+            "tile_id": "pt-e20740b1551fa7f5406c",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9515
+            },
+            "predictions": 1,
+            "tile_id": "pt-efb65965607a0e34ffd8",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.948
+            },
+            "predictions": 1,
+            "tile_id": "pt-fa45acecc28bb80957b9",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9449
+            },
+            "predictions": 1,
+            "tile_id": "pt-0020c1be4f4c74a57286",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.925
+            },
+            "predictions": 1,
+            "tile_id": "pt-064220b2d6038e35aa5c",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9193
+            },
+            "predictions": 1,
+            "tile_id": "pt-448923949d3c2d99060d",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 2,
+            "iou": {
+              "0": 0.8838,
+              "1": 0.8991
+            },
+            "predictions": 2,
+            "tile_id": "pt-4ff8b150b5d6808b7521",
+            "tp": 2
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9659
+            },
+            "predictions": 1,
+            "tile_id": "pt-675dc3fb1d9d32abc835",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9526
+            },
+            "predictions": 1,
+            "tile_id": "pt-6d538ccd98f6adfa20be",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 6,
+            "iou": {
+              "0": 0.6192,
+              "1": 0.9478,
+              "2": 0.8574,
+              "3": 0.8942,
+              "4": 0.9126,
+              "5": 0.7963
+            },
+            "predictions": 8,
+            "tile_id": "pt-6d798e6ac891271bacb5",
+            "tp": 6
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.8843
+            },
+            "predictions": 1,
+            "tile_id": "pt-732f50fe84e5f730c1bf",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.8597
+            },
+            "predictions": 1,
+            "tile_id": "pt-75216f2a84600bb99e54",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 3,
+            "iou": {
+              "0": 0.8282,
+              "1": 0.7618,
+              "2": 0.919
+            },
+            "predictions": 4,
+            "tile_id": "pt-8d24ab8d09e7ecc7c49f",
+            "tp": 3
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9443
+            },
+            "predictions": 2,
+            "tile_id": "pt-987e86059de11d12622c",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 2,
+            "iou": {
+              "0": 0.8613,
+              "1": 0.758
+            },
+            "predictions": 3,
+            "tile_id": "pt-99cfcd339d9d79dffe7c",
+            "tp": 2
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9243
+            },
+            "predictions": 2,
+            "tile_id": "pt-a3273aec81ab8edd8939",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9121
+            },
+            "predictions": 1,
+            "tile_id": "pt-e1073fcffe525f242e98",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9405
+            },
+            "predictions": 1,
+            "tile_id": "pt-eb10ae338dd58e7aa831",
+            "tp": 1
+          }
+        ],
+        "positive_gt_proposal_recall": 1.0,
+        "positive_gt_total": 96,
+        "positive_gt_tp": 96,
+        "positive_image_hit_rate": 1.0,
+        "positive_image_hits": 44,
+        "positive_image_total": 44
+      },
+      "0.10": {
+        "by_label_count": {
+          "multi": {
+            "gt": 68,
+            "hit_images": 16,
+            "images": 16,
+            "proposal_recall": 1.0,
+            "tp": 68
+          },
+          "single": {
+            "gt": 28,
+            "hit_images": 28,
+            "images": 28,
+            "proposal_recall": 1.0,
+            "tp": 28
+          }
+        },
+        "by_size_bucket": {
+          "10-19": {
+            "gt": 34,
+            "recall": 1.0,
+            "tp": 34
+          },
+          "20-39": {
+            "gt": 35,
+            "recall": 1.0,
+            "tp": 35
+          },
+          "40-79": {
+            "gt": 13,
+            "recall": 1.0,
+            "tp": 13
+          },
+          "80+": {
+            "gt": 5,
+            "recall": 1.0,
+            "tp": 5
+          },
+          "<10": {
+            "gt": 9,
+            "recall": 1.0,
+            "tp": 9
+          }
+        },
+        "conf": 0.1,
+        "negative_fp_image_rate": 0.0,
+        "negative_fp_images": 0,
+        "negative_fp_per_image": 0.0,
+        "negative_total_predictions": 0,
+        "per_negative_image": [
+          {
+            "predictions": 0,
+            "tile_id": "hn-3ab68433c09ca1a17f6e"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-44a2d05776138f6810ca"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-6aadc8f3b9e4343520b9"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-af81e306acbc12c1e209"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-bc0b74ef2dad238db8e7"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-da478d3217795c2facf9"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-ec9416f5c110b814bad1"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-ef250087ff324e06447a"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-fbd64b8c169f815ad47c"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-fc41fffcb938c02ead3d"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-02f7af08cc6a62dafb99"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-110c67115f25e3939c8f"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-1232320c5944c1e7b2cb"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-3116776e93a17947561d"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-39aa14babf5223650666"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-57dc1043216452d71f4b"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-603856cc0a6806b13ec5"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-7800827aa819bfee1484"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-8e8ddf13fe80eb2d8d06"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-8f2fcc4965a70ef7d8d2"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-95252c272bc506728056"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-ac3d8e3974073d1d5d5e"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-b3e511166a395a12e3e7"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-bf6582e56d6b060a10bd"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-ea8fb778864834e7997c"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-043ba51070f02c46c061"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-07f399b065bdca96e6a0"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-407b6784a85d47d5ca86"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-5d7fe603fa7a61bd4c36"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-65346390548cca3ba2e8"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-735c5d5d8f15dac3cf29"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-7e07426d53c0b65ba24c"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-967e8d4fb1982a4b9a9d"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-b7c31959b60410f16b61"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-befb12a6dfdc2d5dcc03"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-d710244fb3b3ff71f576"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-e8ae741b075dbdefeaf0"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-f15a1bd3d0dfdd255aa7"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-fa7d607354f3512fce92"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-fe12b29531b9d7879d58"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-0cc2b564e67fe86a99d0"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-25d231aee901a2c0f1fc"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-307f1d5e67c282567441"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-378365281330513b7e7a"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-5050883dd5ea34016204"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-69549c44481031dfbffa"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-6cab122071e8d87d837d"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-9c1ea02d67c73f75961a"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-9e56a5033e186e099eae"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-dd6ad50b089c26db3c14"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-e05bb59fe989f83f5322"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-55bdc0fcd0ef96b54145"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-56444d8aaaaeb000ac6d"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-68684cd0aff84b2b6f5d"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-95f70e3dd238e8915b18"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-a624e55164e4c577b114"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-ad0ab5cf6613957b5a45"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-b54a2ca7fc0d6145ce1d"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-ced0474f2eb3df4a5a66"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-e3ffb88c713055144ec4"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-f7159b23779a8a73707c"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-fc1873d23a562001a6fb"
+          },
+          {
+            "predictions": 0,
+            "tile_id": "hn-fedf6e4b68ecff73bc45"
+          }
+        ],
+        "per_positive_image": [
+          {
+            "fn": 0,
+            "gt": 7,
+            "iou": {
+              "0": 0.8019,
+              "1": 0.9582,
+              "2": 0.8615,
+              "3": 0.8202,
+              "4": 0.9047,
+              "5": 0.8269,
+              "6": 0.8362
+            },
+            "predictions": 9,
+            "tile_id": "pt-08daffbffef20a58ccc6",
+            "tp": 7
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.8697
+            },
+            "predictions": 1,
+            "tile_id": "pt-5715f1a937e60d9a0405",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 10,
+            "iou": {
+              "0": 0.814,
+              "1": 0.6474,
+              "2": 0.9242,
+              "3": 0.9134,
+              "4": 0.6185,
+              "5": 0.8552,
+              "6": 0.9317,
+              "7": 0.8599,
+              "8": 0.949,
+              "9": 0.8861
+            },
+            "predictions": 14,
+            "tile_id": "pt-5800901fc7f3de98d448",
+            "tp": 10
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.8835
+            },
+            "predictions": 1,
+            "tile_id": "pt-5eb3c00f39c1ff273b8c",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 4,
+            "iou": {
+              "0": 0.9115,
+              "1": 0.9465,
+              "2": 0.9105,
+              "3": 0.8129
+            },
+            "predictions": 4,
+            "tile_id": "pt-9a36bbe18f96da2ccee3",
+            "tp": 4
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9477
+            },
+            "predictions": 1,
+            "tile_id": "pt-ca2b2bade7ac520823aa",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9271
+            },
+            "predictions": 1,
+            "tile_id": "pt-e1b67d10e2648e0a4a71",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9141
+            },
+            "predictions": 1,
+            "tile_id": "pt-f8bd29e3501c2ab224ee",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 4,
+            "iou": {
+              "0": 0.9452,
+              "1": 0.9642,
+              "2": 0.9193,
+              "3": 0.687
+            },
+            "predictions": 4,
+            "tile_id": "pt-0232d9b6ed96308ad608",
+            "tp": 4
+          },
+          {
+            "fn": 0,
+            "gt": 2,
+            "iou": {
+              "0": 0.7718,
+              "1": 0.9743
+            },
+            "predictions": 2,
+            "tile_id": "pt-031517f0967dee166f86",
+            "tp": 2
+          },
+          {
+            "fn": 0,
+            "gt": 3,
+            "iou": {
+              "0": 0.9648,
+              "1": 0.9221,
+              "2": 0.9391
+            },
+            "predictions": 3,
+            "tile_id": "pt-2c4cdc8b71faaddfa130",
+            "tp": 3
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9374
+            },
+            "predictions": 1,
+            "tile_id": "pt-6a719fa13f06121518ed",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 5,
+            "iou": {
+              "0": 0.9327,
+              "1": 0.9328,
+              "2": 0.9312,
+              "3": 0.919,
+              "4": 0.9122
+            },
+            "predictions": 5,
+            "tile_id": "pt-77a080fba8048f2a4f64",
+            "tp": 5
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9417
+            },
+            "predictions": 1,
+            "tile_id": "pt-91d5edd9d4aeb60070ff",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 3,
+            "iou": {
+              "0": 0.947,
+              "1": 0.9445,
+              "2": 0.8356
+            },
+            "predictions": 4,
+            "tile_id": "pt-a88f63c6feac4fb01286",
+            "tp": 3
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9464
+            },
+            "predictions": 1,
+            "tile_id": "pt-062a7045de2b872a52ff",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9592
+            },
+            "predictions": 1,
+            "tile_id": "pt-0c802c8de27dcb548fa1",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9178
+            },
+            "predictions": 1,
+            "tile_id": "pt-11d7154afb5adc813b01",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 6,
+            "iou": {
+              "0": 0.8863,
+              "1": 0.926,
+              "2": 0.9263,
+              "3": 0.8555,
+              "4": 0.9644,
+              "5": 0.7876
+            },
+            "predictions": 6,
+            "tile_id": "pt-2105a7dc471caba39b7c",
+            "tp": 6
+          },
+          {
+            "fn": 0,
+            "gt": 3,
+            "iou": {
+              "0": 0.9147,
+              "1": 0.9046,
+              "2": 0.9084
+            },
+            "predictions": 3,
+            "tile_id": "pt-bef67f962d9ee9f47e0e",
+            "tp": 3
+          },
+          {
+            "fn": 0,
+            "gt": 2,
+            "iou": {
+              "0": 0.9292,
+              "1": 0.8579
+            },
+            "predictions": 2,
+            "tile_id": "pt-1e4e89542158fbf702b7",
+            "tp": 2
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9414
+            },
+            "predictions": 1,
+            "tile_id": "pt-2d423391e731dea2d658",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 6,
+            "iou": {
+              "0": 0.7345,
+              "1": 0.7553,
+              "2": 0.9078,
+              "3": 0.9508,
+              "4": 0.8523,
+              "5": 0.9423
+            },
+            "predictions": 8,
+            "tile_id": "pt-2e7306aa6837573fbc16",
+            "tp": 6
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.97
+            },
+            "predictions": 1,
+            "tile_id": "pt-45e17d6c39ef7e01a701",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.949
+            },
+            "predictions": 1,
+            "tile_id": "pt-8ea8e435a55a267b80b0",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9643
+            },
+            "predictions": 1,
+            "tile_id": "pt-d61762ee01d6f93305bb",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9559
+            },
+            "predictions": 1,
+            "tile_id": "pt-e20740b1551fa7f5406c",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9515
+            },
+            "predictions": 1,
+            "tile_id": "pt-efb65965607a0e34ffd8",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.948
+            },
+            "predictions": 1,
+            "tile_id": "pt-fa45acecc28bb80957b9",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9449
+            },
+            "predictions": 1,
+            "tile_id": "pt-0020c1be4f4c74a57286",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.925
+            },
+            "predictions": 1,
+            "tile_id": "pt-064220b2d6038e35aa5c",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9193
+            },
+            "predictions": 1,
+            "tile_id": "pt-448923949d3c2d99060d",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 2,
+            "iou": {
+              "0": 0.8838,
+              "1": 0.8991
+            },
+            "predictions": 2,
+            "tile_id": "pt-4ff8b150b5d6808b7521",
+            "tp": 2
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9659
+            },
+            "predictions": 1,
+            "tile_id": "pt-675dc3fb1d9d32abc835",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9526
+            },
+            "predictions": 1,
+            "tile_id": "pt-6d538ccd98f6adfa20be",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 6,
+            "iou": {
+              "0": 0.6192,
+              "1": 0.9478,
+              "2": 0.8574,
+              "3": 0.8942,
+              "4": 0.9126,
+              "5": 0.7963
+            },
+            "predictions": 8,
+            "tile_id": "pt-6d798e6ac891271bacb5",
+            "tp": 6
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.8843
+            },
+            "predictions": 1,
+            "tile_id": "pt-732f50fe84e5f730c1bf",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.8597
+            },
+            "predictions": 1,
+            "tile_id": "pt-75216f2a84600bb99e54",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 3,
+            "iou": {
+              "0": 0.8282,
+              "1": 0.7618,
+              "2": 0.919
+            },
+            "predictions": 3,
+            "tile_id": "pt-8d24ab8d09e7ecc7c49f",
+            "tp": 3
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9443
+            },
+            "predictions": 2,
+            "tile_id": "pt-987e86059de11d12622c",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 2,
+            "iou": {
+              "0": 0.8613,
+              "1": 0.758
+            },
+            "predictions": 3,
+            "tile_id": "pt-99cfcd339d9d79dffe7c",
+            "tp": 2
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9243
+            },
+            "predictions": 2,
+            "tile_id": "pt-a3273aec81ab8edd8939",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9121
+            },
+            "predictions": 1,
+            "tile_id": "pt-e1073fcffe525f242e98",
+            "tp": 1
+          },
+          {
+            "fn": 0,
+            "gt": 1,
+            "iou": {
+              "0": 0.9405
+            },
+            "predictions": 1,
+            "tile_id": "pt-eb10ae338dd58e7aa831",
+            "tp": 1
+          }
+        ],
+        "positive_gt_proposal_recall": 1.0,
+        "positive_gt_total": 96,
+        "positive_gt_tp": 96,
+        "positive_image_hit_rate": 1.0,
+        "positive_image_hits": 44,
+        "positive_image_total": 44
+      }
+    }
+  },
+  "predictions": {
+    "hn-02f7af08cc6a62dafb99": [],
+    "hn-043ba51070f02c46c061": [],
+    "hn-07f399b065bdca96e6a0": [],
+    "hn-0cc2b564e67fe86a99d0": [],
+    "hn-110c67115f25e3939c8f": [],
+    "hn-1232320c5944c1e7b2cb": [],
+    "hn-25d231aee901a2c0f1fc": [],
+    "hn-307f1d5e67c282567441": [],
+    "hn-3116776e93a17947561d": [],
+    "hn-378365281330513b7e7a": [],
+    "hn-39aa14babf5223650666": [],
+    "hn-3ab68433c09ca1a17f6e": [],
+    "hn-407b6784a85d47d5ca86": [],
+    "hn-44a2d05776138f6810ca": [
+      {
+        "bbox": [
+          618.302,
+          2.553,
+          637.92,
+          14.278
+        ],
+        "class_id": 0,
+        "score": 0.025412
+      },
+      {
+        "bbox": [
+          623.844,
+          2.222,
+          638.176,
+          13.008
+        ],
+        "class_id": 0,
+        "score": 0.014523
+      }
+    ],
+    "hn-5050883dd5ea34016204": [],
+    "hn-55bdc0fcd0ef96b54145": [],
+    "hn-56444d8aaaaeb000ac6d": [],
+    "hn-57dc1043216452d71f4b": [],
+    "hn-5d7fe603fa7a61bd4c36": [],
+    "hn-603856cc0a6806b13ec5": [],
+    "hn-65346390548cca3ba2e8": [],
+    "hn-68684cd0aff84b2b6f5d": [],
+    "hn-69549c44481031dfbffa": [],
+    "hn-6aadc8f3b9e4343520b9": [],
+    "hn-6cab122071e8d87d837d": [],
+    "hn-735c5d5d8f15dac3cf29": [],
+    "hn-7800827aa819bfee1484": [],
+    "hn-7e07426d53c0b65ba24c": [],
+    "hn-8e8ddf13fe80eb2d8d06": [],
+    "hn-8f2fcc4965a70ef7d8d2": [],
+    "hn-95252c272bc506728056": [],
+    "hn-95f70e3dd238e8915b18": [],
+    "hn-967e8d4fb1982a4b9a9d": [],
+    "hn-9c1ea02d67c73f75961a": [],
+    "hn-9e56a5033e186e099eae": [],
+    "hn-a624e55164e4c577b114": [],
+    "hn-ac3d8e3974073d1d5d5e": [],
+    "hn-ad0ab5cf6613957b5a45": [],
+    "hn-af81e306acbc12c1e209": [],
+    "hn-b3e511166a395a12e3e7": [],
+    "hn-b54a2ca7fc0d6145ce1d": [],
+    "hn-b7c31959b60410f16b61": [
+      {
+        "bbox": [
+          470.29,
+          0.0,
+          482.99,
+          14.169
+        ],
+        "class_id": 0,
+        "score": 0.024825
+      }
+    ],
+    "hn-bc0b74ef2dad238db8e7": [],
+    "hn-befb12a6dfdc2d5dcc03": [],
+    "hn-bf6582e56d6b060a10bd": [],
+    "hn-ced0474f2eb3df4a5a66": [],
+    "hn-d710244fb3b3ff71f576": [],
+    "hn-da478d3217795c2facf9": [],
+    "hn-dd6ad50b089c26db3c14": [],
+    "hn-e05bb59fe989f83f5322": [
+      {
+        "bbox": [
+          131.97,
+          28.048,
+          148.588,
+          39.083
+        ],
+        "class_id": 0,
+        "score": 0.01314
+      }
+    ],
+    "hn-e3ffb88c713055144ec4": [],
+    "hn-e8ae741b075dbdefeaf0": [],
+    "hn-ea8fb778864834e7997c": [],
+    "hn-ec9416f5c110b814bad1": [],
+    "hn-ef250087ff324e06447a": [],
+    "hn-f15a1bd3d0dfdd255aa7": [],
+    "hn-f7159b23779a8a73707c": [],
+    "hn-fa7d607354f3512fce92": [],
+    "hn-fbd64b8c169f815ad47c": [],
+    "hn-fc1873d23a562001a6fb": [],
+    "hn-fc41fffcb938c02ead3d": [],
+    "hn-fe12b29531b9d7879d58": [],
+    "hn-fedf6e4b68ecff73bc45": [],
+    "pt-0020c1be4f4c74a57286": [
+      {
+        "bbox": [
+          304.2,
+          312.616,
+          336.507,
+          327.113
+        ],
+        "class_id": 0,
+        "score": 0.870005
+      }
+    ],
+    "pt-0232d9b6ed96308ad608": [
+      {
+        "bbox": [
+          378.303,
+          521.303,
+          411.805,
+          550.226
+        ],
+        "class_id": 0,
+        "score": 0.884464
+      },
+      {
+        "bbox": [
+          244.663,
+          420.601,
+          307.239,
+          463.218
+        ],
+        "class_id": 0,
+        "score": 0.884171
+      },
+      {
+        "bbox": [
+          226.388,
+          129.552,
+          295.202,
+          156.424
+        ],
+        "class_id": 0,
+        "score": 0.880743
+      },
+      {
+        "bbox": [
+          380.86,
+          556.601,
+          421.71,
+          582.825
+        ],
+        "class_id": 0,
+        "score": 0.632523
+      },
+      {
+        "bbox": [
+          277.519,
+          97.096,
+          305.552,
+          111.445
+        ],
+        "class_id": 0,
+        "score": 0.030245
+      },
+      {
+        "bbox": [
+          285.713,
+          352.404,
+          329.341,
+          378.366
+        ],
+        "class_id": 0,
+        "score": 0.025521
+      }
+    ],
+    "pt-031517f0967dee166f86": [
+      {
+        "bbox": [
+          299.006,
+          594.212,
+          339.327,
+          617.988
+        ],
+        "class_id": 0,
+        "score": 0.835814
+      },
+      {
+        "bbox": [
+          245.145,
+          594.288,
+          280.057,
+          621.602
+        ],
+        "class_id": 0,
+        "score": 0.739336
+      }
+    ],
+    "pt-062a7045de2b872a52ff": [
+      {
+        "bbox": [
+          302.415,
+          310.798,
+          338.322,
+          327.612
+        ],
+        "class_id": 0,
+        "score": 0.873531
+      },
+      {
+        "bbox": [
+          301.905,
+          309.814,
+          339.032,
+          333.253
+        ],
+        "class_id": 0,
+        "score": 0.02022
+      },
+      {
+        "bbox": [
+          421.968,
+          44.165,
+          444.534,
+          52.005
+        ],
+        "class_id": 0,
+        "score": 0.013024
+      }
+    ],
+    "pt-064220b2d6038e35aa5c": [
+      {
+        "bbox": [
+          305.549,
+          305.842,
+          332.749,
+          334.299
+        ],
+        "class_id": 0,
+        "score": 0.556969
+      },
+      {
+        "bbox": [
+          306.861,
+          303.796,
+          332.749,
+          326.193
+        ],
+        "class_id": 0,
+        "score": 0.029975
+      }
+    ],
+    "pt-08daffbffef20a58ccc6": [
+      {
+        "bbox": [
+          276.374,
+          198.24,
+          335.504,
+          283.357
+        ],
+        "class_id": 0,
+        "score": 0.900338
+      },
+      {
+        "bbox": [
+          452.197,
+          28.426,
+          467.113,
+          40.162
+        ],
+        "class_id": 0,
+        "score": 0.871713
+      },
+      {
+        "bbox": [
+          431.696,
+          133.345,
+          451.625,
+          142.257
+        ],
+        "class_id": 0,
+        "score": 0.857349
+      },
+      {
+        "bbox": [
+          301.457,
+          391.891,
+          368.357,
+          444.483
+        ],
+        "class_id": 0,
+        "score": 0.853006
+      },
+      {
+        "bbox": [
+          347.159,
+          126.246,
+          376.486,
+          148.92
+        ],
+        "class_id": 0,
+        "score": 0.827889
+      },
+      {
+        "bbox": [
+          158.044,
+          62.536,
+          176.64,
+          73.92
+        ],
+        "class_id": 0,
+        "score": 0.728007
+      },
+      {
+        "bbox": [
+          216.554,
+          87.283,
+          233.961,
+          97.398
+        ],
+        "class_id": 0,
+        "score": 0.698541
+      },
+      {
+        "bbox": [
+          444.327,
+          77.456,
+          456.802,
+          92.63
+        ],
+        "class_id": 0,
+        "score": 0.664429
+      },
+      {
+        "bbox": [
+          153.804,
+          61.318,
+          177.413,
+          75.357
+        ],
+        "class_id": 0,
+        "score": 0.416706
+      },
+      {
+        "bbox": [
+          444.376,
+          76.418,
+          461.986,
+          94.35
+        ],
+        "class_id": 0,
+        "score": 0.061041
+      },
+      {
+        "bbox": [
+          430.18,
+          129.901,
+          453.072,
+          148.423
+        ],
+        "class_id": 0,
+        "score": 0.027113
+      },
+      {
+        "bbox": [
+          541.901,
+          159.295,
+          556.604,
+          165.66
+        ],
+        "class_id": 0,
+        "score": 0.01661
+      },
+      {
+        "bbox": [
+          156.121,
+          61.186,
+          181.76,
+          78.67
+        ],
+        "class_id": 0,
+        "score": 0.015057
+      },
+      {
+        "bbox": [
+          451.222,
+          26.27,
+          468.018,
+          41.349
+        ],
+        "class_id": 0,
+        "score": 0.012258
+      },
+      {
+        "bbox": [
+          242.979,
+          184.005,
+          350.009,
+          287.626
+        ],
+        "class_id": 0,
+        "score": 0.01062
+      }
+    ],
+    "pt-0c802c8de27dcb548fa1": [
+      {
+        "bbox": [
+          298.593,
+          372.005,
+          340.342,
+          391.68
+        ],
+        "class_id": 0,
+        "score": 0.867549
+      }
+    ],
+    "pt-11d7154afb5adc813b01": [
+      {
+        "bbox": [
+          304.318,
+          312.488,
+          337.105,
+          327.557
+        ],
+        "class_id": 0,
+        "score": 0.834285
+      },
+      {
+        "bbox": [
+          382.157,
+          311.559,
+          416.809,
+          324.557
+        ],
+        "class_id": 0,
+        "score": 0.024023
+      },
+      {
+        "bbox": [
+          473.523,
+          363.726,
+          482.367,
+          371.776
+        ],
+        "class_id": 0,
+        "score": 0.013781
+      }
+    ],
+    "pt-1e4e89542158fbf702b7": [
+      {
+        "bbox": [
+          317.783,
+          294.887,
+          344.38,
+          308.152
+        ],
+        "class_id": 0,
+        "score": 0.828912
+      },
+      {
+        "bbox": [
+          299.402,
+          556.708,
+          339.693,
+          569.209
+        ],
+        "class_id": 0,
+        "score": 0.825931
+      }
+    ],
+    "pt-2105a7dc471caba39b7c": [
+      {
+        "bbox": [
+          289.029,
+          220.047,
+          349.862,
+          247.415
+        ],
+        "class_id": 0,
+        "score": 0.907355
+      },
+      {
+        "bbox": [
+          427.093,
+          228.892,
+          440.148,
+          241.519
+        ],
+        "class_id": 0,
+        "score": 0.843053
+      },
+      {
+        "bbox": [
+          381.933,
+          218.791,
+          395.969,
+          230.118
+        ],
+        "class_id": 0,
+        "score": 0.835548
+      },
+      {
+        "bbox": [
+          209.04,
+          214.947,
+          224.776,
+          229.619
+        ],
+        "class_id": 0,
+        "score": 0.798117
+      },
+      {
+        "bbox": [
+          320.456,
+          404.102,
+          350.343,
+          422.249
+        ],
+        "class_id": 0,
+        "score": 0.743396
+      },
+      {
+        "bbox": [
+          296.009,
+          457.996,
+          312.807,
+          475.077
+        ],
+        "class_id": 0,
+        "score": 0.52046
+      },
+      {
+        "bbox": [
+          296.119,
+          456.887,
+          319.104,
+          479.034
+        ],
+        "class_id": 0,
+        "score": 0.085844
+      },
+      {
+        "bbox": [
+          267.018,
+          202.476,
+          277.842,
+          216.875
+        ],
+        "class_id": 0,
+        "score": 0.055273
+      },
+      {
+        "bbox": [
+          378.055,
+          215.651,
+          395.457,
+          229.511
+        ],
+        "class_id": 0,
+        "score": 0.041992
+      },
+      {
+        "bbox": [
+          319.622,
+          404.539,
+          353.61,
+          430.208
+        ],
+        "class_id": 0,
+        "score": 0.027019
+      },
+      {
+        "bbox": [
+          208.333,
+          212.144,
+          228.572,
+          229.442
+        ],
+        "class_id": 0,
+        "score": 0.023483
+      },
+      {
+        "bbox": [
+          322.411,
+          402.574,
+          358.218,
+          421.627
+        ],
+        "class_id": 0,
+        "score": 0.022791
+      },
+      {
+        "bbox": [
+          248.302,
+          287.748,
+          305.234,
+          318.169
+        ],
+        "class_id": 0,
+        "score": 0.01847
+      },
+      {
+        "bbox": [
+          426.765,
+          227.093,
+          441.132,
+          243.719
+        ],
+        "class_id": 0,
+        "score": 0.014416
+      },
+      {
+        "bbox": [
+          347.054,
+          198.795,
+          380.486,
+          215.107
+        ],
+        "class_id": 0,
+        "score": 0.012622
+      },
+      {
+        "bbox": [
+          295.251,
+          455.42,
+          323.282,
+          475.795
+        ],
+        "class_id": 0,
+        "score": 0.010654
+      }
+    ],
+    "pt-2c4cdc8b71faaddfa130": [
+      {
+        "bbox": [
+          395.931,
+          232.149,
+          526.527,
+          359.596
+        ],
+        "class_id": 0,
+        "score": 0.886941
+      },
+      {
+        "bbox": [
+          245.517,
+          281.198,
+          308.988,
+          325.947
+        ],
+        "class_id": 0,
+        "score": 0.837746
+      },
+      {
+        "bbox": [
+          268.399,
+          287.637,
+          398.804,
+          361.927
+        ],
+        "class_id": 0,
+        "score": 0.79567
+      },
+      {
+        "bbox": [
+          276.212,
+          294.78,
+          371.261,
+          354.597
+        ],
+        "class_id": 0,
+        "score": 0.02292
+      },
+      {
+        "bbox": [
+          290.627,
+          278.301,
+          396.919,
+          368.059
+        ],
+        "class_id": 0,
+        "score": 0.020294
+      },
+      {
+        "bbox": [
+          238.776,
+          249.766,
+          322.074,
+          340.572
+        ],
+        "class_id": 0,
+        "score": 0.01194
+      },
+      {
+        "bbox": [
+          329.985,
+          214.874,
+          373.076,
+          233.833
+        ],
+        "class_id": 0,
+        "score": 0.01041
+      }
+    ],
+    "pt-2d423391e731dea2d658": [
+      {
+        "bbox": [
+          282.022,
+          600.739,
+          356.303,
+          638.781
+        ],
+        "class_id": 0,
+        "score": 0.893345
+      }
+    ],
+    "pt-2e7306aa6837573fbc16": [
+      {
+        "bbox": [
+          254.881,
+          437.901,
+          276.392,
+          451.249
+        ],
+        "class_id": 0,
+        "score": 0.857881
+      },
+      {
+        "bbox": [
+          342.124,
+          407.886,
+          411.372,
+          435.36
+        ],
+        "class_id": 0,
+        "score": 0.85762
+      },
+      {
+        "bbox": [
+          223.984,
+          396.874,
+          328.629,
+          425.084
+        ],
+        "class_id": 0,
+        "score": 0.826331
+      },
+      {
+        "bbox": [
+          318.366,
+          19.915,
+          354.426,
+          32.228
+        ],
+        "class_id": 0,
+        "score": 0.759897
+      },
+      {
+        "bbox": [
+          153.106,
+          159.746,
+          192.326,
+          180.524
+        ],
+        "class_id": 0,
+        "score": 0.734079
+      },
+      {
+        "bbox": [
+          157.94,
+          442.442,
+          193.715,
+          458.111
+        ],
+        "class_id": 0,
+        "score": 0.616815
+      },
+      {
+        "bbox": [
+          157.852,
+          435.699,
+          193.552,
+          457.84
+        ],
+        "class_id": 0,
+        "score": 0.241796
+      },
+      {
+        "bbox": [
+          158.438,
+          443.165,
+          179.781,
+          456.316
+        ],
+        "class_id": 0,
+        "score": 0.164826
+      },
+      {
+        "bbox": [
+          0.0,
+          416.943,
+          20.659,
+          429.113
+        ],
+        "class_id": 0,
+        "score": 0.072316
+      },
+      {
+        "bbox": [
+          187.501,
+          485.39,
+          197.784,
+          495.408
+        ],
+        "class_id": 0,
+        "score": 0.04893
+      },
+      {
+        "bbox": [
+          0.0,
+          412.369,
+          20.55,
+          428.745
+        ],
+        "class_id": 0,
+        "score": 0.020497
+      },
+      {
+        "bbox": [
+          252.941,
+          432.077,
+          276.966,
+          451.882
+        ],
+        "class_id": 0,
+        "score": 0.015673
+      },
+      {
+        "bbox": [
+          0.0,
+          403.016,
+          20.959,
+          429.063
+        ],
+        "class_id": 0,
+        "score": 0.013896
+      },
+      {
+        "bbox": [
+          317.295,
+          17.848,
+          354.536,
+          35.81
+        ],
+        "class_id": 0,
+        "score": 0.013821
+      }
+    ],
+    "pt-448923949d3c2d99060d": [
+      {
+        "bbox": [
+          305.784,
+          316.184,
+          334.306,
+          323.667
+        ],
+        "class_id": 0,
+        "score": 0.804163
+      }
+    ],
+    "pt-45e17d6c39ef7e01a701": [
+      {
+        "bbox": [
+          262.43,
+          294.941,
+          323.885,
+          344.262
+        ],
+        "class_id": 0,
+        "score": 0.919238
+      },
+      {
+        "bbox": [
+          317.859,
+          364.33,
+          330.002,
+          374.105
+        ],
+        "class_id": 0,
+        "score": 0.030038
+      }
+    ],
+    "pt-4ff8b150b5d6808b7521": [
+      {
+        "bbox": [
+          442.257,
+          349.944,
+          460.964,
+          359.332
+        ],
+        "class_id": 0,
+        "score": 0.701772
+      },
+      {
+        "bbox": [
+          177.735,
+          282.505,
+          188.957,
+          298.571
+        ],
+        "class_id": 0,
+        "score": 0.165793
+      },
+      {
+        "bbox": [
+          58.978,
+          220.487,
+          76.733,
+          230.116
+        ],
+        "class_id": 0,
+        "score": 0.020616
+      },
+      {
+        "bbox": [
+          441.627,
+          348.009,
+          462.907,
+          364.054
+        ],
+        "class_id": 0,
+        "score": 0.013331
+      }
+    ],
+    "pt-5715f1a937e60d9a0405": [
+      {
+        "bbox": [
+          612.269,
+          290.592,
+          634.293,
+          349.854
+        ],
+        "class_id": 0,
+        "score": 0.840402
+      }
+    ],
+    "pt-5800901fc7f3de98d448": [
+      {
+        "bbox": [
+          156.378,
+          339.213,
+          261.324,
+          388.0
+        ],
+        "class_id": 0,
+        "score": 0.900813
+      },
+      {
+        "bbox": [
+          257.196,
+          338.591,
+          364.324,
+          392.478
+        ],
+        "class_id": 0,
+        "score": 0.895417
+      },
+      {
+        "bbox": [
+          84.361,
+          326.974,
+          98.966,
+          337.297
+        ],
+        "class_id": 0,
+        "score": 0.858307
+      },
+      {
+        "bbox": [
+          330.061,
+          408.303,
+          359.982,
+          427.779
+        ],
+        "class_id": 0,
+        "score": 0.786248
+      },
+      {
+        "bbox": [
+          306.244,
+          308.941,
+          334.472,
+          330.518
+        ],
+        "class_id": 0,
+        "score": 0.783112
+      },
+      {
+        "bbox": [
+          197.059,
+          229.431,
+          244.419,
+          249.662
+        ],
+        "class_id": 0,
+        "score": 0.718834
+      },
+      {
+        "bbox": [
+          258.304,
+          417.539,
+          283.593,
+          434.623
+        ],
+        "class_id": 0,
+        "score": 0.645073
+      },
+      {
+        "bbox": [
+          29.978,
+          227.409,
+          41.14,
+          236.127
+        ],
+        "class_id": 0,
+        "score": 0.617493
+      },
+      {
+        "bbox": [
+          239.399,
+          291.662,
+          251.017,
+          299.595
+        ],
+        "class_id": 0,
+        "score": 0.615485
+      },
+      {
+        "bbox": [
+          69.676,
+          294.623,
+          80.214,
+          301.781
+        ],
+        "class_id": 0,
+        "score": 0.29664
+      },
+      {
+        "bbox": [
+          28.658,
+          221.511,
+          40.593,
+          235.745
+        ],
+        "class_id": 0,
+        "score": 0.206144
+      },
+      {
+        "bbox": [
+          19.251,
+          191.286,
+          28.882,
+          200.808
+        ],
+        "class_id": 0,
+        "score": 0.185503
+      },
+      {
+        "bbox": [
+          256.275,
+          415.954,
+          289.251,
+          438.618
+        ],
+        "class_id": 0,
+        "score": 0.163699
+      },
+      {
+        "bbox": [
+          188.995,
+          416.921,
+          198.92,
+          427.818
+        ],
+        "class_id": 0,
+        "score": 0.16088
+      },
+      {
+        "bbox": [
+          83.264,
+          325.303,
+          102.437,
+          338.506
+        ],
+        "class_id": 0,
+        "score": 0.096924
+      },
+      {
+        "bbox": [
+          201.22,
+          227.964,
+          256.975,
+          248.812
+        ],
+        "class_id": 0,
+        "score": 0.071284
+      },
+      {
+        "bbox": [
+          159.545,
+          319.797,
+          169.204,
+          329.218
+        ],
+        "class_id": 0,
+        "score": 0.035726
+      },
+      {
+        "bbox": [
+          159.38,
+          338.107,
+          227.886,
+          372.746
+        ],
+        "class_id": 0,
+        "score": 0.03423
+      },
+      {
+        "bbox": [
+          30.665,
+          225.803,
+          42.388,
+          234.617
+        ],
+        "class_id": 0,
+        "score": 0.031278
+      },
+      {
+        "bbox": [
+          238.088,
+          337.325,
+          341.978,
+          393.207
+        ],
+        "class_id": 0,
+        "score": 0.02844
+      },
+      {
+        "bbox": [
+          258.13,
+          406.388,
+          283.053,
+          434.708
+        ],
+        "class_id": 0,
+        "score": 0.026077
+      },
+      {
+        "bbox": [
+          332.375,
+          406.72,
+          367.633,
+          429.464
+        ],
+        "class_id": 0,
+        "score": 0.024759
+      },
+      {
+        "bbox": [
+          400.201,
+          380.074,
+          414.498,
+          395.634
+        ],
+        "class_id": 0,
+        "score": 0.022134
+      },
+      {
+        "bbox": [
+          186.646,
+          299.313,
+          196.554,
+          312.704
+        ],
+        "class_id": 0,
+        "score": 0.020017
+      },
+      {
+        "bbox": [
+          149.289,
+          289.35,
+          157.949,
+          296.589
+        ],
+        "class_id": 0,
+        "score": 0.019997
+      },
+      {
+        "bbox": [
+          293.841,
+          342.28,
+          347.522,
+          386.157
+        ],
+        "class_id": 0,
+        "score": 0.019101
+      },
+      {
+        "bbox": [
+          204.616,
+          401.008,
+          216.952,
+          413.566
+        ],
+        "class_id": 0,
+        "score": 0.017414
+      },
+      {
+        "bbox": [
+          30.954,
+          226.562,
+          43.267,
+          237.012
+        ],
+        "class_id": 0,
+        "score": 0.016617
+      },
+      {
+        "bbox": [
+          18.894,
+          189.887,
+          29.07,
+          203.784
+        ],
+        "class_id": 0,
+        "score": 0.015658
+      },
+      {
+        "bbox": [
+          567.6,
+          211.929,
+          640.0,
+          238.662
+        ],
+        "class_id": 0,
+        "score": 0.01196
+      }
+    ],
+    "pt-5eb3c00f39c1ff273b8c": [
+      {
+        "bbox": [
+          304.205,
+          315.465,
+          336.508,
+          325.567
+        ],
+        "class_id": 0,
+        "score": 0.777611
+      },
+      {
+        "bbox": [
+          298.583,
+          52.226,
+          308.809,
+          59.178
+        ],
+        "class_id": 0,
+        "score": 0.01213
+      }
+    ],
+    "pt-675dc3fb1d9d32abc835": [
+      {
+        "bbox": [
+          308.033,
+          311.514,
+          333.016,
+          330.101
+        ],
+        "class_id": 0,
+        "score": 0.778889
+      }
+    ],
+    "pt-6a719fa13f06121518ed": [
+      {
+        "bbox": [
+          179.333,
+          362.301,
+          218.791,
+          397.779
+        ],
+        "class_id": 0,
+        "score": 0.872315
+      },
+      {
+        "bbox": [
+          280.558,
+          550.488,
+          294.388,
+          564.43
+        ],
+        "class_id": 0,
+        "score": 0.045272
+      }
+    ],
+    "pt-6d538ccd98f6adfa20be": [
+      {
+        "bbox": [
+          291.014,
+          473.457,
+          348.432,
+          500.076
+        ],
+        "class_id": 0,
+        "score": 0.904233
+      },
+      {
+        "bbox": [
+          547.111,
+          36.991,
+          577.202,
+          54.642
+        ],
+        "class_id": 0,
+        "score": 0.010879
+      }
+    ],
+    "pt-6d798e6ac891271bacb5": [
+      {
+        "bbox": [
+          301.746,
+          101.668,
+          332.75,
+          125.197
+        ],
+        "class_id": 0,
+        "score": 0.85636
+      },
+      {
+        "bbox": [
+          303.982,
+          257.649,
+          321.23,
+          266.824
+        ],
+        "class_id": 0,
+        "score": 0.831117
+      },
+      {
+        "bbox": [
+          304.017,
+          308.657,
+          336.039,
+          331.368
+        ],
+        "class_id": 0,
+        "score": 0.825683
+      },
+      {
+        "bbox": [
+          361.924,
+          275.005,
+          402.067,
+          312.152
+        ],
+        "class_id": 0,
+        "score": 0.70722
+      },
+      {
+        "bbox": [
+          531.019,
+          317.927,
+          543.246,
+          334.874
+        ],
+        "class_id": 0,
+        "score": 0.662695
+      },
+      {
+        "bbox": [
+          206.496,
+          294.589,
+          236.846,
+          310.074
+        ],
+        "class_id": 0,
+        "score": 0.434358
+      },
+      {
+        "bbox": [
+          344.936,
+          241.003,
+          354.908,
+          252.085
+        ],
+        "class_id": 0,
+        "score": 0.411434
+      },
+      {
+        "bbox": [
+          443.608,
+          157.34,
+          452.123,
+          164.726
+        ],
+        "class_id": 0,
+        "score": 0.141631
+      },
+      {
+        "bbox": [
+          530.255,
+          313.579,
+          544.574,
+          335.353
+        ],
+        "class_id": 0,
+        "score": 0.046651
+      },
+      {
+        "bbox": [
+          202.766,
+          293.041,
+          239.343,
+          319.111
+        ],
+        "class_id": 0,
+        "score": 0.031149
+      },
+      {
+        "bbox": [
+          302.549,
+          256.364,
+          325.214,
+          268.389
+        ],
+        "class_id": 0,
+        "score": 0.011797
+      },
+      {
+        "bbox": [
+          180.363,
+          230.723,
+          195.435,
+          242.635
+        ],
+        "class_id": 0,
+        "score": 0.011277
+      }
+    ],
+    "pt-732f50fe84e5f730c1bf": [
+      {
+        "bbox": [
+          308.687,
+          312.479,
+          330.505,
+          326.462
+        ],
+        "class_id": 0,
+        "score": 0.657816
+      },
+      {
+        "bbox": [
+          305.594,
+          312.022,
+          332.764,
+          332.978
+        ],
+        "class_id": 0,
+        "score": 0.019123
+      },
+      {
+        "bbox": [
+          303.101,
+          413.888,
+          329.746,
+          429.967
+        ],
+        "class_id": 0,
+        "score": 0.011919
+      }
+    ],
+    "pt-75216f2a84600bb99e54": [
+      {
+        "bbox": [
+          308.218,
+          316.132,
+          330.87,
+          323.677
+        ],
+        "class_id": 0,
+        "score": 0.754245
+      }
+    ],
+    "pt-77a080fba8048f2a4f64": [
+      {
+        "bbox": [
+          276.496,
+          563.897,
+          366.123,
+          623.294
+        ],
+        "class_id": 0,
+        "score": 0.910267
+      },
+      {
+        "bbox": [
+          305.562,
+          116.102,
+          330.834,
+          129.469
+        ],
+        "class_id": 0,
+        "score": 0.860674
+      },
+      {
+        "bbox": [
+          327.34,
+          150.64,
+          372.325,
+          165.287
+        ],
+        "class_id": 0,
+        "score": 0.846327
+      },
+      {
+        "bbox": [
+          334.272,
+          67.255,
+          348.098,
+          81.183
+        ],
+        "class_id": 0,
+        "score": 0.774762
+      },
+      {
+        "bbox": [
+          308.096,
+          63.789,
+          323.715,
+          77.551
+        ],
+        "class_id": 0,
+        "score": 0.771372
+      },
+      {
+        "bbox": [
+          308.184,
+          66.065,
+          323.92,
+          94.309
+        ],
+        "class_id": 0,
+        "score": 0.085702
+      },
+      {
+        "bbox": [
+          314.318,
+          64.946,
+          346.143,
+          81.171
+        ],
+        "class_id": 0,
+        "score": 0.060644
+      },
+      {
+        "bbox": [
+          321.951,
+          63.82,
+          345.935,
+          80.33
+        ],
+        "class_id": 0,
+        "score": 0.01535
+      },
+      {
+        "bbox": [
+          304.071,
+          63.144,
+          324.031,
+          95.38
+        ],
+        "class_id": 0,
+        "score": 0.013694
+      }
+    ],
+    "pt-8d24ab8d09e7ecc7c49f": [
+      {
+        "bbox": [
+          301.988,
+          428.902,
+          339.095,
+          448.018
+        ],
+        "class_id": 0,
+        "score": 0.82962
+      },
+      {
+        "bbox": [
+          305.578,
+          309.815,
+          335.339,
+          328.169
+        ],
+        "class_id": 0,
+        "score": 0.795018
+      },
+      {
+        "bbox": [
+          7.197,
+          304.797,
+          37.433,
+          325.383
+        ],
+        "class_id": 0,
+        "score": 0.782183
+      },
+      {
+        "bbox": [
+          278.322,
+          234.936,
+          293.702,
+          244.902
+        ],
+        "class_id": 0,
+        "score": 0.061326
+      },
+      {
+        "bbox": [
+          278.014,
+          235.155,
+          294.148,
+          249.861
+        ],
+        "class_id": 0,
+        "score": 0.047097
+      },
+      {
+        "bbox": [
+          304.478,
+          419.018,
+          339.098,
+          448.107
+        ],
+        "class_id": 0,
+        "score": 0.033246
+      }
+    ],
+    "pt-8ea8e435a55a267b80b0": [
+      {
+        "bbox": [
+          302.358,
+          315.755,
+          337.691,
+          325.069
+        ],
+        "class_id": 0,
+        "score": 0.861086
+      },
+      {
+        "bbox": [
+          307.096,
+          175.036,
+          318.095,
+          185.042
+        ],
+        "class_id": 0,
+        "score": 0.028631
+      }
+    ],
+    "pt-91d5edd9d4aeb60070ff": [
+      {
+        "bbox": [
+          285.905,
+          452.43,
+          355.078,
+          492.617
+        ],
+        "class_id": 0,
+        "score": 0.907484
+      }
+    ],
+    "pt-987e86059de11d12622c": [
+      {
+        "bbox": [
+          277.702,
+          551.534,
+          364.84,
+          615.349
+        ],
+        "class_id": 0,
+        "score": 0.883143
+      },
+      {
+        "bbox": [
+          424.562,
+          506.853,
+          437.431,
+          519.686
+        ],
+        "class_id": 0,
+        "score": 0.166966
+      },
+      {
+        "bbox": [
+          424.43,
+          501.267,
+          439.015,
+          520.138
+        ],
+        "class_id": 0,
+        "score": 0.032432
+      }
+    ],
+    "pt-99cfcd339d9d79dffe7c": [
+      {
+        "bbox": [
+          297.014,
+          314.728,
+          340.557,
+          326.004
+        ],
+        "class_id": 0,
+        "score": 0.842293
+      },
+      {
+        "bbox": [
+          374.665,
+          382.704,
+          405.803,
+          400.621
+        ],
+        "class_id": 0,
+        "score": 0.706656
+      },
+      {
+        "bbox": [
+          374.502,
+          383.744,
+          406.997,
+          407.26
+        ],
+        "class_id": 0,
+        "score": 0.164259
+      }
+    ],
+    "pt-9a36bbe18f96da2ccee3": [
+      {
+        "bbox": [
+          257.891,
+          548.676,
+          384.453,
+          629.904
+        ],
+        "class_id": 0,
+        "score": 0.922636
+      },
+      {
+        "bbox": [
+          249.232,
+          320.901,
+          342.621,
+          411.383
+        ],
+        "class_id": 0,
+        "score": 0.908918
+      },
+      {
+        "bbox": [
+          406.519,
+          369.073,
+          437.394,
+          390.178
+        ],
+        "class_id": 0,
+        "score": 0.84411
+      },
+      {
+        "bbox": [
+          169.795,
+          84.762,
+          187.055,
+          93.826
+        ],
+        "class_id": 0,
+        "score": 0.458846
+      },
+      {
+        "bbox": [
+          150.331,
+          0.0,
+          166.045,
+          12.11
+        ],
+        "class_id": 0,
+        "score": 0.015608
+      },
+      {
+        "bbox": [
+          151.715,
+          0.0,
+          166.983,
+          10.826
+        ],
+        "class_id": 0,
+        "score": 0.014532
+      }
+    ],
+    "pt-a3273aec81ab8edd8939": [
+      {
+        "bbox": [
+          285.041,
+          556.486,
+          351.972,
+          584.548
+        ],
+        "class_id": 0,
+        "score": 0.897805
+      },
+      {
+        "bbox": [
+          389.244,
+          80.596,
+          401.377,
+          96.995
+        ],
+        "class_id": 0,
+        "score": 0.27195
+      },
+      {
+        "bbox": [
+          430.442,
+          224.828,
+          441.955,
+          232.828
+        ],
+        "class_id": 0,
+        "score": 0.023981
+      }
+    ],
+    "pt-a88f63c6feac4fb01286": [
+      {
+        "bbox": [
+          160.102,
+          248.775,
+          284.219,
+          370.528
+        ],
+        "class_id": 0,
+        "score": 0.953689
+      },
+      {
+        "bbox": [
+          32.468,
+          246.006,
+          162.733,
+          370.189
+        ],
+        "class_id": 0,
+        "score": 0.913665
+      },
+      {
+        "bbox": [
+          273.208,
+          271.886,
+          369.501,
+          359.72
+        ],
+        "class_id": 0,
+        "score": 0.787591
+      },
+      {
+        "bbox": [
+          286.108,
+          282.172,
+          362.374,
+          362.005
+        ],
+        "class_id": 0,
+        "score": 0.141511
+      },
+      {
+        "bbox": [
+          132.958,
+          250.079,
+          264.779,
+          373.419
+        ],
+        "class_id": 0,
+        "score": 0.075574
+      }
+    ],
+    "pt-bef67f962d9ee9f47e0e": [
+      {
+        "bbox": [
+          164.733,
+          180.326,
+          184.728,
+          189.715
+        ],
+        "class_id": 0,
+        "score": 0.836338
+      },
+      {
+        "bbox": [
+          301.598,
+          313.625,
+          335.946,
+          326.312
+        ],
+        "class_id": 0,
+        "score": 0.813122
+      },
+      {
+        "bbox": [
+          278.654,
+          410.66,
+          305.473,
+          426.49
+        ],
+        "class_id": 0,
+        "score": 0.696317
+      },
+      {
+        "bbox": [
+          277.565,
+          411.807,
+          309.637,
+          438.393
+        ],
+        "class_id": 0,
+        "score": 0.062988
+      },
+      {
+        "bbox": [
+          277.935,
+          409.168,
+          311.757,
+          432.889
+        ],
+        "class_id": 0,
+        "score": 0.018967
+      },
+      {
+        "bbox": [
+          163.535,
+          179.497,
+          187.685,
+          188.595
+        ],
+        "class_id": 0,
+        "score": 0.012568
+      }
+    ],
+    "pt-ca2b2bade7ac520823aa": [
+      {
+        "bbox": [
+          495.127,
+          291.644,
+          513.68,
+          346.689
+        ],
+        "class_id": 0,
+        "score": 0.86608
+      }
+    ],
+    "pt-d61762ee01d6f93305bb": [
+      {
+        "bbox": [
+          289.923,
+          304.627,
+          351.414,
+          334.522
+        ],
+        "class_id": 0,
+        "score": 0.90278
+      },
+      {
+        "bbox": [
+          485.703,
+          182.229,
+          503.142,
+          231.153
+        ],
+        "class_id": 0,
+        "score": 0.031081
+      },
+      {
+        "bbox": [
+          365.927,
+          305.782,
+          400.327,
+          335.954
+        ],
+        "class_id": 0,
+        "score": 0.016661
+      }
+    ],
+    "pt-e1073fcffe525f242e98": [
+      {
+        "bbox": [
+          289.992,
+          374.439,
+          352.401,
+          397.745
+        ],
+        "class_id": 0,
+        "score": 0.928014
+      }
+    ],
+    "pt-e1b67d10e2648e0a4a71": [
+      {
+        "bbox": [
+          316.619,
+          306.182,
+          403.687,
+          336.441
+        ],
+        "class_id": 0,
+        "score": 0.863725
+      }
+    ],
+    "pt-e20740b1551fa7f5406c": [
+      {
+        "bbox": [
+          304.937,
+          314.191,
+          335.163,
+          327.301
+        ],
+        "class_id": 0,
+        "score": 0.834925
+      },
+      {
+        "bbox": [
+          457.741,
+          272.179,
+          467.3,
+          282.27
+        ],
+        "class_id": 0,
+        "score": 0.010689
+      }
+    ],
+    "pt-eb10ae338dd58e7aa831": [
+      {
+        "bbox": [
+          294.277,
+          301.183,
+          347.142,
+          338.862
+        ],
+        "class_id": 0,
+        "score": 0.915104
+      }
+    ],
+    "pt-efb65965607a0e34ffd8": [
+      {
+        "bbox": [
+          288.321,
+          300.292,
+          312.965,
+          339.681
+        ],
+        "class_id": 0,
+        "score": 0.87774
+      },
+      {
+        "bbox": [
+          184.042,
+          78.175,
+          209.087,
+          100.036
+        ],
+        "class_id": 0,
+        "score": 0.019074
+      }
+    ],
+    "pt-f8bd29e3501c2ab224ee": [
+      {
+        "bbox": [
+          294.576,
+          310.262,
+          345.783,
+          328.957
+        ],
+        "class_id": 0,
+        "score": 0.828041
+      }
+    ],
+    "pt-fa45acecc28bb80957b9": [
+      {
+        "bbox": [
+          294.022,
+          288.879,
+          344.534,
+          350.274
+        ],
+        "class_id": 0,
+        "score": 0.902436
+      }
+    ]
+  },
+  "stage": "full_finetune_post",
+  "tag": "post",
+  "verdict": {
+    "failed_preconditions": [],
+    "note": "FULL_TRAIN_SET_SANITY_ONLY: every metric in this step is measured on the training tiles; train == val, so no generalisation is claimed",
+    "preconditions": {
+      "augmentation_matches_recipe": true,
+      "epochs_completed": true,
+      "frozen_args_applied": true,
+      "full_pool_ok": true,
+      "loader_ok": true,
+      "loss_decreased": true,
+      "nan_free": true
+    },
+    "train_set_gt_proposal_recall_at_0.01": 1.0,
+    "train_set_image_hit_rate_at_0.01": 1.0,
+    "train_set_recall_bar": 0.9,
+    "verdict": "FULL_FINETUNE_SANITY_PASS"
+  },
+  "weights": "/home/sf01/step2b-20260923/out/runs/full_finetune/weights/best.pt"
+}

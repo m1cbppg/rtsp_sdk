@@ -1,0 +1,16 @@
+{
+  "blockers": [
+    "no CUDA GPU on this machine: torch.cuda.is_available() is False, nvidia-smi absent; the tiny overfit must not silently run on CPU",
+    "ultralytics cannot be imported here: ModuleNotFoundError: No module named 'ultralytics'"
+  ],
+  "executable": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/.venv-profile/bin/python",
+  "machine": "arm64",
+  "nvidia_smi_present": false,
+  "opencv": "4.13.0",
+  "opencv_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/.venv-profile/lib/python3.12/site-packages/cv2/__init__.py",
+  "platform": "macOS-15.3.2-arm64-arm-64bit",
+  "python": "3.12.0",
+  "pythonpath": "",
+  "torch_error": "ModuleNotFoundError: No module named 'torch'",
+  "ultralytics_error": "ModuleNotFoundError: No module named 'ultralytics'"
+}

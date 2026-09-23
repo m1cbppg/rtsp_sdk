@@ -1,0 +1,96 @@
+{
+  "best_equals_last": false,
+  "checkpoints": {
+    "best.pt": {
+      "bytes": 20317957,
+      "path": "/home/sf01/step2b-20260923/out/runs/full_finetune/weights/best.pt",
+      "sha256": "e3e1192bcf1dece87d31f2e282ff59630c93359f2b4539bf05f269d810e6012c"
+    },
+    "last.pt": {
+      "bytes": 20317957,
+      "path": "/home/sf01/step2b-20260923/out/runs/full_finetune/weights/last.pt",
+      "sha256": "4852392aeae9a68669a50752eb1f7466fbcc9a426524faba86fb20a3b6351a94"
+    }
+  },
+  "frozen_at": "2026-09-23T14:10:17Z",
+  "pretrained_weight_sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b",
+  "pretrained_weight_sha_source": "frozen_input_verification.json",
+  "primary": "best.pt",
+  "primary_bytes": 20317957,
+  "primary_path": "/home/sf01/step2b-20260923/out/runs/full_finetune/weights/best.pt",
+  "primary_sha256": "e3e1192bcf1dece87d31f2e282ff59630c93359f2b4539bf05f269d810e6012c",
+  "read_only": {
+    "best.pt": {
+      "mode_after": "0o444",
+      "mode_before": "0o664"
+    },
+    "last.pt": {
+      "mode_after": "0o444",
+      "mode_before": "0o664"
+    }
+  },
+  "recipe": {
+    "batch": 8,
+    "close_mosaic": 0,
+    "copy_paste": 0.0,
+    "degrees": 0.0,
+    "deterministic": true,
+    "epochs": 100,
+    "erasing": 0.0,
+    "fliplr": 0.5,
+    "flipud": 0.0,
+    "hsv_h": 0.015,
+    "hsv_s": 0.3,
+    "hsv_v": 0.2,
+    "imgsz": 640,
+    "mixup": 0.0,
+    "mosaic": 0.0,
+    "optimizer": "auto",
+    "perspective": 0.0,
+    "plots": false,
+    "pretrained": true,
+    "scale": 0.05,
+    "seed": 42,
+    "shear": 0.0,
+    "translate": 0.02,
+    "val": true
+  },
+  "schema_version": "ground_litter_step2b_v1",
+  "step2c_handoff": {
+    "conf_levels": [
+      0.01,
+      0.05,
+      0.1
+    ],
+    "development_accessed": false,
+    "matching": {
+      "iou_normal": 0.3,
+      "iou_small": 0.2,
+      "one_to_one": true,
+      "small_area_ratio": [
+        0.25,
+        4.0
+      ],
+      "small_expand": 0.5,
+      "small_gt_short_side_px": 20.0
+    },
+    "rule": "Step 2C must load exactly this SHA-256 (best.pt); the checkpoint was fixed before any Development asset is looked at, and no re-selection on Development is allowed",
+    "sealed_accessed": false,
+    "train_val_split": "train == val (train-set sanity only)",
+    "weights": "/home/sf01/step2b-20260923/out/runs/full_finetune/weights/best.pt",
+    "weights_sha256": "e3e1192bcf1dece87d31f2e282ff59630c93359f2b4539bf05f269d810e6012c"
+  },
+  "train_manifest_sha256": "9a9205f88064bb6d1258898dea5e25d137800394a2ad6eb255f802c899e13451",
+  "training": {
+    "batch": 8,
+    "device": "cuda",
+    "epochs_requested": 100,
+    "epochs_run": 100,
+    "final_box_loss": 0.76326,
+    "imgsz": 640,
+    "initial_box_loss": 1.45423,
+    "nan_or_inf": false,
+    "save_dir": "/home/sf01/step2b-20260923/out/runs/full_finetune",
+    "seed": 42
+  }
+}

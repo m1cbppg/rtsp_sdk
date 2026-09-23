@@ -1,0 +1,37 @@
+{
+  "counts": {
+    "negative_boxes": 0,
+    "negative_images": 63,
+    "negative_labels": 63,
+    "positive_boxes": 96,
+    "positive_images": 44
+  },
+  "counts_match": true,
+  "expected": {
+    "negative_boxes": 0,
+    "negative_images": 63,
+    "negative_labels": 63,
+    "positive_boxes": 96,
+    "positive_images": 44
+  },
+  "hashes": {
+    "hard_negative_training_manifest_sha256": "3f46a4e5bdcdc8b634c9e5001e1a7e66fc0070d564a4b154ef5db51baf78c41d",
+    "negative_manifest_sha256": "ac6d2b71450a83918e3fad87d306bec09e3338eb388a4e0ea213cac06d608009",
+    "negative_summary_sha256": "b9e2fc57c683221c33c8a40243f5ae0cf6e0d67c282113cda39f8f8fa2c6d4f2",
+    "positive_manifest_sha256": "0fa6635b0711bdd85f6f1dab5544ca39ce9aa705de19b8cd8dc6ded964388ac6",
+    "positive_summary_sha256": "5fceb47caa0923ef93b396813f8167e889a1f2d22062e2a4c867f808dc44a30f",
+    "positive_training_manifest_sha256": "0c2d36de24b75af0475e3dd281a759fde510ae37f5c4b5fea403863b5318d86d"
+  },
+  "image_sha_conflict_count": 0,
+  "negative_label_all_empty": true,
+  "negative_labels_not_empty": [],
+  "problem_count": 0,
+  "problems": [],
+  "source_crop_conflict_count": 0,
+  "weight": {
+    "exists": true,
+    "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/models/yolo26s.pt",
+    "sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b",
+    "size_bytes": 20422725
+  }
+}
