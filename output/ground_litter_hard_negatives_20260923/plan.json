@@ -1,0 +1,115 @@
+{
+  "batch_dirs": [
+    "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_audit_active_day3_20260918/review",
+    "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_audit_formal_day1",
+    "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_audit_formal_day2",
+    "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_audit_holdout_20260918",
+    "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_audit_pilot_01030_20260920/review",
+    "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_candidate_filter_shadow_20260921/review"
+  ],
+  "blockers": [],
+  "candidate_tile_count": 170,
+  "empty_label_loader_check": {
+    "available": true,
+    "empty_label_bytes": 0,
+    "empty_label_is_background": true,
+    "guard": "if nl := len(lb):",
+    "guard_present": true,
+    "method": "installed_ultralytics_source_inspection_and_parser_replay",
+    "note": "verify_image_label() validates the label array only when it has at least one row, so a 0-byte .txt yields 0 instances and the image is a valid background sample",
+    "parsed_label_rows": 0,
+    "parsed_label_shape": [
+      0
+    ],
+    "ultralytics_version": "8.4.118",
+    "validation_block_entered": false,
+    "verify_image_label_source": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/.venv/lib/python3.12/site-packages/ultralytics/data/utils.py"
+  },
+  "generator_version": "step1d-1.0.0",
+  "hashes": {
+    "batches": [
+      {
+        "batch": "review",
+        "review_data_sha256": "c3c9be4be28b9abdba5b273c1588992aa3c03b2a9f646f2c7dc74ce97f2964fa",
+        "reviews_sha256": "f18c94cf77705766fcfa50f01603d96291061a374897f5849dda2bd08df8fdd4"
+      },
+      {
+        "batch": "ground_litter_audit_formal_day1",
+        "review_data_sha256": "362e4ba093a769009bbcdc3b7ccbe3617a2e1b7b146aabe51c26585f3549950b",
+        "reviews_sha256": "51cddbb69e07f76fcf0c73d4cc387cf392d32def015236a785dca9189baac134"
+      },
+      {
+        "batch": "ground_litter_audit_formal_day2",
+        "review_data_sha256": "4c332c525ec83689ef7dd3a396ef22eb155480cc40fb9d634b090a6ee8fc105f",
+        "reviews_sha256": "d623f3015bf92cdbb03f461a493c5004cca5b187e923200a8cff4182365829d3"
+      },
+      {
+        "batch": "ground_litter_audit_holdout_20260918",
+        "review_data_sha256": "a61f5fe7fc1a6096d771a45340726347306a026576f9f3275228e4289cac8055",
+        "reviews_sha256": "e0affda2372e1a09e7b215b1651b62d2a16b45e32b9ac23bf38b311c3e6ef354"
+      },
+      {
+        "batch": "review",
+        "review_data_sha256": "9aef6d8bc42736d998e6bc7596edc86753bd2f6d36cf946c33319c295fa867e7",
+        "reviews_sha256": "6c86aa093d56f78fd23ae3a728b9bea517b574b20653b5cc16d2ba923decbea9"
+      },
+      {
+        "batch": "review",
+        "review_data_sha256": "a6979ac8d6a9483c731b6ff42ab92a0101f8c78a8f18da404da2e890effefb8f",
+        "reviews_sha256": "9b9f62b93c60dd24ce0bd6c5d416612d1e31618afbadfd5cc8bf7495fd1c755d"
+      }
+    ],
+    "source_files_sha256": "65d37bbf87cd1b5ca247d441099b17ccfae899edd2a3ca16fa6afbd5c7ae39cc"
+  },
+  "historical_label_counts": {
+    "BOX_WRONG": 35,
+    "LITTER": 189,
+    "NON_LITTER": 2083,
+    "UNCERTAIN": 153
+  },
+  "historical_non_litter_input_count": 2083,
+  "input_fingerprint": "1f2d4ad7dea673094e39e077db6ee36b9e4640245bb9ccdc11df9877617babdb",
+  "known_required_overlap_excluded": 18,
+  "note": "read-only: no frame is decoded, no PS is downloaded, the positive pool and every truth artifact stay untouched",
+  "per_camera_candidate": {
+    "01021": 31,
+    "01022": 30,
+    "01027": 29,
+    "01028": 30,
+    "01030": 32
+  },
+  "per_camera_recoverable": {
+    "01021": 218,
+    "01022": 344,
+    "01027": 118,
+    "01028": 168,
+    "01030": 192
+  },
+  "ready_candidate_count": 152,
+  "reconciled_non_litter_input_count": 8,
+  "recoverable_count": 1040,
+  "recoverable_rule": "the card (camera, timestamp) falls inside a raw PS window already preserved by Step 1C-0",
+  "sampled_candidate_count": 170,
+  "sampling_rule": {
+    "dedup_unit": "camera + source_file + minute + 64px spatial grid",
+    "easy_max_fraction": 0.3,
+    "easy_target": 40,
+    "hard_target": 130,
+    "hardness_counts": {
+      "historical_false_positive": 130,
+      "random_grid_background": 40
+    },
+    "max_per_ten_minutes": 2
+  },
+  "schema_version": "ground_litter_hard_negatives_v1",
+  "status_counts": {
+    "ANCHOR_EXCEEDS_TILE": 0,
+    "DECODE_FAILED": 0,
+    "KNOWN_REQUIRED_OVERLAP_EXCLUDED": 18,
+    "READY_FOR_REVIEW": 152,
+    "SOURCE_FRAME_MISMATCH": 0,
+    "SOURCE_TOO_SMALL": 0
+  },
+  "unique_source_frames": 87,
+  "unique_source_ps": 49
+}

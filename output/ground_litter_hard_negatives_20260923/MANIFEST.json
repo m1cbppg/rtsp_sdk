@@ -1,0 +1,118 @@
+{
+  "artifact_root": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_hard_negatives_20260923",
+  "boundaries": {
+    "augmentation_applied": false,
+    "bbox_created": false,
+    "crop_moved_from_anchor": false,
+    "detector_run": false,
+    "gold_modified": false,
+    "image_reencoded": false,
+    "image_resized": false,
+    "localization_modified": false,
+    "positive_pool_modified": false,
+    "random_unaudited_frame_used": false,
+    "recovery_evidence_modified": false,
+    "sealed_accessed": false,
+    "segmentation_run": false,
+    "step1c2_artifacts_modified": false,
+    "train_val_split_made": false,
+    "training_label_created": false,
+    "training_started": false,
+    "truth_reconciliation_modified": false
+  },
+  "class_mapping": {
+    "0": "ground_litter"
+  },
+  "code_commit": "4d3e05c8153a41319c3102f1491ba1204582c935",
+  "config": {
+    "batch_dirs": [
+      "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_audit_active_day3_20260918/review",
+      "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_audit_formal_day1",
+      "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_audit_formal_day2",
+      "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_audit_holdout_20260918",
+      "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_audit_pilot_01030_20260920/review",
+      "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_candidate_filter_shadow_20260921/review"
+    ],
+    "easy_target": 40,
+    "generator_version": "step1d-1.0.0",
+    "hard_target": 130,
+    "output": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_hard_negatives_20260923",
+    "schema_version": "ground_litter_hard_negatives_v1",
+    "state": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_hard_negatives_20260923/review_state.json"
+  },
+  "counts": {
+    "accepted_hard_negative_tile_count": 0,
+    "historical_non_litter_input_count": 2083,
+    "ready_candidate_count": 152,
+    "reviewed": 0,
+    "sampled_candidate_count": 170
+  },
+  "generated_at": "2026-09-23T11:56:13Z",
+  "generator_version": "step1d-1.0.0",
+  "historical_review_sha256": [
+    {
+      "batch": "review",
+      "review_data_sha256": "c3c9be4be28b9abdba5b273c1588992aa3c03b2a9f646f2c7dc74ce97f2964fa",
+      "reviews_sha256": "f18c94cf77705766fcfa50f01603d96291061a374897f5849dda2bd08df8fdd4"
+    },
+    {
+      "batch": "ground_litter_audit_formal_day1",
+      "review_data_sha256": "362e4ba093a769009bbcdc3b7ccbe3617a2e1b7b146aabe51c26585f3549950b",
+      "reviews_sha256": "51cddbb69e07f76fcf0c73d4cc387cf392d32def015236a785dca9189baac134"
+    },
+    {
+      "batch": "ground_litter_audit_formal_day2",
+      "review_data_sha256": "4c332c525ec83689ef7dd3a396ef22eb155480cc40fb9d634b090a6ee8fc105f",
+      "reviews_sha256": "d623f3015bf92cdbb03f461a493c5004cca5b187e923200a8cff4182365829d3"
+    },
+    {
+      "batch": "ground_litter_audit_holdout_20260918",
+      "review_data_sha256": "a61f5fe7fc1a6096d771a45340726347306a026576f9f3275228e4289cac8055",
+      "reviews_sha256": "e0affda2372e1a09e7b215b1651b62d2a16b45e32b9ac23bf38b311c3e6ef354"
+    },
+    {
+      "batch": "review",
+      "review_data_sha256": "9aef6d8bc42736d998e6bc7596edc86753bd2f6d36cf946c33319c295fa867e7",
+      "reviews_sha256": "6c86aa093d56f78fd23ae3a728b9bea517b574b20653b5cc16d2ba923decbea9"
+    },
+    {
+      "batch": "review",
+      "review_data_sha256": "a6979ac8d6a9483c731b6ff42ab92a0101f8c78a8f18da404da2e890effefb8f",
+      "reviews_sha256": "9b9f62b93c60dd24ce0bd6c5d416612d1e31618afbadfd5cc8bf7495fd1c755d"
+    }
+  ],
+  "input_fingerprint": "1f2d4ad7dea673094e39e077db6ee36b9e4640245bb9ccdc11df9877617babdb",
+  "negative_candidates_sha256": "d1023d2899e36b611aa50ab9314858687c0a92e762ecc487d772b8e25a7790f8",
+  "negative_label": {
+    "bytes": 0,
+    "format": "empty_txt"
+  },
+  "positive_pool_manifest_sha256": "0fa6635b0711bdd85f6f1dab5544ca39ce9aa705de19b8cd8dc6ded964388ac6",
+  "positive_pool_summary_sha256": "5fceb47caa0923ef93b396813f8167e889a1f2d22062e2a4c867f808dc44a30f",
+  "resize": false,
+  "schema_version": "ground_litter_hard_negatives_v1",
+  "source_native": true,
+  "source_recovery_sha256": {
+    "source_files_sha256": "65d37bbf87cd1b5ca247d441099b17ccfae899edd2a3ca16fa6afbd5c7ae39cc"
+  },
+  "summary_sha256": "d56287be1013956c594c26b944a398099c7d03e7d93578ba6d2aa4627dd093fb",
+  "tile_size": 640,
+  "upstream_provenance": {
+    "note": "Step 1D only reads the artifacts recorded here; the historical review labels are human NON_LITTER decisions, never detector output",
+    "step1c0_evidence_commit": "bfdecd5",
+    "step1c0_manifest_commit": "81c3dde27f7ed759248330e3c332d78907a137e3",
+    "step1c0_reported_execution_commit": "2e5da415c20feda3384e080a3ff9217c97c4e83c",
+    "step1c1_evidence_commit": "1a1f65c14a5e971baa00eb36774e9c85911124d8",
+    "step1c1_manifest_commit": "806f8de4cb8b750c1c68aa262571d59ea1c8d0ba",
+    "step1c1_reported_execution_commit": "809ce49196dadc639fe90438da3c27057baa34bd",
+    "step1c1r_evidence_commit": "6c60bb8120161f9f735b00a465cc49cb426369c2",
+    "step1c1r_manifest_commit": "d841864f3a997347bf53db9cf24c2d1940052ac6",
+    "step1c1r_reported_execution_commit": "5399c4ff972b3f6bff02ba66bc861bc0b684b778",
+    "step1c2_evidence_commit": "c548f27e816e4cf80ffd8b7e09a862428e6c9398",
+    "step1c2_manifest_commit": "abe131ec6fe4895dfdcd4c7909eff4f3b65b4b48",
+    "step1c2_reported_execution_commit": "7944dadf248089deca23f097c2f9442770cc5635",
+    "step1c2m_evidence_commit": "8457ad4",
+    "step1c2m_manifest_commit": "8013300",
+    "step1c2m_reported_execution_commit": "b767b01e1e11ac55dbd013296cdfd8303310b472"
+  }
+}

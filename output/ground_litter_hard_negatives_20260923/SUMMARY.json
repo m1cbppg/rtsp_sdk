@@ -1,0 +1,208 @@
+{
+  "accepted": {
+    "accepted_hard_negative_tile_count": 0,
+    "accepted_label_count": 0,
+    "conflict_detail": null,
+    "empty_label_verified_count": 0,
+    "per_camera_accepted": {},
+    "positive_conflict_count": 0,
+    "state": "not_built"
+  },
+  "boundaries": {
+    "augmentation_applied": false,
+    "bbox_created": false,
+    "crop_moved_from_anchor": false,
+    "detector_run": false,
+    "gold_modified": false,
+    "image_reencoded": false,
+    "image_resized": false,
+    "localization_modified": false,
+    "positive_pool_modified": false,
+    "random_unaudited_frame_used": false,
+    "recovery_evidence_modified": false,
+    "sealed_accessed": false,
+    "segmentation_run": false,
+    "step1c2_artifacts_modified": false,
+    "train_val_split_made": false,
+    "training_label_created": false,
+    "training_started": false,
+    "truth_reconciliation_modified": false
+  },
+  "class_mapping": {
+    "0": "ground_litter"
+  },
+  "empty_label_loader_check": {
+    "available": false,
+    "empty_label_bytes": 0,
+    "empty_label_is_background": true,
+    "guard": "if nl := len(lb):",
+    "method": "installed_ultralytics_source_inspection_and_parser_replay",
+    "note": "verify_image_label() validates the label array only when it has at least one row, so a 0-byte .txt yields 0 instances and the image is a valid background sample",
+    "parsed_label_rows": 0,
+    "parsed_label_shape": [
+      0
+    ],
+    "reason": "ultralytics is not installed in this interpreter",
+    "validation_block_entered": false
+  },
+  "generate": {
+    "candidate_tile_count": 170,
+    "exact_duplicate_removed": 0,
+    "known_required_overlap_excluded": 18,
+    "per_camera_candidate": {
+      "01021": 31,
+      "01022": 30,
+      "01027": 29,
+      "01028": 30,
+      "01030": 32
+    },
+    "ready_candidate_count": 152,
+    "risk_flag_counts": {
+      "IGNORE_SMALL_IN_CROP": 70,
+      "KNOWN_REQUIRED_PRESENT": 18,
+      "UNCERTAIN_TRUTH_IN_CROP": 13
+    },
+    "status_counts": {
+      "ANCHOR_EXCEEDS_TILE": 0,
+      "DECODE_FAILED": 0,
+      "KNOWN_REQUIRED_OVERLAP_EXCLUDED": 18,
+      "READY_FOR_REVIEW": 152,
+      "SOURCE_FRAME_MISMATCH": 0,
+      "SOURCE_TOO_SMALL": 0
+    },
+    "unique_source_frames": 87,
+    "unique_source_ps": 49
+  },
+  "generator_version": "step1d-1.0.0",
+  "input": {
+    "hardness_counts": {
+      "historical_false_positive": 130,
+      "random_grid_background": 40
+    },
+    "historical_label_counts": {
+      "BOX_WRONG": 35,
+      "LITTER": 189,
+      "NON_LITTER": 2083,
+      "UNCERTAIN": 153
+    },
+    "historical_non_litter_input_count": 2083,
+    "historical_recoverable_count": 1040,
+    "local_ps_count": 79,
+    "origin_counts": {
+      "historical_non_litter": 170
+    },
+    "per_camera_recoverable": {
+      "01021": 218,
+      "01022": 344,
+      "01027": 118,
+      "01028": 168,
+      "01030": 192
+    },
+    "reconciled_non_litter_input_count": 8,
+    "sampled_candidate_count": 170,
+    "sha256": {
+      "batches": [
+        {
+          "batch": "review",
+          "review_data_sha256": "c3c9be4be28b9abdba5b273c1588992aa3c03b2a9f646f2c7dc74ce97f2964fa",
+          "reviews_sha256": "f18c94cf77705766fcfa50f01603d96291061a374897f5849dda2bd08df8fdd4"
+        },
+        {
+          "batch": "ground_litter_audit_formal_day1",
+          "review_data_sha256": "362e4ba093a769009bbcdc3b7ccbe3617a2e1b7b146aabe51c26585f3549950b",
+          "reviews_sha256": "51cddbb69e07f76fcf0c73d4cc387cf392d32def015236a785dca9189baac134"
+        },
+        {
+          "batch": "ground_litter_audit_formal_day2",
+          "review_data_sha256": "4c332c525ec83689ef7dd3a396ef22eb155480cc40fb9d634b090a6ee8fc105f",
+          "reviews_sha256": "d623f3015bf92cdbb03f461a493c5004cca5b187e923200a8cff4182365829d3"
+        },
+        {
+          "batch": "ground_litter_audit_holdout_20260918",
+          "review_data_sha256": "a61f5fe7fc1a6096d771a45340726347306a026576f9f3275228e4289cac8055",
+          "reviews_sha256": "e0affda2372e1a09e7b215b1651b62d2a16b45e32b9ac23bf38b311c3e6ef354"
+        },
+        {
+          "batch": "review",
+          "review_data_sha256": "9aef6d8bc42736d998e6bc7596edc86753bd2f6d36cf946c33319c295fa867e7",
+          "reviews_sha256": "6c86aa093d56f78fd23ae3a728b9bea517b574b20653b5cc16d2ba923decbea9"
+        },
+        {
+          "batch": "review",
+          "review_data_sha256": "a6979ac8d6a9483c731b6ff42ab92a0101f8c78a8f18da404da2e890effefb8f",
+          "reviews_sha256": "9b9f62b93c60dd24ce0bd6c5d416612d1e31618afbadfd5cc8bf7495fd1c755d"
+        }
+      ],
+      "source_files_sha256": "65d37bbf87cd1b5ca247d441099b17ccfae899edd2a3ca16fa6afbd5c7ae39cc"
+    }
+  },
+  "negative_label": "empty_file",
+  "per_camera": {
+    "01021": {
+      "accepted": 0,
+      "bad_crop": 0,
+      "candidate": 35,
+      "excluded": 4,
+      "required_present": 0,
+      "reviewable": 31,
+      "uncertain": 0
+    },
+    "01022": {
+      "accepted": 0,
+      "bad_crop": 0,
+      "candidate": 35,
+      "excluded": 5,
+      "required_present": 0,
+      "reviewable": 30,
+      "uncertain": 0
+    },
+    "01027": {
+      "accepted": 0,
+      "bad_crop": 0,
+      "candidate": 31,
+      "excluded": 2,
+      "required_present": 0,
+      "reviewable": 29,
+      "uncertain": 0
+    },
+    "01028": {
+      "accepted": 0,
+      "bad_crop": 0,
+      "candidate": 34,
+      "excluded": 4,
+      "required_present": 0,
+      "reviewable": 30,
+      "uncertain": 0
+    },
+    "01030": {
+      "accepted": 0,
+      "bad_crop": 0,
+      "candidate": 35,
+      "excluded": 3,
+      "required_present": 0,
+      "reviewable": 32,
+      "uncertain": 0
+    }
+  },
+  "review": {
+    "counts": {
+      "BAD_CROP": 0,
+      "NEGATIVE_OK": 0,
+      "PENDING": 152,
+      "REQUIRED_PRESENT": 0,
+      "UNCERTAIN": 0
+    },
+    "decisions": {
+      "BAD_CROP": 0,
+      "NEGATIVE_OK": 0,
+      "REQUIRED_PRESENT": 0,
+      "UNCERTAIN": 0
+    },
+    "pending": 152,
+    "reviewable": 152,
+    "reviewed": 0,
+    "skipped": 0
+  },
+  "schema_version": "ground_litter_hard_negatives_v1",
+  "tile_size": 640
+}
