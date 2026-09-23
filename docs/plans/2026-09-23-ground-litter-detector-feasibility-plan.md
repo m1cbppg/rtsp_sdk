@@ -786,7 +786,7 @@ episode recall = 26 / 30
 
 对每个 truth episode，使用固定采样协议从人工确认的 clear-visible interval 中抽取评估帧，例如：
 
-- 每个 episode 最多均匀抽 5～10 帧；
+- 具体抽帧规则以 Step 0B 冻结协议为准：5 秒时间网格、每个 episode 最多 5 帧；
 - 长 episode 不因持续更久而获得更高权重；
 - 明显遮挡、坏帧、目标不可判断帧不进入 denominator；
 - 采样规则在看模型输出前固定。
@@ -823,7 +823,7 @@ macro_visible_frame_hit_rate
 
 若 truth 只有人工 point / coarse location，则单独标记为 coarse-match，不与 bbox-level 指标混在一起。
 
-具体阈值只允许在 Development 上冻结，Sealed 不再修改。
+具体 matching 阈值已由 Step 0B 冻结协议固定；Development 只验证 evaluator 实现，不再根据成绩调整 matching。
 
 ### 15.5 工作阈值下的 Recall + FP Rate
 
