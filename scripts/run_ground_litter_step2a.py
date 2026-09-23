@@ -73,6 +73,12 @@ STEP1C2M_MANIFEST = "8457ad4"
 STEP1D_EXECUTION = "4d3e05c8153a41319c3102f1491ba1204582c935"
 STEP1D_EVIDENCE = "0983596"
 
+#: Step 2A names.  Step 2B rebinds these two module globals to its own manifest and
+#: dataset directory names and then reuses loader-sanity / baseline / predict unchanged,
+#: so the two steps never share a filename and the Step 2A behaviour is the default.
+MANIFEST_NAME = "tiny_overfit_manifest.json"
+DATASET_DIR_NAME = TINY_DATASET
+
 
 def parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(description=__doc__,
@@ -102,7 +108,7 @@ def _stamp(args: argparse.Namespace) -> str:
 
 
 def _dataset_dir(args: argparse.Namespace) -> Path:
-    return args.output / TINY_DATASET
+    return args.output / DATASET_DIR_NAME
 
 
 def _write_json(args: argparse.Namespace, name: str, payload) -> Path:
@@ -196,7 +202,7 @@ def _tiny_manifest(args: argparse.Namespace) -> dict:
     pools, and so that no command can re-select a different subset after a baseline
     or training result is known.
     """
-    manifest_path = args.output / "tiny_overfit_manifest.json"
+    manifest_path = args.output / MANIFEST_NAME
     if manifest_path.is_file():
         return json.loads(manifest_path.read_text(encoding="utf-8"))
     pools = _pools(args)
@@ -204,7 +210,7 @@ def _tiny_manifest(args: argparse.Namespace) -> dict:
 
 
 def _manifest_provenance(args: argparse.Namespace) -> dict:
-    path = args.output / "tiny_overfit_manifest.json"
+    path = args.output / MANIFEST_NAME
     return {
         "path": str(path),
         "reused_frozen_manifest": path.is_file(),
@@ -243,7 +249,7 @@ def cmd_stage(args: argparse.Namespace) -> int:
         shutil.rmtree(dataset)
     report = stage_dataset(manifest, dataset, mode="hardlink")
     integrity = verify_staging(report)
-    _write_json(args, "tiny_overfit_manifest.json", manifest)
+    _write_json(args, MANIFEST_NAME, manifest)
     _write_json(args, "staging_integrity.json", {"staging": report,
                                                 "integrity": integrity})
     check = {

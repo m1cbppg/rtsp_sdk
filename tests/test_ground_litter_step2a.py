@@ -485,7 +485,7 @@ class TestBaselineAndPostShareOneSubset(unittest.TestCase):
     def test_cli_routes_baseline_and_post_through_one_frozen_manifest(self):
         source = CLI.read_text(encoding="utf-8")
         self.assertIn('def _tiny_manifest(args: argparse.Namespace) -> dict:', source)
-        self.assertIn('manifest_path = args.output / "tiny_overfit_manifest.json"', source)
+        self.assertIn('manifest_path = args.output / MANIFEST_NAME', source)
         predict = source.split("def _predict(", 1)[1].split("\ndef ", 1)[0]
         self.assertIn("manifest = _tiny_manifest(args)", predict)
         baseline = source.split("def cmd_baseline(", 1)[1].split("\ndef ", 1)[0]
@@ -494,6 +494,7 @@ class TestBaselineAndPostShareOneSubset(unittest.TestCase):
         self.assertIn("_predict(args, best, \"post\"", post)
         # the frozen manifest is reused if it exists, never re-selected per command
         self.assertIn("if manifest_path.is_file():", source)
+        self.assertIn("manifest_path = args.output / MANIFEST_NAME", source)
 
     def test_frozen_manifest_is_checked_before_the_pools(self):
         """The CUDA host holds only the tiny dataset; it must not need the full pools."""
