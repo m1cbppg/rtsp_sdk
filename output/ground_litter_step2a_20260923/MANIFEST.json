@@ -11,7 +11,7 @@
     "threshold_tuned": false,
     "upstream_dataset_bytes_modified": false
   },
-  "code_commit": "dac4945f90f9cf16df55fac277227edad3833536",
+  "code_commit": "4443fc09b139f373cbf81471aee2aca284f340a4",
   "config": {
     "batch": 8,
     "device": null,
@@ -29,7 +29,7 @@
     "tiny_negative_tiles": 10,
     "tiny_positive_tiles": 12
   },
-  "generated_at": "2026-09-23T13:17:26Z",
+  "generated_at": "2026-09-23T13:39:20Z",
   "generator_version": "step2a-1.0.0",
   "input_sha256": {
     "hard_negative_training_manifest_sha256": "3f46a4e5bdcdc8b634c9e5001e1a7e66fc0070d564a4b154ef5db51baf78c41d",
@@ -52,10 +52,161 @@
   "note": "OVERFIT_SANITY_ONLY: no generalisation claim, no Development / Sealed access, no threshold tuning",
   "schema_version": "ground_litter_step2a_v1",
   "seed": 42,
-  "summary_sha256": "386ee24a71005318358f6b147dbcb48504ce2d1c3d2632879bb55cb774d569d2",
+  "summary_sha256": "a838c034837c21dbcc163242720922909df82efaeedd6b21c1815c2c772f1307",
   "tiny_overfit_manifest_sha256": "d997b870d72e7956fad7ccdde2431c1577d35ce41fc18c451c2e9c5f0bc61287",
   "upstream_provenance": {
     "note": "Step 2A reads only the frozen training-side pools recorded here; Development and Sealed assets are never opened",
+    "server_run": {
+      "checkpoint_hashes": {
+        "best.pt": {
+          "bytes": 20317957,
+          "path": "/home/sf01/step2a-20260923/out/runs/tiny_overfit/weights/best.pt",
+          "sha256": "1b824b88a5ce3c612e17ac7047db01115024f444ae038210f3c6ba341a5088d2"
+        },
+        "best_equals_last_bytes": false,
+        "last.pt": {
+          "bytes": 20317957,
+          "path": "/home/sf01/step2a-20260923/out/runs/tiny_overfit/weights/last.pt",
+          "sha256": "bb879e8d388bb54fa1cbb5bb217cdd7212ceea94de011b6b7a365f06daa04f5c"
+        }
+      },
+      "data_yaml_record": {
+        "diff_lines": [
+          "path: /Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_step2a_20260923/tiny_overfit_dataset",
+          "path: /home/sf01/step2a-20260923/out/tiny_overfit_dataset"
+        ],
+        "frozen_data_yaml": "/home/sf01/step2a-20260923/frozen/data.yaml",
+        "only_path_line_changed": true,
+        "server_data_yaml": "/home/sf01/step2a-20260923/out/tiny_overfit_dataset/data.yaml",
+        "server_data_yaml_text": "# OVERFIT_SANITY_ONLY\n# TRAIN_EQUALS_VAL = true -- do not use as a metric\npath: /home/sf01/step2a-20260923/out/tiny_overfit_dataset\ntrain: images/train\nval: images/train\nnames:\n  0: ground_litter\n"
+      },
+      "evidence_archive": {
+        "archive_sha256_local": "9c5b07bb101c5cfb8bedf931bfd139415d320428079996f90f84746be8970821",
+        "archive_sha256_remote": "9c5b07bb101c5cfb8bedf931bfd139415d320428079996f90f84746be8970821",
+        "files": {
+          "SHA256SUMS": "77b9e69a00ea58c016cf24c88fd886a04a812141d2b5b41f6cd6db28c8067104",
+          "args.yaml": "94c6c749e9d55ea31db53cb03166547405dbe247f21ff1d308ec68925fa807dc",
+          "baseline_metrics.json": "9e9113ef1e440627d10f087b2af3b0f476f736ddcc2f99f2935b6930688e4f44",
+          "checkpoint_hashes.json": "4abb1b38e521be21ab0150136df4545d7c8b6c4710179f3e0243faf7a85677d0",
+          "data_yaml_record.json": "7bbc2b46e9a86ce17e83ee140fca8fd056c8fc81292fe924d3825efcc848b3de",
+          "environment.json": "3730e59e8f65d8ab0b8eb8d26b214ce0b07ea94d5ee4a1ed3a180105a4bb73ef",
+          "frozen_input_verification.json": "03d123e3662174e099f6e8ee4812abfaf281af6fc5f097c821727dd1ffc1868e",
+          "loader_sanity.json": "3a0caf8ee8e9cda5d3b096ceecd671f629056744f3cf6d94a1f09088276474b1",
+          "post_metrics.json": "924306e0afcede77064e5070125f887d2264e6042fefdec14e181c58cbb6b5ba",
+          "preds/baseline_predictions.json": "1757a9d4289056e3eb73929da3f151b8e04d25ae7a1d40afcd25171b421b16a3",
+          "preds/post_predictions.json": "6611b4dfaa586e1d8ac7d318d7a2304f3a8d0d9ee6bb280c1cc6c8acd5cd2037",
+          "results.csv": "7e175ddb326fc3445e30cc83116b4ecf334a18e79a3fdb01bf26c4d7a0e58a6c",
+          "tiny_overfit_manifest.json": "d997b870d72e7956fad7ccdde2431c1577d35ce41fc18c451c2e9c5f0bc61287",
+          "train_batch8.log": "55500c860767c59f152befb0a69cda32af5e1610be7d902daa9bf6d06bf0a86b",
+          "training.json": "60baf89c63d165f495c59b702b175387b34ec47323680ba937adc9e735622bdb"
+        },
+        "ok": true,
+        "remote_archive": "/tmp/step2a_evidence.tar.gz"
+      },
+      "frozen_input_verification": {
+        "all_negative_labels_zero_bytes": true,
+        "derived_dataset_data_yaml_diff_lines": [
+          "path: /Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_step2a_20260923/tiny_overfit_dataset",
+          "path: /home/sf01/step2a-20260923/out/tiny_overfit_dataset"
+        ],
+        "derived_dataset_data_yaml_is_only_the_path_line": true,
+        "derived_dataset_data_yaml_path": "/home/sf01/step2a-20260923/out/tiny_overfit_dataset/data.yaml",
+        "derived_dataset_data_yaml_sha256": "66bac2b8848df347e660cb53cc427a2a69738eee1269fefb1648060e752d36db",
+        "derived_matches_uploaded_sums": false,
+        "frozen_data_yaml_matches_local": true,
+        "frozen_data_yaml_path": "/home/sf01/step2a-20260923/frozen/data.yaml",
+        "frozen_data_yaml_sha256": "7440eb25801ef4f57d32881d8205444a513ec0f2aafcbddd39dc1a04e219807d",
+        "frozen_inputs_mismatch": [],
+        "frozen_inputs_verified_ok": 54,
+        "local_frozen_weight_sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b",
+        "negative_tiles": 10,
+        "ok": true,
+        "positive_boxes": 41,
+        "positive_labels_class_zero_only": true,
+        "positive_tiles": 12,
+        "sha256sums_entries": 55,
+        "uploaded_archive_sha256": "8d31da440cd655d127a419ca72e819e07ef59f1d877231c45aac21d089ec1234",
+        "weight_bytes": 20422725,
+        "weight_matches_local_frozen": true,
+        "weight_sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b"
+      },
+      "training_manifest_provenance": {
+        "path": "/home/sf01/step2a-20260923/out/tiny_overfit_manifest.json",
+        "reused_frozen_manifest": true,
+        "sha256": "d997b870d72e7956fad7ccdde2431c1577d35ce41fc18c451c2e9c5f0bc61287",
+        "source": "frozen_file"
+      },
+      "upload_sha256sums": {
+        "archive_received_sha256": "8d31da440cd655d127a419ca72e819e07ef59f1d877231c45aac21d089ec1234",
+        "archive_sha256": "8d31da440cd655d127a419ca72e819e07ef59f1d877231c45aac21d089ec1234",
+        "cli_reuploaded_after_fix": {
+          "path": "code/scripts/run_ground_litter_step2a.py",
+          "reason": "_tiny_manifest loaded the full pools before the frozen manifest; now the frozen manifest is checked first and its provenance recorded",
+          "sha256": "a23ce77e8dbdce4dba5f3cdff31c9e4d424ef573870f1b6ebcd732a381c0f37a"
+        },
+        "file_count": 55,
+        "files": {
+          "assets/yolo26s.pt": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b",
+          "code/rtsp_annotator/__init__.py": "aaf78be5d689eea2bdd9023742908e240336a06074b55d93e77f506464ae864b",
+          "code/rtsp_annotator/ground_litter_episode_candidates.py": "634b4762aa255970f6640145fc80f77c6df778e59992d6e7933dcf5bf4eb79ca",
+          "code/rtsp_annotator/ground_litter_localization_review.py": "cb69a5a477c2fe2ba8f71fbe5083ec43d6092b9f49a78d196e282d4964ceb8b9",
+          "code/rtsp_annotator/ground_litter_positive_tiles.py": "912efcbe6de78a5f63e74c215b02c680e60414238b7e53e864c73cfb541eee8c",
+          "code/rtsp_annotator/ground_litter_step2a.py": "90f9e62709e5af8b29f10f6a05ff8f95303bc05076e193a861894f6383f950fc",
+          "code/scripts/run_ground_litter_step2a.py": "a23ce77e8dbdce4dba5f3cdff31c9e4d424ef573870f1b6ebcd732a381c0f37a",
+          "frozen/data.yaml": "7440eb25801ef4f57d32881d8205444a513ec0f2aafcbddd39dc1a04e219807d",
+          "out/tiny_overfit_dataset/data.yaml": "7440eb25801ef4f57d32881d8205444a513ec0f2aafcbddd39dc1a04e219807d",
+          "out/tiny_overfit_dataset/images/train/hn-043ba51070f02c46c061.png": "9ad72087da79bacda9c11abf423c09a90ef5e7577a7d65e46831bdd129fd11ad",
+          "out/tiny_overfit_dataset/images/train/hn-0cc2b564e67fe86a99d0.png": "73e7506c7a8831c829e5eb965cf4aeb6907bfe0b266e21a87951013694a956b8",
+          "out/tiny_overfit_dataset/images/train/hn-110c67115f25e3939c8f.png": "42a30494e135546c6fc0c76674d9a04695e69369b8db89823ebf2818c8ab8476",
+          "out/tiny_overfit_dataset/images/train/hn-3ab68433c09ca1a17f6e.png": "5624eb2807bd11fca2754980293957a84171b19cec847e19e21601f974b11dff",
+          "out/tiny_overfit_dataset/images/train/hn-68684cd0aff84b2b6f5d.png": "7ac02405b84c61f0420e80d3762f8069f5f28be626167198a998ba6b5318a7b2",
+          "out/tiny_overfit_dataset/images/train/hn-6aadc8f3b9e4343520b9.png": "3ca6a1e5013e7cc49756a86fb07150aef72250273faac2aca4ca5a4da194e6e9",
+          "out/tiny_overfit_dataset/images/train/hn-bc0b74ef2dad238db8e7.png": "d4474ed99ae12406711a4ea4465ee307fe14e7592914c89c532824d433da6aa4",
+          "out/tiny_overfit_dataset/images/train/hn-da478d3217795c2facf9.png": "c4c56880aa4349054825a94eda8a53ad45b771e16ae065211c923c8bc4e4388a",
+          "out/tiny_overfit_dataset/images/train/hn-ec9416f5c110b814bad1.png": "7e189e1155b15244e34f55f61018b710d8b0cb132046ff495937c04ad315480a",
+          "out/tiny_overfit_dataset/images/train/hn-ef250087ff324e06447a.png": "ec3b065a19cfb11e87637ae8c8822a592ac0837cd87c922295035cfd50819ffa",
+          "out/tiny_overfit_dataset/images/train/pt-0020c1be4f4c74a57286.png": "bc44ef304a81ad1c2c67a523ac62a496ba60626e1e7265687f4a63b1f5d60fa1",
+          "out/tiny_overfit_dataset/images/train/pt-0232d9b6ed96308ad608.png": "e6eb3ca5752db80365a772be0b4328ed995e07636d62d21f8322222110ade7f7",
+          "out/tiny_overfit_dataset/images/train/pt-031517f0967dee166f86.png": "6864b663723b80b1f517646e6c3ba3a8be7583683925b21ba4db22e07b25ccbb",
+          "out/tiny_overfit_dataset/images/train/pt-062a7045de2b872a52ff.png": "806b0654f4b21a46bc3ed8cf5f604ffecc5f447e0dd376da518e266b624b4192",
+          "out/tiny_overfit_dataset/images/train/pt-08daffbffef20a58ccc6.png": "20593ea0b1de1b6a174277b3cc621405552ce3d4c72d751d548ab7478494c5ef",
+          "out/tiny_overfit_dataset/images/train/pt-1e4e89542158fbf702b7.png": "70cb3aef9287c62684542cd800db891c6288f70e69690f1f881eeb99b0c0db4a",
+          "out/tiny_overfit_dataset/images/train/pt-2c4cdc8b71faaddfa130.png": "ea7f68f917b544661427fb3dd717141a8536e7b8f219b8eac009afdaac88aed3",
+          "out/tiny_overfit_dataset/images/train/pt-5715f1a937e60d9a0405.png": "e76575e0f7b3d123cedc46ed033b7edafe2ce4cfaca7bbdbcf410e264399023e",
+          "out/tiny_overfit_dataset/images/train/pt-5800901fc7f3de98d448.png": "ddf3e848fff4941e31d1f957b24e2f331285f406fcac100cd61f32ac41b2289b",
+          "out/tiny_overfit_dataset/images/train/pt-5eb3c00f39c1ff273b8c.png": "a69f19cbfa89251633e4dcc8bd0ac51f1d090194de33e18c69987e795e0ee919",
+          "out/tiny_overfit_dataset/images/train/pt-77a080fba8048f2a4f64.png": "f6e01fdf5d1a3f3289076a76232f7cc1a7c4bacfbb8279e53af6070377b2f258",
+          "out/tiny_overfit_dataset/images/train/pt-9a36bbe18f96da2ccee3.png": "6544ed9f861774a39b67f75f29c3e293bdee66fb0964311f88b44ee299022778",
+          "out/tiny_overfit_dataset/labels/train.cache": "d3c1bfea8e45ae2b251a8731c2b728408f87648336915cf0ed40c8f766f198c9",
+          "out/tiny_overfit_dataset/labels/train/hn-043ba51070f02c46c061.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "out/tiny_overfit_dataset/labels/train/hn-0cc2b564e67fe86a99d0.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "out/tiny_overfit_dataset/labels/train/hn-110c67115f25e3939c8f.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "out/tiny_overfit_dataset/labels/train/hn-3ab68433c09ca1a17f6e.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "out/tiny_overfit_dataset/labels/train/hn-68684cd0aff84b2b6f5d.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "out/tiny_overfit_dataset/labels/train/hn-6aadc8f3b9e4343520b9.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "out/tiny_overfit_dataset/labels/train/hn-bc0b74ef2dad238db8e7.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "out/tiny_overfit_dataset/labels/train/hn-da478d3217795c2facf9.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "out/tiny_overfit_dataset/labels/train/hn-ec9416f5c110b814bad1.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "out/tiny_overfit_dataset/labels/train/hn-ef250087ff324e06447a.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "out/tiny_overfit_dataset/labels/train/pt-0020c1be4f4c74a57286.txt": "05701f5533b13466f50556e4c18b0c96396b5023b958f1ab28aef7d7cdca14eb",
+          "out/tiny_overfit_dataset/labels/train/pt-0232d9b6ed96308ad608.txt": "6e5e9279e1329d31e51e6f8173a9b73ab477342630ebe95eac0d52eaa9c7b3ea",
+          "out/tiny_overfit_dataset/labels/train/pt-031517f0967dee166f86.txt": "456d2530e9f0a41baed40fd4694d05a530b08dff945e90ab7dc98d8fa0b81645",
+          "out/tiny_overfit_dataset/labels/train/pt-062a7045de2b872a52ff.txt": "1d9f3e2ddf5706cfe940970531f316243cffc715f7acce172cebf19422a7f89f",
+          "out/tiny_overfit_dataset/labels/train/pt-08daffbffef20a58ccc6.txt": "8f89aede63fba5dd38da73d9d1d5632f2966d8eac819f793abd886e47909059e",
+          "out/tiny_overfit_dataset/labels/train/pt-1e4e89542158fbf702b7.txt": "ee7144478777d2b42cb916100d18eddfb29e0fdd91832e1bbbed7d2c14f9b9ad",
+          "out/tiny_overfit_dataset/labels/train/pt-2c4cdc8b71faaddfa130.txt": "a4c9a248db591b3daff2d1ca7592a161f886d1e1962ccd3982abcb55bb22d15d",
+          "out/tiny_overfit_dataset/labels/train/pt-5715f1a937e60d9a0405.txt": "358eea21ff5c82225148118c4f9d99d8247eeb94b1d2cf31af144a42be9288c2",
+          "out/tiny_overfit_dataset/labels/train/pt-5800901fc7f3de98d448.txt": "a7b8677d20aada705f55dd11d13ab80ecd1f5419b612522574c0fdef948c4a62",
+          "out/tiny_overfit_dataset/labels/train/pt-5eb3c00f39c1ff273b8c.txt": "38119994d0b496fed80e4be29cc0afd1a0b31bd4f035ceeafff5607e760b9295",
+          "out/tiny_overfit_dataset/labels/train/pt-77a080fba8048f2a4f64.txt": "c4026797d116f51c62b3688ac9373c9e8beff4b6e8b5bd0d099ebcedf143e1fb",
+          "out/tiny_overfit_dataset/labels/train/pt-9a36bbe18f96da2ccee3.txt": "fc13bbe1d81966caa6aa02d2410096777bafa1be4a48c2bf1ebb1228c728b762",
+          "out/tiny_overfit_manifest.json": "d997b870d72e7956fad7ccdde2431c1577d35ce41fc18c451c2e9c5f0bc61287"
+        },
+        "note": "out/tiny_overfit_dataset/data.yaml is a derived copy of frozen/data.yaml with only the server path line rewritten; the frozen file is verified at frozen/data.yaml",
+        "server_dir": "/home/sf01/step2a-20260923",
+        "verified_with": "sha256sum -c SHA256SUMS on the server"
+      }
+    },
     "step1c2m_evidence_commit": "8457ad4",
     "step1d_evidence_commit": "0983596",
     "step1d_reported_execution_commit": "4d3e05c8153a41319c3102f1491ba1204582c935"

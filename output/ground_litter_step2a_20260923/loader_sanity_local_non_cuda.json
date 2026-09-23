@@ -1,11 +1,5 @@
 {
   "dataset_length": 22,
-  "manifest_provenance": {
-    "path": "/home/sf01/step2a-20260923/out/tiny_overfit_manifest.json",
-    "reused_frozen_manifest": true,
-    "sha256": "d997b870d72e7956fad7ccdde2431c1577d35ce41fc18c451c2e9c5f0bc61287",
-    "source": "frozen_file"
-  },
   "mixed_batches": [
     {
       "batch_size": 4,
@@ -87,10 +81,10 @@
     {
       "batch_size": 4,
       "boxes_per_image": [
-        0,
+        2,
         1,
         7,
-        2
+        1
       ],
       "class_ids": [
         0
@@ -109,7 +103,7 @@
         640
       ],
       "index": 3,
-      "total_boxes": 10
+      "total_boxes": 11
     },
     {
       "batch_size": 4,
@@ -141,8 +135,8 @@
     {
       "batch_size": 2,
       "boxes_per_image": [
-        5,
-        4
+        4,
+        3
       ],
       "class_ids": [
         0
@@ -159,7 +153,7 @@
         640
       ],
       "index": 5,
-      "total_boxes": 9
+      "total_boxes": 7
     }
   ],
   "negative_box_total": 0,
@@ -541,7 +535,7 @@
       ],
       "raw_label_boxes": 7,
       "raw_label_bytes": "pt-08daffbffef20a58ccc6",
-      "sample_boxes": 4,
+      "sample_boxes": 7,
       "sample_img_dtype": "torch.uint8",
       "sample_img_shape": [
         3,
@@ -613,7 +607,7 @@
       ],
       "raw_label_boxes": 1,
       "raw_label_bytes": "pt-5715f1a937e60d9a0405",
-      "sample_boxes": 0,
+      "sample_boxes": 1,
       "sample_img_dtype": "torch.uint8",
       "sample_img_shape": [
         3,
@@ -637,7 +631,7 @@
       ],
       "raw_label_boxes": 10,
       "raw_label_bytes": "pt-5800901fc7f3de98d448",
-      "sample_boxes": 7,
+      "sample_boxes": 10,
       "sample_img_dtype": "torch.uint8",
       "sample_img_shape": [
         3,
@@ -726,7 +720,7 @@
     "boxes_per_image": [
       1,
       4,
-      0,
+      1,
       1
     ],
     "files": [
@@ -741,7 +735,7 @@
       640,
       640
     ],
-    "total_boxes": 6
+    "total_boxes": 7
   },
   "positive_samples": 12,
   "positive_with_zero_boxes": [],

@@ -1,0 +1,10 @@
+{
+  "diff_lines": [
+    "path: /Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_step2a_20260923/tiny_overfit_dataset",
+    "path: /home/sf01/step2a-20260923/out/tiny_overfit_dataset"
+  ],
+  "frozen_data_yaml": "/home/sf01/step2a-20260923/frozen/data.yaml",
+  "only_path_line_changed": true,
+  "server_data_yaml": "/home/sf01/step2a-20260923/out/tiny_overfit_dataset/data.yaml",
+  "server_data_yaml_text": "# OVERFIT_SANITY_ONLY\n# TRAIN_EQUALS_VAL = true -- do not use as a metric\npath: /home/sf01/step2a-20260923/out/tiny_overfit_dataset\ntrain: images/train\nval: images/train\nnames:\n  0: ground_litter\n"
+}

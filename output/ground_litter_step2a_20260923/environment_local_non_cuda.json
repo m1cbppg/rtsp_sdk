@@ -1,0 +1,23 @@
+{
+  "blockers": [
+    "no CUDA GPU on this machine: torch.cuda.is_available() is False, nvidia-smi absent; the tiny overfit must not silently run on CPU"
+  ],
+  "cuda_available": false,
+  "cuda_device_count": 0,
+  "cuda_device_name": null,
+  "cuda_vram_bytes": null,
+  "executable": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/.venv/bin/python",
+  "machine": "arm64",
+  "mps_available": true,
+  "mps_built": true,
+  "nvidia_smi_present": false,
+  "opencv": "4.13.0",
+  "opencv_path": "/tmp/cv2shim/cv2/__init__.py",
+  "platform": "macOS-15.3.2-arm64-arm-64bit",
+  "python": "3.12.0",
+  "pythonpath": "/tmp/cv2shim",
+  "torch": "2.13.0",
+  "torch_cuda_version": null,
+  "ultralytics": "8.4.118",
+  "ultralytics_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/.venv/lib/python3.12/site-packages/ultralytics/__init__.py"
+}

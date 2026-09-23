@@ -1,0 +1,27 @@
+{
+  "all_negative_labels_zero_bytes": true,
+  "derived_dataset_data_yaml_diff_lines": [
+    "path: /Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_step2a_20260923/tiny_overfit_dataset",
+    "path: /home/sf01/step2a-20260923/out/tiny_overfit_dataset"
+  ],
+  "derived_dataset_data_yaml_is_only_the_path_line": true,
+  "derived_dataset_data_yaml_path": "/home/sf01/step2a-20260923/out/tiny_overfit_dataset/data.yaml",
+  "derived_dataset_data_yaml_sha256": "66bac2b8848df347e660cb53cc427a2a69738eee1269fefb1648060e752d36db",
+  "derived_matches_uploaded_sums": false,
+  "frozen_data_yaml_matches_local": true,
+  "frozen_data_yaml_path": "/home/sf01/step2a-20260923/frozen/data.yaml",
+  "frozen_data_yaml_sha256": "7440eb25801ef4f57d32881d8205444a513ec0f2aafcbddd39dc1a04e219807d",
+  "frozen_inputs_mismatch": [],
+  "frozen_inputs_verified_ok": 54,
+  "local_frozen_weight_sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b",
+  "negative_tiles": 10,
+  "ok": true,
+  "positive_boxes": 41,
+  "positive_labels_class_zero_only": true,
+  "positive_tiles": 12,
+  "sha256sums_entries": 55,
+  "uploaded_archive_sha256": "8d31da440cd655d127a419ca72e819e07ef59f1d877231c45aac21d089ec1234",
+  "weight_bytes": 20422725,
+  "weight_matches_local_frozen": true,
+  "weight_sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b"
+}
