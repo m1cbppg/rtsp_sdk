@@ -140,56 +140,63 @@
   },
   "generate": {
     "bbox_short_side_buckets": {
-      "10-19": 34,
-      "20-39": 44,
-      "40-79": 32,
+      "10-19": 33,
+      "20-39": 40,
+      "40-79": 29,
       "80+": 2,
       "<10": 5
     },
     "candidate_accounting": {
-      "distinct_tile_count": 96,
+      "automatic_section_17_exclusion_count": 0,
+      "distinct_tile_count": 93,
       "eligible_episode_count": 109,
-      "known_unlocalized_required_present_count": 12,
-      "merged_into_another_tile_count": 13,
+      "known_unlocalized_required_present_count": 9,
+      "merged_into_another_tile_count": 16,
       "primary_candidate_count": 109,
-      "reviewable_tile_count": 84,
+      "reviewable_tile_count": 93,
       "technical_failure_count": 0
     },
-    "candidate_tile_count": 96,
+    "candidate_tile_count": 93,
     "decoded": true,
-    "decoded_frame_count": 11,
-    "deduplicated_tile_count": 96,
-    "excluded_by_generation_count": 12,
+    "decoded_frame_count": 2,
+    "deduplicated_tile_count": 93,
+    "excluded_by_generation_count": 0,
     "extra_decode_round_count": 2,
     "generation_failed_count": 0,
-    "known_unlocalized_required_present_count": 12,
+    "known_unlocalized_required_present_count": 9,
     "label_count_histogram": {
       "1": 79,
-      "2": 13,
-      "3": 4
+      "2": 12,
+      "3": 2
     },
     "merge_count": 0,
-    "merged_duplicate_tile_count": 12,
-    "multi_label_tile_count": 17,
+    "merged_duplicate_tile_count": 14,
+    "multi_label_tile_count": 14,
     "multi_target_exceeds_tile_count": 0,
     "per_camera_candidate": {
       "01021": 17,
-      "01022": 29,
+      "01022": 27,
       "01027": 5,
       "01028": 19,
-      "01030": 26
+      "01030": 25
     },
     "probe_failed_source_file_count": 0,
     "pruned_orphan_image_count": 0,
-    "reused_candidate_count": 97,
+    "reused_candidate_count": 109,
+    "risk_flag_counts": {
+      "KNOWN_UNLOCALIZED_REQUIRED_PRESENT": 9
+    },
+    "risk_geometry_source_counts": {
+      "historical_bbox": 4,
+      "mapped_point": 5
+    },
     "source_frame_mismatch_count": 0,
     "source_too_small_count": 0,
     "status_counts": {
       "CROP_UNSTABLE": 0,
       "DECODE_FAILED": 0,
-      "KNOWN_UNLOCALIZED_REQUIRED_PRESENT": 12,
       "MULTI_TARGET_EXCEEDS_TILE": 0,
-      "READY_FOR_REVIEW": 84,
+      "READY_FOR_REVIEW": 93,
       "SOURCE_FRAME_MISMATCH": 0,
       "SOURCE_TOO_SMALL": 0,
       "TARGET_EXCEEDS_TILE": 0,
@@ -197,10 +204,10 @@
     },
     "target_exceeds_tile_count": 0,
     "tiles_with_1_label": 79,
-    "tiles_with_2plus_labels": 17,
+    "tiles_with_2plus_labels": 14,
     "uncertain_truth_in_crop_count": 0
   },
-  "generator_version": "step1c2-1.0.0",
+  "generator_version": "step1c2-1.1.0",
   "input": {
     "expected_count_ok": true,
     "per_camera": {
@@ -229,21 +236,21 @@
       "annotation_complete": 0,
       "box_problem": 0,
       "candidate": 17,
-      "excluded_by_generation": 3,
+      "excluded_by_generation": 0,
       "input_eligible": 19,
       "missing_required": 0,
-      "reviewable": 14,
+      "reviewable": 17,
       "uncertain": 0
     },
     "01022": {
       "accepted": 0,
       "annotation_complete": 0,
       "box_problem": 0,
-      "candidate": 29,
-      "excluded_by_generation": 5,
+      "candidate": 27,
+      "excluded_by_generation": 0,
       "input_eligible": 33,
       "missing_required": 0,
-      "reviewable": 24,
+      "reviewable": 27,
       "uncertain": 0
     },
     "01027": {
@@ -272,11 +279,11 @@
       "accepted": 0,
       "annotation_complete": 0,
       "box_problem": 0,
-      "candidate": 26,
-      "excluded_by_generation": 4,
+      "candidate": 25,
+      "excluded_by_generation": 0,
       "input_eligible": 28,
       "missing_required": 0,
-      "reviewable": 22,
+      "reviewable": 25,
       "uncertain": 0
     }
   },
@@ -285,7 +292,7 @@
       "ANNOTATION_COMPLETE": 0,
       "BOX_PROBLEM": 0,
       "MISSING_REQUIRED": 0,
-      "PENDING": 84,
+      "PENDING": 93,
       "UNCERTAIN_COMPLETENESS": 0
     },
     "decisions": {
@@ -294,8 +301,8 @@
       "MISSING_REQUIRED": 0,
       "UNCERTAIN_COMPLETENESS": 0
     },
-    "pending": 84,
-    "reviewable": 84,
+    "pending": 93,
+    "reviewable": 93,
     "reviewed": 0,
     "skipped": 0
   },

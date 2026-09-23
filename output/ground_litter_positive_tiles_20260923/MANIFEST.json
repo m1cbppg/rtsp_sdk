@@ -20,10 +20,10 @@
   "class_mapping": {
     "0": "ground_litter"
   },
-  "code_commit": "36daab166b6e9a97e361005c82c806e85fed016f",
+  "code_commit": "34339737413f1843bab0c3a130c47a4b0bcee3a8",
   "config": {
     "accepted_root": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_positive_tiles_20260923/accepted",
-    "generator_version": "step1c2-1.0.0",
+    "generator_version": "step1c2-1.1.0",
     "images_dir": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_positive_tiles_20260923/candidate_tiles/images",
     "limit": null,
     "margin": 32,
@@ -34,14 +34,14 @@
   },
   "counts": {
     "accepted_positive_tile_count": 0,
-    "candidate_tile_count": 96,
+    "candidate_tile_count": 93,
     "input_training_eligible_episode_count": 109,
-    "reviewable_tile_count": 84,
+    "reviewable_tile_count": 93,
     "reviewed": 0
   },
-  "generated_at": "2026-09-23T08:41:10Z",
-  "generator_version": "step1c2-1.0.0",
-  "input_fingerprint": "79516232494260c666f1cc8143c3b888f434e5a9a009a78e128f680eaec43574",
+  "generated_at": "2026-09-23T08:52:58Z",
+  "generator_version": "step1c2-1.1.0",
+  "input_fingerprint": "bc66e0a7be8e5a7ce2049df511d8fc30a4ac366c7f33a7735dd45fc6bfc7aee0",
   "input_sha256": {
     "gold_sha256": "74eefba08d65fd2c32d4d83ea823acadfef4c20b90c42dc7cbff3ec1100e24eb",
     "localization_sha256": "42cac48bd83e6521d37134d3655fc38ef3f5de8e811b4433ef78811c217fbfc4",
@@ -115,8 +115,8 @@
     "860384_18081003969_44180209031322001027-1789838913000": 0.04
   },
   "source_native": true,
-  "summary_sha256": "5abd2547c31ac0d90a1d59f8ce9f5cb56c64452e1c577e60d611407c3e9e65c2",
-  "tile_candidates_sha256": "399bf76aa1634a32bc83769ff6438a3fec589d1505d4de90d3933a65a494fda4",
+  "summary_sha256": "0fead221ca63a404357007ef0962989e4e527e78b5d7688c5b68967faa5e24e6",
+  "tile_candidates_sha256": "c33e4c2125657e3b49057a8a7e99f0b80f96aa3714a599b3b51e019b55be4e3c",
   "tile_size": 640,
   "upstream_provenance": {
     "note": "upstream commit pairs recorded so no downstream step infers them; each step's MANIFEST records the git HEAD at the moment its evidence was written",
