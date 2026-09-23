@@ -676,7 +676,7 @@ Fusion 使用各 constituent 在 Development 已冻结的 working threshold，un
 Development 可以用于：
 - threshold
 - tile overlap
-- matching 参数验证
+- matching 实现一致性验证（参数已由 Step 0B 冻结，不允许根据 Development 成绩修改）
 - YOLO26 / RF-DETR / Turhancan / Fusion 选择
 - 错误类型分析
 - 是否需要第二轮训练
@@ -891,6 +891,17 @@ Step 0B 在以下内容冻结后视为 PASS：
 - 最终 selected configuration
 
 其余规则进入实验后不得根据结果随意修改。
+
+特别是以下参数已在 Step 0B 冻结，Development 只能验证实现正确性，不能再调：
+- episode sampling：5 秒网格、每 episode 最多 5 帧
+- global ROI sampling：每 30 秒 1 帧
+- bbox match：普通目标 IoU >= 0.30
+- small-object match：gt short side <=20px 时的 IoU>=0.20 / center+area-ratio 规则
+- one-to-one matching
+- IGNORE_SMALL / UNCERTAIN 的计分顺序
+- FP / 100 ROI frames 的 denominator 定义
+
+如确需修改这些规则，必须在任何正式模型比较前升级 protocol_version，并重新生成受影响的 Development / Sealed sampling manifests；Sealed 一旦执行过 inference，则不得以修改后的协议继续称为同一轮封存测试。
 
 ---
 
