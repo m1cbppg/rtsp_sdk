@@ -1,0 +1,37 @@
+{
+  "boundaries": {
+    "auto_gold_generated": false,
+    "sealed_inference_accessed": false,
+    "step1a_artifact_immutable": true,
+    "training_started": false
+  },
+  "generated_at": "2026-09-23T03:13:43Z",
+  "outputs": {
+    "gold_episodes": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_gold_episode_review_20260923/gold_episodes.jsonl",
+    "review_state": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_gold_episode_review_20260923/review_state.json",
+    "summary": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_gold_episode_review_20260923/SUMMARY.json"
+  },
+  "review_schema_version": "gold_episode_review_v1",
+  "schema_version": "ground_litter_gold_episode_review_v1",
+  "step1a": {
+    "artifact": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_episode_candidates_20260923/episode_candidates.jsonl",
+    "artifact_sha256": "4e2c725424f905242962e7b3822d28e8aaede5500d9e6f781e4af4ee10b5fb6b",
+    "candidate_count": 201,
+    "code_commit": "9c2829c82b7ae2102ff6930022c80de1000a1a6b",
+    "manifest": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_episode_candidates_20260923/MANIFEST.json",
+    "member_card_count": 224
+  },
+  "step1b": {
+    "code_commit": "be506f6ea39c25e0d4b9d9d026f15f679df4af0d",
+    "config": {
+      "artifact": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_episode_candidates_20260923/episode_candidates.jsonl",
+      "output": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_gold_episode_review_20260923",
+      "retention_days": 7.0,
+      "schema_version": "ground_litter_gold_episode_review_v1",
+      "source_evidence": null,
+      "state": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_gold_episode_review_20260923/review_state.json",
+      "step1a_manifest": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_episode_candidates_20260923/MANIFEST.json"
+    },
+    "review_dataset_fingerprint": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+  }
+}

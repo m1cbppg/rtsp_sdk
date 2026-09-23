@@ -1,0 +1,99 @@
+{
+  "boundaries": {
+    "annotation_complete_tiles_generated": false,
+    "automatic_merge_applied_without_human": false,
+    "hard_negative_mining_started": false,
+    "scene_version_fabricated": false,
+    "sealed_inference_accessed": false,
+    "step1a_artifact_modified": false,
+    "training_started": false
+  },
+  "conflicts": [],
+  "gold_episodes": {
+    "by_truth_class": {
+      "IGNORE_SMALL": 0,
+      "NON_LITTER": 0,
+      "REQUIRED_LITTER": 0,
+      "UNCERTAIN": 0
+    },
+    "classification_outcome_count": 0,
+    "gold_episode_count": 0,
+    "merge_compression": 0,
+    "net_candidate_to_episode_change": 0,
+    "split_expansion": 0,
+    "statement": "Gold episodes exist only for human-reviewed candidates. Empty counts mean no human review has happened yet."
+  },
+  "human_review": {
+    "decisions": {
+      "CONFIRM": 0,
+      "IGNORE_SMALL": 0,
+      "MERGE": 0,
+      "NON_LITTER": 0,
+      "SPLIT": 0,
+      "UNCERTAIN": 0
+    },
+    "operations": {
+      "confirm_operations": 0,
+      "ignore_small_decisions": 0,
+      "merge_operations": 0,
+      "non_litter_decisions": 0,
+      "split_operations": 0,
+      "uncertain_decisions": 0
+    },
+    "pending": 201,
+    "review_complete": false,
+    "reviewed": 0,
+    "reviewed_fraction": 0.0,
+    "skipped": 0,
+    "total": 201
+  },
+  "input": {
+    "step1a_artifact": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_episode_candidates_20260923/episode_candidates.jsonl",
+    "step1a_artifact_sha256": "4e2c725424f905242962e7b3822d28e8aaede5500d9e6f781e4af4ee10b5fb6b",
+    "step1a_candidate_count": 201,
+    "step1a_code_commit": "9c2829c82b7ae2102ff6930022c80de1000a1a6b",
+    "step1a_member_card_count": 224,
+    "step1a_summary": {
+      "ambiguous_groups": 83,
+      "multi_card_groups": 20,
+      "singleton_groups": 181
+    }
+  },
+  "input_lineage_readiness": {
+    "counts": {
+      "LINEAGE_UNRESOLVED": 73,
+      "REVIEW_ONLY": 0,
+      "TRAINABLE_SOURCE_NATIVE": 128
+    },
+    "hypothetical_if_confirmed_required_litter": true,
+    "policy": {
+      "reference_time": "2026-09-23T11:13:43",
+      "require_assets_present": true,
+      "retention_days": 7.0
+    },
+    "reason_histogram": {
+      "ps_reachability_unverified_requires_refetch": 128,
+      "source_file_id_missing_may_recover_via_frame_id_timestamp": 73
+    },
+    "statement": "Input-lineage readiness only. This is NOT Gold truth and does not mean any candidate has been reviewed."
+  },
+  "review_schema_version": "gold_episode_review_v1",
+  "risk_coverage": {
+    "box_wrong_derived_gold": 0,
+    "grouping_risk_reviewed": 0,
+    "grouping_risk_total": 19,
+    "lineage_only_reviewed": 0,
+    "lineage_only_total": 69,
+    "queue_total": 201
+  },
+  "schema_version": "ground_litter_gold_episode_review_v1",
+  "source_native_trainability": {
+    "counts": {
+      "LINEAGE_UNRESOLVED": 0,
+      "REVIEW_ONLY": 0,
+      "TRAINABLE_SOURCE_NATIVE": 0
+    },
+    "counts_apply_to": "REQUIRED_LITTER episodes only",
+    "per_camera": {}
+  }
+}
