@@ -1,0 +1,82 @@
+:root{--bg:#14161a;--panel:#1c1f26;--panel2:#232833;--line:#333a47;--fg:#e8ecf3;--muted:#9aa4b5;--accent:#4c8dff;--ok:#39b869;--warn:#e0a13a;--bad:#e0603a;--purple:#a97bff;--new:#2ea8ff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:13px/1.5 -apple-system,"Helvetica Neue","PingFang SC",sans-serif}
+header{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;background:var(--panel);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+h1{font-size:15px;margin:0}
+.muted{color:var(--muted)}
+.progress{text-align:right}
+.progress b{font-size:16px;display:block}
+main{display:grid;grid-template-columns:330px 1fr;height:calc(100vh - 58px)}
+aside{border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:0}
+.filters{padding:8px;display:grid;gap:6px;border-bottom:1px solid var(--line);background:var(--panel)}
+.filters label{display:grid;gap:2px;font-size:11px;color:var(--muted)}
+select,input,textarea{background:var(--panel2);color:var(--fg);border:1px solid var(--line);border-radius:5px;padding:4px 6px;font:inherit}
+.queue{overflow:auto;flex:1}
+.item{display:block;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);color:var(--fg);padding:7px 9px;cursor:pointer;font:inherit}
+.item:hover{background:var(--panel2)}
+.item.active{background:var(--panel2);box-shadow:inset 3px 0 0 var(--accent)}
+.item small{display:block;color:var(--muted);font-size:11px}
+.badges{display:flex;gap:4px;flex-wrap:wrap;margin-top:3px}
+.badge{font-size:10px;padding:1px 5px;border-radius:99px;border:1px solid var(--line);color:var(--muted)}
+.badge.ok{border-color:var(--ok);color:var(--ok)}
+.badge.warn{border-color:var(--warn);color:var(--warn)}
+.badge.bad{border-color:var(--bad);color:var(--bad)}
+.badge.new{border-color:var(--new);color:var(--new)}
+.detail{overflow:auto;height:100%;padding:12px 16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-bottom:12px}
+.kv{display:grid;grid-template-columns:200px 1fr;gap:2px 10px;font-size:12px}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0;word-break:break-all}
+.question{border:2px solid var(--accent);background:#182231;border-radius:8px;padding:10px 12px;margin-bottom:12px}
+.question .label{font-size:11px;color:var(--accent);font-weight:700;letter-spacing:.04em}
+.question .value{font-size:15px;font-weight:700;margin-top:4px}
+.warnbox{border:2px solid var(--warn);background:#2a2418;border-radius:8px;padding:8px 10px;margin-bottom:12px;font-size:12px}
+.warnbox .label{color:var(--warn);font-weight:700;font-size:11px;letter-spacing:.04em}
+.errbox{border:2px solid var(--bad);background:#2d1a14;border-radius:8px;padding:8px 10px;margin-bottom:12px;font-size:12px}
+.errbox .label{color:#ff9b7a;font-weight:700;font-size:11px;letter-spacing:.04em}
+.tilearea{display:grid;grid-template-columns:1fr 300px;gap:12px}
+/* The tile is served at exactly 640x640; every overlay below is CSS drawn on top of it
+   and is never written into the PNG.  Percentages keep boxes aligned at any size. */
+.tilewrap{position:relative;background:#0e1013;border:1px solid var(--line);border-radius:6px;overflow:hidden;line-height:0;cursor:crosshair}
+.tilewrap img{display:block;width:100%;height:auto}
+.tilewrap .overlay{position:absolute;inset:0;line-height:1.4}
+.tilewrap.armed{cursor:crosshair;box-shadow:0 0 0 3px var(--new) inset}
+.box{position:absolute;border:2px solid var(--ok);border-radius:2px}
+.box .tag{position:absolute;top:-9px;left:-2px;background:var(--ok);color:#08111f;font-size:11px;font-weight:700;padding:0 4px;border-radius:3px}
+.box.new{border-color:var(--new);border-style:solid}
+.box.new .tag{background:var(--new)}
+.box.cand{border-color:var(--purple);border-style:dashed}
+.box.cand .tag{background:var(--purple)}
+.box.trunc{border-color:var(--bad)}
+.box.trunc .tag{background:var(--bad)}
+.point{position:absolute;width:0;height:0;pointer-events:none}
+.point::before,.point::after{content:"";position:absolute;background:#ffd166}
+.point::before{left:-12px;top:-1px;width:24px;height:2px}
+.point::after{left:-1px;top:-12px;width:2px;height:24px}
+.side{display:flex;flex-direction:column;gap:8px}
+.candlist{display:flex;flex-direction:column;gap:6px}
+.candrow{display:flex;gap:6px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:6px 8px;font-size:11px}
+.candrow.sel{border-color:var(--new);box-shadow:inset 3px 0 0 var(--new)}
+.candrow button{background:var(--panel2);color:var(--fg);border:1px solid var(--line);border-radius:5px;padding:4px 8px;cursor:pointer;font:inherit}
+.candrow .meta{color:var(--muted)}
+table.labels{width:100%;border-collapse:collapse;font-size:11px}
+table.labels th,table.labels td{border-bottom:1px solid var(--line);padding:3px 5px;text-align:left;vertical-align:top}
+table.labels th{color:var(--muted);font-weight:600}
+tr.supp td{background:#12232e}
+.actions{position:sticky;bottom:0;background:var(--bg);padding:10px 0;border-top:1px solid var(--line);display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+button.act{background:var(--panel2);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:8px 14px;cursor:pointer;font:inherit}
+button.act:hover{border-color:var(--accent)}
+button.act.armed{border-color:var(--new);color:var(--new);font-weight:600}
+button.act.complete{border-color:var(--ok);color:var(--ok);font-weight:600}
+button.act.missing{border-color:var(--warn);color:var(--warn)}
+button.act.bad{border-color:var(--bad);color:var(--bad)}
+button.act.unc{border-color:var(--purple);color:var(--purple)}
+button.act.sel{background:var(--accent);border-color:var(--accent);color:#fff}
+button.act[disabled]{opacity:.45;cursor:not-allowed}
+kbd{background:#0e1013;border:1px solid var(--line);border-radius:4px;padding:0 4px;font-size:10px}
+.hint{color:var(--muted);font-size:11px}
+.err{color:var(--bad);font-weight:600}
+textarea{width:100%}
+.loading{color:var(--new);font-weight:600}
+.confirmbox{border:2px dashed var(--accent);background:#182231;border-radius:8px;padding:8px 10px;margin-top:8px}
+.confirmbox .label{color:var(--accent);font-weight:700;font-size:11px;letter-spacing:.04em}
