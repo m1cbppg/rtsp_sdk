@@ -30,6 +30,7 @@ import json
 import os
 from pathlib import Path
 import sys
+from typing import Any, Mapping
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
@@ -282,6 +283,9 @@ def cmd_train(args: argparse.Namespace) -> int:
         "loss_decreased": bool(losses and losses[-1] < losses[0] * 0.8),
         "nan_or_inf": nan,
         "save_dir": str(save_dir),
+        "pretrained_weight": {"path": str(args.weight),
+                              "bytes": args.weight.stat().st_size,
+                              "sha256": sha256_file(args.weight)},
         "note": "FULL_TRAIN_SET_SANITY_ONLY: train and val are the whole frozen pool",
     }
     _write_json(args, "training.json", payload)
@@ -346,6 +350,35 @@ def _chmod_read_only(weights_dir: Path) -> dict:
     return frozen
 
 
+def _pretrained_weight_sha(args: argparse.Namespace, training: Mapping) -> tuple[str, str]:
+    """The pretrained weight SHA-256, from whichever recorded source this host has.
+
+    A host that only holds the uploaded training set has no ``preflight.json`` (that
+    command needs the full frozen pools), so the value also comes from the training
+    record or from the frozen-input verification produced at upload time.  The source is
+    returned so the freeze record states where the guard value came from.
+    """
+    preflight_path = args.output / "preflight.json"
+    if preflight_path.is_file():
+        payload = json.loads(preflight_path.read_text(encoding="utf-8"))
+        if (payload.get("weight") or {}).get("sha256"):
+            return payload["weight"]["sha256"], "preflight.json"
+    recorded = (training.get("pretrained_weight") or {}).get("sha256")
+    if recorded:
+        return recorded, "training.json"
+    for name in ("frozen_input_verification.json", "upload_sha256sums.json"):
+        path = args.output / name
+        if not path.is_file():
+            continue
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        digest = (payload.get("weight_sha256")
+                  or (payload.get("files") or {}).get("assets/yolo26s.pt"))
+        if digest:
+            return digest, name
+    raise Step2BError("cannot verify the checkpoint against the pretrained weight: no "
+                      "recorded pretrained weight SHA-256 on this host")
+
+
 def cmd_freeze(args: argparse.Namespace) -> int:
     training = json.loads((args.output / "training.json").read_text(encoding="utf-8"))
     run_dir = Path(training["save_dir"]) / "weights"
@@ -356,8 +389,7 @@ def cmd_freeze(args: argparse.Namespace) -> int:
             raise Step2BError(f"checkpoint missing: {path}")
         checkpoints[name] = {"path": str(path), "bytes": path.stat().st_size,
                              "sha256": sha256_file(path)}
-    pretrained_sha = json.loads(
-        (args.output / "preflight.json").read_text(encoding="utf-8"))["weight"]["sha256"]
+    pretrained_sha, pretrained_source = _pretrained_weight_sha(args, training)
     if checkpoints["best.pt"]["sha256"] == pretrained_sha:   # type: ignore[index]
         raise Step2BError("best.pt is byte-identical to the pretrained weight")
     checkpoints["best_equals_last"] = (checkpoints["best.pt"]["sha256"]  # type: ignore[index]
@@ -368,11 +400,14 @@ def cmd_freeze(args: argparse.Namespace) -> int:
         training, checkpoints, primary="best.pt", frozen_at=_stamp(args),
         manifest_sha256=sha256_file(manifest_path) if manifest_path.is_file() else None)
     record["read_only"] = _chmod_read_only(run_dir)
+    record["pretrained_weight_sha256"] = pretrained_sha
+    record["pretrained_weight_sha_source"] = pretrained_source
     _write_json(args, "checkpoint_freeze.json", record)
     print(json.dumps({"primary": record["primary"],
                       "primary_sha256": record["primary_sha256"],
                       "primary_bytes": record["primary_bytes"],
                       "best_equals_last": checkpoints["best_equals_last"],
+                      "pretrained_weight_sha_source": pretrained_source,
                       "read_only": record["read_only"],
                       "step2c_weights": record["step2c_handoff"]["weights"]},
                      ensure_ascii=False, indent=2))

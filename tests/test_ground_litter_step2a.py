@@ -575,6 +575,18 @@ class TestTrainingNeverOverwritesThePretrainedWeight(unittest.TestCase):
         self.assertNotIn("supported = set(inspect.signature(model.train).parameters)",
                          train)
 
+    def test_loader_sanity_gate_is_order_independent(self):
+        """An all-negative sampled batch window is legal; content is checked per sample."""
+        source = CLI.read_text(encoding="utf-8")
+        sanity = source.split("def cmd_loader_sanity(", 1)[1].split("\ndef ", 1)[0]
+        self.assertNotIn('any(batch["total_boxes"] > 0 for batch in batches)', sanity)
+        self.assertIn('all(row["sample_img_shape"] == [3, 640, 640] for row in per_sample)',
+                      sanity)
+        self.assertIn('all(row["sample_img_dtype"] == "torch.uint8" for row in per_sample)',
+                      sanity)
+        self.assertIn('batch["dtype"] == "torch.uint8"', sanity)
+        self.assertIn("sampled_batch_box_total", sanity)
+
     def test_loader_sanity_uses_the_real_ultralytics_dataset_and_dataloader(self):
         source = CLI.read_text(encoding="utf-8")
         loader = source.split("def _build_loader(", 1)[1].split("\ndef ", 1)[0]

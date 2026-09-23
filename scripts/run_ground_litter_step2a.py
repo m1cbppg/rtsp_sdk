@@ -381,8 +381,17 @@ def cmd_loader_sanity(args: argparse.Namespace) -> int:
                and all(row["label_bytes"] == 0 for row in negative)
                and sum(row["raw_label_boxes"] for row in positive)
                == sum(entry["box_count"] for entry in manifest["positive"])
+               and all(row["sample_img_shape"] == [3, 640, 640] for row in per_sample)
+               and all(row["sample_img_dtype"] == "torch.uint8" for row in per_sample)
                and len(batches) >= 2
-               and any(batch["total_boxes"] > 0 for batch in batches)),
+               # Whether a *sampled* batch happens to contain a positive depends on the
+               # dataset scan order (an all-negative prefix is legal: negatives can sort
+               # first), so the content guarantee is the per-sample check above and the
+               # batch window only proves well-formed 640x640 uint8 batches.
+               and all(batch["image_shape"][1:] == [3, 640, 640]
+                       and batch["image_shape"][0] == batch["batch_size"]
+                       and batch["dtype"] == "torch.uint8" for batch in batches)),
+        "sampled_batch_box_total": sum(batch["total_boxes"] for batch in batches),
     }
     _write_json(args, "loader_sanity.json", report)
     print(json.dumps({key: report[key] for key in (

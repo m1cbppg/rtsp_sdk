@@ -404,6 +404,20 @@ class TestStep2bCli(unittest.TestCase):
         self.assertIn("checkpoint_hashes.json", freeze)
         self.assertIn("checkpoint_freeze.json", freeze)
         self.assertIn("_chmod_read_only(run_dir)", freeze)
+        self.assertIn("_pretrained_weight_sha(args, training)", freeze)
+        self.assertIn("pretrained_weight_sha_source", freeze)
+
+    def test_pretrained_weight_sha_falls_back_to_recorded_upload_evidence(self):
+        """A host holding only the training set has no preflight.json."""
+        source = CLI.read_text(encoding="utf-8")
+        helper = source.split("def _pretrained_weight_sha(", 1)[1].split("\ndef ", 1)[0]
+        self.assertIn('"preflight.json"', helper)
+        self.assertIn('"training.json"', helper)
+        self.assertIn('"frozen_input_verification.json"', helper)
+        self.assertIn('"upload_sha256sums.json"', helper)
+        self.assertIn("recorded pretrained weight SHA-256", helper)
+        train = source.split("def cmd_train(", 1)[1].split("\ndef ", 1)[0]
+        self.assertIn('"pretrained_weight"', train)
 
     def test_post_runs_on_the_training_set_only(self):
         source = CLI.read_text(encoding="utf-8")
@@ -519,6 +533,29 @@ class TestRecordedStep2bEvidence(unittest.TestCase):
         for name, info in read_only.items():
             if "mode_after" in info:
                 self.assertEqual(int(info["mode_after"], 8) & 0o222, 0, name)
+
+    def test_recorded_loader_sanity_covers_every_tile(self):
+        path = STEP2B_OUT / "loader_sanity.json"
+        if not path.is_file():
+            self.skipTest("no loader sanity is recorded")
+        loader = json.loads(path.read_text(encoding="utf-8"))
+        self.assertTrue(loader["ok"], loader.get("positive_with_zero_boxes"))
+        self.assertEqual(loader["dataset_length"], 107)
+        self.assertEqual(loader["positive_samples"], EXPECTED["positive_images"])
+        self.assertEqual(loader["negative_samples"], EXPECTED["negative_images"])
+        self.assertEqual(loader["positive_box_total"], EXPECTED["positive_boxes"])
+        self.assertEqual(loader["negative_box_total"], 0)
+        self.assertTrue(loader["negative_label_bytes_zero"])
+        self.assertEqual(loader["positive_with_zero_boxes"], [])
+        self.assertEqual(loader["negative_with_boxes"], [])
+        self.assertEqual(len(loader["per_sample"]), 107)
+        self.assertTrue(all(row["sample_img_shape"] == [3, 640, 640]
+                            for row in loader["per_sample"]))
+        self.assertTrue(all(row["sample_img_dtype"] == "torch.uint8"
+                            for row in loader["per_sample"]))
+        # An all-negative sampled batch window is legal (negatives can sort first); the
+        # content guarantee is the per-sample check, so this field is informational.
+        self.assertIn("sampled_batch_box_total", loader)
 
     def test_verdict_is_one_of_the_three_preregistered_values(self):
         if not self.post:
