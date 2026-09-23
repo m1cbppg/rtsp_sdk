@@ -1,0 +1,69 @@
+{
+  "artifact_root": "output/ground_litter_step2a_20260923",
+  "boundaries": {
+    "augmentation_added_to_data": false,
+    "development_accessed": false,
+    "labels_rewritten": false,
+    "negative_label_changed": false,
+    "pretrained_weight_modified": false,
+    "sealed_accessed": false,
+    "step2b_started": false,
+    "threshold_tuned": false,
+    "upstream_dataset_bytes_modified": false
+  },
+  "code_commit": "dac4945f90f9cf16df55fac277227edad3833536",
+  "config": {
+    "batch": 8,
+    "device": null,
+    "epochs": 100,
+    "imgsz": 640,
+    "negative_root": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_hard_negatives_20260923",
+    "output": "output/ground_litter_step2a_20260923",
+    "positive_root": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_positive_tile_completion_20260923",
+    "seed": 42,
+    "weight": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/models/yolo26s.pt"
+  },
+  "counts": {
+    "negative_images": 63,
+    "positive_images": 44,
+    "tiny_negative_tiles": 10,
+    "tiny_positive_tiles": 12
+  },
+  "generated_at": "2026-09-23T13:17:26Z",
+  "generator_version": "step2a-1.0.0",
+  "input_sha256": {
+    "hard_negative_training_manifest_sha256": "3f46a4e5bdcdc8b634c9e5001e1a7e66fc0070d564a4b154ef5db51baf78c41d",
+    "negative_manifest_sha256": "ac6d2b71450a83918e3fad87d306bec09e3338eb388a4e0ea213cac06d608009",
+    "negative_summary_sha256": "b9e2fc57c683221c33c8a40243f5ae0cf6e0d67c282113cda39f8f8fa2c6d4f2",
+    "positive_manifest_sha256": "0fa6635b0711bdd85f6f1dab5544ca39ce9aa705de19b8cd8dc6ded964388ac6",
+    "positive_summary_sha256": "5fceb47caa0923ef93b396813f8167e889a1f2d22062e2a4c867f808dc44a30f",
+    "positive_training_manifest_sha256": "0c2d36de24b75af0475e3dd281a759fde510ae37f5c4b5fea403863b5318d86d"
+  },
+  "matching_parameters": {
+    "iou_normal": 0.3,
+    "iou_small": 0.2,
+    "small_area_ratio": [
+      0.25,
+      4.0
+    ],
+    "small_expand": 0.5,
+    "small_gt_short_side_px": 20.0
+  },
+  "note": "OVERFIT_SANITY_ONLY: no generalisation claim, no Development / Sealed access, no threshold tuning",
+  "schema_version": "ground_litter_step2a_v1",
+  "seed": 42,
+  "summary_sha256": "386ee24a71005318358f6b147dbcb48504ce2d1c3d2632879bb55cb774d569d2",
+  "tiny_overfit_manifest_sha256": "d997b870d72e7956fad7ccdde2431c1577d35ce41fc18c451c2e9c5f0bc61287",
+  "upstream_provenance": {
+    "note": "Step 2A reads only the frozen training-side pools recorded here; Development and Sealed assets are never opened",
+    "step1c2m_evidence_commit": "8457ad4",
+    "step1d_evidence_commit": "0983596",
+    "step1d_reported_execution_commit": "4d3e05c8153a41319c3102f1491ba1204582c935"
+  },
+  "weight": {
+    "exists": true,
+    "path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/models/yolo26s.pt",
+    "sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b",
+    "size_bytes": 20422725
+  }
+}

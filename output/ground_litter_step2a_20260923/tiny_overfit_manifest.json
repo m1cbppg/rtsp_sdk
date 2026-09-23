@@ -1,0 +1,700 @@
+{
+  "coverage": {
+    "easy_negative_count": 0,
+    "multi_label_tiles": 8,
+    "negative_cameras": [
+      "01021",
+      "01022",
+      "01027",
+      "01028",
+      "01030"
+    ],
+    "negative_tiles": 10,
+    "positive_bboxes": 41,
+    "positive_cameras": [
+      "01021",
+      "01022",
+      "01027",
+      "01028",
+      "01030"
+    ],
+    "positive_tiles": 12,
+    "short_side_buckets": {
+      "10-19": 14,
+      "20-39": 11,
+      "40-79": 9,
+      "80+": 2,
+      "<10": 5
+    },
+    "three_plus_label_tiles": 6
+  },
+  "generator_version": "step2a-1.0.0",
+  "negative": [
+    {
+      "camera_id": "01021",
+      "hardness_source": "historical_false_positive",
+      "image_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_hard_negatives_20260923/accepted/images/hn-3ab68433c09ca1a17f6e.png",
+      "image_sha256": "5624eb2807bd11fca2754980293957a84171b19cec847e19e21601f974b11dff",
+      "label_bytes": 0,
+      "label_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_hard_negatives_20260923/accepted/labels/hn-3ab68433c09ca1a17f6e.txt",
+      "label_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "hard negative, camera 01021",
+      "tile_id": "hn-3ab68433c09ca1a17f6e"
+    },
+    {
+      "camera_id": "01022",
+      "hardness_source": "historical_false_positive",
+      "image_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_hard_negatives_20260923/accepted/images/hn-110c67115f25e3939c8f.png",
+      "image_sha256": "42a30494e135546c6fc0c76674d9a04695e69369b8db89823ebf2818c8ab8476",
+      "label_bytes": 0,
+      "label_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_hard_negatives_20260923/accepted/labels/hn-110c67115f25e3939c8f.txt",
+      "label_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "hard negative, camera 01022",
+      "tile_id": "hn-110c67115f25e3939c8f"
+    },
+    {
+      "camera_id": "01028",
+      "hardness_source": "historical_false_positive",
+      "image_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_hard_negatives_20260923/accepted/images/hn-0cc2b564e67fe86a99d0.png",
+      "image_sha256": "73e7506c7a8831c829e5eb965cf4aeb6907bfe0b266e21a87951013694a956b8",
+      "label_bytes": 0,
+      "label_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_hard_negatives_20260923/accepted/labels/hn-0cc2b564e67fe86a99d0.txt",
+      "label_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "hard negative, camera 01028",
+      "tile_id": "hn-0cc2b564e67fe86a99d0"
+    },
+    {
+      "camera_id": "01030",
+      "hardness_source": "historical_false_positive",
+      "image_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_hard_negatives_20260923/accepted/images/hn-68684cd0aff84b2b6f5d.png",
+      "image_sha256": "7ac02405b84c61f0420e80d3762f8069f5f28be626167198a998ba6b5318a7b2",
+      "label_bytes": 0,
+      "label_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_hard_negatives_20260923/accepted/labels/hn-68684cd0aff84b2b6f5d.txt",
+      "label_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "hard negative, camera 01030",
+      "tile_id": "hn-68684cd0aff84b2b6f5d"
+    },
+    {
+      "camera_id": "01027",
+      "hardness_source": "historical_false_positive",
+      "image_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_hard_negatives_20260923/accepted/images/hn-043ba51070f02c46c061.png",
+      "image_sha256": "9ad72087da79bacda9c11abf423c09a90ef5e7577a7d65e46831bdd129fd11ad",
+      "label_bytes": 0,
+      "label_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_hard_negatives_20260923/accepted/labels/hn-043ba51070f02c46c061.txt",
+      "label_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "hard negative, camera 01027",
+      "tile_id": "hn-043ba51070f02c46c061"
+    },
+    {
+      "camera_id": "01021",
+      "hardness_source": "historical_false_positive",
+      "image_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_hard_negatives_20260923/accepted/images/hn-6aadc8f3b9e4343520b9.png",
+      "image_sha256": "3ca6a1e5013e7cc49756a86fb07150aef72250273faac2aca4ca5a4da194e6e9",
+      "label_bytes": 0,
+      "label_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_hard_negatives_20260923/accepted/labels/hn-6aadc8f3b9e4343520b9.txt",
+      "label_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "hard negative fill",
+      "tile_id": "hn-6aadc8f3b9e4343520b9"
+    },
+    {
+      "camera_id": "01021",
+      "hardness_source": "historical_false_positive",
+      "image_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_hard_negatives_20260923/accepted/images/hn-bc0b74ef2dad238db8e7.png",
+      "image_sha256": "d4474ed99ae12406711a4ea4465ee307fe14e7592914c89c532824d433da6aa4",
+      "label_bytes": 0,
+      "label_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_hard_negatives_20260923/accepted/labels/hn-bc0b74ef2dad238db8e7.txt",
+      "label_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "hard negative fill",
+      "tile_id": "hn-bc0b74ef2dad238db8e7"
+    },
+    {
+      "camera_id": "01021",
+      "hardness_source": "historical_false_positive",
+      "image_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_hard_negatives_20260923/accepted/images/hn-da478d3217795c2facf9.png",
+      "image_sha256": "c4c56880aa4349054825a94eda8a53ad45b771e16ae065211c923c8bc4e4388a",
+      "label_bytes": 0,
+      "label_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_hard_negatives_20260923/accepted/labels/hn-da478d3217795c2facf9.txt",
+      "label_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "hard negative fill",
+      "tile_id": "hn-da478d3217795c2facf9"
+    },
+    {
+      "camera_id": "01021",
+      "hardness_source": "historical_false_positive",
+      "image_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_hard_negatives_20260923/accepted/images/hn-ec9416f5c110b814bad1.png",
+      "image_sha256": "7e189e1155b15244e34f55f61018b710d8b0cb132046ff495937c04ad315480a",
+      "label_bytes": 0,
+      "label_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_hard_negatives_20260923/accepted/labels/hn-ec9416f5c110b814bad1.txt",
+      "label_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "hard negative fill",
+      "tile_id": "hn-ec9416f5c110b814bad1"
+    },
+    {
+      "camera_id": "01021",
+      "hardness_source": "historical_false_positive",
+      "image_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_hard_negatives_20260923/accepted/images/hn-ef250087ff324e06447a.png",
+      "image_sha256": "ec3b065a19cfb11e87637ae8c8822a592ac0837cd87c922295035cfd50819ffa",
+      "label_bytes": 0,
+      "label_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_hard_negatives_20260923/accepted/labels/hn-ef250087ff324e06447a.txt",
+      "label_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "hard negative fill",
+      "tile_id": "hn-ef250087ff324e06447a"
+    }
+  ],
+  "negative_tile_ids": [
+    "hn-3ab68433c09ca1a17f6e",
+    "hn-110c67115f25e3939c8f",
+    "hn-0cc2b564e67fe86a99d0",
+    "hn-68684cd0aff84b2b6f5d",
+    "hn-043ba51070f02c46c061",
+    "hn-6aadc8f3b9e4343520b9",
+    "hn-bc0b74ef2dad238db8e7",
+    "hn-da478d3217795c2facf9",
+    "hn-ec9416f5c110b814bad1",
+    "hn-ef250087ff324e06447a"
+  ],
+  "note": "OVERFIT_SANITY_ONLY: the tiny subset is used for training and for the overfit check only; it is not a generalisation measurement",
+  "positive": [
+    {
+      "box_count": 7,
+      "boxes": [
+        [
+          155.0,
+          62.0,
+          177.0,
+          74.0
+        ],
+        [
+          276.0,
+          200.0,
+          336.0,
+          284.0
+        ],
+        [
+          301.0,
+          393.0,
+          365.0,
+          441.0
+        ],
+        [
+          343.0,
+          126.0,
+          375.0,
+          149.0
+        ],
+        [
+          432.0,
+          133.0,
+          452.0,
+          142.0
+        ],
+        [
+          444.0,
+          79.0,
+          457.0,
+          92.0
+        ],
+        [
+          452.0,
+          29.0,
+          467.0,
+          39.0
+        ]
+      ],
+      "buckets": [
+        "10-19",
+        "40-79",
+        "40-79",
+        "20-39",
+        "<10",
+        "10-19",
+        "10-19"
+      ],
+      "camera_id": "01021",
+      "image_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_positive_tile_completion_20260923/accepted_v2/images/pt-08daffbffef20a58ccc6.png",
+      "image_sha256": "20593ea0b1de1b6a174277b3cc621405552ce3d4c72d751d548ab7478494c5ef",
+      "label_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_positive_tile_completion_20260923/accepted_v2/labels/pt-08daffbffef20a58ccc6.txt",
+      "label_sha256": "8f89aede63fba5dd38da73d9d1d5632f2966d8eac819f793abd886e47909059e",
+      "reason": "small target <10px",
+      "short_sides": [
+        12.0,
+        60.0,
+        48.0,
+        23.0,
+        9.0,
+        13.0,
+        10.0
+      ],
+      "tile_id": "pt-08daffbffef20a58ccc6"
+    },
+    {
+      "box_count": 10,
+      "boxes": [
+        [
+          19.0,
+          192.0,
+          29.0,
+          200.0
+        ],
+        [
+          30.0,
+          228.0,
+          39.0,
+          235.0
+        ],
+        [
+          85.0,
+          327.0,
+          99.0,
+          337.0
+        ],
+        [
+          160.0,
+          339.0,
+          260.0,
+          390.0
+        ],
+        [
+          210.0,
+          227.0,
+          242.0,
+          250.0
+        ],
+        [
+          239.0,
+          292.0,
+          251.0,
+          299.0
+        ],
+        [
+          254.0,
+          338.0,
+          364.0,
+          394.0
+        ],
+        [
+          256.0,
+          417.0,
+          288.0,
+          440.0
+        ],
+        [
+          306.0,
+          309.0,
+          334.0,
+          330.0
+        ],
+        [
+          328.0,
+          408.0,
+          360.0,
+          427.0
+        ]
+      ],
+      "buckets": [
+        "<10",
+        "<10",
+        "10-19",
+        "40-79",
+        "20-39",
+        "<10",
+        "40-79",
+        "20-39",
+        "20-39",
+        "10-19"
+      ],
+      "camera_id": "01021",
+      "image_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_positive_tile_completion_20260923/accepted_v2/images/pt-5800901fc7f3de98d448.png",
+      "image_sha256": "ddf3e848fff4941e31d1f957b24e2f331285f406fcac100cd61f32ac41b2289b",
+      "label_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_positive_tile_completion_20260923/accepted_v2/labels/pt-5800901fc7f3de98d448.txt",
+      "label_sha256": "a7b8677d20aada705f55dd11d13ab80ecd1f5419b612522574c0fdef948c4a62",
+      "reason": "small target 10-19px",
+      "short_sides": [
+        8.0,
+        7.0,
+        10.0,
+        51.0,
+        23.0,
+        7.0,
+        56.0,
+        23.0,
+        21.0,
+        19.0
+      ],
+      "tile_id": "pt-5800901fc7f3de98d448"
+    },
+    {
+      "box_count": 1,
+      "boxes": [
+        [
+          611.0,
+          290.0,
+          633.0,
+          349.0
+        ]
+      ],
+      "buckets": [
+        "20-39"
+      ],
+      "camera_id": "01021",
+      "image_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_positive_tile_completion_20260923/accepted_v2/images/pt-5715f1a937e60d9a0405.png",
+      "image_sha256": "e76575e0f7b3d123cedc46ed033b7edafe2ce4cfaca7bbdbcf410e264399023e",
+      "label_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_positive_tile_completion_20260923/accepted_v2/labels/pt-5715f1a937e60d9a0405.txt",
+      "label_sha256": "358eea21ff5c82225148118c4f9d99d8247eeb94b1d2cf31af144a42be9288c2",
+      "reason": "target 20-39px",
+      "short_sides": [
+        22.0
+      ],
+      "tile_id": "pt-5715f1a937e60d9a0405"
+    },
+    {
+      "box_count": 4,
+      "boxes": [
+        [
+          227.0,
+          129.0,
+          296.0,
+          156.0
+        ],
+        [
+          245.0,
+          420.0,
+          308.0,
+          463.0
+        ],
+        [
+          378.0,
+          520.0,
+          412.0,
+          551.0
+        ],
+        [
+          388.0,
+          558.0,
+          420.0,
+          581.0
+        ]
+      ],
+      "buckets": [
+        "20-39",
+        "40-79",
+        "20-39",
+        "20-39"
+      ],
+      "camera_id": "01022",
+      "image_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_positive_tile_completion_20260923/accepted_v2/images/pt-0232d9b6ed96308ad608.png",
+      "image_sha256": "e6eb3ca5752db80365a772be0b4328ed995e07636d62d21f8322222110ade7f7",
+      "label_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_positive_tile_completion_20260923/accepted_v2/labels/pt-0232d9b6ed96308ad608.txt",
+      "label_sha256": "6e5e9279e1329d31e51e6f8173a9b73ab477342630ebe95eac0d52eaa9c7b3ea",
+      "reason": "second target 20-39px",
+      "short_sides": [
+        27.0,
+        43.0,
+        31.0,
+        23.0
+      ],
+      "tile_id": "pt-0232d9b6ed96308ad608"
+    },
+    {
+      "box_count": 4,
+      "boxes": [
+        [
+          169.0,
+          85.0,
+          187.0,
+          94.0
+        ],
+        [
+          248.0,
+          319.0,
+          344.0,
+          412.0
+        ],
+        [
+          260.0,
+          550.0,
+          380.0,
+          628.0
+        ],
+        [
+          404.0,
+          368.0,
+          436.0,
+          391.0
+        ]
+      ],
+      "buckets": [
+        "<10",
+        "80+",
+        "40-79",
+        "20-39"
+      ],
+      "camera_id": "01021",
+      "image_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_positive_tile_completion_20260923/accepted_v2/images/pt-9a36bbe18f96da2ccee3.png",
+      "image_sha256": "6544ed9f861774a39b67f75f29c3e293bdee66fb0964311f88b44ee299022778",
+      "label_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_positive_tile_completion_20260923/accepted_v2/labels/pt-9a36bbe18f96da2ccee3.txt",
+      "label_sha256": "fc13bbe1d81966caa6aa02d2410096777bafa1be4a48c2bf1ebb1228c728b762",
+      "reason": "target >=40px",
+      "short_sides": [
+        9.0,
+        93.0,
+        78.0,
+        23.0
+      ],
+      "tile_id": "pt-9a36bbe18f96da2ccee3"
+    },
+    {
+      "box_count": 2,
+      "boxes": [
+        [
+          247.0,
+          597.0,
+          279.0,
+          620.0
+        ],
+        [
+          299.0,
+          594.0,
+          340.0,
+          618.0
+        ]
+      ],
+      "buckets": [
+        "20-39",
+        "20-39"
+      ],
+      "camera_id": "01022",
+      "image_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_positive_tile_completion_20260923/accepted_v2/images/pt-031517f0967dee166f86.png",
+      "image_sha256": "6864b663723b80b1f517646e6c3ba3a8be7583683925b21ba4db22e07b25ccbb",
+      "label_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_positive_tile_completion_20260923/accepted_v2/labels/pt-031517f0967dee166f86.txt",
+      "label_sha256": "456d2530e9f0a41baed40fd4694d05a530b08dff945e90ab7dc98d8fa0b81645",
+      "reason": "multi-label tile",
+      "short_sides": [
+        23.0,
+        24.0
+      ],
+      "tile_id": "pt-031517f0967dee166f86"
+    },
+    {
+      "box_count": 3,
+      "boxes": [
+        [
+          245.0,
+          280.0,
+          309.0,
+          326.0
+        ],
+        [
+          265.0,
+          286.0,
+          396.0,
+          361.0
+        ],
+        [
+          399.0,
+          234.0,
+          527.0,
+          357.0
+        ]
+      ],
+      "buckets": [
+        "40-79",
+        "40-79",
+        "80+"
+      ],
+      "camera_id": "01022",
+      "image_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_positive_tile_completion_20260923/accepted_v2/images/pt-2c4cdc8b71faaddfa130.png",
+      "image_sha256": "ea7f68f917b544661427fb3dd717141a8536e7b8f219b8eac009afdaac88aed3",
+      "label_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_positive_tile_completion_20260923/accepted_v2/labels/pt-2c4cdc8b71faaddfa130.txt",
+      "label_sha256": "a4c9a248db591b3daff2d1ca7592a161f886d1e1962ccd3982abcb55bb22d15d",
+      "reason": "tile with >=3 labels",
+      "short_sides": [
+        46.0,
+        75.0,
+        123.0
+      ],
+      "tile_id": "pt-2c4cdc8b71faaddfa130"
+    },
+    {
+      "box_count": 1,
+      "boxes": [
+        [
+          304.0,
+          315.0,
+          336.0,
+          325.0
+        ]
+      ],
+      "buckets": [
+        "10-19"
+      ],
+      "camera_id": "01021",
+      "image_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_positive_tile_completion_20260923/accepted_v2/images/pt-5eb3c00f39c1ff273b8c.png",
+      "image_sha256": "a69f19cbfa89251633e4dcc8bd0ac51f1d090194de33e18c69987e795e0ee919",
+      "label_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_positive_tile_completion_20260923/accepted_v2/labels/pt-5eb3c00f39c1ff273b8c.txt",
+      "label_sha256": "38119994d0b496fed80e4be29cc0afd1a0b31bd4f035ceeafff5607e760b9295",
+      "reason": "simple single-litter tile",
+      "short_sides": [
+        10.0
+      ],
+      "tile_id": "pt-5eb3c00f39c1ff273b8c"
+    },
+    {
+      "box_count": 5,
+      "boxes": [
+        [
+          275.0,
+          564.0,
+          365.0,
+          621.0
+        ],
+        [
+          306.0,
+          116.0,
+          331.0,
+          130.0
+        ],
+        [
+          308.0,
+          64.0,
+          324.0,
+          78.0
+        ],
+        [
+          327.0,
+          150.0,
+          373.0,
+          165.0
+        ],
+        [
+          335.0,
+          67.0,
+          348.0,
+          81.0
+        ]
+      ],
+      "buckets": [
+        "40-79",
+        "10-19",
+        "10-19",
+        "10-19",
+        "10-19"
+      ],
+      "camera_id": "01022",
+      "image_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_positive_tile_completion_20260923/accepted_v2/images/pt-77a080fba8048f2a4f64.png",
+      "image_sha256": "f6e01fdf5d1a3f3289076a76232f7cc1a7c4bacfbb8279e53af6070377b2f258",
+      "label_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_positive_tile_completion_20260923/accepted_v2/labels/pt-77a080fba8048f2a4f64.txt",
+      "label_sha256": "c4026797d116f51c62b3688ac9373c9e8beff4b6e8b5bd0d099ebcedf143e1fb",
+      "reason": "dense multi-litter tile",
+      "short_sides": [
+        57.0,
+        14.0,
+        14.0,
+        15.0,
+        13.0
+      ],
+      "tile_id": "pt-77a080fba8048f2a4f64"
+    },
+    {
+      "box_count": 2,
+      "boxes": [
+        [
+          300.0,
+          557.0,
+          339.0,
+          569.0
+        ],
+        [
+          318.0,
+          294.0,
+          345.0,
+          309.0
+        ]
+      ],
+      "buckets": [
+        "10-19",
+        "10-19"
+      ],
+      "camera_id": "01028",
+      "image_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_positive_tile_completion_20260923/accepted_v2/images/pt-1e4e89542158fbf702b7.png",
+      "image_sha256": "70cb3aef9287c62684542cd800db891c6288f70e69690f1f881eeb99b0c0db4a",
+      "label_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_positive_tile_completion_20260923/accepted_v2/labels/pt-1e4e89542158fbf702b7.txt",
+      "label_sha256": "ee7144478777d2b42cb916100d18eddfb29e0fdd91832e1bbbed7d2c14f9b9ad",
+      "reason": "camera coverage 01028",
+      "short_sides": [
+        12.0,
+        15.0
+      ],
+      "tile_id": "pt-1e4e89542158fbf702b7"
+    },
+    {
+      "box_count": 1,
+      "boxes": [
+        [
+          304.0,
+          313.0,
+          336.0,
+          327.0
+        ]
+      ],
+      "buckets": [
+        "10-19"
+      ],
+      "camera_id": "01030",
+      "image_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_positive_tile_completion_20260923/accepted_v2/images/pt-0020c1be4f4c74a57286.png",
+      "image_sha256": "bc44ef304a81ad1c2c67a523ac62a496ba60626e1e7265687f4a63b1f5d60fa1",
+      "label_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_positive_tile_completion_20260923/accepted_v2/labels/pt-0020c1be4f4c74a57286.txt",
+      "label_sha256": "05701f5533b13466f50556e4c18b0c96396b5023b958f1ab28aef7d7cdca14eb",
+      "reason": "camera coverage 01030",
+      "short_sides": [
+        14.0
+      ],
+      "tile_id": "pt-0020c1be4f4c74a57286"
+    },
+    {
+      "box_count": 1,
+      "boxes": [
+        [
+          302.0,
+          311.0,
+          338.0,
+          328.0
+        ]
+      ],
+      "buckets": [
+        "10-19"
+      ],
+      "camera_id": "01027",
+      "image_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_positive_tile_completion_20260923/accepted_v2/images/pt-062a7045de2b872a52ff.png",
+      "image_sha256": "806b0654f4b21a46bc3ed8cf5f604ffecc5f447e0dd376da518e266b624b4192",
+      "label_path": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_positive_tile_completion_20260923/accepted_v2/labels/pt-062a7045de2b872a52ff.txt",
+      "label_sha256": "1d9f3e2ddf5706cfe940970531f316243cffc715f7acce172cebf19422a7f89f",
+      "reason": "camera coverage 01027",
+      "short_sides": [
+        17.0
+      ],
+      "tile_id": "pt-062a7045de2b872a52ff"
+    }
+  ],
+  "positive_tile_ids": [
+    "pt-08daffbffef20a58ccc6",
+    "pt-5800901fc7f3de98d448",
+    "pt-5715f1a937e60d9a0405",
+    "pt-0232d9b6ed96308ad608",
+    "pt-9a36bbe18f96da2ccee3",
+    "pt-031517f0967dee166f86",
+    "pt-2c4cdc8b71faaddfa130",
+    "pt-5eb3c00f39c1ff273b8c",
+    "pt-77a080fba8048f2a4f64",
+    "pt-1e4e89542158fbf702b7",
+    "pt-0020c1be4f4c74a57286",
+    "pt-062a7045de2b872a52ff"
+  ],
+  "schema_version": "ground_litter_step2a_v1",
+  "seed": 42,
+  "selection": "deterministic: requirement coverage first, stable tie-break",
+  "source_hashes": {
+    "hard_negative_training_manifest_sha256": "3f46a4e5bdcdc8b634c9e5001e1a7e66fc0070d564a4b154ef5db51baf78c41d",
+    "positive_training_manifest_sha256": "0c2d36de24b75af0475e3dd281a759fde510ae37f5c4b5fea403863b5318d86d"
+  }
+}
