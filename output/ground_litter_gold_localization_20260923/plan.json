@@ -1,0 +1,24 @@
+{
+  "episodes_with_original_bbox": 171,
+  "episodes_without_original_bbox": 9,
+  "gold_artifact": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_gold_episode_review_20260923/gold_episodes.jsonl",
+  "gold_sha256": "74eefba08d65fd2c32d4d83ea823acadfef4c20b90c42dc7cbff3ec1100e24eb",
+  "likely_box_bad": 41,
+  "likely_box_ok": 139,
+  "manual_point_mapping_verified": 9,
+  "origin": {
+    "box_wrong": 29,
+    "historical_litter": 136,
+    "manual_missing_target": 9,
+    "split_derived": 6
+  },
+  "proposal_workload_if_every_flagged_episode_needs_it": 41,
+  "recovery_evidence_sha256": "ed66c42ff1a887ec19e796b375a7aed17059907ad00812b598b9578fe94e9ee1",
+  "required_episode_count": 180,
+  "screen_reasons": {
+    "historical_box_wrong": 29,
+    "manual_point_without_bbox": 9,
+    "shared_bbox_with_other_episodes": 3
+  },
+  "selected_episode_count": 180
+}

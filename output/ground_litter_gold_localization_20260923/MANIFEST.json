@@ -1,0 +1,52 @@
+{
+  "artifact_root": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_gold_localization_20260923",
+  "boundaries": {
+    "annotation_complete_performed": false,
+    "auto_verified_without_human": false,
+    "detector_run": false,
+    "episode_id_changed": false,
+    "episodes_merged_or_split": false,
+    "gold_modified": false,
+    "hard_negative_mining_started": false,
+    "recovery_evidence_modified": false,
+    "sealed_accessed": false,
+    "training_started": false,
+    "training_tiles_generated": false,
+    "truth_class_changed": false
+  },
+  "code_commit": "809ce49196dadc639fe90438da3c27057baa34bd",
+  "config": {
+    "generator_version": "step1c1-1.0.0",
+    "gold": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_gold_episode_review_20260923/gold_episodes.jsonl",
+    "output": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_gold_localization_20260923",
+    "recovery_root": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_gold_source_recovery_20260923",
+    "schema_version": "ground_litter_gold_localization_v1",
+    "state": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_gold_localization_20260923/review_state.json",
+    "step1a_artifact": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_episode_candidates_20260923/episode_candidates.jsonl"
+  },
+  "counts": {
+    "required_episode_count": 180,
+    "training_localization_ready": 0,
+    "truth_review_required": 0,
+    "unresolved": 0,
+    "verified_bbox": 0
+  },
+  "generated_at": "2026-09-23T06:20:00Z",
+  "generator_version": "step1c1-1.0.0",
+  "gold_input_sha256": "74eefba08d65fd2c32d4d83ea823acadfef4c20b90c42dc7cbff3ec1100e24eb",
+  "localizations_sha256": "dc204e75f5038302eb6090b0a4547bfe8d090a200737dd1f7a112e012b9064e6",
+  "outputs": {
+    "localizations": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_gold_localization_20260923/localizations.jsonl",
+    "review_state": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_gold_localization_20260923/review_state.json"
+  },
+  "recovery_evidence_sha256": "ed66c42ff1a887ec19e796b375a7aed17059907ad00812b598b9578fe94e9ee1",
+  "schema_version": "ground_litter_gold_localization_v1",
+  "upstream_provenance": {
+    "note": "verified with git diff that the recovery modules are byte-identical between the reported execution commit and the commit recorded in the Step 1C-0 MANIFEST",
+    "step1c0_code_equivalence_verified": true,
+    "step1c0_evidence_commit": "bfdecd5",
+    "step1c0_manifest_commit": "81c3dde27f7ed759248330e3c332d78907a137e3",
+    "step1c0_provenance_mismatch_explained": "Step 1C-0's MANIFEST records the git HEAD at the moment the final run wrote its evidence, which was the Step 1B Gold-evidence commit. The recovery code is byte-identical between that commit and the reported execution commit, so the recorded hash identifies the same code. Recorded here so no downstream step has to guess.",
+    "step1c0_reported_execution_commit": "2e5da415c20feda3384e080a3ff9217c97c4e83c"
+  }
+}
