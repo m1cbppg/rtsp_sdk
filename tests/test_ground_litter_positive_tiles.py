@@ -724,9 +724,10 @@ class GenerationTest(Base):
         self.assertEqual(decoder.probes, [])   # §46: no probe either
         self.assertEqual(len(second["candidates"]), 1)
         for before, after in zip(first["candidates"], second["candidates"]):
-            self.assertEqual(before["tile_id"], after["tile_id"])
-            self.assertEqual(before["image_sha256"], after["image_sha256"])
-            self.assertEqual(before["labels"], after["labels"])
+            # a re-run must reproduce the record byte for byte, including the merge
+            # provenance, and must never list a tile as merged into itself
+            self.assertEqual(before, after)
+            self.assertNotIn(after["tile_id"], after["merged_from_tile_ids"])
 
     def test_changed_inputs_refuse_to_overwrite_the_artifact(self) -> None:
         data, f = self.data_with(dict(episode_id="ge-a", bbox=[1240, 680, 1320, 760]))

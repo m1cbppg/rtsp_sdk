@@ -1050,9 +1050,11 @@ def generate_candidates(data: Mapping[str, Any], decoder: Any, images_dir: Path,
                         keeper["primary_episode_ids"] = sorted(
                             set(keeper["primary_episode_ids"])
                             | set(plan["primary_episode_ids"]))
-                        keeper["merged_from_tile_ids"] = sorted(
-                            set(keeper.get("merged_from_tile_ids") or [])
-                            | {str(plan.get("tile_id") or "")})
+                        own_id = str(plan.get("tile_id") or "")
+                        if own_id and own_id != tile_id:
+                            # never list the kept tile as merged into itself
+                            keeper["merged_from_tile_ids"] = sorted(
+                                set(keeper.get("merged_from_tile_ids") or []) | {own_id})
                         continue
                     row = fill_review_fields(dict(record))
                     emitted[tile_id] = row
@@ -1224,7 +1226,11 @@ def dedup_candidates(candidates: Sequence[Mapping[str, Any]]
     rows = []
     for key in order:
         record = merged[key]
-        record.setdefault("merged_from_tile_ids", [])
+        # invariant: a tile is never listed as merged into itself, even if an older
+        # artifact recorded it that way
+        record["merged_from_tile_ids"] = sorted(
+            {str(value) for value in (record.get("merged_from_tile_ids") or [])
+             if value and str(value) != str(record["tile_id"])})
         record["all_known_label_episode_ids"] = sorted(
             {e for label in record["labels"] for e in label["episode_ids"]})
         rows.append(record)
