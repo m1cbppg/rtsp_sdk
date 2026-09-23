@@ -1,17 +1,19 @@
 {
   "boundaries": {
     "auto_gold_generated": false,
+    "manual_target_bbox_inferred": false,
+    "manual_targets_auto_merged": false,
     "sealed_inference_accessed": false,
     "step1a_artifact_immutable": true,
     "training_started": false
   },
-  "generated_at": "2026-09-23T03:13:43Z",
+  "generated_at": "2026-09-23T03:33:19Z",
   "outputs": {
     "gold_episodes": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_gold_episode_review_20260923/gold_episodes.jsonl",
     "review_state": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_gold_episode_review_20260923/review_state.json",
     "summary": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_gold_episode_review_20260923/SUMMARY.json"
   },
-  "review_schema_version": "gold_episode_review_v1",
+  "review_schema_version": "gold_episode_review_v2",
   "schema_version": "ground_litter_gold_episode_review_v1",
   "step1a": {
     "artifact": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_episode_candidates_20260923/episode_candidates.jsonl",
@@ -22,7 +24,7 @@
     "member_card_count": 224
   },
   "step1b": {
-    "code_commit": "be506f6ea39c25e0d4b9d9d026f15f679df4af0d",
+    "code_commit": "ec5f4ee15b7a748ce0ec1dedc4f1e54d15b39b62",
     "config": {
       "artifact": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_episode_candidates_20260923/episode_candidates.jsonl",
       "output": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_gold_episode_review_20260923",
@@ -32,6 +34,6 @@
       "state": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_gold_episode_review_20260923/review_state.json",
       "step1a_manifest": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_episode_candidates_20260923/MANIFEST.json"
     },
-    "review_dataset_fingerprint": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    "review_dataset_fingerprint": "82413c7ff00e18925222894108fb6eb8d5cba36b7e5cb5b134995bb26004b0f3"
   }
 }

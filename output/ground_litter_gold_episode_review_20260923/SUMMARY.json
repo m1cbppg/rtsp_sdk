@@ -3,6 +3,8 @@
     "annotation_complete_tiles_generated": false,
     "automatic_merge_applied_without_human": false,
     "hard_negative_mining_started": false,
+    "manual_target_bbox_inferred": false,
+    "manual_targets_auto_merged": false,
     "scene_version_fabricated": false,
     "sealed_inference_accessed": false,
     "step1a_artifact_modified": false,
@@ -18,6 +20,7 @@
     },
     "classification_outcome_count": 0,
     "gold_episode_count": 0,
+    "manual_gold_episode_count": 0,
     "merge_compression": 0,
     "net_candidate_to_episode_change": 0,
     "split_expansion": 0,
@@ -33,6 +36,7 @@
       "UNCERTAIN": 0
     },
     "operations": {
+      "add_missing_target_operations": 0,
       "confirm_operations": 0,
       "ignore_small_decisions": 0,
       "merge_operations": 0,
@@ -67,7 +71,7 @@
     },
     "hypothetical_if_confirmed_required_litter": true,
     "policy": {
-      "reference_time": "2026-09-23T11:13:43",
+      "reference_time": "2026-09-23T11:33:19",
       "require_assets_present": true,
       "retention_days": 7.0
     },
@@ -77,7 +81,20 @@
     },
     "statement": "Input-lineage readiness only. This is NOT Gold truth and does not mean any candidate has been reviewed."
   },
-  "review_schema_version": "gold_episode_review_v1",
+  "manual_missing_targets": {
+    "manual_gold_episode_count": 0,
+    "manual_ignore_small_count": 0,
+    "manual_missing_target_count": 0,
+    "manual_required_count": 0,
+    "manual_targets_are_independent_of_source_candidate": true,
+    "manual_targets_by_camera": {},
+    "manual_targets_lineage_unresolved": 0,
+    "manual_targets_merged_automatically": false,
+    "manual_targets_needing_relocalization": 0,
+    "manual_targets_trainable_lineage": 0,
+    "manual_uncertain_count": 0
+  },
+  "review_schema_version": "gold_episode_review_v2",
   "risk_coverage": {
     "box_wrong_derived_gold": 0,
     "grouping_risk_reviewed": 0,
