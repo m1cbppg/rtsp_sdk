@@ -495,6 +495,18 @@ class TestBaselineAndPostShareOneSubset(unittest.TestCase):
         # the frozen manifest is reused if it exists, never re-selected per command
         self.assertIn("if manifest_path.is_file():", source)
 
+    def test_frozen_manifest_is_checked_before_the_pools(self):
+        """The CUDA host holds only the tiny dataset; it must not need the full pools."""
+        source = CLI.read_text(encoding="utf-8")
+        tiny = source.split("def _tiny_manifest(", 1)[1].split("\ndef ", 1)[0]
+        self.assertLess(tiny.index("manifest_path.is_file()"), tiny.index("_pools(args)"))
+        self.assertIn("def _manifest_provenance(", source)
+        for section in ("cmd_train(", "_predict("):
+            body = source.split(f"def {section}", 1)[1].split("\ndef ", 1)[0]
+            self.assertIn("_manifest_provenance(args)", body, section)
+        loader = source.split("def cmd_loader_sanity(", 1)[1].split("\ndef ", 1)[0]
+        self.assertIn('"manifest_provenance": _manifest_provenance(args)', loader)
+
     def test_recorded_baseline_and_post_cover_the_same_tiles(self):
         manifest_path = STEP2A_OUT / "tiny_overfit_manifest.json"
         baseline_path = STEP2A_OUT / "baseline_metrics.json"
@@ -550,6 +562,17 @@ class TestTrainingNeverOverwritesThePretrainedWeight(unittest.TestCase):
         loader = source.split("def _build_loader(", 1)[1].split("\ndef ", 1)[0]
         self.assertIn("cfg.augment = False", loader)
         self.assertIn("cfg.mosaic = 0.0", loader)
+
+    def test_train_arg_filter_uses_the_ultralytics_config_not_the_wrapper_signature(self):
+        """YOLO.train is (self, trainer, **kwargs); its signature cannot filter args."""
+        source = CLI.read_text(encoding="utf-8")
+        train = source.split("def cmd_train(", 1)[1].split("\ndef ", 1)[0]
+        self.assertIn("from ultralytics.cfg import get_cfg", train)
+        self.assertIn("set(vars(get_cfg()).keys())", train)
+        self.assertIn("missing_required", train)
+        self.assertIn("would silently drop frozen", train)
+        self.assertNotIn("supported = set(inspect.signature(model.train).parameters)",
+                         train)
 
     def test_loader_sanity_uses_the_real_ultralytics_dataset_and_dataloader(self):
         source = CLI.read_text(encoding="utf-8")
@@ -684,7 +707,7 @@ class TestRealFrozenPools(unittest.TestCase):
         self.assertEqual(manifest["counts"]["negative_images"],
                          NEGATIVE_EXPECTED["images"])
 
-    def test_recorded_summary_reports_honest_environment_and_no_verdict_without_cuda(self):
+    def test_recorded_summary_reports_the_environment_honestly(self):
         path = STEP2A_OUT / "SUMMARY.json"
         environment_path = STEP2A_OUT / "environment.json"
         if not (path.is_file() and environment_path.is_file()):
@@ -694,10 +717,155 @@ class TestRealFrozenPools(unittest.TestCase):
         self.assertEqual(summary["schema_version"], SCHEMA_VERSION)
         self.assertEqual(summary["seed"], SEED)
         self.assertTrue(all(value is False for value in summary["boundaries"].values()))
-        self.assertEqual(environment["cuda_available"], False)
-        self.assertTrue(environment["blockers"])
-        self.assertIn("no CUDA GPU", environment["blockers"][0])
-        self.assertEqual(summary["verdict"]["verdict"], "NOT_EVALUATED")
+        verdict = summary["verdict"]["verdict"]
+        if environment.get("cuda_available"):
+            self.assertEqual(environment["blockers"], [])
+            self.assertTrue(environment["cuda_device_name"])
+            self.assertTrue(environment["cuda_vram_bytes"])
+            self.assertIn(verdict, ("TRAINING_PIPELINE_PASS", "PARTIAL_OVERFIT",
+                                    "OVERFIT_FAIL"))
+        else:
+            self.assertTrue(environment["blockers"])
+            self.assertIn("no CUDA GPU", environment["blockers"][0])
+            self.assertEqual(verdict, "NOT_EVALUATED")
+
+
+class TestRecordedCudaRun(unittest.TestCase):
+    """The authorised CUDA tiny overfit, checked against the recorded evidence."""
+
+    @classmethod
+    def setUpClass(cls):
+        path = STEP2A_OUT / "SUMMARY.json"
+        if not path.is_file():
+            raise unittest.SkipTest("recorded Step 2A summary is not present")
+        cls.summary = json.loads(path.read_text(encoding="utf-8"))
+        cls.training = cls.summary.get("training") or {}
+        cls.post = cls.summary.get("post") or {}
+        cls.server = cls.summary.get("server_run") or {}
+        cls.environment = cls.summary.get("environment") or {}
+        if not cls.training:
+            raise unittest.SkipTest("the recorded Step 2A summary has no tiny overfit run")
+        manifest_path = STEP2A_OUT / "tiny_overfit_manifest.json"
+        cls.manifest = (json.loads(manifest_path.read_text(encoding="utf-8"))
+                        if manifest_path.is_file() else {"positive": [], "negative": []})
+
+    def test_training_ran_on_cuda_with_the_frozen_manifest(self):
+        self.assertTrue(self.environment.get("cuda_available"))
+        self.assertEqual(self.environment["blockers"], [])
+        provenance = self.training["manifest_provenance"]
+        self.assertEqual(provenance["source"], "frozen_file")
+        self.assertTrue(provenance["reused_frozen_manifest"])
+        manifest_path = STEP2A_OUT / "tiny_overfit_manifest.json"
+        if manifest_path.is_file():
+            self.assertEqual(provenance["sha256"], sha256_file(manifest_path))
+
+    def test_training_parameters_are_the_frozen_ones(self):
+        applied = self.training["applied_args"]
+        self.assertEqual(applied["imgsz"], 640)
+        self.assertEqual(applied["seed"], SEED)
+        self.assertEqual(applied["device"], "cuda")
+        self.assertIs(applied["deterministic"], True)
+        for key in ("mosaic", "mixup", "copy_paste", "degrees", "translate", "scale",
+                    "shear", "perspective", "flipud", "fliplr", "hsv_h", "hsv_s",
+                    "hsv_v", "erasing"):
+            self.assertEqual(applied[key], 0.0, key)
+        self.assertEqual(applied["close_mosaic"], 0)
+        self.assertIn(self.training["batch"], (8, 4, 2))
+        self.assertLessEqual(self.training["epochs_requested"], 100)
+        self.assertEqual(self.training["unsupported_args_skipped"], [])
+        for key in ("data", "epochs", "batch", "optimizer", "project", "name"):
+            self.assertIn(key, applied, key)
+
+    def test_training_actually_iterated_was_finite_and_improved(self):
+        self.assertGreaterEqual(self.training["epochs_run"], 1)
+        self.assertLessEqual(self.training["epochs_run"],
+                             self.training["epochs_requested"])
+        self.assertIs(self.training["nan_or_inf"], False)
+        self.assertIs(self.training["loss_decreased"], True)
+        self.assertLess(self.training["final_box_loss"], self.training["initial_box_loss"])
+        rows = self.training["epoch_metrics"]
+        self.assertEqual(len(rows), self.training["epochs_run"])
+        losses = [float(row["train/box_loss"]) for row in rows]
+        self.assertTrue(all(value == value and abs(value) != float("inf")
+                            for value in losses))
+
+    def test_checkpoints_are_new_artifacts_not_the_pretrained_weight(self):
+        checkpoints = self.server.get("checkpoint_hashes")
+        if not checkpoints:
+            self.skipTest("checkpoint hashes are not recorded")
+        shas = {name: checkpoints[name]["sha256"] for name in ("best.pt", "last.pt")}
+        for name, digest in shas.items():
+            self.assertNotEqual(digest, WEIGHT_SHA256, name)
+            self.assertGreater(checkpoints[name]["bytes"], 0)
+        self.assertNotEqual(shas["best.pt"], shas["last.pt"])
+
+    def test_frozen_input_verification_is_recorded_ok(self):
+        verification = self.server.get("frozen_input_verification")
+        if not verification:
+            self.skipTest("frozen input verification is not recorded")
+        self.assertTrue(verification["ok"], verification)
+        self.assertTrue(verification["weight_matches_local_frozen"])
+        self.assertEqual(verification["weight_sha256"], WEIGHT_SHA256)
+        self.assertTrue(verification["all_negative_labels_zero_bytes"])
+        self.assertTrue(verification["positive_labels_class_zero_only"])
+        self.assertEqual(verification["frozen_inputs_mismatch"], [])
+        self.assertEqual(verification["positive_tiles"], TINY_POSITIVE_TARGET)
+        self.assertEqual(verification["negative_tiles"], TINY_NEGATIVE_TARGET)
+        self.assertEqual(verification["positive_boxes"], 41)
+
+    def test_uploaded_files_are_sha256_recorded(self):
+        upload = self.server.get("upload_sha256sums")
+        if not upload:
+            self.skipTest("upload manifest is not recorded")
+        files = upload["files"]
+        self.assertEqual(upload["file_count"], len(files))
+        self.assertEqual(files["assets/yolo26s.pt"], WEIGHT_SHA256)
+        self.assertIn("code/scripts/run_ground_litter_step2a.py", files)
+        self.assertIn("out/tiny_overfit_manifest.json", files)
+        self.assertEqual(upload["archive_sha256"], upload["archive_received_sha256"])
+
+    def test_derived_data_yaml_only_changed_the_path_line(self):
+        record = self.server.get("data_yaml_record")
+        if not record:
+            self.skipTest("data.yaml record is not recorded")
+        self.assertTrue(record["only_path_line_changed"], record["diff_lines"])
+        old, new = record["diff_lines"]
+        self.assertTrue(old.startswith("path: "))
+        self.assertTrue(new.startswith("path: "))
+        self.assertNotEqual(old, new)
+
+    def test_post_uses_the_same_subset_matching_and_confidence_levels(self):
+        self.assertEqual(self.post["conf_floor"], min(CONF_LEVELS))
+        self.assertEqual(self.post["imgsz"], 640)
+        metrics = self.post["metrics"]
+        self.assertEqual(metrics["conf_levels"], list(CONF_LEVELS))
+        self.assertEqual(list(metrics["per_conf"]), ["0.01", "0.05", "0.10"])
+        matching = metrics["matching"]
+        self.assertEqual(matching["iou_normal"], IOU_NORMAL)
+        self.assertEqual(matching["iou_small"], IOU_SMALL)
+        self.assertEqual(matching["small_gt_short_side_px"], SMALL_GT_SHORT_SIDE_PX)
+        self.assertEqual(matching["small_expand"], SMALL_EXPAND)
+        self.assertEqual(matching["small_area_ratio"],
+                         [SMALL_AREA_RATIO_MIN, SMALL_AREA_RATIO_MAX])
+        positive_ids = set(self.manifest["positive_tile_ids"])
+        negative_ids = set(self.manifest["negative_tile_ids"])
+        for conf in ("0.01", "0.05", "0.10"):
+            detail = metrics["per_conf"][conf]
+            self.assertEqual({row["tile_id"] for row in detail["per_positive_image"]},
+                             positive_ids)
+            self.assertEqual({row["tile_id"] for row in detail["per_negative_image"]},
+                             negative_ids)
+            buckets = detail["by_size_bucket"]
+            self.assertEqual(sum(value["gt"] for value in buckets.values()), 41)
+            groups = detail["by_label_count"]
+            self.assertIn("single", groups)
+            self.assertIn("multi", groups)
+            self.assertEqual(sum(value["gt"] for value in groups.values()), 41)
+            for value in list(buckets.values()) + list(groups.values()):
+                self.assertLessEqual(value["tp"], value["gt"])
+        self.assertEqual(self.post["verdict"]["verdict"],
+                         self.summary["verdict"]["verdict"])
+        self.assertEqual(set(self.post["baseline_comparison"]), {"0.01", "0.05", "0.10"})
 
 
 class TestRealLoaderEndToEnd(unittest.TestCase):

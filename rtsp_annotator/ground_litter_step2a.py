@@ -677,7 +677,8 @@ def build_summary(pools: Mapping[str, Any], preflight: Mapping[str, Any],
                   baseline: Mapping[str, Any] | None = None,
                   post: Mapping[str, Any] | None = None,
                   training: Mapping[str, Any] | None = None,
-                  verdict: Mapping[str, Any] | None = None) -> dict[str, Any]:
+                  verdict: Mapping[str, Any] | None = None,
+                  server_run: Mapping[str, Any] | None = None) -> dict[str, Any]:
     coverage = manifest["coverage"]
     return {
         "schema_version": SCHEMA_VERSION,
@@ -702,6 +703,7 @@ def build_summary(pools: Mapping[str, Any], preflight: Mapping[str, Any],
         "loader_sanity": dict(loader or {"status": "not_run"}),
         "baseline": baseline, "post": post, "training": training,
         "verdict": dict(verdict or {"verdict": "NOT_EVALUATED"}),
+        "server_run": dict(server_run) if server_run else None,
         "boundaries": boundary_flags(),
         "input_context": {
             "positive_root": str(pools["positive_root"]),

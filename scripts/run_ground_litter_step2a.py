@@ -189,11 +189,28 @@ def _required_device(args: argparse.Namespace, environment: dict) -> str:
 
 
 def _tiny_manifest(args: argparse.Namespace) -> dict:
-    pools = _pools(args)
+    """Always reuse the frozen subset when it is already recorded (§10).
+
+    The frozen manifest is checked **before** the pools so that a machine holding only
+    the uploaded tiny dataset (the CUDA training host) never needs the full frozen
+    pools, and so that no command can re-select a different subset after a baseline
+    or training result is known.
+    """
     manifest_path = args.output / "tiny_overfit_manifest.json"
     if manifest_path.is_file():
         return json.loads(manifest_path.read_text(encoding="utf-8"))
+    pools = _pools(args)
     return subset_manifest(pools, select_subsets(pools))
+
+
+def _manifest_provenance(args: argparse.Namespace) -> dict:
+    path = args.output / "tiny_overfit_manifest.json"
+    return {
+        "path": str(path),
+        "reused_frozen_manifest": path.is_file(),
+        "source": ("frozen_file" if path.is_file() else "reselect_from_pools"),
+        "sha256": sha256_file(path) if path.is_file() else None,
+    }
 
 
 # --------------------------------------------------------------------------- #
@@ -332,6 +349,7 @@ def cmd_loader_sanity(args: argparse.Namespace) -> int:
     report = {
         "schema_version": SCHEMA_VERSION,
         "stage": DATASET_LOADER_SANITY,
+        "manifest_provenance": _manifest_provenance(args),
         "ultralytics_dataset_class": type(ds).__name__,
         "dataset_length": len(ds),
         "positive_samples": len(positive),
@@ -398,6 +416,7 @@ def _predict(args: argparse.Namespace, weights: Path, tag: str, device: str) -> 
     metrics = evaluate_predictions(manifest, predictions)
     payload = {"tag": tag, "weights": str(weights), "device": device,
                "conf_floor": min(CONF_LEVELS), "iou_nms": 0.7, "imgsz": args.imgsz,
+               "manifest_provenance": _manifest_provenance(args),
                "predictions": predictions, "metrics": metrics}
     _write_json(args, f"{tag}_metrics.json", payload)
     out_dir = args.output / f"{tag}_predictions"
@@ -441,16 +460,35 @@ def cmd_train(args: argparse.Namespace) -> int:
         "hsv_h": 0.0, "hsv_s": 0.0, "hsv_v": 0.0, "erasing": 0.0,
         "optimizer": "auto", "verbose": True,
     }
+    # ``YOLO.train`` is declared as ``(self, trainer=None, **kwargs)`` in every
+    # Ultralytics release we checked (8.4.107 / 8.4.118 / 8.4.150), so the
+    # trainer's own signature cannot tell us which hyperparameters are accepted.
+    # The authoritative list of accepted arguments is the Ultralytics default cfg;
+    # filtering on ``model.train``'s signature would silently drop every frozen
+    # parameter and turn the tiny overfit into an unfrozen default run.
+    supported: set[str] = set()
+    try:
+        from ultralytics.cfg import get_cfg
+
+        supported |= set(vars(get_cfg()).keys())
+    except Exception:                                        # pragma: no cover
+        supported |= set(train_args)
     try:
         import inspect
 
-        supported = set(inspect.signature(model.train).parameters)
+        supported |= {name for name in inspect.signature(model.train).parameters
+                      if name not in ("self", "trainer", "kwargs")}
     except (TypeError, ValueError):                          # pragma: no cover
-        supported = set(train_args)
-    unsupported = sorted(key for key in train_args if key not in supported
-                         and key not in ("pretrained",))
-    applied = {key: value for key, value in train_args.items()
-               if key in supported or key in ("pretrained",)}
+        pass
+    unsupported = sorted(key for key in train_args if key not in supported)
+    applied = {key: value for key, value in train_args.items() if key in supported}
+    missing_required = sorted(key for key in (
+        "data", "imgsz", "epochs", "batch", "device", "seed", "deterministic",
+        "mosaic", "mixup", "copy_paste", "optimizer", "project", "name")
+        if key not in applied)
+    if missing_required:
+        raise Step2AError(f"this ultralytics build would silently drop frozen "
+                          f"training parameters: {missing_required}")
     results = model.train(**applied)
     metrics_csv = Path(getattr(results, "save_dir", runs / "tiny_overfit")) / "results.csv"
     epochs_rows = []
@@ -468,6 +506,7 @@ def cmd_train(args: argparse.Namespace) -> int:
         "epochs_run": len(epochs_rows), "batch": args.batch, "seed": SEED,
         "deterministic": True, "requested_args": train_args, "applied_args": applied,
         "unsupported_args_skipped": unsupported,
+        "manifest_provenance": _manifest_provenance(args),
         "epoch_metrics": epochs_rows,
         "initial_box_loss": losses[0] if losses else None,
         "final_box_loss": losses[-1] if losses else None,
@@ -613,8 +652,20 @@ def cmd_report(args: argparse.Namespace) -> int:
     training = optional("training.json")
     verdict = (post or {}).get("verdict") or {"verdict": "NOT_EVALUATED",
                                               "reason": "tiny overfit not run"}
+    # CUDA-host evidence: upload integrity, frozen-input verification, checkpoints and
+    # the manifest the trainer actually reused.  Absent for a local-only run.
+    server_run = {
+        "upload_sha256sums": optional("upload_sha256sums.json"),
+        "evidence_archive": optional("evidence_archive.json"),
+        "frozen_input_verification": optional("frozen_input_verification.json"),
+        "data_yaml_record": optional("data_yaml_record.json"),
+        "checkpoint_hashes": optional("checkpoint_hashes.json"),
+        "training_manifest_provenance": (training or {}).get("manifest_provenance"),
+    }
     summary = build_summary(pools, preflight, environment, manifest, staging, loader,
-                            baseline, post, training, verdict)
+                            baseline, post, training, verdict, server_run=server_run)
+    provenance = _provenance()
+    provenance["server_run"] = server_run
     manifest_json = build_manifest(
         pools, summary, code_commit=git_commit_of(args.repo_root),
         generated_at=_stamp(args),
@@ -623,7 +674,7 @@ def cmd_report(args: argparse.Namespace) -> int:
                 "weight": str(args.weight), "output": str(args.output),
                 "device": args.device, "batch": args.batch, "epochs": args.epochs,
                 "imgsz": args.imgsz, "seed": SEED},
-        artifact_root=args.output, provenance=_provenance())
+        artifact_root=args.output, provenance=provenance)
     paths = write_reports(args.output, tiny_manifest=manifest, loader=loader,
                           summary=summary, manifest=manifest_json)
     print(json.dumps({"verdict": verdict, "artifacts": paths}, ensure_ascii=False,
