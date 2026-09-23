@@ -14,7 +14,7 @@
     "training_tiles_generated": false,
     "truth_class_changed": false
   },
-  "code_commit": "809ce49196dadc639fe90438da3c27057baa34bd",
+  "code_commit": "806f8de4cb8b750c1c68aa262571d59ea1c8d0ba",
   "config": {
     "generator_version": "step1c1-1.0.0",
     "gold": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_gold_episode_review_20260923/gold_episodes.jsonl",
@@ -26,12 +26,12 @@
   },
   "counts": {
     "required_episode_count": 180,
-    "training_localization_ready": 0,
-    "truth_review_required": 0,
-    "unresolved": 0,
-    "verified_bbox": 0
+    "training_localization_ready": 109,
+    "truth_review_required": 60,
+    "unresolved": 11,
+    "verified_bbox": 109
   },
-  "generated_at": "2026-09-23T06:20:00Z",
+  "generated_at": "2026-09-23T07:15:53Z",
   "generator_version": "step1c1-1.0.0",
   "gold_input_sha256": "74eefba08d65fd2c32d4d83ea823acadfef4c20b90c42dc7cbff3ec1100e24eb",
   "localizations_sha256": "dc204e75f5038302eb6090b0a4547bfe8d090a200737dd1f7a112e012b9064e6",

@@ -14,10 +14,10 @@
     "truth_class_changed": false
   },
   "decision": {
-    "BOX_OK": 0,
-    "PROPOSAL_SELECTED": 0,
-    "TRUTH_REVIEW_REQUIRED": 0,
-    "UNRESOLVED": 0
+    "BOX_OK": 102,
+    "PROPOSAL_SELECTED": 7,
+    "TRUTH_REVIEW_REQUIRED": 60,
+    "UNRESOLVED": 11
   },
   "generator_version": "step1c1-1.0.0",
   "input": {
@@ -27,77 +27,149 @@
     "required_episode_count": 180
   },
   "localization": {
-    "LOCALIZATION_UNRESOLVED": 0,
-    "NEEDS_RELOCALIZATION": 180,
-    "TRUTH_REVIEW_REQUIRED": 0,
-    "VERIFIED_BBOX": 0
+    "LOCALIZATION_UNRESOLVED": 11,
+    "NEEDS_RELOCALIZATION": 0,
+    "TRUTH_REVIEW_REQUIRED": 60,
+    "VERIFIED_BBOX": 109
   },
   "manual_missing": {
     "manual_total": 9,
-    "manual_unresolved": 9,
-    "manual_verified": 0
+    "manual_unresolved": 5,
+    "manual_verified": 4
   },
   "origin": {
     "box_wrong": {
       "total": 29,
-      "unresolved": 0,
-      "verified": 0
+      "unresolved": 27,
+      "verified": 2
     },
     "historical_litter": {
       "total": 136,
-      "unresolved": 0,
-      "verified": 0
+      "unresolved": 38,
+      "verified": 98
     },
     "manual_missing_target": {
       "total": 9,
-      "unresolved": 0,
-      "verified": 0
+      "unresolved": 5,
+      "verified": 4
     },
     "split_derived": {
       "total": 6,
-      "unresolved": 0,
-      "verified": 0
+      "unresolved": 1,
+      "verified": 5
     }
   },
   "per_camera": {
     "01021": {
       "required": 38,
-      "unresolved": 0,
-      "verified": 0
+      "unresolved": 19,
+      "verified": 19
     },
     "01022": {
       "required": 56,
-      "unresolved": 0,
-      "verified": 0
+      "unresolved": 23,
+      "verified": 33
     },
     "01027": {
       "required": 14,
-      "unresolved": 0,
-      "verified": 0
+      "unresolved": 8,
+      "verified": 6
     },
     "01028": {
       "required": 26,
-      "unresolved": 0,
-      "verified": 0
+      "unresolved": 3,
+      "verified": 23
     },
     "01030": {
       "required": 46,
-      "unresolved": 0,
-      "verified": 0
+      "unresolved": 18,
+      "verified": 28
     }
   },
   "proposal": {
-    "episodes_requiring_proposal": 0,
-    "proposal_failed": 0,
-    "proposal_first_pass_success": 0,
+    "episodes_requiring_proposal": 21,
+    "proposal_failed": 14,
+    "proposal_first_pass_success": 7,
     "proposal_second_pass_success": 0
   },
   "review": {
-    "pending": 180,
-    "reviewed": 0
+    "pending": 0,
+    "reviewed": 180
   },
   "schema_version": "ground_litter_gold_localization_v1",
-  "training_localization_ready": 0,
+  "training_localization_ready": 109,
   "training_localization_ready_rule": "truth_class=REQUIRED_LITTER AND source_recovery_status=RECOVERED_SOURCE_NATIVE AND localization_status=VERIFIED_BBOX",
-  "unresolved_episode_ids": []
+  "unresolved_episode_ids": [
+    "ge-01021-013f19aa35df",
+    "ge-01021-2719f983546d",
+    "ge-01021-2c506fd181a0",
+    "ge-01021-33fd6230a93d",
+    "ge-01021-423f97ee4feb",
+    "ge-01021-49cb581c8186",
+    "ge-01021-5a36ad3dc771",
+    "ge-01021-68645e450baf",
+    "ge-01021-73033b9ff26e",
+    "ge-01021-7689c52d573c",
+    "ge-01021-7aea5c9a5874",
+    "ge-01021-8803d7b9d2fc",
+    "ge-01021-8fed03e7fd66",
+    "ge-01021-a5e9db32e38f",
+    "ge-01021-ae9e3a690571",
+    "ge-01021-e2ce907e23af",
+    "ge-01021-eeb95278a288",
+    "ge-01021-f73b5ec40141",
+    "ge-01021-manual-1e79d6096c01",
+    "ge-01022-01832de232c3",
+    "ge-01022-1bb5b32f04e0",
+    "ge-01022-38df66830675",
+    "ge-01022-398fbf3101f4",
+    "ge-01022-4c10a3649c74",
+    "ge-01022-54790946fe62",
+    "ge-01022-5c26cd0c55de",
+    "ge-01022-68d7453a7285",
+    "ge-01022-6d42698d18e5",
+    "ge-01022-7c86317feff9",
+    "ge-01022-82f1c0767515",
+    "ge-01022-9519f6f420df",
+    "ge-01022-9d212cbdc5f8",
+    "ge-01022-af3ac3d69a22",
+    "ge-01022-b06539845a86",
+    "ge-01022-bc9e86c6d146",
+    "ge-01022-c32b94af247f",
+    "ge-01022-c844b8f124f7",
+    "ge-01022-eedb3532da1c",
+    "ge-01022-f04b49192ba7",
+    "ge-01022-f1dbfabf982d",
+    "ge-01022-manual-17635590ad85",
+    "ge-01022-manual-e799f65d8063",
+    "ge-01027-0b037d58b1dc",
+    "ge-01027-27cd47787f5e",
+    "ge-01027-46da6bc7f854",
+    "ge-01027-4e4ad8f01889",
+    "ge-01027-d57f4c3ac1d9",
+    "ge-01027-dc16637f715b",
+    "ge-01027-ddce68a31601",
+    "ge-01027-e657880f526a",
+    "ge-01028-1e4f0badad05",
+    "ge-01028-673ce60c0ee3",
+    "ge-01028-ba0b11ffec7c",
+    "ge-01030-0c35e688c684",
+    "ge-01030-0e67f2a5b659",
+    "ge-01030-254aa90b46ed",
+    "ge-01030-3b3a683076d2",
+    "ge-01030-3bbb53d620c2",
+    "ge-01030-4de18cba5cae",
+    "ge-01030-5b1565e8ca39",
+    "ge-01030-5bf2e6170c42",
+    "ge-01030-8a90b5180a76",
+    "ge-01030-8b46fbc6fe76",
+    "ge-01030-9408bf18174b",
+    "ge-01030-ba890838451a",
+    "ge-01030-c5c42f876289",
+    "ge-01030-c87dd465391a",
+    "ge-01030-cbe984518e6a",
+    "ge-01030-e33b8c3d2a82",
+    "ge-01030-manual-189790b74357",
+    "ge-01030-manual-8adf89470041"
+  ]
 }
