@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Step 1C-1 · 正例 bbox 定位清洗</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <div class="title">
+    <h1>Step 1C-1 · Localization 确认 / 修复</h1>
+    <p id="meta" class="muted">读取中…</p>
+  </div>
+  <div class="progress">
+    <b id="progress">0 / 0</b>
+    <span id="status-line" class="muted">读取中</span>
+  </div>
+</header>
+
+<main>
+  <aside>
+    <div class="filters">
+      <label>状态
+        <select id="f-status">
+          <option value="pending">未审核</option>
+          <option value="all">全部</option>
+          <option value="VERIFIED_BBOX">VERIFIED_BBOX</option>
+          <option value="LOCALIZATION_UNRESOLVED">UNRESOLVED</option>
+          <option value="TRUTH_REVIEW_REQUIRED">TRUTH_REVIEW</option>
+        </select>
+      </label>
+      <label>来源
+        <select id="f-origin">
+          <option value="all">全部</option>
+          <option value="historical_litter">historical_litter</option>
+          <option value="box_wrong">box_wrong</option>
+          <option value="manual_missing_target">manual_missing_target</option>
+          <option value="split_derived">split_derived</option>
+        </select>
+      </label>
+      <label>筛选
+        <select id="f-risk">
+          <option value="all">全部</option>
+          <option value="bad">likely_box_bad</option>
+          <option value="ok">likely_box_ok</option>
+        </select>
+      </label>
+      <label>摄像头
+        <select id="f-camera"><option value="all">全部</option></select>
+      </label>
+      <label>搜索 episode_id
+        <input id="f-search" type="search" placeholder="ge-…">
+      </label>
+    </div>
+    <div id="queue" class="queue"></div>
+  </aside>
+
+  <section>
+    <div id="detail" class="detail">
+      <p class="muted">选择左侧 episode 开始审核</p>
+    </div>
+  </section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
