@@ -2,13 +2,15 @@
   "phase": "ground-litter-rapid-v1-phase1-smoke",
   "smoke_dir": "/home/sf01/ground-litter-rapid-v1/smoke/artifact",
   "real_artifact": "/home/sf01/ground-litter-rapid-v1/artifact",
-  "real_artifact_digest_before": "350fb42c3ad42564b69b7dbd478a7ad0b09cd7d2d71ace67fbf8190d9608c739",
-  "real_artifact_digest_after": "350fb42c3ad42564b69b7dbd478a7ad0b09cd7d2d71ace67fbf8190d9608c739",
+  "real_artifact_digest_before": "693ce0b3259fe688508dc6b4a5cae8780628d76c4adceef22ebef63a1f959d90",
+  "real_artifact_digest_after": "693ce0b3259fe688508dc6b4a5cae8780628d76c4adceef22ebef63a1f959d90",
   "fixture": {
     "train_frame": "01021_476689_18081003969_44180209031322001021-1790064037000_t030",
-    "eval_frame": "01022_281238_18081003969_44180209031322001022-1790067143000_t090",
+    "copy_frame": "01021_476689_18081003969_44180209031322001021-1790064037000_t090",
+    "eval_frame": "01021_476689_18081003969_44180209031322001021-1790064341000_t030",
     "train_predictions": 2,
-    "eval_predictions": 2
+    "copy_predictions": 1,
+    "eval_predictions": 1
   },
   "checks": [
     {
@@ -17,7 +19,7 @@
       "detail": {
         "ok": true,
         "artifact": "/home/sf01/ground-litter-rapid-v1/smoke/artifact",
-        "frames": 2,
+        "frames": 3,
         "predictions_loaded": true
       }
     },
@@ -119,7 +121,7 @@
       "detail": {
         "truth_id": "t-00001",
         "choice": 1,
-        "created_at": "2026-09-29T04:41:50Z",
+        "created_at": "2026-09-29T06:19:45Z",
         "status": "LOCALIZED",
         "selected_bbox_source_xyxy": [
           793.072,
@@ -142,7 +144,7 @@
         {
           "truth_id": "t-00001",
           "choice": 1,
-          "created_at": "2026-09-29T04:41:50Z",
+          "created_at": "2026-09-29T06:19:45Z",
           "status": "LOCALIZED",
           "selected_bbox_source_xyxy": [
             793.072,
@@ -163,7 +165,7 @@
       "check": "rapid_eval_export_refused_409",
       "ok": true,
       "detail": {
-        "error": "refuse training export for split='rapid_eval' sample='01022_281238_18081003969_44180209031322001022-1790067143000_t090': only rapid_train may be exported"
+        "error": "refuse training export for split='rapid_eval' sample='01021_476689_18081003969_44180209031322001021-1790064341000_t030': only rapid_train may be exported"
       }
     },
     {
@@ -192,10 +194,82 @@
       "ok": true,
       "detail": {
         "complete": 1,
-        "total": 2,
-        "fixed_total": 2,
+        "total": 3,
+        "fixed_total": 3,
         "bonus_total": 0
       }
+    },
+    {
+      "check": "copy_available_same_ps",
+      "ok": true,
+      "detail": {
+        "source_frame_id": "01021_476689_18081003969_44180209031322001021-1790064037000_t030",
+        "source_camera_id": "01021",
+        "source_file_id": "476689_18081003969_44180209031322001021-1790064037000",
+        "source_truth_points": 1,
+        "allowed": true,
+        "reason": "same_ps"
+      }
+    },
+    {
+      "check": "copy_returns_pending_not_complete",
+      "ok": true,
+      "detail": "COPIED_PENDING_CONFIRM"
+    },
+    {
+      "check": "copied_frame_stays_blind",
+      "ok": true,
+      "detail": {
+        "points": 1,
+        "predictions": null
+      }
+    },
+    {
+      "check": "copied_point_marked",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "copied_coordinates_verbatim",
+      "ok": true,
+      "detail": {
+        "source": [
+          813.63,
+          829.67
+        ],
+        "copied": [
+          813.63,
+          829.67
+        ]
+      }
+    },
+    {
+      "check": "enter_confirms_copy",
+      "ok": true,
+      "detail": "CONFIRMED_COPY"
+    },
+    {
+      "check": "stage_b_opens_after_confirm",
+      "ok": true,
+      "detail": "prediction"
+    },
+    {
+      "check": "export_plan_excludes_eval",
+      "ok": true,
+      "detail": {
+        "positives_in": 1,
+        "positives_exported": 1,
+        "positives_dropped": 0,
+        "hard_negatives_in": 0,
+        "hard_negatives_exported": 0,
+        "hard_negatives_dropped": 0,
+        "clusters": 1
+      }
+    },
+    {
+      "check": "export_plan_has_dedup_parameters",
+      "ok": true,
+      "detail": 2
     },
     {
       "check": "m_verdict_reopens_stage_a",

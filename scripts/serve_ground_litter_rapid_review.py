@@ -30,8 +30,13 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from rtsp_annotator.ground_litter_rapid import (  # noqa: E402
+    COPY_CONFIRMED,
+    COPY_PENDING,
+    COPY_SOURCE_LOOKBACK,
     EVAL_SPLIT,
     FPS,
+    ORIGIN_COPY,
+    ORIGIN_REVIEW,
     PROPOSAL_FLOOR,
     SEMANTIC_SHA256,
     SOURCE_HEIGHT,
@@ -44,6 +49,11 @@ from rtsp_annotator.ground_litter_rapid import (  # noqa: E402
     assert_development_asset,
     assert_trainable,
     assert_writable_root,
+    box_short_side,
+    box_iou,
+    copy_eligibility,
+    frame_absolute_seconds,
+    plan_training_export,
     point_inside_roi,
     read_jsonl,
     sha256_file,
@@ -89,6 +99,9 @@ class RapidReviewStore:
         if not self.frames:
             raise RapidError("frame_manifest.jsonl is empty")
         self.frame_by_id = {row["frame_id"]: row for row in self.frames}
+        #: Review queue order — "previous frame" for copy-previous means this order.
+        self.frame_order = {row["frame_id"]: index
+                            for index, row in enumerate(self.frames)}
         self.file_row = {row["file_id"]: row for row in self.split["rows"]}
         extraction_path = self.artifact / "extraction_manifest.json"
         self.extraction = (json.loads(extraction_path.read_text(encoding="utf-8"))
@@ -235,7 +248,7 @@ class RapidReviewStore:
                 "truth_class": truth_class,
                 "in_roi": point_inside_roi(x, y, row["roi"]),
                 "created_at": now_iso(),
-                "origin": "rapid_v1_review",
+                "origin": ORIGIN_REVIEW,
                 "note": note,
             }
             self.points.append(point)
@@ -243,6 +256,9 @@ class RapidReviewStore:
             entry = self.frame_state(frame_id)
             entry["truth_complete"] = False
             entry["truth_updated_at"] = now_iso()
+            if entry.get("copy_state") == COPY_PENDING:
+                entry["copy_edited"] = True
+                entry["copy_edited_at"] = now_iso()
             self._save_state()
             return point
 
@@ -258,15 +274,151 @@ class RapidReviewStore:
             self._save_localization_reviews()
             self.localization_candidates.pop(truth_id, None)
             self._save_json("localization_candidates.json", self.localization_candidates)
+            entry = self.frame_state(found[0]["frame_id"])
+            if entry.get("copy_state") == COPY_PENDING:
+                entry["copy_edited"] = True
+                entry["copy_edited_at"] = now_iso()
+                self._save_state()
             return found[0]
+
+    # -- copy previous ------------------------------------------------------ #
+    def queue_index(self, frame_id: str) -> int:
+        return self.frame_order.get(frame_id, -1)
+
+    def frame_time(self, frame_id: str) -> float | None:
+        frame = self.frame_by_id[frame_id]
+        return frame_absolute_seconds(frame, self.file_row[frame["file_id"]])
+
+    def copy_source(self, frame_id: str) -> dict:
+        """Nearest earlier *completed* frame in the review queue, with the eligibility verdict.
+
+        Only the operator's own truth is inspected here — never a model output.
+        """
+        index = self.queue_index(frame_id)
+        if index < 0:
+            raise RapidError(f"unknown frame {frame_id}")
+        current = {
+            "camera_id": self.frame_by_id[frame_id]["camera_id"],
+            "file_id": self.frame_by_id[frame_id]["file_id"],
+            "absolute_seconds": self.frame_time(frame_id),
+        }
+        start = max(0, index - COPY_SOURCE_LOOKBACK)
+        for position in range(index - 1, start - 1, -1):
+            candidate_id = self.frames[position]["frame_id"]
+            entry = self.state["frames"].get(candidate_id) or {}
+            if not entry.get("truth_complete"):
+                continue
+            previous = {
+                "camera_id": self.frames[position]["camera_id"],
+                "file_id": self.frames[position]["file_id"],
+                "absolute_seconds": self.frame_time(candidate_id),
+            }
+            verdict = copy_eligibility(current, previous)
+            return {
+                "source_frame_id": candidate_id,
+                "source_camera_id": previous["camera_id"],
+                "source_file_id": previous["file_id"],
+                "source_truth_points": len(self.points_for(candidate_id)),
+                **verdict,
+            }
+        return {"source_frame_id": None, "allowed": False,
+                "reason": "no_completed_previous_frame_in_lookback"}
+
+    def copy_previous(self, frame_id: str) -> dict:
+        """Copy the previous completed frame's truth as COPIED_PENDING_CONFIRM."""
+        with self.lock:
+            frame = self.frame_by_id.get(frame_id)
+            if frame is None:
+                raise RapidError(f"unknown frame {frame_id}")
+            source = self.copy_source(frame_id)
+            if not source.get("allowed"):
+                raise RapidError(
+                    f'cannot copy into {frame_id}: {source.get("reason")} '
+                    f'(source={source.get("source_frame_id")})')
+            source_id = source["source_frame_id"]
+            row = self.file_row[frame["file_id"]]
+
+            # Replacing this frame's own points: a copy is a starting point, not a merge.
+            self.points = [p for p in self.points if p["frame_id"] != frame_id]
+            copied: list[dict] = []
+            next_index = self._next_truth_index()
+            for origin_point in self.points_for(source_id):
+                # source-native coordinates are copied verbatim; nothing is transformed.
+                x, y = float(origin_point["source_xy"][0]), float(origin_point["source_xy"][1])
+                selection = self.localization_for(source_id).get(origin_point["truth_id"])
+                copied_localization = None
+                if selection and selection.get("status") == "LOCALIZED" and \
+                        selection.get("selected_bbox_source_xyxy"):
+                    copied_localization = {
+                        "bbox_xyxy": list(selection["selected_bbox_source_xyxy"]),
+                        "proposal_source": selection.get("proposal_source"),
+                        "proposal_id": selection.get("proposal_id"),
+                        "source_frame_id": source_id,
+                        "source_truth_id": origin_point["truth_id"],
+                    }
+                point = {
+                    "truth_id": f"t-{next_index:05d}",
+                    "frame_id": frame_id,
+                    "camera_id": frame["camera_id"],
+                    "file_id": frame["file_id"],
+                    "source_xy": [round(x, 2), round(y, 2)],
+                    "truth_class": origin_point["truth_class"],
+                    "in_roi": point_inside_roi(x, y, row["roi"]),
+                    "created_at": now_iso(),
+                    "origin": ORIGIN_COPY,
+                    "copied_from_frame_id": source_id,
+                    "copied_from_truth_id": origin_point["truth_id"],
+                    "copied_localization": copied_localization,
+                    "note": None,
+                }
+                next_index += 1
+                copied.append(point)
+            self.points.extend(copied)
+            self._save_points()
+
+            entry = self.frame_state(frame_id)
+            entry["truth_complete"] = False
+            entry["copy_state"] = COPY_PENDING
+            entry["copied_from_frame_id"] = source_id
+            entry["copied_at"] = now_iso()
+            entry["copied_point_count"] = len(copied)
+            entry["copied_localization_count"] = sum(
+                1 for p in copied if p.get("copied_localization"))
+            entry["copy_reason"] = source.get("reason")
+            entry["copy_edited"] = False
+            entry["truth_completed_at"] = None
+            entry["prediction_review_complete"] = False
+            self._save_state()
+            return {"frame_id": frame_id, "source_frame_id": source_id,
+                    "copy_state": COPY_PENDING, "truth_complete": False,
+                    "points": redact_points(copied), "reason": source.get("reason"),
+                    "distance_note": "points copied at source-native coordinates; delete, add "
+                                     "or re-click if the litter moved"}
+
+    def _next_truth_index(self) -> int:
+        highest = 0
+        for point in self.points:
+            try:
+                highest = max(highest, int(str(point["truth_id"]).split("-")[-1]))
+            except (ValueError, KeyError):
+                continue
+        return highest + 1
 
     def complete_truth(self, frame_id: str, complete: bool = True) -> dict:
         with self.lock:
             if frame_id not in self.frame_by_id:
                 raise RapidError(f"unknown frame {frame_id}")
             entry = self.frame_state(frame_id)
+            was_pending = entry.get("copy_state") == COPY_PENDING
             entry["truth_complete"] = bool(complete)
             entry["truth_completed_at"] = now_iso() if complete else None
+            if complete and was_pending:
+                # Enter is the human confirmation; only now does the copy become truth.
+                entry["copy_state"] = COPY_CONFIRMED
+                entry["copy_confirmed_at"] = now_iso()
+            elif complete:
+                entry.setdefault("copy_state", None)
+                entry["copy_state"] = None
             if not complete:
                 entry["prediction_review_complete"] = False
             self._save_state()
@@ -294,10 +446,15 @@ class RapidReviewStore:
             self._save_prediction_reviews()
             return row
 
-    def select_localization(self, truth_id: str, choice: int) -> dict:
+    def select_localization(self, truth_id: str, choice: int,
+                            resolver=None) -> dict:
         with self.lock:
             candidates = self.localization_candidates.get(truth_id) or {}
             options = candidates.get("candidates") or []
+            if not options and resolver is not None and int(choice) != 0:
+                # Never depend on the operator having opened Stage C in this process before:
+                # resolve on demand so a restarted service can still record the pick.
+                options = (resolver(truth_id).get("candidates") or [])
             entry = {"truth_id": truth_id, "choice": int(choice), "created_at": now_iso()}
             if int(choice) == 0:
                 entry.update({"status": "UNLOCALIZED_SKIP",
@@ -378,6 +535,20 @@ class RapidReviewStore:
                 "localized": sum(1 for r in localized if r.get("status") == "LOCALIZED"),
                 "skipped": sum(1 for r in localized if r.get("status") == "UNLOCALIZED_SKIP"),
             },
+            "copy_previous": {
+                "confirmed_copies": sum(
+                    1 for f in self.frames
+                    if (self.state["frames"].get(f["frame_id"]) or {})
+                    .get("copy_state") == COPY_CONFIRMED),
+                "pending_confirmation": sum(
+                    1 for f in self.frames
+                    if (self.state["frames"].get(f["frame_id"]) or {})
+                    .get("copy_state") == COPY_PENDING),
+                "copied_points": sum(1 for p in self.points
+                                     if p.get("origin") == ORIGIN_COPY),
+                "note": "copying never completes a frame; Enter is still required per frame, "
+                        "including every Rapid-Eval frame",
+            },
             "inference": {
                 "predictions_loaded": bool(self._predictions_raw),
                 "predictions_file": str(getattr(self, "predictions_path", "")),
@@ -390,6 +561,7 @@ class RapidReviewStore:
             raise RapidError(f"unknown frame {frame_id}")
         entry = self.frame_state(frame_id)
         row = self.file_row[frame["file_id"]]
+        copy_state = entry.get("copy_state")
         payload: dict = {
             "frame": {
                 "frame_id": frame_id,
@@ -411,9 +583,19 @@ class RapidReviewStore:
             "truth_complete": bool(entry.get("truth_complete")),
             "truth_points": redact_points(self.points_for(frame_id)),
             "localization_required": row["split"] == TRAIN_SPLIT,
+            "copy": {
+                "state": copy_state,
+                "pending": copy_state == COPY_PENDING,
+                "copied_from_frame_id": entry.get("copied_from_frame_id"),
+                "copied_point_count": entry.get("copied_point_count"),
+                "copied_localization_count": entry.get("copied_localization_count"),
+                "edited_after_copy": bool(entry.get("copy_edited")),
+                "source": self.copy_source(frame_id),
+            },
         }
         if not entry.get("truth_complete"):
-            # Stage A blindness: no model output, not even a count, leaves the server.
+            # Stage A blindness: no model output, not even a count, leaves the server.  A copy
+            # carries only the operator's own earlier truth, never a prediction.
             payload["predictions"] = None
             payload["prediction_reviews"] = None
             payload["localization_candidates"] = None
@@ -460,11 +642,100 @@ class RapidReviewStore:
         assert_trainable(frame["split"], sample_id=frame_id)
         return {"exported": True, "frame_id": frame_id, "split": frame["split"]}
 
+    def export_plan(self) -> dict:
+        """Near-duplicate-capped Rapid-Train export plan over the current review state.
+
+        Rapid-Eval Holdout frames are excluded by construction and refused outright if they
+        ever reach this path.  Nothing here writes any review state.
+        """
+        with self.lock:
+            positive_samples: list[dict] = []
+            negative_samples: list[dict] = []
+            skipped_incomplete = 0
+            for frame in self.frames:
+                frame_id = frame["frame_id"]
+                if frame["split"] != TRAIN_SPLIT:
+                    # Rapid-Eval Holdout is never exported.  The real tripwire lives at the
+                    # sample level in plan_training_export(), so the guard fires if an eval
+                    # sample is ever constructed — not merely because eval frames exist.
+                    continue
+                entry = self.state["frames"].get(frame_id) or {}
+                if not entry.get("truth_complete"):
+                    skipped_incomplete += 1
+                    continue
+                absolute = self.frame_time(frame_id)
+                if absolute is None:
+                    raise RapidError(f"{frame_id}: no record_start for time bucketing")
+                selections = self.localization_for(frame_id)
+                for point in self.points_for(frame_id):
+                    if point["truth_class"] != "REQUIRED_LITTER":
+                        continue
+                    selection = selections.get(point["truth_id"])
+                    if not selection or selection.get("status") != "LOCALIZED":
+                        continue
+                    box = selection.get("selected_bbox_source_xyxy")
+                    if not box:
+                        continue
+                    positive_samples.append({
+                        "sample_id": f'{frame_id}#{point["truth_id"]}',
+                        "kind": "positive",
+                        "origin": ("rapid_v1_positive_copied"
+                                   if point.get("origin") == ORIGIN_COPY
+                                   else "rapid_v1_positive"),
+                        "frame_id": frame_id,
+                        "camera_id": frame["camera_id"],
+                        "file_id": frame["file_id"],
+                        "split": frame["split"],
+                        "truth_id": point["truth_id"],
+                        "time": absolute,
+                        "center_xy": [(box[0] + box[2]) / 2.0, (box[1] + box[3]) / 2.0],
+                        "short_side": box_short_side(box),
+                        "proposal_source": selection.get("proposal_source"),
+                    })
+                for review in self.prediction_reviews:
+                    if review["frame_id"] != frame_id or review.get("verdict") != "N":
+                        continue
+                    prediction = next((p for p in self._predictions_raw.get(frame_id, [])
+                                       if p["prediction_id"] == review["prediction_id"]), None)
+                    if prediction is None:
+                        continue
+                    box = prediction["xyxy"]
+                    negative_samples.append({
+                        "sample_id": f'{frame_id}#{review["prediction_id"]}',
+                        "kind": "hard_negative",
+                        "origin": "rapid_v1_hard_negative",
+                        "frame_id": frame_id,
+                        "camera_id": frame["camera_id"],
+                        "file_id": frame["file_id"],
+                        "split": frame["split"],
+                        "time": absolute,
+                        "center_xy": [(box[0] + box[2]) / 2.0, (box[1] + box[3]) / 2.0],
+                        "short_side": box_short_side(box),
+                    })
+            plan = plan_training_export(positive_samples, negative_samples)
+            plan["review_state"] = {
+                "rapid_train_frames_not_complete": skipped_incomplete,
+                "note": "dedup applies to the training export only; the Rapid-Eval "
+                        "denominator, the frozen frame manifest, split.json and all recorded "
+                        "truth are unchanged",
+            }
+            plan["rapid_eval_denominator"] = {
+                "frames": sum(1 for f in self.frames if f["split"] == EVAL_SPLIT),
+                "complete": sum(1 for f in self.frames
+                                if f["split"] == EVAL_SPLIT
+                                and (self.state["frames"].get(f["frame_id"]) or {})
+                                .get("truth_complete")),
+                "excluded_from_training": True,
+            }
+            return plan
+
 
 def redact_points(points: list[dict]) -> list[dict]:
     return [{"truth_id": p["truth_id"], "source_xy": p["source_xy"],
              "truth_class": p["truth_class"], "in_roi": p["in_roi"],
-             "origin": p.get("origin"), "created_at": p.get("created_at")}
+             "origin": p.get("origin"), "created_at": p.get("created_at"),
+             "copied_from_frame_id": p.get("copied_from_frame_id"),
+             "has_copied_localization": bool(p.get("copied_localization"))}
             for p in points]
 
 
@@ -520,6 +791,19 @@ class Localizer:
         x, y = point["source_xy"]
         options: list[dict] = []
 
+        # Copied localization from the previous frame.  It is offered as a *candidate* only —
+        # the operator still has to pick it in Stage C, so nothing is auto-accepted.
+        copied = point.get("copied_localization")
+        if copied and copied.get("bbox_xyxy"):
+            options.append({
+                "proposal_source": ORIGIN_COPY,
+                "proposal_id": copied.get("proposal_id"),
+                "bbox_xyxy": list(copied["bbox_xyxy"]),
+                "contains_point": True,
+                "from_frame_id": copied.get("source_frame_id"),
+                "note": "copied from previous frame; still needs your pick",
+            })
+
         # A — a baseline prediction the operator judged Y that contains the point.
         reviews = self.store.reviews_for(frame_id)
         for prediction in self.store._predictions_raw.get(frame_id, []):
@@ -535,16 +819,28 @@ class Localizer:
                 break
 
         # B — Turhancan semantic proposal near the point (Rapid-Train frames only).
+        # A candidate source failing must never take down Stage C: record it and carry on with
+        # whatever else is available.
+        degraded: list[str] = []
         if frame_row["split"] == TRAIN_SPLIT:
-            semantic = self._semantic_candidate(frame_id, file_row, x, y)
+            try:
+                semantic = self._semantic_candidate(frame_id, file_row, x, y)
+            except Exception as error:                            # noqa: BLE001
+                semantic = None
+                degraded.append(f"semantic_unavailable:{type(error).__name__}")
             if semantic:
                 options.append(semantic)
 
         # C — classical point-seeded proposal (Step 1C logic, unchanged).
-        classical = self._classical_candidate(frame_id, file_row, x, y)
+        try:
+            classical = self._classical_candidate(frame_id, file_row, x, y)
+        except Exception as error:                                # noqa: BLE001
+            classical = None
+            degraded.append(f"classical_unavailable:{type(error).__name__}")
         if classical:
             options.append(classical)
 
+        options = dedupe_options(options)
         options = options[:3]
         labels = "ABC"
         for index, option in enumerate(options):
@@ -558,6 +854,7 @@ class Localizer:
             "candidates": options,
             "semantic_model": str(self._semantic_path) if self._semantic_path else None,
             "semantic_note": self.semantic_note,
+            "degraded_sources": degraded,
             "computed_at": now_iso(),
         }
         self.store.localization_candidates[truth_id] = payload
@@ -664,6 +961,23 @@ class Localizer:
         if not ok:
             raise RapidError("cannot encode candidate crop")
         return buffer.tobytes()
+
+
+def dedupe_options(options: list[dict], iou_threshold: float = 0.9) -> list[dict]:
+    """Drop candidates that are essentially the same box as an earlier, preferred one.
+
+    Order matters: the copied candidate is offered first, so an identical baseline or
+    semantic box collapses into it instead of showing the operator the same rectangle twice.
+    """
+    kept: list[dict] = []
+    for option in options:
+        box = option.get("bbox_xyxy")
+        if not box:
+            continue
+        if any(box_iou(box, other["bbox_xyxy"]) > iou_threshold for other in kept):
+            continue
+        kept.append(option)
+    return kept
 
 
 def classic_cv_proposals(frame, x: float, y: float, *, half: int = 96) -> list[dict]:
@@ -907,12 +1221,19 @@ def make_handler(store: RapidReviewStore, images: FrameImages, localizer: Locali
                 if path == "/api/localize":
                     return self._json(localizer.candidates(body["truth_id"]))
                 if path == "/api/localize_select":
-                    entry = store.select_localization(body["truth_id"], body["choice"])
+                    entry = store.select_localization(body["truth_id"], body["choice"],
+                                                      resolver=localizer.candidates)
                     return self._json({"selection": entry,
                                        "stage": store.stage_of(entry["frame_id"]),
                                        "progress": store.progress()})
                 if path == "/api/train_export_probe":
                     return self._json(store.train_export_probe(body["frame_id"]))
+                if path == "/api/copy_previous":
+                    result = store.copy_previous(body["frame_id"])
+                    return self._json({"copy": result, "stage": store.stage_of(body["frame_id"]),
+                                       "progress": store.progress()})
+                if path == "/api/export_plan":
+                    return self._json(store.export_plan())
                 return self._error(f"unknown path {path}", 404)
             except RapidError as error:
                 return self._error(error, 409)
@@ -985,6 +1306,13 @@ PAGE = r"""<!doctype html>
  #toast{position:fixed;left:50%;top:52px;transform:translateX(-50%);background:#000c;
         border:1px solid var(--line);padding:6px 13px;border-radius:6px;display:none;
         font-size:12px;z-index:50}
+ .copyavail{border:1px dashed #4a5468;border-radius:6px;padding:6px 8px;font-size:11px;
+            color:#cfd6e2;background:#171a21}
+ .copypending{border:2px solid #d0a020;border-radius:6px;padding:7px 9px;font-size:12px;
+              background:#3a2f10;color:#ffe6a0;font-weight:600;line-height:1.5}
+ .copypending small{display:block;font-weight:400;color:#e8d9a8;font-size:10.5px}
+ .copydone{border:1px solid #2f6b46;border-radius:6px;padding:5px 8px;font-size:11px;
+           color:#9fe8bd;background:#16241c}
  .bar{height:7px;background:#22262f;border-radius:4px;overflow:hidden;margin:3px 0}
  .bar>i{display:block;height:100%;background:#5a6cff}
  #bottom{display:flex;gap:8px;align-items:center;padding:6px 11px;border-top:1px solid var(--line);
@@ -1032,6 +1360,7 @@ PAGE = r"""<!doctype html>
         <button id="btnNoTarget">无目标 (N)</button>
       </div>
       <div id="pointsList" style="margin-top:7px"></div>
+      <div id="copyBox" style="margin-top:7px"></div>
     </div>
     <div class="sec" id="secPred" style="display:none">
       <h3>Stage B — Prediction Review</h3>
@@ -1059,11 +1388,12 @@ PAGE = r"""<!doctype html>
     <div class="sec">
       <h3>快捷键</h3>
       <div id="help">R/I/U 选择真值类别，点击=落点
-N 无目标；Enter 本帧真值完成
+C 复制上一帧真值（不完成本帧，仍需检查后 Enter）
+Enter 本帧真值确认完成 · N 无目标
 Stage B: Y 正确 · X ignore · F 或 N 误报 · M 回 Stage A
 Stage C: 1 / 2 / 3 选候选 · 0 = None
 ← → 上一帧 / 下一帧 · 滚轮缩放 · 拖拽平移
-Shift+点击 = 强制删除最近的点</div>
+Shift+点击 = 删除 16px 内最近的点位</div>
     </div>
   </div>
 </div>
@@ -1251,12 +1581,15 @@ function renderSidebar(){
     d.innerHTML = `<span class="pill ${p.truth_class==='REQUIRED_LITTER'?'r':
       p.truth_class==='IGNORE_SMALL'?'i':'u'}">${p.truth_class.replace('_LITTER','').replace('IGNORE_SMALL','IGNORE')}</span>`+
       `<span class="muted">${p.source_xy[0].toFixed(0)},${p.source_xy[1].toFixed(0)}</span>`+
-      `${p.in_roi?'':' <span class="muted">(ROI外)</span>'}`;
+      `${p.in_roi?'':' <span class="muted">(ROI外)</span>'}`+
+      `${p.origin==='copied_from_previous_frame'?' <span class="muted">[复制]</span>':''}`+
+      `${p.has_copied_localization?' <span class="muted">[有候选]</span>':''}`;
     const b=document.createElement('button'); b.textContent='×'; b.style.marginLeft='5px';
     b.onclick=async()=>{ await post('/api/truth_delete',{truth_id:p.truth_id}); await reload(); };
     d.appendChild(b); list.appendChild(d);
   });
   if(!(S.state.truth_points||[]).length) list.innerHTML='<span class="muted">本帧暂无点位</span>';
+  renderCopy();
   /* Stage B */
   if(S.state.truth_complete){
     const preds = S.state.predictions||[];
@@ -1278,6 +1611,58 @@ function renderSidebar(){
     });
     renderCandidates();
   }
+}
+function shortId(id){ return id ? id.slice(-20) : '—'; }
+const COPY_REASON = {same_ps:'同一 PS', temporally_continuous:'时间连续',
+                     different_camera:'上一已完成帧是不同机位',
+                     time_gap_too_large:'与上一已完成帧时间间隔过大',
+                     no_record_start:'缺少录像起始时间',
+                     no_completed_previous_frame_in_lookback:'前面没有已完成帧'};
+const CAND_SOURCE = {copied_from_previous_frame:'上一帧复制来的框',
+                     baseline_judged_Y:'baseline 判 Y 的框',
+                     semantic_turhancan:'semantic (turhancan)',
+                     classical_point_seeded:'classical 点种子框'};
+function renderCopy(){
+  const box = el('copyBox');
+  if(!box || !S.state) return;
+  const st = S.state;
+  if(st.truth_complete){
+    box.innerHTML = (st.copy && st.copy.state==='CONFIRMED_COPY')
+      ? '<div class="copydone">本帧真值由上一帧复制，已人工确认</div>' : '';
+    return;
+  }
+  const copy = st.copy || {};
+  const src = copy.source || {};
+  if(copy.pending){
+    box.innerHTML = '<div class="copypending">COPIED FROM PREVIOUS · 待人工确认'+
+      '<small>来源 '+shortId(copy.copied_from_frame_id)+' · 复制 '+(copy.copied_point_count||0)+' 点'+
+      ((copy.copied_localization_count||0)?(' · '+(copy.copied_localization_count)+' 个候选框'):'')+
+      '</small><small>'+(copy.edited_after_copy?'已修改 · ':'')+
+      '请核对画面后按 Enter 确认为本帧真值：垃圾消失→删点，新垃圾→补点，位置变了→重新点</small></div>';
+    return;
+  }
+  if(src.allowed){
+    box.innerHTML = '<div class="copyavail">可复制上一帧 <b>'+shortId(src.source_frame_id)+
+      '</b>（'+(COPY_REASON[src.reason]||src.reason)+'，含 '+(src.source_truth_points||0)+
+      ' 点）<br>按 <b>C</b> 复制；复制后仍需人工检查并按 Enter 确认'+
+      '<div style="margin-top:5px"><button id="btnCopy">C 复制上一帧真值</button></div></div>';
+    const button = el('btnCopy');
+    if(button) button.onclick = ()=>copyPrevious();
+    return;
+  }
+  box.innerHTML = '<div class="copyavail muted">不可复制上一帧：'+
+    (COPY_REASON[src.reason]||src.reason||'无来源')+'</div>';
+}
+async function copyPrevious(){
+  if(!S.state) return;
+  if(S.state.truth_complete){ toast('本帧真值已完成，不再需要复制'); return; }
+  const src = (S.state.copy||{}).source||{};
+  if(!src.allowed){ toast('当前帧不可复制上一帧：'+(COPY_REASON[src.reason]||src.reason||'')); return; }
+  try{
+    await post('/api/copy_previous',{frame_id:S.frames[S.idx].frame_id});
+    toast('已复制上一帧真值 → COPIED_PENDING_CONFIRM，请检查后按 Enter', 3200);
+    await reload();
+  }catch(err){ toast('复制失败: '+err.message, 3200); }
 }
 async function renderCandidates(){
   const box = el('cands'); box.innerHTML='';
@@ -1303,7 +1688,7 @@ async function renderCandidates(){
     d.className='cand'+(i===S.currentCandidate?' act':'');
     d.innerHTML = `<img src="/api/candidate_image?truth_id=${encodeURIComponent(S.locTruth)}&idx=${i}">`+
       `<div class="candmeta"><b>${c.label} — 按 ${i+1}</b>`+
-      `<small>${c.proposal_source}</small>`+
+      `<small>${CAND_SOURCE[c.proposal_source]||c.proposal_source}</small>`+
       `<small>包含该点: ${c.contains_point?'是':'否'}</small></div>`;
     d.onclick=()=>selectCandidate(i+1);
     box.appendChild(d);
@@ -1432,6 +1817,7 @@ window.addEventListener('keydown', async e=>{
   if(k==='r'||k==='R') return setMode('REQUIRED_LITTER');
   if(k==='i'||k==='I') return setMode('IGNORE_SMALL');
   if(k==='u'||k==='U') return setMode('UNCERTAIN');
+  if(k==='c'||k==='C') return copyPrevious();
   if(k==='Enter'){ e.preventDefault(); return completeTruth(); }
   if(k==='ArrowLeft'){ return loadFrame(S.idx-1); }
   if(k==='ArrowRight'){ return loadFrame(S.idx+1); }

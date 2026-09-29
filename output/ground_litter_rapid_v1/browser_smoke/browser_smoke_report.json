@@ -60,7 +60,7 @@
     {
       "check": "progress_dashboard_populated",
       "ok": true,
-      "detail": "Truth Review\t0 / 2 (固定2+bonus0)\nRapid-Train\t0 / 1+0\nRapid-Eval\t0 / 1\nRequired po"
+      "detail": "Truth Review\t0 / 3 (固定3+bonus0)\nRapid-Train\t0 / 2+0\nRapid-Eval\t0 / 1\nRequired po"
     },
     {
       "check": "truth_point_added_by_click",
@@ -137,6 +137,47 @@
       "check": "no_8801_request",
       "ok": true,
       "detail": null
+    },
+    {
+      "check": "copy_offered_for_same_ps",
+      "ok": true,
+      "detail": "可复制上一帧 1-1790064037000_t030（同一 PS，含 1 点）\n按 C 复制；复制后仍需人工检查并按 Enter 确认\nC 复制上一帧真值"
+    },
+    {
+      "check": "navigated_to_next_frame",
+      "ok": true,
+      "detail": {
+        "points_before_copy": 0,
+        "stage": "STAGE A — TRUTH (model hidden)"
+      }
+    },
+    {
+      "check": "copy_banner_pending",
+      "ok": true,
+      "detail": "COPIED FROM PREVIOUS · 待人工确认\n来源 1-1790064037000_t030 · 复制 1 点\n请核对画面后按 Enter 确认为本帧真值：垃圾消失→删点，新垃圾→补点，位置变了→重新点"
+    },
+    {
+      "check": "copy_keeps_stage_b_hidden",
+      "ok": true,
+      "detail": "STAGE A — TRUTH (model hidden)"
+    },
+    {
+      "check": "copy_brought_points_over",
+      "ok": true,
+      "detail": {
+        "before": 0,
+        "after": 1
+      }
+    },
+    {
+      "check": "copy_marks_points",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "enter_confirms_copy_and_opens_stage_b",
+      "ok": true,
+      "detail": "STAGE B — PREDICTION"
     }
   ],
   "failed": [],

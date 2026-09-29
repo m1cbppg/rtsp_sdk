@@ -9,6 +9,7 @@ import json
 import sys
 import tempfile
 import unittest
+from datetime import datetime, timedelta
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
@@ -17,7 +18,10 @@ sys.path.insert(0, str(REPO / "scripts"))
 
 from rtsp_annotator.ground_litter_rapid import (  # noqa: E402
     CAMERAS,
+    COPY_CONFIRMED,
+    COPY_PENDING,
     EVAL_SPLIT,
+    ORIGIN_COPY,
     SEED,
     TRAIN_SPLIT,
     RapidError,
@@ -29,10 +33,14 @@ from rtsp_annotator.ground_litter_rapid import (  # noqa: E402
     build_frame_manifest,
     build_split,
     canonical_sha256,
+    copy_eligibility,
     decide_verdict,
+    dedupe_near_duplicates,
+    frame_absolute_seconds,
     frame_id,
     frame_index_for,
     match_points,
+    plan_training_export,
     point_inside_roi,
     select_threshold,
     selection_hash,
@@ -46,9 +54,12 @@ ROI = [[0.1, 0.1], [0.9, 0.1], [0.9, 0.9], [0.1, 0.9]]
 
 
 def synthetic_files() -> list[dict]:
+    """Synthetic Development inventory with realistic, gapless PS record times."""
     rows = []
     for camera in CAMERAS:
+        base = datetime(2026, 9, 22, 15, 0, 0)
         for index in range(13):
+            start = base + timedelta(seconds=304 * index)
             file_id = f"{camera}-ps{index:02d}"
             rows.append({
                 "camera_id": camera,
@@ -59,8 +70,8 @@ def synthetic_files() -> list[dict]:
                 "canvas_size": [2560, 1440],
                 "roi": ROI,
                 "roi_geometry_version": "final-roi-20260922-user-reviewed",
-                "record_start": "2026-09-22 15:55:33",
-                "record_end": "2026-09-22 16:00:37",
+                "record_start": start.strftime("%Y-%m-%d %H:%M:%S"),
+                "record_end": (start + timedelta(seconds=304)).strftime("%Y-%m-%d %H:%M:%S"),
                 "duration_seconds": 304.0,
             })
     return rows
@@ -68,6 +79,21 @@ def synthetic_files() -> list[dict]:
 
 PRIOR = ["01021-ps00", "01022-ps01", "01022-ps02", "01022-ps03", "01027-ps00",
          "01030-ps00"]
+
+
+def adjacent_train_then_eval(split: dict):
+    """Find a rapid_train PS immediately followed by a rapid_eval PS on one camera.
+
+    Those two are the real-world near-duplicate case across a PS boundary (gap = one PS
+    length), which is what makes copy-previous eligible for an eval frame.
+    """
+    for camera in CAMERAS:
+        rows = sorted((r for r in split["rows"] if r["camera_id"] == camera),
+                      key=lambda r: r["record_start"])
+        for previous, current in zip(rows, rows[1:]):
+            if previous["split"] == TRAIN_SPLIT and current["split"] == EVAL_SPLIT:
+                return previous, current
+    raise AssertionError("synthetic split has no adjacent rapid_train -> rapid_eval PS pair")
 
 
 class SplitTests(unittest.TestCase):
@@ -371,18 +397,24 @@ class ReviewStoreTests(unittest.TestCase):
 
         cls.server = server
 
-    def build_artifact(self, root: Path) -> dict:
+    def build_artifact(self, root: Path, plans=None) -> dict:
+        """Build a two-or-more frame artifact.  ``plans`` is a list of (file_id, offset)."""
         files = synthetic_files()
         split = build_split(files, PRIOR)
+        by_file = {r["file_id"]: r for r in split["rows"]}
         train = next(r for r in split["rows"] if r["split"] == TRAIN_SPLIT)
         eval_row = next(r for r in split["rows"] if r["split"] == EVAL_SPLIT)
+        if plans is None:
+            plans = [(train["file_id"], 30), (eval_row["file_id"], 30)]
         frames = []
-        for row in (train, eval_row):
+        for file_id_value, offset in plans:
+            row = by_file[file_id_value]
             frames.append({
-                "frame_id": frame_id(row["camera_id"], row["file_id"], 30),
+                "frame_id": frame_id(row["camera_id"], row["file_id"], offset),
                 "camera_id": row["camera_id"], "file_id": row["file_id"],
-                "split": row["split"], "kind": "fixed", "offset_seconds": 30,
-                "requested_relative_seconds": 30.0, "nominal_frame_index": 750,
+                "split": row["split"], "kind": "fixed", "offset_seconds": offset,
+                "requested_relative_seconds": float(offset),
+                "nominal_frame_index": frame_index_for(offset),
             })
         root.mkdir(parents=True, exist_ok=True)
         (root / "split.json").write_text(json.dumps(split), encoding="utf-8")
@@ -396,13 +428,16 @@ class ReviewStoreTests(unittest.TestCase):
             (root / "frames" / name).write_bytes(b"\x89PNG\r\n\x1a\n")
             records.append({"frame_id": row["frame_id"], "image": name, "split": row["split"],
                             "camera_id": row["camera_id"], "file_id": row["file_id"],
-                            "kind": row["kind"], "delta_ms": 0.0, "frame_index": 750,
+                            "kind": row["kind"], "delta_ms": 0.0,
+                            "frame_index": row["nominal_frame_index"],
                             "roi": ROI, "roi_geometry_version": "test", "image_sha256": "0" * 64,
                             "source_sha256": "0" * 64, "width": 2560, "height": 1440,
-                            "canvas_size": [2560, 1440], "offset_seconds": 30,
-                            "requested_relative_seconds": 30.0, "nominal_frame_index": 750,
-                            "decoded_relative_seconds": 30.0, "is_bonus": False, "sought": True,
-                            "image_bytes": 8})
+                            "canvas_size": [2560, 1440],
+                            "offset_seconds": row["offset_seconds"],
+                            "requested_relative_seconds": row["requested_relative_seconds"],
+                            "nominal_frame_index": row["nominal_frame_index"],
+                            "decoded_relative_seconds": row["requested_relative_seconds"],
+                            "is_bonus": False, "sought": True, "image_bytes": 8})
         (root / "extraction_manifest.json").write_text(json.dumps({
             "records": records, "decode_failure_count": 0, "missing": [],
             "frames_extracted": len(records), "frames_requested": len(records),
@@ -418,7 +453,8 @@ class ReviewStoreTests(unittest.TestCase):
                                      "confidence": 0.42, "class_id": 0,
                                      "class_name": "ground_litter", "tile_xy": [1024, 512]}],
                 }) + "\n")
-        return {"split": split, "train": train, "eval": eval_row, "frames": frames}
+        return {"split": split, "train": train, "eval": eval_row, "frames": frames,
+                "by_file": by_file}
 
     def test_stage_a_is_blind_and_stage_b_is_gated(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -536,6 +572,366 @@ class ReviewStoreTests(unittest.TestCase):
             self.build_artifact(artifact)
             exit_code = self.server.main(["--artifact", str(artifact), "selftest"])
             self.assertEqual(exit_code, 0)
+
+
+def sample(sample_id, camera, time_value, center, short_side=20.0, split=None):
+    return {"sample_id": sample_id, "camera_id": camera, "time": float(time_value),
+            "center_xy": list(center), "short_side": short_side, "split": split or TRAIN_SPLIT,
+            "frame_id": sample_id.split("#")[0]}
+
+
+class CopyEligibilityTests(unittest.TestCase):
+    def test_same_ps_is_allowed(self):
+        verdict = copy_eligibility({"camera_id": "01021", "file_id": "a", "absolute_seconds": 0},
+                                   {"camera_id": "01021", "file_id": "a",
+                                    "absolute_seconds": 500})
+        self.assertTrue(verdict["allowed"])
+        self.assertEqual(verdict["reason"], "same_ps")
+
+    def test_time_continuous_across_ps_is_allowed(self):
+        verdict = copy_eligibility({"camera_id": "01021", "file_id": "b", "absolute_seconds": 334},
+                                   {"camera_id": "01021", "file_id": "a",
+                                    "absolute_seconds": 30})
+        self.assertTrue(verdict["allowed"])
+        self.assertEqual(verdict["reason"], "temporally_continuous")
+
+    def test_different_camera_is_refused(self):
+        verdict = copy_eligibility({"camera_id": "01022", "file_id": "a", "absolute_seconds": 30},
+                                   {"camera_id": "01021", "file_id": "a",
+                                    "absolute_seconds": 30})
+        self.assertFalse(verdict["allowed"])
+        self.assertEqual(verdict["reason"], "different_camera")
+
+    def test_large_time_gap_is_refused(self):
+        verdict = copy_eligibility({"camera_id": "01021", "file_id": "c",
+                                    "absolute_seconds": 3000},
+                                   {"camera_id": "01021", "file_id": "a",
+                                    "absolute_seconds": 30})
+        self.assertFalse(verdict["allowed"])
+        self.assertEqual(verdict["reason"], "time_gap_too_large")
+
+    def test_missing_record_start_is_refused(self):
+        verdict = copy_eligibility({"camera_id": "01021", "file_id": "b", "absolute_seconds": None},
+                                   {"camera_id": "01021", "file_id": "a", "absolute_seconds": 30})
+        self.assertFalse(verdict["allowed"])
+        self.assertEqual(verdict["reason"], "no_record_start")
+
+    def test_frame_absolute_seconds_uses_record_start_plus_offset(self):
+        split_row = {"record_start": "2026-09-22 15:00:00"}
+        first = frame_absolute_seconds({"requested_relative_seconds": 30}, split_row)
+        second = frame_absolute_seconds({"requested_relative_seconds": 90}, split_row)
+        self.assertAlmostEqual(second - first, 60.0)
+
+
+class NearDuplicateTests(unittest.TestCase):
+    def test_repeated_stationary_litter_is_capped(self):
+        samples = [sample(f"f{i}", "01021", 1000 + 60 * i, [1000.0, 700.0], 20.0 + i)
+                   for i in range(5)]
+        result = dedupe_near_duplicates(samples, kind="positive")
+        self.assertEqual(result["inputs_count"], 5)
+        self.assertLessEqual(result["kept_count"], 2)
+        self.assertEqual(result["cluster_count"], 1)
+        self.assertEqual(result["dropped_count"], 5 - result["kept_count"])
+
+    def test_distinct_positions_are_not_merged(self):
+        samples = [sample("a", "01021", 1000, [400.0, 400.0]),
+                   sample("b", "01021", 1000, [1800.0, 900.0])]
+        result = dedupe_near_duplicates(samples, kind="positive")
+        self.assertEqual(result["kept_count"], 2)
+        self.assertEqual(result["cluster_count"], 2)
+
+    def test_distant_times_are_not_merged(self):
+        samples = [sample("a", "01021", 0, [1000.0, 700.0]),
+                   sample("b", "01021", 5000, [1000.0, 700.0])]
+        result = dedupe_near_duplicates(samples, kind="positive")
+        self.assertEqual(result["kept_count"], 2)
+
+    def test_different_cameras_are_never_merged(self):
+        samples = [sample("a", "01021", 1000, [1000.0, 700.0]),
+                   sample("b", "01022", 1000, [1000.0, 700.0])]
+        result = dedupe_near_duplicates(samples, kind="positive")
+        self.assertEqual(result["kept_count"], 2)
+
+    def test_positive_representatives_are_deterministic(self):
+        samples = [sample(f"f{i}", "01021", 1000 + 60 * i, [1000.0, 700.0], 10.0 + i)
+                   for i in range(4)]
+        first = dedupe_near_duplicates(samples, kind="positive")["kept"]
+        shuffled = list(reversed(samples))
+        second = dedupe_near_duplicates(shuffled, kind="positive")["kept"]
+        self.assertEqual([s["sample_id"] for s in first],
+                         [s["sample_id"] for s in second])
+
+    def test_hard_negatives_keep_earliest_and_latest(self):
+        samples = [sample(f"n{i}", "01021", 1000 + 60 * i, [500.0, 500.0])
+                   for i in range(4)]
+        kept = dedupe_near_duplicates(samples, kind="hard_negative")["kept"]
+        self.assertEqual([s["sample_id"] for s in kept], ["n0", "n3"])
+
+    def test_export_plan_refuses_eval_samples(self):
+        with self.assertRaises(RapidError):
+            plan_training_export([sample("x", "01021", 0, [1.0, 1.0], split=EVAL_SPLIT)], [])
+
+    def test_export_plan_summary_shape(self):
+        positives = [sample(f"p{i}", "01021", 0 + 30 * i, [800.0, 600.0]) for i in range(3)]
+        negatives = [sample(f"n{i}", "01021", 0 + 30 * i, [2000.0, 900.0]) for i in range(3)]
+        plan = plan_training_export(positives, negatives)
+        self.assertEqual(plan["summary"]["positives_in"], 3)
+        self.assertLessEqual(plan["summary"]["positives_exported"], 2)
+        self.assertLessEqual(plan["summary"]["hard_negatives_exported"], 2)
+        self.assertIn("Rapid-Eval", plan["note"])
+
+
+class CopyPreviousStoreTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        import serve_ground_litter_rapid_review as server
+
+        cls.server = server
+
+    def make(self, tmp, plans=None):
+        artifact = Path(tmp) / "artifact"
+        fixture = ReviewStoreTests().build_artifact(artifact, plans)
+        store = self.server.RapidReviewStore(artifact)
+        store.load_predictions()
+        return artifact, fixture, store
+
+    @staticmethod
+    def same_ps_plans():
+        """Three fixed frames on one Rapid-Train PS: 30 s / 90 s / 150 s."""
+        split = build_split(synthetic_files(), PRIOR)
+        train = next(r for r in split["rows"] if r["split"] == TRAIN_SPLIT)
+        file_id_value = train["file_id"]
+        return [(file_id_value, 30), (file_id_value, 90), (file_id_value, 150)]
+
+    def test_copy_source_detected_for_same_ps(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            artifact, fixture, store = self.make(tmp, self.same_ps_plans())
+            first, second = fixture["frames"][0]["frame_id"], fixture["frames"][1]["frame_id"]
+            store.complete_truth(first)
+            source = store.copy_source(second)
+            self.assertTrue(source["allowed"])
+            self.assertEqual(source["source_frame_id"], first)
+            self.assertEqual(source["reason"], "same_ps")
+
+    def test_copy_requires_confirm_and_keeps_stage_a_blind(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            artifact, fixture, store = self.make(tmp, self.same_ps_plans())
+            first, second = fixture["frames"][0]["frame_id"], fixture["frames"][1]["frame_id"]
+
+            store.add_point(first, "REQUIRED_LITTER", 1500.0, 640.0)
+            store.add_point(first, "IGNORE_SMALL", 300.0, 300.0)
+            store.complete_truth(first)
+
+            result = store.copy_previous(second)
+            self.assertEqual(result["copy_state"], COPY_PENDING)
+            self.assertFalse(result["truth_complete"])
+            entry = store.frame_state(second)
+            self.assertEqual(entry["copy_state"], COPY_PENDING)
+            self.assertFalse(entry["truth_complete"])
+            self.assertEqual(entry["copied_point_count"], 2)
+
+            # Stage A stays blind even though the points are copied.
+            payload = store.frame_payload(second)
+            self.assertIsNone(payload["predictions"])
+            self.assertNotIn("prediction_count", payload)
+            self.assertTrue(payload["copy"]["pending"])
+            self.assertEqual(payload["copy"]["state"], COPY_PENDING)
+            self.assertEqual(len(payload["truth_points"]), 2)
+
+            # Enter is what turns the copy into truth.
+            store.complete_truth(second)
+            entry = store.frame_state(second)
+            self.assertTrue(entry["truth_complete"])
+            self.assertEqual(entry["copy_state"], COPY_CONFIRMED)
+            self.assertIsNotNone(store.frame_payload(second)["predictions"])
+
+    def test_copy_preserves_source_native_coordinates_verbatim(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            artifact, fixture, store = self.make(tmp, self.same_ps_plans())
+            first, second = fixture["frames"][0]["frame_id"], fixture["frames"][1]["frame_id"]
+            store.add_point(first, "REQUIRED_LITTER", 1234.56, 789.01)
+            store.complete_truth(first)
+            store.copy_previous(second)
+            copied = store.points_for(second)[0]
+            self.assertEqual(copied["source_xy"], [1234.56, 789.01])
+            self.assertEqual(copied["origin"], ORIGIN_COPY)
+            self.assertEqual(copied["copied_from_frame_id"], first)
+
+    def test_copy_is_refused_across_cameras(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            files = synthetic_files()
+            split = build_split(files, PRIOR)
+            train_rows = [r for r in split["rows"] if r["split"] == TRAIN_SPLIT]
+            first_camera = train_rows[0]["camera_id"]
+            other = next(r for r in train_rows if r["camera_id"] != first_camera)
+            plans = [(train_rows[0]["file_id"], 30), (other["file_id"], 30)]
+            artifact, fixture, store = self.make(tmp, plans)
+            first, second = fixture["frames"][0]["frame_id"], fixture["frames"][1]["frame_id"]
+            store.add_point(first, "REQUIRED_LITTER", 1500.0, 640.0)
+            store.complete_truth(first)
+            source = store.copy_source(second)
+            self.assertFalse(source["allowed"])
+            self.assertEqual(source["reason"], "different_camera")
+            with self.assertRaises(RapidError):
+                store.copy_previous(second)
+
+    def test_copy_refused_without_a_completed_previous_frame(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            artifact, fixture, store = self.make(tmp, self.same_ps_plans())
+            second = fixture["frames"][1]["frame_id"]
+            with self.assertRaises(RapidError):
+                store.copy_previous(second)
+
+    def test_copy_only_replaces_this_frames_own_points(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            artifact, fixture, store = self.make(tmp, self.same_ps_plans())
+            first, second = fixture["frames"][0]["frame_id"], fixture["frames"][1]["frame_id"]
+            store.add_point(first, "REQUIRED_LITTER", 1500.0, 640.0)
+            store.complete_truth(first)
+            store.add_point(second, "UNCERTAIN", 900.0, 400.0)
+            store.copy_previous(second)
+            classes = [p["truth_class"] for p in store.points_for(second)]
+            self.assertEqual(classes, ["REQUIRED_LITTER"])
+            self.assertEqual(len(store.points_for(first)), 1)
+
+    def test_editing_after_copy_is_recorded_but_stays_pending(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            artifact, fixture, store = self.make(tmp, self.same_ps_plans())
+            first, second = fixture["frames"][0]["frame_id"], fixture["frames"][1]["frame_id"]
+            store.add_point(first, "REQUIRED_LITTER", 1500.0, 640.0)
+            store.complete_truth(first)
+            store.copy_previous(second)
+            store.add_point(second, "REQUIRED_LITTER", 400.0, 400.0)
+            entry = store.frame_state(second)
+            self.assertEqual(entry["copy_state"], COPY_PENDING)
+            self.assertFalse(entry["truth_complete"])
+            self.assertTrue(entry["copy_edited"])
+
+    def test_copied_localization_becomes_a_candidate_not_a_selection(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            artifact, fixture, store = self.make(tmp, self.same_ps_plans())
+            first, second = fixture["frames"][0]["frame_id"], fixture["frames"][1]["frame_id"]
+            point = store.add_point(first, "REQUIRED_LITTER", 1490.0, 630.0)
+            store.complete_truth(first)
+            prediction_id = f"{first}_p000"
+            store.review_prediction(first, prediction_id, "Y")
+            store.select_localization(point["truth_id"], 1,
+                                      resolver=self.server.Localizer(artifact, store,
+                                                                     enable_semantic=False)
+                                      .candidates)
+
+            store.copy_previous(second)
+            copied = store.points_for(second)[0]
+            self.assertIsNotNone(copied["copied_localization"])
+            # Not selected yet on the new frame:
+            self.assertEqual(store.localization_for(second), {})
+            self.assertEqual(store.stage_of(second), "truth")
+
+            store.complete_truth(second)
+            self.assertEqual(store.stage_of(second), "prediction")
+            # Stage B first: every baseline prediction must be judged before Stage C opens.
+            store.review_prediction(second, f"{second}_p000", "Y")
+            self.assertEqual(store.stage_of(second), "localization")
+            localizer = self.server.Localizer(artifact, store, enable_semantic=False)
+            payload = localizer.candidates(copied["truth_id"])
+            sources = [c["proposal_source"] for c in payload["candidates"]]
+            self.assertEqual(sources[0], ORIGIN_COPY)
+            self.assertTrue(payload["candidates"][0]["contains_point"])
+
+            store.select_localization(copied["truth_id"], 1, resolver=localizer.candidates)
+            selection = store.localization_for(second)[copied["truth_id"]]
+            self.assertEqual(selection["status"], "LOCALIZED")
+            self.assertEqual(selection["proposal_source"], ORIGIN_COPY)
+
+    def test_eval_frame_copy_still_requires_enter_and_stays_in_denominator(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            split = build_split(synthetic_files(), PRIOR)
+            previous, target = adjacent_train_then_eval(split)
+            plans = [(previous["file_id"], 30), (target["file_id"], 30)]
+            artifact, fixture, store = self.make(tmp, plans)
+            first, second = fixture["frames"][0]["frame_id"], fixture["frames"][1]["frame_id"]
+            self.assertEqual(fixture["frames"][0]["split"], TRAIN_SPLIT)
+            self.assertEqual(fixture["frames"][1]["split"], EVAL_SPLIT)
+            store.add_point(first, "REQUIRED_LITTER", 1500.0, 640.0)
+            store.complete_truth(first)
+
+            # Even a near-duplicate eval frame must be copied, inspected and confirmed by hand.
+            store.copy_previous(second)
+            self.assertFalse(store.frame_state(second)["truth_complete"])
+            progress = store.progress()
+            self.assertEqual(progress["rapid_eval"]["total"], 1)
+            self.assertEqual(progress["rapid_eval"]["complete"], 0)
+
+            store.complete_truth(second)
+            progress = store.progress()
+            self.assertEqual(progress["rapid_eval"]["total"], 1)
+            self.assertEqual(progress["rapid_eval"]["complete"], 1)
+
+    def test_copy_previous_is_resumable(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            artifact, fixture, store = self.make(tmp, self.same_ps_plans())
+            first, second = fixture["frames"][0]["frame_id"], fixture["frames"][1]["frame_id"]
+            store.add_point(first, "REQUIRED_LITTER", 1500.0, 640.0)
+            store.complete_truth(first)
+            store.copy_previous(second)
+
+            resumed = self.server.RapidReviewStore(artifact)
+            resumed.load_predictions()
+            entry = resumed.frame_state(second)
+            self.assertEqual(entry["copy_state"], COPY_PENDING)
+            self.assertFalse(entry["truth_complete"])
+            self.assertEqual(len(resumed.points_for(second)), 1)
+
+
+class ExportPlanTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        import serve_ground_litter_rapid_review as server
+
+        cls.server = server
+
+    def build(self, tmp):
+        artifact = Path(tmp) / "artifact"
+        fixture = ReviewStoreTests().build_artifact(artifact)
+        store = self.server.RapidReviewStore(artifact)
+        store.load_predictions()
+        localizer = self.server.Localizer(artifact, store, enable_semantic=False)
+        return artifact, fixture, store, localizer
+
+    def test_plan_excludes_eval_and_caps_near_duplicates(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            artifact, fixture, store, localizer = self.build(tmp)
+            train_frame = fixture["frames"][0]["frame_id"]
+            point = store.add_point(train_frame, "REQUIRED_LITTER", 1490.0, 630.0)
+            store.complete_truth(train_frame)
+            store.review_prediction(train_frame, f"{train_frame}_p000", "Y")
+            store.select_localization(point["truth_id"], 1, resolver=localizer.candidates)
+
+            plan = store.export_plan()
+            self.assertGreaterEqual(plan["summary"]["positives_in"], 1)
+            self.assertEqual(plan["rapid_eval_denominator"]["frames"], 1)
+            self.assertTrue(plan["rapid_eval_denominator"]["excluded_from_training"])
+            for sample_row in plan["positives"]["kept"]:
+                self.assertEqual(sample_row["split"], TRAIN_SPLIT)
+            self.assertEqual(plan["summary"]["hard_negatives_in"], 0)
+
+    def test_plan_does_not_touch_frozen_inputs(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            artifact, fixture, store, localizer = self.build(tmp)
+            train_frame = fixture["frames"][0]["frame_id"]
+            point = store.add_point(train_frame, "REQUIRED_LITTER", 1490.0, 630.0)
+            store.complete_truth(train_frame)
+            store.review_prediction(train_frame, f"{train_frame}_p000", "Y")
+            store.select_localization(point["truth_id"], 1, resolver=localizer.candidates)
+
+            before = {name: (artifact / name).read_bytes()
+                      for name in ("split.json", "frame_manifest.jsonl")}
+            truth_before = (artifact / "review" / "truth_points.jsonl").read_bytes()
+            store.export_plan()
+            for name, payload in before.items():
+                self.assertEqual((artifact / name).read_bytes(), payload)
+            self.assertEqual((artifact / "review" / "truth_points.jsonl").read_bytes(),
+                             truth_before)
 
 
 if __name__ == "__main__":

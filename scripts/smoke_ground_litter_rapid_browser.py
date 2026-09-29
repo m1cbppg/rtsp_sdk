@@ -42,6 +42,9 @@ def parse_args(argv=None):
     parser.add_argument("--read-only", action="store_true",
                         help="only load and inspect the page; never add a point or a verdict "
                              "(use this against the real artifact)")
+    parser.add_argument("--copy-flow", action="store_true",
+                        help="after the main flow, walk to the next frame and exercise "
+                             "C = copy previous truth (requires a same-PS pair)")
     return parser.parse_args(argv)
 
 
@@ -232,6 +235,39 @@ def main(argv=None) -> int:
               [c for c in console if c.startswith("pageerror")][:3])
         check("no_8801_request", not any("8801" in c for c in console), None)
         page.screenshot(path=str(args.out / "07_after_reload.png"))
+
+        if args.copy_flow:
+            # --- C = copy previous truth --------------------------------- #
+            # The ?frame= deep link survives a reload, so walk forward explicitly to the
+            # next frame of the same PS: that is the near-duplicate case for copy-previous.
+            page.keyboard.press("ArrowRight")
+            page.wait_for_timeout(2500)
+            before_points = page.evaluate(
+                "() => document.querySelectorAll('#pointsList > div').length")
+            banner = page.inner_text("#copyBox")
+            check("copy_offered_for_same_ps", "可复制上一帧" in banner, banner[:160])
+            check("navigated_to_next_frame", before_points == 0,
+                  {"points_before_copy": before_points,
+                   "stage": page.inner_text("#stageBadge")})
+            page.keyboard.press("c")
+            page.wait_for_timeout(2500)
+            pending = page.inner_text("#copyBox")
+            check("copy_banner_pending",
+                  "COPIED FROM PREVIOUS" in pending and "待人工确认" in pending, pending[:200])
+            check("copy_keeps_stage_b_hidden", not page.is_visible("#secPred"),
+                  page.inner_text("#stageBadge"))
+            copied_points = page.evaluate(
+                "() => document.querySelectorAll('#pointsList > div').length")
+            check("copy_brought_points_over", copied_points > before_points,
+                  {"before": before_points, "after": copied_points})
+            check("copy_marks_points", "[复制]" in page.inner_text("#pointsList"), None)
+            page.screenshot(path=str(args.out / "08_copy_pending.png"))
+            page.keyboard.press("Enter")
+            page.wait_for_timeout(2500)
+            confirmed = page.inner_text("#stageBadge")
+            check("enter_confirms_copy_and_opens_stage_b",
+                  page.is_visible("#secPred") or "STAGE A" not in confirmed, confirmed)
+            page.screenshot(path=str(args.out / "09_copy_confirmed.png"))
         browser.close()
 
     failures = [c for c in checks if not c["ok"]]

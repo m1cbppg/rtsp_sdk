@@ -114,8 +114,9 @@ Rapid-Eval Holdout 12 PS /  60 固定帧
 | `R` / `I` / `U` | 选择真值类别 |
 | 点击画面 | 落点 |
 | `Shift` + 点击 | 删除 16px 内最近的点 |
+| `C` | 复制上一已完成帧的真值（**不会**完成本帧） |
 | `N` | Stage A：本帧无目标并完成 |
-| `Enter` | Stage A：本帧真值确认完成 |
+| `Enter` | Stage A：本帧真值确认完成（也是复制后的确认键） |
 | `Y` / `X` / `F`(或 `N`) / `M` | Stage B：正确 / ignore / 误报 / 漏标回退 |
 | `1` `2` `3` `0` | Stage C：候选 A/B/C / None |
 | `←` `→` | 上一帧 / 下一帧 |
@@ -131,6 +132,81 @@ Rapid-Eval Holdout 12 PS /  60 固定帧
 * `localization_reviews.jsonl`
 
 页面关闭重开从**未完成 frame** 继续，不丢进度。
+
+---
+
+## 3A. 重复帧快速确认（Copy Previous Truth）
+
+固定抽帧里大量画面是同一机位、同一批静止垃圾的近重复帧。`C` 用来省掉重复点击，但
+**不省掉人工确认**。
+
+### 可用条件
+
+当前帧 vs **上一个已完成的 review frame**（同一 review 队列顺序）：
+
+* `camera_id` 必须相同；
+* 且满足下面之一：
+  * **同一 PS**（`same_ps`），或
+  * **时间连续**（`temporally_continuous`）：两帧解码时间差 ≤ `CONTINUITY_MAX_GAP_SECONDS`
+    = 400 s（一个 PS 长 304 s，所以跨 PS 边界的相邻帧约 64 s，仍算连续）。
+
+不满足时页面显示原因（`different_camera` / `time_gap_too_large` / `no_record_start` /
+`no_completed_previous_frame_in_lookback`），**不会**静默复制。
+
+### 复制什么
+
+* `REQUIRED_LITTER` / `IGNORE_SMALL` / `UNCERTAIN` points，**source-native 坐标原样复制**，
+  不做任何变换或位移；
+* 对 Rapid-Train：源点上**已完成的 localization selection 会作为候选框复制**（候选
+  `copied_from_previous_frame`，排在 A）。它**只是候选**，Stage C 仍要你自己按键选，
+  不会自动接受。
+
+### 复制后的状态
+
+```
+copy_state = COPIED_PENDING_CONFIRM
+truth_complete = false      ← 关键：不算完成
+```
+
+页面顶部横幅显示 **“COPIED FROM PREVIOUS · 待人工确认”**，并且 Stage B **仍然隐藏**
+（`truth_complete=false`，服务端不返回任何模型输出）。
+
+你必须核对画面：
+
+* 垃圾消失 → 删掉该 point；
+* 出现新垃圾 → 补 point；
+* 垃圾明显移动 → 重新点位置（复制坐标不会自动跟随）。
+
+然后按 `Enter`（或 `N`）才变成 `truth_complete=true`，`copy_state=CONFIRMED_COPY`。
+复制后做过增删会在状态里记 `copy_edited=true`，作为训练样本的 provenance。
+
+> **不做自动视觉相似度判断代替人工**：页面只会提示“可复制上一帧”，是否复制完全由你按 `C`
+> 决定；复制后是否成立也完全由你按 `Enter` 决定。
+
+### Rapid-Eval 分母不变
+
+* **60 个 fixed eval frames 全部照旧进入评估分母**，一帧不少。
+* 即使用了 `C`，**每一帧仍必须人工 `Enter` 确认**；不会因为近重复而自动跳过任何 eval frame。
+* 复制只是一次写入起点，`truth_complete` 仍然必须由人置位。
+
+### Rapid-Train 训练导出的近重复上限
+
+review 阶段仍然保留**所有** fixed frame 的 truth（不改 `split.json`、不改
+`frame_manifest.jsonl`、不改已有 truth、不改 eval 分母）。近重复去重只发生在
+**training export**：
+
+* 同一 camera、同一/邻近位置（`center_xy` 距离 ≤ `NEAR_DUP_POSITION_RADIUS_PX` = 96 px）、
+  相邻时间（≤ `NEAR_DUP_TIME_WINDOW_S` = 600 s）的样本归为一个 cluster；
+* 每个 cluster **最多导出 `NEAR_DUP_MAX_PER_CLUSTER` = 2 个代表**：
+  * positive：保留**最早一次**与**尺度最大的一次**；
+  * hard negative：保留**最早**与**最晚**各一个；
+* 同一静止垃圾不会在大量近重复帧里反复进入训练集；
+* hard negatives 同样去重；
+* Rapid-Eval 样本一律拒绝导出（`RapidError` / HTTP 409）。
+
+`POST /api/export_plan` 可以随时查看当前会导出什么（只读，不写任何状态）：
+返回 `positives` / `hard_negatives` 的 cluster 明细、`kept` / `dropped`，以及
+`rapid_eval_denominator`（证明 eval 分母未被改动）。
 
 ---
 

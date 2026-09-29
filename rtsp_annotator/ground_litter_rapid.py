@@ -20,6 +20,7 @@ import hashlib
 import json
 import math
 import os
+from datetime import datetime
 from pathlib import Path
 
 # --------------------------------------------------------------------------- #
@@ -690,3 +691,218 @@ def distance_to_box(box, x: float, y: float) -> float:
     dx = max(box[0] - x, 0.0, x - box[2])
     dy = max(box[1] - y, 0.0, y - box[3])
     return math.hypot(dx, dy)
+
+
+# --------------------------------------------------------------------------- #
+# Copy-previous-frame (near-duplicate review acceleration)
+# --------------------------------------------------------------------------- #
+#
+# Many fixed grid frames are the same camera looking at the same motionless litter.
+# "Copy previous" removes the re-clicking, but it must never remove the human check:
+# the copied frame lands in COPIED_PENDING_CONFIRM and only an explicit confirm turns it
+# into truth.  Rapid-Eval keeps every fixed frame in the denominator, exactly as before.
+
+COPY_PENDING = "COPIED_PENDING_CONFIRM"
+COPY_CONFIRMED = "CONFIRMED_COPY"
+
+#: Two frames on the same camera may copy from each other when their recordings are the same
+#: PS, or when their decoded times are this close (the review grid is 60 s apart inside a PS
+#: and ~64 s across a PS boundary, so one PS length plus slack covers the continuous case).
+CONTINUITY_MAX_GAP_SECONDS = 400.0
+
+#: How far back in the review queue we are willing to look for a completed source frame.
+COPY_SOURCE_LOOKBACK = 20
+
+#: Candidate verdicts that mean "the operator confirmed this Required object is really there".
+COPYABLE_TRUTH_CLASSES = TRUTH_CLASSES
+
+#: Origins that record where a point came from.
+ORIGIN_REVIEW = "rapid_v1_review"
+ORIGIN_COPY = "copied_from_previous_frame"
+
+
+def frame_absolute_seconds(frame_row: dict, split_row: dict) -> float | None:
+    """Decoded wall-clock seconds of a frame, from the PS record start plus its offset.
+
+    Only differences between frames matter, so the host timezone cancels out.
+    """
+    stamp = split_row.get("record_start")
+    if not stamp:
+        return None
+    try:
+        base = datetime.strptime(str(stamp), "%Y-%m-%d %H:%M:%S")
+    except ValueError:
+        return None
+    offset = frame_row.get("requested_relative_seconds")
+    if offset is None:
+        offset = frame_row.get("offset_seconds") or 0
+    return base.timestamp() + float(offset)
+
+
+def copy_eligibility(current: dict, previous: dict) -> dict:
+    """May ``current`` copy truth from ``previous``?
+
+    ``current``/``previous`` are ``{camera_id, file_id, absolute_seconds}``.
+    Same camera is mandatory; then either the same PS, or a small time gap.
+    """
+    if current.get("camera_id") != previous.get("camera_id"):
+        return {"allowed": False, "reason": "different_camera"}
+    if current.get("file_id") == previous.get("file_id"):
+        return {"allowed": True, "reason": "same_ps"}
+    current_time = current.get("absolute_seconds")
+    previous_time = previous.get("absolute_seconds")
+    if current_time is None or previous_time is None:
+        return {"allowed": False, "reason": "no_record_start"}
+    gap = abs(float(current_time) - float(previous_time))
+    if gap <= CONTINUITY_MAX_GAP_SECONDS:
+        return {"allowed": True, "reason": "temporally_continuous",
+                "gap_seconds": round(gap, 1)}
+    return {"allowed": False, "reason": "time_gap_too_large", "gap_seconds": round(gap, 1)}
+
+
+# --------------------------------------------------------------------------- #
+# Near-duplicate cap (training export only)
+# --------------------------------------------------------------------------- #
+#
+# This never changes the Rapid-Eval denominator, the frozen frame manifest, split.json or any
+# recorded truth.  It only decides which already-reviewed Rapid-Train samples are worth
+# exporting, so one motionless piece of litter observed in five near-identical frames does not
+# become five training tiles.
+
+NEAR_DUP_POSITION_RADIUS_PX = 96.0
+NEAR_DUP_TIME_WINDOW_S = 600.0
+NEAR_DUP_MAX_PER_CLUSTER = 2
+
+
+def _cluster_key_ok(cluster: dict, sample: dict, radius: float, window: float) -> bool:
+    if cluster["camera_id"] != sample["camera_id"]:
+        return False
+    if abs(cluster["time"] - sample["time"]) > window:
+        return False
+    dx = cluster["center"][0] - sample["center_xy"][0]
+    dy = cluster["center"][1] - sample["center_xy"][1]
+    return math.hypot(dx, dy) <= radius
+
+
+def _representatives(members: list[dict], kind: str) -> list[dict]:
+    """Pick at most two representatives from one near-duplicate cluster, deterministically."""
+    ordered = sorted(members, key=lambda s: (s["time"], s["sample_id"]))
+    if kind == "positive":
+        # keep the most informative scale plus the earliest sighting, deduplicated
+        largest = max(ordered, key=lambda s: (s.get("short_side") or 0.0,
+                                              -s["time"], s["sample_id"]))
+        keep = [ordered[0], largest]
+    else:
+        # keep the earliest and the latest so the negative still spans the recording
+        keep = [ordered[0], ordered[-1]]
+    seen: set[str] = set()
+    result: list[dict] = []
+    for sample in keep:
+        if sample["sample_id"] in seen:
+            continue
+        seen.add(sample["sample_id"])
+        result.append(sample)
+    return result
+
+
+def dedupe_near_duplicates(samples: list[dict], *, kind: str,
+                           radius_px: float = NEAR_DUP_POSITION_RADIUS_PX,
+                           time_window_s: float = NEAR_DUP_TIME_WINDOW_S,
+                           max_per_cluster: int = NEAR_DUP_MAX_PER_CLUSTER) -> dict:
+    """Greedy near-duplicate clustering over one camera's samples.
+
+    A sample joins an existing cluster when it is on the same camera, within ``time_window_s``
+    of the cluster's first sighting and within ``radius_px`` of the cluster centre — i.e. the
+    same physical litter at nearly the same place in a short time span.
+    """
+    ordered = sorted(samples, key=lambda s: (s["camera_id"], s["time"], s["sample_id"]))
+    clusters: list[dict] = []
+    for sample in ordered:
+        if not sample.get("center_xy"):
+            raise RapidError(f'sample {sample.get("sample_id")} has no center_xy')
+        sample = dict(sample)
+        sample["time"] = float(sample["time"])
+        target = None
+        for cluster in clusters:
+            if _cluster_key_ok(cluster, sample, radius_px, time_window_s):
+                target = cluster
+                break
+        if target is None:
+            clusters.append({"camera_id": sample["camera_id"], "time": sample["time"],
+                             "center": list(sample["center_xy"]), "members": [sample]})
+        else:
+            target["members"].append(sample)
+
+    kept: list[dict] = []
+    dropped: list[dict] = []
+    report: list[dict] = []
+    for cluster in clusters:
+        members = sorted(cluster["members"], key=lambda s: (s["time"], s["sample_id"]))
+        chosen = _representatives(members, kind)
+        if max_per_cluster < len(chosen):
+            chosen = chosen[:max_per_cluster]
+        chosen_ids = {s["sample_id"] for s in chosen}
+        kept.extend(chosen)
+        for sample in members:
+            if sample["sample_id"] not in chosen_ids:
+                dropped.append({**sample, "cluster_id": f'{cluster["camera_id"]}:'
+                                                  f'{round(cluster["center"][0])}:'
+                                                  f'{round(cluster["center"][1])}'})
+        report.append({
+            "cluster_id": f'{cluster["camera_id"]}:{round(cluster["center"][0])}:'
+                          f'{round(cluster["center"][1])}',
+            "camera_id": cluster["camera_id"],
+            "center_xy": [round(v, 1) for v in cluster["center"]],
+            "members": len(members),
+            "kept": [s["sample_id"] for s in chosen],
+            "dropped": [s["sample_id"] for s in members if s["sample_id"] not in chosen_ids],
+        })
+    kept.sort(key=lambda s: (s["camera_id"], s["time"], s["sample_id"]))
+    return {
+        "kind": kind,
+        "inputs": len(samples),
+        "kept": kept,
+        "dropped": dropped,
+        "clusters": sorted(report, key=lambda c: (c["camera_id"], c["cluster_id"])),
+        "inputs_count": len(samples),
+        "kept_count": len(kept),
+        "dropped_count": len(dropped),
+        "cluster_count": len(clusters),
+        "parameters": {"radius_px": radius_px, "time_window_s": time_window_s,
+                       "max_per_cluster": max_per_cluster},
+    }
+
+
+def plan_training_export(positive_samples: list[dict], negative_samples: list[dict], *,
+                         max_per_cluster: int = NEAR_DUP_MAX_PER_CLUSTER) -> dict:
+    """Near-duplicate-capped Rapid-Train export plan.
+
+    Refuses outright if any sample carries a Rapid-Eval Holdout frame: that split may never be
+    exported, capped or otherwise.
+    """
+    for sample in list(positive_samples) + list(negative_samples):
+        frame_id = sample.get("frame_id") or sample.get("sample_id") or "?"
+        if sample.get("split") == EVAL_SPLIT:
+            raise RapidError(f"refusing to export Rapid-Eval Holdout sample {frame_id}")
+        assert_trainable(sample.get("split") or TRAIN_SPLIT, sample_id=frame_id)
+    positives = dedupe_near_duplicates(positive_samples, kind="positive",
+                                       max_per_cluster=max_per_cluster)
+    negatives = dedupe_near_duplicates(negative_samples, kind="hard_negative",
+                                       max_per_cluster=max_per_cluster)
+    return {
+        "schema_version": SCHEMA_VERSION,
+        "note": "training-export view only; the Rapid-Eval Holdout denominator, the frozen "
+                "frame manifest, split.json and all recorded truth are untouched",
+        "max_per_cluster": max_per_cluster,
+        "positives": positives,
+        "hard_negatives": negatives,
+        "summary": {
+            "positives_in": positives["inputs_count"],
+            "positives_exported": positives["kept_count"],
+            "positives_dropped": positives["dropped_count"],
+            "hard_negatives_in": negatives["inputs_count"],
+            "hard_negatives_exported": negatives["kept_count"],
+            "hard_negatives_dropped": negatives["dropped_count"],
+            "clusters": positives["cluster_count"] + negatives["cluster_count"],
+        },
+    }

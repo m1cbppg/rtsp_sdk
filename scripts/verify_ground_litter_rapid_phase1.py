@@ -114,20 +114,24 @@ def build_smoke_artifact(artifact: Path, smoke: Path) -> dict:
     predictions_all = {row["frame_id"]: row for row in
                        read_jsonl(artifact / "baseline" / "predictions.jsonl")}
 
-    def pick(split: str) -> dict:
+    def pick(split: str, minimum: int = 2) -> dict:
         """Prefer a frame with >=2 predictions, so Stage B can exercise both M and Y."""
         fixed = [f for f in manifest if f["split"] == split and f["kind"] == "fixed"]
         counts = {f["frame_id"]: len(predictions_all.get(f["frame_id"], {})
                                          .get("predictions") or []) for f in fixed}
-        for minimum in (2, 1):
-            candidates = [f for f in fixed if counts[f["frame_id"]] >= minimum]
+        for floor in (minimum, 1):
+            candidates = [f for f in fixed if counts[f["frame_id"]] >= floor]
             if candidates:
                 return candidates[0]
         raise SystemExit(f"no {split} frame with predictions; run the baseline first")
 
-    train = pick(TRAIN_SPLIT)
-    evaluation = pick(EVAL_SPLIT)
-    chosen = [train, evaluation]
+    train = pick(TRAIN_SPLIT, 2)
+    # A second frame on the same PS: the copy-previous case the operator hits most often.
+    same_ps = next(f for f in manifest
+                   if f["split"] == TRAIN_SPLIT and f["kind"] == "fixed"
+                   and f["file_id"] == train["file_id"] and f["frame_id"] != train["frame_id"])
+    evaluation = pick(EVAL_SPLIT, 1)
+    chosen = [train, same_ps, evaluation]
 
     extraction = json.loads((artifact / "extraction_manifest.json").read_text(encoding="utf-8"))
     records = {r["frame_id"]: r for r in extraction["records"]}
@@ -151,8 +155,10 @@ def build_smoke_artifact(artifact: Path, smoke: Path) -> dict:
     with open(smoke / "baseline" / "predictions.jsonl", "w", encoding="utf-8") as handle:
         for frame in chosen:
             handle.write(json.dumps(predictions[frame["frame_id"]], ensure_ascii=False) + "\n")
-    return {"train_frame": train["frame_id"], "eval_frame": evaluation["frame_id"],
+    return {"train_frame": train["frame_id"], "copy_frame": same_ps["frame_id"],
+            "eval_frame": evaluation["frame_id"],
             "train_predictions": predictions[train["frame_id"]]["predictions"],
+            "copy_predictions": predictions[same_ps["frame_id"]]["predictions"],
             "eval_predictions": predictions[evaluation["frame_id"]]["predictions"]}
 
 
@@ -196,8 +202,10 @@ def main(argv=None) -> int:
         print(f'{"PASS" if ok else "FAIL"}  {name}' + (f"  {detail}" if detail else ""), flush=True)
 
     train_frame = fixture["train_frame"]
+    copy_frame = fixture["copy_frame"]
     eval_frame = fixture["eval_frame"]
     train_predictions = fixture["train_predictions"]
+    copy_predictions = fixture["copy_predictions"]
     eval_predictions = fixture["eval_predictions"]
 
     try:
@@ -310,8 +318,63 @@ def main(argv=None) -> int:
               resumed.reviews_for(train_frame))
         status, progress = client.get("/api/progress")
         check("progress_shape", status == 200
-              and progress["truth_review"]["total"] == 2
+              and progress["truth_review"]["total"] == 3
               and progress["rapid_eval"]["total"] == 1, progress["truth_review"])
+
+        # --- 8. copy previous (C) ---------------------------------------- #
+        status, state = client.get("/api/state", frame_id=copy_frame)
+        source = (state.get("copy") or {}).get("source") or {}
+        check("copy_available_same_ps", source.get("allowed") is True
+              and source.get("reason") == "same_ps", source)
+
+        status, body = client.post("/api/copy_previous", {"frame_id": copy_frame})
+        copy_info = body.get("copy") or {}
+        check("copy_returns_pending_not_complete",
+              status == 200 and copy_info.get("copy_state") == "COPIED_PENDING_CONFIRM"
+              and copy_info.get("truth_complete") is False, copy_info.get("copy_state"))
+
+        status, state = client.get("/api/state", frame_id=copy_frame)
+        check("copied_frame_stays_blind", state.get("predictions") is None
+              and state.get("truth_complete") is False
+              and len(state.get("truth_points") or []) == 1,
+              {"points": len(state.get("truth_points") or []),
+               "predictions": state.get("predictions")})
+        check("copied_point_marked", all(p.get("origin") == "copied_from_previous_frame"
+                                        for p in state.get("truth_points") or []), None)
+
+        on_disk = read_jsonl(smoke / "review" / "truth_points.jsonl")
+        copied_on_disk = [p for p in on_disk if p["frame_id"] == copy_frame]
+        source_on_disk = [p for p in on_disk
+                          if p["frame_id"] == train_frame
+                          and p.get("origin") == "rapid_v1_review"]
+        check("copied_coordinates_verbatim",
+              len(copied_on_disk) == len(source_on_disk) == 1
+              and copied_on_disk[0]["source_xy"] == source_on_disk[0]["source_xy"]
+              and copied_on_disk[0]["truth_class"] == source_on_disk[0]["truth_class"],
+              {"source": source_on_disk[0]["source_xy"],
+               "copied": copied_on_disk[0]["source_xy"]})
+
+        status, body = client.post("/api/truth_complete", {"frame_id": copy_frame,
+                                                           "complete": True})
+        check("enter_confirms_copy",
+              status == 200 and body["entry"]["truth_complete"] is True
+              and body["entry"].get("copy_state") == "CONFIRMED_COPY",
+              body["entry"].get("copy_state"))
+        status, state = client.get("/api/state", frame_id=copy_frame)
+        check("stage_b_opens_after_confirm", state.get("predictions") is not None
+              and state["stage"] in ("prediction", "localization", "done"), state["stage"])
+
+        # --- 9. training export plan ------------------------------------- #
+        status, plan = client.post("/api/export_plan", {})
+        summary = plan.get("summary") or {}
+        check("export_plan_excludes_eval",
+              status == 200 and plan.get("rapid_eval_denominator", {}).get("frames") == 1
+              and plan.get("rapid_eval_denominator", {})
+              .get("excluded_from_training") is True, summary)
+        check("export_plan_has_dedup_parameters",
+              status == 200 and "positives" in plan and "hard_negatives" in plan
+              and plan["positives"]["parameters"]["max_per_cluster"] >= 1,
+              plan.get("max_per_cluster"))
 
         # --- M verdict reopens Stage A ----------------------------------- #
         if eval_predictions:
@@ -342,8 +405,10 @@ def main(argv=None) -> int:
         "real_artifact": str(artifact),
         "real_artifact_digest_before": before,
         "real_artifact_digest_after": after,
-        "fixture": {"train_frame": train_frame, "eval_frame": eval_frame,
+        "fixture": {"train_frame": train_frame, "copy_frame": copy_frame,
+                    "eval_frame": eval_frame,
                     "train_predictions": len(train_predictions),
+                    "copy_predictions": len(copy_predictions),
                     "eval_predictions": len(eval_predictions)},
         "checks": checks,
         "failed": [c["check"] for c in failures],
