@@ -50,3 +50,11 @@ releases/
 
 # 本地 Profile 工厂验证用最小虚拟环境（不含 torch/ultralytics）
 .venv-profile/
+
+# ---------------------------------------------------------------------------
+# Rapid Dataset v2（historical active mining）
+# 冻结的 window manifest 必须入库（split 与时间用途要可复核）；逐个小时的回放
+# 清单缓存是可重建的溯源材料，不入库，避免一次提交塞进数百个小 JSON。
+# ---------------------------------------------------------------------------
+output/ground_litter_historical_v2/listing_cache/
+!output/ground_litter_historical_v2/historical_window_manifest.jsonl
