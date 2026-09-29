@@ -1,12 +1,26 @@
 {
   "accepted": {
-    "accepted_hard_negative_tile_count": 0,
+    "accepted_hard_negative_tile_count": 63,
     "accepted_label_count": 0,
-    "conflict_detail": null,
-    "empty_label_verified_count": 0,
-    "per_camera_accepted": {},
+    "conflict_detail": {
+      "crop_conflict_count": 0,
+      "crop_conflicts": [],
+      "ok": true,
+      "positive_sha_count": 44,
+      "positive_tile_count": 44,
+      "sha_conflict_count": 0,
+      "sha_conflicts": []
+    },
+    "empty_label_verified_count": 63,
+    "per_camera_accepted": {
+      "01021": 10,
+      "01022": 15,
+      "01027": 15,
+      "01028": 11,
+      "01030": 12
+    },
     "positive_conflict_count": 0,
-    "state": "not_built"
+    "state": "built"
   },
   "boundaries": {
     "augmentation_applied": false,
@@ -139,47 +153,47 @@
   "negative_label": "empty_file",
   "per_camera": {
     "01021": {
-      "accepted": 0,
+      "accepted": 10,
       "bad_crop": 0,
       "candidate": 35,
       "excluded": 4,
-      "required_present": 0,
+      "required_present": 21,
       "reviewable": 31,
       "uncertain": 0
     },
     "01022": {
-      "accepted": 0,
+      "accepted": 15,
       "bad_crop": 0,
       "candidate": 35,
       "excluded": 5,
-      "required_present": 0,
+      "required_present": 15,
       "reviewable": 30,
       "uncertain": 0
     },
     "01027": {
-      "accepted": 0,
+      "accepted": 15,
       "bad_crop": 0,
       "candidate": 31,
       "excluded": 2,
-      "required_present": 0,
+      "required_present": 14,
       "reviewable": 29,
       "uncertain": 0
     },
     "01028": {
-      "accepted": 0,
+      "accepted": 11,
       "bad_crop": 0,
       "candidate": 34,
       "excluded": 4,
-      "required_present": 0,
+      "required_present": 19,
       "reviewable": 30,
       "uncertain": 0
     },
     "01030": {
-      "accepted": 0,
+      "accepted": 12,
       "bad_crop": 0,
       "candidate": 35,
       "excluded": 3,
-      "required_present": 0,
+      "required_present": 20,
       "reviewable": 32,
       "uncertain": 0
     }
@@ -187,20 +201,20 @@
   "review": {
     "counts": {
       "BAD_CROP": 0,
-      "NEGATIVE_OK": 0,
-      "PENDING": 152,
-      "REQUIRED_PRESENT": 0,
+      "NEGATIVE_OK": 63,
+      "PENDING": 0,
+      "REQUIRED_PRESENT": 89,
       "UNCERTAIN": 0
     },
     "decisions": {
       "BAD_CROP": 0,
-      "NEGATIVE_OK": 0,
-      "REQUIRED_PRESENT": 0,
+      "NEGATIVE_OK": 63,
+      "REQUIRED_PRESENT": 89,
       "UNCERTAIN": 0
     },
-    "pending": 152,
+    "pending": 0,
     "reviewable": 152,
-    "reviewed": 0,
+    "reviewed": 152,
     "skipped": 0
   },
   "schema_version": "ground_litter_hard_negatives_v1",

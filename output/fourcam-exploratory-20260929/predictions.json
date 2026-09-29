@@ -1,0 +1,5465 @@
+[
+  {
+    "file_id": "476689_18081003969_44180209031322001021-1790063733000",
+    "frame_index": 187,
+    "kind": "anchor",
+    "points": [
+      {
+        "truth_id": "t-0001",
+        "xy": [
+          787.15,
+          769.42
+        ]
+      },
+      {
+        "truth_id": "t-0002",
+        "xy": [
+          781.83,
+          728.64
+        ]
+      },
+      {
+        "truth_id": "t-0003",
+        "xy": [
+          822.6,
+          718.01
+        ]
+      },
+      {
+        "truth_id": "t-0004",
+        "xy": [
+          843.88,
+          684.32
+        ]
+      },
+      {
+        "truth_id": "t-0005",
+        "xy": [
+          843.88,
+          579.72
+        ]
+      }
+    ],
+    "camera_id": "01021",
+    "source_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01021/raw/476689_18081003969_44180209031322001021-1790063733000__20260922155533-20260922160037.ps",
+    "source_sha256": "374d87e5d8d4adce6da31b40f1a5fd2a1267963807191180b1310cc81c015c4f",
+    "fps": 25.0,
+    "image": "01021_1790063733000_f187.jpg",
+    "predictions": {
+      "step2b_last": {
+        "tiles": 6,
+        "raw_count": 0,
+        "boxes": [],
+        "point_diagnostics": [
+          {
+            "truth_id": "t-0001",
+            "point": [
+              787.15,
+              769.42
+            ],
+            "nearest": null,
+            "inside_any_box": false
+          },
+          {
+            "truth_id": "t-0002",
+            "point": [
+              781.83,
+              728.64
+            ],
+            "nearest": null,
+            "inside_any_box": false
+          },
+          {
+            "truth_id": "t-0003",
+            "point": [
+              822.6,
+              718.01
+            ],
+            "nearest": null,
+            "inside_any_box": false
+          },
+          {
+            "truth_id": "t-0004",
+            "point": [
+              843.88,
+              684.32
+            ],
+            "nearest": null,
+            "inside_any_box": false
+          },
+          {
+            "truth_id": "t-0005",
+            "point": [
+              843.88,
+              579.72
+            ],
+            "nearest": null,
+            "inside_any_box": false
+          }
+        ]
+      },
+      "turhancan_semantic": {
+        "tiles": 6,
+        "raw_count": 72,
+        "boxes": [
+          {
+            "xyxy": [
+              816.96,
+              554.22,
+              889.41,
+              622.56
+            ],
+            "confidence": 0.79686,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              512,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              242.03,
+              1268.82,
+              300.39,
+              1323.04
+            ],
+            "confidence": 0.67445,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              283.3,
+              1230.13,
+              310.01,
+              1278.05
+            ],
+            "confidence": 0.47096,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              308.34,
+              904.82,
+              431.46,
+              975.01
+            ],
+            "confidence": 0.41537,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              0,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              226.07,
+              1282.35,
+              238.27,
+              1299.39
+            ],
+            "confidence": 0.38824,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              242.56,
+              1269.26,
+              300.73,
+              1323.41
+            ],
+            "confidence": 0.34008,
+            "class_id": 1,
+            "class_name": "Metal",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              791.4,
+              692.89,
+              866.38,
+              749.84
+            ],
+            "confidence": 0.32342,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              512,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              249.18,
+              1205.56,
+              289.51,
+              1238.91
+            ],
+            "confidence": 0.32054,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              283.73,
+              1229.89,
+              309.95,
+              1278.02
+            ],
+            "confidence": 0.25809,
+            "class_id": 1,
+            "class_name": "Metal",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              242.02,
+              1269.13,
+              300.24,
+              1323.63
+            ],
+            "confidence": 0.21624,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              226.3,
+              1282.85,
+              238.04,
+              1299.27
+            ],
+            "confidence": 0.20157,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              792.48,
+              694.88,
+              867.14,
+              755.71
+            ],
+            "confidence": 0.17818,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              512,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              197.53,
+              1107.39,
+              301.01,
+              1224.91
+            ],
+            "confidence": 0.16965,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              336.03,
+              953.1,
+              408.74,
+              975.49
+            ],
+            "confidence": 0.15938,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              0,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              760.0,
+              686.81,
+              827.56,
+              796.11
+            ],
+            "confidence": 0.15523,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              512,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              838.42,
+              420.3,
+              894.77,
+              471.27
+            ],
+            "confidence": 0.12775,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              512,
+              0
+            ]
+          },
+          {
+            "xyxy": [
+              337.3,
+              1030.73,
+              356.93,
+              1061.51
+            ],
+            "confidence": 0.09831,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              0,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              206.24,
+              1196.88,
+              240.94,
+              1233.72
+            ],
+            "confidence": 0.09191,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              311.3,
+              1086.8,
+              344.11,
+              1187.3
+            ],
+            "confidence": 0.09053,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              232.5,
+              1306.9,
+              272.62,
+              1373.34
+            ],
+            "confidence": 0.06204,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              206.98,
+              1199.31,
+              240.64,
+              1233.84
+            ],
+            "confidence": 0.0582,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              321.96,
+              1111.6,
+              344.66,
+              1192.17
+            ],
+            "confidence": 0.05461,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              353.8,
+              974.82,
+              398.46,
+              1036.6
+            ],
+            "confidence": 0.05188,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              0,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              652.83,
+              520.48,
+              663.95,
+              525.13
+            ],
+            "confidence": 0.04336,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              512,
+              0
+            ]
+          },
+          {
+            "xyxy": [
+              247.94,
+              1204.68,
+              288.81,
+              1237.12
+            ],
+            "confidence": 0.04182,
+            "class_id": 1,
+            "class_name": "Metal",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              410.07,
+              926.57,
+              430.93,
+              948.18
+            ],
+            "confidence": 0.03898,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              0,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              231.53,
+              1309.77,
+              295.25,
+              1393.25
+            ],
+            "confidence": 0.02971,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              522.27,
+              832.34,
+              533.67,
+              836.86
+            ],
+            "confidence": 0.02795,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              340.58,
+              1197.81,
+              348.66,
+              1217.64
+            ],
+            "confidence": 0.02218,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              366.29,
+              977.65,
+              393.66,
+              1037.27
+            ],
+            "confidence": 0.02076,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              0,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              333.58,
+              1176.08,
+              343.37,
+              1194.63
+            ],
+            "confidence": 0.02045,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              386.3,
+              1057.7,
+              391.27,
+              1063.42
+            ],
+            "confidence": 0.0199,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              0,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              474.13,
+              986.13,
+              480.78,
+              995.93
+            ],
+            "confidence": 0.01829,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              0,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              767.67,
+              488.23,
+              840.32,
+              504.26
+            ],
+            "confidence": 0.01697,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              512,
+              0
+            ]
+          },
+          {
+            "xyxy": [
+              820.26,
+              475.43,
+              829.81,
+              483.15
+            ],
+            "confidence": 0.01592,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              512,
+              0
+            ]
+          },
+          {
+            "xyxy": [
+              672.15,
+              376.9,
+              745.51,
+              468.91
+            ],
+            "confidence": 0.01518,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              512,
+              0
+            ]
+          },
+          {
+            "xyxy": [
+              627.44,
+              544.46,
+              650.89,
+              596.63
+            ],
+            "confidence": 0.0133,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              512,
+              0
+            ]
+          },
+          {
+            "xyxy": [
+              874.05,
+              556.02,
+              884.39,
+              566.54
+            ],
+            "confidence": 0.01303,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              512,
+              0
+            ]
+          },
+          {
+            "xyxy": [
+              594.7,
+              660.23,
+              609.05,
+              683.02
+            ],
+            "confidence": 0.01299,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              512,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              242.06,
+              1308.12,
+              251.56,
+              1324.66
+            ],
+            "confidence": 0.01273,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              252.82,
+              1098.71,
+              292.48,
+              1107.74
+            ],
+            "confidence": 0.01236,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              0,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              761.29,
+              856.52,
+              767.66,
+              861.18
+            ],
+            "confidence": 0.01198,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              512,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              406.89,
+              927.51,
+              431.33,
+              949.71
+            ],
+            "confidence": 0.01185,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              0,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              343.18,
+              1247.52,
+              357.25,
+              1265.26
+            ],
+            "confidence": 0.01176,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              0,
+              800
+            ]
+          }
+        ],
+        "point_diagnostics": [
+          {
+            "truth_id": "t-0001",
+            "point": [
+              787.15,
+              769.42
+            ],
+            "nearest": {
+              "edge_distance_px": 0.0,
+              "candidate": {
+                "xyxy": [
+                  760.0,
+                  686.81,
+                  827.56,
+                  796.11
+                ],
+                "confidence": 0.15523,
+                "class_id": 2,
+                "class_name": "Paper",
+                "tile_xy": [
+                  512,
+                  512
+                ]
+              }
+            },
+            "inside_any_box": true
+          },
+          {
+            "truth_id": "t-0002",
+            "point": [
+              781.83,
+              728.64
+            ],
+            "nearest": {
+              "edge_distance_px": 0.0,
+              "candidate": {
+                "xyxy": [
+                  760.0,
+                  686.81,
+                  827.56,
+                  796.11
+                ],
+                "confidence": 0.15523,
+                "class_id": 2,
+                "class_name": "Paper",
+                "tile_xy": [
+                  512,
+                  512
+                ]
+              }
+            },
+            "inside_any_box": true
+          },
+          {
+            "truth_id": "t-0003",
+            "point": [
+              822.6,
+              718.01
+            ],
+            "nearest": {
+              "edge_distance_px": 0.0,
+              "candidate": {
+                "xyxy": [
+                  791.4,
+                  692.89,
+                  866.38,
+                  749.84
+                ],
+                "confidence": 0.32342,
+                "class_id": 3,
+                "class_name": "Plastic",
+                "tile_xy": [
+                  512,
+                  512
+                ]
+              }
+            },
+            "inside_any_box": true
+          },
+          {
+            "truth_id": "t-0004",
+            "point": [
+              843.88,
+              684.32
+            ],
+            "nearest": {
+              "edge_distance_px": 8.57,
+              "candidate": {
+                "xyxy": [
+                  791.4,
+                  692.89,
+                  866.38,
+                  749.84
+                ],
+                "confidence": 0.32342,
+                "class_id": 3,
+                "class_name": "Plastic",
+                "tile_xy": [
+                  512,
+                  512
+                ]
+              }
+            },
+            "inside_any_box": false
+          },
+          {
+            "truth_id": "t-0005",
+            "point": [
+              843.88,
+              579.72
+            ],
+            "nearest": {
+              "edge_distance_px": 0.0,
+              "candidate": {
+                "xyxy": [
+                  816.96,
+                  554.22,
+                  889.41,
+                  622.56
+                ],
+                "confidence": 0.79686,
+                "class_id": 3,
+                "class_name": "Plastic",
+                "tile_xy": [
+                  512,
+                  512
+                ]
+              }
+            },
+            "inside_any_box": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "file_id": "476689_18081003969_44180209031322001021-1790063733000",
+    "frame_index": 3750,
+    "kind": "context_unlabelled",
+    "points": [],
+    "camera_id": "01021",
+    "source_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01021/raw/476689_18081003969_44180209031322001021-1790063733000__20260922155533-20260922160037.ps",
+    "source_sha256": "374d87e5d8d4adce6da31b40f1a5fd2a1267963807191180b1310cc81c015c4f",
+    "fps": 25.0,
+    "image": "01021_1790063733000_f3750.jpg",
+    "predictions": {
+      "step2b_last": {
+        "tiles": 6,
+        "raw_count": 1,
+        "boxes": [
+          {
+            "xyxy": [
+              817.1,
+              573.34,
+              894.67,
+              619.15
+            ],
+            "confidence": 0.35666,
+            "class_id": 0,
+            "class_name": "ground_litter",
+            "tile_xy": [
+              512,
+              0
+            ]
+          }
+        ],
+        "point_diagnostics": []
+      },
+      "turhancan_semantic": {
+        "tiles": 6,
+        "raw_count": 72,
+        "boxes": [
+          {
+            "xyxy": [
+              242.58,
+              1268.82,
+              299.98,
+              1322.81
+            ],
+            "confidence": 0.6168,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              764.45,
+              695.14,
+              869.42,
+              795.67
+            ],
+            "confidence": 0.39833,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              512,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              283.15,
+              1229.7,
+              310.91,
+              1279.04
+            ],
+            "confidence": 0.39366,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              790.91,
+              693.97,
+              867.65,
+              747.53
+            ],
+            "confidence": 0.39032,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              512,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              243.76,
+              1269.79,
+              300.59,
+              1322.85
+            ],
+            "confidence": 0.37741,
+            "class_id": 1,
+            "class_name": "Metal",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              817.17,
+              560.07,
+              895.62,
+              622.81
+            ],
+            "confidence": 0.36843,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              512,
+              0
+            ]
+          },
+          {
+            "xyxy": [
+              243.08,
+              1268.95,
+              300.03,
+              1323.27
+            ],
+            "confidence": 0.30989,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              309.17,
+              904.87,
+              431.18,
+              973.63
+            ],
+            "confidence": 0.28127,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              0,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              225.94,
+              1282.81,
+              238.02,
+              1299.31
+            ],
+            "confidence": 0.25461,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              334.56,
+              951.99,
+              412.01,
+              975.69
+            ],
+            "confidence": 0.20864,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              0,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              226.07,
+              1283.41,
+              237.89,
+              1299.1
+            ],
+            "confidence": 0.18537,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              249.92,
+              1204.91,
+              289.84,
+              1238.87
+            ],
+            "confidence": 0.17819,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              336.9,
+              1031.99,
+              357.66,
+              1061.2
+            ],
+            "confidence": 0.14603,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              0,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              308.9,
+              904.36,
+              431.49,
+              974.03
+            ],
+            "confidence": 0.12932,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              0,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              283.82,
+              1226.9,
+              309.96,
+              1279.35
+            ],
+            "confidence": 0.10819,
+            "class_id": 1,
+            "class_name": "Metal",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              338.71,
+              974.07,
+              398.52,
+              1037.15
+            ],
+            "confidence": 0.10799,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              0,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              838.94,
+              421.47,
+              895.28,
+              470.91
+            ],
+            "confidence": 0.09319,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              512,
+              0
+            ]
+          },
+          {
+            "xyxy": [
+              192.95,
+              1107.19,
+              300.89,
+              1228.89
+            ],
+            "confidence": 0.08445,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              310.96,
+              1089.4,
+              343.14,
+              1152.0
+            ],
+            "confidence": 0.08381,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              0,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              213.18,
+              1214.32,
+              239.61,
+              1233.43
+            ],
+            "confidence": 0.07857,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              651.37,
+              519.88,
+              664.4,
+              526.23
+            ],
+            "confidence": 0.07566,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              512,
+              0
+            ]
+          },
+          {
+            "xyxy": [
+              318.38,
+              1111.35,
+              344.66,
+              1193.32
+            ],
+            "confidence": 0.07125,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              823.24,
+              479.48,
+              834.76,
+              485.95
+            ],
+            "confidence": 0.06417,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              512,
+              0
+            ]
+          },
+          {
+            "xyxy": [
+              595.0,
+              660.06,
+              609.35,
+              683.49
+            ],
+            "confidence": 0.0582,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              512,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              817.12,
+              553.37,
+              896.82,
+              622.98
+            ],
+            "confidence": 0.0438,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              512,
+              0
+            ]
+          },
+          {
+            "xyxy": [
+              207.41,
+              1207.08,
+              240.42,
+              1233.72
+            ],
+            "confidence": 0.04292,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              792.29,
+              694.86,
+              869.81,
+              754.77
+            ],
+            "confidence": 0.04201,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              512,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              249.61,
+              1206.25,
+              289.8,
+              1238.62
+            ],
+            "confidence": 0.04015,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              233.99,
+              1310.33,
+              272.49,
+              1374.23
+            ],
+            "confidence": 0.02893,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              241.76,
+              1309.75,
+              251.41,
+              1325.09
+            ],
+            "confidence": 0.02787,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              650.08,
+              519.38,
+              664.71,
+              526.05
+            ],
+            "confidence": 0.02001,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              512,
+              0
+            ]
+          },
+          {
+            "xyxy": [
+              669.69,
+              368.65,
+              745.74,
+              471.52
+            ],
+            "confidence": 0.01932,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              512,
+              0
+            ]
+          },
+          {
+            "xyxy": [
+              386.03,
+              1057.08,
+              390.99,
+              1063.6
+            ],
+            "confidence": 0.01753,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              0,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              340.58,
+              1198.73,
+              349.02,
+              1217.99
+            ],
+            "confidence": 0.01567,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              252.86,
+              1098.5,
+              293.48,
+              1107.72
+            ],
+            "confidence": 0.01505,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              0,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              409.94,
+              926.81,
+              430.65,
+              947.94
+            ],
+            "confidence": 0.01409,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              0,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              205.48,
+              1184.23,
+              240.17,
+              1237.99
+            ],
+            "confidence": 0.01359,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              626.11,
+              527.56,
+              632.13,
+              541.69
+            ],
+            "confidence": 0.01342,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              512,
+              0
+            ]
+          },
+          {
+            "xyxy": [
+              275.33,
+              936.1,
+              424.61,
+              1004.88
+            ],
+            "confidence": 0.01246,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              309.02,
+              942.91,
+              422.35,
+              977.23
+            ],
+            "confidence": 0.01211,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              838.59,
+              624.47,
+              865.59,
+              639.98
+            ],
+            "confidence": 0.01123,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              512,
+              0
+            ]
+          },
+          {
+            "xyxy": [
+              725.59,
+              475.5,
+              738.06,
+              479.79
+            ],
+            "confidence": 0.01088,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              512,
+              0
+            ]
+          },
+          {
+            "xyxy": [
+              232.14,
+              1311.03,
+              295.72,
+              1392.61
+            ],
+            "confidence": 0.01063,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              0,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              474.13,
+              989.67,
+              480.57,
+              997.83
+            ],
+            "confidence": 0.01038,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              0,
+              512
+            ]
+          }
+        ],
+        "point_diagnostics": []
+      }
+    }
+  },
+  {
+    "file_id": "281238_18081003969_44180209031322001022-1790063800000",
+    "frame_index": 204,
+    "kind": "anchor",
+    "points": [
+      {
+        "truth_id": "t-0006",
+        "xy": [
+          1652.3,
+          987.48
+        ]
+      }
+    ],
+    "camera_id": "01022",
+    "source_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01022/raw/281238_18081003969_44180209031322001022-1790063800000__20260922155640-20260922160144.ps",
+    "source_sha256": "7d0671c3a30f6255f010f4f2d00e1287da4614a0214ca3194b7e0d0459459871",
+    "fps": 25.0,
+    "image": "01022_1790063800000_f204.jpg",
+    "predictions": {
+      "step2b_last": {
+        "tiles": 8,
+        "raw_count": 0,
+        "boxes": [],
+        "point_diagnostics": [
+          {
+            "truth_id": "t-0006",
+            "point": [
+              1652.3,
+              987.48
+            ],
+            "nearest": null,
+            "inside_any_box": false
+          }
+        ]
+      },
+      "turhancan_semantic": {
+        "tiles": 8,
+        "raw_count": 52,
+        "boxes": [
+          {
+            "xyxy": [
+              1622.66,
+              957.23,
+              1664.0,
+              1014.79
+            ],
+            "confidence": 0.55635,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1821.17,
+              1290.02,
+              1913.22,
+              1350.78
+            ],
+            "confidence": 0.32378,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1725.73,
+              1285.57,
+              1972.21,
+              1438.47
+            ],
+            "confidence": 0.23516,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1129.23,
+              622.23,
+              1168.37,
+              659.7
+            ],
+            "confidence": 0.2314,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1128.82,
+              621.84,
+              1166.45,
+              640.0
+            ],
+            "confidence": 0.09052,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              0
+            ]
+          },
+          {
+            "xyxy": [
+              1437.04,
+              1264.15,
+              1445.24,
+              1268.73
+            ],
+            "confidence": 0.07914,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1277.27,
+              1149.96,
+              1286.79,
+              1158.01
+            ],
+            "confidence": 0.06125,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1736.8,
+              1169.9,
+              1789.68,
+              1300.71
+            ],
+            "confidence": 0.05546,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1400.51,
+              545.29,
+              1429.48,
+              625.99
+            ],
+            "confidence": 0.04859,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              0
+            ]
+          },
+          {
+            "xyxy": [
+              1573.48,
+              844.71,
+              1588.6,
+              855.02
+            ],
+            "confidence": 0.04399,
+            "class_id": 1,
+            "class_name": "Metal",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1410.71,
+              855.49,
+              1426.55,
+              860.76
+            ],
+            "confidence": 0.04337,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1466.28,
+              1337.1,
+              1471.49,
+              1341.84
+            ],
+            "confidence": 0.0431,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1736.72,
+              1168.82,
+              1788.77,
+              1300.86
+            ],
+            "confidence": 0.03892,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1536.08,
+              1314.54,
+              1703.49,
+              1413.69
+            ],
+            "confidence": 0.03487,
+            "class_id": 1,
+            "class_name": "Metal",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1405.58,
+              637.56,
+              1514.28,
+              694.76
+            ],
+            "confidence": 0.03354,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1820.41,
+              1293.32,
+              1945.19,
+              1392.19
+            ],
+            "confidence": 0.02745,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1618.09,
+              1290.31,
+              1623.92,
+              1295.02
+            ],
+            "confidence": 0.0269,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1832.89,
+              1338.29,
+              1941.61,
+              1383.33
+            ],
+            "confidence": 0.02525,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1604.86,
+              1255.85,
+              1614.11,
+              1260.72
+            ],
+            "confidence": 0.02502,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1381.26,
+              1168.56,
+              1399.69,
+              1174.88
+            ],
+            "confidence": 0.02339,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1671.4,
+              1054.04,
+              1682.54,
+              1072.45
+            ],
+            "confidence": 0.02327,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1834.19,
+              1320.71,
+              1911.39,
+              1350.03
+            ],
+            "confidence": 0.0218,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1573.18,
+              844.12,
+              1588.55,
+              854.7
+            ],
+            "confidence": 0.02137,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1751.68,
+              1162.22,
+              1782.34,
+              1172.74
+            ],
+            "confidence": 0.02113,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1860.11,
+              1292.06,
+              1893.52,
+              1327.7
+            ],
+            "confidence": 0.02109,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1404.57,
+              721.21,
+              1446.31,
+              759.47
+            ],
+            "confidence": 0.0196,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1338.0,
+              607.21,
+              1409.25,
+              614.95
+            ],
+            "confidence": 0.01839,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              0
+            ]
+          },
+          {
+            "xyxy": [
+              1364.31,
+              1016.89,
+              1376.32,
+              1021.22
+            ],
+            "confidence": 0.0175,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1484.5,
+              905.21,
+              1538.75,
+              978.85
+            ],
+            "confidence": 0.01706,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1617.51,
+              1426.89,
+              1622.56,
+              1432.86
+            ],
+            "confidence": 0.01645,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1533.14,
+              1313.01,
+              1541.17,
+              1319.6
+            ],
+            "confidence": 0.01536,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1129.54,
+              621.67,
+              1168.22,
+              660.0
+            ],
+            "confidence": 0.01335,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1410.88,
+              852.91,
+              1425.64,
+              859.05
+            ],
+            "confidence": 0.01277,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1536.0,
+              895.5,
+              1540.66,
+              920.09
+            ],
+            "confidence": 0.01267,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1306.57,
+              1248.39,
+              1312.19,
+              1252.93
+            ],
+            "confidence": 0.01165,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1563.26,
+              984.63,
+              1573.44,
+              989.46
+            ],
+            "confidence": 0.01128,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1296.14,
+              1136.97,
+              1309.18,
+              1144.56
+            ],
+            "confidence": 0.011,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1387.03,
+              1424.91,
+              1391.4,
+              1429.39
+            ],
+            "confidence": 0.01036,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          }
+        ],
+        "point_diagnostics": [
+          {
+            "truth_id": "t-0006",
+            "point": [
+              1652.3,
+              987.48
+            ],
+            "nearest": {
+              "edge_distance_px": 0.0,
+              "candidate": {
+                "xyxy": [
+                  1622.66,
+                  957.23,
+                  1664.0,
+                  1014.79
+                ],
+                "confidence": 0.55635,
+                "class_id": 3,
+                "class_name": "Plastic",
+                "tile_xy": [
+                  1024,
+                  512
+                ]
+              }
+            },
+            "inside_any_box": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "file_id": "281238_18081003969_44180209031322001022-1790063800000",
+    "frame_index": 3750,
+    "kind": "context_unlabelled",
+    "points": [],
+    "camera_id": "01022",
+    "source_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01022/raw/281238_18081003969_44180209031322001022-1790063800000__20260922155640-20260922160144.ps",
+    "source_sha256": "7d0671c3a30f6255f010f4f2d00e1287da4614a0214ca3194b7e0d0459459871",
+    "fps": 25.0,
+    "image": "01022_1790063800000_f3750.jpg",
+    "predictions": {
+      "step2b_last": {
+        "tiles": 8,
+        "raw_count": 0,
+        "boxes": [],
+        "point_diagnostics": []
+      },
+      "turhancan_semantic": {
+        "tiles": 8,
+        "raw_count": 36,
+        "boxes": [
+          {
+            "xyxy": [
+              1622.66,
+              957.37,
+              1664.0,
+              1015.36
+            ],
+            "confidence": 0.58139,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1726.97,
+              1286.51,
+              1952.26,
+              1437.99
+            ],
+            "confidence": 0.34944,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1820.48,
+              1289.08,
+              1914.2,
+              1351.31
+            ],
+            "confidence": 0.28707,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1536.31,
+              1314.49,
+              1703.65,
+              1405.86
+            ],
+            "confidence": 0.1272,
+            "class_id": 1,
+            "class_name": "Metal",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1821.91,
+              1289.85,
+              1944.55,
+              1390.19
+            ],
+            "confidence": 0.06552,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1277.48,
+              1150.8,
+              1286.61,
+              1157.94
+            ],
+            "confidence": 0.05612,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1126.7,
+              621.51,
+              1166.36,
+              639.94
+            ],
+            "confidence": 0.05169,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              0
+            ]
+          },
+          {
+            "xyxy": [
+              1736.4,
+              1170.37,
+              1793.93,
+              1307.85
+            ],
+            "confidence": 0.05159,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1410.59,
+              855.49,
+              1426.07,
+              861.19
+            ],
+            "confidence": 0.04987,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1573.4,
+              844.53,
+              1588.75,
+              854.68
+            ],
+            "confidence": 0.04978,
+            "class_id": 1,
+            "class_name": "Metal",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1129.75,
+              621.92,
+              1168.06,
+              659.36
+            ],
+            "confidence": 0.04847,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1437.07,
+              1263.87,
+              1445.16,
+              1268.64
+            ],
+            "confidence": 0.0474,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1736.3,
+              1169.5,
+              1789.49,
+              1304.64
+            ],
+            "confidence": 0.03568,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1617.57,
+              1290.18,
+              1623.73,
+              1295.44
+            ],
+            "confidence": 0.02816,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1400.63,
+              545.3,
+              1429.23,
+              627.23
+            ],
+            "confidence": 0.02445,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              0
+            ]
+          },
+          {
+            "xyxy": [
+              1465.56,
+              1337.01,
+              1471.25,
+              1341.8
+            ],
+            "confidence": 0.0231,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1130.31,
+              621.28,
+              1168.47,
+              659.39
+            ],
+            "confidence": 0.02309,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1835.73,
+              1320.72,
+              1911.43,
+              1350.18
+            ],
+            "confidence": 0.0215,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1381.69,
+              1168.83,
+              1399.09,
+              1174.81
+            ],
+            "confidence": 0.02123,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1363.75,
+              1016.74,
+              1377.13,
+              1021.82
+            ],
+            "confidence": 0.02061,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1306.59,
+              1248.1,
+              1312.76,
+              1252.9
+            ],
+            "confidence": 0.02049,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1296.42,
+              1136.88,
+              1308.92,
+              1144.45
+            ],
+            "confidence": 0.01686,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1617.75,
+              1426.92,
+              1622.68,
+              1432.94
+            ],
+            "confidence": 0.01489,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1298.77,
+              1137.16,
+              1309.23,
+              1143.75
+            ],
+            "confidence": 0.0134,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1405.8,
+              721.64,
+              1444.12,
+              753.99
+            ],
+            "confidence": 0.01285,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1410.6,
+              851.94,
+              1425.05,
+              859.11
+            ],
+            "confidence": 0.01193,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1832.5,
+              1339.16,
+              1944.07,
+              1389.24
+            ],
+            "confidence": 0.0106,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1860.25,
+              1292.41,
+              1885.74,
+              1327.37
+            ],
+            "confidence": 0.01046,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1572.7,
+              843.12,
+              1588.65,
+              854.22
+            ],
+            "confidence": 0.01033,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1536,
+              512
+            ]
+          }
+        ],
+        "point_diagnostics": []
+      }
+    }
+  },
+  {
+    "file_id": "281238_18081003969_44180209031322001022-1790064104000",
+    "frame_index": 5100,
+    "kind": "anchor",
+    "points": [
+      {
+        "truth_id": "t-0007",
+        "xy": [
+          1643.43,
+          1416.51
+        ]
+      }
+    ],
+    "camera_id": "01022",
+    "source_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01022/raw/281238_18081003969_44180209031322001022-1790064104000__20260922160144-20260922160648.ps",
+    "source_sha256": "695c0ee59cdda776b6625247c0d0993593d1df95d8bda7e66b8ae085ed2f89e4",
+    "fps": 25.0,
+    "image": "01022_1790064104000_f5100.jpg",
+    "predictions": {
+      "step2b_last": {
+        "tiles": 8,
+        "raw_count": 0,
+        "boxes": [],
+        "point_diagnostics": [
+          {
+            "truth_id": "t-0007",
+            "point": [
+              1643.43,
+              1416.51
+            ],
+            "nearest": null,
+            "inside_any_box": false
+          }
+        ]
+      },
+      "turhancan_semantic": {
+        "tiles": 8,
+        "raw_count": 52,
+        "boxes": [
+          {
+            "xyxy": [
+              1622.47,
+              957.07,
+              1664.0,
+              1015.2
+            ],
+            "confidence": 0.57401,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1129.57,
+              622.35,
+              1168.19,
+              659.77
+            ],
+            "confidence": 0.25409,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1820.45,
+              1289.11,
+              1917.81,
+              1351.23
+            ],
+            "confidence": 0.2533,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1726.37,
+              1287.74,
+              1955.36,
+              1438.65
+            ],
+            "confidence": 0.23338,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1634.97,
+              1412.04,
+              1650.06,
+              1421.76
+            ],
+            "confidence": 0.22749,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1634.95,
+              1412.13,
+              1651.97,
+              1421.55
+            ],
+            "confidence": 0.17723,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1634.81,
+              1411.85,
+              1650.21,
+              1421.68
+            ],
+            "confidence": 0.13052,
+            "class_id": 1,
+            "class_name": "Metal",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1128.31,
+              622.1,
+              1168.16,
+              640.0
+            ],
+            "confidence": 0.10056,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              0
+            ]
+          },
+          {
+            "xyxy": [
+              1436.81,
+              1262.92,
+              1445.01,
+              1268.85
+            ],
+            "confidence": 0.06721,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1572.68,
+              844.57,
+              1588.7,
+              854.93
+            ],
+            "confidence": 0.06316,
+            "class_id": 1,
+            "class_name": "Metal",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1616.46,
+              1290.07,
+              1624.05,
+              1295.11
+            ],
+            "confidence": 0.05348,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1536.62,
+              1314.86,
+              1702.98,
+              1405.03
+            ],
+            "confidence": 0.04625,
+            "class_id": 1,
+            "class_name": "Metal",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1617.23,
+              1426.87,
+              1623.06,
+              1432.87
+            ],
+            "confidence": 0.0455,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1381.37,
+              1168.75,
+              1399.02,
+              1174.91
+            ],
+            "confidence": 0.04194,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1735.79,
+              1169.43,
+              1789.99,
+              1308.41
+            ],
+            "confidence": 0.03844,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1277.21,
+              1150.12,
+              1286.91,
+              1157.81
+            ],
+            "confidence": 0.03599,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1410.46,
+              855.67,
+              1425.95,
+              860.99
+            ],
+            "confidence": 0.03571,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1263.42,
+              936.12,
+              1287.41,
+              942.35
+            ],
+            "confidence": 0.03513,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1264.3,
+              936.44,
+              1285.27,
+              942.81
+            ],
+            "confidence": 0.03146,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1735.58,
+              1168.97,
+              1788.87,
+              1305.76
+            ],
+            "confidence": 0.0254,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1386.68,
+              1424.77,
+              1391.54,
+              1429.14
+            ],
+            "confidence": 0.02522,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1572.32,
+              843.86,
+              1588.63,
+              854.66
+            ],
+            "confidence": 0.02397,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1194.97,
+              938.35,
+              1318.04,
+              1044.41
+            ],
+            "confidence": 0.02248,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1820.43,
+              1303.46,
+              1944.43,
+              1373.95
+            ],
+            "confidence": 0.01898,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1835.04,
+              1321.34,
+              1911.51,
+              1349.91
+            ],
+            "confidence": 0.01881,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1502.51,
+              818.85,
+              1536.8,
+              891.55
+            ],
+            "confidence": 0.01573,
+            "class_id": 1,
+            "class_name": "Metal",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1750.88,
+              1161.55,
+              1787.26,
+              1173.15
+            ],
+            "confidence": 0.01441,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1296.02,
+              1136.9,
+              1309.16,
+              1144.86
+            ],
+            "confidence": 0.01355,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1563.22,
+              984.81,
+              1573.32,
+              989.36
+            ],
+            "confidence": 0.01194,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1860.05,
+              1292.95,
+              1884.73,
+              1327.44
+            ],
+            "confidence": 0.01179,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1410.44,
+              850.64,
+              1425.27,
+              858.7
+            ],
+            "confidence": 0.01133,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1451.01,
+              1354.26,
+              1456.98,
+              1359.28
+            ],
+            "confidence": 0.01132,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1201.51,
+              665.93,
+              1221.6,
+              669.4
+            ],
+            "confidence": 0.0104,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1604.65,
+              1255.5,
+              1614.09,
+              1260.77
+            ],
+            "confidence": 0.01026,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          }
+        ],
+        "point_diagnostics": [
+          {
+            "truth_id": "t-0007",
+            "point": [
+              1643.43,
+              1416.51
+            ],
+            "nearest": {
+              "edge_distance_px": 0.0,
+              "candidate": {
+                "xyxy": [
+                  1634.97,
+                  1412.04,
+                  1650.06,
+                  1421.76
+                ],
+                "confidence": 0.22749,
+                "class_id": 4,
+                "class_name": "Waste",
+                "tile_xy": [
+                  1024,
+                  800
+                ]
+              }
+            },
+            "inside_any_box": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "file_id": "281238_18081003969_44180209031322001022-1790066839000",
+    "frame_index": 5911,
+    "kind": "anchor",
+    "points": [
+      {
+        "truth_id": "t-0008",
+        "xy": [
+          1666.48,
+          1145.26
+        ]
+      }
+    ],
+    "camera_id": "01022",
+    "source_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01022/raw/281238_18081003969_44180209031322001022-1790066839000__20260922164719-20260922165223.ps",
+    "source_sha256": "32aafbcb7717ed03dc0512db4989e9e145b4b4c1fccc9245f6c2b6a2c1a61b7d",
+    "fps": 25.0,
+    "image": "01022_1790066839000_f5911.jpg",
+    "predictions": {
+      "step2b_last": {
+        "tiles": 8,
+        "raw_count": 2,
+        "boxes": [
+          {
+            "xyxy": [
+              1260.19,
+              588.9,
+              1341.36,
+              640.0
+            ],
+            "confidence": 0.15815,
+            "class_id": 0,
+            "class_name": "ground_litter",
+            "tile_xy": [
+              1024,
+              0
+            ]
+          }
+        ],
+        "point_diagnostics": [
+          {
+            "truth_id": "t-0008",
+            "point": [
+              1666.48,
+              1145.26
+            ],
+            "nearest": {
+              "edge_distance_px": 600.83,
+              "candidate": {
+                "xyxy": [
+                  1260.19,
+                  588.9,
+                  1341.36,
+                  640.0
+                ],
+                "confidence": 0.15815,
+                "class_id": 0,
+                "class_name": "ground_litter",
+                "tile_xy": [
+                  1024,
+                  0
+                ]
+              }
+            },
+            "inside_any_box": false
+          }
+        ]
+      },
+      "turhancan_semantic": {
+        "tiles": 8,
+        "raw_count": 146,
+        "boxes": [
+          {
+            "xyxy": [
+              1582.82,
+              1070.31,
+              1664.0,
+              1219.7
+            ],
+            "confidence": 0.74305,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1582.79,
+              1068.63,
+              1726.96,
+              1220.03
+            ],
+            "confidence": 0.72397,
+            "class_id": 1,
+            "class_name": "Metal",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1186.0,
+              583.09,
+              1348.13,
+              640.0
+            ],
+            "confidence": 0.66783,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              0
+            ]
+          },
+          {
+            "xyxy": [
+              1212.0,
+              540.31,
+              1245.86,
+              584.2
+            ],
+            "confidence": 0.55827,
+            "class_id": 1,
+            "class_name": "Metal",
+            "tile_xy": [
+              1024,
+              0
+            ]
+          },
+          {
+            "xyxy": [
+              1602.16,
+              1069.77,
+              1663.62,
+              1151.56
+            ],
+            "confidence": 0.48783,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1622.54,
+              957.29,
+              1664.0,
+              1015.84
+            ],
+            "confidence": 0.47677,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1227.32,
+              592.0,
+              1357.62,
+              740.36
+            ],
+            "confidence": 0.442,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1602.52,
+              1068.58,
+              1727.3,
+              1152.0
+            ],
+            "confidence": 0.40798,
+            "class_id": 1,
+            "class_name": "Metal",
+            "tile_xy": [
+              1536,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1821.38,
+              1292.5,
+              1912.14,
+              1350.74
+            ],
+            "confidence": 0.36595,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1184.65,
+              579.51,
+              1247.41,
+              639.91
+            ],
+            "confidence": 0.30149,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              0
+            ]
+          },
+          {
+            "xyxy": [
+              1622.6,
+              957.91,
+              1664.0,
+              1015.66
+            ],
+            "confidence": 0.259,
+            "class_id": 1,
+            "class_name": "Metal",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1602.31,
+              1069.55,
+              1663.76,
+              1152.0
+            ],
+            "confidence": 0.23953,
+            "class_id": 1,
+            "class_name": "Metal",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1272.05,
+              539.5,
+              1310.99,
+              595.62
+            ],
+            "confidence": 0.23033,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1266.31,
+              805.51,
+              1298.86,
+              918.6
+            ],
+            "confidence": 0.22675,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1727.4,
+              1287.35,
+              1972.43,
+              1438.48
+            ],
+            "confidence": 0.22247,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1160.61,
+              715.29,
+              1211.8,
+              794.66
+            ],
+            "confidence": 0.21675,
+            "class_id": 1,
+            "class_name": "Metal",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1271.73,
+              539.35,
+              1310.8,
+              593.73
+            ],
+            "confidence": 0.20535,
+            "class_id": 1,
+            "class_name": "Metal",
+            "tile_xy": [
+              1024,
+              0
+            ]
+          },
+          {
+            "xyxy": [
+              1160.84,
+              715.22,
+              1211.18,
+              794.5
+            ],
+            "confidence": 0.16764,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1240.46,
+              793.2,
+              1253.52,
+              807.34
+            ],
+            "confidence": 0.15171,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1128.23,
+              621.46,
+              1167.4,
+              640.0
+            ],
+            "confidence": 0.1451,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              0
+            ]
+          },
+          {
+            "xyxy": [
+              1408.19,
+              645.21,
+              1512.18,
+              696.93
+            ],
+            "confidence": 0.12913,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1205.68,
+              819.29,
+              1226.85,
+              833.89
+            ],
+            "confidence": 0.09706,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1271.72,
+              539.96,
+              1310.95,
+              595.19
+            ],
+            "confidence": 0.0883,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              0
+            ]
+          },
+          {
+            "xyxy": [
+              1323.99,
+              663.28,
+              1349.92,
+              757.03
+            ],
+            "confidence": 0.08401,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1268.04,
+              888.66,
+              1296.44,
+              918.06
+            ],
+            "confidence": 0.06967,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1171.3,
+              632.28,
+              1235.5,
+              717.45
+            ],
+            "confidence": 0.06748,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1204.66,
+              817.73,
+              1226.85,
+              833.58
+            ],
+            "confidence": 0.06541,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1442.69,
+              691.35,
+              1483.66,
+              725.48
+            ],
+            "confidence": 0.06365,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1176.6,
+              581.7,
+              1356.41,
+              738.55
+            ],
+            "confidence": 0.06178,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1617.0,
+              1289.99,
+              1624.02,
+              1295.06
+            ],
+            "confidence": 0.06014,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1174.84,
+              580.18,
+              1249.99,
+              729.89
+            ],
+            "confidence": 0.06005,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1276.83,
+              1148.63,
+              1286.9,
+              1157.71
+            ],
+            "confidence": 0.05105,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1823.23,
+              1317.14,
+              1944.49,
+              1377.85
+            ],
+            "confidence": 0.0501,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1411.3,
+              856.28,
+              1426.06,
+              860.83
+            ],
+            "confidence": 0.04945,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1194.23,
+              938.68,
+              1318.24,
+              1044.07
+            ],
+            "confidence": 0.04541,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1572.78,
+              843.99,
+              1588.81,
+              854.88
+            ],
+            "confidence": 0.04417,
+            "class_id": 1,
+            "class_name": "Metal",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1241.16,
+              719.24,
+              1329.23,
+              813.97
+            ],
+            "confidence": 0.04085,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1264.73,
+              771.71,
+              1314.98,
+              917.47
+            ],
+            "confidence": 0.03951,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1741.45,
+              1322.34,
+              1858.31,
+              1398.74
+            ],
+            "confidence": 0.03635,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1386.11,
+              1424.68,
+              1391.7,
+              1429.6
+            ],
+            "confidence": 0.03593,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1159.96,
+              715.65,
+              1212.35,
+              795.29
+            ],
+            "confidence": 0.03438,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1226.78,
+              708.89,
+              1247.49,
+              810.95
+            ],
+            "confidence": 0.03314,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1411.33,
+              856.16,
+              1426.03,
+              860.79
+            ],
+            "confidence": 0.03194,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1770.72,
+              1344.82,
+              1856.04,
+              1389.97
+            ],
+            "confidence": 0.03062,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1573.07,
+              844.02,
+              1588.8,
+              854.78
+            ],
+            "confidence": 0.03059,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1175.51,
+              583.15,
+              1353.6,
+              926.46
+            ],
+            "confidence": 0.02951,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1516.74,
+              1314.97,
+              1662.79,
+              1404.7
+            ],
+            "confidence": 0.02879,
+            "class_id": 1,
+            "class_name": "Metal",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1410.91,
+              720.59,
+              1450.27,
+              753.23
+            ],
+            "confidence": 0.02841,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1241.46,
+              809.48,
+              1265.37,
+              831.53
+            ],
+            "confidence": 0.02821,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1400.68,
+              545.84,
+              1430.23,
+              628.32
+            ],
+            "confidence": 0.02768,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              0
+            ]
+          },
+          {
+            "xyxy": [
+              1130.01,
+              621.84,
+              1167.49,
+              659.52
+            ],
+            "confidence": 0.02683,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1204.35,
+              679.27,
+              1225.87,
+              712.99
+            ],
+            "confidence": 0.02627,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1160.22,
+              715.69,
+              1211.56,
+              794.65
+            ],
+            "confidence": 0.02583,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1129.51,
+              621.11,
+              1168.01,
+              660.25
+            ],
+            "confidence": 0.02511,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1205.3,
+              818.71,
+              1227.02,
+              834.33
+            ],
+            "confidence": 0.02385,
+            "class_id": 1,
+            "class_name": "Metal",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1334.26,
+              699.13,
+              1352.33,
+              750.26
+            ],
+            "confidence": 0.0236,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1284.78,
+              800.97,
+              1313.37,
+              885.93
+            ],
+            "confidence": 0.0227,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1407.27,
+              678.04,
+              1430.57,
+              688.99
+            ],
+            "confidence": 0.02263,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1267.0,
+              894.22,
+              1275.48,
+              905.54
+            ],
+            "confidence": 0.02218,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1363.91,
+              1016.76,
+              1376.19,
+              1021.86
+            ],
+            "confidence": 0.02208,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1831.93,
+              1338.93,
+              1943.95,
+              1381.26
+            ],
+            "confidence": 0.02097,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1171.86,
+              629.6,
+              1205.02,
+              746.73
+            ],
+            "confidence": 0.02058,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1329.98,
+              706.21,
+              1347.79,
+              750.06
+            ],
+            "confidence": 0.02034,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1860.1,
+              1293.41,
+              1891.35,
+              1327.71
+            ],
+            "confidence": 0.0201,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1572.35,
+              842.81,
+              1588.68,
+              854.26
+            ],
+            "confidence": 0.02004,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1215.55,
+              590.26,
+              1253.76,
+              661.41
+            ],
+            "confidence": 0.0199,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1322.4,
+              613.69,
+              1358.03,
+              668.8
+            ],
+            "confidence": 0.01867,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1322.49,
+              616.62,
+              1359.45,
+              667.88
+            ],
+            "confidence": 0.01856,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1503.62,
+              818.43,
+              1537.47,
+              892.47
+            ],
+            "confidence": 0.01637,
+            "class_id": 1,
+            "class_name": "Metal",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1306.29,
+              1248.47,
+              1312.38,
+              1252.94
+            ],
+            "confidence": 0.01617,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1211.45,
+              578.39,
+              1243.63,
+              590.62
+            ],
+            "confidence": 0.0161,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              0
+            ]
+          },
+          {
+            "xyxy": [
+              1707.35,
+              1131.73,
+              1750.95,
+              1214.28
+            ],
+            "confidence": 0.01591,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1287.15,
+              718.6,
+              1330.57,
+              807.38
+            ],
+            "confidence": 0.01584,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1602.69,
+              1126.07,
+              1632.62,
+              1151.88
+            ],
+            "confidence": 0.0157,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1536,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1242.46,
+              805.59,
+              1263.56,
+              832.09
+            ],
+            "confidence": 0.01568,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1268.49,
+              895.17,
+              1296.22,
+              919.19
+            ],
+            "confidence": 0.01548,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1729.46,
+              1231.91,
+              1738.26,
+              1239.49
+            ],
+            "confidence": 0.01537,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1204.16,
+              682.02,
+              1216.61,
+              705.52
+            ],
+            "confidence": 0.01521,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1382.05,
+              1169.05,
+              1399.31,
+              1174.74
+            ],
+            "confidence": 0.01473,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1563.08,
+              984.95,
+              1573.2,
+              989.85
+            ],
+            "confidence": 0.01469,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1609.27,
+              1289.42,
+              1623.95,
+              1295.3
+            ],
+            "confidence": 0.01463,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1727.62,
+              1092.15,
+              1757.12,
+              1113.49
+            ],
+            "confidence": 0.01452,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1835.19,
+              1320.61,
+              1911.72,
+              1350.52
+            ],
+            "confidence": 0.01438,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1335.22,
+              715.25,
+              1343.87,
+              749.99
+            ],
+            "confidence": 0.01423,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1204.1,
+              658.18,
+              1239.85,
+              713.61
+            ],
+            "confidence": 0.0142,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1741.31,
+              1291.75,
+              1919.32,
+              1392.1
+            ],
+            "confidence": 0.01411,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1198.51,
+              682.14,
+              1228.88,
+              752.81
+            ],
+            "confidence": 0.01408,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1202.9,
+              682.07,
+              1209.18,
+              693.96
+            ],
+            "confidence": 0.01289,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1443.76,
+              691.04,
+              1483.04,
+              723.78
+            ],
+            "confidence": 0.01095,
+            "class_id": 1,
+            "class_name": "Metal",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1476.75,
+              899.29,
+              1538.62,
+              978.71
+            ],
+            "confidence": 0.01084,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1296.51,
+              1137.09,
+              1308.43,
+              1144.82
+            ],
+            "confidence": 0.01063,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          }
+        ],
+        "point_diagnostics": [
+          {
+            "truth_id": "t-0008",
+            "point": [
+              1666.48,
+              1145.26
+            ],
+            "nearest": {
+              "edge_distance_px": 0.0,
+              "candidate": {
+                "xyxy": [
+                  1582.79,
+                  1068.63,
+                  1726.96,
+                  1220.03
+                ],
+                "confidence": 0.72397,
+                "class_id": 1,
+                "class_name": "Metal",
+                "tile_xy": [
+                  1536,
+                  800
+                ]
+              }
+            },
+            "inside_any_box": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "file_id": "860384_18081003969_44180209031322001027-1790063888000",
+    "frame_index": 3750,
+    "kind": "context_unlabelled",
+    "points": [],
+    "camera_id": "01027",
+    "source_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01027/raw/860384_18081003969_44180209031322001027-1790063888000__20260922155808-20260922160312.ps",
+    "source_sha256": "9dbc254d8802c23325eb1f286754bc0a9c0f99669358653555ae057be844f39b",
+    "fps": 25.0,
+    "image": "01027_1790063888000_f3750.jpg",
+    "predictions": {
+      "step2b_last": {
+        "tiles": 2,
+        "raw_count": 0,
+        "boxes": [],
+        "point_diagnostics": []
+      },
+      "turhancan_semantic": {
+        "tiles": 2,
+        "raw_count": 0,
+        "boxes": [],
+        "point_diagnostics": []
+      }
+    }
+  },
+  {
+    "file_id": "318010_18081003969_44180209031322001030-1790063889000",
+    "frame_index": 230,
+    "kind": "anchor",
+    "points": [
+      {
+        "truth_id": "t-0009",
+        "xy": [
+          1498.06,
+          638.23
+        ]
+      }
+    ],
+    "camera_id": "01030",
+    "source_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01030/raw/318010_18081003969_44180209031322001030-1790063889000__20260922155809-20260922160313.ps",
+    "source_sha256": "9d0eb57a82ba1ff2541c28e518352659e326bc52da493087bb3e61eeacc0ef8e",
+    "fps": 25.0,
+    "image": "01030_1790063889000_f230.jpg",
+    "predictions": {
+      "step2b_last": {
+        "tiles": 10,
+        "raw_count": 1,
+        "boxes": [
+          {
+            "xyxy": [
+              1487.56,
+              631.26,
+              1508.48,
+              643.01
+            ],
+            "confidence": 0.08567,
+            "class_id": 0,
+            "class_name": "ground_litter",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          }
+        ],
+        "point_diagnostics": [
+          {
+            "truth_id": "t-0009",
+            "point": [
+              1498.06,
+              638.23
+            ],
+            "nearest": {
+              "edge_distance_px": 0.0,
+              "candidate": {
+                "xyxy": [
+                  1487.56,
+                  631.26,
+                  1508.48,
+                  643.01
+                ],
+                "confidence": 0.08567,
+                "class_id": 0,
+                "class_name": "ground_litter",
+                "tile_xy": [
+                  1024,
+                  512
+                ]
+              }
+            },
+            "inside_any_box": true
+          }
+        ]
+      },
+      "turhancan_semantic": {
+        "tiles": 10,
+        "raw_count": 32,
+        "boxes": [
+          {
+            "xyxy": [
+              1858.82,
+              1293.58,
+              2047.71,
+              1329.56
+            ],
+            "confidence": 0.44796,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1488.05,
+              633.54,
+              1509.26,
+              642.95
+            ],
+            "confidence": 0.34539,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1226.06,
+              841.63,
+              1238.31,
+              847.28
+            ],
+            "confidence": 0.25222,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1859.97,
+              1288.59,
+              1889.42,
+              1329.18
+            ],
+            "confidence": 0.23837,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1859.98,
+              1287.34,
+              1889.85,
+              1328.89
+            ],
+            "confidence": 0.22714,
+            "class_id": 1,
+            "class_name": "Metal",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1357.22,
+              611.82,
+              1406.74,
+              628.04
+            ],
+            "confidence": 0.12387,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              2019.86,
+              1301.09,
+              2047.74,
+              1328.14
+            ],
+            "confidence": 0.10505,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1920,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1342.33,
+              512.22,
+              1360.78,
+              518.71
+            ],
+            "confidence": 0.09731,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              0
+            ]
+          },
+          {
+            "xyxy": [
+              1714.14,
+              312.79,
+              1728.85,
+              365.24
+            ],
+            "confidence": 0.07091,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1536,
+              0
+            ]
+          },
+          {
+            "xyxy": [
+              1356.59,
+              609.69,
+              1406.37,
+              627.26
+            ],
+            "confidence": 0.04193,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1185.3,
+              1191.3,
+              1203.31,
+              1197.37
+            ],
+            "confidence": 0.03789,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1859.46,
+              1287.91,
+              1889.41,
+              1326.81
+            ],
+            "confidence": 0.03215,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1889.18,
+              1297.98,
+              1953.3,
+              1329.21
+            ],
+            "confidence": 0.02846,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1890.37,
+              1307.79,
+              1912.46,
+              1328.53
+            ],
+            "confidence": 0.02519,
+            "class_id": 1,
+            "class_name": "Metal",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1664.74,
+              476.39,
+              1672.26,
+              484.49
+            ],
+            "confidence": 0.0226,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1536,
+              0
+            ]
+          },
+          {
+            "xyxy": [
+              1377.22,
+              615.44,
+              1407.02,
+              628.13
+            ],
+            "confidence": 0.02031,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1133.89,
+              1151.95,
+              1151.37,
+              1156.71
+            ],
+            "confidence": 0.01447,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              512,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1843.59,
+              864.55,
+              1854.89,
+              869.64
+            ],
+            "confidence": 0.01439,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1536,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1890.56,
+              1301.38,
+              1914.18,
+              1328.85
+            ],
+            "confidence": 0.01334,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1599.88,
+              1394.83,
+              1609.32,
+              1398.84
+            ],
+            "confidence": 0.01193,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1488.76,
+              630.89,
+              1520.27,
+              639.67
+            ],
+            "confidence": 0.01029,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              0
+            ]
+          }
+        ],
+        "point_diagnostics": [
+          {
+            "truth_id": "t-0009",
+            "point": [
+              1498.06,
+              638.23
+            ],
+            "nearest": {
+              "edge_distance_px": 0.0,
+              "candidate": {
+                "xyxy": [
+                  1488.05,
+                  633.54,
+                  1509.26,
+                  642.95
+                ],
+                "confidence": 0.34539,
+                "class_id": 3,
+                "class_name": "Plastic",
+                "tile_xy": [
+                  1024,
+                  512
+                ]
+              }
+            },
+            "inside_any_box": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "file_id": "318010_18081003969_44180209031322001030-1790063889000",
+    "frame_index": 3750,
+    "kind": "context_unlabelled",
+    "points": [],
+    "camera_id": "01030",
+    "source_path": "/home/sf01/ground-litter-feasibility/20260923-r1/archive/ground-litter-detector-feasibility-20260923-r1/development/01030/raw/318010_18081003969_44180209031322001030-1790063889000__20260922155809-20260922160313.ps",
+    "source_sha256": "9d0eb57a82ba1ff2541c28e518352659e326bc52da493087bb3e61eeacc0ef8e",
+    "fps": 25.0,
+    "image": "01030_1790063889000_f3750.jpg",
+    "predictions": {
+      "step2b_last": {
+        "tiles": 10,
+        "raw_count": 0,
+        "boxes": [],
+        "point_diagnostics": []
+      },
+      "turhancan_semantic": {
+        "tiles": 10,
+        "raw_count": 25,
+        "boxes": [
+          {
+            "xyxy": [
+              1488.73,
+              634.1,
+              1509.42,
+              642.68
+            ],
+            "confidence": 0.35979,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1859.88,
+              1288.72,
+              1890.45,
+              1329.29
+            ],
+            "confidence": 0.34769,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1858.56,
+              1294.29,
+              2048.26,
+              1329.55
+            ],
+            "confidence": 0.34545,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1859.65,
+              1287.38,
+              1891.55,
+              1329.03
+            ],
+            "confidence": 0.30419,
+            "class_id": 1,
+            "class_name": "Metal",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1330.83,
+              512.19,
+              1359.18,
+              520.79
+            ],
+            "confidence": 0.26023,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              0
+            ]
+          },
+          {
+            "xyxy": [
+              1226.8,
+              841.8,
+              1237.41,
+              846.9
+            ],
+            "confidence": 0.24681,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              2019.75,
+              1299.93,
+              2047.84,
+              1327.41
+            ],
+            "confidence": 0.15578,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1920,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1713.85,
+              312.86,
+              1728.49,
+              364.33
+            ],
+            "confidence": 0.0693,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1536,
+              0
+            ]
+          },
+          {
+            "xyxy": [
+              1889.45,
+              1297.24,
+              1954.0,
+              1329.37
+            ],
+            "confidence": 0.057,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1713.3,
+              311.9,
+              1729.31,
+              362.7
+            ],
+            "confidence": 0.04005,
+            "class_id": 2,
+            "class_name": "Paper",
+            "tile_xy": [
+              1536,
+              0
+            ]
+          },
+          {
+            "xyxy": [
+              1183.69,
+              1190.03,
+              1201.69,
+              1197.29
+            ],
+            "confidence": 0.02468,
+            "class_id": 3,
+            "class_name": "Plastic",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1890.97,
+              1305.81,
+              1912.46,
+              1328.71
+            ],
+            "confidence": 0.02024,
+            "class_id": 1,
+            "class_name": "Metal",
+            "tile_xy": [
+              1536,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1601.33,
+              1394.37,
+              1609.66,
+              1399.05
+            ],
+            "confidence": 0.01977,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1024,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1134.51,
+              1152.26,
+              1151.44,
+              1156.74
+            ],
+            "confidence": 0.01885,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              512,
+              800
+            ]
+          },
+          {
+            "xyxy": [
+              1844.26,
+              864.64,
+              1855.65,
+              869.86
+            ],
+            "confidence": 0.01762,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1536,
+              512
+            ]
+          },
+          {
+            "xyxy": [
+              1664.59,
+              476.81,
+              1672.48,
+              484.58
+            ],
+            "confidence": 0.01403,
+            "class_id": 4,
+            "class_name": "Waste",
+            "tile_xy": [
+              1536,
+              0
+            ]
+          }
+        ],
+        "point_diagnostics": []
+      }
+    }
+  }
+]

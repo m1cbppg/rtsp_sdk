@@ -23,31 +23,21 @@
   "class_mapping": {
     "0": "ground_litter"
   },
-  "code_commit": "4d3e05c8153a41319c3102f1491ba1204582c935",
+  "code_commit": "098359682a9e14331355858ac0366ba89707ae3a",
   "config": {
-    "batch_dirs": [
-      "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_audit_active_day3_20260918/review",
-      "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_audit_formal_day1",
-      "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_audit_formal_day2",
-      "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_audit_holdout_20260918",
-      "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_audit_pilot_01030_20260920/review",
-      "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_candidate_filter_shadow_20260921/review"
-    ],
-    "easy_target": 40,
     "generator_version": "step1d-1.0.0",
-    "hard_target": 130,
     "output": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_hard_negatives_20260923",
     "schema_version": "ground_litter_hard_negatives_v1",
     "state": "/Users/mlcbppg/Desktop/backend/python_script/rtsp/output/ground_litter_hard_negatives_20260923/review_state.json"
   },
   "counts": {
-    "accepted_hard_negative_tile_count": 0,
+    "accepted_hard_negative_tile_count": 63,
     "historical_non_litter_input_count": 2083,
     "ready_candidate_count": 152,
-    "reviewed": 0,
+    "reviewed": 152,
     "sampled_candidate_count": 170
   },
-  "generated_at": "2026-09-23T11:56:13Z",
+  "generated_at": "2026-09-23T12:58:29Z",
   "generator_version": "step1d-1.0.0",
   "historical_review_sha256": [
     {
@@ -82,7 +72,7 @@
     }
   ],
   "input_fingerprint": "1f2d4ad7dea673094e39e077db6ee36b9e4640245bb9ccdc11df9877617babdb",
-  "negative_candidates_sha256": "d1023d2899e36b611aa50ab9314858687c0a92e762ecc487d772b8e25a7790f8",
+  "negative_candidates_sha256": "28435cc231cbd849d46778a42812aeb0b3895f00d7380061b55edefb2b06bbf4",
   "negative_label": {
     "bytes": 0,
     "format": "empty_txt"
@@ -95,7 +85,7 @@
   "source_recovery_sha256": {
     "source_files_sha256": "65d37bbf87cd1b5ca247d441099b17ccfae899edd2a3ca16fa6afbd5c7ae39cc"
   },
-  "summary_sha256": "d56287be1013956c594c26b944a398099c7d03e7d93578ba6d2aa4627dd093fb",
+  "summary_sha256": "b9e2fc57c683221c33c8a40243f5ae0cf6e0d67c282113cda39f8f8fa2c6d4f2",
   "tile_size": 640,
   "upstream_provenance": {
     "note": "Step 1D only reads the artifacts recorded here; the historical review labels are human NON_LITTER decisions, never detector output",
