@@ -42,6 +42,7 @@ from rtsp_annotator.ground_litter_rapid import (  # noqa: E402
     match_points,
     plan_training_export,
     point_inside_roi,
+    read_jsonl,
     select_threshold,
     selection_hash,
     size_bucket,
@@ -932,6 +933,314 @@ class ExportPlanTests(unittest.TestCase):
                 self.assertEqual((artifact / name).read_bytes(), payload)
             self.assertEqual((artifact / "review" / "truth_points.jsonl").read_bytes(),
                              truth_before)
+
+
+class LocalizationSubmitTests(unittest.TestCase):
+    """Regression cover for the Stage C submit/advance bug (A-H) and its two root causes."""
+
+    @classmethod
+    def setUpClass(cls):
+        import serve_ground_litter_rapid_review as server
+
+        cls.server = server
+
+    def make(self, tmp, plans=None):
+        artifact = Path(tmp) / "artifact"
+        fixture = ReviewStoreTests().build_artifact(artifact, plans)
+        store = self.server.RapidReviewStore(artifact)
+        store.load_predictions()
+        localizer = self.server.Localizer(artifact, store, enable_semantic=False)
+        return artifact, fixture, store, localizer
+
+    @staticmethod
+    def same_ps_plans():
+        split = build_split(synthetic_files(), PRIOR)
+        train = next(r for r in split["rows"] if r["split"] == TRAIN_SPLIT)
+        return [(train["file_id"], 30), (train["file_id"], 90)]
+
+    def three_points(self, store, frame_id):
+        return [store.add_point(frame_id, "REQUIRED_LITTER", 1400.0 + 40 * i, 600.0 + 30 * i)
+                for i in range(3)]
+
+    # --- A: a plain manual point saves and advances ----------------------- #
+    def test_A_manual_point_submit_saves_and_advances(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            artifact, fixture, store, localizer = self.make(tmp, self.same_ps_plans())
+            frame = fixture["frames"][0]["frame_id"]
+            points = self.three_points(store, frame)
+            store.complete_truth(frame)
+
+            first = store.select_localization(points[0]["truth_id"], 0, frame_id=frame,
+                                              resolver=localizer.candidates)
+            self.assertEqual(first["status"], "UNLOCALIZED_SKIP")
+            self.assertEqual(first["frame_id"], frame)
+            self.assertEqual(first["remaining"], 2)
+            self.assertEqual(first["next_truth_id"], points[1]["truth_id"])
+            self.assertFalse(first["localization_complete"])
+            self.assertEqual(store.localization_for(frame)[points[0]["truth_id"]]["status"],
+                             "UNLOCALIZED_SKIP")
+
+    # --- B: a copied point saves and advances ---------------------------- #
+    def test_B_copied_point_submit_saves_and_advances(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            artifact, fixture, store, localizer = self.make(tmp, self.same_ps_plans())
+            source, target = fixture["frames"][0]["frame_id"], fixture["frames"][1]["frame_id"]
+            store.add_point(source, "REQUIRED_LITTER", 1500.0, 640.0)
+            store.complete_truth(source)
+            store.copy_previous(target)
+            copied = store.points_for(target)[0]
+            self.assertEqual(copied["origin"], ORIGIN_COPY)
+            store.complete_truth(target)
+
+            result = store.select_localization(copied["truth_id"], 0, frame_id=target,
+                                              resolver=localizer.candidates)
+            self.assertEqual(result["frame_id"], target)
+            self.assertEqual(store.localization_for(target)[copied["truth_id"]]["status"],
+                             "UNLOCALIZED_SKIP")
+            self.assertTrue(result["localization_complete"])
+
+    # --- C/D: clicking candidate A is exactly choice 1, B is choice 2 ----- #
+    def test_CD_candidate_choice_matches_the_offered_card(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            artifact, fixture, store, localizer = self.make(tmp, self.same_ps_plans())
+            source, target = fixture["frames"][0]["frame_id"], fixture["frames"][1]["frame_id"]
+            point = store.add_point(source, "REQUIRED_LITTER", 1490.0, 630.0)
+            store.complete_truth(source)
+            store.review_prediction(source, f"{source}_p000", "Y")
+            store.select_localization(point["truth_id"], 1, frame_id=source,
+                                      resolver=localizer.candidates)
+            store.copy_previous(target)
+            copied = store.points_for(target)[0]
+            store.complete_truth(target)
+
+            offered = localizer.candidates(copied["truth_id"], target)["candidates"]
+            self.assertEqual(offered[0]["label"], "A")
+            self.assertEqual(offered[0]["idx"], 0)
+            self.assertEqual(offered[0]["proposal_source"], ORIGIN_COPY)
+
+            # "click card A" and "press 1" both mean choice = idx + 1 = 1.
+            result = store.select_localization(copied["truth_id"], 1, frame_id=target,
+                                              resolver=localizer.candidates)
+            self.assertEqual(result["proposal_source"], offered[0]["proposal_source"])
+            self.assertEqual(result["selected_bbox_source_xyxy"], offered[0]["bbox_xyxy"])
+            self.assertEqual(result["choice"], 1)
+
+    # --- E: 0 = skip, and it also advances ------------------------------- #
+    def test_E_zero_skips_and_advances(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            artifact, fixture, store, localizer = self.make(tmp, self.same_ps_plans())
+            frame = fixture["frames"][0]["frame_id"]
+            points = self.three_points(store, frame)
+            store.complete_truth(frame)
+            result = store.select_localization(points[0]["truth_id"], 0, frame_id=frame)
+            self.assertEqual(result["status"], "UNLOCALIZED_SKIP")
+            self.assertIsNone(result["selected_bbox_source_xyxy"])
+            self.assertEqual(result["next_truth_id"], points[1]["truth_id"])
+
+    # --- F: duplicate submit is idempotent ------------------------------- #
+    def test_F_duplicate_submit_does_not_append_a_second_row(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            artifact, fixture, store, localizer = self.make(tmp, self.same_ps_plans())
+            frame = fixture["frames"][0]["frame_id"]
+            points = self.three_points(store, frame)
+            store.complete_truth(frame)
+
+            first = store.select_localization(points[0]["truth_id"], 0, frame_id=frame)
+            self.assertFalse(first["already_recorded"])
+            rows_before = len(store.localization_reviews)
+            created_before = first["created_at"]
+
+            for _ in range(3):
+                again = store.select_localization(points[0]["truth_id"], 0, frame_id=frame)
+                self.assertTrue(again["already_recorded"])
+                self.assertEqual(again["created_at"], created_before)
+            self.assertEqual(len(store.localization_reviews), rows_before)
+            on_disk = [r for r in read_jsonl(artifact / "review"
+                                             / "localization_reviews.jsonl")
+                       if r["truth_id"] == points[0]["truth_id"]]
+            self.assertEqual(len(on_disk), 1)
+
+    def test_F2_changing_the_choice_overwrites_in_place(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            artifact, fixture, store, localizer = self.make(tmp, self.same_ps_plans())
+            source, target = fixture["frames"][0]["frame_id"], fixture["frames"][1]["frame_id"]
+            point = store.add_point(source, "REQUIRED_LITTER", 1490.0, 630.0)
+            store.complete_truth(source)
+            store.review_prediction(source, f"{source}_p000", "Y")
+            store.select_localization(point["truth_id"], 1, frame_id=source,
+                                      resolver=localizer.candidates)
+            store.copy_previous(target)
+            copied = store.points_for(target)[0]
+            store.complete_truth(target)
+
+            first = store.select_localization(copied["truth_id"], 1, frame_id=target,
+                                              resolver=localizer.candidates)
+            self.assertEqual(first["status"], "LOCALIZED")
+            # changing your mind replaces the decision, it never adds a second row
+            second = store.select_localization(copied["truth_id"], 0, frame_id=target,
+                                               resolver=localizer.candidates)
+            self.assertFalse(second["already_recorded"])
+            self.assertEqual(second["status"], "UNLOCALIZED_SKIP")
+            rows = [r for r in store.localization_reviews
+                    if r["truth_id"] == copied["truth_id"]]
+            self.assertEqual(len(rows), 1)
+            self.assertEqual(rows[0]["status"], "UNLOCALIZED_SKIP")
+
+    # --- G: the last point completes Stage C ----------------------------- #
+    def test_G_last_point_completes_stage_c(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            artifact, fixture, store, localizer = self.make(tmp, self.same_ps_plans())
+            frame = fixture["frames"][0]["frame_id"]
+            points = self.three_points(store, frame)
+            store.complete_truth(frame)
+            store.review_prediction(frame, f"{frame}_p000", "Y")
+
+            for index, point in enumerate(points):
+                result = store.select_localization(point["truth_id"], 0, frame_id=frame)
+                self.assertEqual(result["remaining"], len(points) - index - 1)
+                self.assertEqual(result["localization_complete"], index == len(points) - 1)
+            self.assertIsNone(result["next_truth_id"])
+            self.assertEqual(store.pending_localization(frame), [])
+            self.assertEqual(store.stage_of(frame), "done")
+
+    # --- H: refresh / restart keeps completed localizations -------------- #
+    def test_H_completed_localization_survives_restart(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            artifact, fixture, store, localizer = self.make(tmp, self.same_ps_plans())
+            frame = fixture["frames"][0]["frame_id"]
+            points = self.three_points(store, frame)
+            store.complete_truth(frame)
+            store.select_localization(points[0]["truth_id"], 0, frame_id=frame)
+            store.select_localization(points[1]["truth_id"], 0, frame_id=frame)
+
+            resumed = self.server.RapidReviewStore(artifact)
+            resumed.load_predictions()
+            done = resumed.localization_for(frame)
+            self.assertEqual(len(done), 2)
+            pending = [p["truth_id"] for p in resumed.pending_localization(frame)]
+            self.assertEqual(pending, [points[2]["truth_id"]])
+
+    def test_H2_localization_reviews_are_not_truncated_by_a_new_write(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            artifact, fixture, store, localizer = self.make(tmp, self.same_ps_plans())
+            frame = fixture["frames"][0]["frame_id"]
+            points = self.three_points(store, frame)
+            store.complete_truth(frame)
+            for point in points[:2]:
+                store.select_localization(point["truth_id"], 0, frame_id=frame)
+            path = artifact / "review" / "localization_reviews.jsonl"
+            self.assertEqual(len(read_jsonl(path)), 2)
+
+            # A fresh process (as after a service restart) must load them, and its next write
+            # must keep them instead of rewriting the file with a single row.
+            resumed = self.server.RapidReviewStore(artifact)
+            resumed.load_predictions()
+            resumed.select_localization(points[2]["truth_id"], 0, frame_id=frame)
+            self.assertEqual(len(read_jsonl(path)), 3)
+
+    # --- the actual root cause: duplicate truth_id must not cross-write --- #
+    def test_duplicate_truth_id_is_frame_scoped_and_never_cross_writes(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            artifact, fixture, store, localizer = self.make(tmp, self.same_ps_plans())
+            frame_a, frame_b = (fixture["frames"][0]["frame_id"],
+                                fixture["frames"][1]["frame_id"])
+            store.add_point(frame_a, "REQUIRED_LITTER", 100.0, 100.0)
+            store.add_point(frame_b, "REQUIRED_LITTER", 200.0, 200.0)
+            # Reproduce the legacy collision observed in the live artifact.
+            for row in store.points:
+                row["truth_id"] = "t-00039"
+            store._save_points()
+
+            reloaded = self.server.RapidReviewStore(artifact)
+            reloaded.load_predictions()
+            localizer = self.server.Localizer(artifact, reloaded, enable_semantic=False)
+            self.assertEqual(len([p for p in reloaded.points
+                                  if p["truth_id"] == "t-00039"]), 2)
+            with self.assertRaises(RapidError):
+                reloaded.find_point("t-00039")
+            self.assertEqual(reloaded.find_point("t-00039", frame_a)["source_xy"], [100.0, 100.0])
+            self.assertEqual(reloaded.find_point("t-00039", frame_b)["source_xy"], [200.0, 200.0])
+
+            reloaded.complete_truth(frame_b)
+            entry = reloaded.select_localization("t-00039", 0, frame_id=frame_b)
+            self.assertEqual(entry["frame_id"], frame_b)
+            self.assertEqual(entry["camera_id"], "01021")
+            self.assertEqual(reloaded.localization_for(frame_a), {})
+            self.assertNotIn("t-00039", reloaded.localization_for(frame_a))
+            on_disk = [r for r in read_jsonl(artifact / "review"
+                                             / "localization_reviews.jsonl")
+                       if r["truth_id"] == "t-00039"]
+            self.assertEqual(len(on_disk), 1)
+            self.assertEqual(on_disk[0]["frame_id"], frame_b)
+
+    def test_inherited_seed_runs_at_most_once(self):
+        """A restart must never resurrect points the operator deleted or replaced."""
+        with tempfile.TemporaryDirectory() as tmp:
+            artifact = Path(tmp) / "artifact"
+            fixture = ReviewStoreTests().build_artifact(artifact, self.same_ps_plans())
+            frame = fixture["frames"][1]["frame_id"]
+            # mark that frame as a bonus train frame and give it official inherited marks
+            manifest_path = artifact / "frame_manifest.jsonl"
+            rows = read_jsonl(manifest_path)
+            for row in rows:
+                if row["frame_id"] == frame:
+                    row["kind"] = "bonus_train"
+            manifest_path.write_text(
+                "".join(json.dumps(r) + "\n" for r in rows), encoding="utf-8")
+            inherited_dir = artifact / "inherited_truth"
+            inherited_dir.mkdir(exist_ok=True)
+            (inherited_dir / f"{frame}.jsonl").write_text("".join(json.dumps({
+                "truth_id": f"t-000{i:02d}", "source_xy": [700.0 + 10 * i, 500.0 + 10 * i],
+                "truth_class": "REQUIRED_LITTER", "in_roi": True,
+            }) + "\n" for i in (1, 2)), encoding="utf-8")
+
+            store = self.server.RapidReviewStore(artifact)
+            store.load_predictions()
+            seeded = store.points_for(frame)
+            self.assertEqual(len(seeded), 2)
+            self.assertTrue(all(p["origin"] == "official_discovery_inherited" for p in seeded))
+            self.assertTrue(store.frame_state(frame)["inherited_seeded"])
+
+            # the operator deletes one and replaces the rest via a copy
+            store.delete_point(seeded[0]["truth_id"], frame)
+            resumed = self.server.RapidReviewStore(artifact)
+            resumed.load_predictions()
+            self.assertEqual(len(resumed.points_for(frame)), 1)
+
+            # and an emptied but completed frame must stay empty
+            for point in list(resumed.points_for(frame)):
+                resumed.delete_point(point["truth_id"], frame)
+            resumed.complete_truth(frame)
+            again = self.server.RapidReviewStore(artifact)
+            again.load_predictions()
+            self.assertEqual(again.points_for(frame), [])
+
+    def test_add_point_never_reuses_a_deleted_truth_id(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            artifact, fixture, store, localizer = self.make(tmp, self.same_ps_plans())
+            frame = fixture["frames"][0]["frame_id"]
+            first = store.add_point(frame, "REQUIRED_LITTER", 100.0, 100.0)
+            second = store.add_point(frame, "REQUIRED_LITTER", 200.0, 200.0)
+            store.delete_point(second["truth_id"], frame)
+            third = store.add_point(frame, "REQUIRED_LITTER", 300.0, 300.0)
+            live = [p["truth_id"] for p in store.points]
+            self.assertEqual(len(live), len(set(live)))
+            self.assertNotEqual(third["truth_id"], second["truth_id"])
+            self.assertNotEqual(third["truth_id"], first["truth_id"])
+
+    def test_delete_point_only_affects_the_given_frame(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            artifact, fixture, store, localizer = self.make(tmp, self.same_ps_plans())
+            frame_a, frame_b = (fixture["frames"][0]["frame_id"],
+                                fixture["frames"][1]["frame_id"])
+            store.add_point(frame_a, "REQUIRED_LITTER", 100.0, 100.0)
+            store.add_point(frame_b, "REQUIRED_LITTER", 200.0, 200.0)
+            for row in store.points:
+                row["truth_id"] = "t-00039"
+            store._save_points()
+            store.delete_point("t-00039", frame_a)
+            self.assertEqual(store.points_for(frame_a), [])
+            self.assertEqual(len(store.points_for(frame_b)), 1)
 
 
 if __name__ == "__main__":

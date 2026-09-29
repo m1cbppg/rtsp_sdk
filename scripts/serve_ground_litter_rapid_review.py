@@ -127,6 +127,10 @@ class RapidReviewStore:
             self.state.setdefault("frames", {})
             self.points = read_jsonl(self._path("truth_points.jsonl"))
             self.prediction_reviews = read_jsonl(self._path("prediction_reviews.jsonl"))
+            # Must be loaded: without this every localization decision becomes invisible after a
+            # restart, and the next save would rewrite the file with only the new rows, silently
+            # destroying the operator's earlier work.
+            self.localization_reviews = read_jsonl(self._path("localization_reviews.jsonl"))
             candidate_path = self._path("localization_candidates.json")
             self.localization_candidates = (
                 json.loads(candidate_path.read_text(encoding="utf-8"))
@@ -134,23 +138,39 @@ class RapidReviewStore:
             self._materialise_inherited_points()
 
     def _materialise_inherited_points(self) -> None:
-        """Seed bonus train frames with the human points already recorded officially."""
+        """Seed a bonus train frame from the official Discovery marks — at most once.
+
+        Seeding is a one-time convenience for frames the operator has not opened yet.  It must
+        never run again for a frame that already carries truth: re-seeding resurrects points
+        that were deliberately deleted or replaced by a copy (observed live — a restart
+        re-added 5 inherited points onto a bonus frame whose truth had been replaced).
+        """
         existing = {(p["frame_id"], tuple(p["source_xy"])) for p in self.points}
         added = False
+        flagged = False
         inherited_dir = self.artifact / "inherited_truth"
         for row in self.frames:
             if row["kind"] != "bonus_train":
                 continue
-            source = inherited_dir / f'{row["frame_id"]}.jsonl'
-            if not source.exists():
+            frame_id = row["frame_id"]
+            entry = self.state["frames"].setdefault(frame_id, {})
+            if entry.get("inherited_seeded"):
                 continue
-            for mark in read_jsonl(source):
-                key = (row["frame_id"], tuple(mark["source_xy"]))
+            if self.points_for(frame_id) or entry.get("truth_complete"):
+                entry["inherited_seeded"] = True
+                entry["inherited_seeded_at"] = now_iso()
+                entry["inherited_seed_skipped"] = "frame already has recorded truth"
+                flagged = True
+                continue
+            source = inherited_dir / f"{frame_id}.jsonl"
+            seeded = 0
+            for mark in (read_jsonl(source) if source.exists() else []):
+                key = (frame_id, tuple(mark["source_xy"]))
                 if key in existing:
                     continue
                 self.points.append({
                     "truth_id": mark["truth_id"],
-                    "frame_id": row["frame_id"],
+                    "frame_id": frame_id,
                     "camera_id": row["camera_id"],
                     "file_id": row["file_id"],
                     "source_xy": list(mark["source_xy"]),
@@ -162,8 +182,15 @@ class RapidReviewStore:
                 })
                 existing.add(key)
                 added = True
+                seeded += 1
+            entry["inherited_seeded"] = True
+            entry["inherited_seeded_at"] = now_iso()
+            entry["inherited_seed_count"] = seeded
+            flagged = True
         if added:
             self._save_points()
+        if added or flagged:
+            self._save_state()
 
     def _save_json(self, name: str, payload) -> None:
         write_json(self._path(name), payload)
@@ -199,6 +226,26 @@ class RapidReviewStore:
 
     def points_for(self, frame_id: str) -> list[dict]:
         return [p for p in self.points if p["frame_id"] == frame_id]
+
+    def find_point(self, truth_id: str, frame_id: str | None = None) -> dict:
+        """Resolve a point by truth_id, optionally scoped to its frame.
+
+        Legacy artifacts can contain the same truth_id on more than one frame (the counter in
+        add_point used to reuse ids after deletions), so an unscoped lookup is ambiguous.  Every
+        caller that knows the frame must pass it; an unscoped ambiguous lookup is a hard error
+        rather than a silent wrong-frame write.
+        """
+        matches = [p for p in self.points if p["truth_id"] == truth_id]
+        if frame_id is not None:
+            matches = [p for p in matches if p["frame_id"] == frame_id]
+        if not matches:
+            raise RapidError(
+                f"unknown truth_id {truth_id}" + (f" on frame {frame_id}" if frame_id else ""))
+        if len(matches) > 1:
+            raise RapidError(
+                f"ambiguous truth_id {truth_id}: present on {len(matches)} frames "
+                f"({[m['frame_id'] for m in matches]}); a frame_id is required")
+        return matches[0]
 
     def reviews_for(self, frame_id: str) -> dict[str, str]:
         return {r["prediction_id"]: r["verdict"] for r in self.prediction_reviews
@@ -240,7 +287,9 @@ class RapidReviewStore:
             if not (0 <= x < SOURCE_WIDTH and 0 <= y < SOURCE_HEIGHT):
                 raise RapidError(f"point outside the source canvas: ({x}, {y})")
             point = {
-                "truth_id": f't-{len(self.points) + 1:05d}',
+                # Never len(points)+1: after a delete that reuses an existing truth_id and the
+                # collision then makes every later lookup ambiguous.
+                "truth_id": f"t-{self._reserve_truth_index():05d}",
                 "frame_id": frame_id,
                 "camera_id": frame["camera_id"],
                 "file_id": frame["file_id"],
@@ -262,24 +311,25 @@ class RapidReviewStore:
             self._save_state()
             return point
 
-    def delete_point(self, truth_id: str) -> dict:
+    def delete_point(self, truth_id: str, frame_id: str | None = None) -> dict:
         with self.lock:
-            found = [p for p in self.points if p["truth_id"] == truth_id]
-            if not found:
-                raise RapidError(f"unknown truth_id {truth_id}")
-            self.points = [p for p in self.points if p["truth_id"] != truth_id]
-            self.localization_reviews = [r for r in self.localization_reviews
-                                         if r["truth_id"] != truth_id]
+            target = self.find_point(truth_id, frame_id)
+            self.points = [p for p in self.points
+                           if not (p["truth_id"] == truth_id
+                                   and p["frame_id"] == target["frame_id"])]
+            self.localization_reviews = [
+                r for r in self.localization_reviews
+                if not (r["truth_id"] == truth_id and r.get("frame_id") == target["frame_id"])]
             self._save_points()
             self._save_localization_reviews()
             self.localization_candidates.pop(truth_id, None)
             self._save_json("localization_candidates.json", self.localization_candidates)
-            entry = self.frame_state(found[0]["frame_id"])
+            entry = self.frame_state(target["frame_id"])
             if entry.get("copy_state") == COPY_PENDING:
                 entry["copy_edited"] = True
                 entry["copy_edited_at"] = now_iso()
                 self._save_state()
-            return found[0]
+            return target
 
     # -- copy previous ------------------------------------------------------ #
     def queue_index(self, frame_id: str) -> int:
@@ -342,6 +392,7 @@ class RapidReviewStore:
             self.points = [p for p in self.points if p["frame_id"] != frame_id]
             copied: list[dict] = []
             next_index = self._next_truth_index()
+            self.state["truth_id_counter"] = next_index
             for origin_point in self.points_for(source_id):
                 # source-native coordinates are copied verbatim; nothing is transformed.
                 x, y = float(origin_point["source_xy"][0]), float(origin_point["source_xy"][1])
@@ -372,6 +423,7 @@ class RapidReviewStore:
                     "note": None,
                 }
                 next_index += 1
+                self.state["truth_id_counter"] = next_index - 1
                 copied.append(point)
             self.points.extend(copied)
             self._save_points()
@@ -395,14 +447,34 @@ class RapidReviewStore:
                     "distance_note": "points copied at source-native coordinates; delete, add "
                                      "or re-click if the litter moved"}
 
+    @staticmethod
+    def _truth_id_number(value) -> int:
+        try:
+            return int(str(value).rsplit("-", 1)[-1].rsplit("#", 1)[-1])
+        except (ValueError, TypeError):
+            return 0
+
     def _next_truth_index(self) -> int:
-        highest = 0
+        """Next free truth_id number.
+
+        Must never reuse an id: a reused id silently makes every later lookup ambiguous (the
+        live artifact hit exactly that, with t-00039 existing on two frames).  The high-water
+        mark is therefore taken from the persisted counter, live points, existing localization
+        decisions and cached candidate keys.
+        """
+        highest = int(self.state.get("truth_id_counter") or 0)
         for point in self.points:
-            try:
-                highest = max(highest, int(str(point["truth_id"]).split("-")[-1]))
-            except (ValueError, KeyError):
-                continue
+            highest = max(highest, self._truth_id_number(point.get("truth_id")))
+        for row in self.localization_reviews:
+            highest = max(highest, self._truth_id_number(row.get("truth_id")))
+        for key in self.localization_candidates:
+            highest = max(highest, self._truth_id_number(key))
         return highest + 1
+
+    def _reserve_truth_index(self) -> int:
+        index = self._next_truth_index()
+        self.state["truth_id_counter"] = index
+        return index
 
     def complete_truth(self, frame_id: str, complete: bool = True) -> dict:
         with self.lock:
@@ -446,16 +518,43 @@ class RapidReviewStore:
             self._save_prediction_reviews()
             return row
 
+    def pending_localization(self, frame_id: str) -> list[dict]:
+        """Required points on this frame that still have no localization decision."""
+        done = self.localization_for(frame_id)
+        return [p for p in self.points_for(frame_id)
+                if p["truth_class"] == "REQUIRED_LITTER" and p["truth_id"] not in done]
+
     def select_localization(self, truth_id: str, choice: int,
-                            resolver=None) -> dict:
+                            frame_id: str | None = None, resolver=None) -> dict:
+        """Record one Stage C decision for one point, scoped to its frame.
+
+        Idempotent: re-submitting the same choice for the same point returns the stored decision
+        with ``already_recorded`` set and writes nothing.  A *different* choice overwrites the
+        previous decision in place, so a point can never accumulate several rows.
+        """
         with self.lock:
-            candidates = self.localization_candidates.get(truth_id) or {}
-            options = candidates.get("candidates") or []
+            point = self.find_point(truth_id, frame_id)
+            frame_id = point["frame_id"]
+            frame = self.frame_by_id.get(frame_id)
+            if frame is None:
+                raise RapidError(f"unknown frame {frame_id}")
+            options = (self.localization_candidates.get(truth_id) or {}).get("candidates") or []
             if not options and resolver is not None and int(choice) != 0:
                 # Never depend on the operator having opened Stage C in this process before:
                 # resolve on demand so a restarted service can still record the pick.
-                options = (resolver(truth_id).get("candidates") or [])
-            entry = {"truth_id": truth_id, "choice": int(choice), "created_at": now_iso()}
+                options = (resolver(truth_id, frame_id).get("candidates") or [])
+
+            existing = self.localization_for(frame_id).get(truth_id)
+            if existing and int(existing.get("choice", -1)) == int(choice):
+                return {**existing, "already_recorded": True,
+                        "localization_complete": not self.pending_localization(frame_id),
+                        "remaining": len(self.pending_localization(frame_id)),
+                        "next_truth_id": self._next_pending_truth_id(frame_id)}
+
+            entry = {"truth_id": truth_id, "choice": int(choice), "created_at": now_iso(),
+                     "frame_id": frame_id, "camera_id": point["camera_id"],
+                     "file_id": point["file_id"], "split": frame["split"],
+                     "truth_class": point["truth_class"]}
             if int(choice) == 0:
                 entry.update({"status": "UNLOCALIZED_SKIP",
                               "selected_bbox_source_xyxy": None,
@@ -463,22 +562,28 @@ class RapidReviewStore:
             else:
                 match = next((c for c in options if int(c["idx"]) == int(choice) - 1), None)
                 if match is None:
-                    raise RapidError(f"candidate {choice} unavailable for {truth_id}")
+                    raise RapidError(
+                        f"candidate {choice} unavailable for {truth_id} on {frame_id} "
+                        f"(available: {[c['idx'] + 1 for c in options]})")
                 entry.update({"status": "LOCALIZED",
                               "selected_bbox_source_xyxy": match["bbox_xyxy"],
                               "proposal_source": match["proposal_source"],
                               "proposal_id": match["proposal_id"]})
-            point = next((p for p in self.points if p["truth_id"] == truth_id), None)
-            if point:
-                entry.update({"frame_id": point["frame_id"],
-                              "camera_id": point["camera_id"],
-                              "file_id": point["file_id"],
-                              "split": self.frame_by_id[point["frame_id"]]["split"]})
-            self.localization_reviews = [r for r in self.localization_reviews
-                                         if r["truth_id"] != truth_id]
+            # At most one row per (frame_id, truth_id).
+            self.localization_reviews = [
+                r for r in self.localization_reviews
+                if not (r["truth_id"] == truth_id and r.get("frame_id") == frame_id)]
             self.localization_reviews.append(entry)
             self._save_localization_reviews()
-            return entry
+            remaining = self.pending_localization(frame_id)
+            return {**entry, "already_recorded": False,
+                    "localization_complete": not remaining,
+                    "remaining": len(remaining),
+                    "next_truth_id": self._next_pending_truth_id(frame_id)}
+
+    def _next_pending_truth_id(self, frame_id: str) -> str | None:
+        pending = self.pending_localization(frame_id)
+        return pending[0]["truth_id"] if pending else None
 
     # -- progress ---------------------------------------------------------- #
     def progress(self) -> dict:
@@ -608,7 +713,9 @@ class RapidReviewStore:
             ]
             payload["prediction_reviews"] = self.reviews_for(frame_id)
             payload["localization_candidates"] = {
-                p["truth_id"]: self.localization_candidates.get(p["truth_id"])
+                p["truth_id"]: (self.localization_candidates.get(
+                    Localizer.candidate_key(frame_id, p["truth_id"]))
+                    or self.localization_candidates.get(p["truth_id"]))
                 for p in self.points_for(frame_id)
                 if p["truth_class"] == "REQUIRED_LITTER"
             }
@@ -777,15 +884,20 @@ class Localizer:
             self._semantic = YOLO(str(self._semantic_path))
         return self._semantic
 
-    def candidates(self, truth_id: str, *, force: bool = False) -> dict:
+    @staticmethod
+    def candidate_key(frame_id: str, truth_id: str) -> str:
+        """Cache key for proposals: frame-scoped, because truth_ids may repeat across frames."""
+        return f"{frame_id}#{truth_id}"
+
+    def candidates(self, truth_id: str, frame_id: str | None = None, *,
+                   force: bool = False) -> dict:
+        point = self.store.find_point(truth_id, frame_id)
+        frame_id = point["frame_id"]
+        key = self.candidate_key(frame_id, truth_id)
         if not force:
-            cached = self.store.localization_candidates.get(truth_id)
+            cached = self.store.localization_candidates.get(key)
             if cached:
                 return cached
-        point = next((p for p in self.store.points if p["truth_id"] == truth_id), None)
-        if point is None:
-            raise RapidError(f"unknown truth_id {truth_id}")
-        frame_id = point["frame_id"]
         frame_row = self.store.frame_by_id[frame_id]
         file_row = self.store.file_row[frame_row["file_id"]]
         x, y = point["source_xy"]
@@ -857,7 +969,7 @@ class Localizer:
             "degraded_sources": degraded,
             "computed_at": now_iso(),
         }
-        self.store.localization_candidates[truth_id] = payload
+        self.store.localization_candidates[key] = payload
         self.store._save_json("localization_candidates.json",
                               self.store.localization_candidates)
         return payload
@@ -926,13 +1038,15 @@ class Localizer:
                 "contains_point": bool(best["contains_point"]),
                 "area": best["area"]}
 
-    def crop_jpeg(self, truth_id: str, idx: int, *, scale: int = 4,
-                  half: int = 96, quality: int = 88):
+    def crop_jpeg(self, truth_id: str, idx: int, frame_id: str | None = None, *,
+                  scale: int = 4, half: int = 96, quality: int = 88):
         import cv2
         import numpy as np
-        payload = self.store.localization_candidates.get(truth_id)
+        point = self.store.find_point(truth_id, frame_id)
+        payload = self.store.localization_candidates.get(
+            self.candidate_key(point["frame_id"], truth_id))
         if payload is None:
-            payload = self.candidates(truth_id, force=True)
+            payload = self.candidates(truth_id, point["frame_id"], force=True)
         options = payload["candidates"]
         if idx < 0 or idx >= len(options):
             raise RapidError(f"candidate {idx} unavailable for {truth_id}")
@@ -1154,6 +1268,10 @@ def make_handler(store: RapidReviewStore, images: FrameImages, localizer: Locali
             try:
                 if path in ("/", "/index.html"):
                     return self._send(200, PAGE.encode("utf-8"), "text/html; charset=utf-8")
+                if path == "/favicon.ico":
+                    # Keep the browser console clean: a 404 here is noise that makes real
+                    # errors harder to spot during review.
+                    return self._send(204, b"", "image/x-icon")
                 if path == "/api/frames":
                     return self._json({
                         "frames": [{"frame_id": f["frame_id"], "camera_id": f["camera_id"],
@@ -1181,10 +1299,12 @@ def make_handler(store: RapidReviewStore, images: FrameImages, localizer: Locali
                         scale=int(params.get("scale", 4)))
                     return self._send(200, data, "image/png")
                 if path == "/api/localize":
-                    return self._json(localizer.candidates(params.get("truth_id", "")))
+                    return self._json(localizer.candidates(
+                        params.get("truth_id", ""), params.get("frame_id") or None))
                 if path == "/api/candidate_image":
                     data = localizer.crop_jpeg(params.get("truth_id", ""),
                                                int(params.get("idx", 0)),
+                                               params.get("frame_id") or None,
                                                scale=int(params.get("scale", 4)))
                     return self._send(200, data, "image/jpeg")
                 if path == "/api/health":
@@ -1207,7 +1327,7 @@ def make_handler(store: RapidReviewStore, images: FrameImages, localizer: Locali
                                             body["x"], body["y"], body.get("note"))
                     return self._json({"point": point, "progress": store.progress()})
                 if path == "/api/truth_delete":
-                    removed = store.delete_point(body["truth_id"])
+                    removed = store.delete_point(body["truth_id"], body.get("frame_id"))
                     return self._json({"removed": removed, "progress": store.progress()})
                 if path == "/api/truth_complete":
                     entry = store.complete_truth(body["frame_id"], body.get("complete", True))
@@ -1219,13 +1339,27 @@ def make_handler(store: RapidReviewStore, images: FrameImages, localizer: Locali
                     return self._json({"review": row, "stage": store.stage_of(body["frame_id"]),
                                        "progress": store.progress()})
                 if path == "/api/localize":
-                    return self._json(localizer.candidates(body["truth_id"]))
+                    return self._json(localizer.candidates(body["truth_id"],
+                                                           body.get("frame_id")))
                 if path == "/api/localize_select":
-                    entry = store.select_localization(body["truth_id"], body["choice"],
-                                                      resolver=localizer.candidates)
-                    return self._json({"selection": entry,
-                                       "stage": store.stage_of(entry["frame_id"]),
-                                       "progress": store.progress()})
+                    entry = store.select_localization(
+                        body["truth_id"], body["choice"], frame_id=body.get("frame_id"),
+                        resolver=lambda truth_id, frame_id: localizer.candidates(
+                            truth_id, frame_id))
+                    return self._json({
+                        "ok": True,
+                        "truth_id": entry["truth_id"],
+                        "frame_id": entry["frame_id"],
+                        "choice": entry["choice"],
+                        "status": entry.get("status"),
+                        "already_recorded": bool(entry.get("already_recorded")),
+                        "localization_complete": bool(entry.get("localization_complete")),
+                        "remaining": entry.get("remaining"),
+                        "next_truth_id": entry.get("next_truth_id"),
+                        "selection": entry,
+                        "stage": store.stage_of(entry["frame_id"]),
+                        "progress": store.progress(),
+                    })
                 if path == "/api/train_export_probe":
                     return self._json(store.train_export_probe(body["frame_id"]))
                 if path == "/api/copy_previous":
@@ -1585,7 +1719,8 @@ function renderSidebar(){
       `${p.origin==='copied_from_previous_frame'?' <span class="muted">[复制]</span>':''}`+
       `${p.has_copied_localization?' <span class="muted">[有候选]</span>':''}`;
     const b=document.createElement('button'); b.textContent='×'; b.style.marginLeft='5px';
-    b.onclick=async()=>{ await post('/api/truth_delete',{truth_id:p.truth_id}); await reload(); };
+    b.onclick=async()=>{ await post('/api/truth_delete',
+        {truth_id:p.truth_id, frame_id:S.frames[S.idx].frame_id}); await reload(); };
     d.appendChild(b); list.appendChild(d);
   });
   if(!(S.state.truth_points||[]).length) list.innerHTML='<span class="muted">本帧暂无点位</span>';
@@ -1678,7 +1813,8 @@ async function renderCandidates(){
   el('locInfo').textContent = `点位 ${S.locTruth} (${pending.length} 个待定位) · `+
     `正在计算候选框…（首次会加载 semantic 模型，稍等）`;
   let data;
-  try { data = await post('/api/localize', {truth_id:S.locTruth}); }
+  try { data = await post('/api/localize', {truth_id:S.locTruth,
+                                            frame_id:S.frames[S.idx].frame_id}); }
   catch(err){ el('locInfo').textContent = '候选框计算失败: '+err.message+' → 可按 0 跳过';
               return; }
   el('locInfo').textContent = `点位 ${S.locTruth} (${pending.length} 个待定位) · 只选 1/2/3/0`;
@@ -1686,7 +1822,8 @@ async function renderCandidates(){
   data.candidates.forEach((c,i)=>{
     const d=document.createElement('div');
     d.className='cand'+(i===S.currentCandidate?' act':'');
-    d.innerHTML = `<img src="/api/candidate_image?truth_id=${encodeURIComponent(S.locTruth)}&idx=${i}">`+
+    d.innerHTML = `<img src="/api/candidate_image?truth_id=${encodeURIComponent(S.locTruth)}`+
+      `&frame_id=${encodeURIComponent(S.frames[S.idx].frame_id)}&idx=${i}">`+
       `<div class="candmeta"><b>${c.label} — 按 ${i+1}</b>`+
       `<small>${CAND_SOURCE[c.proposal_source]||c.proposal_source}</small>`+
       `<small>包含该点: ${c.contains_point?'是':'否'}</small></div>`;
@@ -1700,9 +1837,27 @@ async function renderCandidates(){
 }
 async function selectCandidate(choice){
   if(!S.locTruth) return;
-  await post('/api/localize_select',{truth_id:S.locTruth, choice:choice});
-  S.locTruth = null; S.currentCandidate=0;
+  const frameId = S.frames[S.idx].frame_id;
+  const truthId = S.locTruth;
+  let data;
+  try{
+    data = await post('/api/localize_select',
+                      {truth_id:truthId, frame_id:frameId, choice:choice});
+  }catch(err){
+    /* Never silently "jump": a rejected submit must say so and leave the point pending. */
+    toast('定位提交失败（'+truthId+'）: '+err.message, 5000);
+    return;
+  }
+  if(data.already_recorded){ toast('该点已记录过同一选择（未重复写入）', 2400); }
+  S.currentCandidate = 0;
+  S.locTruth = data.next_truth_id || null;
   await reload();
+  const pending = document.querySelectorAll('#cands .cand').length;
+  if(data.localization_complete){
+    toast('本帧 Required 定位已完成 → 可直接下一帧 (→)', 3000);
+  } else if(typeof data.remaining === 'number'){
+    toast('已记录 '+truthId+' · 剩余 '+data.remaining+' 个待定位', 1800);
+  }
 }
 async function refreshProgress(){
   const p = await get('/api/progress');
@@ -1803,7 +1958,8 @@ c.addEventListener('click', async e=>{
     let best=null;
     pts.forEach(p=>{ const dx=p.source_xy[0]-sx, dy=p.source_xy[1]-sy;
       const d=Math.hypot(dx,dy); if(d<16 && (!best||d<best.d)) best={d,p}; });
-    if(best){ await post('/api/truth_delete',{truth_id:best.p.truth_id}); await reload(); }
+    if(best){ await post('/api/truth_delete',
+        {truth_id:best.p.truth_id, frame_id:S.frames[S.idx].frame_id}); await reload(); }
     else toast('附近 16px 内没有可删除的点位');
     return;
   }

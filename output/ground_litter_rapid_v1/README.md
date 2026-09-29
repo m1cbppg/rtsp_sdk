@@ -210,6 +210,57 @@ review 阶段仍然保留**所有** fixed frame 的 truth（不改 `split.json`�
 
 ---
 
+## 3B. Stage C 提交契约（定位 submit / advance）
+
+Stage C 的候选卡点击与数字键 `1 / 2 / 3 / 0` **走完全相同的一条路径**
+（`selectCandidate(choice)` → `POST /api/localize_select`）。
+
+### 请求
+
+```json
+POST /api/localize_select
+{"truth_id": "t-00039", "frame_id": "<当前 frame_id>", "choice": 1}
+```
+
+`frame_id` **必须带**。`truth_id` 在同一个 artifact 里历史上可能重复（早期版本用
+`len(points)+1` 生成 id，删除后会重用），所以服务端一律按
+**(frame_id, truth_id)** 定位 point：
+
+* 只给 `truth_id` 且该 id 在多个 frame 上存在 → 直接报错（`ambiguous truth_id`），
+  绝不猜测、绝不写到别的 frame；
+* `truth_id` 生成现在是**单调递增、永不复用**的（高水位存在
+  `review_state.json` 的 `truth_id_counter`）。
+
+### 响应
+
+```json
+{
+  "ok": true,
+  "truth_id": "t-00039",
+  "frame_id": "..._t090",
+  "choice": 1,
+  "status": "LOCALIZED",          // 或 UNLOCALIZED_SKIP
+  "already_recorded": false,      // 重复提交同一选择时为 true，且不写第二次
+  "localization_complete": false, // 本帧 Required 是否全部定位完
+  "remaining": 4,                 // 本帧剩余待定位数
+  "next_truth_id": "t-00040",     // 下一个待定位点；完成时为 null
+  "selection": {...},
+  "stage": "localization",
+  "progress": {...}
+}
+```
+
+* **幂等**：同一个 (frame_id, truth_id) 最多一行 decision。重复提交同一 choice →
+  `already_recorded: true`，不新增行；提交不同 choice → **原地覆盖**，也不新增行。
+* 成功提交后前端自动切到 `next_truth_id`，`remaining` 递减，`Localization` 计数 +1，
+  已选点不再出现在 pending 列表。
+* 最后一个点完成后 `localization_complete: true`、`next_truth_id: null`、stage → `done`，
+  可直接下一帧。
+* **失败必须可见**：`4xx`（例如候选不存在、ambiguity）会在页面上弹出红色提示，并且
+  **不会**前进——不会出现“页面跳一下但什么都没发生”。
+
+---
+
 ## 4. 目录结构
 
 ```

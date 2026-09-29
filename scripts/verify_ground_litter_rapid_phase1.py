@@ -272,7 +272,8 @@ def main(argv=None) -> int:
             check("prediction_review_recorded", True, "no predictions on this frame")
 
         # --- 5. localization A/B/C --------------------------------------- #
-        status, body = client.post("/api/localize", {"truth_id": truth_id})
+        status, body = client.post("/api/localize", {"truth_id": truth_id,
+                                                     "frame_id": train_frame})
         candidates = body.get("candidates") or []
         sources = [c["proposal_source"] for c in candidates]
         check("localization_candidates_returned", status == 200 and len(candidates) >= 1,
@@ -285,11 +286,28 @@ def main(argv=None) -> int:
                 "/api/candidate_image", truth_id=truth_id, idx=0)
             check("candidate_crop_is_jpeg", status == 200 and raw_bytes[:2] == b"\xff\xd8",
                   {"bytes": len(raw_bytes), "content_type": content_type})
-            status, body = client.post("/api/localize_select", {"truth_id": truth_id,
-                                                               "choice": 1})
+            status, body = client.post("/api/localize_select", {
+                "truth_id": truth_id, "frame_id": train_frame, "choice": 1})
             check("localization_selection_recorded",
                   status == 200 and body["selection"]["status"] == "LOCALIZED",
                   body.get("selection"))
+            check("localization_frame_scoped",
+                  body.get("frame_id") == train_frame
+                  and body["selection"]["frame_id"] == train_frame, body.get("frame_id"))
+            check("localization_response_contract",
+                  all(key in body for key in ("ok", "truth_id", "frame_id",
+                                              "localization_complete", "remaining",
+                                              "next_truth_id")),
+                  {k: body.get(k) for k in ("ok", "remaining", "localization_complete",
+                                            "next_truth_id")})
+            # Idempotency: submitting the same choice again must not add a second decision.
+            status, again = client.post("/api/localize_select", {
+                "truth_id": truth_id, "frame_id": train_frame, "choice": 1})
+            rows = [r for r in read_jsonl(smoke / "review" / "localization_reviews.jsonl")
+                    if r["truth_id"] == truth_id]
+            check("localization_duplicate_submit_idempotent",
+                  status == 200 and again.get("already_recorded") is True and len(rows) == 1,
+                  {"already_recorded": again.get("already_recorded"), "rows": len(rows)})
         else:
             status, body = client.post("/api/localize_select", {"truth_id": truth_id,
                                                                "choice": 0})
