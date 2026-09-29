@@ -59,6 +59,11 @@ def parse_args(argv=None):
     parser.add_argument("--selection", default="day1",
                         choices=("day1", "train", "dev", "final", "all", "list"))
     parser.add_argument("--window-id", action="append", default=[])
+    parser.add_argument("--camera", action="append", default=[],
+                        help="restrict to these cameras (parallel workers)")
+    parser.add_argument("--tag", default="",
+                        help="suffix for coarse_frames/raw_candidates/candidate_observations; "
+                             "keeps parallel workers from interleaving their JSONL output")
     parser.add_argument("--dense-window", action="append", default=[])
     parser.add_argument("--last-model", type=Path, default=Path(DEFAULT_LAST_MODEL))
     parser.add_argument("--semantic-model", type=Path, default=None)
@@ -108,8 +113,14 @@ def prepare_cv2():
     return cv2
 
 
-def decode_target_frames(path: Path, offsets: list[float], *, timeout: float = 30.0):
-    """Sequentially decode to the requested offsets; returns (frames, fps, targets).
+def decode_target_frames(path: Path, offsets: list[float], *, timeout: float = 30.0,
+                         allow_short: bool = True):
+    """Sequentially decode to the requested offsets.
+
+    Returns ``(frames, fps, targets, missing)``.  Some PS files are shorter than
+    270 s (recorder restarts, truncated archive segments); rather than failing the
+    whole window this records the missing offsets so the manifest shows a real
+    shortfall.  ``allow_short=False`` restores the hard error.
 
     OpenCV is used deliberately: these HEVC MPEG-PS files are not frame-accurate
     under random seek (measured one frame late with a bogus POS_MSEC), and the
@@ -139,11 +150,12 @@ def decode_target_frames(path: Path, offsets: list[float], *, timeout: float = 3
             if index >= highest:
                 break
             index += 1
-        if wanted:
-            raise HistoricalError(f"source ended before frames {sorted(wanted)}: {path}")
+        missing = sorted(wanted)
+        if missing and not allow_short:
+            raise HistoricalError(f"source ended before frames {missing}: {path}")
     finally:
         capture.release()
-    return frames, fps, targets
+    return frames, fps, targets, missing
 
 
 def appearance_of(frame, box) -> tuple[list[float], str]:
@@ -198,8 +210,13 @@ def process_window(args, window: dict, models: dict, roi: dict, client, download
     offsets = list(DENSE_OFFSETS) if window["window_id"] in set(args.dense_window) \
         else list(COARSE_OFFSETS)
     started = time.monotonic()
-    frames, fps, targets = decode_target_frames(target, offsets, timeout=args.timeout)
+    frames, fps, targets, missing = decode_target_frames(target, offsets, timeout=args.timeout)
     decode_seconds = time.monotonic() - started
+    if not frames:
+        raise HistoricalError(f"no frame decoded from {target}")
+    missing_offsets = [float(targets[index]) for index in missing]
+    if missing_offsets:
+        print(f"    short source: missing offsets {missing_offsets} in {target.name}", flush=True)
 
     import cv2
     frame_rows, raw_rows, observation_rows = [], [], []
@@ -297,6 +314,7 @@ def process_window(args, window: dict, models: dict, roi: dict, client, download
         "decode_seconds": round(decode_seconds, 2),
         "fps": fps,
         "offsets": offsets,
+        "missing_offsets": missing_offsets,
     }
 
 
@@ -322,6 +340,9 @@ def main(argv=None) -> int:
     else:
         wanted = {row["window_id"] for row in rows if row["purpose"] == args.selection}
     selected = [row for row in rows if row["window_id"] in wanted]
+    if args.camera:
+        allowed = set(args.camera)
+        selected = [row for row in selected if row["camera_id"] in allowed]
     selected.sort(key=lambda row: (row["date"], row["camera_id"], row["start_time"]))
     if args.limit:
         selected = selected[:args.limit]
@@ -370,14 +391,18 @@ def main(argv=None) -> int:
         row["reason_downloaded"] = f"coarse:{args.selection}"
         row["extraction_status"] = "done"
         row["frame_count"] = len(result["frames"])
-        _append(args.artifact / "coarse_frames.jsonl", result["frames"])
-        _append(args.artifact / "raw_candidates.jsonl", result["raw"])
-        _append(args.artifact / "candidate_observations.jsonl", result["observations"])
+        row["missing_offsets"] = result["missing_offsets"]
+        suffix = f".{args.tag}" if args.tag else ""
+        _append(args.artifact / f"coarse_frames{suffix}.jsonl", result["frames"])
+        _append(args.artifact / f"raw_candidates{suffix}.jsonl", result["raw"])
+        _append(args.artifact / f"candidate_observations{suffix}.jsonl", result["observations"])
         write_jsonl(manifest_path, rows)
         totals["windows_done"] += 1
         totals["frames"] += len(result["frames"])
         totals["raw"] += len(result["raw"])
         totals["observations"] += len(result["observations"])
+        if result["missing_offsets"]:
+            totals["short_windows"] = totals.get("short_windows", 0) + 1
         print(f"[{order}/{len(selected)}] {window['window_id']} "
               f"frames={len(result['frames'])} raw={len(result['raw'])} "
               f"obs={len(result['observations'])} decode={result['decode_seconds']}s",

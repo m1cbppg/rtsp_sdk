@@ -182,8 +182,16 @@ proposal；近乎重复的框会被去掉，最多 3 个。
 code/        本次上传的最小代码包（scripts + rtsp_annotator 子集 + ROI config）
 artifact/    manifest / frames / 候选表 / review units / review 决策
 logs/        长任务日志
-run_coarse.sh
+run_coarse.sh        串行版（单进程）
+run_parallel.sh      按 camera 4 路并行版（当前使用）
+finish_parallel.sh   并行收尾：合并 manifest/JSONL → 建组 → smoke → 报告 → 起服务
 ```
+
+> **并行约定**：单进程实测只用到约 3/16 核，所以按 camera 拆成 4 个 worker。
+> 每个 worker 用自己的 `--manifest artifact/work/manifest_<camera>.jsonl` 和
+> `--tag <camera>`（输出写成 `coarse_frames.<camera>.jsonl` 等），避免 4 个进程
+> 交错写同一份 JSONL / manifest。收尾时按 `window_id` 合并 manifest（done > failed >
+> pending），并把三份 JSONL 按 `frame_id` / `observation_id` 去重合并。
 
 ```bash
 PY=/home/sf01/ground_litter_train/.venv/bin/python
@@ -195,8 +203,13 @@ CFG=$ROOT/code/config
 #    scripts/build_ground_litter_historical_windows.py
 
 # 2. 粗扫：Day-1 20 个 TRAIN window 下载 + 取帧 + 双模型推理
+#    串行：
 $PY -B code/scripts/run_ground_litter_historical_coarse.py \
     --artifact $ART --roi-config-dir $CFG --selection day1 --device cpu
+#    4 路并行（单 camera）：
+$PY -B code/scripts/run_ground_litter_historical_coarse.py \
+    --artifact $ART --roi-config-dir $CFG --manifest $ART/work/manifest_01021.jsonl \
+    --camera 01021 --tag 01021 --selection day1 --device cpu
 
 # 3. 缓存 DEV/FINAL（只取帧，不推理，保持独立）
 $PY -B code/scripts/run_ground_litter_historical_coarse.py \

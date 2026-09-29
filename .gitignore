@@ -58,3 +58,8 @@ releases/
 # ---------------------------------------------------------------------------
 output/ground_litter_historical_v2/listing_cache/
 !output/ground_litter_historical_v2/historical_window_manifest.jsonl
+# v2 挖掘结果的复核级清单（不是原始媒体/候选全量）：允许入库。
+!output/ground_litter_historical_v2/review_units.jsonl
+!output/ground_litter_historical_v2/review_groups.jsonl
+!output/ground_litter_historical_v2/episodes.jsonl
+!output/ground_litter_historical_v2/blind_frames.jsonl

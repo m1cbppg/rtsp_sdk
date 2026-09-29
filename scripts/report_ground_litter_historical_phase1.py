@@ -39,7 +39,6 @@ def main(argv=None) -> int:
     manifest = read_jsonl(artifact / "historical_window_manifest.jsonl")
     observations = read_jsonl(artifact / "candidate_observations.jsonl")
     units = read_jsonl(artifact / "review_units.jsonl")
-    progress = _json(artifact / "coarse_progress.json", {})
     build = _json(artifact / "review_build_summary.json", {})
     queue = _json(artifact / "queue.json", {})
 
@@ -80,8 +79,11 @@ def main(argv=None) -> int:
                  f"（第一批目标 20）")
     lines.append(f"- dev cached: **{len(by_split.get('DEV', []))}**")
     lines.append(f"- final cached: **{len(by_split.get('FINAL', []))}**")
-    lines.append(f"- windows done: **{progress.get('windows_done', len(downloaded))}**")
+    lines.append(f"- windows done: **{len(downloaded)}**（manifest 中 download_status=downloaded）")
     lines.append(f"- total bytes: **{total_bytes / 1e9:.2f} GB**")
+    short = [row for row in downloaded if row.get("missing_offsets")]
+    lines.append(f"- source shorter than 270s（已按可用帧降级并记录）: **{len(short)}**"
+                 + (f"，例如 {short[0]['window_id']} 缺 {short[0]['missing_offsets']}" if short else ""))
     lines.append(f"- 冻结 split：{json.dumps(_json(artifact / 'historical_window_manifest.meta.json', {}).get('day_split', {}), ensure_ascii=False)}")
     lines.append(f"- manifest SHA256: `{_json(artifact / 'historical_window_manifest.meta.json', {}).get('manifest_sha256', 'n/a')}`")
     lines.append("")
