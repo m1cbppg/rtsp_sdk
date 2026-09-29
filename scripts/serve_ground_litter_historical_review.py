@@ -483,6 +483,7 @@ class ReviewStore:
             "artifact": str(self.artifact),
             "progress": self.progress(),
             "batch": self.default_batch(),
+            "batches": sorted({int(u.get("batch") or 0) for u in self.units}),
             "counts_by_verdict": self.counts_by_verdict(),
         }
 
@@ -969,6 +970,9 @@ PAGE = r"""<!doctype html>
   <b>地面零散垃圾历史主动挖掘 v2</b>
   <span class="meta" id="unitmeta">加载中…</span>
   <span id="progress"></span>
+  <label class="meta" style="margin-left:12px">批次
+    <select id="batchsel" onchange="switchBatch(this.value)"></select>
+  </label>
 </header>
 <main>
   <section class="card">
@@ -995,7 +999,7 @@ PAGE = r"""<!doctype html>
 const LABELS = {R:"必需垃圾", I:"微小忽略", U:"不确定", N:"非垃圾/背景"};
 const ROLE_LABELS = {normal:"正常", shadow_change:"阴影变化", low_contrast:"低对比",
   pose_change:"姿态变化", mild_occlusion:"轻微遮挡", background_change:"背景变化"};
-const state = { queue: [], index: 0, unit: null, batch: 1 };
+const state = { queue: [], index: 0, unit: null, batch: 1, batchLocked: false };
 
 function banner(msg) {
   const el = document.getElementById("banner");
@@ -1035,9 +1039,30 @@ function unitLabel(u) {
          (u.blind ? " · blind" : "") + (u.suspected_same_object ? " · 疑似同一物体" : "");
 }
 
+const BATCH_LABELS = {1: "1 · 首批候选", 2: "2 · 候选", 3: "3 · 候选",
+                      4: "4 · blind（模型隐藏）", 5: "5 · 备选"};
+
+function renderBatchOptions(batches, current) {
+  const sel = document.getElementById("batchsel");
+  if (!sel) return;
+  const wanted = (batches && batches.length) ? batches : [current];
+  sel.innerHTML = wanted.map(function (b) {
+    const label = BATCH_LABELS[b] || ("批次 " + b);
+    return '<option value="' + b + '"' + (Number(b) === Number(current) ? " selected" : "") +
+           ">" + label + "</option>";
+  }).join("");
+}
+
+function switchBatch(value) {
+  state.batch = Number(value);
+  state.batchLocked = true;
+  loadQueue().then(showUnit).catch(function (e) { banner(String(e.message || e)); });
+}
+
 async function loadQueue() {
   const st = await api("/api/state");
-  state.batch = st.batch;
+  if (!state.batchLocked) { state.batch = st.batch; }
+  renderBatchOptions(st.batches, state.batch);
   const q = await api("/api/queue?batch=" + state.batch + "&offset=0&limit=1000");
   state.queue = q.units || [];
   document.getElementById("progress").textContent =
