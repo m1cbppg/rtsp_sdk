@@ -63,3 +63,5 @@ output/ground_litter_historical_v2/listing_cache/
 !output/ground_litter_historical_v2/review_groups.jsonl
 !output/ground_litter_historical_v2/episodes.jsonl
 !output/ground_litter_historical_v2/blind_frames.jsonl
+# v2 首批只读诊断的队列（小文件，需要入库以便复核）。
+!output/ground_litter_historical_v2/diagnostics/*.jsonl
