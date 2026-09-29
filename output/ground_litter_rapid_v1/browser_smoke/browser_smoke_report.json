@@ -1,0 +1,147 @@
+{
+  "phase": "ground-litter-rapid-v1-phase1-browser-smoke",
+  "base_url": "http://127.0.0.1:18811",
+  "frame_id": "01021_476689_18081003969_44180209031322001021-1790064037000_t030",
+  "checks": [
+    {
+      "check": "split_badge_visible",
+      "ok": true,
+      "detail": "RAPID-TRAIN"
+    },
+    {
+      "check": "stage_a_label",
+      "ok": true,
+      "detail": "STAGE A — TRUTH (model hidden)"
+    },
+    {
+      "check": "stage_b_hidden_initially",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "stage_c_hidden_initially",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "stage_a_no_confidence_in_dom",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "stage_a_no_conf_in_dom",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "stage_a_no_prediction_id_in_dom",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "canvas_present",
+      "ok": true,
+      "detail": {
+        "x": 0,
+        "y": 38.390625,
+        "width": 1360,
+        "height": 918
+      }
+    },
+    {
+      "check": "loupe_visible_and_positioned",
+      "ok": true,
+      "detail": {
+        "w": 216,
+        "h": 216,
+        "pos": "absolute"
+      }
+    },
+    {
+      "check": "progress_dashboard_populated",
+      "ok": true,
+      "detail": "Truth Review\t0 / 2 (固定2+bonus0)\nRapid-Train\t0 / 1+0\nRapid-Eval\t0 / 1\nRequired po"
+    },
+    {
+      "check": "truth_point_added_by_click",
+      "ok": true,
+      "detail": "REQUIRED1280,719 (ROI外)×"
+    },
+    {
+      "check": "stage_b_still_hidden_after_point",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "enter_reveals_stage_b",
+      "ok": true,
+      "detail": "STAGE B — PREDICTION"
+    },
+    {
+      "check": "stage_b_prediction_info",
+      "ok": true,
+      "detail": "共 2 个框 · 未判 2 · 已判 0"
+    },
+    {
+      "check": "stage_b_no_confidence_number",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "m_reopens_stage_a",
+      "ok": true,
+      "detail": "STAGE A — TRUTH (model hidden)"
+    },
+    {
+      "check": "recomplete_returns_to_stage_b",
+      "ok": true,
+      "detail": "STAGE B — PREDICTION"
+    },
+    {
+      "check": "y_verdict_recorded",
+      "ok": true,
+      "detail": "1:M2:Y"
+    },
+    {
+      "check": "stage_c_visible_on_train",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "localization_candidates_rendered",
+      "ok": true,
+      "detail": {
+        "candidates": 1,
+        "images_loaded": true
+      }
+    },
+    {
+      "check": "localization_none_selection_recorded",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "resume_keeps_truth_points",
+      "ok": true,
+      "detail": {
+        "before": 1,
+        "after": 1
+      }
+    },
+    {
+      "check": "no_page_errors",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "check": "no_8801_request",
+      "ok": true,
+      "detail": null
+    }
+  ],
+  "failed": [],
+  "result": "PASS",
+  "console": [
+    "error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ]
+}

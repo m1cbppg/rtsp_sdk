@@ -1,0 +1,149 @@
+{
+  "phase": "ground-litter-rapid-v1-phase1",
+  "seed": "ground-litter-rapid-v1-20260929",
+  "scope_note": "仅代表当前四路可用摄像头 01021/01022/01027/01030；01028 严重遮挡，本轮不做任何结论。",
+  "split": {
+    "rapid_train_ps": 40,
+    "rapid_eval_ps": 12,
+    "per_camera": {
+      "01021": {
+        "rapid_train": 10,
+        "rapid_eval": 3,
+        "forced_to_train": 1
+      },
+      "01022": {
+        "rapid_train": 10,
+        "rapid_eval": 3,
+        "forced_to_train": 3
+      },
+      "01027": {
+        "rapid_train": 10,
+        "rapid_eval": 3,
+        "forced_to_train": 1
+      },
+      "01030": {
+        "rapid_train": 10,
+        "rapid_eval": 3,
+        "forced_to_train": 1
+      }
+    },
+    "split_sha256": "e7d2eeea31651d7b6921ae9e088c7f5e59cfeab01de71bb51e827df992d41afd",
+    "prior_inference_file_ids": [
+      "281238_18081003969_44180209031322001022-1790063800000",
+      "281238_18081003969_44180209031322001022-1790064104000",
+      "281238_18081003969_44180209031322001022-1790066839000",
+      "318010_18081003969_44180209031322001030-1790063889000",
+      "476689_18081003969_44180209031322001021-1790063733000",
+      "860384_18081003969_44180209031322001027-1790063888000"
+    ],
+    "prior_inference_all_forced_to_train": true,
+    "eval_ps": [
+      {
+        "camera_id": "01021",
+        "file_id": "476689_18081003969_44180209031322001021-1790064341000"
+      },
+      {
+        "camera_id": "01021",
+        "file_id": "476689_18081003969_44180209031322001021-1790065556000"
+      },
+      {
+        "camera_id": "01021",
+        "file_id": "476689_18081003969_44180209031322001021-1790065860000"
+      },
+      {
+        "camera_id": "01022",
+        "file_id": "281238_18081003969_44180209031322001022-1790064712000"
+      },
+      {
+        "camera_id": "01022",
+        "file_id": "281238_18081003969_44180209031322001022-1790067143000"
+      },
+      {
+        "camera_id": "01022",
+        "file_id": "281238_18081003969_44180209031322001022-1790067446000"
+      },
+      {
+        "camera_id": "01027",
+        "file_id": "860384_18081003969_44180209031322001027-1790064192000"
+      },
+      {
+        "camera_id": "01027",
+        "file_id": "860384_18081003969_44180209031322001027-1790065407000"
+      },
+      {
+        "camera_id": "01027",
+        "file_id": "860384_18081003969_44180209031322001027-1790067535000"
+      },
+      {
+        "camera_id": "01030",
+        "file_id": "318010_18081003969_44180209031322001030-1790064497000"
+      },
+      {
+        "camera_id": "01030",
+        "file_id": "318010_18081003969_44180209031322001030-1790066624000"
+      },
+      {
+        "camera_id": "01030",
+        "file_id": "318010_18081003969_44180209031322001030-1790066928000"
+      }
+    ]
+  },
+  "frames": {
+    "fixed_train": 200,
+    "fixed_eval": 60,
+    "bonus_train": 5,
+    "total_review_frames": 265,
+    "extracted": 265,
+    "decode_failures": 0,
+    "missing": 0,
+    "anomaly_count": 0,
+    "max_abs_delta_ms": 14.0,
+    "decode_mode": "sequential_frame_index",
+    "source_native": [
+      2560,
+      1440
+    ]
+  },
+  "baseline": {
+    "checkpoint_path": "/home/sf01/step2b-20260923/out/runs/full_finetune/weights/last.pt",
+    "checkpoint_sha256": "4852392aeae9a68669a50752eb1f7466fbcc9a426524faba86fb20a3b6351a94",
+    "checkpoint_sha256_matches_frozen": true,
+    "best_pt_used": false,
+    "inference_frames": 265,
+    "tiles_total": 1730,
+    "raw_candidates_total": 104,
+    "raw_predictions_at_floor": 77,
+    "predictions_by_threshold": {
+      "0.01": 77,
+      "0.03": 53,
+      "0.05": 44,
+      "0.10": 29,
+      "0.20": 16,
+      "0.30": 11
+    },
+    "per_split": {
+      "rapid_train": {
+        "frames": 205,
+        "predictions": 54
+      },
+      "rapid_eval": {
+        "frames": 60,
+        "predictions": 23
+      }
+    },
+    "elapsed_seconds": 506.37,
+    "predictions_sha256": "660218d72a5a8541b02667cac086d838b95c98e9659a6b51998fdaa81563f125",
+    "device": "cpu",
+    "note": "尚未完成人工真值，因此本阶段不报告任何准确率、召回率或好坏结论。"
+  },
+  "review_ui": {
+    "url": "http://127.0.0.1:18810/",
+    "frames_to_review": 265
+  },
+  "safety": {
+    "sealed_accessed": false,
+    "official_writes": 0,
+    "automated_8801_access": 0,
+    "step2b_last_pt_overwritten": false
+  }
+}
