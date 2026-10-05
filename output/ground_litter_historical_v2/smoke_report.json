@@ -1,0 +1,55 @@
+{
+  "kind": "ground_litter_historical_v2_smoke",
+  "started_at": "2026-09-29T17:20:38",
+  "artifact": "/home/sf01/ground-litter-historical-v2/artifact",
+  "protected_roots": [
+    "/home/sf01/ground-litter-rapid-v1/artifact",
+    "/home/sf01/step2c1-blind-truth/artifact"
+  ],
+  "checks": {
+    "selftest_exit": 0,
+    "selftest_stdout": "{\n  \"ok\": true,\n  \"artifact\": \"/home/sf01/ground-litter-historical-v2/artifact\",\n  \"units\": 130,\n  \"frames\": 150,\n  \"blind_units\": 32,\n  \"cv2_available\": true,\n  \"progress\": {\n    \"total\": 130,\n    \"decided\": 0,\n    \"bbox_done\": 0,\n    \"complete\": 0,\n    \"remaining\": 130,\n    \"model_revealed\": 0\n  },\n  \"failures\": []\n}\n",
+    "selftest_stderr": "",
+    "http": {
+      "reachable": true,
+      "index_status": 200,
+      "index_bytes": 14032,
+      "state_status": 200,
+      "state": {
+        "total": 130,
+        "remaining": 130,
+        "batch": 1
+      },
+      "queue_status": 200,
+      "queue_sample": 3,
+      "blind_neutral": null,
+      "traversal_status": 403
+    }
+  },
+  "ok": true,
+  "port": 33481,
+  "diffs": {
+    "/home/sf01/ground-litter-historical-v2/artifact": {
+      "added": [],
+      "removed": [],
+      "changed": []
+    },
+    "/home/sf01/ground-litter-rapid-v1/artifact": {
+      "added": [],
+      "removed": [],
+      "changed": []
+    },
+    "/home/sf01/step2c1-blind-truth/artifact": {
+      "added": [],
+      "removed": [],
+      "changed": []
+    }
+  },
+  "safety": {
+    "sealed_touched": 0,
+    "official_step2c_write": 0,
+    "automated_access_8801": 0,
+    "note": "the smoke only ever connected to 127.0.0.1:33481; port 8801 was never contacted"
+  },
+  "finished_at": "2026-09-29T17:20:50"
+}

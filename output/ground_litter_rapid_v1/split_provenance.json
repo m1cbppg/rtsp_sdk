@@ -1,0 +1,22 @@
+{
+  "seed": "ground-litter-rapid-v1-20260929",
+  "split_sha256": "e7d2eeea31651d7b6921ae9e088c7f5e59cfeab01de71bb51e827df992d41afd",
+  "manifest_source": "/home/sf01/step2c1-blind-truth/artifact/development_manifest.json",
+  "truth_source": "/home/sf01/step2c1-blind-truth/artifact/truth_objects.jsonl",
+  "exploratory_selection_source": "/home/sf01/ground-litter-rapid-v1/seed/fourcam-selection.json",
+  "manifest_canonical_sha256": "0752c0fec1f4bbe80d7629c6ac84c06fac2a7a303763874836245ca1e27fd5a3",
+  "prior_inference_file_ids": [
+    "281238_18081003969_44180209031322001022-1790063800000",
+    "281238_18081003969_44180209031322001022-1790064104000",
+    "281238_18081003969_44180209031322001022-1790066839000",
+    "318010_18081003969_44180209031322001030-1790063889000",
+    "476689_18081003969_44180209031322001021-1790063733000",
+    "860384_18081003969_44180209031322001027-1790063888000"
+  ],
+  "official_review_state": {
+    "official_reviewed_ps": 52,
+    "official_total_ps": 53
+  },
+  "sealed_accessed": false,
+  "official_writes": 0
+}

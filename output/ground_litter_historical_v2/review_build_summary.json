@@ -1,0 +1,52 @@
+{
+  "observations": 315,
+  "observations_before_floor": 1936,
+  "excluded_below_review_floor": 1621,
+  "review_min_confidence": 0.15,
+  "raw_source_support": {
+    "turhancan": 283,
+    "both": 31,
+    "yolo": 1
+  },
+  "duplicate_background": {
+    "clusters": 109,
+    "duplicates": 206
+  },
+  "episodes": 130,
+  "review_groups": 98,
+  "candidate_units": 98,
+  "blind_units": 32,
+  "tier_counts": {
+    "P1": 57,
+    "P3": 40,
+    "P2": 1
+  },
+  "per_camera": {
+    "01021": {
+      "P1": 18,
+      "P3": 16
+    },
+    "01022": {
+      "P1": 11,
+      "P3": 12,
+      "P2": 1
+    },
+    "01027": {
+      "P1": 1,
+      "P3": 1
+    },
+    "01030": {
+      "P1": 27,
+      "P3": 11
+    }
+  },
+  "first_batch": 40,
+  "first_batch_per_camera": {
+    "01027": 1,
+    "01021": 14,
+    "01022": 8,
+    "01030": 17
+  },
+  "suspected_same_object_units": 16,
+  "multi_frame_units": 16
+}

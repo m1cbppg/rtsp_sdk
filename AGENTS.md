@@ -822,3 +822,52 @@ Bank 描述为可用先验或部署生产。** v6 的 6 个已跟踪草稿文件
 `docs/decisions/2026-09-21-ground-litter-profile-prior-no-go.md`；下一路线是保留现有 turhancan 语义通道，
 增加 ROI 原生分辨率透视分块的一类现场小垃圾检测器，见
 `docs/plans/2026-09-21-ground-litter-small-detector-roadmap.md`。生产环境未因本实验发生变化。
+
+2026-09-29 Ground Litter Rapid Eval + Active Learning v1 第一阶段完成（**正式 Step 2C 暂停**，
+这是工程快速闭环，不是正式 Step 0B Go/No-Go）。分支 `experiment/ground-litter-rapid-v1`。
+**范围仅四路可用摄像头 01021/01022/01027/01030（52 PS）；01028 严重遮挡，本轮不做任何结论。**
+- 独立工作区：本地 `output/ground_litter_rapid_v1/`，服务器 `/home/sf01/ground-litter-rapid-v1/`
+  （`code/` 与本地 7 个文件逐字节一致）；**不与 `/home/sf01/step2c1-blind-truth/artifact` 混用**。
+- 冻结 split（seed `ground-litter-rapid-v1-20260929`，`split_sha256=e7d2eeea…`）：
+  Rapid-Train 40 PS / Rapid-Eval Holdout 12 PS，每 camera 10/3；exploratory probe 用过的
+  6 个 PS 强制进 train。**Rapid-Eval 永不得进入训练**（`assert_trainable()` + `POST
+  /api/train_export_probe` 返回 409 双保护）。本地与服务器独立重建得到同一 `split_sha256`。
+- 抽帧 265 帧（每 PS 固定 30/90/150/210/270s = 260，加 5 bonus train 帧），source-native
+  2560×1440，**decode failures 0 / anomalies 0，max |delta_ms| = 14**。
+  **重要工程结论：这些 PS 的随机 seek 不可靠** —— seek 到 30.000s 实际得到 frame 751；
+  `round(POS_MSEC/1000×fps)` 虽能把索引算“对”（2250→2250）但**画面不是同一帧**。
+  抽帧必须对每个 PS 从 frame 0 顺序解码并精确取 `round(offset×25)`；顺序解码吞吐约
+  75–88 fps 且**不随并行 worker 数提升**（6 worker 聚合约 74 fps），52 PS 约 1 小时。
+- baseline = Step 2B `last.pt`（SHA `4852392a…`，未覆盖、未用 `best.pt`），CPU 推理
+  （**服务器 nvidia-smi/NVML 当前不可用**，`torch.cuda.is_available()=False`）：
+  265 帧 / 1730 tiles / conf 0.01 原始候选 104 → class-wise NMS@0.5 后 **77 个预测**，
+  67 帧有预测；**01027 全部 65 帧为 0 预测**。第一阶段**不报告任何准确率**（人工真值未完成）。
+- 独立盲审 UI：**端口 8810（本地隧道 18810）**，正式 artifact；smoke 用 8811/18811 一次性副本。
+  两阶段：Stage A 只能人工点真值（服务端在 `truth_complete=false` 时**不序列化任何模型输出**），
+  Stage B 判定 Y/N/X/M（M 回退 Stage A），Stage C 只选候选 A(last.pt Y 框)/B(turhancan 语义)/
+  C(classical)，禁止画框。放大镜走 `/api/source_crop` **无损 PNG**（概览图是 JPEG，8px 目标
+  不能靠放大 JPEG 判断）。快捷键与阈值规则见 `output/ground_litter_rapid_v1/README.md`。
+- 验证：45 项本地单测；隔离 HTTP smoke **22/22 PASS**（含 Stage A 盲态、Stage B 门控、
+  A/B/C 三源候选、eval 导出 409、resume、正式 artifact 前后摘要一致）；真实 Chrome 交互 smoke
+  **24/24 PASS**；对正式 8810 只读 Chrome 检查 **13/13 PASS**。
+- **本轮到此 STOP**：不替用户审核 265 帧、不训练 V2。第二阶段（threshold selection → baseline
+  Rapid-Eval metrics → Rapid-Train localization → V2 dataset → 30 epoch 微调 → V2 threshold →
+  V2 Rapid-Eval → comparison）只在用户明确说“继续”后执行。禁止 Sealed 访问、禁止 8801 自动访问、
+  禁止写 official artifact。frame-level FP ≠ production alert/day（无 temporal event layer）。
+- 已知环境怪癖：baseline 推理脚本在**全部输出写完后的解释器退出阶段**偶发 SIGSEGV（exit 139），
+  产物完整；判定产物以内容校验为准，不要只看退出码。
+
+2026-09-30 生产故障已定位并修复：**镜像层内 `cupy/_core/flags.cpython-312-x86_64-linux-gnu.so`
+损坏（≥4 处 bit 置 1，含代码段），`import cupy` 100% 段错误**。该文件在全部历史镜像里 sha256
+一致，属共享基础层缺陷；损坏成因未知但存储面证据干净（cupy wheel RECORD 全量 24678 文件仅此 1 个
+不匹配、`dpkg -V` 无校验失败、无 I/O 错误），**与 16:19 手动安装 580 驱动 / 内核 7.0.0-34 无关**。
+触发路径是 `deepstream_worker._frame_to_small_numpy()` 的兜底 `import cupy`（仅当 ServiceMaker 回调
+拿到 CUDA tensor 时进入），表现为 `exit_code=-11`、`ld.so` 重定位写越界（RELATIVE `+0xf90c`、
+JUMP_SLOT `+0xfb7b`）。已用 PyPI `cupy_cuda12x-13.4.1-cp312-cp312-manylinux2014_x86_64.whl` 中
+哈希经校验的原始文件做增量镜像修复并部署：新镜像
+`rtsp-yolo-annotator:deepstream8-ground-litter-v32-hardening-20260930-cupyfix`（manifest `dbce808fd146`），
+回滚镜像 `deepstream8-before-cupyfix-20260930`（`7aa71d92df2e`），第 7 个 compose override
+`docker-compose.cupy-flags-fix-20260930.override.yml`，只重建 api（MediaMTX/camera-control/web-gateway 未重启）。
+运行中容器内 `import cupy` 正常（13.4.1 / 1 GPU / 计算正确）。**API 重启清空了内存流任务，真实摄像机
+端到端验收未做**；`/var/lib/apport/coredump` 约 11 GB core 待 sudo 清理。完整证据、回滚步骤与遗留项见
+`CUPY_FLAGS_FIX_20260930.md`。

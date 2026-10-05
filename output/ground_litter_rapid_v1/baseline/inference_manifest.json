@@ -1,0 +1,39 @@
+{
+  "schema_version": "ground-litter-rapid-v1",
+  "split_sha256": "e7d2eeea31651d7b6921ae9e088c7f5e59cfeab01de71bb51e827df992d41afd",
+  "model_path": "/home/sf01/step2b-20260923/out/runs/full_finetune/weights/last.pt",
+  "model_sha256": "4852392aeae9a68669a50752eb1f7466fbcc9a426524faba86fb20a3b6351a94",
+  "model_sha256_expected": "4852392aeae9a68669a50752eb1f7466fbcc9a426524faba86fb20a3b6351a94",
+  "device": "cpu",
+  "imgsz": 640,
+  "stride": 512,
+  "proposal_floor": 0.01,
+  "nms_iou": 0.5,
+  "top_k_per_frame": 100,
+  "frames": 265,
+  "tiles_total": 1730,
+  "raw_candidates_total": 104,
+  "predictions_total": 77,
+  "predictions_by_threshold": {
+    "0.01": 77,
+    "0.03": 53,
+    "0.05": 44,
+    "0.10": 29,
+    "0.20": 16,
+    "0.30": 11
+  },
+  "per_split": {
+    "rapid_train": {
+      "frames": 205,
+      "predictions": 54
+    },
+    "rapid_eval": {
+      "frames": 60,
+      "predictions": 23
+    }
+  },
+  "elapsed_seconds": 506.37,
+  "predictions_file": "predictions.jsonl",
+  "predictions_sha256": "660218d72a5a8541b02667cac086d838b95c98e9659a6b51998fdaa81563f125",
+  "sealed_accessed": false
+}

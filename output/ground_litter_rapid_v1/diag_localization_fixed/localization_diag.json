@@ -1,0 +1,308 @@
+{
+  "before": {
+    "loc_info": "点位 t-00039 (5 个待定位) · 只选 1/2/3/0",
+    "stage": "STAGE C — LOCALIZATION",
+    "candidate_cards": [
+      "A — 按 1 | semantic (turhancan) | 包含该点: 是",
+      "B — 按 2 | classical 点种子框 | 包含该点: 是"
+    ],
+    "active_card": "A — 按 1 | semantic (turhancan) | 包含该点: 是",
+    "points_listed": 5,
+    "progress": "Truth Review\t8 / 265 (固定260+bonus5)\nRapid-Train\t8 / 200+5\nRapid-Eval\t0 / 60\nRequired points\t48\nIgnore / Uncertain\t0 / 0\nPrediction review\t6 / 6\nLocalization\t26 / 44 (25框/1skip)"
+  },
+  "after_click_A": {
+    "loc_info": "点位 t-00040 (4 个待定位) · 只选 1/2/3/0",
+    "stage": "STAGE C — LOCALIZATION",
+    "candidate_cards": [
+      "A — 按 1 | semantic (turhancan) | 包含该点: 是",
+      "B — 按 2 | classical 点种子框 | 包含该点: 是"
+    ],
+    "active_card": "A — 按 1 | semantic (turhancan) | 包含该点: 是",
+    "points_listed": 5,
+    "progress": "Truth Review\t8 / 265 (固定260+bonus5)\nRapid-Train\t8 / 200+5\nRapid-Eval\t0 / 60\nRequired points\t48\nIgnore / Uncertain\t0 / 0\nPrediction review\t6 / 6\nLocalization\t27 / 44 (26框/1skip)"
+  },
+  "click_A_traffic": [
+    {
+      "dir": "request",
+      "method": "POST",
+      "url": "localize_select",
+      "query": "",
+      "post_data": "{\"truth_id\":\"t-00039\",\"frame_id\":\"01021_476689_18081003969_44180209031322001021-1790064037000_t090\",\"choice\":1}"
+    },
+    {
+      "dir": "request",
+      "method": "GET",
+      "url": "state",
+      "query": "frame_id=01021_476689_18081003969_44180209031322001021-1790064037000_t090",
+      "post_data": null
+    },
+    {
+      "dir": "response",
+      "status": 200,
+      "url": "localize_select",
+      "body": "{\"ok\": true, \"truth_id\": \"t-00039\", \"frame_id\": \"01021_476689_18081003969_44180209031322001021-1790064037000_t090\", \"choice\": 1, \"status\": \"LOCALIZED\", \"already_recorded\": false, \"localization_complete\": false, \"remaining\": 4, \"next_truth_id\": \"t-00040\", \"selection\": {\"truth_id\": \"t-00039\", \"choice\": 1, \"created_at\": \"2026-09-29T06:48:26Z\", \"frame_id\": \"01021_476689_18081003969_44180209031322001021-1790064037000_t090\", \"camera_id\": \"01021\", \"file_id\": \"476689_18081003969_44180209031322001021-1790064037000\", \"split\": \"rapid_train\", \"truth_class\": \"REQUIRED_LITTER\", \"status\": \"LOCALIZED\", \"selected_bbox_source_xyxy\": [828.17, 672.44, 922.63, 720.54], \"proposal_source\": \"copied_from_previous_frame\", \"proposal_id\": \"semantic_0.627\", \"already_recorded\": false, \"localization_complete\": false, \"remaining\": 4, \"next_truth_id\": \"t-00040\"}, \"stage\": \"localization\", \"progress\": {\"truth_review\": {\"complete\": 8, \"total\": 265, \"fixed_total\": 260, \"bonus_total\": 5}, \"rapid_train\": {\"complete\": 8, \"fixed_total\": 200, \"bonus_total\": 5}, \"rapid_eval\": {\"complete\": 0, \"total\": 60}, \"truth_points\": {\"required\": 48, \"ignore\": 0, \"uncertain\": 0, \"total\": 48}, \"prediction_review\": {\"reviewed\": 6, \"availa"
+    },
+    {
+      "dir": "request",
+      "method": "POST",
+      "url": "localize",
+      "query": "",
+      "post_data": "{\"truth_id\":\"t-00040\",\"frame_id\":\"01021_476689_18081003969_44180209031322001021-1790064037000_t090\"}"
+    },
+    {
+      "dir": "response",
+      "status": 200,
+      "url": "state",
+      "body": "{\"frame\": {\"frame_id\": \"01021_476689_18081003969_44180209031322001021-1790064037000_t090\", \"camera_id\": \"01021\", \"file_id\": \"476689_18081003969_44180209031322001021-1790064037000\", \"split\": \"rapid_train\", \"kind\": \"fixed\", \"offset_seconds\": 90, \"requested_relative_seconds\": 90.0, \"nominal_frame_index\": 2250, \"width\": 2560, \"height\": 1440, \"roi\": [[0.275781, 0.246398], [0.360938, 0.250564], [0.335938, 0.451953], [0.315625, 0.628342], [0.239844, 0.640842], [0.167187, 0.972786], [0.050781, 0.932509]], \"roi_geometry_version\": \"final-roi-20260922-user-reviewed\", \"record_start\": \"2026-09-22 16:00:37\", \"inherited_truth_ids\": []}, \"stage\": \"localization\", \"truth_complete\": true, \"truth_points\": [{\"truth_id\": \"t-00039\", \"source_xy\": [793.95, 777.26], \"truth_class\": \"REQUIRED_LITTER\", \"in_roi\": true, \"origin\": \"rapid_v1_review\", \"created_at\": \"2026-09-29T06:40:25Z\", \"copied_from_frame_id\": null, \"has_copied_localization\": false}, {\"truth_id\": \"t-00040\", \"source_xy\": [790.49, 739.2], \"truth_class\": \"REQUIRED_LITTER\", \"in_roi\": true, \"origin\": \"rapid_v1_review\", \"created_at\": \"2026-09-29T06:40:26Z\", \"copied_from_frame_id\": null, \"has_copied_localization\": false}, {\"truth_id\": \"t-00041\", \"source"
+    },
+    {
+      "dir": "request",
+      "method": "GET",
+      "url": "progress",
+      "query": "",
+      "post_data": null
+    },
+    {
+      "dir": "request",
+      "method": "GET",
+      "url": "frame_image",
+      "query": "frame_id=01021_476689_18081003969_44180209031322001021-1790064037000_t150",
+      "post_data": null
+    },
+    {
+      "dir": "response",
+      "status": 200,
+      "url": "progress",
+      "body": "{\"truth_review\": {\"complete\": 8, \"total\": 265, \"fixed_total\": 260, \"bonus_total\": 5}, \"rapid_train\": {\"complete\": 8, \"fixed_total\": 200, \"bonus_total\": 5}, \"rapid_eval\": {\"complete\": 0, \"total\": 60}, \"truth_points\": {\"required\": 48, \"ignore\": 0, \"uncertain\": 0, \"total\": 48}, \"prediction_review\": {\"reviewed\": 6, \"available\": 6, \"note\": \"prediction counts are only included for frames whose truth is complete\"}, \"localization\": {\"selected\": 27, \"required_on_train_complete\": 44, \"localized\": 26, \"skipped\": 1}, \"copy_previous\": {\"confirmed_copies\": 5, \"pending_confirmation\": 0, \"copied_points\": 20, \"note\": \"copying never completes a frame; Enter is still required per frame, including every Rapid-Eval frame\"}, \"inference\": {\"predictions_loaded\": true, \"predictions_file\": \"/home/sf01/ground-litter-rapid-v1/diag/artifact/baseline/predictions.jsonl\"}}"
+    },
+    {
+      "dir": "response",
+      "status": 200,
+      "url": "frame_image",
+      "body": "(unreadable)"
+    },
+    {
+      "dir": "request",
+      "method": "GET",
+      "url": "candidate_image",
+      "query": "truth_id=t-00040&frame_id=01021_476689_18081003969_44180209031322001021-1790064037000_t090&idx=0",
+      "post_data": null
+    },
+    {
+      "dir": "request",
+      "method": "GET",
+      "url": "candidate_image",
+      "query": "truth_id=t-00040&frame_id=01021_476689_18081003969_44180209031322001021-1790064037000_t090&idx=1",
+      "post_data": null
+    },
+    {
+      "dir": "response",
+      "status": 200,
+      "url": "localize",
+      "body": "{\"truth_id\": \"t-00040\", \"frame_id\": \"01021_476689_18081003969_44180209031322001021-1790064037000_t090\", \"split\": \"rapid_train\", \"point\": [790.49, 739.2], \"candidates\": [{\"proposal_source\": \"semantic_turhancan\", \"proposal_id\": \"semantic_0.662\", \"bbox_xyxy\": [758.96, 694.82, 866.63, 794.23], \"contains_point\": true, \"confidence\": 0.66157, \"idx\": 0, \"label\": \"A\"}, {\"proposal_source\": \"classical_point_seeded\", \"proposal_id\": \"B-otsu\", \"bbox_xyxy\": [694.0, 643.0, 886.0, 835.0], \"contains_point\": true, \"area\": 31850, \"idx\": 1, \"label\": \"B\"}], \"semantic_model\": \"/home/sf01/step2c1-blind-truth/exploratory-fourcam-20260929/turhancan_yolov8m_seg_trash.pt\", \"semantic_note\": null, \"degraded_sources\": [], \"computed_at\": \"2026-09-29T06:48:27Z\"}"
+    },
+    {
+      "dir": "response",
+      "status": 200,
+      "url": "candidate_image",
+      "body": "(unreadable)"
+    },
+    {
+      "dir": "response",
+      "status": 200,
+      "url": "candidate_image",
+      "body": "(unreadable)"
+    }
+  ],
+  "after_key_1": {
+    "loc_info": "点位 t-00041 (3 个待定位) · 只选 1/2/3/0",
+    "stage": "STAGE C — LOCALIZATION",
+    "candidate_cards": [
+      "A — 按 1 | semantic (turhancan) | 包含该点: 是",
+      "B — 按 2 | classical 点种子框 | 包含该点: 是"
+    ],
+    "active_card": "A — 按 1 | semantic (turhancan) | 包含该点: 是",
+    "points_listed": 5,
+    "progress": "Truth Review\t8 / 265 (固定260+bonus5)\nRapid-Train\t8 / 200+5\nRapid-Eval\t0 / 60\nRequired points\t48\nIgnore / Uncertain\t0 / 0\nPrediction review\t6 / 6\nLocalization\t28 / 44 (27框/1skip)"
+  },
+  "key_1_traffic": [
+    {
+      "dir": "request",
+      "method": "POST",
+      "url": "localize_select",
+      "query": "",
+      "post_data": "{\"truth_id\":\"t-00040\",\"frame_id\":\"01021_476689_18081003969_44180209031322001021-1790064037000_t090\",\"choice\":1}"
+    },
+    {
+      "dir": "request",
+      "method": "GET",
+      "url": "state",
+      "query": "frame_id=01021_476689_18081003969_44180209031322001021-1790064037000_t090",
+      "post_data": null
+    },
+    {
+      "dir": "response",
+      "status": 200,
+      "url": "localize_select",
+      "body": "{\"ok\": true, \"truth_id\": \"t-00040\", \"frame_id\": \"01021_476689_18081003969_44180209031322001021-1790064037000_t090\", \"choice\": 1, \"status\": \"LOCALIZED\", \"already_recorded\": false, \"localization_complete\": false, \"remaining\": 3, \"next_truth_id\": \"t-00041\", \"selection\": {\"truth_id\": \"t-00040\", \"choice\": 1, \"created_at\": \"2026-09-29T06:48:30Z\", \"frame_id\": \"01021_476689_18081003969_44180209031322001021-1790064037000_t090\", \"camera_id\": \"01021\", \"file_id\": \"476689_18081003969_44180209031322001021-1790064037000\", \"split\": \"rapid_train\", \"truth_class\": \"REQUIRED_LITTER\", \"status\": \"LOCALIZED\", \"selected_bbox_source_xyxy\": [817.095, 573.342, 894.669, 619.15], \"proposal_source\": \"copied_from_previous_frame\", \"proposal_id\": \"01021_476689_18081003969_44180209031322001021-1790063733000_t150_p000\", \"already_recorded\": false, \"localization_complete\": false, \"remaining\": 3, \"next_truth_id\": \"t-00041\"}, \"stage\": \"localization\", \"progress\": {\"truth_review\": {\"complete\": 8, \"total\": 265, \"fixed_total\": 260, \"bonus_total\": 5}, \"rapid_train\": {\"complete\": 8, \"fixed_total\": 200, \"bonus_total\": 5}, \"rapid_eval\": {\"complete\": 0, \"total\": 60}, \"truth_points\": {\"required\": 48, \"ignore\": 0, \"uncertain\": 0, "
+    },
+    {
+      "dir": "request",
+      "method": "POST",
+      "url": "localize",
+      "query": "",
+      "post_data": "{\"truth_id\":\"t-00041\",\"frame_id\":\"01021_476689_18081003969_44180209031322001021-1790064037000_t090\"}"
+    },
+    {
+      "dir": "response",
+      "status": 200,
+      "url": "state",
+      "body": "{\"frame\": {\"frame_id\": \"01021_476689_18081003969_44180209031322001021-1790064037000_t090\", \"camera_id\": \"01021\", \"file_id\": \"476689_18081003969_44180209031322001021-1790064037000\", \"split\": \"rapid_train\", \"kind\": \"fixed\", \"offset_seconds\": 90, \"requested_relative_seconds\": 90.0, \"nominal_frame_index\": 2250, \"width\": 2560, \"height\": 1440, \"roi\": [[0.275781, 0.246398], [0.360938, 0.250564], [0.335938, 0.451953], [0.315625, 0.628342], [0.239844, 0.640842], [0.167187, 0.972786], [0.050781, 0.932509]], \"roi_geometry_version\": \"final-roi-20260922-user-reviewed\", \"record_start\": \"2026-09-22 16:00:37\", \"inherited_truth_ids\": []}, \"stage\": \"localization\", \"truth_complete\": true, \"truth_points\": [{\"truth_id\": \"t-00039\", \"source_xy\": [793.95, 777.26], \"truth_class\": \"REQUIRED_LITTER\", \"in_roi\": true, \"origin\": \"rapid_v1_review\", \"created_at\": \"2026-09-29T06:40:25Z\", \"copied_from_frame_id\": null, \"has_copied_localization\": false}, {\"truth_id\": \"t-00040\", \"source_xy\": [790.49, 739.2], \"truth_class\": \"REQUIRED_LITTER\", \"in_roi\": true, \"origin\": \"rapid_v1_review\", \"created_at\": \"2026-09-29T06:40:26Z\", \"copied_from_frame_id\": null, \"has_copied_localization\": false}, {\"truth_id\": \"t-00041\", \"source"
+    },
+    {
+      "dir": "request",
+      "method": "GET",
+      "url": "progress",
+      "query": "",
+      "post_data": null
+    },
+    {
+      "dir": "response",
+      "status": 200,
+      "url": "progress",
+      "body": "{\"truth_review\": {\"complete\": 8, \"total\": 265, \"fixed_total\": 260, \"bonus_total\": 5}, \"rapid_train\": {\"complete\": 8, \"fixed_total\": 200, \"bonus_total\": 5}, \"rapid_eval\": {\"complete\": 0, \"total\": 60}, \"truth_points\": {\"required\": 48, \"ignore\": 0, \"uncertain\": 0, \"total\": 48}, \"prediction_review\": {\"reviewed\": 6, \"available\": 6, \"note\": \"prediction counts are only included for frames whose truth is complete\"}, \"localization\": {\"selected\": 28, \"required_on_train_complete\": 44, \"localized\": 27, \"skipped\": 1}, \"copy_previous\": {\"confirmed_copies\": 5, \"pending_confirmation\": 0, \"copied_points\": 20, \"note\": \"copying never completes a frame; Enter is still required per frame, including every Rapid-Eval frame\"}, \"inference\": {\"predictions_loaded\": true, \"predictions_file\": \"/home/sf01/ground-litter-rapid-v1/diag/artifact/baseline/predictions.jsonl\"}}"
+    },
+    {
+      "dir": "request",
+      "method": "GET",
+      "url": "candidate_image",
+      "query": "truth_id=t-00041&frame_id=01021_476689_18081003969_44180209031322001021-1790064037000_t090&idx=0",
+      "post_data": null
+    },
+    {
+      "dir": "request",
+      "method": "GET",
+      "url": "candidate_image",
+      "query": "truth_id=t-00041&frame_id=01021_476689_18081003969_44180209031322001021-1790064037000_t090&idx=1",
+      "post_data": null
+    },
+    {
+      "dir": "response",
+      "status": 200,
+      "url": "localize",
+      "body": "{\"truth_id\": \"t-00041\", \"frame_id\": \"01021_476689_18081003969_44180209031322001021-1790064037000_t090\", \"split\": \"rapid_train\", \"point\": [826.81, 713.26], \"candidates\": [{\"proposal_source\": \"semantic_turhancan\", \"proposal_id\": \"semantic_0.662\", \"bbox_xyxy\": [758.96, 694.82, 866.63, 794.23], \"contains_point\": true, \"confidence\": 0.66157, \"idx\": 0, \"label\": \"A\"}, {\"proposal_source\": \"classical_point_seeded\", \"proposal_id\": \"B-otsu\", \"bbox_xyxy\": [731.0, 617.0, 923.0, 809.0], \"contains_point\": true, \"area\": 31107, \"idx\": 1, \"label\": \"B\"}], \"semantic_model\": \"/home/sf01/step2c1-blind-truth/exploratory-fourcam-20260929/turhancan_yolov8m_seg_trash.pt\", \"semantic_note\": null, \"degraded_sources\": [], \"computed_at\": \"2026-09-29T06:48:30Z\"}"
+    },
+    {
+      "dir": "response",
+      "status": 200,
+      "url": "candidate_image",
+      "body": "(unreadable)"
+    },
+    {
+      "dir": "response",
+      "status": 200,
+      "url": "candidate_image",
+      "body": "(unreadable)"
+    }
+  ],
+  "after_key_0": {
+    "loc_info": "点位 t-00042 (2 个待定位) · 只选 1/2/3/0",
+    "stage": "STAGE C — LOCALIZATION",
+    "candidate_cards": [
+      "A — 按 1 | semantic (turhancan) | 包含该点: 是",
+      "B — 按 2 | classical 点种子框 | 包含该点: 是"
+    ],
+    "active_card": "A — 按 1 | semantic (turhancan) | 包含该点: 是",
+    "points_listed": 5,
+    "progress": "Truth Review\t8 / 265 (固定260+bonus5)\nRapid-Train\t8 / 200+5\nRapid-Eval\t0 / 60\nRequired points\t48\nIgnore / Uncertain\t0 / 0\nPrediction review\t6 / 6\nLocalization\t29 / 44 (27框/2skip)"
+  },
+  "key_0_traffic": [
+    {
+      "dir": "request",
+      "method": "POST",
+      "url": "localize_select",
+      "query": "",
+      "post_data": "{\"truth_id\":\"t-00041\",\"frame_id\":\"01021_476689_18081003969_44180209031322001021-1790064037000_t090\",\"choice\":0}"
+    },
+    {
+      "dir": "request",
+      "method": "GET",
+      "url": "state",
+      "query": "frame_id=01021_476689_18081003969_44180209031322001021-1790064037000_t090",
+      "post_data": null
+    },
+    {
+      "dir": "response",
+      "status": 200,
+      "url": "localize_select",
+      "body": "{\"ok\": true, \"truth_id\": \"t-00041\", \"frame_id\": \"01021_476689_18081003969_44180209031322001021-1790064037000_t090\", \"choice\": 0, \"status\": \"UNLOCALIZED_SKIP\", \"already_recorded\": false, \"localization_complete\": false, \"remaining\": 2, \"next_truth_id\": \"t-00042\", \"selection\": {\"truth_id\": \"t-00041\", \"choice\": 0, \"created_at\": \"2026-09-29T06:48:34Z\", \"frame_id\": \"01021_476689_18081003969_44180209031322001021-1790064037000_t090\", \"camera_id\": \"01021\", \"file_id\": \"476689_18081003969_44180209031322001021-1790064037000\", \"split\": \"rapid_train\", \"truth_class\": \"REQUIRED_LITTER\", \"status\": \"UNLOCALIZED_SKIP\", \"selected_bbox_source_xyxy\": null, \"proposal_source\": null, \"proposal_id\": null, \"already_recorded\": false, \"localization_complete\": false, \"remaining\": 2, \"next_truth_id\": \"t-00042\"}, \"stage\": \"localization\", \"progress\": {\"truth_review\": {\"complete\": 8, \"total\": 265, \"fixed_total\": 260, \"bonus_total\": 5}, \"rapid_train\": {\"complete\": 8, \"fixed_total\": 200, \"bonus_total\": 5}, \"rapid_eval\": {\"complete\": 0, \"total\": 60}, \"truth_points\": {\"required\": 48, \"ignore\": 0, \"uncertain\": 0, \"total\": 48}, \"prediction_review\": {\"reviewed\": 6, \"available\": 6, \"note\": \"prediction counts are only inclu"
+    },
+    {
+      "dir": "request",
+      "method": "POST",
+      "url": "localize",
+      "query": "",
+      "post_data": "{\"truth_id\":\"t-00042\",\"frame_id\":\"01021_476689_18081003969_44180209031322001021-1790064037000_t090\"}"
+    },
+    {
+      "dir": "request",
+      "method": "GET",
+      "url": "progress",
+      "query": "",
+      "post_data": null
+    },
+    {
+      "dir": "response",
+      "status": 200,
+      "url": "state",
+      "body": "{\"frame\": {\"frame_id\": \"01021_476689_18081003969_44180209031322001021-1790064037000_t090\", \"camera_id\": \"01021\", \"file_id\": \"476689_18081003969_44180209031322001021-1790064037000\", \"split\": \"rapid_train\", \"kind\": \"fixed\", \"offset_seconds\": 90, \"requested_relative_seconds\": 90.0, \"nominal_frame_index\": 2250, \"width\": 2560, \"height\": 1440, \"roi\": [[0.275781, 0.246398], [0.360938, 0.250564], [0.335938, 0.451953], [0.315625, 0.628342], [0.239844, 0.640842], [0.167187, 0.972786], [0.050781, 0.932509]], \"roi_geometry_version\": \"final-roi-20260922-user-reviewed\", \"record_start\": \"2026-09-22 16:00:37\", \"inherited_truth_ids\": []}, \"stage\": \"localization\", \"truth_complete\": true, \"truth_points\": [{\"truth_id\": \"t-00039\", \"source_xy\": [793.95, 777.26], \"truth_class\": \"REQUIRED_LITTER\", \"in_roi\": true, \"origin\": \"rapid_v1_review\", \"created_at\": \"2026-09-29T06:40:25Z\", \"copied_from_frame_id\": null, \"has_copied_localization\": false}, {\"truth_id\": \"t-00040\", \"source_xy\": [790.49, 739.2], \"truth_class\": \"REQUIRED_LITTER\", \"in_roi\": true, \"origin\": \"rapid_v1_review\", \"created_at\": \"2026-09-29T06:40:26Z\", \"copied_from_frame_id\": null, \"has_copied_localization\": false}, {\"truth_id\": \"t-00041\", \"source"
+    },
+    {
+      "dir": "response",
+      "status": 200,
+      "url": "progress",
+      "body": "{\"truth_review\": {\"complete\": 8, \"total\": 265, \"fixed_total\": 260, \"bonus_total\": 5}, \"rapid_train\": {\"complete\": 8, \"fixed_total\": 200, \"bonus_total\": 5}, \"rapid_eval\": {\"complete\": 0, \"total\": 60}, \"truth_points\": {\"required\": 48, \"ignore\": 0, \"uncertain\": 0, \"total\": 48}, \"prediction_review\": {\"reviewed\": 6, \"available\": 6, \"note\": \"prediction counts are only included for frames whose truth is complete\"}, \"localization\": {\"selected\": 29, \"required_on_train_complete\": 44, \"localized\": 27, \"skipped\": 2}, \"copy_previous\": {\"confirmed_copies\": 5, \"pending_confirmation\": 0, \"copied_points\": 20, \"note\": \"copying never completes a frame; Enter is still required per frame, including every Rapid-Eval frame\"}, \"inference\": {\"predictions_loaded\": true, \"predictions_file\": \"/home/sf01/ground-litter-rapid-v1/diag/artifact/baseline/predictions.jsonl\"}}"
+    },
+    {
+      "dir": "request",
+      "method": "GET",
+      "url": "candidate_image",
+      "query": "truth_id=t-00042&frame_id=01021_476689_18081003969_44180209031322001021-1790064037000_t090&idx=0",
+      "post_data": null
+    },
+    {
+      "dir": "request",
+      "method": "GET",
+      "url": "candidate_image",
+      "query": "truth_id=t-00042&frame_id=01021_476689_18081003969_44180209031322001021-1790064037000_t090&idx=1",
+      "post_data": null
+    },
+    {
+      "dir": "response",
+      "status": 200,
+      "url": "localize",
+      "body": "{\"truth_id\": \"t-00042\", \"frame_id\": \"01021_476689_18081003969_44180209031322001021-1790064037000_t090\", \"split\": \"rapid_train\", \"point\": [844.11, 692.5], \"candidates\": [{\"proposal_source\": \"semantic_turhancan\", \"proposal_id\": \"semantic_0.540\", \"bbox_xyxy\": [828.57, 672.47, 922.54, 720.39], \"contains_point\": true, \"confidence\": 0.54008, \"idx\": 0, \"label\": \"A\"}, {\"proposal_source\": \"classical_point_seeded\", \"proposal_id\": \"B-otsu\", \"bbox_xyxy\": [748.0, 596.0, 940.0, 788.0], \"contains_point\": true, \"area\": 32524, \"idx\": 1, \"label\": \"B\"}], \"semantic_model\": \"/home/sf01/step2c1-blind-truth/exploratory-fourcam-20260929/turhancan_yolov8m_seg_trash.pt\", \"semantic_note\": null, \"degraded_sources\": [], \"computed_at\": \"2026-09-29T06:48:34Z\"}"
+    },
+    {
+      "dir": "response",
+      "status": 200,
+      "url": "candidate_image",
+      "body": "(unreadable)"
+    },
+    {
+      "dir": "response",
+      "status": 200,
+      "url": "candidate_image",
+      "body": "(unreadable)"
+    }
+  ],
+  "console": [
+    "error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "verdict": {
+    "click_A_traffic": "C/D: backend 200 -> {\"ok\": true, \"truth_id\": \"t-00039\", \"frame_id\": \"01021_476689_18081003969_44180209031322001021-1790064037000_t090\", \"choice\": 1, \"status\": \"LOCALIZED\", \"already_recorded\": false, \"localization_complete\": false, \"remaining\": 4, \"next_truth_id\": \"t-00040\", \"selection\": {\"truth_id\": \"t-00039\", \"choice\": 1, \"created_at\": \"2026-09-29T06:48:26Z\", \"frame_id\": \"01021_476689_18081003969_44180209031322001021-1790064037000_t090\", \"camera_id\": \"01021\", \"file_id\": \"476689_18081003969_44180209031322001021-1790064037000\", \"split\": \"rapid_train\", \"truth_class\": \"REQUIRED_LITTER\", \"status\": \"LOCALIZED\", \"selected_bbox_source_xyxy\": [828.17, 672.44, 922.63, 720.54], \"proposal_source\": \"copied_from_previous_frame\", \"proposal_id\": \"semantic_0.627\", \"already_recorded\": false, \"localization_complete\": false, \"remaining\": 4, \"next_truth_id\": \"t-00040\"}, \"stage\": \"localization\", \"progress\": {\"truth_review\": {\"complete\": 8, \"total\": 265, \"fixed_total\": 260, \"bonus_total\": 5}, \"rapid_train\": {\"complete\": 8, \"fixed_total\": 200, \"bonus_total\": 5}, \"rapid_eval\": {\"complete\": 0, \"total\": 60}, \"truth_points\": {\"required\": 48, \"ignore\": 0, \"uncertain\": 0, \"total\": 48}, \"prediction_review\": {\"reviewed\": 6, \"availa",
+    "key_1_traffic": "C/D: backend 200 -> {\"ok\": true, \"truth_id\": \"t-00040\", \"frame_id\": \"01021_476689_18081003969_44180209031322001021-1790064037000_t090\", \"choice\": 1, \"status\": \"LOCALIZED\", \"already_recorded\": false, \"localization_complete\": false, \"remaining\": 3, \"next_truth_id\": \"t-00041\", \"selection\": {\"truth_id\": \"t-00040\", \"choice\": 1, \"created_at\": \"2026-09-29T06:48:30Z\", \"frame_id\": \"01021_476689_18081003969_44180209031322001021-1790064037000_t090\", \"camera_id\": \"01021\", \"file_id\": \"476689_18081003969_44180209031322001021-1790064037000\", \"split\": \"rapid_train\", \"truth_class\": \"REQUIRED_LITTER\", \"status\": \"LOCALIZED\", \"selected_bbox_source_xyxy\": [817.095, 573.342, 894.669, 619.15], \"proposal_source\": \"copied_from_previous_frame\", \"proposal_id\": \"01021_476689_18081003969_44180209031322001021-1790063733000_t150_p000\", \"already_recorded\": false, \"localization_complete\": false, \"remaining\": 3, \"next_truth_id\": \"t-00041\"}, \"stage\": \"localization\", \"progress\": {\"truth_review\": {\"complete\": 8, \"total\": 265, \"fixed_total\": 260, \"bonus_total\": 5}, \"rapid_train\": {\"complete\": 8, \"fixed_total\": 200, \"bonus_total\": 5}, \"rapid_eval\": {\"complete\": 0, \"total\": 60}, \"truth_points\": {\"required\": 48, \"ignore\": 0, \"uncertain\": 0, ",
+    "key_0_traffic": "C/D: backend 200 -> {\"ok\": true, \"truth_id\": \"t-00041\", \"frame_id\": \"01021_476689_18081003969_44180209031322001021-1790064037000_t090\", \"choice\": 0, \"status\": \"UNLOCALIZED_SKIP\", \"already_recorded\": false, \"localization_complete\": false, \"remaining\": 2, \"next_truth_id\": \"t-00042\", \"selection\": {\"truth_id\": \"t-00041\", \"choice\": 0, \"created_at\": \"2026-09-29T06:48:34Z\", \"frame_id\": \"01021_476689_18081003969_44180209031322001021-1790064037000_t090\", \"camera_id\": \"01021\", \"file_id\": \"476689_18081003969_44180209031322001021-1790064037000\", \"split\": \"rapid_train\", \"truth_class\": \"REQUIRED_LITTER\", \"status\": \"UNLOCALIZED_SKIP\", \"selected_bbox_source_xyxy\": null, \"proposal_source\": null, \"proposal_id\": null, \"already_recorded\": false, \"localization_complete\": false, \"remaining\": 2, \"next_truth_id\": \"t-00042\"}, \"stage\": \"localization\", \"progress\": {\"truth_review\": {\"complete\": 8, \"total\": 265, \"fixed_total\": 260, \"bonus_total\": 5}, \"rapid_train\": {\"complete\": 8, \"fixed_total\": 200, \"bonus_total\": 5}, \"rapid_eval\": {\"complete\": 0, \"total\": 60}, \"truth_points\": {\"required\": 48, \"ignore\": 0, \"uncertain\": 0, \"total\": 48}, \"prediction_review\": {\"reviewed\": 6, \"available\": 6, \"note\": \"prediction counts are only inclu"
+  },
+  "advanced_after_key_1": true
+}

@@ -1,0 +1,86 @@
+{
+  "phase": "ground-litter-rapid-v1-phase1-browser-readonly",
+  "base_url": "http://127.0.0.1:18810",
+  "frame_id": null,
+  "checks": [
+    {
+      "check": "split_badge_visible",
+      "ok": true,
+      "detail": "RAPID-TRAIN"
+    },
+    {
+      "check": "stage_a_label",
+      "ok": true,
+      "detail": "STAGE A — TRUTH (model hidden)"
+    },
+    {
+      "check": "stage_b_hidden_initially",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "stage_c_hidden_initially",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "stage_a_no_confidence_in_dom",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "stage_a_no_conf_in_dom",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "stage_a_no_prediction_id_in_dom",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "canvas_present",
+      "ok": true,
+      "detail": {
+        "x": 0,
+        "y": 38.390625,
+        "width": 1360,
+        "height": 918
+      }
+    },
+    {
+      "check": "loupe_visible_and_positioned",
+      "ok": true,
+      "detail": {
+        "w": 216,
+        "h": 216,
+        "pos": "absolute"
+      }
+    },
+    {
+      "check": "progress_dashboard_populated",
+      "ok": true,
+      "detail": "Truth Review\t0 / 265 (固定260+bonus5)\nRapid-Train\t0 / 200+5\nRapid-Eval\t0 / 60\nRequ"
+    },
+    {
+      "check": "read_only_mode_no_writes",
+      "ok": true,
+      "detail": "skipped all mutations"
+    },
+    {
+      "check": "no_page_errors",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "check": "no_8801_request",
+      "ok": true,
+      "detail": null
+    }
+  ],
+  "failed": [],
+  "result": "PASS",
+  "console": [
+    "error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ]
+}

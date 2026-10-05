@@ -50,3 +50,18 @@ releases/
 
 # 本地 Profile 工厂验证用最小虚拟环境（不含 torch/ultralytics）
 .venv-profile/
+
+# ---------------------------------------------------------------------------
+# Rapid Dataset v2（historical active mining）
+# 冻结的 window manifest 必须入库（split 与时间用途要可复核）；逐个小时的回放
+# 清单缓存是可重建的溯源材料，不入库，避免一次提交塞进数百个小 JSON。
+# ---------------------------------------------------------------------------
+output/ground_litter_historical_v2/listing_cache/
+!output/ground_litter_historical_v2/historical_window_manifest.jsonl
+# v2 挖掘结果的复核级清单（不是原始媒体/候选全量）：允许入库。
+!output/ground_litter_historical_v2/review_units.jsonl
+!output/ground_litter_historical_v2/review_groups.jsonl
+!output/ground_litter_historical_v2/episodes.jsonl
+!output/ground_litter_historical_v2/blind_frames.jsonl
+# v2 首批只读诊断的队列（小文件，需要入库以便复核）。
+!output/ground_litter_historical_v2/diagnostics/*.jsonl
