@@ -856,3 +856,18 @@ Bank 描述为可用先验或部署生产。** v6 的 6 个已跟踪草稿文件
   禁止写 official artifact。frame-level FP ≠ production alert/day（无 temporal event layer）。
 - 已知环境怪癖：baseline 推理脚本在**全部输出写完后的解释器退出阶段**偶发 SIGSEGV（exit 139），
   产物完整；判定产物以内容校验为准，不要只看退出码。
+
+2026-09-30 生产故障已定位并修复：**镜像层内 `cupy/_core/flags.cpython-312-x86_64-linux-gnu.so`
+损坏（≥4 处 bit 置 1，含代码段），`import cupy` 100% 段错误**。该文件在全部历史镜像里 sha256
+一致，属共享基础层缺陷；损坏成因未知但存储面证据干净（cupy wheel RECORD 全量 24678 文件仅此 1 个
+不匹配、`dpkg -V` 无校验失败、无 I/O 错误），**与 16:19 手动安装 580 驱动 / 内核 7.0.0-34 无关**。
+触发路径是 `deepstream_worker._frame_to_small_numpy()` 的兜底 `import cupy`（仅当 ServiceMaker 回调
+拿到 CUDA tensor 时进入），表现为 `exit_code=-11`、`ld.so` 重定位写越界（RELATIVE `+0xf90c`、
+JUMP_SLOT `+0xfb7b`）。已用 PyPI `cupy_cuda12x-13.4.1-cp312-cp312-manylinux2014_x86_64.whl` 中
+哈希经校验的原始文件做增量镜像修复并部署：新镜像
+`rtsp-yolo-annotator:deepstream8-ground-litter-v32-hardening-20260930-cupyfix`（manifest `dbce808fd146`），
+回滚镜像 `deepstream8-before-cupyfix-20260930`（`7aa71d92df2e`），第 7 个 compose override
+`docker-compose.cupy-flags-fix-20260930.override.yml`，只重建 api（MediaMTX/camera-control/web-gateway 未重启）。
+运行中容器内 `import cupy` 正常（13.4.1 / 1 GPU / 计算正确）。**API 重启清空了内存流任务，真实摄像机
+端到端验收未做**；`/var/lib/apport/coredump` 约 11 GB core 待 sudo 清理。完整证据、回滚步骤与遗留项见
+`CUPY_FLAGS_FIX_20260930.md`。
