@@ -1,0 +1,89 @@
+{
+  "schema": "ground_litter_feasibility_step0a_preregistration_v1",
+  "experiment_id": "ground-litter-detector-feasibility-20260923-r1",
+  "created_at": "2026-09-23T09:09:00+08:00",
+  "timezone": "Asia/Shanghai",
+  "baseline": {
+    "repo_commit": "a37b69b87992e2c6b0e2e9ab38cdf4d0b4bafd39",
+    "plan_path": "docs/plans/2026-09-23-ground-litter-detector-feasibility-plan.md",
+    "plan_blob_sha": "321f768e565a5a73a03d151d9f327e8b558e729a"
+  },
+  "selection_protocol": {
+    "basis": "fixed_clock_windows_preregistered_before_detector_outputs",
+    "detector_output_allowed_for_window_selection": false,
+    "development": {
+      "start": "2026-09-22 16:00:00",
+      "end": "2026-09-22 17:00:00",
+      "purpose": "development_validation"
+    },
+    "sealed_test": {
+      "start": "2026-09-23 08:00:00",
+      "end": "2026-09-23 09:00:00",
+      "purpose": "sealed_test_do_not_tune"
+    },
+    "training_exclusion_pad_seconds": 1800,
+    "episode_cross_split_policy": "If blind truth later links the same physical litter episode across splits, quarantine that episode from scored sets; never move a Sealed episode into Training in this round.",
+    "ignore_small_policy": "IGNORE_SMALL contributes neither TP nor FP.",
+    "coverage_gate": {
+      "minimum_fraction": 0.99,
+      "maximum_gap_seconds": 10.0
+    }
+  },
+  "cameras": [
+    {
+      "camera_id": "01021",
+      "device_code": "44180209031322001021",
+      "scene_version": "01021-final-roi-20260922-b4c94371",
+      "scene_version_basis": "final ROI geometry version + reference frame SHA-256",
+      "roi_config_path": "output/ground_litter_final_roi_20260922/config/ground_litter_01021_final_roi.json",
+      "roi_config_blob_sha": "3816fdfdc03938d1fe203487dc9ad0b03a140cd5",
+      "geometry_version": "final-roi-20260922-user-reviewed",
+      "reference_frame_sha256": "b4c94371b6ce5ab8a5da1f0900d6e78d7d77dececaf7b5e06035b12cc2cbfb6b",
+      "canvas_size": [2560, 1440]
+    },
+    {
+      "camera_id": "01022",
+      "device_code": "44180209031322001022",
+      "scene_version": "01022-final-roi-20260922-910b692f",
+      "scene_version_basis": "final ROI geometry version + reference frame SHA-256",
+      "roi_config_path": "output/ground_litter_final_roi_20260922/config/ground_litter_01022_final_roi.json",
+      "roi_config_blob_sha": "eacf8e97c1a0dba535a6e3165f6e0153859c8241",
+      "geometry_version": "final-roi-20260922-user-reviewed",
+      "reference_frame_sha256": "910b692f90568bfcf8537b0ff18e8de5d3c5a94a8c5fde91225871ba1dfcd856",
+      "canvas_size": [2560, 1440]
+    },
+    {
+      "camera_id": "01027",
+      "device_code": "44180209031322001027",
+      "scene_version": "01027-final-roi-20260922-65e01154",
+      "scene_version_basis": "final ROI geometry version + reference frame SHA-256",
+      "roi_config_path": "output/ground_litter_final_roi_20260922/config/ground_litter_01027_final_roi.json",
+      "roi_config_blob_sha": "b4cefc2bfb5aa6eecdb0cd5aa94da1441b8cb734",
+      "geometry_version": "final-roi-20260922-user-reviewed",
+      "reference_frame_sha256": "65e011546ad87908315dd4fa5f3f8a8b526e30bcf3cf09de8a5b4b5221416e07",
+      "canvas_size": [2560, 1440]
+    },
+    {
+      "camera_id": "01028",
+      "device_code": "44180209031322001028",
+      "scene_version": "01028-final-roi-20260922-2436bc23",
+      "scene_version_basis": "final ROI geometry version + reference frame SHA-256",
+      "roi_config_path": "output/ground_litter_final_roi_20260922/config/ground_litter_01028_final_roi.json",
+      "roi_config_blob_sha": "2cd6947a694b447df73814078a3e04763e9cddbf",
+      "geometry_version": "final-roi-20260922-user-reviewed",
+      "reference_frame_sha256": "2436bc2393e94a97a621209567d6c2d02c9b4d1995643b53888e38448f54ad22",
+      "canvas_size": [2560, 1440]
+    },
+    {
+      "camera_id": "01030",
+      "device_code": "44180209031322001030",
+      "scene_version": "01030-final-roi-20260922-69467117",
+      "scene_version_basis": "final ROI geometry version + reference frame SHA-256",
+      "roi_config_path": "output/ground_litter_final_roi_20260922/config/ground_litter_01030_final_roi.json",
+      "roi_config_blob_sha": "1d94c7b4173ce1c7ffee68a3d24f02c3f3b3a1db",
+      "geometry_version": "final-roi-20260922-user-reviewed",
+      "reference_frame_sha256": "69467117425d5d32d726ce9dc054925d21c87580f77d0a6b73ab568ad95442bd",
+      "canvas_size": [2560, 1440]
+    }
+  ]
+}
